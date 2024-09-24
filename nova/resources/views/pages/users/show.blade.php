@@ -1,5 +1,6 @@
 @extends($meta->template)
 
+@use('Nova\Departments\Models\Position')
 @use('Nova\Users\Models\User')
 
 @section('content')
@@ -46,38 +47,37 @@
 
         <div class="space-y-12" x-show="isTab('stats')">
             <x-panel well>
-                <x-spacing size="xs">
-                    <x-fieldset.legend>Characters</x-fieldset.legend>
-                </x-spacing>
+                <x-panel.well.header title="Characters"></x-panel.well.header>
 
-                <x-spacing size="2xs">
-                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        <x-spacing size="sm" class="grid lg:grid-cols-2">
-                            <x-panel.stat
-                                label="Active characters"
-                                :value="$user->active_characters_count"
-                            ></x-panel.stat>
-                            <x-panel.stat label="Total characters" :value="$user->characters_count"></x-panel.stat>
-                        </x-spacing>
+                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                    <x-spacing size="sm" class="grid lg:grid-cols-2">
+                        <x-panel.stat label="Active characters" :value="$user->active_characters_count"></x-panel.stat>
+                        <x-panel.stat label="Total characters" :value="$user->characters_count"></x-panel.stat>
+                    </x-spacing>
 
-                        <x-spacing size="md" class="grid gap-4">
-                            @forelse ($user->characters as $character)
-                                <x-avatar.character :character="$character"></x-avatar.character>
-                            @empty
-                                <div class="lg:col-span-2">
-                                    <x-empty-state.small
-                                        icon="characters"
-                                        title="No characters assigned"
-                                        message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
-                                        :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"
-                                        :link="route('admin.positions.index')"
-                                        label="Assign positions"
-                                    ></x-empty-state.small>
-                                </div>
-                            @endforelse
-                        </x-spacing>
-                    </x-panel>
-                </x-spacing>
+                    <x-spacing size="md" class="grid gap-4">
+                        @forelse ($user->characters as $character)
+                            <x-avatar.character :character="$character"></x-avatar.character>
+                        @empty
+                            <div class="lg:col-span-2">
+                                <x-empty-state>
+                                    <x-icon name="characters"></x-icon>
+                                    <x-h3>No characters assigned</x-h3>
+                                    <x-text>
+                                        There aren’t any positions assigned to this department. Assign some positions to
+                                        this department to populate this list.
+                                    </x-text>
+
+                                    @can('viewAny', Position::class)
+                                        <x-button :href="route('admin.positions.index')" plain>
+                                            Assign positions
+                                        </x-button>
+                                    @endcan
+                                </x-empty-state>
+                            </div>
+                        @endforelse
+                    </x-spacing>
+                </x-panel>
             </x-panel>
 
             <x-panel well>
@@ -99,11 +99,11 @@
                                 {{ $post->title }}
                             @empty
                                 <div class="lg:col-span-2">
-                                    <x-empty-state.small
-                                        icon="books"
-                                        title="No published posts"
-                                        message="There aren’t any published posts by this user"
-                                    ></x-empty-state.small>
+                                    <x-empty-state>
+                                        <x-icon name="books"></x-icon>
+                                        <x-h3>No published posts</x-h3>
+                                        <x-text>There aren’t any published posts by this user</x-text>
+                                    </x-empty-state>
                                 </div>
                             @endforelse
                         </x-spacing>

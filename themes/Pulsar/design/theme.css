@@ -809,7 +809,6 @@ body {
 .story-post .post-content :where(table):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
     width: 100%;
     table-layout: auto;
-    text-align: start;
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 0.875em;
@@ -850,6 +849,10 @@ body {
 
 .story-post .post-content :where(tfoot td):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
     vertical-align: top;
+}
+
+.story-post .post-content :where(th, td):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+    text-align: start;
 }
 
 .story-post .post-content :where(figure > *):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
@@ -1571,7 +1574,6 @@ body {
 .story-post .post-content :where(table):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
     width: 100%;
     table-layout: auto;
-    text-align: start;
     margin-top: 2em;
     margin-bottom: 2em;
     font-size: 0.875em;
@@ -1612,6 +1614,10 @@ body {
 
 .story-post .post-content :where(tfoot td):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
     vertical-align: top;
+}
+
+.story-post .post-content :where(th, td):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+    text-align: start;
 }
 
 .story-post .post-content :where(figure > *):not(:where([class~="not-prose"],[class~="not-prose"] *)) {

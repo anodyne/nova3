@@ -12,10 +12,12 @@ use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Note extends Model
 {
     use HasFactory;
+    use HasPrefixedId;
     use LogsActivity;
 
     protected $fillable = ['user_id', 'title', 'content'];

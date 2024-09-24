@@ -13,14 +13,16 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Builders\ApplicationBuilder;
 use Nova\Characters\Models\Character;
+use Nova\Discussions\Concerns\Discussable;
 use Nova\Forms\Models\FormSubmission;
-use Nova\Foundation\Concerns\Discussable;
 use Nova\Users\Models\User;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Application extends Model
 {
     use Discussable;
     use HasFactory;
+    use HasPrefixedId;
 
     protected $fillable = [
         'character_id',

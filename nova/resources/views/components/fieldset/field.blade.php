@@ -22,6 +22,7 @@
         '[&>[data-slot=warning]+[data-slot=control]]:mt-3',
         '[&>[data-slot=info]+[data-slot=control]]:mt-3',
         '[&>[data-slot=control]+[data-slot=description]]:mt-3',
+        '[&>[data-slot=control]+[data-slot=help]]:mt-1.5',
         '[&>[data-slot=control]+[data-slot=error]]:mt-3',
         '[&>[data-slot=control]+[data-slot=info]]:mt-3',
         '[&>[data-slot=label]]:font-medium',

@@ -13,6 +13,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use LivewireUI\Spotlight\Spotlight;
 use Nova\Foundation\Nova;
+use Spatie\PrefixedIds\PrefixedIds;
 
 abstract class DomainServiceProvider extends ServiceProvider
 {
@@ -46,6 +47,11 @@ abstract class DomainServiceProvider extends ServiceProvider
         return [];
     }
 
+    public function prefixedIds(): array
+    {
+        return [];
+    }
+
     public function routes(): ?string
     {
         return null;
@@ -58,6 +64,7 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerConsoleCommands();
         $this->registerListeners();
         $this->registerPolicies();
+        $this->registerPrefixedIds();
         $this->registerRoutes();
         $this->registerBladeComponents();
         $this->registerLivewireComponents();
@@ -138,6 +145,11 @@ abstract class DomainServiceProvider extends ServiceProvider
     {
         collect($this->policies())
             ->each(fn ($policy, $model) => Gate::policy($model, $policy));
+    }
+
+    private function registerPrefixedIds(): void
+    {
+        PrefixedIds::registerModels($this->prefixedIds());
     }
 
     private function registerRoutes(): void

@@ -20,6 +20,7 @@ class DuplicateRole
                 'inactive_users_count',
                 'user_count',
                 'permissions_count',
+                'prefixed_id',
             ]);
             $replica->fill($data->all());
             $replica->save();

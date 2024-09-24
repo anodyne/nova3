@@ -15,6 +15,7 @@ class CreateFormTables extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
+            $table->prefixedId();
             $table->string('name');
             $table->string('key')->unique();
             $table->string('type');

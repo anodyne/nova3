@@ -10,9 +10,16 @@
 
         @if (settings('applications.enabled'))
             @if (session()->has('join-submitted'))
-                <x-public::alert level="success" title="Application received">
-                    Your application has been received and will be reviewed by the staff.
-                </x-public::alert>
+                @if (session('join-submitted') === 'yes')
+                    <x-public::alert level="success" title="Application received">
+                        Your application has been received and will be reviewed by the staff.
+                    </x-public::alert>
+                @else
+                    <x-public::alert level="danger" title="Application error">
+                        There was an error submitting your application. Please contact a member of the game for more
+                        information.
+                    </x-public::alert>
+                @endif
             @endif
 
             @if (filled($errors))

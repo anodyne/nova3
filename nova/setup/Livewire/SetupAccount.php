@@ -11,6 +11,7 @@ use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
+use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
@@ -37,6 +38,8 @@ class SetupAccount extends Component
         $user->status->transitionTo(Active::class);
 
         $user->syncRolesWithoutDetaching(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
+
+        $user = PopulateNotificationPreferences::run($user);
 
         UpdateApplicationReviewers::run(new ApplicationReviewers(
             globalReviewers: [$user->id]

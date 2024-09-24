@@ -59,6 +59,15 @@ class PopulateFormTables extends Migration
             ->get()
             ->each(fn (Form $form) => PublishFormManager::run($form));
 
+        $forms = Form::whereNull('prefixed_id')->get();
+
+        $reflectedMethod = new ReflectionMethod(Form::class, 'generatePrefixedId');
+
+        foreach ($forms as $form) {
+            $form->forceFill(['prefixed_id' => $reflectedMethod->invoke($form)]);
+            $form->save();
+        }
+
         activity()->enableLogging();
     }
 

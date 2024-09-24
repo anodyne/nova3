@@ -14,9 +14,11 @@ use Nova\Pages\Models\Collections\PagesCollection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Page extends Model implements HasMedia
 {
+    use HasPrefixedId;
     use InteractsWithMedia;
     use LogsActivity;
 

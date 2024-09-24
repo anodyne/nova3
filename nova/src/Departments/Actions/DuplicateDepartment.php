@@ -20,12 +20,13 @@ class DuplicateDepartment
             'positions_count',
             'active_characters_count',
             'active_users_count',
+            'prefixed_id',
         ]);
         $replica->forceFill($data->all());
         $replica->save();
 
         $original->positions->each(fn (Position $position) => $replica->positions()->create(
-            Arr::except($position->toArray(), ['id', 'created_at', 'updated_at'])
+            Arr::except($position->toArray(), ['id', 'prefixed_id', 'created_at', 'updated_at'])
         ));
 
         return $replica->refresh();

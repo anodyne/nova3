@@ -13,7 +13,7 @@ class DuplicateNote
 
     public function handle(Note $original): Note
     {
-        $replica = $original->replicate();
+        $replica = $original->replicate(['prefixed_id']);
         $replica->title = "Copy of {$replica->title}";
         $replica->save();
 

@@ -81,6 +81,13 @@ class PostServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'post_' => Post::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

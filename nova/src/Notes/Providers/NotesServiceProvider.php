@@ -28,6 +28,13 @@ class NotesServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'note_' => Note::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

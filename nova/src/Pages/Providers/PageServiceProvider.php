@@ -35,6 +35,13 @@ class PageServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'page_' => Page::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

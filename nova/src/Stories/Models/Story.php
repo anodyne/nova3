@@ -24,11 +24,13 @@ use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 class Story extends Model implements HasMedia, Sortable
 {
     use HasFactory;
+    use HasPrefixedId;
     use HasRecursiveRelationships;
     use HasStates;
     use InteractsWithMedia;
@@ -202,6 +204,6 @@ class Story extends Model implements HasMedia, Sortable
 
         return StoryStatus\StoryStatus::all()
             ->flatMap(fn (string $className): array => [new $className($model)])
-            ->sortBy(fn ($status) => $status->order());
+            ->sortBy(fn (StoryStatus\StoryStatus $status) => $status->order());
     }
 }

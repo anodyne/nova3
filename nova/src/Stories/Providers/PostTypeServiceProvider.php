@@ -28,6 +28,13 @@ class PostTypeServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'ptyp_' => PostType::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

@@ -16,6 +16,8 @@ class ActiveToInactive extends Transition
 
     public function handle(): User
     {
+        $this->user->loadMissing('activeCharacters.users');
+
         $this->user->status = Inactive::class;
 
         $this->user->activeCharacters->each(function ($character) {

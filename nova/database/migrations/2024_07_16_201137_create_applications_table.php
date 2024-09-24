@@ -20,6 +20,7 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
+            $table->prefixedId();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Character::class)->nullable();
             $table->string('ip_address')->nullable();

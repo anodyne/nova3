@@ -14,17 +14,21 @@ class ProcessJoinFormController extends Controller
 {
     public function __invoke(StoreApplicationRequest $request)
     {
-        $executed = RateLimiter::attempt(
-            key: 'process-join:'.$request->input('userInfo.email'),
-            maxAttempts: 1,
-            callback: fn () => CreateApplicationManager::run($request),
-            decaySeconds: 15 * 60
-        );
+        try {
+            $executed = RateLimiter::attempt(
+                key: 'process-join:'.$request->input('userInfo.email'),
+                maxAttempts: 1,
+                callback: fn () => CreateApplicationManager::run($request),
+                decaySeconds: 15 * 60
+            );
 
-        if (! $executed) {
-            throw new ThrottleRequestsException;
+            if (! $executed) {
+                throw new ThrottleRequestsException;
+            }
+
+            return back()->with('join-submitted', 'yes');
+        } catch (\Throwable $th) {
+            return back()->with('join-submitted', 'no');
         }
-
-        return back()->with('join-submitted', 'yes');
     }
 }

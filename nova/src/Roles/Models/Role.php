@@ -14,10 +14,12 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Role extends LaratrustRole implements Sortable
 {
     use HasFactory;
+    use HasPrefixedId;
     use LogsActivity;
     use SortableTrait;
 

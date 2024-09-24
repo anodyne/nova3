@@ -11,8 +11,8 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview;
+use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\Form;
-use Nova\Foundation\Models\Discussion;
 
 #[On('review-submitted')]
 class ApplicationDiscussion extends Component

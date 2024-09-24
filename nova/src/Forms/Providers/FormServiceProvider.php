@@ -31,6 +31,13 @@ class FormServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'form_' => Form::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

@@ -41,11 +41,12 @@
         </div>
     </x-spacing>
 @else
-    <x-empty-state.large
-        icon="book"
-        title="No stories found"
-        :link="route('admin.stories.create')"
-        label="Add your first story"
-        :link-access="gate()->allows('create', $storyClass)"
-    ></x-empty-state.large>
+    <x-empty-state variant="jumbo">
+        <x-icon name="book"></x-icon>
+        <x-h2>No stories found</x-h2>
+
+        @can('create', $storyClass)
+            <x-button :href="route('admin.stories.create')" color="primary">Add your first story</x-button>
+        @endcan
+    </x-empty-state>
 @endif

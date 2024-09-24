@@ -13,6 +13,7 @@ class CreateDepartmentTables extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
+            $table->prefixedId();
             $table->string('name');
             $table->text('description')->nullable();
             $table->unsignedInteger('order_column')->nullable();

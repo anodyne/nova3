@@ -35,6 +35,14 @@ class DepartmentServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'dep_' => Department::class,
+            'pos_' => Position::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

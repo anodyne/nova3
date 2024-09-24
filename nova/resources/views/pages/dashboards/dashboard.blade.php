@@ -44,34 +44,30 @@
                     <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
 
                     <x-panel well>
-                        <x-spacing size="2xs">
-                            <x-panel>
-                                <x-spacing size="md">
-                                    <div class="flex flex-col items-center md:flex-row md:justify-between">
-                                        <div class="flex items-center space-x-5">
-                                            <div class="shrink-0">
-                                                <x-avatar
-                                                    size="lg"
-                                                    :src="auth()->user()->avatar_url"
-                                                    :tooltip="auth()->user()->name"
-                                                />
-                                            </div>
-                                            <div>
-                                                <x-text>Welcome back,</x-text>
-                                                <x-h1>{{ auth()->user()->name }}</x-h1>
-                                            </div>
+                        <x-panel>
+                            <x-spacing size="md">
+                                <div class="flex flex-col items-center md:flex-row md:justify-between">
+                                    <div class="flex items-center space-x-5">
+                                        <div class="shrink-0">
+                                            <x-avatar
+                                                size="lg"
+                                                :src="auth()->user()->avatar_url"
+                                                :tooltip="auth()->user()->name"
+                                            />
                                         </div>
-                                        <div class="mt-5 flex justify-center gap-2 md:mt-0">
-                                            <x-button :href="route('admin.account.edit')" color="neutral">
-                                                Go to my account
-                                            </x-button>
+                                        <div>
+                                            <x-text>Welcome back,</x-text>
+                                            <x-h1>{{ auth()->user()->name }}</x-h1>
                                         </div>
                                     </div>
-                                </x-spacing>
-                            </x-panel>
-                        </x-spacing>
+                                    <div class="mt-5 flex justify-center gap-2 md:mt-0">
+                                        <x-button :href="route('admin.account.edit')">Go to my account</x-button>
+                                    </div>
+                                </div>
+                            </x-spacing>
+                        </x-panel>
 
-                        <x-spacing width="sm" bottom="sm" top="xs">
+                        <x-panel.well.footer>
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                                 <a
                                     href="{{ route('admin.account.edit') }}"
@@ -117,7 +113,7 @@
                                     {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-danger-50 text-danger-600 border border-danger-300">3</span> --}}
                                 </a>
                             </div>
-                        </x-spacing>
+                        </x-panel.well.footer>
                     </x-panel>
                 </section>
 
@@ -186,103 +182,6 @@
                                 </div>
                             </x-spacing>
                         </x-spacing>
-                    </x-panel>
-                </section>
-
-                <section x-data="tabsList('announcements')" aria-labelledby="dashboard-announcements-title">
-                    <x-panel well>
-                        <x-spacing width="xs" top="xs" bottom="2xs">
-                            <x-tab.group name="posts">
-                                <x-tab.heading name="announcements">Announcements</x-tab.heading>
-                                <x-tab.heading name="posts">Recent posts</x-tab.heading>
-                            </x-tab.group>
-                        </x-spacing>
-
-                        <div x-show="isTab('announcements')">
-                            <x-spacing size="2xs">
-                                <x-panel>
-                                    <div class="divide-y divide-gray-950/10 dark:divide-white/10">
-                                        <x-spacing size="sm" class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <x-h4>Announcement title</x-h4>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <x-button color="subtle-neutral" text>
-                                                    <x-icon name="arrow-right" size="md"></x-icon>
-                                                </x-button>
-                                            </div>
-                                        </x-spacing>
-                                        <x-spacing size="sm" class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <x-h4>Announcement title</x-h4>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <x-button color="subtle-neutral" text>
-                                                    <x-icon name="arrow-right" size="md"></x-icon>
-                                                </x-button>
-                                            </div>
-                                        </x-spacing>
-                                        <x-spacing size="sm" class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <x-h4>Announcement title</x-h4>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <x-button color="subtle-neutral" text>
-                                                    <x-icon name="arrow-right" size="md"></x-icon>
-                                                </x-button>
-                                            </div>
-                                        </x-spacing>
-                                    </div>
-                                </x-panel>
-                            </x-spacing>
-
-                            <x-spacing width="sm" top="2xs" bottom="xs" class="flex items-center">
-                                <x-button color="heavy-neutral" text>See all announcements &rarr;</x-button>
-                            </x-spacing>
-                        </div>
-
-                        <div x-show="isTab('posts')" x-cloak>
-                            <x-spacing size="2xs">
-                                <x-panel>
-                                    <div class="divide-y divide-gray-950/10 dark:divide-white/10">
-                                        <x-spacing size="sm" class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <x-h4>Post title</x-h4>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <x-button color="subtle-neutral" text>
-                                                    <x-icon name="arrow-right" size="md"></x-icon>
-                                                </x-button>
-                                            </div>
-                                        </x-spacing>
-                                        <x-spacing size="sm" class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <x-h4>Post title</x-h4>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <x-button color="subtle-neutral" text>
-                                                    <x-icon name="arrow-right" size="md"></x-icon>
-                                                </x-button>
-                                            </div>
-                                        </x-spacing>
-                                        <x-spacing size="sm" class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <x-h4>Post title</x-h4>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <x-button color="subtle-neutral" text>
-                                                    <x-icon name="arrow-right" size="md"></x-icon>
-                                                </x-button>
-                                            </div>
-                                        </x-spacing>
-                                    </div>
-                                </x-panel>
-                            </x-spacing>
-
-                            <x-spacing width="sm" top="2xs" bottom="xs" class="flex items-center">
-                                <x-button color="heavy-neutral" text>See recent posts &rarr;</x-button>
-                            </x-spacing>
-                        </div>
                     </x-panel>
                 </section>
             </div>

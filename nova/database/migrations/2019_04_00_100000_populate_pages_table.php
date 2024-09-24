@@ -18,6 +18,15 @@ class PopulatePagesTable extends Migration
 
         $this->populatePublicPages();
 
+        $pages = Page::whereNull('prefixed_id')->get();
+
+        $reflectedMethod = new ReflectionMethod(Page::class, 'generatePrefixedId');
+
+        foreach ($pages as $page) {
+            $page->forceFill(['prefixed_id' => $reflectedMethod->invoke($page)]);
+            $page->save();
+        }
+
         activity()->enableLogging();
     }
 
@@ -173,7 +182,7 @@ class PopulatePagesTable extends Migration
             ['name' => 'Edit page', 'uri' => 'admin/pages/{page}/edit', 'key' => 'admin.pages.edit', 'resource' => 'Nova\\Pages\\Controllers\\PageController@edit', 'layout' => 'admin'],
             ['name' => 'Update page', 'uri' => 'admin/pages/{page}', 'key' => 'admin.pages.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Pages\\Controllers\\PageController@update', 'layout' => 'admin'],
 
-            ['name' => 'Conversations', 'uri' => 'admin/conversations', 'key' => 'admin.conversations.index', 'resource' => 'Nova\\Conversations\\Controllers\\ConversationController@index', 'layout' => 'admin'],
+            ['name' => 'Messages', 'uri' => 'admin/messages/{discussion:prefixed_id?}', 'key' => 'admin.messages.index', 'resource' => 'Nova\\Discussions\\Controllers\\DiscussionController@index', 'layout' => 'admin'],
 
             ['name' => 'List applications', 'uri' => 'admin/applications', 'key' => 'admin.applications.index', 'resource' => 'Nova\\Applications\\Controllers\\ApplicationController@index', 'layout' => 'admin'],
             ['name' => 'Show application', 'uri' => 'admin/applications/{application}/show', 'key' => 'admin.applications.show', 'resource' => 'Nova\\Applications\\Controllers\\ApplicationController@show', 'layout' => 'admin'],
