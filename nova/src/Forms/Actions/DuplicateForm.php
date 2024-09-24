@@ -14,7 +14,7 @@ class DuplicateForm
 
     public function handle(Form $original): Form
     {
-        $form = $original->replicate();
+        $form = $original->replicate(['prefixed_id']);
 
         $form->key = implode('-', (new WordGenerator)->words(2));
         $form->name = "Copy of {$form->name}";

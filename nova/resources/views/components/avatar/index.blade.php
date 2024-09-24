@@ -9,7 +9,7 @@
 <span
     data-slot="avatar"
     @class([
-        'inline-grid align-middle *:col-start-1 *:row-start-1',
+        'inline-grid bg-gray-100 align-middle *:col-start-1 *:row-start-1',
         'rounded-[20%] *:rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
         'rounded-full *:rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
         match ($size) {
@@ -22,7 +22,7 @@
             '3xl' => 'size-48',
             default => $size
         },
-        $attributes->get('class'),
+        $attributes->get('class') => $attributes->has('class'),
     ])
     {{ $attributes }}
 >

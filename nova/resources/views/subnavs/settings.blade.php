@@ -13,10 +13,22 @@
             Appearance
         </x-sidebar.subnav.item>
         <x-sidebar.subnav.item
-            :href="route('admin.settings.environment.edit')"
-            :active="request()->routeIs('admin.settings.environment.edit')"
+            :href="route('admin.settings.applications.edit')"
+            :active="request()->routeIs('admin.settings.applications.edit')"
         >
-            Environment
+            Applications
+        </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
+            :href="route('admin.settings.characters.edit')"
+            :active="request()->routeIs('admin.settings.characters.edit')"
+        >
+            Characters
+        </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
+            :href="route('admin.settings.content-ratings.edit')"
+            :active="request()->routeIs('admin.settings.content-ratings.edit')"
+        >
+            Content ratings
         </x-sidebar.subnav.item>
         <x-sidebar.subnav.item
             :href="route('admin.settings.email.edit')"
@@ -24,13 +36,15 @@
         >
             Email
         </x-sidebar.subnav.item>
-        {{-- <x-sidebar.subnav.item href="{{ route('settings.index', 'meta-tags') }}" :active="request()->is('settings/meta-tags')">Meta tags</x-sidebar.subnav.item> --}}
         <x-sidebar.subnav.item
-            :href="route('admin.settings.content-ratings.edit')"
-            :active="request()->routeIs('admin.settings.content-ratings.edit')"
+            :href="route('admin.settings.environment.edit')"
+            :active="request()->routeIs('admin.settings.environment.edit')"
         >
-            Content ratings
+            Environment
         </x-sidebar.subnav.item>
+
+        {{-- <x-sidebar.subnav.item href="{{ route('settings.index', 'meta-tags') }}" :active="request()->is('settings/meta-tags')">Meta tags</x-sidebar.subnav.item> --}}
+
         {{--
             <x-sidebar.subnav.item
             :href="route('admin.settings.posting-activity.edit')"
@@ -39,18 +53,7 @@
             Posting activity
             </x-sidebar.subnav.item>
         --}}
-        <x-sidebar.subnav.item
-            :href="route('admin.settings.characters.edit')"
-            :active="request()->routeIs('admin.settings.characters.edit')"
-        >
-            Characters
-        </x-sidebar.subnav.item>
-        <x-sidebar.subnav.item
-            :href="route('admin.settings.applications.edit')"
-            :active="request()->routeIs('admin.settings.applications.edit')"
-        >
-            Applications
-        </x-sidebar.subnav.item>
+
         <x-sidebar.subnav.item
             :href="route('admin.settings.notifications.edit')"
             :active="request()->routeIs('admin.settings.notifications.edit')"

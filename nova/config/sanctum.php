@@ -62,8 +62,8 @@ return [
     */
 
     'middleware' => [
-        'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
-        'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
+        'verify_csrf_token' => Nova\Foundation\Http\Middleware\VerifyCsrfToken::class,
+        'encrypt_cookies' => Nova\Foundation\Http\Middleware\EncryptCookies::class,
     ],
 
 ];

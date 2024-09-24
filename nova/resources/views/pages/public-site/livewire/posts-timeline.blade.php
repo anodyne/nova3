@@ -65,14 +65,15 @@
             @endforeach
         </x-timeline>
     @else
-        <x-empty-state.large icon="book" title="No posts found">
-            <x-slot name="message">
-                @if (blank($storyId))
-                    Select a story to view the posts timeline
-                @else
-                    There are no posts in this story
-                @endif
-            </x-slot>
-        </x-empty-state.large>
+        <x-empty-state variant="jumbo">
+            <x-icon name="book"></x-icon>
+            <x-h2>No posts found</x-h2>
+
+            @if (blank($storyId))
+                <x-text>Select a story to view the posts timeline</x-text>
+            @else
+                <x-text>There are no posts in this story</x-text>
+            @endif
+        </x-empty-state>
     @endif
 </x-spacing>

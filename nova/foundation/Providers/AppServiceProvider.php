@@ -19,6 +19,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -72,17 +73,17 @@ class AppServiceProvider extends ServiceProvider
         // $this->registerFilamentBindings();
         $this->registerBlocks();
 
-        $this->app->extend('blade.compiler', function ($compiler, $app) {
-            return tap(new BladeCompiler(
-                $app['files'],
-                $app['config']['view.compiled'],
-                $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
-                $app['config']->get('view.cache', true),
-                $app['config']->get('view.compiled_extension', 'php'),
-            ), function ($blade) {
-                $blade->component('dynamic-component', DynamicComponent::class);
-            });
-        });
+        // $this->app->extend('blade.compiler', function ($compiler, $app) {
+        //     return tap(new BladeCompiler(
+        //         $app['files'],
+        //         $app['config']['view.compiled'],
+        //         $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
+        //         $app['config']->get('view.cache', true),
+        //         $app['config']->get('view.compiled_extension', 'php'),
+        //     ), function ($blade) {
+        //         $blade->component('dynamic-component', DynamicComponent::class);
+        //     });
+        // });
     }
 
     public function boot(): void
@@ -168,6 +169,13 @@ class AppServiceProvider extends ServiceProvider
             $hasMany = $this;
 
             return (new CreateUpdateOrDelete($hasMany, $records))();
+        });
+
+        Blueprint::macro('prefixedId', function (string $name = 'prefixed_id') {
+            /** @var Blueprint */
+            $table = $this;
+
+            return $table->string($name)->nullable()->unique();
         });
     }
 

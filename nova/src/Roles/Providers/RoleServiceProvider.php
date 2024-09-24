@@ -36,6 +36,13 @@ class RoleServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'role_' => Role::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

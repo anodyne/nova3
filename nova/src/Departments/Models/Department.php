@@ -20,12 +20,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class Department extends Model implements HasMedia, Sortable
 {
     use HasFactory;
+    use HasPrefixedId;
     use HasRelationships;
     use InteractsWithMedia;
     use LogsActivity;

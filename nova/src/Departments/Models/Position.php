@@ -19,12 +19,14 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 class Position extends Model implements Sortable
 {
     use HasFactory;
+    use HasPrefixedId;
     use HasRelationships;
     use LogsActivity;
     use SortableTrait;

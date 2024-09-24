@@ -37,6 +37,13 @@ class CharacterServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'char_' => Character::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

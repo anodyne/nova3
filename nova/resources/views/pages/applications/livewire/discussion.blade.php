@@ -1,6 +1,6 @@
 @use('Nova\Applications\Enums\ApplicationResult')
 @use('Nova\Applications\Models\ApplicationReview')
-@use('Nova\Foundation\Models\DiscussionMessage')
+@use('Nova\Discussions\Models\DiscussionMessage')
 
 <div>
     @if ($application->result === ApplicationResult::Pending)

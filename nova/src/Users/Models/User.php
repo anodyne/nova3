@@ -24,7 +24,8 @@ use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReviewer;
 use Nova\Characters\Models\Character;
-use Nova\Conversations\Models\Conversation;
+use Nova\Discussions\Models\Discussion;
+use Nova\Discussions\Models\DiscussionNotification;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Foundation\Nova;
@@ -44,11 +45,13 @@ use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerifyEmail
 {
     use CausesActivity;
     use HasFactory;
+    use HasPrefixedId;
     use HasRolesAndPermissions;
     use HasStates;
     use Impersonate;
@@ -97,9 +100,9 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return $this->activeCharacters()->wherePivot('primary', true);
     }
 
-    public function conversations(): BelongsToMany
+    public function discussions(): BelongsToMany
     {
-        return $this->belongsToMany(Conversation::class)
+        return $this->belongsToMany(Discussion::class)
             ->withTimestamps();
     }
 
@@ -322,6 +325,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
                     || $this->isAbleTo('story.*')
                     || $this->isAbleTo('post-type.*');
             }
+        );
+    }
+
+    public function unreadMessagesCount(): Attribute
+    {
+        return new Attribute(
+            get: fn (): int => once(fn () => DiscussionNotification::user($this->id)->unread()->count()),
         );
     }
 

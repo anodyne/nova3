@@ -22,10 +22,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Post extends Model implements Sortable
 {
     use HasFactory;
+    use HasPrefixedId;
     use HasStates;
     use LogsActivity;
     use SortableTrait;

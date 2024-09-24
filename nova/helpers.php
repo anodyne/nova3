@@ -32,10 +32,14 @@ if (! function_exists('blank')) {
 }
 
 if (! function_exists('format_date')) {
-    function format_date(?CarbonInterface $date, bool $tooltip = true)
+    function format_date(?CarbonInterface $date, bool $tooltip = true, bool $raw = false)
     {
         if (blank($date)) {
             return $date;
+        }
+
+        if ($raw) {
+            return $date?->format(settings('general')->phpDateFormat());
         }
 
         $html = html()

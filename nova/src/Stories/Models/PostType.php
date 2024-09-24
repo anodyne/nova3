@@ -21,10 +21,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\ModelStates\HasStates;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class PostType extends Model implements Sortable
 {
     use HasFactory;
+    use HasPrefixedId;
     use HasStates;
     use LogsActivity;
     use SoftDeletes;

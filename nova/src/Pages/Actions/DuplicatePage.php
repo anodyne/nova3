@@ -15,7 +15,7 @@ class DuplicatePage
 
     public function handle(Page $original, PageData $data): Page
     {
-        $replica = $original->replicate();
+        $replica = $original->replicate(['prefixed_id']);
         $replica->forceFill($data->all());
         $replica->save();
 

@@ -17,6 +17,7 @@ class DuplicatePosition
         $replica = $original->replicate([
             'active_characters_count',
             'active_users_count',
+            'prefixed_id',
         ]);
         $replica->forceFill(collect($data->all())->filter()->toArray());
         $replica->save();

@@ -15,10 +15,12 @@ use Nova\Forms\Events;
 use Nova\Forms\Models\Builders\FormBuilder;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Form extends Model
 {
     use HasFactory;
+    use HasPrefixedId;
     use LogsActivity;
 
     protected $fillable = [

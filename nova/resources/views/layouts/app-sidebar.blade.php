@@ -40,13 +40,20 @@
                             <x-sidebar.label>Search</x-sidebar.label>
                         </x-sidebar.item>
 
-                        <x-sidebar.item href="#">
+                        <x-sidebar.item
+                            :href="route('admin.messages.index')"
+                            :active="request()->routeIs('admin.messages.*')"
+                        >
                             <x-icon name="inbox"></x-icon>
                             <x-sidebar.label>Messages</x-sidebar.label>
 
-                            <x-slot name="trailing">
-                                <x-badge color="primary" class="tabular-nums">6</x-badge>
-                            </x-slot>
+                            @if ($unreadMessagesCount = auth()->user()->unread_messages_count > 0)
+                                <x-slot name="trailing">
+                                    <x-badge color="primary" class="tabular-nums">
+                                        {{ $unreadMessagesCount }}
+                                    </x-badge>
+                                </x-slot>
+                            @endif
                         </x-sidebar.item>
 
                         <livewire:users-notifications />
@@ -505,7 +512,7 @@
                     <x-navbar.item>
                         <x-icon name="search"></x-icon>
                     </x-navbar.item>
-                    <x-navbar.item class="relative">
+                    <x-navbar.item :href="route('admin.messages.index')" class="relative">
                         {{-- <div class="absolute right-0 top-2 size-2 rounded-full bg-danger-500"></div> --}}
                         <x-icon name="inbox"></x-icon>
                     </x-navbar.item>

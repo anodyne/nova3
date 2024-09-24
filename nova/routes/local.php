@@ -3,11 +3,21 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Nova\Conversations\Controllers\ConversationController;
 use Nova\Departments\Models\Department;
+use Nova\Discussions\Data\DiscussionData;
+use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\Form;
+use Opcodes\LogViewer\Facades\LogViewer;
 
-Route::get('messages', [ConversationController::class, 'index']);
+Route::get('discussions', function () {
+    $discussion = Discussion::find(2);
+
+    $data = DiscussionData::from($discussion);
+
+    dd($data);
+
+    dd('done');
+});
 
 Route::get('manifest-test', function () {
     $active = Department::query()
@@ -103,7 +113,15 @@ Route::get('manifest-test', function () {
 });
 
 Route::get('test', function () {
-    $form = Form::find(2);
+    $form = Form::find(5);
 
-    dd($form);
+    dd($form->generatePrefixedId());
+});
+
+Route::get('logs', function () {
+    $files = LogViewer::getFiles();
+
+    $file = LogViewer::getFile('a2a4c792-laravel-2024-09-17.log');
+
+    dd($files, $file, $file->logs()->get());
 });

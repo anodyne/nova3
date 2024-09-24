@@ -33,4 +33,11 @@ class ApplicationServiceProvider extends DomainServiceProvider
             'application' => Application::class,
         ];
     }
+
+    public function prefixedIds(): array
+    {
+        return [
+            'app_' => Application::class,
+        ];
+    }
 }

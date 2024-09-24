@@ -35,10 +35,12 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
+use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Character extends Model implements HasMedia
 {
     use HasFactory;
+    use HasPrefixedId;
     use HasStates;
     use InteractsWithMedia;
     use LogsActivity;

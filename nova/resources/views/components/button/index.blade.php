@@ -22,6 +22,7 @@
 @endphp
 
 <{{ $tag }}
+    data-slot="button"
     {{
         $attributes->merge([
             'type' => ($tag === 'button') ? $type : null,
@@ -43,7 +44,7 @@
                     'border-transparent bg-[--btn-border] before:absolute before:inset-0 before:-z-10 before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-[--btn-bg] before:shadow after:absolute after:inset-0 after:-z-10 after:rounded-[calc(theme(borderRadius.lg)-1px)] after:shadow-[shadow:inset_0_1px_theme(colors.white/15%)] after:hover:bg-[--btn-hover-overlay] after:active:bg-[--btn-hover-overlay] before:disabled:shadow-none after:disabled:shadow-none dark:border-white/5 dark:bg-[--btn-bg] dark:before:hidden dark:after:-inset-px dark:after:rounded-lg',
 
                     match ($color) {
-                        'primary' => 'text-white [--btn-bg:theme(colors.primary.500)] [--btn-border:theme(colors.primary.600/80%)] [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/60%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)]',
+                        'primary' => 'text-white [--btn-bg:theme(colors.primary.500)] [--btn-border:theme(colors.primary.600/80%)] [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/70%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)]',
                         'panda' => 'text-white [--btn-bg:theme(colors.gray.900)] [--btn-border:theme(colors.gray.950/90%)] [--btn-hover-overlay:theme(colors.white/10%)] dark:text-white dark:[--btn-bg:theme(colors.gray.600)] dark:[--btn-hover-overlay:theme(colors.white/5%)] [--btn-icon:theme(colors.gray.400)] data-[active]:[--btn-icon:theme(colors.gray.300)] data-[hover]:[--btn-icon:theme(colors.gray.300)]',
                         'danger' => 'text-white [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/60%)] [--btn-bg:theme(colors.danger.500)] [--btn-border:theme(colors.danger.600/80%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)]',
                         'success' => 'text-white [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/60%)] [--btn-bg:theme(colors.success.500)] [--btn-border:theme(colors.success.600/80%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)]',

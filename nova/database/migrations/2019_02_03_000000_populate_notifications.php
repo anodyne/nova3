@@ -49,6 +49,7 @@ class PopulateNotifications extends Migration
             ['name' => 'Application ready for review', 'key' => 'application-ready-for-review'],
             ['name' => 'Application accepted', 'key' => 'application-accepted', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
             ['name' => 'Application denied', 'key' => 'application-denied', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
+            ['name' => 'Discussion message received', 'key' => 'discussion-message-received'],
         ]);
 
         NotificationType::unguarded(function () use ($admin, $group, $personal) {

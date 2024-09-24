@@ -47,7 +47,7 @@ class CreateApplicationManager
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            // dd($th->getMessage(), $th->getTrace());
+            throw $th;
         }
     }
 

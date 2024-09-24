@@ -75,6 +75,13 @@ class UserServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'usr_' => User::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [

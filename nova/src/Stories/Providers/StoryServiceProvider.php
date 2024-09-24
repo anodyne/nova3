@@ -52,6 +52,13 @@ class StoryServiceProvider extends DomainServiceProvider
         ];
     }
 
+    public function prefixedIds(): array
+    {
+        return [
+            'stry_' => Story::class,
+        ];
+    }
+
     public function spotlightCommands(): array
     {
         return [
