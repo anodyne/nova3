@@ -98,7 +98,7 @@
                                 </a>
 
                                 <a
-                                    href="#"
+                                    href="{{ route('admin.messages.index') }}"
                                     class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
                                 >
                                     <x-icon
