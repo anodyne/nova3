@@ -109,8 +109,12 @@
                                     <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
                                         Messages
                                     </span>
-                                    <x-badge color="primary">6</x-badge>
-                                    {{-- <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-danger-50 text-danger-600 border border-danger-300">3</span> --}}
+
+                                    @if ($unreadMessagesCount = auth()->user()->unread_messages_count > 0)
+                                        <x-badge color="primary" class="tabular-nums">
+                                            {{ $unreadMessagesCount }}
+                                        </x-badge>
+                                    @endif
                                 </a>
                             </div>
                         </x-panel.well.footer>
