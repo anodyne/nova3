@@ -513,7 +513,10 @@
                         <x-icon name="search"></x-icon>
                     </x-navbar.item>
                     <x-navbar.item :href="route('admin.messages.index')" class="relative">
-                        {{-- <div class="absolute right-0 top-2 size-2 rounded-full bg-danger-500"></div> --}}
+                        @if (auth()->user()->unread_messages_count > 0)
+                            <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
+                        @endif
+
                         <x-icon name="inbox"></x-icon>
                     </x-navbar.item>
                     <livewire:users-notifications />
