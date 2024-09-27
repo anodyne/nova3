@@ -48,6 +48,7 @@ class Page extends Model implements HasMedia
         'published_blocks' => 'array',
         'status' => PageStatus::class,
         'verb' => PageVerb::class,
+        'content_can_be_edited' => 'boolean',
     ];
 
     protected $dispatchesEvents = [
