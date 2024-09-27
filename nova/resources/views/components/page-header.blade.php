@@ -13,7 +13,7 @@
 @endphp
 
 @if (filled($heading) || filled($description) || filled($intro))
-    <div {{ $attributes->class(['mb-8 px-4 sm:px-0']) }} data-slot="header" data-cy="page-header">
+    <div {{ $attributes->class(['mb-8']) }} data-slot="header" data-cy="page-header">
         <div class="md:flex md:items-center md:justify-between">
             <div class="min-w-0 flex-1">
                 <x-h1>{{ $heading ?? $slot }}</x-h1>
