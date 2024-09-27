@@ -1,5 +1,6 @@
 @extends($meta->template)
 
+@use('Illuminate\Support\Js')
 @use('Nova\Pages\Models\Page')
 @use('Nova\Pages\Enums\PageVerb')
 
@@ -17,8 +18,8 @@
             :action="route('admin.pages.update', $page)"
             x-data="{
                 type: '{{ filled($page->resource) ? 'advanced' : 'basic' }}',
-                verb: '{{ $page->verb }}',
-                resource: '{{ $page->resource ?? '' }}'
+                verb: {{ Js::from($page->verb) }},
+                resource: {{ Js::from($page->resource) }}
             }"
             x-init="$watch('type', (value) => {
                 if (value === 'basic') {
