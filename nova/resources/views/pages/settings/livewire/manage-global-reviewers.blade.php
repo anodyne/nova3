@@ -23,7 +23,15 @@
                         wire:key="row-{{ $user->id }}"
                     >
                         <div>
-                            <x-avatar.user :user="$user"></x-avatar.user>
+                            <x-avatar.user :user="$user">
+                                @if ($user->hasPermission('application.approve'))
+                                    <x-slot name="secondary">
+                                        <x-text size="sm" class="font-medium text-primary-500">
+                                            Can approve applications
+                                        </x-text>
+                                    </x-slot>
+                                @endif
+                            </x-avatar.user>
                         </div>
 
                         <div class="flex items-center justify-end space-x-3">
