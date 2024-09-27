@@ -57,6 +57,14 @@
                         </x-sidebar.item>
 
                         <livewire:users-notifications />
+
+                        <x-sidebar.item
+                            :href="route('admin.announcements.index')"
+                            :active="request()->routeIs('admin.announcements.*')"
+                        >
+                            <x-icon name="megaphone"></x-icon>
+                            <x-sidebar.label>Announcements</x-sidebar.label>
+                        </x-sidebar.item>
                     </x-sidebar.section>
                 </x-sidebar.header>
 
@@ -512,6 +520,7 @@
                     <x-navbar.item>
                         <x-icon name="search"></x-icon>
                     </x-navbar.item>
+
                     <x-navbar.item :href="route('admin.messages.index')" class="relative">
                         @if (auth()->user()->unread_messages_count > 0)
                             <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
@@ -519,7 +528,13 @@
 
                         <x-icon name="inbox"></x-icon>
                     </x-navbar.item>
+
                     <livewire:users-notifications />
+
+                    <x-navbar.item :href="route('admin.announcements.index')">
+                        <x-icon name="megaphone"></x-icon>
+                    </x-navbar.item>
+
                     <x-dropdown placement="bottom-end" class="w-full">
                         <x-slot name="emptyTrigger">
                             <x-navbar.item>
