@@ -18,6 +18,10 @@ class ApplicationPolicy
 
     public function viewAny(User $user): Response
     {
+        if ($user->isAbleTo('application.approve')) {
+            return $this->allow();
+        }
+
         return ApplicationReview::where('user_id', Auth::id())->count() > 0
             ? $this->allow()
             : $this->deny();
@@ -25,6 +29,10 @@ class ApplicationPolicy
 
     public function view(User $user, Application $application): Response
     {
+        if ($user->isAbleTo('application.approve')) {
+            return $this->allow();
+        }
+
         return $application->reviews->contains($user)
             ? $this->allow()
             : $this->deny();
