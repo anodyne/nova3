@@ -66,7 +66,7 @@ class PronounsData extends Data
     public function __toString()
     {
         if ($this->value === 'none') {
-            return '-';
+            return '';
         }
 
         return implode('/', [
