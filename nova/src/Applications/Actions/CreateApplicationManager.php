@@ -150,7 +150,9 @@ class CreateApplicationManager
 
     protected function addReviewersToApplication(Application $application): void
     {
-        $application->reviews()->sync(ApplicationReviewer::global()->get());
+        $application->reviews()->sync(User::whereHasPermission('application.approve')->get());
+
+        $application->reviews()->syncWithoutDetaching(ApplicationReviewer::global()->get());
     }
 
     protected function notifyReviewers(Application $application): void
