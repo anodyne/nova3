@@ -2,9 +2,7 @@
 
 @section('content')
     <x-spacing x-data="tabsList('details')" constrained>
-        <x-page-header>
-            <x-slot name="heading">Edit post type</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', $postType::class)
                     <x-button :href="route('admin.post-types.index')" plain>&larr; Back</x-button>

@@ -26,6 +26,12 @@ class PageData extends Data
 
         public ?string $seo_description,
 
-        public ?string $seo_keywords
+        public ?string $seo_keywords,
+
+        public ?string $heading,
+
+        public ?string $subheading,
+
+        public ?string $intro,
     ) {}
 }

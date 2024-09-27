@@ -12,9 +12,7 @@
         })"
         constrained
     >
-        <x-page-header>
-            <x-slot name="heading">Add a post type</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', PostType::class)
                     <x-button :href="route('admin.post-types.index')" plain>&larr; Back</x-button>

@@ -2,17 +2,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header>
-            <x-slot name="heading">{{ $role->display_name }}</x-slot>
-
-            @if ($role->is_default)
-                <x-slot name="description">
-                    <div class="mt-2">
-                        <x-badge color="success" size="md">Assigned to new users</x-badge>
-                    </div>
-                </x-slot>
-            @endif
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', $role::class)
                     <x-button :href="route('admin.roles.index')" plain>&larr; Back</x-button>
@@ -28,6 +18,30 @@
         </x-page-header>
 
         <x-form action="">
+            <x-fieldset>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Role name">
+                        <x-text>
+                            {{ $role->display_name }}
+                        </x-text>
+                    </x-fieldset.field>
+
+                    @if (filled($role->description))
+                        <x-fieldset.field label="Description">
+                            <x-text>
+                                {{ $role->description }}
+                            </x-text>
+                        </x-fieldset.field>
+                    @endif
+
+                    @if ($role->is_default)
+                        <div>
+                            <x-badge color="success" size="md">Assigned to new users</x-badge>
+                        </div>
+                    @endif
+                </x-fieldset.field-group>
+            </x-fieldset>
+
             <x-fieldset>
                 <x-panel well>
                     <x-spacing size="sm">

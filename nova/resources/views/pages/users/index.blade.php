@@ -3,10 +3,7 @@
 @use('Nova\Users\Models\User')
 
 @section('content')
-    <x-page-header>
-        <x-slot name="heading">Users</x-slot>
-        <x-slot name="description">Manage all of the game’s users</x-slot>
-
+    <x-page-header :$meta>
         <x-slot name="actions">
             @can('create', User::class)
                 <x-button :href="route('admin.users.create')" color="primary">

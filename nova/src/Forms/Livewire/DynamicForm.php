@@ -76,7 +76,9 @@ class DynamicForm extends Component
     public function submit(): void
     {
         if ($this->mode === FormMode::Create) {
-            $this->validate();
+            if (filled($this->rules())) {
+                $this->validate();
+            }
 
             if ($this->form->options?->collectResponses) {
                 $this->submission = CreateFormSubmission::run($this->form, $this->owner);
@@ -108,7 +110,9 @@ class DynamicForm extends Component
     public function update(): void
     {
         if ($this->mode === FormMode::Edit) {
-            $this->validate();
+            if (filled($this->rules())) {
+                $this->validate();
+            }
 
             if ($this->form->options?->collectResponses) {
                 $this->submission = UpdateFormSubmission::run($this->submission, $this->values);

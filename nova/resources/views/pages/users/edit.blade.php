@@ -2,9 +2,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header>
-            <x-slot name="heading">{{ $user->name }}</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 <x-button :href="route('admin.users.index')" plain>&larr; Back</x-button>
             </x-slot>

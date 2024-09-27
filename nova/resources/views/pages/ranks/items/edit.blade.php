@@ -12,9 +12,7 @@
         }"
         constrained
     >
-        <x-page-header>
-            <x-slot name="heading">Edit rank item</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', $item::class)
                     <x-button :href="route('admin.ranks.items.index')" plain>&larr; Back</x-button>

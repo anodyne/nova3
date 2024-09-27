@@ -9,9 +9,7 @@
         x-data="{ ...tabsList('base'), base: '{{ old('base_image') }}', overlay: '{{ old('overlay_image') }}' }"
         constrained
     >
-        <x-page-header>
-            <x-slot name="heading">Add a new rank item</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', RankItem::class)
                     <x-button :href="route('admin.ranks.items.index')" plain>&larr; Back</x-button>

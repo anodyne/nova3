@@ -3,10 +3,7 @@
 @use('Nova\Roles\Models\Role')
 
 @section('content')
-    <x-page-header>
-        <x-slot name="heading">Roles</x-slot>
-        <x-slot name="description">Control what users can do throughout Nova</x-slot>
-
+    <x-page-header :$meta>
         <x-slot name="actions">
             @can('viewAny', Role::class)
                 <x-button :href="route('admin.permissions.index')" color="neutral">

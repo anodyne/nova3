@@ -4,9 +4,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header>
-            <x-slot name="heading">Activity log detail</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', Activity::class)
                     <x-button :href="route('admin.activity-log.index')" plain>&larr; Back</x-button>

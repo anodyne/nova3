@@ -3,12 +3,9 @@
 @use('Nova\Stories\Models\Story')
 
 @section('content')
-    <x-page-header>
-        <x-slot name="heading">Stories</x-slot>
-        <x-slot name="description">Manage the stories and timeline of your game</x-slot>
-
+    <x-page-header :$meta>
         <x-slot name="actions">
-            <x-button :href="route('admin.stories.timeline', 'stories')" color="neutral">
+            <x-button :href="route('admin.stories.stories-timeline')" color="neutral">
                 <x-icon name="timeline" size="sm"></x-icon>
                 Story timeline
             </x-button>

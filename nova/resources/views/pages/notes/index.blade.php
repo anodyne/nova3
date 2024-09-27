@@ -3,9 +3,7 @@
 @use('Nova\Notes\Models\Note')
 
 @section('content')
-    <x-page-header>
-        <x-slot name="heading">My notes</x-slot>
-
+    <x-page-header :$meta>
         <x-slot name="actions">
             @can('create', Note::class)
                 <x-button :href="route('admin.notes.create')" color="primary">

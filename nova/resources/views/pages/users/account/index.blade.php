@@ -2,9 +2,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header>
-            <x-slot name="heading">Account settings</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 <x-button :href="route('admin.account.notifications')">
                     <x-icon name="notification" size="sm"></x-icon>

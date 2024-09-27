@@ -3,12 +3,7 @@
 @use('Nova\Ranks\Models\RankItem')
 
 @section('content')
-    <x-page-header>
-        <x-slot name="heading">Rank items</x-slot>
-        <x-slot name="description">
-            Combine the rank group, rank name, and rank images to define your game’s ranks
-        </x-slot>
-
+    <x-page-header :$meta>
         <x-slot name="actions">
             @can('create', RankItem::class)
                 <x-button :href="route('admin.ranks.items.create')" color="primary">

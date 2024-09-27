@@ -4,9 +4,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header>
-            <x-slot name="heading">Add a new department</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', Department::class)
                     <x-button :href="route('admin.departments.index')" plain>&larr; Back</x-button>

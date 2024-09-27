@@ -83,8 +83,8 @@
                         @endif
 
                         <x-sidebar.item
-                            :href="route('admin.stories.timeline', 'posts')"
-                            :active="request()->routeIs('admin.stories.timeline')"
+                            :href="route('admin.stories.posts-timeline')"
+                            :active="request()->routeIs('admin.stories.*-timeline')"
                             :meta="$meta"
                         >
                             <x-icon name="timeline" size="sm"></x-icon>
@@ -357,8 +357,8 @@
                                         @endif
 
                                         <x-sidebar.item
-                                            :href="route('admin.stories.timeline', 'posts')"
-                                            :active="request()->routeIs('admin.stories.timeline')"
+                                            :href="route('admin.stories.posts-timeline')"
+                                            :active="request()->routeIs('admin.stories.*-timeline')"
                                             :meta="$meta"
                                         >
                                             <x-icon name="timeline" size="sm"></x-icon>

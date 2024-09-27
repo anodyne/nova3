@@ -3,10 +3,7 @@
 @use('Nova\Menus\Models\MenuItem')
 
 @section('content')
-    <x-page-header>
-        <x-slot name="heading">Menu items</x-slot>
-        <x-slot name="description">Manage the individual menu items for the public site</x-slot>
-
+    <x-page-header :$meta>
         <x-slot name="actions">
             @can('create', MenuItem::class)
                 <x-button :href="route('admin.menu-items.create')" color="primary">

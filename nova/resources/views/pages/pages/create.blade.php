@@ -5,9 +5,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header>
-            <x-slot name="heading">Add a new page</x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', Page::class)
                     <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
@@ -135,7 +133,38 @@
                 </x-fieldset.field-group>
             </x-fieldset>
 
-            <x-fieldset>
+            <x-fieldset x-show="verb === 'get'" x-cloak>
+                <x-fieldset.heading>
+                    <x-icon name="blockquote"></x-icon>
+                    <x-fieldset.legend>Page content</x-fieldset.legend>
+                    <x-fieldset.description>
+                        Set the heading, sub-heading, and intro text for the page.
+                    </x-fieldset.description>
+                </x-fieldset.heading>
+
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Heading" id="heading" name="heading" :error="$errors->first('heading')">
+                        <x-input.text :value="old('heading', $page->heading)" data-cy="heading" />
+                    </x-fieldset.field>
+
+                    <x-fieldset.field
+                        label="Sub-heading"
+                        id="subheading"
+                        name="subheading"
+                        :error="$errors->first('subheading')"
+                    >
+                        <x-input.text :value="old('subheading', $page->subheading)" data-cy="subheading" />
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Intro" id="intro" name="intro" :error="$errors->first('intro')">
+                        <x-input.textarea rows="5" data-cy="intro">
+                            {{ old('intro', $page->intro) }}
+                        </x-input.textarea>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
+
+            <x-fieldset x-show="verb === 'get'" x-cloak>
                 <x-fieldset.heading>
                     <x-icon name="tabler-seo"></x-icon>
                     <x-fieldset.legend>SEO tools</x-fieldset.legend>

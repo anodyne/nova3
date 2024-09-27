@@ -3,10 +3,7 @@
 @use('Nova\Ranks\Models\RankName')
 
 @section('content')
-    <x-page-header>
-        <x-slot name="heading">Rank names</x-slot>
-        <x-slot name="description">Re-use basic rank information across all of your rank items</x-slot>
-
+    <x-page-header :$meta>
         <x-slot name="actions">
             @can('create', RankName::class)
                 <x-button :href="route('admin.ranks.names.create')" color="primary">

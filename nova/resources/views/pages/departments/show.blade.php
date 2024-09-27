@@ -4,14 +4,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header>
-            <x-slot name="heading">{{ $department->name }}</x-slot>
-            <x-slot name="description">
-                <x-badge :color="$department->status->color()" size="md">
-                    {{ $department->status->getLabel() }}
-                </x-badge>
-            </x-slot>
-
+        <x-page-header :$meta>
             <x-slot name="actions">
                 @can('viewAny', $department::class)
                     <x-button :href="route('admin.departments.index')" plain>&larr; Back</x-button>
@@ -27,11 +20,27 @@
         </x-page-header>
 
         <x-form action="">
-            @if (filled($department->description))
-                <x-fieldset>
-                    <x-text size="xl">{{ $department->description }}</x-text>
-                </x-fieldset>
-            @endif
+            <x-fieldset>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Name">
+                        <x-text>{{ $department->name }}</x-text>
+                    </x-fieldset.field>
+
+                    @if (filled($department->description))
+                        <x-fieldset.field label="Description">
+                            <x-text>{{ $department->description }}</x-text>
+                        </x-fieldset.field>
+                    @endif
+
+                    <x-fieldset.field label="Status">
+                        <div data-slot="text">
+                            <x-badge :color="$department->status->color()">
+                                {{ $department->status->getLabel() }}
+                            </x-badge>
+                        </div>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
             <x-fieldset>
                 <x-panel well>

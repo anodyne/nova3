@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="@container advanced-page join">
-        <x-public::h1>Join</x-public::h1>
+        <x-public::h1>{{ $meta->pageHeading }}</x-public::h1>
 
         @if (settings('applications.enabled'))
             @if (session()->has('join-submitted'))

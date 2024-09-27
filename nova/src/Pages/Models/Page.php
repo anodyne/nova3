@@ -36,6 +36,9 @@ class Page extends Model implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'heading',
+        'subheading',
+        'intro',
     ];
 
     protected $casts = [
