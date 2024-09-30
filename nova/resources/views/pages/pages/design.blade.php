@@ -8,7 +8,7 @@
 @endPushOnce
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             @can('viewAny', $page::class)
                 <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>

@@ -4,7 +4,7 @@
 @use('Nova\Forms\Models\FormSubmission')
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             @can('viewAny', FormSubmission::class)
                 <x-button :href="route('admin.form-submissions.index')" color="neutral">

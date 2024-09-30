@@ -3,7 +3,7 @@
 @use('Nova\Departments\Models\Department')
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             @can('create', Department::class)
                 <x-button :href="route('admin.departments.create')" color="primary">

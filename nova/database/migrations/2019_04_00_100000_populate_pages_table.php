@@ -192,6 +192,13 @@ class PopulatePagesTable extends Migration
             ['name' => 'Store menu item', 'uri' => 'admin/menu-items', 'key' => 'admin.menu-items.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@store', 'layout' => 'admin'],
             ['name' => 'Edit menu item', 'uri' => 'admin/menu-items/{menuItem}/edit', 'key' => 'admin.menu-items.edit', 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@edit', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Edit menu item'],
             ['name' => 'Update menu item', 'uri' => 'admin/menu-items/{menuItem}', 'key' => 'admin.menu-items.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Menus\\Controllers\\MenuItemController@update', 'layout' => 'admin'],
+
+            ['name' => 'List announcements', 'uri' => 'admin/announcements', 'key' => 'admin.announcements.index', 'resource' => 'Nova\\Announcements\\Controllers\\AnnouncementController@index', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Announcements'],
+            ['name' => 'Show announcment', 'uri' => 'admin/announcements/{announcement}/show', 'key' => 'admin.announcements.show', 'resource' => 'Nova\\Announcements\\Controllers\\AnnouncementController@show', 'layout' => 'admin'],
+            ['name' => 'Create announcement', 'uri' => 'admin/announcements/create', 'key' => 'admin.announcements.create', 'resource' => 'Nova\\Announcements\\Controllers\\AnnouncementController@create', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Add a new announcement'],
+            ['name' => 'Store announcement', 'uri' => 'admin/announcements', 'key' => 'admin.announcements.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Announcements\\Controllers\\AnnouncementController@store', 'layout' => 'admin'],
+            ['name' => 'Edit announcement', 'uri' => 'admin/announcements/{announcement}/edit', 'key' => 'admin.announcements.edit', 'resource' => 'Nova\\Announcements\\Controllers\\AnnouncementController@edit', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Edit announcement'],
+            ['name' => 'Update announcement', 'uri' => 'admin/announcements/{announcement}', 'key' => 'admin.announcements.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Announcements\\Controllers\\AnnouncementController@update', 'layout' => 'admin'],
         ];
 
         Page::unguarded(fn () => collect($pages)->each([Page::class, 'create']));

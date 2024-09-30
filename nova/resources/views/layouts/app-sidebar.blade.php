@@ -64,6 +64,14 @@
                         >
                             <x-icon name="megaphone"></x-icon>
                             <x-sidebar.label>Announcements</x-sidebar.label>
+
+                            @if ($unreadAnnouncementsCount = auth()->user()->unread_announcements_count > 0)
+                                <x-slot name="trailing">
+                                    <x-badge color="primary" class="tabular-nums">
+                                        {{ $unreadAnnouncementsCount }}
+                                    </x-badge>
+                                </x-slot>
+                            @endif
                         </x-sidebar.item>
                     </x-sidebar.section>
                 </x-sidebar.header>
@@ -532,6 +540,10 @@
                     <livewire:users-notifications />
 
                     <x-navbar.item :href="route('admin.announcements.index')">
+                        @if (auth()->user()->unread_announcements_count > 0)
+                            <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
+                        @endif
+
                         <x-icon name="megaphone"></x-icon>
                     </x-navbar.item>
 

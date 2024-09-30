@@ -3,7 +3,7 @@
 @use('Nova\Roles\Models\Role')
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             @can('viewAny', Role::class)
                 <x-button :href="route('admin.permissions.index')" color="neutral">

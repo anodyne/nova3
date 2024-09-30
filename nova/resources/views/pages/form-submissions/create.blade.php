@@ -23,7 +23,7 @@
         </x-spacing>
     @else
         <div class="mx-auto max-w-lg">
-            <x-page-header :$meta></x-page-header>
+            <x-page-header></x-page-header>
 
             <ul
                 role="list"

@@ -1,7 +1,7 @@
 @extends($meta->template)
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             <livewire:nova-update-panel />
         </x-slot>

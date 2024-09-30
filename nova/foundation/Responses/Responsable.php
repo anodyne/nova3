@@ -124,6 +124,8 @@ abstract class Responsable implements LaravelResponsable
             pageIntro: $this->page->intro,
         );
 
+        app()->instance('nova.meta', $meta);
+
         $this->setSEOValues();
 
         return view(

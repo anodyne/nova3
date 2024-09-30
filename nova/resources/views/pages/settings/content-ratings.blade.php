@@ -2,7 +2,7 @@
 
 @section('content')
     <x-spacing x-data="tabsList('language')" constrained>
-        <x-page-header :$meta>
+        <x-page-header>
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">

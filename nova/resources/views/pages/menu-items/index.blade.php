@@ -3,7 +3,7 @@
 @use('Nova\Menus\Models\MenuItem')
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             @can('create', MenuItem::class)
                 <x-button :href="route('admin.menu-items.create')" color="primary">

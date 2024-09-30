@@ -15,8 +15,9 @@ class Editor extends Component
 
     public string $fieldName = 'editor-content';
 
-    public function updatedContent(): void
+    public function updatedContent($value): void
     {
+        dump($value);
         $this->dispatch('editorUpdated', $this->content);
     }
 

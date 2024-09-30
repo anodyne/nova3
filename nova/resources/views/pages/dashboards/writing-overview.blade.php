@@ -3,7 +3,7 @@
 @use('Nova\Stories\Models\Post')
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             @can('create', Post::class)
                 <x-button :href="route('admin.posts.create')" color="primary">

@@ -5,7 +5,7 @@
 
 @section('content')
     <x-spacing x-data="tabsList('info')" constrained>
-        <x-page-header :$meta>
+        <x-page-header>
             <x-slot name="actions">
                 @can('viewAny', User::class)
                     <x-button :href="route('admin.users.index')" plain>&larr; Back</x-button>

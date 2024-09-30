@@ -21,6 +21,8 @@ use Illuminate\Notifications\Notification;
 use Lab404\Impersonate\Models\Impersonate;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Nova\Announcements\Models\Announcement;
+use Nova\Announcements\Models\AnnouncementNotification;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReviewer;
 use Nova\Characters\Models\Character;
@@ -176,6 +178,11 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return $this->hasOne(ApplicationReviewer::class)->global();
     }
 
+    public function announcements(): HasMany
+    {
+        return $this->hasMany(Announcement::class);
+    }
+
     public function avatarUrl(): Attribute
     {
         return new Attribute(
@@ -325,6 +332,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
                     || $this->isAbleTo('story.*')
                     || $this->isAbleTo('post-type.*');
             }
+        );
+    }
+
+    public function unreadAnnouncementsCount(): Attribute
+    {
+        return new Attribute(
+            get: fn (): int => once(fn () => AnnouncementNotification::user($this->id)->unread()->count()),
         );
     }
 

@@ -3,7 +3,7 @@
 @use('Nova\Users\Models\User')
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             @can('create', User::class)
                 <x-button :href="route('admin.users.create')" color="primary">

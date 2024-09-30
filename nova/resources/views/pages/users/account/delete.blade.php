@@ -2,7 +2,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header :$meta></x-page-header>
+        <x-page-header></x-page-header>
 
         <livewire:delete-my-account />
     </x-spacing>

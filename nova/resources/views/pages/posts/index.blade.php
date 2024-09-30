@@ -3,7 +3,7 @@
 @use('Nova\Stories\Models\Post')
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             <x-button :href="route('admin.stories.posts-timeline')" outline>
                 <x-icon name="timeline" size="sm"></x-icon>

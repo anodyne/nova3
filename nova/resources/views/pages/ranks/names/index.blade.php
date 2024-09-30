@@ -3,7 +3,7 @@
 @use('Nova\Ranks\Models\RankName')
 
 @section('content')
-    <x-page-header :$meta>
+    <x-page-header>
         <x-slot name="actions">
             @can('create', RankName::class)
                 <x-button :href="route('admin.ranks.names.create')" color="primary">
