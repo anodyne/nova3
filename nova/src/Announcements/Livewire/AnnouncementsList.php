@@ -7,6 +7,7 @@ namespace Nova\Announcements\Livewire;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -37,6 +38,9 @@ class AnnouncementsList extends TableComponent
                     ->view('filament.tables.columns.announcement')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
                     ->sortable(),
+                TextColumn::make('category')
+                    ->badge()
+                    ->color('gray'),
                 TextColumn::make('user.name')
                     ->label('Author')
                     ->toggleable(),
@@ -84,6 +88,8 @@ class AnnouncementsList extends TableComponent
                         blank: fn (Builder $query): Builder => $query,
                     )
                     ->visible(Auth::user()->can('manage', Announcement::class)),
+                SelectFilter::make('category')
+                    ->options(Announcement::select('category')->distinct()->pluck('category')->flatMap(fn ($item) => [$item => $item])->all()),
             ])
             ->emptyStateIcon(iconName('megaphone'))
             ->emptyStateHeading('No announcements')

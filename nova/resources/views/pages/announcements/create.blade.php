@@ -26,7 +26,13 @@
                         name="category"
                         :error="$errors->first('category')"
                     >
-                        <x-input.text :value="old('category')" data-cy="category" />
+                        <x-input.text :value="old('category')" list="categories" data-cy="category" />
+
+                        <datalist id="categories">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category }}"></option>
+                            @endforeach
+                        </datalist>
                     </x-fieldset.field>
 
                     <x-switch.group>
