@@ -2,8 +2,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">System overview</x-slot>
-
         <x-slot name="actions">
             <livewire:nova-update-panel />
         </x-slot>

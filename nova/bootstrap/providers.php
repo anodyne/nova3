@@ -12,6 +12,7 @@ return [
     Nova\Foundation\Providers\FortifyServiceProvider::class,
 
     Nova\Setup\Providers\SetupServiceProvider::class,
+    Nova\Announcements\Providers\AnnouncementServiceProvider::class,
     Nova\Applications\Providers\ApplicationServiceProvider::class,
     Nova\Characters\Providers\CharacterServiceProvider::class,
     Nova\Dashboards\Providers\DashboardsServiceProvider::class,

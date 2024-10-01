@@ -20,7 +20,6 @@ use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
-use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 
@@ -42,6 +41,10 @@ class FormsList extends TableComponent
                     ->badge()
                     ->color(fn (Form $record): string => $record->type->color())
                     ->toggleable(),
+                TextColumn::make('published_at')
+                    ->label('Last published')
+                    ->dateTime(settings('general')->phpDateFormat())
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (Form $record): string => $record->status->color())
@@ -50,13 +53,10 @@ class FormsList extends TableComponent
             ->actions([
                 ActionGroup::make([
                     ActionGroup::make([
-                        ViewAction::make()
-                            ->authorize('view')
-                            ->url(fn (Form $record): string => route('admin.forms.show', $record)),
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Form $record): string => route('admin.forms.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->authorize('update')->divided(),
 
                     ActionGroup::make([
                         Action::make('design')

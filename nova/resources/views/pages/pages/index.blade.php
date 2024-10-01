@@ -4,9 +4,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">Pages</x-slot>
-        <x-slot name="description">Manage all of Nova’s pages</x-slot>
-
         <x-slot name="actions">
             @can('create', Page::class)
                 <x-button :href="route('admin.pages.create')" color="primary">

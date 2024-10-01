@@ -1,5 +1,5 @@
 <div
-    x-data="tipTap(@entangle('content').live)"
+    x-data="tipTap($wire.entangle('content').live)"
     x-init="() => init($refs.editor)"
     x-on:click.away="inFocus = false"
 >

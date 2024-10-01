@@ -4,9 +4,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">Characters</x-slot>
-        <x-slot name="description">Manage all of the game’s characters</x-slot>
-
         <x-slot name="actions">
             @can('createAny', Character::class)
                 <x-button :href="route('admin.characters.create')" color="primary">

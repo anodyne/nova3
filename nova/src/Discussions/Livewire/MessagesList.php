@@ -26,6 +26,12 @@ class MessagesList extends Component
 
     public string $filter = 'all';
 
+    public $pageHeading = null;
+
+    public $pageSubheading = null;
+
+    public $pageIntro = null;
+
     #[Computed]
     public function selectedDiscussion(): ?Discussion
     {

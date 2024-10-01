@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="@container advanced-page contact">
-        <x-public::h1>Contact</x-public::h1>
+        <x-public::h1>{{ $meta->pageHeading }}</x-public::h1>
 
         @if (settings('general.contactFormEnabled'))
             @if (session()->has('contact-submitted'))

@@ -7,8 +7,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Edit menu item</x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', MenuItem::class)
                     <x-button :href="route('admin.menu-items.index')" plain>&larr; Back</x-button>

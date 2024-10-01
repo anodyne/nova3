@@ -23,10 +23,7 @@
         </x-spacing>
     @else
         <div class="mx-auto max-w-lg">
-            <x-page-header>
-                <x-slot name="heading">Submit a form</x-slot>
-                <x-slot name="description">Get started by picking a form to submit</x-slot>
-            </x-page-header>
+            <x-page-header></x-page-header>
 
             <ul
                 role="list"

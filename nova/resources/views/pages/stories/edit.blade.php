@@ -5,8 +5,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Edit story</x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', $story::class)
                     <x-button :href="route('admin.stories.index')" plain>&larr; Back</x-button>

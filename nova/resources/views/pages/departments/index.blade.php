@@ -4,11 +4,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">Departments</x-slot>
-        <x-slot name="description">
-            Organize character positions into logical groups that you can display on your manifests
-        </x-slot>
-
         <x-slot name="actions">
             @can('create', Department::class)
                 <x-button :href="route('admin.departments.create')" color="primary">

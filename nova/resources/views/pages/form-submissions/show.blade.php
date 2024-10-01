@@ -5,21 +5,9 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Form submission</x-slot>
-            <x-slot name="description">
-                <x-badge>{{ $submission->form->name }}</x-badge>
-            </x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', $submission::class)
                     <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
-                @endcan
-
-                @can('update', $submission)
-                    <x-button :href="route('admin.form-submissions.edit', $submission)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
-                        Edit
-                    </x-button>
                 @endcan
             </x-slot>
         </x-page-header>
@@ -36,6 +24,13 @@
                         <x-fieldset.label>Submitted on</x-fieldset.label>
                         <x-text>
                             {{ $submission->created_at->format(settings('general')->phpDateFormat()) }}
+                        </x-text>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field>
+                        <x-fieldset.label>Form</x-fieldset.label>
+                        <x-text>
+                            {{ $submission->form->name }}
                         </x-text>
                     </x-fieldset.field>
                 </x-fieldset.field-group>

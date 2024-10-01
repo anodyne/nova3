@@ -4,9 +4,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">My draft posts</x-slot>
-        <x-slot name="description">Drafts are posts in progress that have not been published</x-slot>
-
         <x-slot name="actions">
             @can('create', Post::class)
                 <x-button :href="route('admin.posts.create')" color="primary">

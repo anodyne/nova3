@@ -9,6 +9,6 @@
     announcement has been published.
 
     <x-slot name="actions">
-        <x-button :href="route('admin.stories.show', $announcement_id)" color="neutral">Read &rarr;</x-button>
+        <x-button :href="route('admin.announcements.show', $announcement_id)" color="neutral">Read &rarr;</x-button>
     </x-slot>
 </x-notification>

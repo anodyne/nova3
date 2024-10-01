@@ -5,8 +5,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Edit rank group</x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', $group::class)
                     <x-button :href="route('admin.ranks.groups.index')" plain>&larr; Back</x-button>

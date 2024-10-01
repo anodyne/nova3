@@ -3,8 +3,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">General settings</x-slot>
-
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">

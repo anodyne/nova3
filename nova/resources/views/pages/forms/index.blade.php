@@ -5,9 +5,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">Forms</x-slot>
-        <x-slot name="description">Manage all of Nova’s forms</x-slot>
-
         <x-slot name="actions">
             @can('viewAny', FormSubmission::class)
                 <x-button :href="route('admin.form-submissions.index')" color="neutral">

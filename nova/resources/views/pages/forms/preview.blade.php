@@ -3,12 +3,14 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Preview form &ndash; {{ $form->name }}</x-slot>
-
             <x-slot name="actions">
                 <x-button :href="route('admin.forms.design', $form)" plain>&larr; Back</x-button>
             </x-slot>
         </x-page-header>
+
+        <div class="mb-8">
+            <x-h2>{{ $form->name }}</x-h2>
+        </div>
 
         <div class="mb-8 inline-flex w-full gap-x-2 lg:w-auto">
             <a

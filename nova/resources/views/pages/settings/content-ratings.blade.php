@@ -3,8 +3,6 @@
 @section('content')
     <x-spacing x-data="tabsList('language')" constrained>
         <x-page-header>
-            <x-slot name="heading">Content ratings</x-slot>
-
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">

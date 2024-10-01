@@ -3,8 +3,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Applications settings</x-slot>
-
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
@@ -92,7 +90,7 @@
                     <x-panel well>
                         <x-panel.well-heading
                             heading="Global reviewers"
-                            description="Reviewers that are added to every new application"
+                            description="Reviewers that are added to every new application (in addition to users with the Approve Applications permission)"
                         ></x-panel.well-heading>
 
                         <x-spacing size="2xs">

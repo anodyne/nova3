@@ -7,8 +7,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Edit form</x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', $form::class)
                     <x-button :href="route('admin.forms.index')" plain>&larr; Back</x-button>

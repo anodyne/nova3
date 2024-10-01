@@ -5,19 +5,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">{{ $page->name }}</x-slot>
-            <x-slot name="description">
-                <span class="flex items-center gap-x-4">
-                    <x-badge :color="$page->status->color()" size="md">
-                        {{ $page->status->getLabel() }}
-                    </x-badge>
-
-                    <x-badge :color="$page->is_basic ? 'info' : 'primary'" size="md">
-                        {{ $page->is_basic ? 'Basic page' : 'Advanced page' }}
-                    </x-badge>
-                </span>
-            </x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', $page::class)
                     <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
@@ -41,6 +28,20 @@
             <x-fieldset>
                 <x-fieldset.field-group>
                     <x-fieldset.field>
+                        <x-fieldset.label>Name</x-fieldset.label>
+                        <x-text>{{ $page->name }}</x-text>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field>
+                        <x-fieldset.label>Type</x-fieldset.label>
+                        <div data-slot="text">
+                            <x-badge :color="$page->is_basic ? 'info' : 'primary'">
+                                {{ $page->is_basic ? 'Basic page' : 'Advanced page' }}
+                            </x-badge>
+                        </div>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field>
                         <x-fieldset.label>URL</x-fieldset.label>
                         <x-text>{{ url($page->uri) }}</x-text>
                     </x-fieldset.field>
@@ -54,6 +55,15 @@
                         <x-fieldset.label>HTTP Verb</x-fieldset.label>
                         <div data-slot="description">
                             <x-badge :color="$page->verb->color()">{{ $page->verb->getLabel() }}</x-badge>
+                        </div>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field>
+                        <x-fieldset.label>Status</x-fieldset.label>
+                        <div data-slot="text">
+                            <x-badge :color="$page->status->color()">
+                                {{ $page->status->getLabel() }}
+                            </x-badge>
                         </div>
                     </x-fieldset.field>
 

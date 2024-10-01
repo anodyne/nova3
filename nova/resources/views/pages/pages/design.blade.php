@@ -9,8 +9,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">Design page</x-slot>
-
         <x-slot name="actions">
             @can('viewAny', $page::class)
                 <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>

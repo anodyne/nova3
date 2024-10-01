@@ -4,11 +4,8 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">Posts</x-slot>
-        <x-slot name="description">Manage the chapters and entries in your game’s stories</x-slot>
-
         <x-slot name="actions">
-            <x-button :href="route('admin.stories.timeline', 'stories')" outline>
+            <x-button :href="route('admin.stories.posts-timeline')" outline>
                 <x-icon name="timeline" size="sm"></x-icon>
                 Posts timeline
             </x-button>

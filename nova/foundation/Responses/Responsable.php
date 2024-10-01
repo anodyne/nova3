@@ -112,14 +112,19 @@ abstract class Responsable implements LaravelResponsable
             $this->theme->prepareData(),
         );
 
-        $meta = new ResponseMeta([
-            'layout' => $this->layout(),
-            'structure' => $this->page->layout === 'public' ? 'public' : 'app',
-            'subnav' => $this->subnav(),
-            'subnavSection' => $this->subnav,
-            'template' => $this->template(),
-            'menu' => $this->page->layout === 'public' ? Menu::with('items.page', 'items.items')->public()->first() : null,
-        ]);
+        $meta = new ResponseMeta(
+            layout: $this->layout(),
+            structure: $this->page->layout === 'public' ? 'public' : 'app',
+            subnav: $this->subnav(),
+            subnavSection: $this->subnav,
+            template: $this->template(),
+            menu: $this->page->layout === 'public' ? Menu::with('items.page', 'items.items')->public()->first() : null,
+            pageHeading: $this->page->heading,
+            pageSubheading: $this->page->subheading,
+            pageIntro: $this->page->intro,
+        );
+
+        app()->instance('nova.meta', $meta);
 
         $this->setSEOValues();
 

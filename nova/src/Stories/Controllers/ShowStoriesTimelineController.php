@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Nova\Stories\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
-use Nova\Stories\Responses\ShowStoryTimelineResponse;
+use Nova\Stories\Responses\ShowStoriesTimelineResponse;
 
-class ShowTimelineController extends Controller
+class ShowStoriesTimelineController extends Controller
 {
     public function __construct()
     {
@@ -16,10 +16,8 @@ class ShowTimelineController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(string $type)
+    public function __invoke()
     {
-        return ShowStoryTimelineResponse::sendWith([
-            'type' => $type,
-        ]);
+        return ShowStoriesTimelineResponse::send();
     }
 }

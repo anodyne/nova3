@@ -2,8 +2,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">Notification settings</x-slot>
-
         <x-slot name="actions">
             <div x-data="{}">
                 <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">

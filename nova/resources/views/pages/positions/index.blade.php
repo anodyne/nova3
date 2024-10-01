@@ -4,11 +4,6 @@
 
 @section('content')
     <x-page-header>
-        <x-slot name="heading">Positions</x-slot>
-        <x-slot name="description">
-            The jobs or stations characters are assigned to for display on your manifests
-        </x-slot>
-
         <x-slot name="actions">
             @can('create', Position::class)
                 <x-button :href="route('admin.positions.create')" color="primary">

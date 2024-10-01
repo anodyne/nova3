@@ -3,8 +3,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">{{ $note->title }}</x-slot>
-
             <x-slot name="actions">
                 <x-button :href="route('admin.notes.index')" plain>&larr; Back</x-button>
 
@@ -15,7 +13,9 @@
             </x-slot>
         </x-page-header>
 
-        <div class="prose max-w-none">
+        <x-h2>{{ $note->title }}</x-h2>
+
+        <div class="prose mt-6 max-w-none">
             {!! $note->content !!}
         </div>
     </x-spacing>

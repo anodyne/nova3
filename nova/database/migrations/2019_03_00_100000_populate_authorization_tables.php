@@ -46,13 +46,14 @@ class PopulateAuthorizationTables extends Migration
                 'application.approve',
                 'system.activity',
                 'menu.create', 'menu.delete', 'menu.update', 'menu.view',
+                'announcement.create', 'announcement.delete', 'announcement.update',
             ],
             'story-manager' => [
                 'story.create', 'story.delete', 'story.update',
                 'post.delete', 'post.update',
             ],
             'active' => [
-                'form.view',
+                'form.view', 'announcement.view',
             ],
             'writer' => [
                 'story.view',
@@ -152,6 +153,11 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'menu.delete', 'display_name' => 'Delete menus', 'description' => 'Allows a user to remove menus'],
                 ['name' => 'menu.update', 'display_name' => 'Update menus', 'description' => 'Allows a user to edit menus'],
                 ['name' => 'menu.view', 'display_name' => 'View menus', 'description' => 'Allows a user to view any menus'],
+
+                ['name' => 'announcement.create', 'display_name' => 'Create announcements', 'description' => 'Allows a user to add new announcements'],
+                ['name' => 'announcement.delete', 'display_name' => 'Delete announcements', 'description' => 'Allows a user to remove announcements'],
+                ['name' => 'announcement.update', 'display_name' => 'Update announcements', 'description' => 'Allows a user to edit announcements'],
+                ['name' => 'announcement.view', 'display_name' => 'View announcements', 'description' => 'Allows a user to view any announcements'],
 
                 ['name' => 'site.contact', 'display_name' => 'Site contact', 'description' => 'Allows a user to receive site contact messages'],
             ];

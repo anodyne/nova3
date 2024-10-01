@@ -9,7 +9,6 @@ use Nova\Forms\Livewire\FormsList;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
-use Nova\Foundation\Filament\Actions\ViewAction;
 
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
@@ -72,7 +71,6 @@ describe('authorized user with form create permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(FormsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->forms->first())
             ->assertTableActionHidden(EditAction::class, $this->forms->first())
             ->assertTableActionHidden(DeleteAction::class, $this->forms->first());
     });
@@ -85,7 +83,6 @@ describe('authorized user with form delete permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(FormsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->forms->first())
             ->assertTableActionHidden(EditAction::class, $this->forms->first())
             ->assertTableActionVisible(DeleteAction::class, $this->forms->first());
     });
@@ -98,7 +95,6 @@ describe('authorized user with form update permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(FormsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->forms->first())
             ->assertTableActionVisible(EditAction::class, $this->forms->first())
             ->assertTableActionHidden(DeleteAction::class, $this->forms->first());
     });
@@ -111,7 +107,6 @@ describe('authorized user with form view permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(FormsList::class)
-            ->assertTableActionVisible(ViewAction::class, $this->forms->first())
             ->assertTableActionHidden(EditAction::class, $this->forms->first())
             ->assertTableActionHidden(DeleteAction::class, $this->forms->first());
     });

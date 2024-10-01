@@ -2,20 +2,7 @@
 
 @section('content')
     <x-spacing constrained>
-        <x-page-header :message="str($postType->visibility)->replace('-', ' ')->title()">
-            <x-slot name="heading">{{ $postType->name }}</x-slot>
-            <x-slot name="description">
-                <span class="flex items-center gap-x-4">
-                    <x-badge :color="$postType->status->color()" size="md">
-                        {{ $postType->status->getLabel() }}
-                    </x-badge>
-
-                    <x-badge size="md">
-                        {{ str($postType->visibility)->replace('-', ' ')->title() }}
-                    </x-badge>
-                </span>
-            </x-slot>
-
+        <x-page-header>
             <x-slot name="actions">
                 @can('viewAny', $postType::class)
                     <x-button :href="route('admin.post-types.index')" plain>&larr; Back</x-button>
@@ -31,6 +18,36 @@
         </x-page-header>
 
         <div class="space-y-12">
+            <x-fieldset>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Name">
+                        <x-text>{{ $postType->name }}</x-text>
+                    </x-fieldset.field>
+
+                    @if (filled($postType->description))
+                        <x-fieldset.field label="Description">
+                            <x-text>{{ $postType->description }}</x-text>
+                        </x-fieldset.field>
+                    @endif
+
+                    <x-fieldset.field label="Visibility">
+                        <div data-slot="text">
+                            <x-badge>
+                                {{ str($postType->visibility)->replace('-', ' ')->title() }}
+                            </x-badge>
+                        </div>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Status">
+                        <div data-slot="text">
+                            <x-badge :color="$postType->status->color()">
+                                {{ $postType->status->getLabel() }}
+                            </x-badge>
+                        </div>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
+
             <x-panel well>
                 <x-spacing size="sm">
                     <div class="flex items-center justify-between">

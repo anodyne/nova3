@@ -36,6 +36,9 @@ class Page extends Model implements HasMedia
         'seo_title',
         'seo_description',
         'seo_keywords',
+        'heading',
+        'subheading',
+        'intro',
     ];
 
     protected $casts = [
@@ -45,6 +48,7 @@ class Page extends Model implements HasMedia
         'published_blocks' => 'array',
         'status' => PageStatus::class,
         'verb' => PageVerb::class,
+        'content_can_be_edited' => 'boolean',
     ];
 
     protected $dispatchesEvents = [

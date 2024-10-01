@@ -5,8 +5,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Add a new character</x-slot>
-
             <x-slot name="actions">
                 <x-button :href="route('admin.characters.index')" plain>&larr; Back</x-button>
             </x-slot>

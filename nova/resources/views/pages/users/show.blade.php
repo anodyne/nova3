@@ -6,13 +6,6 @@
 @section('content')
     <x-spacing x-data="tabsList('info')" constrained>
         <x-page-header>
-            <x-slot name="heading">{{ $user->name }}</x-slot>
-            <x-slot name="description">
-                <x-badge :color="$user->status->color()" size="md">
-                    {{ $user->status->getLabel() }}
-                </x-badge>
-            </x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', User::class)
                     <x-button :href="route('admin.users.index')" plain>&larr; Back</x-button>
@@ -45,7 +38,33 @@
             @endif
         </x-tab.group>
 
-        <div class="space-y-12" x-show="isTab('stats')">
+        <div class="space-y-12" x-show="isTab('info')" x-cloak>
+            <x-fieldset>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Name">
+                        <x-text>{{ $user->name }}</x-text>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Email address">
+                        <x-text>{{ $user->email }}</x-text>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Pronouns">
+                        <x-text>{{ $user->pronouns }}</x-text>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Status">
+                        <div data-slot="text">
+                            <x-badge :color="$user->status->color()">
+                                {{ $user->status->getLabel() }}
+                            </x-badge>
+                        </div>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
+        </div>
+
+        <div class="space-y-12" x-show="isTab('stats')" x-cloak>
             <x-panel well>
                 <x-panel.well.header title="Characters"></x-panel.well.header>
 

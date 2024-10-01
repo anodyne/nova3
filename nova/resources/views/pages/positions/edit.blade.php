@@ -5,8 +5,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">Edit position</x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', Position::class)
                     <x-button :href="route('admin.positions.index', 'department='.$position->department->id)" plain>

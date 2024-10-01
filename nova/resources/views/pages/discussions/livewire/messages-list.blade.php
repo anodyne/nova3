@@ -6,9 +6,7 @@
                 'max-md:hidden' => filled($selected),
             ])
         >
-            <x-page-header>
-                <x-slot name="heading">Messages</x-slot>
-
+            <x-page-header :heading="$pageHeading" :description="$pageSubheading" :intro="$pageIntro">
                 <x-slot name="actions">
                     <x-dropdown placement="bottom-end">
                         <x-slot name="emptyTrigger">

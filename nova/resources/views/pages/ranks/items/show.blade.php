@@ -3,16 +3,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">
-                <div class="flex items-center gap-x-2">
-                    <span>{{ $item->name?->name }}</span>
-                    <x-rank :rank="$item"></x-rank>
-                </div>
-            </x-slot>
-            <x-slot name="description">
-                <x-badge :color="$item->status->color()" size="md">{{ $item->status->getLabel() }}</x-badge>
-            </x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', $item::class)
                     <x-button :href="route('admin.ranks.items.index')" plain>&larr; Back</x-button>
@@ -38,6 +28,18 @@
                     <x-fieldset.field>
                         <x-fieldset.label>Rank name</x-fieldset.label>
                         <x-text>{{ $item?->name?->name }}</x-text>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Rank image">
+                        <div data-slot="text">
+                            <x-rank :rank="$item"></x-rank>
+                        </div>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Status">
+                        <div data-slot="text">
+                            <x-badge :color="$item->status->color()">{{ $item->status->getLabel() }}</x-badge>
+                        </div>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>

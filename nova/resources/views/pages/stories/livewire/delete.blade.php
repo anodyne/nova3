@@ -1,20 +1,4 @@
 <x-spacing constrained>
-    <x-page-header>
-        <x-slot name="heading">
-            Delete
-            @choice('story|stories', $stories->count())
-        </x-slot>
-        <x-slot name="description">
-            Manage story deletion and how nested stories and story posts should be handled
-        </x-slot>
-
-        <x-slot name="actions">
-            @can('viewAny', $stories->first())
-                <x-button :href="route('admin.stories.index')" plain>&larr; Back</x-button>
-            @endcan
-        </x-slot>
-    </x-page-header>
-
     <x-form :action="route('admin.stories.destroy')" method="DELETE">
         @foreach ($stories as $story)
             <x-fieldset

@@ -12,6 +12,7 @@ import numeral from 'numeral';
 export default (content) => ({
     editor: null,
     content,
+    wordCount: '0 words',
     codeView: false,
     updatedAt: Date.now(), // force Alpine to re-render on selection change
 
@@ -28,7 +29,7 @@ export default (content) => ({
                     alignments: ['left', 'center', 'right'],
                     types: ['heading', 'paragraph'],
                 }),
-                CharacterCount,
+                CharacterCount.configure(),
             ],
             content: this.content,
             editorProps: {
@@ -45,10 +46,12 @@ export default (content) => ({
             onUpdate: debounce(({ editor }) => {
                 this.updatedAt = Date.now();
                 this.content = pretty(editor.getHTML(), { ocd: true });
+                this.wordCount = this.getWordCount();
             }, 500),
             onCreate: ({ editor }) => {
                 this.updatedAt = Date.now();
                 this.content = pretty(editor.getHTML(), { ocd: true });
+                this.wordCount = this.getWordCount();
             },
         });
 
@@ -91,7 +94,7 @@ export default (content) => ({
             .run();
     },
 
-    wordCount() {
+    getWordCount() {
         const count = numeral(window.editor.storage.characterCount.words()).format('0,0');
 
         return `${count} ${pluralize('word', count)}`;

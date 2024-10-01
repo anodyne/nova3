@@ -3,18 +3,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">{{ $position->name }}</x-slot>
-            <x-slot name="description">
-                <div class="flex items-center gap-x-4">
-                    <x-badge size="md">
-                        {{ $position->department?->name }}
-                    </x-badge>
-                    <x-badge :color="$position->status->color()" size="md">
-                        {{ $position->status->getLabel() }}
-                    </x-badge>
-                </div>
-            </x-slot>
-
             <x-slot name="actions">
                 @can('viewAny', $position::class)
                     <x-button :href="route('admin.positions.index', 'department='.$position->department->id)" plain>
@@ -32,11 +20,31 @@
         </x-page-header>
 
         <x-form action="">
-            @if (filled($position->description))
-                <x-fieldset>
-                    <x-text size="xl">{{ $position->description }}</x-text>
-                </x-fieldset>
-            @endif
+            <x-fieldset>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Name">
+                        <x-text>{{ $position->name }}</x-text>
+                    </x-fieldset.field>
+
+                    @if (filled($position->description))
+                        <x-fieldset.field label="Description">
+                            <x-text>{{ $position->description }}</x-text>
+                        </x-fieldset.field>
+                    @endif
+
+                    <x-fieldset.field label="Department">
+                        <x-text>{{ $position->department->name }}</x-text>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Status">
+                        <div data-slot="text">
+                            <x-badge :color="$position->status->color()">
+                                {{ $position->status->getLabel() }}
+                            </x-badge>
+                        </div>
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
             <x-fieldset>
                 <x-panel well>

@@ -3,16 +3,6 @@
 @section('content')
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="heading">
-                <div class="flex items-center gap-x-4">
-                    <x-avatar :src="$character->avatar_url" size="xl"></x-avatar>
-                    <div class="flex flex-col gap-y-1">
-                        {{ $character->display_name }}
-                        <x-rank :rank="$character->rank"></x-rank>
-                    </div>
-                </div>
-            </x-slot>
-
             <x-slot name="actions">
                 <x-button :href="route('admin.characters.index')" plain>&larr; Back</x-button>
 
@@ -40,6 +30,22 @@
             @endif
 
             <div class="space-y-12" x-show="isTab('info')">
+                <x-fieldset>
+                    <x-fieldset.field-group constrained>
+                        <div>
+                            <x-avatar :src="$character->avatar_url" size="xl"></x-avatar>
+                        </div>
+
+                        <x-fieldset.field label="Name">
+                            <x-text>{{ $character->display_name }}</x-text>
+                        </x-fieldset.field>
+
+                        <div>
+                            <x-rank :rank="$character->rank"></x-rank>
+                        </div>
+                    </x-fieldset.field-group>
+                </x-fieldset>
+
                 <x-panel well>
                     <x-spacing size="sm">
                         <x-fieldset.legend>Assigned positions</x-fieldset.legend>

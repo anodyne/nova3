@@ -1,14 +1,14 @@
 <x-sidebar.subnav>
     <x-sidebar.subnav.group>
         <x-sidebar.subnav.item
-            href="{{ route('admin.stories.timeline', 'posts') }}"
-            :active="request()->is('timeline/posts')"
+            :href="route('admin.stories.posts-timeline')"
+            :active="request()->routeIs('admin.stories.posts-timeline')"
         >
             By posts
         </x-sidebar.subnav.item>
         <x-sidebar.subnav.item
-            href="{{ route('admin.stories.timeline', 'stories') }}"
-            :active="request()->is('timeline/stories')"
+            :href="route('admin.stories.stories-timeline')"
+            :active="request()->routeIs('admin.stories.stories-timeline')"
         >
             By stories
         </x-sidebar.subnav.item>
