@@ -77,16 +77,24 @@
                     </x-fieldset.heading>
 
                     <x-radio.group>
-                        <x-radio.field id="in_character" name="visibility">
+                        <x-radio.field>
                             <x-fieldset.label for="in_character">In character</x-fieldset.label>
-                            <x-radio value="in-character" :checked="old('visibility', 'in-character')"></x-radio>
+                            <x-radio
+                                id="in_character"
+                                name="visibility"
+                                value="in-character"
+                                :checked="old('visibility', true)"
+                            ></x-radio>
                         </x-radio.field>
 
                         <x-radio.field>
-                            <x-fieldset.label name="visibility" id="out_of_character">
-                                Out of character
-                            </x-fieldset.label>
-                            <x-radio value="out-of-character" :checked="old('visibility')"></x-radio>
+                            <x-fieldset.label for="out_of_character">Out of character</x-fieldset.label>
+                            <x-radio
+                                id="out_of_character"
+                                name="visibility"
+                                value="out-of-character"
+                                :checked="old('visibility')"
+                            ></x-radio>
                         </x-radio.field>
                     </x-radio.group>
                 </x-fieldset>
