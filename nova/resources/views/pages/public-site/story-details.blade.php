@@ -1,8 +1,6 @@
-@extends($meta->template)
-
 @use('Illuminate\Support\Number')
 
-@section('content')
+<x-public-layout>
     <div class="@container advanced-page story-details">
         @if ($story->hasMedia('story-image'))
             <img src="{{ $story->getFirstMediaUrl('story-image') }}" alt="" class="story-image" />
@@ -117,4 +115,4 @@
             </x-public::tabs>
         </div>
     </div>
-@endsection
+</x-public-layout>

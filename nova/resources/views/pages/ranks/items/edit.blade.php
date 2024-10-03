@@ -1,9 +1,7 @@
-@extends($meta->template)
-
 @use('Nova\Ranks\Models\RankGroup')
 @use('Nova\Ranks\Models\RankName')
 
-@section('content')
+<x-admin-layout>
     <x-spacing
         x-data="{
             ...tabsList('base'),
@@ -13,11 +11,11 @@
         constrained
     >
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', $item::class)
+            @can('viewAny', $item::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.ranks.items.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-form :action="route('admin.ranks.items.update', $item)" method="PUT">
@@ -156,4 +154,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

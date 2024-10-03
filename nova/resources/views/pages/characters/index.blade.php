@@ -1,20 +1,18 @@
-@extends($meta->template)
-
 @use('Nova\Characters\Models\Character')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
-        <x-slot name="actions">
-            @can('createAny', Character::class)
+        @can('createAny', Character::class)
+            <x-slot name="actions">
                 <x-button :href="route('admin.characters.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>
-            @endcan
-        </x-slot>
+            </x-slot>
+        @endcan
     </x-page-header>
 
     <livewire:characters-list />
 
     <x-tips section="characters" />
-@endsection
+</x-admin-layout>

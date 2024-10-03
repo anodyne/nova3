@@ -1,15 +1,13 @@
-@extends($meta->template)
-
 @use('Nova\Stories\Models\Story')
 
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', $story::class)
+            @can('viewAny', $story::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.stories.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-form :action="route('admin.stories.update', $story)" method="PUT">
@@ -97,4 +95,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

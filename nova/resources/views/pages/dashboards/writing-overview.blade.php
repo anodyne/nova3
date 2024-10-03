@@ -1,18 +1,16 @@
-@extends($meta->template)
-
 @use('Nova\Stories\Models\Post')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
-        <x-slot name="actions">
-            @can('create', Post::class)
+        @can('create', Post::class)
+            <x-slot name="headerActions">
                 <x-button :href="route('admin.posts.create')" color="primary">
                     <x-icon name="write" size="sm"></x-icon>
                     Start writing
                 </x-button>
-            @endcan
-        </x-slot>
+            </x-slot>
+        @endcan
     </x-page-header>
 
     <livewire:posts-my-drafts-list />
-@endsection
+</x-admin-layout>

@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-panel
         x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
         x-init="$watch('name', value => {
@@ -79,4 +77,4 @@
             </x-form.footer>
         </x-form>
     </x-panel>
-@endsection
+</x-admin-layout>

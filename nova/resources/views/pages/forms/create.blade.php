@@ -1,16 +1,14 @@
-@extends($meta->template)
-
 @use('Illuminate\Support\Js')
 @use('Nova\Forms\Models\Form')
 
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', Form::class)
+            @can('viewAny', Form::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.forms.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-form
@@ -169,4 +167,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

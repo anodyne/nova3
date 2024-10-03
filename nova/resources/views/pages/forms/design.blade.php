@@ -1,5 +1,3 @@
-@extends($meta->template)
-
 @use('Nova\Forms\Models\Form')
 
 @pushOnce('styles')
@@ -7,7 +5,7 @@
 <link href="https://fonts.bunny.net/css?family=flow-circular:400" rel="stylesheet" />
 @endPushOnce
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
             @can('viewAny', $form::class)
@@ -29,4 +27,4 @@
     </div>
 
     <livewire:forms-designer :nova-form="$form" />
-@endsection
+</x-admin-layout>

@@ -1,17 +1,15 @@
-@extends($meta->template)
-
 @use('Illuminate\Support\Js')
 @use('Nova\Pages\Models\Page')
 @use('Nova\Pages\Enums\PageVerb')
 
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', Page::class)
+            @can('viewAny', Page::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-form
@@ -233,4 +231,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

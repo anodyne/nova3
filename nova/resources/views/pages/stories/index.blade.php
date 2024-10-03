@@ -1,8 +1,6 @@
-@extends($meta->template)
-
 @use('Nova\Stories\Models\Story')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
             <x-button :href="route('admin.stories.stories-timeline')" color="neutral">
@@ -22,4 +20,4 @@
     <livewire:stories-list />
 
     <x-tips section="stories" />
-@endsection
+</x-admin-layout>

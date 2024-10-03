@@ -1,15 +1,13 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', $storiesToDelete->first())
+            @can('viewAny', $storiesToDelete->first())
+                <x-slot name="actions">
                     <x-button :href="route('admin.stories.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
     </x-spacing>
 
     <livewire:stories-delete :stories="$storiesToDelete" />
-@endsection
+</x-admin-layout>

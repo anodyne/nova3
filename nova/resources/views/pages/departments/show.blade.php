@@ -1,8 +1,6 @@
-@extends($meta->template)
-
 @use('Nova\Departments\Models\Position')
 
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
             <x-slot name="actions">
@@ -187,4 +185,4 @@
             </x-fieldset>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

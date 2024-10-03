@@ -1,6 +1,6 @@
-@extends($meta->template)
+<x-admin-layout>
+    <x-page-header></x-page-header>
 
-@section('content')
     <div>
         <section class="mb-8 hidden">
             <div
@@ -351,4 +351,4 @@
     </div>
 
     <x-tips section="dashboard" />
-@endsection
+</x-admin-layout>

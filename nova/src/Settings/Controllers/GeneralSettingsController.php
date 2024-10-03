@@ -34,8 +34,7 @@ class GeneralSettingsController extends Controller
 
         UpdateSettings::run('general', $data = General::from($request));
 
-        return redirect()
-            ->route('admin.settings.general.edit')
+        return to_route('admin.settings.general.edit')
             ->notify('General settings have been updated');
     }
 }

@@ -43,8 +43,6 @@
             Environment
         </x-sidebar.subnav.item>
 
-        {{-- <x-sidebar.subnav.item href="{{ route('settings.index', 'meta-tags') }}" :active="request()->is('settings/meta-tags')">Meta tags</x-sidebar.subnav.item> --}}
-
         {{--
             <x-sidebar.subnav.item
             :href="route('admin.settings.posting-activity.edit')"

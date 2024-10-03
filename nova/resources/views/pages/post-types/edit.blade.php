@@ -1,13 +1,11 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-spacing x-data="tabsList('details')" constrained>
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', $postType::class)
+            @can('viewAny', $postType::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.post-types.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-tab.group name="post-type">
@@ -332,4 +330,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

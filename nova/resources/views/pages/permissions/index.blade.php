@@ -1,20 +1,18 @@
-@extends($meta->template)
-
 @use('Nova\Roles\Models\Role')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
-        <x-slot name="actions">
-            @can('viewAny', Role::class)
+        @can('viewAny', Role::class)
+            <x-slot name="actions">
                 <x-button :href="route('admin.roles.index')" color="neutral">
                     <x-icon name="shield" size="sm"></x-icon>
                     View roles
                 </x-button>
-            @endcan
-        </x-slot>
+            </x-slot>
+        @endcan
     </x-page-header>
 
     <livewire:permissions-list />
 
     <x-tips section="roles" />
-@endsection
+</x-admin-layout>

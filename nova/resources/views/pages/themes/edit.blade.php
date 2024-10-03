@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-panel>
         <x-panel.header title="Edit theme">
             <x-slot name="actions">
@@ -69,4 +67,4 @@
             </x-form.footer>
         </x-form>
     </x-panel>
-@endsection
+</x-admin-layout>

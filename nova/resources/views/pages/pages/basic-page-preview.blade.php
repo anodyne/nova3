@@ -1,7 +1,5 @@
-@extends($meta->template)
-
-@section('content')
+<x-public-layout>
     <div class="nova-basic-page-content">
         {!! scribble($page->blocks ?? ['content' => null])->toHtml() !!}
     </div>
-@endsection
+</x-public-layout>

@@ -1,18 +1,14 @@
-@extends($meta->template)
-
 @use('Nova\Forms\Models\FormSubmission')
 
-@section('content')
+<x-admin-layout>
     @if (filled($form))
         <x-spacing constrained>
-            <x-page-header>
-                <x-slot name="heading">{{ $form->name }}</x-slot>
-
-                <x-slot name="actions">
-                    @can('viewAny', FormSubmission::class)
+            <x-page-header :heading="$form->name">
+                @can('viewAny', FormSubmission::class)
+                    <x-slot name="actions">
                         <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
-                    @endcan
-                </x-slot>
+                    </x-slot>
+                @endcan
             </x-page-header>
 
             <x-fieldset>
@@ -87,4 +83,4 @@
             @endcan
         </div>
     @endif
-@endsection
+</x-admin-layout>

@@ -1,8 +1,6 @@
-@extends($meta->template)
-
 @use('Nova\Roles\Models\Role')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
             @can('viewAny', Role::class)
@@ -24,4 +22,4 @@
     <livewire:roles-list />
 
     <x-tips section="roles" />
-@endsection
+</x-admin-layout>

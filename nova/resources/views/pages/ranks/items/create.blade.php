@@ -1,20 +1,18 @@
-@extends($meta->template)
-
 @use('Nova\Ranks\Models\RankGroup')
 @use('Nova\Ranks\Models\RankItem')
 @use('Nova\Ranks\Models\RankName')
 
-@section('content')
+<x-admin-layout>
     <x-spacing
         x-data="{ ...tabsList('base'), base: '{{ old('base_image') }}', overlay: '{{ old('overlay_image') }}' }"
         constrained
     >
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', RankItem::class)
+            @can('viewAny', RankItem::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.ranks.items.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-form :action="route('admin.ranks.items.store')">
@@ -156,4 +154,4 @@
             <input type="hidden" name="overlay_image" x-model="overlay" />
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

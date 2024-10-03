@@ -7,10 +7,6 @@
 ])
 
 @php
-    if (is_null($meta)) {
-        $meta = app()->bound('nova.meta') ? app('nova.meta') : null;
-    }
-
     $heading ??= $meta?->pageHeading;
     $description ??= $meta?->pageSubheading;
     $intro ??= $meta?->pageIntro;

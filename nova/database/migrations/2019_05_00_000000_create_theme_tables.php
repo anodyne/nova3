@@ -18,9 +18,6 @@ class CreateThemeTables extends Migration
             $table->text('credits')->nullable();
             $table->text('preview')->nullable();
             $table->string('status')->default(ThemeStatus::active->value);
-            $table->string('layout_auth')->default('auth-simple');
-            $table->string('layout_public')->default('app-hero');
-            $table->string('layout_admin')->default('app-sidebar');
             $table->json('settings');
             $table->timestamps();
 

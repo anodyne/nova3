@@ -21,7 +21,7 @@ class ActivityLogController extends Controller
         $this->authorizeResource(Activity::class);
     }
 
-    public function index(): Responsable
+    public function index()
     {
         return ListActivityLogResponse::send();
     }

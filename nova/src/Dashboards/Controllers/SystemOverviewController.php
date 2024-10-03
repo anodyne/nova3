@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Nova\Dashboards\Responses\SystemOverviewResponse;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Foundation\Responses\Responsable;
 
 class SystemOverviewController extends Controller
 {
@@ -19,10 +18,8 @@ class SystemOverviewController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(): Responsable
+    public function __invoke()
     {
-        $this->checkForLatestVersion();
-
         return SystemOverviewResponse::send();
     }
 

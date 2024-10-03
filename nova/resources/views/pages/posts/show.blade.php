@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <div x-data="{ showContentWarning: @js($post->show_content_warning) }">
         <x-spacing class="space-y-8" constrained-lg>
             <div>
@@ -204,4 +202,4 @@
             </div>
         </x-spacing>
     </div>
-@endsection
+</x-admin-layout>

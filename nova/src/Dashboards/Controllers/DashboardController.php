@@ -6,7 +6,6 @@ namespace Nova\Dashboards\Controllers;
 
 use Nova\Dashboards\Responses\DashboardResponse;
 use Nova\Foundation\Controllers\Controller;
-use Nova\Foundation\Responses\Responsable;
 
 class DashboardController extends Controller
 {
@@ -17,7 +16,7 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(): Responsable
+    public function __invoke()
     {
         return DashboardResponse::send();
     }

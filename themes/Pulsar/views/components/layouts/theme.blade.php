@@ -1,5 +1,3 @@
-@extends($meta->structure)
-
 @push('styles')
     <style>
         :root {
@@ -10,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('themes/Pulsar/design/theme.css') }}" />
 @endpush
 
-@section('layout')
+<x-public-layout>
     <nav class="main-nav">
         <div class="logo">
             <x-logos.nova class="h-6 w-auto"></x-logos.nova>
@@ -34,8 +32,8 @@
     <div class="content-ctn">
         <div class="content">
             <main>
-                @yield('template')
+                {{ $slot }}
             </main>
         </div>
     </div>
-@endsection
+</x-public-layout>

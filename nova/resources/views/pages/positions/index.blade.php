@@ -1,20 +1,18 @@
-@extends($meta->template)
-
 @use('Nova\Departments\Models\Position')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
-        <x-slot name="actions">
-            @can('create', Position::class)
+        @can('create', Position::class)
+            <x-slot name="actions">
                 <x-button :href="route('admin.positions.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>
-            @endcan
-        </x-slot>
+            </x-slot>
+        @endcan
     </x-page-header>
 
     <livewire:positions-list />
 
     <x-tips section="positions" />
-@endsection
+</x-admin-layout>

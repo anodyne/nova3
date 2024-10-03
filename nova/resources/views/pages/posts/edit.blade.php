@@ -1,5 +1,3 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <livewire:posts-write :initial-step="$post->exists ? 'posts-wizard-step-compose': null" />
-@endsection
+</x-admin-layout>

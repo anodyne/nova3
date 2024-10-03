@@ -1,20 +1,18 @@
-@extends($meta->template)
-
 @use('Nova\Pages\Models\Page')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
-        <x-slot name="actions">
-            @can('create', Page::class)
+        @can('create', Page::class)
+            <x-slot name="actions">
                 <x-button :href="route('admin.pages.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>
-            @endcan
-        </x-slot>
+            </x-slot>
+        @endcan
     </x-page-header>
 
     <livewire:pages-list />
 
     <x-tips section="pages" />
-@endsection
+</x-admin-layout>

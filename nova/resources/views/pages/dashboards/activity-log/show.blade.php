@@ -1,15 +1,13 @@
-@extends($meta->template)
-
 @use('Spatie\Activitylog\Models\Activity')
 
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', Activity::class)
+            @can('viewAny', Activity::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.activity-log.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-form action="">
@@ -52,4 +50,4 @@
             </x-fieldset>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

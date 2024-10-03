@@ -1,10 +1,8 @@
-@extends($meta->template)
-
 @php
     $errors = $errors->getBag('default');
 @endphp
 
-@section('content')
+<x-public-layout>
     <div class="@container advanced-page join">
         <x-public::h1>{{ $meta->pageHeading }}</x-public::h1>
 
@@ -155,4 +153,4 @@
             </x-public::alert>
         @endif
     </div>
-@endsection
+</x-public-layout>

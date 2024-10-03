@@ -1,7 +1,5 @@
-@extends($meta->template)
-
-@section('content')
+<x-dynamic-component :component="$meta->layout">
     <div class="nova-basic-page-content">
         {!! scribble($page->published_blocks ?? ['content' => null])->toHtml() !!}
     </div>
-@endsection
+</x-dynamic-component>

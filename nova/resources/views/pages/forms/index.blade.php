@@ -1,9 +1,7 @@
-@extends($meta->template)
-
 @use('Nova\Forms\Models\Form')
 @use('Nova\Forms\Models\FormSubmission')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
             @can('viewAny', FormSubmission::class)
@@ -25,4 +23,4 @@
     <livewire:forms-list />
 
     <x-tips section="forms" />
-@endsection
+</x-admin-layout>

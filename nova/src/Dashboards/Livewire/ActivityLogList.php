@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -20,6 +19,7 @@ class ActivityLogList extends TableComponent
         return $table
             ->query(Activity::query())
             ->defaultSort('created_at', 'desc')
+            ->recordUrl(fn (Activity $record): string => route('admin.activity-log.show', $record))
             ->columns([
                 TextColumn::make('log_name')
                     ->label('Type')
@@ -67,14 +67,6 @@ class ActivityLogList extends TableComponent
                     ->since()
                     ->sortable()
                     ->toggleable(),
-            ])
-            ->actions([
-                Action::make('view')
-                    ->icon(iconName('arrow-right'))
-                    ->iconButton()
-                    ->color('gray')
-                    ->size('md')
-                    ->url(fn (Model $record): string => route('admin.activity-log.show', $record)),
             ])
             ->filters([
                 SelectFilter::make('log_name')

@@ -1,8 +1,6 @@
-@extends($meta->template)
-
 @use('Nova\Stories\Models\PostType')
 
-@section('content')
+<x-admin-layout>
     <x-spacing
         x-data="{ ...tabsList('details'), name: '{{ old('name', '') }}', key: '{{ old('key', '') }}', suggestKey: true }"
         x-init="$watch('name', value => {
@@ -13,11 +11,11 @@
         constrained
     >
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', PostType::class)
+            @can('viewAny', PostType::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.post-types.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-tab.group name="post-type">
@@ -334,4 +332,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

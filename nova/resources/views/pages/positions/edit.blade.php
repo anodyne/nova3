@@ -1,17 +1,15 @@
-@extends($meta->template)
-
 @use('Nova\Departments\Models\Position')
 
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', Position::class)
+            @can('viewAny', Position::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.positions.index', 'department='.$position->department->id)" plain>
                         &larr; Back
                     </x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-form :action="route('admin.positions.update', $position)" method="PUT">
@@ -95,4 +93,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

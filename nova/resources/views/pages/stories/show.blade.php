@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-spacing class="relative" x-data="tabsList('details')">
         @if ($story->hasMedia('story-image'))
             <div class="rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10">
@@ -12,8 +10,7 @@
             </div>
         @endif
 
-        <x-page-header class="mt-6">
-            <x-slot name="heading">{{ $story->title }}</x-slot>
+        <x-page-header class="mt-6" :heading="$story->title">
             <x-slot name="description">
                 <x-badge :color="$story->status->color()" size="md">
                     {{ $story->status->displayName() }}
@@ -133,4 +130,4 @@
             {!! $story->summary !!}
         </x-spacing>
     </x-spacing>
-@endsection
+</x-admin-layout>

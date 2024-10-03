@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header :heading="$announcement->title">
             <x-slot name="actions">
@@ -44,4 +42,4 @@
             {!! $announcement->content !!}
         </div>
     </x-spacing>
-@endsection
+</x-admin-layout>

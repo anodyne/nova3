@@ -1,5 +1,3 @@
-@extends($meta->template)
-
 @use('Nova\Pages\Models\Page')
 
 @pushOnce('styles')
@@ -7,7 +5,7 @@
 <link href="https://fonts.bunny.net/css?family=flow-circular:400" rel="stylesheet" />
 @endPushOnce
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
             @can('viewAny', $page::class)
@@ -34,4 +32,4 @@
     </div>
 
     <livewire:pages-designer :page="$page" />
-@endsection
+</x-admin-layout>
