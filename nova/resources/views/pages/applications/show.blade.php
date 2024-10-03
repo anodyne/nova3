@@ -1,8 +1,6 @@
-@extends($meta->template)
-
 @use('Nova\Applications\Enums\ApplicationResult')
 
-@section('content')
+<x-admin-layout>
     <x-spacing>
         <x-page-header>
             <x-slot name="heading">
@@ -23,11 +21,11 @@
                 </div>
             </x-slot>
 
-            <x-slot name="actions">
-                @can('viewAny', $application::class)
+            @can('viewAny', $application::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.applications.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <div class="grid gap-12 lg:grid-cols-3">
@@ -376,4 +374,4 @@
             </div>
         </div>
     </x-spacing>
-@endsection
+</x-admin-layout>

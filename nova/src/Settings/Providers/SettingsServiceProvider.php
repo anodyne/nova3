@@ -35,7 +35,6 @@ class SettingsServiceProvider extends DomainServiceProvider
             Spotlight\ViewCharacterSettings::class,
             Spotlight\ViewEmailSettings::class,
             Spotlight\ViewGeneralSettings::class,
-            Spotlight\ViewMetaTagsSettings::class,
             Spotlight\ViewNotificationSettings::class,
             Spotlight\ViewPostingActivitySettings::class,
             Spotlight\ViewRatingsSettings::class,

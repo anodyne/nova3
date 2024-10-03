@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-panel>
         <x-panel.header
             title="Posting activity settings"
@@ -487,4 +485,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-panel>
-@endsection
+</x-admin-layout>

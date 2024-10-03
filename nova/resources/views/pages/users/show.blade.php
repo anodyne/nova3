@@ -1,9 +1,7 @@
-@extends($meta->template)
-
 @use('Nova\Departments\Models\Position')
 @use('Nova\Users\Models\User')
 
-@section('content')
+<x-admin-layout>
     <x-spacing x-data="tabsList('info')" constrained>
         <x-page-header>
             <x-slot name="actions">
@@ -160,4 +158,4 @@
             />
         </div>
     </x-spacing>
-@endsection
+</x-admin-layout>

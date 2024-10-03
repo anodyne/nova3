@@ -1,7 +1,5 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <div class="nova-form-content">
         {!! scribble($form->fields ?? ['content' => null])->toHtml() !!}
     </div>
-@endsection
+</x-admin-layout>

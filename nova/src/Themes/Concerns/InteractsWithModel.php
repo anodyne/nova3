@@ -47,14 +47,7 @@ trait InteractsWithModel
     {
         $this->name = $this->model->name;
         $this->credits = $this->model->credits;
-        // $this->iconSet = $this->model->icon_set;
-        $this->layoutAuth = $this->model->layout_auth;
-        $this->layoutPublic = $this->model->layout_public;
-        $this->layoutAdmin = $this->model->layout_admin;
         $this->settings = $this->model->settings;
-        // $this->layoutAuthSettings = $this->model->layout_auth_settings;
-        // $this->layoutPublicSettings = $this->model->layout_public_settings;
-        // $this->layoutAdminSettings = $this->model->layout_admin_settings;
 
         return $this;
     }

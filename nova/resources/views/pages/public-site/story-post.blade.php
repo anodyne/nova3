@@ -1,8 +1,6 @@
-@extends($meta->template)
-
 @use('Illuminate\Support\Number')
 
-@section('content')
+<x-public-layout>
     <div class="@container advanced-page story-post">
         <div class="story-post-container">
             <div class="main-column">
@@ -177,4 +175,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-public-layout>

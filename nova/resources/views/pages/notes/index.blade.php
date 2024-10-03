@@ -1,20 +1,18 @@
-@extends($meta->template)
-
 @use('Nova\Notes\Models\Note')
 
-@section('content')
+<x-admin-layout>
     <x-page-header>
-        <x-slot name="actions">
-            @can('create', Note::class)
+        @can('create', Note::class)
+            <x-slot name="actions">
                 <x-button :href="route('admin.notes.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
                     Add
                 </x-button>
-            @endcan
-        </x-slot>
+            </x-slot>
+        @endcan
     </x-page-header>
 
     <livewire:notes-list />
 
     <x-tips section="notes" />
-@endsection
+</x-admin-layout>

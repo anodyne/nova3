@@ -1,8 +1,4 @@
-@extends('layouts.auth-simple')
-
-@section('page-header', 'Reset your password')
-
-@section('content')
+<x-auth-layout page-header="Reset your password">
     @if (session('status'))
         <div
             class="mb-6 rounded-lg border border-warning-300 bg-warning-50 px-4 py-3 font-medium text-warning-600 md:text-sm"
@@ -59,4 +55,4 @@
             </div>
         </x-spacing>
     </x-panel>
-@endsection
+</x-auth-layout>

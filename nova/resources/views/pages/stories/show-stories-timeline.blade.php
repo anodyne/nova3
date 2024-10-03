@@ -1,7 +1,5 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-page-header></x-page-header>
 
     <livewire:stories-timeline />
-@endsection
+</x-admin-layout>

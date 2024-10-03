@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-public-layout>
     <div class="@container advanced-page character-bio">
         <div class="avatar-container">
             <x-avatar :src="$character->avatar_url" size="3xl"></x-avatar>
@@ -42,4 +40,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-public-layout>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Foundation\View\Components;
+namespace Nova\Foundation\View\Layouts;
 
 use Illuminate\View\Component;
 

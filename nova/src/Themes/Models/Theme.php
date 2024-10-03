@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Nova\Pages\Models\Page;
 use Nova\Themes\BaseTheme;
 use Nova\Themes\Data\ThemeSettings;
 use Nova\Themes\Enums\ThemeStatus;
@@ -26,8 +25,7 @@ class Theme extends Model
     protected $table = 'themes';
 
     protected $fillable = [
-        'name', 'location', 'credits', 'status', 'preview', 'layout_auth',
-        'layout_public', 'layout_admin', 'settings',
+        'name', 'location', 'credits', 'status', 'preview', 'settings',
     ];
 
     protected $casts = [
@@ -46,11 +44,6 @@ class Theme extends Model
         $themeClass = 'Themes\\'.$this->location.'\\Theme';
 
         return new $themeClass;
-    }
-
-    public function getLayoutForPage(Page $page): string
-    {
-        return $this->getAttribute("layout_{$page->layout}");
     }
 
     public function getActivitylogOptions(): LogOptions

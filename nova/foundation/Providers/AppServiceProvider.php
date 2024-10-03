@@ -57,8 +57,11 @@ use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Responses\FiltersManager;
 use Nova\Foundation\View\Compilers\BladeCompiler;
-use Nova\Foundation\View\Components\EmailLayout;
 use Nova\Foundation\View\Components\Tips;
+use Nova\Foundation\View\Layouts\AdminLayout;
+use Nova\Foundation\View\Layouts\AuthLayout;
+use Nova\Foundation\View\Layouts\EmailLayout;
+use Nova\Foundation\View\Layouts\PublicLayout;
 use Nova\Navigation\Models\Navigation;
 use Nova\Pages\Blocks;
 use Nova\Pages\Models\Page;
@@ -191,8 +194,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Blade::anonymousComponentPath(resource_path('views/public-components'), 'public');
 
-        Blade::component('tips', Tips::class);
+        Blade::component('admin-layout', AdminLayout::class);
+        Blade::component('auth-layout', AuthLayout::class);
         Blade::component('email-layout', EmailLayout::class);
+        Blade::component('public-layout', PublicLayout::class);
+
+        Blade::component('tips', Tips::class);
 
         Blade::directive('icon', [NovaBladeDirectives::class, 'icon']);
         Blade::directive('novaAdminScripts', [NovaBladeDirectives::class, 'novaAdminScripts']);

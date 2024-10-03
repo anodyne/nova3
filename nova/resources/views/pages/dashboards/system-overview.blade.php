@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
             <livewire:nova-update-panel />
@@ -211,4 +209,4 @@
             </x-panel>
         </div>
     </div>
-@endsection
+</x-admin-layout>

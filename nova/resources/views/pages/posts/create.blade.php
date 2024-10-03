@@ -1,5 +1,3 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <livewire:posts-write />
-@endsection
+</x-admin-layout>

@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
             <div x-data="{}">
@@ -13,4 +11,4 @@
     </x-page-header>
 
     <livewire:settings-notification-types-list />
-@endsection
+</x-admin-layout>

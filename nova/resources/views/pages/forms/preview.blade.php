@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
             <x-slot name="actions">
@@ -40,11 +38,5 @@
         @else
             <livewire:dynamic-form :form="$form" />
         @endif
-
-        {{--
-            <x-form.dynamic :admin="$theme === 'admin'">
-            {!! scribble($form->fields ?? ['content' => null])->toHtml() !!}
-            </x-form.dynamic>
-        --}}
     </x-spacing>
-@endsection
+</x-admin-layout>

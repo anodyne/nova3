@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <livewire:themes-list />
 
     <div class="mx-auto mt-16 w-full max-w-2xl">
@@ -17,4 +15,4 @@
             </div>
         </x-panel.primary>
     </div>
-@endsection
+</x-admin-layout>

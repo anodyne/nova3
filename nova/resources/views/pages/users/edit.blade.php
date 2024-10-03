@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
             <x-slot name="actions">
@@ -247,4 +245,4 @@
             </x-form>
         </div>
     </x-spacing>
-@endsection
+</x-admin-layout>

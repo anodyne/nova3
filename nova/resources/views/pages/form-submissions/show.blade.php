@@ -1,15 +1,11 @@
-@extends($meta->template)
-
-@use('Nova\Departments\Models\Position')
-
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
-            <x-slot name="actions">
-                @can('viewAny', $submission::class)
+            @can('viewAny', $submission::class)
+                <x-slot name="actions">
                     <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
+                </x-slot>
+            @endcan
         </x-page-header>
 
         <x-form action="">
@@ -53,4 +49,4 @@
             </x-fieldset>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

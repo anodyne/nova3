@@ -1,10 +1,8 @@
-@extends($meta->template)
-
 @use('Illuminate\Support\Js')
 @use('Nova\Forms\Enums\FormType')
 @use('Nova\Forms\Models\Form')
 
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
             <x-slot name="actions">
@@ -164,4 +162,4 @@
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

@@ -6,8 +6,10 @@ namespace Nova\Foundation\Responses;
 
 use BadMethodCallException;
 use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Nova\Foundation\Concerns\SetSEOValues;
 use Nova\Menus\Models\Menu;
@@ -28,8 +30,6 @@ abstract class Responsable implements LaravelResponsable
     protected $app;
 
     protected array $data = [];
-
-    protected array $seoData = [];
 
     protected $output;
 
@@ -62,9 +62,6 @@ abstract class Responsable implements LaravelResponsable
         $this->theme = app('nova.theme');
     }
 
-    /**
-     * Handle preparing the data to be used by the view.
-     */
     public function prepareData(): array
     {
         return app(Pipeline::class)
@@ -73,18 +70,16 @@ abstract class Responsable implements LaravelResponsable
             ->then(fn ($data) => $data->all());
     }
 
-    public function layout(): string
+    public function layout(): ?string
     {
         if ($this->page->layout === 'public') {
-            return 'layouts.public';
+            return 'layouts.theme';
         }
 
-        $layout = $this->layout ?? $this->theme->getPageLayout($this->page);
-
-        return "layouts.{$layout}";
+        return null;
     }
 
-    public function subnav(): mixed
+    public function subnav(): ?string
     {
         if ($this->subnav) {
             return "subnavs.{$this->subnav}";
@@ -93,19 +88,7 @@ abstract class Responsable implements LaravelResponsable
         return null;
     }
 
-    public function template(): string
-    {
-        $template = $this->template ?? 'simple';
-
-        return "templates.{$template}";
-    }
-
-    /**
-     * Render the response.
-     *
-     * @return string
-     */
-    public function render()
+    public function render(): ViewContract
     {
         $data = array_merge_recursive(
             $this->prepareData(),
@@ -114,10 +97,8 @@ abstract class Responsable implements LaravelResponsable
 
         $meta = new ResponseMeta(
             layout: $this->layout(),
-            structure: $this->page->layout === 'public' ? 'public' : 'app',
             subnav: $this->subnav(),
             subnavSection: $this->subnav,
-            template: $this->template(),
             menu: $this->page->layout === 'public' ? Menu::with('items.page', 'items.items')->public()->first() : null,
             pageHeading: $this->page->heading,
             pageSubheading: $this->page->subheading,
@@ -126,15 +107,18 @@ abstract class Responsable implements LaravelResponsable
 
         app()->instance('nova.meta', $meta);
 
+        View::share('meta', $meta);
+        View::share('settings', settings());
+
         $this->setSEOValues();
 
-        return view(
-            "pages.{$this->view}",
-            array_merge(['meta' => $meta], $data)
-        );
+        return view("pages.{$this->view}", array_merge($data, [
+            'subnav' => $this->subnav,
+            'meta' => $meta,
+        ]));
     }
 
-    public function toResponse($request)
+    public function toResponse($request): Response
     {
         if ($request->expectsJson()) {
             return response()->json($this->data, Response::HTTP_OK);
@@ -143,13 +127,6 @@ abstract class Responsable implements LaravelResponsable
         return response($this->render(), Response::HTTP_OK);
     }
 
-    /**
-     * Any data that should be sent with the response.
-     *
-     * @param  array  $data
-     * @param  mixed  $key
-     * @param  null|mixed  $value
-     */
     public function with($key, $value = null): self
     {
         if (is_array($key)) {
@@ -161,14 +138,6 @@ abstract class Responsable implements LaravelResponsable
         return $this;
     }
 
-    /**
-     * Dynamically bind parameters to the response.
-     *
-     * @param  string  $method
-     * @param  array  $parameters
-     *
-     * @throws \BadMethodCallException
-     */
     public function __call($method, $parameters): self
     {
         if (! Str::startsWith($method, 'with')) {

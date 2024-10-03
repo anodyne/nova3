@@ -1,6 +1,4 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
             <x-slot name="actions">
@@ -8,13 +6,13 @@
                     <x-button :href="route('admin.positions.index', 'department='.$position->department->id)" plain>
                         &larr; Back
                     </x-button>
+                @endcan
 
-                    @can('update', $position)
-                        <x-button :href="route('admin.positions.edit', $position)" color="primary">
-                            <x-icon name="edit" size="sm"></x-icon>
-                            Edit
-                        </x-button>
-                    @endcan
+                @can('update', $position)
+                    <x-button :href="route('admin.positions.edit', $position)" color="primary">
+                        <x-icon name="edit" size="sm"></x-icon>
+                        Edit
+                    </x-button>
                 @endcan
             </x-slot>
         </x-page-header>
@@ -163,4 +161,4 @@
             </x-fieldset>
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>

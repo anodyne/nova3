@@ -26,8 +26,8 @@
         --}}
         @can('viewAny', Spatie\Activitylog\Models\Activity::class)
             <x-sidebar.subnav.item
-                href="{{ route('admin.activity-log.index') }}"
-                :active="request()->routeIs('activity-log.*')"
+                :href="route('admin.activity-log.index')"
+                :active="request()->routeIs('admin.activity-log.*')"
             >
                 Activity log
             </x-sidebar.subnav.item>

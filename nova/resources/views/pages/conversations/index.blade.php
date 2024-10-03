@@ -1,5 +1,3 @@
-@extends($meta->template)
-
-@section('content')
+<x-admin-layout>
     <livewire:conversations-list />
-@endsection
+</x-admin-layout>

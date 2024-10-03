@@ -1,8 +1,6 @@
-@extends($meta->template)
-
 @use('Nova\Pages\Models\Page')
 
-@section('content')
+<x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
             <x-slot name="actions">
@@ -103,4 +101,4 @@
             @endif
         </x-form>
     </x-spacing>
-@endsection
+</x-admin-layout>
