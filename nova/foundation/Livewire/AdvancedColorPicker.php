@@ -76,7 +76,7 @@ class AdvancedColorPicker extends Component
         }
 
         if (filled($this->color) && filled($this->shade)) {
-            $this->state = Rgb::fromString(sprintf('rgb(%s)', $this->colors[$this->color][$this->shade]))->toHex();
+            $this->state = (string) Rgb::fromString(sprintf('rgb(%s)', $this->colors[$this->color][$this->shade]))->toHex();
         }
     }
 }
