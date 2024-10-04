@@ -16,11 +16,11 @@ class MigrateNova extends Component
     public function mount()
     {
         if (filled(config('database.connections.nova2.database'))) {
-            $this->status = NovaMigrateStatus::databaseConfigured;
+            $this->status = NovaMigrateStatus::DatabaseConfigured;
         }
 
         if (User::whereHas('roles', fn (Builder $query) => $query->whereIn('name', ['owner', 'admin']))->count() > 0) {
-            $this->status = NovaMigrateStatus::userAccessUpdated;
+            $this->status = NovaMigrateStatus::UserAccessUpdated;
         }
     }
 

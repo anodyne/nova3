@@ -19,13 +19,21 @@ class Database
     public function __construct()
     {
         try {
-            $this->driver = DB::connection()->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME);
-            $this->version = DB::connection()->getPdo()->getAttribute(PDO::ATTR_SERVER_VERSION);
+            $pdo = DB::connection()->getPdo();
+
+            $this->version = $pdo->getAttribute(PDO::ATTR_SERVER_VERSION);
+
+            if (str($this->version)->contains('mariadb', ignoreCase: true)) {
+                $this->driver = 'mariadb';
+                $this->hasMysql = false;
+            } else {
+                $this->driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+                $this->hasMysql = in_array('mysql', PDO::getAvailableDrivers());
+            }
         } catch (Throwable $th) {
             //throw $th;
+            $this->hasMysql = in_array('mysql', PDO::getAvailableDrivers());
         }
-
-        $this->hasMysql = in_array('mysql', PDO::getAvailableDrivers());
     }
 
     public function driverName(): string
@@ -38,6 +46,16 @@ class Database
             'sqlite' => 'SQLite',
             default => 'unknown'
         };
+    }
+
+    public function versionNumber(): string
+    {
+        return str($this->version)->before('-')->toString();
+    }
+
+    public function platform(): string
+    {
+        return sprintf('%s %s', $this->driverName(), $this->versionNumber());
     }
 
     public function fails(): bool

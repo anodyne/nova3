@@ -6,29 +6,29 @@ namespace Nova\Setup\Enums;
 
 enum NovaMigrateStatus: string
 {
-    case alreadyMigrated = 'already-migrated';
+    case AlreadyMigrated = 'already-migrated';
 
-    case databaseConfigured = 'database-configured';
+    case DatabaseConfigured = 'database-configured';
 
-    case dataMigrated = 'data-migrated';
+    case DataMigrated = 'data-migrated';
 
-    case dataPartiallyMigrated = 'data-partially-migrated';
+    case DataPartiallyMigrated = 'data-partially-migrated';
 
-    case failed = 'failed';
+    case Failed = 'failed';
 
-    case success = 'success';
+    case Success = 'success';
 
-    case userAccessUpdated = 'user-access-updated';
+    case UserAccessUpdated = 'user-access-updated';
 
     public function isDatabaseConfigured(): bool
     {
         return match ($this) {
-            self::alreadyMigrated => true,
-            self::databaseConfigured => true,
-            self::dataMigrated => true,
-            self::dataPartiallyMigrated => true,
-            self::userAccessUpdated => true,
-            self::success => true,
+            self::AlreadyMigrated => true,
+            self::DatabaseConfigured => true,
+            self::DataMigrated => true,
+            self::DataPartiallyMigrated => true,
+            self::UserAccessUpdated => true,
+            self::Success => true,
             default => false,
         };
     }
@@ -36,10 +36,10 @@ enum NovaMigrateStatus: string
     public function isDataMigrated(): bool
     {
         return match ($this) {
-            self::alreadyMigrated => true,
-            self::dataMigrated => true,
-            self::dataPartiallyMigrated => true,
-            self::success => true,
+            self::AlreadyMigrated => true,
+            self::DataMigrated => true,
+            self::DataPartiallyMigrated => true,
+            self::Success => true,
             default => false,
         };
     }
@@ -47,7 +47,7 @@ enum NovaMigrateStatus: string
     public function isUserAccessUpdated(): bool
     {
         return match ($this) {
-            self::alreadyMigrated, self::userAccessUpdated, self::success => true,
+            self::AlreadyMigrated, self::UserAccessUpdated, self::Success => true,
             default => false,
         };
     }
@@ -55,7 +55,7 @@ enum NovaMigrateStatus: string
     public function isSettingsUpdated(): bool
     {
         return match ($this) {
-            self::success => true,
+            self::Success => true,
             default => false,
         };
     }

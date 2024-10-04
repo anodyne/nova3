@@ -1,7 +1,8 @@
 @php
+    use Nova\Foundation\Environment\Environment;
     use Nova\Setup\Enums\DatabaseConfigStatus;
 
-    $e = nova()->environment();
+    $e = Environment::make();
 @endphp
 
 <x-spacing size="sm" class="grid grid-cols-4 gap-4">
@@ -16,14 +17,14 @@
                 <x-icon name="tabler-database-cog" size="xl" class="text-gray-500"></x-icon>
             </div>
             <div class="flex-1">
-                @if ($status === DatabaseConfigStatus::incompatibleVersion)
+                @if ($status === DatabaseConfigStatus::IncompatibleVersion)
                     <x-h4>Incompatible database version</x-h4>
 
                     <p class="mt-1 text-sm font-normal text-gray-500">
                         Your database server is running MySQL {{ $e->database->version }}, but Nova requires MySQL 8.0
                         or higher. Please contact your web host for assistance with fixing this issue.
                     </p>
-                @elseif ($status === DatabaseConfigStatus::incompatibleDriver)
+                @elseif ($status === DatabaseConfigStatus::IncompatibleDriver)
                     <x-h4>Incompatible database driver</x-h4>
 
                     <p class="mt-1 text-sm font-normal text-gray-500">
@@ -37,8 +38,8 @@
         </div>
     </div>
     <div class="flex justify-end">
-        @if ($status === DatabaseConfigStatus::incompatibleVersion ||
-             $status === DatabaseConfigStatus::incompatibleDriver)
+        @if ($status === DatabaseConfigStatus::IncompatibleVersion ||
+             $status === DatabaseConfigStatus::IncompatibleDriver)
             <x-icon name="tabler-circle-x" class="text-danger-500" size="xl"></x-icon>
         @else
             <x-icon name="tabler-circle-check" class="text-primary-500" size="xl"></x-icon>

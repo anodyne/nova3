@@ -4,17 +4,17 @@
     <header class="mx-auto max-w-2xl space-y-6 text-center">
         <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Connect to your database</h1>
 
-        @if ($status === DatabaseConfigStatus::alreadyConfigured)
+        @if ($status === DatabaseConfigStatus::AlreadyConfigured)
             <p class="text-lg/8 text-gray-600">
                 It looks like you’ve already configured your database connection. Next we’ll install Nova and all of its
                 data.
             </p>
-        @elseif ($status === DatabaseConfigStatus::failedToWriteEnv)
+        @elseif ($status === DatabaseConfigStatus::FailedToWriteEnv)
             <p class="text-lg/8 text-gray-600">
                 We weren’t able to write your database credentials to the config file. Follow the instructions below to
                 ensure Nova can connect to your database.
             </p>
-        @elseif ($status === DatabaseConfigStatus::failedToVerify)
+        @elseif ($status === DatabaseConfigStatus::FailedToVerify)
             <p class="text-lg/8 text-gray-600">
                 We weren’t able to verify your database connection using the values we saved to the config file. Either
                 the file was not saved correctly or your database is unavailable right now.
@@ -154,7 +154,7 @@
         </div>
     @endif
 
-    @if ($status === DatabaseConfigStatus::success || $status === DatabaseConfigStatus::alreadyConfigured)
+    @if ($status === DatabaseConfigStatus::Success || $status === DatabaseConfigStatus::AlreadyConfigured)
         <div class="flex items-center justify-center">
             <x-button.setup :href="url('setup/install')" leading="tabler-sparkles">Install Nova</x-button.setup>
         </div>
@@ -162,8 +162,8 @@
 
     @if ($shouldShowManualInstructions)
         <div class="mx-auto grid max-w-4xl grid-cols-2 gap-12 text-gray-600">
-            @includeWhen($status === DatabaseConfigStatus::failedToWriteEnv, 'setup.configure-database._manual-save')
-            @includeWhen($status === DatabaseConfigStatus::failedToVerify, 'setup.configure-database._manual-verify')
+            @includeWhen($status === DatabaseConfigStatus::FailedToWriteEnv, 'setup.configure-database._manual-save')
+            @includeWhen($status === DatabaseConfigStatus::FailedToVerify, 'setup.configure-database._manual-verify')
 
             <div
                 x-data="{

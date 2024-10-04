@@ -144,7 +144,7 @@
                                 <x-icon name="tabler-database" size="lg"></x-icon>
                                 <x-fieldset.label>Database</x-fieldset.label>
                                 <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ app('nova.environment')->database->driverName().' '.app('nova.environment')->database->version }}
+                                    {{ app('nova.environment')->database->platform() }}
                                 </p>
                             </div>
 
