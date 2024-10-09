@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Nova\Applications\Models\Application;
 use Nova\Characters\Data\CharacterData;
 use Nova\Characters\Enums\CharacterType;
@@ -44,6 +45,7 @@ class Character extends Model implements HasMedia
     use HasStates;
     use InteractsWithMedia;
     use LogsActivity;
+    use Searchable;
     use SoftDeletes;
     use WithData;
 
@@ -216,5 +218,19 @@ class Character extends Model implements HasMedia
     public static function getMediaPath(): string
     {
         return 'characters/{model_id}/{media_id}/';
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'prefixed_id' => $this->prefixed_id,
+            'name' => $this->name,
+        ];
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return ! $this->is_pending;
     }
 }

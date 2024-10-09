@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Laravel\Scout\Searchable;
 use Nova\Foundation\Casts\DateTimeCast;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Media\Concerns\InteractsWithMedia;
@@ -35,6 +36,7 @@ class Story extends Model implements HasMedia, Sortable
     use HasStates;
     use InteractsWithMedia;
     use LogsActivity;
+    use Searchable;
     use SortableTrait;
     use WithData;
 
@@ -205,5 +207,15 @@ class Story extends Model implements HasMedia, Sortable
         return StoryStatus\StoryStatus::all()
             ->flatMap(fn (string $className): array => [new $className($model)])
             ->sortBy(fn (StoryStatus\StoryStatus $status) => $status->order());
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'prefixed_id' => $this->prefixed_id,
+            'title' => $this->title,
+            'description' => $this->description,
+        ];
     }
 }

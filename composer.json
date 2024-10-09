@@ -29,6 +29,7 @@
         "laravel/framework": "^11.0",
         "laravel/pulse": "^1.2",
         "laravel/sanctum": "^4.0",
+        "laravel/scout": "^10.11",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^3.4",
         "lorisleiva/laravel-actions": "^2.1",
@@ -50,6 +51,7 @@
         "symfony/http-client": "^7.0",
         "symfony/mailgun-mailer": "^7.0",
         "symfony/postmark-mailer": "^7.0",
+        "teamtnt/laravel-scout-tntsearch-driver": "^14.0",
         "wire-elements/modal": "^2.0",
         "wire-elements/spotlight": "^2.0"
     },
