@@ -32,7 +32,7 @@ trait InteractsWithEnvFile
                 ]);
 
                 if (! $write) {
-                    $this->status = DatabaseConfigStatus::failedToWriteEnv;
+                    $this->status = DatabaseConfigStatus::FailedToWriteEnv;
 
                     return;
                 }
@@ -48,7 +48,7 @@ trait InteractsWithEnvFile
                 ]);
             }
         } else {
-            $this->status = DatabaseConfigStatus::failedToWriteEnv;
+            $this->status = DatabaseConfigStatus::FailedToWriteEnv;
         }
     }
 

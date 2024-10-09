@@ -6,9 +6,9 @@ namespace Nova\Setup\Enums;
 
 enum NovaInstallStatus: string
 {
-    case alreadyInstalled = 'already-installed';
+    case AlreadyInstalled = 'already-installed';
 
-    case failed = 'failed';
+    case Failed = 'failed';
 
-    case success = 'success';
+    case Success = 'success';
 }

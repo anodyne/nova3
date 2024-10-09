@@ -34,6 +34,9 @@
                 // Active
                 'active:bg-gray-950/5 data-[slot=icon]:*:active:text-gray-950',
 
+                // Focus
+                'focus:outline-none',
+
                 // Dark mode
                 'dark:text-white dark:data-[slot=icon]:*:text-gray-400',
                 'dark:hover:bg-white/5 dark:data-[slot=icon]:*:hover:text-white',

@@ -6,19 +6,19 @@ namespace Nova\Setup\Enums;
 
 enum DatabaseConfigStatus: string
 {
-    case alreadyConfigured = 'already-configured';
+    case AlreadyConfigured = 'already-configured';
 
-    case failedToVerify = 'failed-to-verify';
+    case FailedToVerify = 'failed-to-verify';
 
-    case failedToWriteEnv = 'failed-to-write-env';
+    case FailedToWriteEnv = 'failed-to-write-env';
 
-    case failure = 'failure';
+    case Failure = 'failure';
 
-    case incompatibleDriver = 'incompatible-driver';
+    case IncompatibleDriver = 'incompatible-driver';
 
-    case incompatibleVersion = 'incompatible-version';
+    case IncompatibleVersion = 'incompatible-version';
 
-    case notConfigured = 'not-configured';
+    case NotConfigured = 'not-configured';
 
-    case success = 'success';
+    case Success = 'success';
 }

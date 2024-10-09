@@ -62,7 +62,7 @@ class ConfigureDatabase extends Component
 
             $this->verifyDatabaseVersionCompatibility();
 
-            $this->status = DatabaseConfigStatus::success;
+            // $this->status = DatabaseConfigStatus::Success;
         } catch (ValidationException $ex) {
             if ($ex->validator->errors()->hasAny(['host', 'port', 'socket'])) {
                 $this->dispatch('advanced-settings-validation-error');
@@ -93,12 +93,12 @@ class ConfigureDatabase extends Component
     public function shouldShowForm(): bool
     {
         return match ($this->status) {
-            DatabaseConfigStatus::failedToVerify => false,
-            DatabaseConfigStatus::failedToWriteEnv => false,
-            DatabaseConfigStatus::incompatibleDriver => false,
-            DatabaseConfigStatus::incompatibleVersion => false,
-            DatabaseConfigStatus::alreadyConfigured => false,
-            DatabaseConfigStatus::success => false,
+            DatabaseConfigStatus::FailedToVerify => false,
+            DatabaseConfigStatus::FailedToWriteEnv => false,
+            DatabaseConfigStatus::IncompatibleDriver => false,
+            DatabaseConfigStatus::IncompatibleVersion => false,
+            DatabaseConfigStatus::AlreadyConfigured => false,
+            DatabaseConfigStatus::Success => false,
             default => true,
         };
     }
@@ -107,8 +107,8 @@ class ConfigureDatabase extends Component
     public function shouldShowManualInstructions(): bool
     {
         return match ($this->status) {
-            DatabaseConfigStatus::failedToWriteEnv => true,
-            DatabaseConfigStatus::failedToVerify => true,
+            DatabaseConfigStatus::FailedToWriteEnv => true,
+            DatabaseConfigStatus::FailedToVerify => true,
             default => false,
         };
     }
@@ -117,9 +117,9 @@ class ConfigureDatabase extends Component
     public function shouldShowSuccessTable(): bool
     {
         return match ($this->status) {
-            DatabaseConfigStatus::incompatibleDriver => true,
-            DatabaseConfigStatus::incompatibleVersion => true,
-            DatabaseConfigStatus::success => true,
+            DatabaseConfigStatus::IncompatibleDriver => true,
+            DatabaseConfigStatus::IncompatibleVersion => true,
+            DatabaseConfigStatus::Success => true,
             default => false,
         };
     }
@@ -129,7 +129,7 @@ class ConfigureDatabase extends Component
         try {
             $this->verifyDatabaseConnection();
 
-            $this->status = DatabaseConfigStatus::alreadyConfigured;
+            $this->status = DatabaseConfigStatus::AlreadyConfigured;
         } catch (Throwable $th) {
             //throw $th;
         }
@@ -202,7 +202,7 @@ class ConfigureDatabase extends Component
             DB::reconnect($connection)->getPdo();
         } catch (Throwable $th) {
             if ($this->status !== null) {
-                $this->status = DatabaseConfigStatus::failedToVerify;
+                $this->status = DatabaseConfigStatus::FailedToVerify;
             }
 
             throw $th;
@@ -213,14 +213,28 @@ class ConfigureDatabase extends Component
     {
         $pdo = DB::connection()->getPdo();
 
-        $this->status = DatabaseConfigStatus::success;
+        $this->status = DatabaseConfigStatus::Success;
 
-        if (version_compare('8.0', $pdo->getAttribute(PDO::ATTR_SERVER_VERSION), '>')) {
-            $this->status = DatabaseConfigStatus::incompatibleVersion;
+        if (version_compare('8.0', $this->getPdoVersion($pdo), '>')) {
+            $this->status = DatabaseConfigStatus::IncompatibleVersion;
         }
 
-        if (strtolower($pdo->getAttribute(PDO::ATTR_DRIVER_NAME)) !== 'mysql') {
-            $this->status = DatabaseConfigStatus::incompatibleDriver;
+        if ($this->getPdoDriver($pdo) !== 'mysql') {
+            $this->status = DatabaseConfigStatus::IncompatibleDriver;
         }
+    }
+
+    protected function getPdoVersion(PDO $pdo): ?string
+    {
+        return str($pdo->getAttribute(PDO::ATTR_SERVER_VERSION))->before('-')->toString();
+    }
+
+    protected function getPdoDriver(PDO $pdo): ?string
+    {
+        if (str($pdo->getAttribute(PDO::ATTR_SERVER_VERSION))->contains('mariadb', ignoreCase: true)) {
+            return 'mariadb';
+        }
+
+        return strtolower($pdo->getAttribute(PDO::ATTR_DRIVER_NAME));
     }
 }

@@ -62,7 +62,7 @@
                             </x-sidebar.section>
 
                             <x-sidebar.section>
-                                <x-sidebar.item href="#">
+                                <x-sidebar.item type="button" x-on:click="$dispatch('toggle-search')">
                                     <x-icon name="search"></x-icon>
                                     <x-sidebar.label>Search</x-sidebar.label>
                                 </x-sidebar.item>
@@ -544,7 +544,7 @@
                         <x-navbar.spacer></x-navbar.spacer>
 
                         <x-navbar.section>
-                            <x-navbar.item>
+                            <x-navbar.item type="button" x-on:click="$dispatch('toggle-search')">
                                 <x-icon name="search"></x-icon>
                             </x-navbar.item>
 
@@ -638,6 +638,7 @@
         @livewire('notifications')
         @livewire('scribble.renderer')
         @livewire('scribble.modals')
+        @livewire('global-search')
 
         {{ NovaView::renderHook('admin::scripts.before') }}
 

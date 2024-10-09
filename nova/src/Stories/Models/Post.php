@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laravel\Scout\Searchable;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Stories\Data\PostData;
@@ -30,6 +31,7 @@ class Post extends Model implements Sortable
     use HasPrefixedId;
     use HasStates;
     use LogsActivity;
+    use Searchable;
     use SortableTrait;
     use WithData;
 
@@ -276,5 +278,20 @@ class Post extends Model implements Sortable
             ->setDescriptionForEvent(
                 fn (string $eventName): string => ":subject.title post was {$eventName}"
             );
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'prefixed_id' => $this->prefixed_id,
+            'title' => $this->title,
+            'content' => $this->content,
+        ];
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return $this->is_published;
     }
 }

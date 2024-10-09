@@ -7,6 +7,7 @@ namespace Nova\Announcements\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Scout\Searchable;
 use Nova\Announcements\Events;
 use Nova\Announcements\Models\Builders\AnnouncementBuilder;
 use Nova\Users\Models\User;
@@ -15,6 +16,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 class Announcement extends Model
 {
     use HasPrefixedId;
+    use Searchable;
 
     protected $fillable = [
         'title',
@@ -54,5 +56,16 @@ class Announcement extends Model
     public function newEloquentBuilder($query): AnnouncementBuilder
     {
         return new AnnouncementBuilder($query);
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'prefixed_id' => $this->prefixed_id,
+            'title' => $this->title,
+            'category' => $this->category,
+            'content' => $this->content,
+        ];
     }
 }

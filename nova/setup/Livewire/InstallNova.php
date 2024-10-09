@@ -34,11 +34,11 @@ class InstallNova extends Component
 
             // $this->updateSettings();
 
-            $this->status = NovaInstallStatus::success;
+            $this->status = NovaInstallStatus::Success;
         } catch (Throwable $th) {
             $this->errorMessage = $th->getMessage();
 
-            $this->status = NovaInstallStatus::failed;
+            $this->status = NovaInstallStatus::Failed;
 
             throw $th;
         }
@@ -48,8 +48,8 @@ class InstallNova extends Component
     public function shouldShowForm(): bool
     {
         return match ($this->status) {
-            NovaInstallStatus::alreadyInstalled => false,
-            NovaInstallStatus::success => false,
+            NovaInstallStatus::AlreadyInstalled => false,
+            NovaInstallStatus::Success => false,
             default => true,
         };
     }
@@ -58,8 +58,8 @@ class InstallNova extends Component
     public function shouldShowSuccessTable(): bool
     {
         return match ($this->status) {
-            NovaInstallStatus::alreadyInstalled => true,
-            NovaInstallStatus::success => true,
+            NovaInstallStatus::AlreadyInstalled => true,
+            NovaInstallStatus::Success => true,
             default => false,
         };
     }
@@ -71,7 +71,7 @@ class InstallNova extends Component
         }
 
         if (Nova::isInstalled()) {
-            $this->status = NovaInstallStatus::alreadyInstalled;
+            $this->status = NovaInstallStatus::AlreadyInstalled;
         }
     }
 

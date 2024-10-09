@@ -1,7 +1,3 @@
-@php
-    use Nova\Setup\Enums\NovaInstallStatus;
-@endphp
-
 <div class="mx-auto max-w-7xl space-y-16">
     <header class="mx-auto max-w-2xl space-y-6 text-center">
         <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Install Nova</h1>
