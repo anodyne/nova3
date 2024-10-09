@@ -89,6 +89,8 @@ class EnvWriter
 
     protected function loadEnvContent()
     {
+        $this->isEnvWritable();
+
         $this->envFileContents = File::get($this->envFilePath());
     }
 }
