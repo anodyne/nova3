@@ -36,6 +36,9 @@
                 // Active
                 'active:bg-gray-950/5 data-[slot=icon]:*:active:text-gray-950',
 
+                // Focus
+                'focus:outline-none',
+
                 // Current
                 'data-[current]:bg-gray-950/5 data-[slot=icon]:*:data-[current]:text-gray-950',
                 'dark:data-[current]:bg-white/5 dark:data-[slot=icon]:*:data-[current]:text-white',
