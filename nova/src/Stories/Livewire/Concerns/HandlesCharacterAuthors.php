@@ -23,6 +23,11 @@ trait HandlesCharacterAuthors
         $this->setCharacterPivotData();
     }
 
+    public function hydrateHandlesCharacterAuthors()
+    {
+        $this->characters->loadMissing('activeUsers');
+    }
+
     public function addCharacterAuthor(Character $character): void
     {
         $this->search = '';

@@ -7,6 +7,7 @@ namespace Nova\Stories\Livewire\Steps;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Livewire\Concerns\HandlesCharacterAuthors;
@@ -193,7 +194,7 @@ class SetupPostStep extends WizardStep
             ->withTrashed()
             ->where(function (Builder $query): Builder {
                 return $query->active()
-                    ->userHasAccess(auth()->user()->loadMissing('roles'))
+                    ->userHasAccess(Auth::user()->loadMissing('roles'))
                     ->orWhere('id', $this->postTypeId);
             })
             ->ordered()
@@ -257,7 +258,8 @@ class SetupPostStep extends WizardStep
             $this->updatedStoryId();
         }
 
-        $this->post = Post::firstOrNew(['id' => $this->postId])->loadMissing('characterAuthors', 'userAuthors');
+        $this->post = Post::firstOrNew(['id' => $this->postId])
+            ->loadMissing(['characterAuthors.activeUsers', 'userAuthors']);
 
         $this->characters = $this->post?->characterAuthors ?? Collection::make();
         $this->users = $this->post?->userAuthors ?? Collection::make();
