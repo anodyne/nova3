@@ -6,6 +6,7 @@ namespace Nova\Themes\Livewire;
 
 use Filament\Forms\Components\CheckboxList;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -41,6 +42,11 @@ class ThemesList extends TableComponent
                 TextColumn::make('location')
                     ->prefix('themes/')
                     ->searchable()
+                    ->toggleable(),
+                IconColumn::make('is_current_public_theme')
+                    ->label('Current theme')
+                    ->icon(fn (bool $state): ?string => $state ? iconName('check') : null)
+                    ->color(fn (bool $state): ?string => $state ? 'success' : null)
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
