@@ -68,10 +68,10 @@
                     'border-transparent text-gray-950 [--btn-icon:theme(colors.gray.500)] hover:bg-gray-950/5 hover:[--btn-icon:theme(colors.gray.700)] active:bg-gray-950/5 active:bg-gray-950/5 active:[--btn-icon:theme(colors.gray.700)] active:[--btn-icon:theme(colors.gray.700)] dark:text-white dark:[--btn-icon:theme(colors.gray.500)] dark:hover:bg-white/10 dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:bg-white/10 dark:active:bg-white/10 dark:active:[--btn-icon:theme(colors.gray.400)] dark:active:[--btn-icon:theme(colors.gray.400)]',
 
                     match ($color) {
-                        'primary', 'panda' => 'text-white [--btn-bg:theme(colors.primary.500)] [--btn-border:theme(colors.primary.600/80%)] [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/60%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)]',
-                        'danger' => 'text-white [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/60%)] [--btn-bg:theme(colors.danger.500)] [--btn-border:theme(colors.danger.600/80%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)]',
-                        'warning' => 'text-white [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.white/60%)] [--btn-bg:theme(colors.warning.500)] [--btn-border:theme(colors.warning.600/80%)] hover:[--btn-icon:theme(colors.white/80%)] active:[--btn-icon:theme(colors.white/80%)]',
-                        default => 'text-gray-950 [--btn-icon:theme(colors.gray.500)] [--btn-bg:white] [--btn-border:theme(colors.gray.950/10%)] [--btn-hover-overlay:theme(colors.gray.950/2.5%)] hover:[--btn-icon:theme(colors.gray.700)] hover:[--btn-border:theme(colors.gray.950/15%)] active:[--btn-icon:theme(colors.gray.700)] active:[--btn-border:theme(colors.gray.950/15%)] dark:text-white dark:[--btn-icon:theme(colors.gray.500)] dark:[--btn-bg:theme(colors.gray.800)] dark:[--btn-hover-overlay:theme(colors.white/5%)] dark:hover:[--btn-icon:theme(colors.gray.400)] dark:active:[--btn-icon:theme(colors.gray.400)]',
+                        'primary' => 'hover:text-primary-500',
+                        'danger' => 'hover:text-danger-500',
+                        'warning' => 'hover:text-warning-700 dark:hover:text-warning-400',
+                        default => 'hover:text-danger-950',
                     },
                 ]),
 
