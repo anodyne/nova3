@@ -1,13 +1,15 @@
 <x-admin-layout>
     <x-spacing class="relative" x-data="tabsList('details')">
         @if ($story->hasMedia('story-image'))
-            <div class="rounded-2xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10">
-                <img
-                    src="{{ $story->getFirstMediaUrl('story-image') }}"
-                    alt=""
-                    class="max-h-96 w-full rounded-lg object-cover shadow-2xl ring-1 ring-gray-900/10"
-                />
-            </div>
+            <x-panel well>
+                <x-panel>
+                    <img
+                        src="{{ $story->getFirstMediaUrl('story-image') }}"
+                        alt=""
+                        class="max-h-96 w-full rounded-lg object-cover"
+                    />
+                </x-panel>
+            </x-panel>
         @endif
 
         <x-page-header class="mt-6" :heading="$story->title">
