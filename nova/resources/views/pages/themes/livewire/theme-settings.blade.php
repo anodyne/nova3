@@ -1,9 +1,16 @@
 <div x-data="{ open: false }" x-on:theme-settings-close="open = false" class="leading-none">
-    <x-button x-on:click.prevent="open = true" text>
-        <span class="shrink-0">
-            <x-icon name="settings" size="md"></x-icon>
-        </span>
-    </x-button>
+    @if ($iconTrigger)
+        <x-button x-on:click.prevent="open = true" text>
+            <span class="shrink-0">
+                <x-icon name="settings" size="md"></x-icon>
+            </span>
+        </x-button>
+    @else
+        <x-button x-on:click.prevent="open = true">
+            <x-icon name="settings" size="sm"></x-icon>
+            Theme settings
+        </x-button>
+    @endif
 
     <div
         x-on:sidebar-open.window="open = true"
