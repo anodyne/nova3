@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -38,6 +39,13 @@ class Theme extends Model
         'deleted' => Events\ThemeDeleted::class,
         'updated' => Events\ThemeUpdated::class,
     ];
+
+    public function isCurrentPublicTheme(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => settings('appearance.theme') === $this->location
+        );
+    }
 
     public function themeClass(): BaseTheme
     {

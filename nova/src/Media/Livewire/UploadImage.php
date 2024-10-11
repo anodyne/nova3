@@ -6,6 +6,7 @@ namespace Nova\Media\Livewire;
 
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -14,6 +15,7 @@ class UploadImage extends Component
 {
     use WithFileUploads;
 
+    #[Locked]
     public ?Model $model = null;
 
     public ?string $modelAttribute = null;

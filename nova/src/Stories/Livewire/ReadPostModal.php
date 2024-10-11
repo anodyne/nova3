@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Livewire\Attributes\Locked;
 use LivewireUI\Modal\ModalComponent;
 use Nova\Stories\Models\Post;
 
 class ReadPostModal extends ModalComponent
 {
+    #[Locked]
     public Post $post;
 
     /**

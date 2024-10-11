@@ -6,6 +6,7 @@ namespace Nova\Applications\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use LivewireUI\Modal\ModalComponent;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview;
@@ -18,10 +19,13 @@ use Nova\Users\Models\User;
 
 class ApplicationReviewModal extends ModalComponent
 {
+    #[Locked]
     public Application $application;
 
+    #[Locked]
     public ?User $user = null;
 
+    #[Locked]
     public ?ApplicationReview $review;
 
     public ApplicationReviewForm $form;
@@ -35,6 +39,8 @@ class ApplicationReviewModal extends ModalComponent
 
     public function save(): void
     {
+        $this->authorize('vote', $this->application);
+
         $this->form->save();
 
         if (filled($this->applicationReviewForm->published_fields)) {
@@ -66,6 +72,8 @@ class ApplicationReviewModal extends ModalComponent
 
     public function mount()
     {
+        $this->authorize('vote', $this->application);
+
         $this->review = $this->application->reviews()
             ->wherePivot('user_id', $this->owner->id)
             ->first()->pivot;

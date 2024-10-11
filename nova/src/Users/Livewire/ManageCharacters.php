@@ -7,6 +7,7 @@ namespace Nova\Users\Livewire;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
@@ -15,6 +16,7 @@ class ManageCharacters extends Component
 {
     public string $search = '';
 
+    #[Locked]
     public ?User $user = null;
 
     public Collection $assigned;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
+use Livewire\Attributes\Locked;
 use LivewireUI\Modal\ModalComponent;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
@@ -11,6 +12,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 
 class ApplicationDecisionModal extends ModalComponent
 {
+    #[Locked]
     public Application $application;
 
     public ApplicationDecisionForm $form;
@@ -22,6 +24,8 @@ class ApplicationDecisionModal extends ModalComponent
 
     public function save(): void
     {
+        $this->authorize('decide', $this->application);
+
         $this->form->save();
 
         $notification = match ($this->form->result) {
@@ -38,6 +42,8 @@ class ApplicationDecisionModal extends ModalComponent
 
     public function mount()
     {
+        $this->authorize('decide', $this->application);
+
         $this->form->setApplication($this->application);
     }
 

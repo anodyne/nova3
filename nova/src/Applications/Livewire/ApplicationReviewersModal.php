@@ -6,6 +6,7 @@ namespace Nova\Applications\Livewire;
 
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use LivewireUI\Modal\ModalComponent;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Notifications\ApplicationReadyForReview;
@@ -14,6 +15,7 @@ use Nova\Users\Models\User;
 
 class ApplicationReviewersModal extends ModalComponent
 {
+    #[Locked]
     public Application $application;
 
     public array $selectedReviewers = [];
@@ -25,6 +27,8 @@ class ApplicationReviewersModal extends ModalComponent
 
     public function save(): void
     {
+        $this->authorize('decide', $this->application);
+
         $changes = $this->application->reviews()->sync($this->selectedReviewers);
 
         User::query()
@@ -51,6 +55,8 @@ class ApplicationReviewersModal extends ModalComponent
 
     public function mount()
     {
+        $this->authorize('decide', $this->application);
+
         $this->selectedReviewers = $this->application->reviews
             ->flatMap(fn (User $user) => [(string) $user->id])
             ->all();

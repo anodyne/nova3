@@ -16,7 +16,7 @@ class StoreThemeRequest extends FormRequest
             'credits' => ['nullable'],
             'location' => ['required', 'unique:themes,location'],
             'name' => ['required'],
-            'variants' => ['nullable'],
+            'settings' => ['nullable'],
         ];
     }
 

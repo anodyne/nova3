@@ -30,7 +30,6 @@ class StoriesTimeline extends Component
     {
         return view('pages.stories.livewire.timeline', [
             'stories' => $this->stories,
-            'storyClass' => Story::class,
         ]);
     }
 }

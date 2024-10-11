@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Events\CharacterActivated;
@@ -11,6 +12,7 @@ use Nova\Characters\Models\Character;
 
 class ActivateCharacterButton extends Component
 {
+    #[Locked]
     public Character $character;
 
     public function activate(): void

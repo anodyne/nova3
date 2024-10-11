@@ -1,80 +1,111 @@
+@use('Nova\Themes\Models\Theme')
+
 <x-admin-layout>
-    <x-panel
-        x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
-        x-init="$watch('name', value => {
-            if (suggestLocation) {
-                location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
-            }
-        })"
-    >
-        <x-panel.header title="Add a new theme">
-            <x-slot name="actions">
-                @can('viewAny', Nova\Themes\Models\Theme::class)
-                    <x-button :href="route('admin.themes.index')" color="neutral" plain>&larr; Back</x-button>
-                @endcan
-            </x-slot>
-        </x-panel.header>
+    <x-spacing constrained>
+        <x-page-header>
+            @can('viewAny', Theme::class)
+                <x-slot name="actions">
+                    <x-button :href="route('admin.themes.index')" plain>&larr; Back</x-button>
+                </x-slot>
+            @endcan
+        </x-page-header>
 
         <x-form :action="route('admin.themes.store')">
-            <x-form.section
-                title="Theme info"
-                message="A theme allows you to give your public-facing site the look-and-feel you want to any visitors. Using tools like regular HTML and CSS, you can show visitors the personality of your game and put your own spin on Nova."
+            <x-fieldset
+                x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
+                x-init="$watch('name', value => {
+                    if (suggestLocation) {
+                        location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+                    }
+                })"
             >
-                <x-fieldset.field label="Name" for="name" :error="$errors->first('name')">
-                    <x-input.text x-model="name" id="name" name="name" />
-                </x-fieldset.field>
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
+                        <x-input.text x-model="name" />
+                    </x-fieldset.field>
 
-                <x-fieldset.field label="Location" for="location" :error="$errors->first('location')">
-                    <x-input.text
-                        x-model="location"
-                        x-on:change="suggestLocation = false"
+                    <x-fieldset.field
+                        label="Location"
                         id="location"
                         name="location"
-                        leading="themes/"
-                    />
-                </x-fieldset.field>
+                        :error="$errors->first('location')"
+                    >
+                        <x-slot name="description">
+                            Themes are stored in the
+                            <code>themes/</code>
+                            directory at the root level of Nova’s file tree.
+                        </x-slot>
 
-                <x-fieldset.field label="Preview image filename" for="preview" :error="$errors->first('preview')">
-                    <x-input.text id="preview" name="preview" />
-                </x-fieldset.field>
+                        <x-input.text x-model="location" x-on:change="suggestLocation = false" leading="themes/" />
+                    </x-fieldset.field>
 
-                <x-fieldset.field
-                    label="Credits"
-                    for="credits"
-                    help="We strongly encourage providing detailed credits for your theme. If you used an icon set or borrowed code from someone or even got inspiration from another site, this is the place to provide the appropriate credit."
-                >
-                    <x-input.textarea id="credits" name="credits">{{ old('credits') }}</x-input.textarea>
-                </x-fieldset.field>
+                    <x-fieldset.field
+                        label="Preview image filename"
+                        id="preview"
+                        name="preview"
+                        :error="$errors->first('preview')"
+                    >
+                        <x-input.text />
+                    </x-fieldset.field>
 
-                <div class="flex items-center gap-x-2.5">
-                    <x-switch
-                        name="status"
-                        :value="old('status', 'active')"
-                        on-value="active"
-                        off-value="inactive"
-                        id="status"
-                    ></x-switch>
-                    <x-fieldset.label for="status">Active</x-fieldset.label>
-                </div>
-            </x-form.section>
+                    <x-fieldset.field
+                        label="Credits"
+                        description="We strongly encourage providing detailed credits for your theme. If you used an icon set or borrowed code from someone or even got inspiration from another site, this is the place to provide the appropriate credit."
+                        id="credits"
+                        name="credits"
+                    >
+                        <x-input.textarea>{{ old('credits') }}</x-input.textarea>
+                    </x-fieldset.field>
 
-            <x-form.section
-                title="Scaffolding"
-                message="When you create your theme, Nova will create all of the necessary directories and files for your theme. These options allow you to specify additional files you want created during scaffolding."
-            >
-                <x-fieldset.field
-                    label="Variants"
-                    for="variants"
-                    help="Enter the names of any variants you want for your theme, separated by commas."
-                >
-                    <x-input.text id="variants" name="variants" value="{{ old('variants') }}" />
-                </x-fieldset.field>
-            </x-form.section>
+                    <div class="flex items-center gap-x-2.5">
+                        <x-switch
+                            name="status"
+                            :value="old('status', 'active')"
+                            on-value="active"
+                            off-value="inactive"
+                            id="status"
+                        ></x-switch>
+                        <x-fieldset.label for="status">Active</x-fieldset.label>
+                    </div>
+                </x-fieldset.field-group>
+            </x-fieldset>
 
-            <x-form.footer>
+            <x-fieldset>
+                <x-fieldset.heading>
+                    <x-icon name="typography"></x-icon>
+                    <x-fieldset.legend>Fonts</x-fieldset.legend>
+                    <x-fieldset.description>Customize your theme by changing the fonts used.</x-fieldset.description>
+                </x-fieldset.heading>
+
+                <x-fieldset.field-group constrained>
+                    <x-fieldset.field label="Headers font" id="public_font_header" name="public_font_header">
+                        <livewire:settings-font-selector
+                            section="public"
+                            type="header"
+                            provider="local"
+                            provider-input-name="settings[fonts][headerProvider]"
+                            family="Geist"
+                            family-input-name="settings[fonts][headerFamily]"
+                        />
+                    </x-fieldset.field>
+
+                    <x-fieldset.field label="Body font" id="public_font_body" name="public_font_body">
+                        <livewire:settings-font-selector
+                            section="public"
+                            type="body"
+                            provider="local"
+                            provider-input-name="settings[fonts][bodyProvider]"
+                            family="Inter"
+                            family-input-name="settings[fonts][bodyFamily]"
+                        />
+                    </x-fieldset.field>
+                </x-fieldset.field-group>
+            </x-fieldset>
+
+            <x-fieldset.controls>
                 <x-button type="submit" color="primary">Add</x-button>
                 <x-button :href="route('admin.themes.index')" plain>Cancel</x-button>
-            </x-form.footer>
+            </x-fieldset.controls>
         </x-form>
-    </x-panel>
+    </x-spacing>
 </x-admin-layout>

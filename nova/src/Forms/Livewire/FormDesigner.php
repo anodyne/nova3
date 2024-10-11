@@ -7,6 +7,7 @@ namespace Nova\Forms\Livewire;
 use Awcodes\Scribble\ScribbleEditor;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Cache;
+use Livewire\Attributes\Locked;
 use Nova\Forms\Actions\PublishFormManager;
 use Nova\Forms\Actions\UnpublishForm;
 use Nova\Forms\Actions\UpdateForm;
@@ -18,6 +19,7 @@ use Nova\Foundation\Scribble\Profiles\FormBuilderProfile;
 
 class FormDesigner extends FormComponent
 {
+    #[Locked]
     public NovaForm $novaForm;
 
     protected string $view = 'pages.forms.livewire.form-designer';

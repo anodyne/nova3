@@ -138,18 +138,20 @@
                                                 <x-badge color="success" x-show="enabled">Enabled</x-badge>
                                                 <x-badge color="gray" x-show="!enabled">Disabled</x-badge>
 
-                                                <x-icon
-                                                    name="add"
-                                                    size="md"
-                                                    class="text-gray-400 dark:text-gray-500"
-                                                    x-show="!expanded"
-                                                ></x-icon>
-                                                <x-icon
-                                                    name="remove"
-                                                    size="md"
-                                                    class="text-gray-400 dark:text-gray-500"
-                                                    x-show="expanded"
-                                                ></x-icon>
+                                                <div x-show="!expanded">
+                                                    <x-icon
+                                                        name="add"
+                                                        size="md"
+                                                        class="text-gray-400 dark:text-gray-500"
+                                                    ></x-icon>
+                                                </div>
+                                                <div x-show="expanded">
+                                                    <x-icon
+                                                        name="remove"
+                                                        size="md"
+                                                        class="text-gray-400 dark:text-gray-500"
+                                                    ></x-icon>
+                                                </div>
                                             </div>
                                         </button>
                                     </x-spacing>

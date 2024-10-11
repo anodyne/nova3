@@ -310,10 +310,8 @@
         </x-fieldset>
     @endif
 
-    <div
-        class="flex flex-col rounded-b-lg border-t border-gray-950/5 px-4 py-4 md:flex-row md:items-center md:justify-between md:px-6 md:py-6 dark:border-white/5"
-    >
-        <div class="flex items-center">
+    <x-fieldset.controls>
+        <div class="flex w-full items-center justify-between">
             @can('discardDraft', $post)
                 <x-dropdown placement="bottom-start">
                     <x-slot name="trigger" color="neutral-danger" leading="trash">Discard draft</x-slot>
@@ -365,7 +363,7 @@
             @endcan
         </div>
 
-        <div class="flex items-center gap-4">
+        <div class="flex shrink-0 items-center gap-4">
             @if ($post->is_published)
                 <x-button wire:click="save" color="primary">Update post</x-button>
             @else
@@ -373,5 +371,5 @@
                 <x-button wire:click="publish" color="primary">Publish post</x-button>
             @endif
         </div>
-    </div>
+    </x-fieldset.controls>
 </x-write-post-wizard-layout>

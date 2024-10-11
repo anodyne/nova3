@@ -8,6 +8,7 @@ use Awcodes\Scribble\ScribbleEditor;
 use Awcodes\Typist\TypistEditor;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Cache;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
@@ -19,6 +20,7 @@ use Nova\Pages\Models\Page;
 
 class PageDesigner extends FormComponent
 {
+    #[Locked]
     public Page $page;
 
     protected string $view = 'pages.pages.livewire.page-designer';

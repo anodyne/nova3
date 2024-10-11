@@ -7,6 +7,7 @@ namespace Nova\Roles\Livewire;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Models\Role;
@@ -15,6 +16,7 @@ class ManagePermissions extends Component
 {
     public string $search = '';
 
+    #[Locked]
     public ?Role $role = null;
 
     public Collection $assigned;

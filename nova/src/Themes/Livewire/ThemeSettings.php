@@ -22,6 +22,8 @@ class ThemeSettings extends Component implements HasForms
 
     public ?Theme $theme = null;
 
+    public bool $iconTrigger = true;
+
     public function form(Form $form): Form
     {
         return $form

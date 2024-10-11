@@ -14,6 +14,6 @@ class CreateTheme
 
     public function handle(ThemeData $data): Theme
     {
-        return Theme::create($data->except('variants')->all());
+        return Theme::create($data->all());
     }
 }

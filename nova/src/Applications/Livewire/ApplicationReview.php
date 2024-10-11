@@ -6,6 +6,7 @@ namespace Nova\Applications\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Applications\Models\Application;
@@ -15,6 +16,7 @@ use Nova\Applications\Models\ApplicationReview as ApplicationReviewModel;
 #[On('reviewers-updated')]
 class ApplicationReview extends Component
 {
+    #[Locked]
     public Application $application;
 
     #[Computed]

@@ -1,4 +1,17 @@
+@use('Nova\Themes\Models\Theme')
+
 <x-admin-layout>
+    <x-page-header>
+        <x-slot name="actions">
+            @can('create', Theme::class)
+                <x-button :href="route('admin.themes.create')" color="primary">
+                    <x-icon name="add" size="sm"></x-icon>
+                    Add
+                </x-button>
+            @endcan
+        </x-slot>
+    </x-page-header>
+
     <livewire:themes-list />
 
     <div class="mx-auto mt-16 w-full max-w-2xl">
