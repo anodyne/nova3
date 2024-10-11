@@ -7,6 +7,7 @@ namespace Nova\Stories\Livewire;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Stories\Models\Story;
 
@@ -22,6 +23,7 @@ class StoryPosition extends Component
 
     public ?int $parentId = null;
 
+    #[Locked]
     public ?Story $story = null;
 
     public function updated($property): void

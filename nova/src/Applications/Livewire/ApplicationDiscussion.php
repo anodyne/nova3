@@ -7,6 +7,7 @@ namespace Nova\Applications\Livewire;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Applications\Models\Application;
@@ -17,6 +18,7 @@ use Nova\Forms\Models\Form;
 #[On('review-submitted')]
 class ApplicationDiscussion extends Component
 {
+    #[Locked]
     public Application $application;
 
     public ?string $content = null;

@@ -6,12 +6,14 @@ namespace Nova\PublicSite\Livewire;
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
 class PostsTimeline extends Component
 {
+    #[Locked]
     public ?Story $story = null;
 
     #[Computed]

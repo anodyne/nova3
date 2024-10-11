@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
@@ -23,14 +24,18 @@ use Nova\Foundation\Filament\Notifications\Notification;
 
 class DynamicForm extends Component
 {
+    #[Locked]
     public Form $form;
 
+    #[Locked]
     public ?Model $owner = null;
 
     public ?FormSubmission $submission = null;
 
+    #[Locked]
     public bool $admin = false;
 
+    #[Locked]
     public bool $static = false;
 
     public array $values = [];

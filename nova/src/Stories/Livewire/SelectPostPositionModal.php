@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Nova\Stories\Livewire;
 
 use Illuminate\Support\Collection;
+use Livewire\Attributes\Locked;
 use LivewireUI\Modal\ModalComponent;
 use Nova\Stories\Livewire\Steps\PublishPostStep;
 use Nova\Stories\Models\Post;
 
 class SelectPostPositionModal extends ModalComponent
 {
+    #[Locked]
     public int $story = 0;
 
     public string $search = '';
@@ -69,10 +71,5 @@ class SelectPostPositionModal extends ModalComponent
         return view('pages.posts.livewire.select-post-position-modal', [
             'posts' => $this->filteredPosts,
         ]);
-    }
-
-    public static function modalMaxWidth(): string
-    {
-        return 'sm';
     }
 }

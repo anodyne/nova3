@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Users\Actions\ActivateUser;
 use Nova\Users\Events\UserActivated;
@@ -11,6 +12,7 @@ use Nova\Users\Models\User;
 
 class ActivateUserButton extends Component
 {
+    #[Locked]
     public User $user;
 
     public function activate(): void

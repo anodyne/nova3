@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Nova\Applications\Enums\ApplicationResult;
@@ -13,6 +14,7 @@ use Nova\Users\Models\User;
 
 class ApplicationReviewForm extends Form
 {
+    #[Locked]
     public Application $application;
 
     #[Validate('required')]
