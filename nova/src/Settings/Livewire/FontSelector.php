@@ -16,7 +16,11 @@ class FontSelector extends Component
 
     public ?string $provider = null;
 
+    public ?string $providerInputName = null;
+
     public ?string $family = null;
+
+    public ?string $familyInputName = null;
 
     #[Computed]
     public function localFonts(): array
@@ -34,12 +38,20 @@ class FontSelector extends Component
     #[Computed]
     public function fontFamilyInputName(): ?string
     {
+        if (filled($this->familyInputName)) {
+            return $this->familyInputName;
+        }
+
         return sprintf('%s_fonts[%sFamily]', $this->section, $this->type);
     }
 
     #[Computed]
     public function fontProviderInputName(): ?string
     {
+        if (filled($this->providerInputName)) {
+            return $this->providerInputName;
+        }
+
         return sprintf('%s_fonts[%sProvider]', $this->section, $this->type);
     }
 
