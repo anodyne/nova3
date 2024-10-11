@@ -30,7 +30,7 @@
                         <x-text>{{ $theme->credits }}</x-text>
                     </x-fieldset.field>
 
-                    @if (settings('appearance.theme') === $theme->name)
+                    @if (settings('appearance.theme') === $theme->location)
                         <div>
                             <x-badge color="primary">Currently selected theme for public site</x-badge>
                         </div>
