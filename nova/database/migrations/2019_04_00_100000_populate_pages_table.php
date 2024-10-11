@@ -44,11 +44,11 @@ class PopulatePagesTable extends Migration
             ['name' => 'List activity logs', 'uri' => 'admin/activity-log', 'key' => 'admin.activity-log.index', 'resource' => 'Nova\\Dashboards\\Controllers\\ActivityLogController@index', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Activity log', 'subheading' => 'Track all user activity in Nova'],
             ['name' => 'View activity log', 'uri' => 'admin/activity-log/{activity}/show', 'key' => 'admin.activity-log.show', 'resource' => 'Nova\\Dashboards\\Controllers\\ActivityLogController@show', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Activity log detail'],
 
-            ['name' => 'List themes', 'uri' => 'admin/themes', 'key' => 'admin.themes.index', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@index', 'layout' => 'admin'],
+            ['name' => 'List themes', 'uri' => 'admin/themes', 'key' => 'admin.themes.index', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@index', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Themes', 'subheading' => 'Personalize your public-facing site with a custom theme'],
             ['name' => 'View theme', 'uri' => 'admin/themes/{theme}/show', 'key' => 'admin.themes.show', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@show', 'layout' => 'admin'],
-            ['name' => 'Create theme', 'uri' => 'admin/themes/create', 'key' => 'admin.themes.create', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@create', 'layout' => 'admin'],
+            ['name' => 'Create theme', 'uri' => 'admin/themes/create', 'key' => 'admin.themes.create', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@create', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Add a new theme'],
             ['name' => 'Store theme', 'uri' => 'admin/themes', 'key' => 'admin.themes.store', 'verb' => PageVerb::post, 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@store', 'layout' => 'admin'],
-            ['name' => 'Edit theme', 'uri' => 'admin/themes/{theme}/edit', 'key' => 'admin.themes.edit', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@edit', 'layout' => 'admin'],
+            ['name' => 'Edit theme', 'uri' => 'admin/themes/{theme}/edit', 'key' => 'admin.themes.edit', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@edit', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Edit theme'],
             ['name' => 'Update theme', 'uri' => 'admin/themes/{theme}', 'key' => 'admin.themes.update', 'verb' => PageVerb::put, 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@update', 'layout' => 'admin'],
 
             ['name' => 'List roles', 'uri' => 'admin/roles', 'key' => 'admin.roles.index', 'resource' => 'Nova\\Roles\\Controllers\\RoleController@index', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Roles', 'subheading' => 'Control what users can do throughout Nova'],

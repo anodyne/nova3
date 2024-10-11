@@ -11,7 +11,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -20,9 +19,11 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Settings\Data\FontFamilies;
 use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Data\ThemeData;
+use Nova\Themes\Data\ThemeSettings;
 use Nova\Themes\Enums\ThemeStatus;
 use Nova\Themes\Events\ThemeInstalled;
 use Nova\Themes\Models\Theme;
@@ -33,50 +34,47 @@ class ThemesList extends TableComponent
     {
         return $table
             ->query(Theme::query())
-            ->content(view('filament.tables.themes'))
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
                     ->searchable(),
                 TextColumn::make('location')
                     ->prefix('themes/')
-                    ->icon(iconName('folder'))
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color()),
+                    ->color(fn (Theme $record): string => $record->status->color())
+                    ->toggleable(),
             ])
             ->actions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.themes.show', $record)),
+                            ->url(fn (Theme $record): string => route('admin.themes.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.themes.edit', $record)),
+                            ->url(fn (Theme $record): string => route('admin.themes.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalContentView('pages.themes.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->name.' theme was deleted')
-                            ->using(fn (Model $record): Model => DeleteTheme::run($record)),
+                            ->successNotificationTitle(fn (Theme $record): string => $record->name.' theme was deleted')
+                            ->using(fn (Theme $record): Theme => DeleteTheme::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
             ->filters([
                 SelectFilter::make('status')->options(ThemeStatus::class),
             ])
-            ->heading('Themes')
-            ->description('Personalize your public-facing site with a custom theme')
             ->headerActions([
                 Action::make('install')
                     ->authorize('create')
                     ->label('Themes available to install')
-                    ->link()
                     ->icon(iconName('sparkles'))
-                    ->iconSize('md')
+                    ->color('gray')
                     ->visible(fn (): bool => Theme::hasInstallableThemes())
                     ->modalWidth('xl')
                     ->modalIcon(null)
@@ -87,7 +85,7 @@ class ThemesList extends TableComponent
                     ->form([
                         CheckboxList::make('themes')
                             ->options(Theme::getInstallableThemes()->flatMap(fn ($theme): array => [$theme => $theme]))
-                            ->label("Select the pending themes you'd like to install:"),
+                            ->label('Select the pending themes you’d like to install:'),
                     ])
                     ->action(function (array $data): void {
                         $themes = data_get($data, 'themes', []);
@@ -99,7 +97,22 @@ class ThemesList extends TableComponent
                             try {
                                 $data = json_decode(Storage::disk('themes')->get("{$theme}/theme.json"), true);
 
-                                $theme = CreateTheme::run(ThemeData::from($data));
+                                $theme = CreateTheme::run(new ThemeData(
+                                    name: data_get($data, 'name'),
+                                    location: data_get($data, 'location'),
+                                    credits: data_get($data, 'credits'),
+                                    status: ThemeStatus::active,
+                                    preview: data_get($data, 'preview'),
+                                    settings: new ThemeSettings(
+                                        fonts: new FontFamilies(
+                                            headerProvider: 'local',
+                                            headerFamily: 'Geist',
+                                            bodyProvider: 'local',
+                                            bodyFamily: 'Inter',
+                                        ),
+                                        settings: []
+                                    )
+                                ));
 
                                 ThemeInstalled::dispatch($theme);
 
@@ -133,10 +146,6 @@ class ThemesList extends TableComponent
 
                         $notification->send();
                     }),
-                CreateAction::make()
-                    ->authorize('create')
-                    ->label('Add')
-                    ->url(route('admin.themes.create')),
             ])
             ->emptyStateIcon(iconName('paint-brush'))
             ->emptyStateHeading('No theme found')

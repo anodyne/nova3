@@ -1,4 +1,5 @@
 @use('Nova\Menus\Models\MenuItem')
+@use('Nova\Themes\Models\Theme')
 
 <x-sidebar.subnav>
     <x-sidebar.subnav.group>
@@ -19,11 +20,13 @@
         @endcan
 
         {{-- <x-sidebar.subnav.item href="#">Add-ons</x-sidebar.subnav.item> --}}
-        {{--
-            <x-sidebar.subnav.item href="{{ route('admin.themes.index') }}" :active="request()->routeIs('admin.themes.*')">
-            Themes
+
+        @can('viewAny', Theme::class)
+            <x-sidebar.subnav.item :href="route('admin.themes.index')" :active="request()->routeIs('admin.themes.*')">
+                Themes
             </x-sidebar.subnav.item>
-        --}}
+        @endcan
+
         @can('viewAny', Spatie\Activitylog\Models\Activity::class)
             <x-sidebar.subnav.item
                 :href="route('admin.activity-log.index')"

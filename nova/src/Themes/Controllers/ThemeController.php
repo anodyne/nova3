@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Themes\Actions\CreateThemeManager;
 use Nova\Themes\Actions\UpdateTheme;
-use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Requests\StoreThemeRequest;
 use Nova\Themes\Requests\UpdateThemeRequest;
@@ -28,13 +26,9 @@ class ThemeController extends Controller
         $this->authorizeResource(Theme::class);
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $themes = Theme::orderBy('name')->get();
-
-        return ListThemesResponse::sendWith([
-            'themes' => ($request->has('pending')) ? $themes->onlyPending() : $themes->withPending(),
-        ]);
+        return ListThemesResponse::send();
     }
 
     public function show(Theme $theme)
@@ -53,8 +47,7 @@ class ThemeController extends Controller
     {
         $theme = CreateThemeManager::run($request);
 
-        return redirect()
-            ->route('admin.themes.index')
+        return to_route('admin.themes.index')
             ->notify("{$theme->name} theme was created", 'A folder has been created in the themes directory to help you get started creating your theme.');
     }
 
@@ -67,10 +60,9 @@ class ThemeController extends Controller
 
     public function update(UpdateThemeRequest $request, Theme $theme)
     {
-        $theme = UpdateTheme::run($theme, ThemeData::from($request));
+        $theme = UpdateTheme::run($theme, $request->getThemeData());
 
-        return redirect()
-            ->route('admin.themes.edit', $theme)
+        return to_route('admin.themes.edit', $theme)
             ->notify("{$theme->name} theme was updated");
     }
 }

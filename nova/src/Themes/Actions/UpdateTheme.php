@@ -15,7 +15,7 @@ class UpdateTheme
     public function handle(Theme $theme, ThemeData $data): Theme
     {
         return tap($theme)
-            ->update($data->all())
+            ->update($data->except('settings')->all())
             ->refresh();
     }
 }
