@@ -15,7 +15,7 @@
                 x-data="{ name: '{{ old('name') }}', location: '{{ old('location') }}', suggestLocation: true }"
                 x-init="$watch('name', value => {
                     if (suggestLocation) {
-                        location = value.toLowerCase().replace(/[^\w ]+/g,'').replace(/ +/g,'-');
+                        location = value.replace(/[^\w ]+/g,'').replace(/ +/g,'');
                     }
                 })"
             >
