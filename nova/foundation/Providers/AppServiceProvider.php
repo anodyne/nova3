@@ -206,6 +206,14 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('novaAdminStyles', [NovaBladeDirectives::class, 'novaAdminStyles']);
         Blade::directive('novaPublicScripts', [NovaBladeDirectives::class, 'novaPublicScripts']);
         Blade::directive('novaPublicStyles', [NovaBladeDirectives::class, 'novaPublicStyles']);
+
+        Blade::directive('mysql', function ($expression) {
+            return '<?php if(app("nova.environment")->database->isMysql()): ?>';
+        });
+
+        Blade::directive('endmysql', function ($expression) {
+            return '<?php endif; ?>';
+        });
     }
 
     protected function registerLivewireComponents()

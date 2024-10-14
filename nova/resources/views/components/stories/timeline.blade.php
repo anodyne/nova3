@@ -8,6 +8,8 @@
         @php
             $expandedState = true;
 
+            $story->loadMissing('children')->loadCountsAndSums();
+
             if ($story->children_count > 0 && ! $expanded) {
                 $expandedState = ! $story->is_completed;
             }

@@ -102,16 +102,18 @@
                 <x-panel.stat label="Total posts" :value="$story->posts_count"></x-panel.stat>
                 <x-panel.stat label="Total words" :value="$story->posts_sum_word_count ?? 0"></x-panel.stat>
 
-                @if ($story->children->count() > 0)
-                    <x-panel.stat
-                        label="Total posts (all stories within)"
-                        :value="$story->recursive_posts_count"
-                    ></x-panel.stat>
-                    <x-panel.stat
-                        label="Total words (all stories within)"
-                        :value="$story->recursive_posts_sum_word_count"
-                    ></x-panel.stat>
-                @endif
+                @mysql
+                    @if ($story->children->count() > 0)
+                        <x-panel.stat
+                            label="Total posts (all stories within)"
+                            :value="$story->recursive_posts_count"
+                        ></x-panel.stat>
+                        <x-panel.stat
+                            label="Total words (all stories within)"
+                            :value="$story->recursive_posts_sum_word_count"
+                        ></x-panel.stat>
+                    @endif
+                @endmysql
             </div>
         </x-spacing>
 

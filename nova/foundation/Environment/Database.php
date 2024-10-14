@@ -67,4 +67,9 @@ class Database
     {
         return $this->hasMysql;
     }
+
+    public function isMysql(): bool
+    {
+        return $this->driver === 'mysql';
+    }
 }

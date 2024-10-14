@@ -2,7 +2,7 @@
     $errors = $errors->getBag('default');
 @endphp
 
-<x-public-layout>
+<x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page contact">
         <x-public::h1>{{ $meta->pageHeading }}</x-public::h1>
 
@@ -68,4 +68,4 @@
             </x-public::alert>
         @endif
     </div>
-</x-public-layout>
+</x-dynamic-component>

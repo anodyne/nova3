@@ -219,9 +219,9 @@ class ConfigureDatabase extends Component
             $this->status = DatabaseConfigStatus::IncompatibleVersion;
         }
 
-        if ($this->getPdoDriver($pdo) !== 'mysql') {
-            $this->status = DatabaseConfigStatus::IncompatibleDriver;
-        }
+        // if ($this->getPdoDriver($pdo) !== 'mysql') {
+        //     $this->status = DatabaseConfigStatus::IncompatibleDriver;
+        // }
     }
 
     protected function getPdoVersion(PDO $pdo): ?string

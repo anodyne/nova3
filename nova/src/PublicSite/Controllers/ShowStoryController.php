@@ -14,7 +14,7 @@ class ShowStoryController extends Controller
     {
         return ShowStoryResponse::sendWith(
             data: [
-                'story' => $story->loadCount('posts', 'recursivePosts')->loadSum(['recursivePosts', 'posts'], 'word_count'),
+                'story' => $story->loadCountsAndSums(),
                 'ancestors' => $story->ancestors->splice(1),
             ],
             seo: [

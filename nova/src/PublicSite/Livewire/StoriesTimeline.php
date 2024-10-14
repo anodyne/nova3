@@ -17,8 +17,7 @@ class StoriesTimeline extends Component
     public function stories(): Collection
     {
         return Story::tree()
-            ->withCount('posts', 'recursivePosts', 'children')
-            ->withSum(['recursivePosts', 'posts'], 'word_count')
+            ->withCountsAndSums()
             ->exceptUpcoming()
             ->orderBy('order_column', $this->sortDirection)
             ->get()

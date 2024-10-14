@@ -1,6 +1,6 @@
 @use('Illuminate\Support\Number')
 
-<x-public-layout>
+<x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page story-post">
         <div class="story-post-container">
             <div class="main-column">
@@ -175,4 +175,4 @@
             </div>
         </div>
     </div>
-</x-public-layout>
+</x-dynamic-component>
