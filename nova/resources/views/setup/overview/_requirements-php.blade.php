@@ -4,7 +4,7 @@
             <div class="shrink-0">
                 <x-icon name="tabler-brand-php" class="text-gray-500" size="xl"></x-icon>
             </div>
-            <x-h3 class="flex-1">PHP 8.2+</x-h3>
+            <x-h3 class="flex-1">PHP 8.3+</x-h3>
         </div>
         <div class="flex justify-end">
             @if ($e->php->passes())
