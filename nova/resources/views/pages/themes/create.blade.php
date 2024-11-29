@@ -39,6 +39,10 @@
                         <x-input.text x-model="location" x-on:change="suggestLocation = false" leading="themes/" />
                     </x-fieldset.field>
 
+                    <x-fieldset.field label="Version" id="version" name="version" :error="$errors->first('version')">
+                        <x-input.text :value="old('version', '1.0')" />
+                    </x-fieldset.field>
+
                     <x-fieldset.field
                         label="Preview image filename"
                         id="preview"

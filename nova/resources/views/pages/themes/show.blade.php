@@ -26,9 +26,15 @@
 
             <x-fieldset>
                 <x-fieldset.field-group>
-                    <x-fieldset.field label="Credits">
-                        <x-text>{{ $theme->credits }}</x-text>
+                    <x-fieldset.field label="Version">
+                        <x-text>{{ $theme->version }}</x-text>
                     </x-fieldset.field>
+
+                    @if (filled($theme->credits))
+                        <x-fieldset.field label="Credits">
+                            <x-text>{{ $theme->credits }}</x-text>
+                        </x-fieldset.field>
+                    @endif
 
                     @if (settings('appearance.theme') === $theme->location)
                         <div>
@@ -37,6 +43,55 @@
                     @endif
                 </x-fieldset.field-group>
             </x-fieldset>
+
+            @if (filled($theme->repository))
+                <x-fieldset>
+                    <x-panel well>
+                        <x-panel.well.header title="Latest version"></x-panel.well.header>
+
+                        <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                            <x-spacing size="sm" class="group flex items-center justify-between">
+                                <div>
+                                    <x-text>
+                                        <x-text.strong>Latest version</x-text.strong>
+                                    </x-text>
+
+                                    @if ($theme->has_update)
+                                        <x-fieldset.warning-message>Update available</x-fieldset.warning-message>
+                                    @endif
+                                </div>
+                                <div>
+                                    <x-text class="tabular-nums">{{ $theme->latest_version }}</x-text>
+                                </div>
+                            </x-spacing>
+                            <x-spacing size="sm" class="group flex items-center justify-between">
+                                <div>
+                                    <x-text>
+                                        <x-text.strong>Checking version from</x-text.strong>
+                                    </x-text>
+                                </div>
+                                <div>
+                                    <x-text>
+                                        {{ $theme->repository->type->getLabel() }}
+                                    </x-text>
+                                </div>
+                            </x-spacing>
+                            <x-spacing size="sm" class="group flex items-center justify-between">
+                                <div>
+                                    <x-text>
+                                        <x-text.strong>URL</x-text.strong>
+                                    </x-text>
+                                </div>
+                                <div>
+                                    <x-button :href="$theme->update_url" color="heavy-neutral" text>
+                                        Go to theme repository &rarr;
+                                    </x-button>
+                                </div>
+                            </x-spacing>
+                        </x-panel>
+                    </x-panel>
+                </x-fieldset>
+            @endif
         </x-form>
     </x-spacing>
 </x-admin-layout>

@@ -3,6 +3,11 @@
 <x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
+            <x-button href="https://anodyne-productions.com/docs/3.0/themes/overview" target="_blank" plain>
+                <x-icon name="book" size="sm"></x-icon>
+                Learn more
+            </x-button>
+
             @can('create', Theme::class)
                 <x-button :href="route('admin.themes.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>

@@ -42,6 +42,16 @@
                     </x-fieldset.field>
 
                     <x-fieldset.field
+                        label="Version"
+                        description="Be careful when updating the version number for existing themes as this could cause issues with any version checking."
+                        id="version"
+                        name="version"
+                        :error="$errors->first('version')"
+                    >
+                        <x-input.text :value="old('version', $theme->version)"></x-input.text>
+                    </x-fieldset.field>
+
+                    <x-fieldset.field
                         label="Preview image filename"
                         id="preview"
                         name="preview"

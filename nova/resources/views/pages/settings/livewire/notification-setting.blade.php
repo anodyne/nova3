@@ -1,3 +1,5 @@
+@use('Nova\Foundation\Enums\NotificationAudience')
+
 <div>
     <x-spacing width="sm">
         <div class="flex items-center space-x-2">
@@ -8,7 +10,7 @@
         </div>
     </x-spacing>
 
-    @if ($notification->type === Nova\Foundation\Enums\NotificationAudience::personal)
+    @if ($notification->type === NotificationAudience::Personal)
         @if ($user === null)
             <x-panel.warning icon="warning" title="You are editing the global setting" class="mx-6 mt-6">
                 <div class="space-y-4">
@@ -92,7 +94,7 @@
             </div>
         </x-spacing>
 
-        @if ($notification->type !== Nova\Foundation\Enums\NotificationAudience::personal)
+        @if ($notification->type !== NotificationAudience::Personal)
             <x-spacing width="none" class="border-t border-gray-200 dark:border-gray-700">
                 <x-h3>Discord</x-h3>
                 <div class="mt-2 sm:flex sm:items-start sm:justify-between">
@@ -111,7 +113,7 @@
     </x-spacing>
 
     <x-spacing
-        class="z-20 rounded-b-lg bg-gray-50 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse dark:bg-gray-700/50"
+        class="z-20 rounded-b-lg bg-gray-50 dark:bg-gray-700/50 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse"
         size="sm"
     >
         <x-button wire:click="apply" color="primary">Apply</x-button>

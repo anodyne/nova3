@@ -33,7 +33,7 @@
                     <x-spacing size="md">
                         <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                             <div
-                                class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04] lg:col-span-2"
+                                class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 lg:col-span-2 dark:bg-white/[.04]"
                             >
                                 <div class="flex justify-between">
                                     <div class="flex flex-col gap-y-2">
@@ -139,7 +139,7 @@
                     <x-spacing size="md">
                         <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                             <div
-                                class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04] lg:col-span-2"
+                                class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 lg:col-span-2 dark:bg-white/[.04]"
                             >
                                 <x-icon name="tabler-database" size="lg"></x-icon>
                                 <x-fieldset.label>Database</x-fieldset.label>

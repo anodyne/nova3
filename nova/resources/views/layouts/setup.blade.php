@@ -1,3 +1,7 @@
+@php
+    $e = nova()->environment();
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
     <head>
@@ -9,12 +13,9 @@
         <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
         <x-fonts section="admin" />
-
-        @livewireStyles
         @filamentStyles
         @novaAdminStyles
         @stack('styles')
-
         @stack('headScripts')
     </head>
     <body
@@ -30,61 +31,246 @@
 
                         <div class="flex flex-col gap-8 divide-y divide-gray-950/5">
                             <nav class="flex flex-col gap-2 px-3">
-                                <a
+                                <ul role="list" class="space-y-6">
+                                    {{--
+                                        @foreach ($collection as $step)
+                                        <li class="relative isolate flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                        <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        <div
+                                        class="relative z-10 flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                        @if ($step->isComplete())
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="size-6 fill-white stroke-success-500"
+                                        >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                        <path d="M9 12l2 2l4 -4" />
+                                        </svg>
+                                        @else
+                                        {{ $step->icon() }}
+                                        @endif
+                                        </div>
+                                        <p class="relative z-10 flex-auto py-0.5 text-sm/6 text-gray-500">
+                                        <span class="font-medium text-gray-900">{{ $step->title() }}</span>
+                                        </p>
+                                        </li>
+                                        @endforeach
+                                    --}}
+
+                                    <li class="relative isolate flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                            <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        <div
+                                            class="relative z-10 flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                            @if ($e->passes())
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    class="size-6 fill-white stroke-success-500"
+                                                >
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                                    <path d="M9 12l2 2l4 -4" />
+                                                </svg>
+                                            @else
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    class="size-6 fill-white stroke-danger-500"
+                                                >
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                                    <path d="M10 10l4 4m0 -4l-4 4" />
+                                                </svg>
+                                            @endif
+                                        </div>
+                                        <p class="relative z-10 flex-auto py-0.5 text-sm/6 text-gray-500">
+                                            <span class="font-medium text-gray-900">Can I run Nova?</span>
+                                        </p>
+                                    </li>
+                                    <li class="relative flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                            <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        <div
+                                            class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                            {{--
+                                                <x-icon
+                                                size="md"
+                                                class="shrink-0 text-gray-400"
+                                                name="tabler-database-cog"
+                                                ></x-icon>
+                                            --}}
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="size-6 fill-white stroke-success-500"
+                                            >
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                                <path d="M9 12l2 2l4 -4" />
+                                            </svg>
+                                        </div>
+                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
+                                            <span class="font-medium text-gray-900">Connect to my database</span>
+                                        </p>
+                                    </li>
+                                    <li class="relative flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                            <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        <div
+                                            class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                            {{--
+                                                <x-icon
+                                                size="md"
+                                                class="shrink-0 text-gray-400"
+                                                name="tabler-sparkles"
+                                                ></x-icon>
+                                            --}}
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="size-6 fill-white stroke-success-500"
+                                            >
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                                <path d="M9 12l2 2l4 -4" />
+                                            </svg>
+                                        </div>
+                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
+                                            <span class="font-medium text-gray-900">Install Nova</span>
+                                        </p>
+                                    </li>
+                                    <li class="relative flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                            <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        <div
+                                            class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                            <x-icon
+                                                size="md"
+                                                class="shrink-0 text-primary-500"
+                                                name="tabler-database-import"
+                                            ></x-icon>
+                                        </div>
+                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
+                                            <span class="font-medium text-gray-900">Migrate my Nova 2 data</span>
+                                        </p>
+                                    </li>
+                                    <li class="relative flex items-center gap-x-4">
+                                        {{--
+                                            <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                            <div class="w-px bg-gray-300"></div>
+                                            </div>
+                                        --}}
+                                        <div
+                                            class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                            <x-icon
+                                                size="md"
+                                                class="shrink-0 text-gray-400"
+                                                name="tabler-user-circle"
+                                            ></x-icon>
+                                        </div>
+                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
+                                            <span class="font-medium text-gray-900">Setup my account</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+                                {{--
+                                    <a
                                     href="{{ url('setup') }}"
                                     @class([
-                                        'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
-                                        'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup'),
-                                        'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup'),
+                                    'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
+                                    'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup'),
+                                    'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup'),
                                     ])
-                                >
+                                    >
                                     <x-icon name="tabler-server-2" size="md" class="mr-2.5 opacity-70"></x-icon>
                                     <span>Can I run Nova?</span>
-                                </a>
-                                <a
+                                    </a>
+                                    <a
                                     href="{{ url('setup/configure-database') }}"
                                     @class([
-                                        'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
-                                        'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup/configure-database'),
-                                        'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup/configure-database'),
+                                    'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
+                                    'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup/configure-database'),
+                                    'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup/configure-database'),
                                     ])
-                                >
+                                    >
                                     <x-icon name="tabler-database-cog" size="md" class="mr-2.5 opacity-70"></x-icon>
                                     <span>Connect to your database</span>
-                                </a>
-                                <a
+                                    </a>
+                                    <a
                                     href="{{ url('setup/install') }}"
                                     @class([
-                                        'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
-                                        'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup/install'),
-                                        'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup/install'),
+                                    'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
+                                    'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup/install'),
+                                    'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup/install'),
                                     ])
-                                >
+                                    >
                                     <x-icon name="tabler-sparkles" size="md" class="mr-2.5 opacity-70"></x-icon>
                                     <span>Install Nova</span>
-                                </a>
-                                <a
+                                    </a>
+                                    <a
                                     href="{{ url('setup/migrate') }}"
                                     @class([
-                                        'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
-                                        'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup/migrate*'),
-                                        'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup/migrate*'),
+                                    'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
+                                    'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup/migrate*'),
+                                    'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup/migrate*'),
                                     ])
-                                >
+                                    >
                                     <x-icon name="tabler-database-import" size="md" class="mr-2.5 opacity-70"></x-icon>
                                     <span>Migrate from Nova 2</span>
-                                </a>
-                                <a
+                                    </a>
+                                    <a
                                     href="{{ url('setup/setup-account') }}"
                                     @class([
-                                        'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
-                                        'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup/setup-account'),
-                                        'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup/setup-account'),
+                                    'relative inline-flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition',
+                                    'text-gray-700 hover:bg-gray-200/60 hover:text-gray-900' => ! request()->is('setup/setup-account'),
+                                    'bg-gradient-to-b from-white to-primary-50 text-primary-600 shadow-md shadow-primary-600/10 ring-1 ring-inset ring-primary-600/20' => request()->is('setup/setup-account'),
                                     ])
-                                >
+                                    >
                                     <x-icon name="tabler-user-circle" size="md" class="mr-2.5 opacity-70"></x-icon>
                                     <span>Setup your account</span>
-                                </a>
+                                    </a>
+                                --}}
                             </nav>
 
                             <section class="hidden px-6 pt-8">
@@ -204,7 +390,7 @@
         </div>
 
         @filamentScripts(withCore: true)
-        @novaAdminScripts
+        @novaSetupScripts
         @stack('scripts')
     </body>
 </html>
