@@ -30,4 +30,9 @@ class NovaBladeDirectives
     {
         return '{!! \Nova\Foundation\Nova::publicStyles('.$expression.') !!}';
     }
+
+    public static function novaSetupScripts($expression)
+    {
+        return '{!! \Nova\Foundation\Nova::setupScripts('.$expression.') !!}';
+    }
 }

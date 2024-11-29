@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Foundation;
 
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Fonts\BunnyFontProvider;
@@ -106,6 +107,21 @@ class NovaManager
         return implode("\n", $html);
     }
 
+    public function setupScripts($options = [])
+    {
+        $debug = config('app.debug');
+
+        $scripts = $this->javaScriptSetupAssets($options);
+
+        // HTML Label.
+        $html = $debug ? ['<!-- Nova Scripts -->'] : [];
+
+        // JavaScript assets.
+        $html[] = $debug ? $scripts : $this->minify($scripts);
+
+        return implode("\n", $html);
+    }
+
     public function publicStyles($options = [])
     {
         $debug = config('app.debug');
@@ -149,7 +165,7 @@ class NovaManager
             'icons' => $theme->iconMap(),
             'page' => request()->route()->findPageFromRoute(),
             'theme' => $theme,
-            'user' => auth()?->user(),
+            'user' => Auth::user(),
         ]);
     }
 
@@ -198,6 +214,20 @@ HTML;
         // because it will be minified in production.
         return <<<HTML
 <script src="{$jsPath}" defer></script>
+HTML;
+    }
+
+    protected function javaScriptSetupAssets($options)
+    {
+        $jsonEncodedOptions = $options ? json_encode($options) : '';
+
+        $appUrl = url('');
+        $jsPath = "{$appUrl}/dist/js/setup.js";
+
+        // Adding semicolons for this JavaScript is important,
+        // because it will be minified in production.
+        return <<<HTML
+<script src="{$jsPath}"></script>
 HTML;
     }
 
