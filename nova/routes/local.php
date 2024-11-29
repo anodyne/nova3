@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Nova\Addons\Models\Addon;
 use Nova\Departments\Models\Department;
 use Nova\Discussions\Data\DiscussionData;
 use Nova\Discussions\Models\Discussion;
-use Nova\Forms\Models\Form;
 use Opcodes\LogViewer\Facades\LogViewer;
 
 Route::get('discussions', function () {
@@ -113,9 +113,9 @@ Route::get('manifest-test', function () {
 });
 
 Route::get('test', function () {
-    $form = Form::find(5);
+    dd(Addon::getInstallableAddons());
 
-    dd($form->generatePrefixedId());
+    return 'Done';
 });
 
 Route::get('logs', function () {

@@ -24,12 +24,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('heartbeat', HeartbeatController::class);
 
-Route::get('sync-content', SyncExternalContentController::class);
+Route::get('sync-external-content', SyncExternalContentController::class);
 
 Route::get('version', function () {
     return response()->json([
         'severity' => 'patch',
-        'version' => '3.0.1',
+        'version' => '3.0.0-alpha13',
         'notes' => 'Sint eiusmod esse sint elit anim aliqua non ex consectetur.',
     ]);
 });
