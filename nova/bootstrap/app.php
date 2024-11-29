@@ -6,7 +6,8 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Route;
 use Nova\Foundation\Application;
-use Nova\Foundation\Http\Middleware\CheckVersion;
+use Nova\Foundation\Http\Middleware\CheckAddonAndThemeVersions;
+use Nova\Foundation\Http\Middleware\CheckNovaVersion;
 
 $app = Application::configure(basePath: dirname(__DIR__, 2))
     ->withRouting(
@@ -28,7 +29,8 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
         ]);
 
         $middleware->web(append: [
-            CheckVersion::class,
+            CheckNovaVersion::class,
+            CheckAddonAndThemeVersions::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
@@ -41,9 +43,10 @@ $app->useNovaPath(path: $app->basePath('nova'));
 $app->useAppPath(path: $app->novaPath('src'));
 $app->useConfigPath(path: $app->novaPath('config'));
 $app->useDatabasePath(path: $app->novaPath('database'));
-$app->useExtensionPath(path: $app->basePath('extensions'));
+$app->useAddonPath(path: $app->basePath('addons'));
 $app->useLangPath(path: $app->novaPath('lang'));
 $app->useThemePath(path: $app->basePath('themes'));
+$app->useRankPath(path: $app->basePath('ranks'));
 
 if ($app->usesSimpleSkeleton()) {
     $app->usePublicPath(path: $app->basePath());
