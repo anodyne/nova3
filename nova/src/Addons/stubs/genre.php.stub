@@ -1,0 +1,40 @@
+<?php
+
+namespace Addons\DummyNamespace;
+
+use Nova\Addons\Genre;
+
+class Addon extends Genre
+{
+    public string $location = 'DummyLocation';
+
+    public function departmentAndPositionsData(): array
+    {
+        return [
+            [
+                'name' => 'Command',
+                'description' => "Duis consectetur magna nulla ea sunt laborum cupidatat ut.",
+                'status' => 'active',
+                'tags' => 'one, two, three',
+                'positions' => [
+                    [
+                        'name' => 'Commanding Officer',
+                        'description' => "Ullamco aliquip incididunt enim pariatur in commodo amet exercitation nulla.",
+                        'available' => 1,
+                        'status' => 'active',
+                    ],
+                    // ...copy the lines above and add as many positions for this department as you want
+                ],
+            ],
+            // ...copy the lines above and add as many departments as you want
+        ];
+    }
+
+    public function rankNameData(): array
+    {
+        return [
+            ['name' => 'Captain'],
+            // ...copy the line above and add as many as your genre requires
+        ];
+    }
+}

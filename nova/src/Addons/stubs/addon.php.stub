@@ -1,0 +1,15 @@
+<?php
+
+namespace Addons\DummyNamespace;
+
+use Nova\Addons\BaseAddon;
+
+class Addon extends BaseAddon
+{
+    public string $location = 'DummyLocation';
+
+    public function settingsForm(): array
+    {
+        return [];
+    }
+}

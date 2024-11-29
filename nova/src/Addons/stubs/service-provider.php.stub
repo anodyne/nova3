@@ -1,0 +1,15 @@
+<?php
+
+namespace Addons\DummyNamespace\Providers;
+
+use Nova\AddonServiceProvider as BaseAddonServiceProvider;
+
+class AddonServiceProvider extends BaseAddonServiceProvider
+{
+    protected string $location = 'DummyLocation';
+
+    public function boot()
+    {
+        //
+    }
+}

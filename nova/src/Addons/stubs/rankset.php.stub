@@ -1,0 +1,10 @@
+<?php
+
+namespace Addons\DummyNamespace;
+
+use Nova\Addons\RankSet;
+
+class Addon extends RankSet
+{
+    public string $location = 'DummyLocation';
+}

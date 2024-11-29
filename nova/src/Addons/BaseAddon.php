@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Nova\Addons;
+
+use Nova\Addons\Enums\AddonType;
+use Nova\Addons\Models\Addon;
+
+abstract class BaseAddon
+{
+    use Concerns\HasAddonSettings;
+    use Concerns\InteractsWithModel;
+
+    public string $location;
+
+    protected Addon $model;
+
+    public function __construct()
+    {
+        $this->model = $this->getModel();
+
+        $this->setAddonProperties();
+    }
+
+    public function isExtension(): bool
+    {
+        return $this->model->type === AddonType::Extension;
+    }
+
+    public function isGenre(): bool
+    {
+        return $this->model->type === AddonType::Genre;
+    }
+
+    public function isRankSet(): bool
+    {
+        return $this->model->type === AddonType::Rank;
+    }
+}

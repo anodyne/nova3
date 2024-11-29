@@ -1,0 +1,10 @@
+<?php
+
+namespace Addons\DummyNamespace;
+
+use Nova\Addons\Extension;
+
+class Addon extends Extension
+{
+    public string $location = 'DummyLocation';
+}
