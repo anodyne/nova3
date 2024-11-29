@@ -17,10 +17,10 @@ uses()->group('ranks');
 
 beforeEach(function () {
     $this->rankNames = RankName::factory()
-        ->count(10)
+        ->count(2)
         ->sequence(
-            ['status' => RankNameStatus::Active],
-            ['status' => RankNameStatus::Inactive],
+            ['status' => RankNameStatus::Active, 'name' => 'Captain'],
+            ['status' => RankNameStatus::Inactive, 'name' => 'Commander'],
         )
         ->create();
 });
