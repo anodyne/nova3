@@ -86,7 +86,7 @@ module.exports = {
             variants: ['sm', 'md', 'lg'],
         },
     ],
-    darkMode: 'class',
+    darkMode: 'selector',
     theme: {
         container: {
             center: true,
