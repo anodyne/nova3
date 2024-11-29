@@ -53,6 +53,10 @@ jobs:
           php artisan key:generate
           php artisan key:generate --env=testing
 
+      - name: Handle search indexes
+        run: |
+          php artisan scout:index
+
       - name: Directory permissions
         run: chmod -R 777 storage nova/bootstrap/cache
 
