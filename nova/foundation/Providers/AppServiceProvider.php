@@ -28,6 +28,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
@@ -136,6 +137,7 @@ class AppServiceProvider extends ServiceProvider
             $this->registerResponseFilters();
             $this->setupFilament();
             $this->setupGlobalEventListeners();
+            $this->registerAddonProviders();
         }
     }
 
@@ -206,6 +208,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('novaAdminStyles', [NovaBladeDirectives::class, 'novaAdminStyles']);
         Blade::directive('novaPublicScripts', [NovaBladeDirectives::class, 'novaPublicScripts']);
         Blade::directive('novaPublicStyles', [NovaBladeDirectives::class, 'novaPublicStyles']);
+        Blade::directive('novaSetupScripts', [NovaBladeDirectives::class, 'novaSetupScripts']);
 
         Blade::directive('mysql', function ($expression) {
             return '<?php if(app("nova.environment")->database->isMysql()): ?>';
@@ -290,6 +293,9 @@ class AppServiceProvider extends ServiceProvider
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Nova', [
                 'Version' => 'v'.Nova::getVersion(),
+                'Extensions' => collect(data_get(cache('nova.addons'), 'extension', []))->join(', '),
+                'Genre' => collect(data_get(cache('nova.addons'), 'genre', []))->join(', '),
+                'Rank set' => collect(data_get(cache('nova.addons'), 'rank', []))->join(', '),
             ]);
         }
     }
@@ -364,5 +370,13 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('contact', function (Request $request) {
             return Limit::perMinute(15)->by($request->ip());
         });
+    }
+
+    protected function registerAddonProviders(): void
+    {
+        collect(data_get(Cache::get('nova.addons'), 'extension', []))
+            ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
+            ->flatMap(fn ($addon) => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
+            ->each(fn ($addon) => (new $addon($this->app))->boot());
     }
 }
