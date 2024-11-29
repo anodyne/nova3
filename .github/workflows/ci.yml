@@ -55,7 +55,7 @@ jobs:
 
       - name: Handle search indexes
         run: |
-          php artisan scout:index
+          php artisan scout:index Nova\Posts\Models\Post
 
       - name: Directory permissions
         run: chmod -R 777 storage nova/bootstrap/cache
