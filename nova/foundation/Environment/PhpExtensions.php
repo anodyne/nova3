@@ -40,6 +40,7 @@ class PhpExtensions
             ['key' => 'fileinfo', 'name' => 'Fileinfo'],
             ['key' => 'filter', 'name' => 'Filter'],
             ['key' => 'hash', 'name' => 'Hash'],
+            ['key' => 'intl', 'name' => 'Internationalization'],
             ['key' => 'mbstring', 'name' => 'mbstring'],
             ['key' => 'openssl', 'name' => 'OpenSSL'],
             ['key' => 'pcre', 'name' => 'PCRE'],
