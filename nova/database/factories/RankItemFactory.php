@@ -21,14 +21,14 @@ class RankItemFactory extends Factory
             'name_id' => fn () => RankName::factory(),
             'base_image' => 'base.png',
             'overlay_image' => 'overlay.png',
-            'status' => RankItemStatus::active,
+            'status' => RankItemStatus::Active,
         ];
     }
 
     public function inactive()
     {
         return $this->state([
-            'status' => RankItemStatus::inactive,
+            'status' => RankItemStatus::Inactive,
         ]);
     }
 }

@@ -18,7 +18,7 @@ class PositionFactory extends Factory
         return [
             'name' => ucwords($this->faker->words($this->faker->numberBetween(1, 3), true)),
             'description' => $this->faker->sentence,
-            'status' => PositionStatus::active,
+            'status' => PositionStatus::Active,
             'available' => $this->faker->numberBetween(1, 5),
             'department_id' => fn () => Department::factory(),
         ];
@@ -27,7 +27,7 @@ class PositionFactory extends Factory
     public function inactive()
     {
         return $this->state([
-            'status' => PositionStatus::inactive,
+            'status' => PositionStatus::Inactive,
         ]);
     }
 

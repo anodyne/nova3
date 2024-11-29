@@ -6,21 +6,25 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Nova\Addons\Enums\AddonStatus;
+use Nova\Addons\Enums\AddonType;
+use Nova\Addons\Models\Addon;
 use Nova\Themes\Enums\ThemeStatus;
-use Nova\Themes\Models\Theme;
 
-class ThemeFactory extends Factory
+class AddonFactory extends Factory
 {
-    protected $model = Theme::class;
+    protected $model = Addon::class;
 
     public function definition()
     {
-        $name = $this->faker->words(mt_rand(1, 3), true);
+        $name = $this->faker->words(mt_rand(1, 3), asText: true);
 
         return [
             'name' => ucfirst($name),
-            'location' => Str::slug($name),
-            'status' => ThemeStatus::Active,
+            'location' => Str::studly($name),
+            'version' => '1.0',
+            'status' => AddonStatus::Active,
+            'type' => $this->faker->randomElement(AddonType::cases()),
             'preview' => 'preview.jpg',
         ];
     }
