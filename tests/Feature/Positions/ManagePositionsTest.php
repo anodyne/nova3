@@ -20,8 +20,8 @@ beforeEach(function () {
     $this->positions = Position::factory()
         ->count(5)
         ->sequence(
-            ['status' => PositionStatus::active, 'available' => 1],
-            ['status' => PositionStatus::inactive, 'available' => 0],
+            ['status' => PositionStatus::Active, 'available' => 1],
+            ['status' => PositionStatus::Inactive, 'available' => 0],
         )
         ->create();
 });
@@ -40,13 +40,13 @@ describe('authorized user', function () {
 
     test('can filter positions by status', function () {
         livewire(PositionsList::class)
-            ->filterTable('status', PositionStatus::active->value)
-            ->assertCanSeeTableRecords($this->positions->where('status', PositionStatus::active))
-            ->assertCanNotSeeTableRecords($this->positions->where('status', '!=', PositionStatus::active))
+            ->filterTable('status', PositionStatus::Active->value)
+            ->assertCanSeeTableRecords($this->positions->where('status', PositionStatus::Active))
+            ->assertCanNotSeeTableRecords($this->positions->where('status', '!=', PositionStatus::Active))
             ->resetTableFilters()
-            ->filterTable('status', PositionStatus::inactive->value)
-            ->assertCanSeeTableRecords($this->positions->where('status', PositionStatus::inactive))
-            ->assertCanNotSeeTableRecords($this->positions->where('status', '!=', PositionStatus::inactive));
+            ->filterTable('status', PositionStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->positions->where('status', PositionStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->positions->where('status', '!=', PositionStatus::Inactive));
     });
 
     test('can filter positions by department', function () {

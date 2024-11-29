@@ -147,12 +147,12 @@ test('with approval required user cannot create additional secondary characters 
     $oldPrimaryCharacter->refresh();
 
     expect($oldPrimaryCharacter->is_active)->toBeTrue();
-    expect(CharacterType::primary)->toEqual($oldPrimaryCharacter->type);
+    expect(CharacterType::Primary)->toEqual($oldPrimaryCharacter->type);
 
     $newPrimaryCharacter = Character::latest('id')->first();
 
     expect($newPrimaryCharacter->is_pending)->toBeTrue();
-    expect(CharacterType::primary)->toEqual($newPrimaryCharacter->type);
+    expect(CharacterType::Primary)->toEqual($newPrimaryCharacter->type);
 });
 
 test('without approval required user cannot create additional secondary characters by creating new primary character', function () {
@@ -189,7 +189,7 @@ test('without approval required user cannot create additional secondary characte
     $oldPrimaryCharacter->refresh();
 
     expect($oldPrimaryCharacter->is_inactive)->toBeTrue();
-    expect(CharacterType::primary)->toEqual($oldPrimaryCharacter->type);
+    expect(CharacterType::Primary)->toEqual($oldPrimaryCharacter->type);
 });
 
 test('user cannot create primary character for another user', function () {

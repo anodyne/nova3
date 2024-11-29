@@ -60,27 +60,27 @@ describe('authorized user', function () {
     test('can filter characters by type', function () {
         Character::factory(3)
             ->sequence(
-                ['type' => CharacterType::primary],
-                ['type' => CharacterType::secondary],
-                ['type' => CharacterType::support],
+                ['type' => CharacterType::Primary],
+                ['type' => CharacterType::Secondary],
+                ['type' => CharacterType::Support],
             )
             ->create();
 
         livewire(CharactersList::class)
-            ->filterTable('type', [CharacterType::primary->value])
+            ->filterTable('type', [CharacterType::Primary->value])
             ->assertCountTableRecords(1)
-            ->assertCanSeeTableRecords(Character::where('type', CharacterType::primary)->get())
-            ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::primary)->get())
+            ->assertCanSeeTableRecords(Character::where('type', CharacterType::Primary)->get())
+            ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::Primary)->get())
             ->resetTableFilters()
-            ->filterTable('type', [CharacterType::secondary->value])
+            ->filterTable('type', [CharacterType::Secondary->value])
             ->assertCountTableRecords(1)
-            ->assertCanSeeTableRecords(Character::where('type', CharacterType::secondary)->get())
-            ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::secondary)->get())
+            ->assertCanSeeTableRecords(Character::where('type', CharacterType::Secondary)->get())
+            ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::Secondary)->get())
             ->resetTableFilters()
-            ->filterTable('type', [CharacterType::support->value])
+            ->filterTable('type', [CharacterType::Support->value])
             ->assertCountTableRecords(4)
-            ->assertCanSeeTableRecords(Character::where('type', CharacterType::support)->get())
-            ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::support)->get());
+            ->assertCanSeeTableRecords(Character::where('type', CharacterType::Support)->get())
+            ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::Support)->get());
     });
 
     test('can filter characters by trashed state', function () {

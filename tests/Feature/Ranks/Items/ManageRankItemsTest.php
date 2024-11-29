@@ -18,8 +18,8 @@ beforeEach(function () {
     $this->rankItems = RankItem::factory()
         ->count(10)
         ->sequence(
-            ['status' => RankItemStatus::active],
-            ['status' => RankItemStatus::inactive],
+            ['status' => RankItemStatus::Active],
+            ['status' => RankItemStatus::Inactive],
         )
         ->create();
 });
@@ -38,12 +38,12 @@ describe('authorized user', function () {
 
     test('can filter rank items by status', function () {
         livewire(RankItemsList::class)
-            ->filterTable('status', RankItemStatus::active->value)
-            ->assertCanSeeTableRecords($this->rankItems->where('status', RankItemStatus::active))
-            ->assertCanNotSeeTableRecords($this->rankItems->where('status', RankItemStatus::inactive))
-            ->filterTable('status', RankItemStatus::inactive->value)
-            ->assertCanSeeTableRecords($this->rankItems->where('status', RankItemStatus::inactive))
-            ->assertCanNotSeeTableRecords($this->rankItems->where('status', RankItemStatus::active));
+            ->filterTable('status', RankItemStatus::Active->value)
+            ->assertCanSeeTableRecords($this->rankItems->where('status', RankItemStatus::Active))
+            ->assertCanNotSeeTableRecords($this->rankItems->where('status', RankItemStatus::Inactive))
+            ->filterTable('status', RankItemStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->rankItems->where('status', RankItemStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->rankItems->where('status', RankItemStatus::Active));
     });
 
     test('can filter rank items by group', function () {
