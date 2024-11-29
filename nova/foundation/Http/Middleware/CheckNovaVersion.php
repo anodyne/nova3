@@ -27,9 +27,11 @@ class CheckNovaVersion
 
             Cache::flexible('nova-update-available', [86_400, 129_600], function () {
                 $latestVersion = Cache::get('nova-latest-version');
+                $version = data_get($latestVersion, 'version', '0.0');
+                $severity = data_get($latestVersion, 'severity');
 
-                if (version_compare(nova()->version, $latestVersion['version'], '<')) {
-                    return $latestVersion['severity'];
+                if (version_compare(nova()->version, $version, '<')) {
+                    return $severity;
                 }
 
                 return null;
