@@ -82,31 +82,31 @@ class CharacterBuilder extends Builder
 
     public function primary(): Builder
     {
-        return $this->where('type', CharacterType::primary);
+        return $this->where('type', CharacterType::Primary);
     }
 
     public function notPrimary(): Builder
     {
-        return $this->where('type', '!=', CharacterType::primary);
+        return $this->where('type', '!=', CharacterType::Primary);
     }
 
     public function secondary(): Builder
     {
-        return $this->where('type', CharacterType::secondary);
+        return $this->where('type', CharacterType::Secondary);
     }
 
     public function notSecondary(): Builder
     {
-        return $this->where('type', '!=', CharacterType::secondary);
+        return $this->where('type', '!=', CharacterType::Secondary);
     }
 
     public function support(): Builder
     {
-        return $this->where('type', CharacterType::support);
+        return $this->where('type', CharacterType::Support);
     }
 
     public function notSupport(): Builder
     {
-        return $this->where('type', '!=', CharacterType::support);
+        return $this->where('type', '!=', CharacterType::Support);
     }
 }

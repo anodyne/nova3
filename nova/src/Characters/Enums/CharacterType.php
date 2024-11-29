@@ -11,18 +11,18 @@ enum CharacterType: string implements HasLabel
 {
     use HasSelectOptions;
 
-    case primary = 'primary';
+    case Primary = 'primary';
 
-    case secondary = 'secondary';
+    case Secondary = 'secondary';
 
-    case support = 'support';
+    case Support = 'support';
 
     public function color(): string
     {
         return match ($this) {
-            self::primary => 'primary',
-            self::secondary => 'info',
-            self::support => 'gray',
+            self::Primary => 'primary',
+            self::Secondary => 'info',
+            self::Support => 'gray',
         };
     }
 

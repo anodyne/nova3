@@ -83,8 +83,8 @@ class UsersList extends TableComponent
                     ->weight(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'semibold' : null),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
-                    ->formatStateUsing(fn (Model $record): string => $record->status->getLabel())
+                    ->color(fn (User $record): string => $record->status->color())
+                    ->formatStateUsing(fn (User $record): string => $record->status->getLabel())
                     ->toggleable(),
             ])
             ->actions([
@@ -92,10 +92,10 @@ class UsersList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.users.show', $record)),
+                            ->url(fn (User $record): string => route('admin.users.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.users.edit', $record)),
+                            ->url(fn (User $record): string => route('admin.users.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -113,7 +113,7 @@ class UsersList extends TableComponent
                             ->modalSubmitActionLabel('Impersonate')
                             ->color('gray')
                             ->icon(iconName('spy'))
-                            ->action(fn (Model $record): RedirectResponse => to_route('impersonate', $record->id)),
+                            ->action(fn (User $record): RedirectResponse => to_route('impersonate', $record->id)),
                     ])->authorize('impersonate')->divided(),
 
                     ActionGroup::make([
@@ -128,7 +128,7 @@ class UsersList extends TableComponent
                                     ->label('Activate previous character')
                                     ->default(true),
                             ])
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (User $record, array $data): void {
                                 ActivateUserManager::run(
                                     $record,
                                     activatePreviousCharacter: Arr::boolean($data, 'activate_previous_character')
@@ -146,7 +146,7 @@ class UsersList extends TableComponent
                             ->color('gray')
                             ->modalContentView('pages.users.deactivate')
                             ->modalSubmitActionLabel('Deactivate')
-                            ->action(function (Model $record): void {
+                            ->action(function (User $record): void {
                                 DeactivateUser::run($record);
 
                                 UserDeactivated::dispatch($record);
@@ -162,7 +162,7 @@ class UsersList extends TableComponent
                             ->authorize('delete')
                             ->modalContentView('pages.users.delete')
                             ->successNotificationTitle('User was deleted')
-                            ->using(fn (Model $record): Model => DeleteUserManager::run($record)),
+                            ->using(fn (User $record): Model => DeleteUserManager::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -175,8 +175,8 @@ class UsersList extends TableComponent
                     ->color('gray')
                     ->action(function (Collection $records): void {
                         $records = $records
-                            ->filter(fn (Model $record): bool => Gate::allows('forcePasswordReset', $record))
-                            ->each(fn (Model $record): Model => ForcePasswordReset::run($record));
+                            ->filter(fn (User $record): bool => Gate::allows('forcePasswordReset', $record))
+                            ->each(fn (User $record): Model => ForcePasswordReset::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('user was|users were', count($records)).' updated')

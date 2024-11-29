@@ -15,9 +15,9 @@ class SetCharacterType
     public function handle(Character $character): Character
     {
         $character->update(['type' => match (true) {
-            $character->activePrimaryUsers()->count() > 0 => CharacterType::primary,
-            $character->activeUsers()->count() > 0 => CharacterType::secondary,
-            default => CharacterType::support,
+            $character->activePrimaryUsers()->count() > 0 => CharacterType::Primary,
+            $character->activeUsers()->count() > 0 => CharacterType::Secondary,
+            default => CharacterType::Support,
         }]);
 
         return $character->refresh();

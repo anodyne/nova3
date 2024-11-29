@@ -34,6 +34,10 @@ class CopyDiagnosticDataButton extends Component
         $queueDriver = config('queue.default');
         $broadcastingDriver = config('broadcasting.default');
 
+        $activeExtensions = collect(data_get(cache('nova.addons'), 'extension', []))->join(', ');
+        $activeGenre = collect(data_get(cache('nova.addons'), 'genre', []))->join(', ');
+        $activeRankSet = collect(data_get(cache('nova.addons'), 'rank', []))->join(', ');
+
         return <<<EOT
         ```
         URL: {$url}
@@ -61,6 +65,12 @@ class CopyDiagnosticDataButton extends Component
         Session: {$sessionDriver}
         Queue: {$queueDriver}
         Broadcasting: {$broadcastingDriver}
+
+        ADD-ONS
+        ====
+        Extensions: {$activeExtensions}
+        Genre: {$activeGenre}
+        Rank set: {$activeRankSet}
         ```
         EOT;
     }

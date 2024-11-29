@@ -5,33 +5,32 @@ declare(strict_types=1);
 namespace Nova\Pages\Enums;
 
 use Filament\Support\Contracts\HasLabel;
+use Nova\Foundation\Concerns\HasSelectOptions;
 
 enum PageVerb: string implements HasLabel
 {
-    case get = 'get';
-    case post = 'post';
-    case put = 'put';
-    case delete = 'delete';
+    use HasSelectOptions;
+
+    case Delete = 'delete';
+
+    case Get = 'get';
+
+    case Post = 'post';
+
+    case Put = 'put';
 
     public function color(): string
     {
         return match ($this) {
-            self::get => 'primary',
-            self::post => 'warning',
-            self::put => 'info',
-            self::delete => 'danger',
+            self::Get => 'primary',
+            self::Post => 'warning',
+            self::Put => 'info',
+            self::Delete => 'danger',
         };
     }
 
     public function getLabel(): ?string
     {
         return strtoupper($this->value);
-    }
-
-    public static function toOptions(): array
-    {
-        return collect(self::cases())
-            ->flatMap(fn ($case) => [$case->value => $case->getLabel()])
-            ->all();
     }
 }

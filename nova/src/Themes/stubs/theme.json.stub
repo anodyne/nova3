@@ -1,5 +1,10 @@
 {
     "name": "DummyName",
     "location": "DummyLocation",
-    "preview": "DummyPreview"
+    "version": "1.0",
+    "preview": "DummyPreview",
+    "repository": {
+        "type": "",
+        "id": ""
+    }
 }

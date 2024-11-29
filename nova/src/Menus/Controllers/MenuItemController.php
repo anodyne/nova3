@@ -37,7 +37,7 @@ class MenuItemController extends Controller
     public function create()
     {
         return CreateMenuItemResponse::sendWith([
-            'pages' => Page::query()->public()->verb(PageVerb::get)->get(),
+            'pages' => Page::query()->public()->verb(PageVerb::Get)->get(),
             'parentMenuItems' => MenuItem::whereNull('parent_id')->get(),
         ]);
     }
@@ -54,7 +54,7 @@ class MenuItemController extends Controller
     {
         return EditMenuItemResponse::sendWith([
             'menuItem' => $menuItem,
-            'pages' => Page::query()->public()->verb(PageVerb::get)->get(),
+            'pages' => Page::query()->public()->verb(PageVerb::Get)->get(),
             'parentMenuItems' => MenuItem::whereNull('parent_id')->where('id', '!=', $menuItem->id)->get(),
         ]);
     }

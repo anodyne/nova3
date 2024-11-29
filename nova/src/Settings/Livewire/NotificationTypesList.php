@@ -12,7 +12,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Data\DiscordSettings;
 use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Foundation\Filament\Actions\Action;
@@ -31,19 +30,19 @@ class NotificationTypesList extends TableComponent
             ->query(NotificationType::query())
             ->groups([
                 Group::make('audience')
-                    ->getDescriptionFromRecordUsing(fn (Model $record): ?string => $record->audience->description()),
+                    ->getDescriptionFromRecordUsing(fn (NotificationType $record): ?string => $record->audience->description()),
             ])
             ->defaultGroup('audience')
             ->defaultPaginationPageOption(25)
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->description(fn (Model $record): ?string => $record->description)
+                    ->description(fn (NotificationType $record): ?string => $record->description)
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('audience')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->audience->color())
+                    ->color(fn (NotificationType $record): string => $record->audience->color())
                     ->toggleable(),
                 ToggleColumn::make('database')
                     ->label('Allow in-app')
@@ -57,7 +56,7 @@ class NotificationTypesList extends TableComponent
                     ->extraAttributes(['data-panda' => settings('appearance.panda')]),
                 ToggleColumn::make('discord')
                     ->label('Allow Discord')
-                    ->extraAttributes(fn (Model $record): array => [
+                    ->extraAttributes(fn (NotificationType $record): array => [
                         'class' => $record->audience->canUseDiscord() ? '' : 'hidden',
                         'data-panda' => settings('appearance.panda'),
                     ])
@@ -85,7 +84,7 @@ class NotificationTypesList extends TableComponent
                             ->color('gray')
                             ->modalContentView('pages.settings.notification-defaults')
                             ->modalSubmitActionLabel('Update')
-                            ->fillForm(fn (Model $record): array => [
+                            ->fillForm(fn (NotificationType $record): array => [
                                 'database_default' => $record->database_default,
                                 'mail_default' => $record->mail_default,
                             ])
@@ -101,8 +100,8 @@ class NotificationTypesList extends TableComponent
                                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
                                     ->helperText('When triggered, this notification will be emailed to any user who has enabled it in their preferences.'),
                             ])
-                            ->visible(fn (Model $record): bool => $record->audience === NotificationAudience::personal)
-                            ->action(function (Model $record, ?array $data): void {
+                            ->visible(fn (NotificationType $record): bool => $record->audience === NotificationAudience::Personal)
+                            ->action(function (NotificationType $record, ?array $data): void {
                                 $record->update([
                                     'database_default' => data_get($data, 'database_default'),
                                     'mail_default' => data_get($data, 'mail_default'),
@@ -120,7 +119,7 @@ class NotificationTypesList extends TableComponent
                             ->modalWidth('xl')
                             ->color('gray')
                             ->modalContentView('pages.settings.notification-discord-settings')
-                            ->fillForm(fn (Model $record): array => [
+                            ->fillForm(fn (NotificationType $record): array => [
                                 'use_global' => blank($record->discord_settings),
                                 'webhook' => $record->discord_settings?->webhook,
                                 'color' => $record->discord_settings?->color,
@@ -147,7 +146,7 @@ class NotificationTypesList extends TableComponent
                                     ->label('Accent color')
                                     ->hidden(fn (Get $get): bool => $get('use_global') === true),
                             ])
-                            ->action(function (Model $record, ?array $data): void {
+                            ->action(function (NotificationType $record, ?array $data): void {
                                 $useGlobal = data_get($data, 'use_global');
 
                                 $settings = $useGlobal === true ? null : DiscordSettings::from($data);
@@ -159,7 +158,7 @@ class NotificationTypesList extends TableComponent
                                     ->when($useGlobal, fn (Notification $notification) => $notification->body('The global Discord settings will be used for the '.$record->name.' notification.'))
                                     ->send();
                             })
-                            ->hidden(fn (Model $record): bool => $record->audience === NotificationAudience::personal),
+                            ->hidden(fn (NotificationType $record): bool => $record->audience === NotificationAudience::Personal),
                     ])->divided(),
                 ]),
             ])

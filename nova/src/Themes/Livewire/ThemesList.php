@@ -11,8 +11,11 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
+use Nova\Addons\Data\AddonRepository;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -38,7 +41,9 @@ class ThemesList extends TableComponent
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
+                    ->description(fn (Theme $record): ?Htmlable => $record->has_update ? new HtmlString('<strong class="text-warning-600 dark:text-warning-500 font-medium text-xs">Version <span class="tabular-nums">'.$record->latest_version.'</span> is available</strong>') : null)
                     ->searchable(),
+                TextColumn::make('version')->toggleable(),
                 TextColumn::make('location')
                     ->prefix('themes/')
                     ->searchable()
@@ -48,9 +53,12 @@ class ThemesList extends TableComponent
                     ->icon(fn (bool $state): ?string => $state ? iconName('check') : null)
                     ->color(fn (bool $state): ?string => $state ? 'success' : null)
                     ->toggleable(),
+                TextColumn::make('repository.type')
+                    ->label('Checking version from')
+                    ->badge()
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Theme $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -63,6 +71,13 @@ class ThemesList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Theme $record): string => route('admin.themes.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        Action::make('goToUpdate')
+                            ->icon(iconName('cloud-share'))
+                            ->url(fn (Theme $record): ?string => $record->update_url)
+                            ->visible(fn (Theme $record): bool => $record->has_update),
+                    ])->authorizeAny(['create', 'update'])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -106,8 +121,9 @@ class ThemesList extends TableComponent
                                 $theme = CreateTheme::run(new ThemeData(
                                     name: data_get($data, 'name'),
                                     location: data_get($data, 'location'),
+                                    version: data_get($data, 'version'),
                                     credits: data_get($data, 'credits'),
-                                    status: ThemeStatus::active,
+                                    status: ThemeStatus::Active,
                                     preview: data_get($data, 'preview'),
                                     settings: new ThemeSettings(
                                         fonts: new FontFamilies(
@@ -117,7 +133,8 @@ class ThemesList extends TableComponent
                                             bodyFamily: 'Inter',
                                         ),
                                         settings: []
-                                    )
+                                    ),
+                                    repository: AddonRepository::from(data_get($data, 'repository')),
                                 ));
 
                                 ThemeInstalled::dispatch($theme);
