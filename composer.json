@@ -10,7 +10,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "anodyne/blade-tabler-icons": "^3.0",
         "artesaos/seotools": "^1.3",
         "awcodes/filament-tiptap-editor": "^3.0",
@@ -80,7 +80,7 @@
             "Nova\\": "nova/src/",
             "Nova\\Foundation\\": "nova/foundation/",
             "Nova\\Setup\\": "nova/setup/",
-            "Extensions\\": "extensions/",
+            "Addons\\": "addons/",
             "Themes\\": "themes/",
             "Database\\Factories\\": "nova/database/factories/",
             "Database\\Seeders\\": "nova/database/seeders/"
@@ -95,14 +95,20 @@
         }
     },
     "scripts": {
-        "analyse": "./vendor/bin/phpstan analyse",
         "clean": [
             "rm -f ./nova/bootstrap/cache/blade-icons.php",
             "rm -f ./nova/bootstrap/cache/packages.php",
             "rm -f ./nova/bootstrap/cache/services.php"
         ],
-        "lint": "./vendor/bin/pint",
-        "test": "./vendor/bin/pest",
+        "lint": "pint",
+        "test:lint": "pint --test",
+        "test:feature": "pest",
+        "test:types": "phpstan analyse",
+        "test": [
+            "@test:lint",
+            "@test:feature",
+            "@test:types"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan optimize:clear --ansi",
