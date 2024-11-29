@@ -53,17 +53,13 @@ jobs:
           php artisan key:generate
           php artisan key:generate --env=testing
 
-      - name: Handle search indexes
-        run: |
-          php artisan scout:index Nova\Posts\Models\Post
-
       - name: Directory permissions
         run: chmod -R 777 storage nova/bootstrap/cache
 
       - name: Run testsuite
         run: |
           php artisan migrate
-          ./vendor/bin/pest --parallel --stop-on-defect
+          ./vendor/bin/pest --parallel
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
