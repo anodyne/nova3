@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Addons\DummyNamespace;
 
 use Nova\Addons\BaseAddon;
