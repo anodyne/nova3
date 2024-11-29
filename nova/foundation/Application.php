@@ -24,11 +24,18 @@ class Application extends IlluminateApplication
     protected $themePath;
 
     /**
-     * The extensions path for the Nova installation.
+     * The add-ons path for the Nova installation.
      *
      * @var string
      */
-    protected $extensionPath;
+    protected $addonPath;
+
+    /**
+     * The ranks path for the Nova installation.
+     *
+     * @var string
+     */
+    protected $rankPath;
 
     /**
      * Get the path to the nova directory.
@@ -75,23 +82,45 @@ class Application extends IlluminateApplication
     }
 
     /**
-     * Get the path to the extensions directory.
+     * Get the path to the add-ons directory.
      */
-    public function extensionPath(string $path = ''): string
+    public function addonPath(string $path = ''): string
     {
-        return $this->joinPaths($this->extensionPath ?: $this->basePath('extensions'), $path);
+        return $this->joinPaths($this->addonPath ?: $this->basePath('addons'), $path);
     }
 
     /**
-     * Set the extensions directory.
+     * Set the add-ons directory.
      *
      * @return $this
      */
-    public function useExtensionPath(string $path): self
+    public function useAddonPath(string $path): self
     {
-        $this->extensionPath = $path;
+        $this->addonPath = $path;
 
-        $this->instance('path.extensions', $path);
+        $this->instance('path.addons', $path);
+
+        return $this;
+    }
+
+    /**
+     * Get the path to the ranks directory.
+     */
+    public function rankPath(string $path = ''): string
+    {
+        return $this->joinPaths($this->rankPath ?: $this->basePath('ranks'), $path);
+    }
+
+    /**
+     * Set the ranks directory.
+     *
+     * @return $this
+     */
+    public function useRankPath(string $path): self
+    {
+        $this->rankPath = $path;
+
+        $this->instance('path.ranks', $path);
 
         return $this;
     }
