@@ -8,9 +8,11 @@ use Exception;
 use Illuminate\Support\Facades\Artisan;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Addons\Actions\BustActiveAddonsCache;
 use Nova\Foundation\EnvWriter;
 use Nova\Foundation\Nova;
 use Nova\Setup\Enums\NovaInstallStatus;
+use Symfony\Component\Finder\Finder;
 use Throwable;
 
 class InstallNova extends Component
@@ -31,6 +33,10 @@ class InstallNova extends Component
             $this->runInstaller();
 
             $this->setAppUrl();
+
+            // $this->installThemes();
+
+            // $this->installExtensions();
 
             // $this->updateSettings();
 
@@ -96,6 +102,30 @@ class InstallNova extends Component
 
         Artisan::call('icons:cache');
         Artisan::call('view:cache');
+    }
+
+    protected function installThemes(): void {}
+
+    protected function installExtensions(): void
+    {
+        $finder = Finder::create()
+            ->in(addon_path())
+            ->directories()
+            ->depth(0);
+
+        $addons = collect($finder)
+            ->flatMap(fn ($finder) => [$finder->getFilename()])
+            ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/addon.json')))
+            ->flatMap(fn ($addon) => ["Addons\\$addon\\Addon"])
+            ->each(fn ($addon) => (new $addon)->install());
+
+        BustActiveAddonsCache::run();
+
+        // Get all of the add-ons in the add-ons directory
+        // Make sure we only have add-ons with a QuickInstall file
+        // Install the add-on into the database
+        // Run any installer the add-on has
+        // Cache everything
     }
 
     protected function updateSettings(): void

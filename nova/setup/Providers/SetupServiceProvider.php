@@ -7,6 +7,7 @@ namespace Nova\Setup\Providers;
 use BladeUI\Icons\Console\CacheCommand;
 use Filament\Support\Colors\ColorManager;
 use Livewire\Commands\DiscoverCommand;
+use Livewire\Livewire;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Colors\Color;
 use Nova\Foundation\Nova;
@@ -37,6 +38,8 @@ class SetupServiceProvider extends DomainServiceProvider
 
     public function domainBooted(): void
     {
+        Livewire::forceAssetInjection();
+
         if (! Nova::isInstalled()) {
             app(ColorManager::class)->register([
                 'primary' => Color::Sky,
