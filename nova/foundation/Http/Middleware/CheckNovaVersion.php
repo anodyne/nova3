@@ -22,7 +22,7 @@ class CheckNovaVersion
     {
         if (Nova::isInstalled()) {
             Cache::flexible('nova-latest-version', [86_400, 129_600], function () {
-                return Http::get(url('api/version'))->json();
+                return Http::get(route('api.latest-version'))->json();
             });
 
             Cache::flexible('nova-update-available', [86_400, 129_600], function () {
