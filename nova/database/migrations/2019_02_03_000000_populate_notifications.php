@@ -55,15 +55,15 @@ class PopulateNotifications extends Migration
 
         NotificationType::unguarded(function () use ($admin, $group, $personal) {
             $admin->each(
-                fn ($notification) => $this->createNotificationType($notification, NotificationAudience::admin)
+                fn ($notification) => $this->createNotificationType($notification, NotificationAudience::Admin)
             );
 
             $group->each(
-                fn ($notification) => $this->createNotificationType($notification, NotificationAudience::group)
+                fn ($notification) => $this->createNotificationType($notification, NotificationAudience::Group)
             );
 
             $personal->each(
-                fn ($notification) => $this->createNotificationType($notification, NotificationAudience::personal)
+                fn ($notification) => $this->createNotificationType($notification, NotificationAudience::Personal)
             );
         });
     }

@@ -15,11 +15,11 @@ class CreatePositionTables extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(Department::class);
-            $table->string('name');
+            $table->foreignIdFor(Department::class)->constrained();
+            $table->string('name')->index();
             $table->text('description')->nullable();
-            $table->unsignedSmallInteger('available')->default(1);
-            $table->string('status')->default(PositionStatus::active->value);
+            $table->unsignedSmallInteger('available')->default(1)->index();
+            $table->string('status')->default(PositionStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });

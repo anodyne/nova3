@@ -33,6 +33,7 @@ class PopulateAuthorizationTables extends Migration
             'owner' => [
                 'role.create', 'role.delete', 'role.update', 'role.view',
                 'theme.create', 'theme.delete', 'theme.update', 'theme.view',
+                'addon.create', 'addon.delete', 'addon.update', 'addon.view',
                 'settings.update',
             ],
             'admin' => [
@@ -88,6 +89,11 @@ class PopulateAuthorizationTables extends Migration
                 ['name' => 'theme.delete', 'display_name' => 'Delete themes', 'description' => 'Allows a user to remove themes'],
                 ['name' => 'theme.update', 'display_name' => 'Update themes', 'description' => 'Allows a user to edit themes'],
                 ['name' => 'theme.view', 'display_name' => 'View themes', 'description' => 'Allows a user to view any themes'],
+
+                ['name' => 'addon.create', 'display_name' => 'Create add-ons', 'description' => 'Allows a user to add new add-ons'],
+                ['name' => 'addon.delete', 'display_name' => 'Delete add-ons', 'description' => 'Allows a user to remove add-ons'],
+                ['name' => 'addon.update', 'display_name' => 'Update add-ons', 'description' => 'Allows a user to edit add-ons'],
+                ['name' => 'addon.view', 'display_name' => 'View add-ons', 'description' => 'Allows a user to view any add-ons'],
 
                 ['name' => 'user.create', 'display_name' => 'Create users', 'description' => 'Allows a user to add new users'],
                 ['name' => 'user.delete', 'display_name' => 'Delete users', 'description' => 'Allows a user to remove users'],

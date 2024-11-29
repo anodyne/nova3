@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Roles\Models\Role;
 use Nova\Stories\Enums\PostTypeStatus;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
@@ -20,15 +21,13 @@ class CreateStoryTables extends Migration
             $table->prefixedId();
             $table->foreignIdFor(Story::class, 'parent_id')->nullable();
             $table->unsignedBigInteger('order_column')->nullable();
-            $table->string('status');
-            $table->string('title');
+            $table->string('status')->index();
+            $table->string('title')->index();
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
             $table->dateTime('started_at')->nullable();
             $table->dateTime('ended_at')->nullable();
             $table->timestamps();
-
-            $table->index('status');
         });
 
         Schema::create('post_author', function (Blueprint $table) {
@@ -43,13 +42,13 @@ class CreateStoryTables extends Migration
             $table->id();
             $table->prefixedId();
             $table->string('key')->unique();
-            $table->string('name');
+            $table->string('name')->index();
             $table->text('description')->nullable();
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
-            $table->foreignId('role_id')->nullable()->constrained();
-            $table->string('status')->default(PostTypeStatus::active->value);
-            $table->string('visibility')->default('in-character');
+            $table->foreignIdFor(Role::class)->nullable()->constrained();
+            $table->string('status')->default(PostTypeStatus::active->value)->index();
+            $table->string('visibility')->default('in-character')->index();
             $table->json('fields')->nullable();
             $table->json('options')->nullable();
             $table->unsignedBigInteger('order_column')->nullable();
@@ -60,11 +59,11 @@ class CreateStoryTables extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(Story::class)->nullable();
-            $table->foreignIdFor(PostType::class)->nullable();
+            $table->foreignIdFor(Story::class)->nullable()->constrained();
+            $table->foreignIdFor(PostType::class)->nullable()->constrained();
             $table->unsignedBigInteger('order_column')->nullable();
-            $table->string('status');
-            $table->string('title')->nullable();
+            $table->string('status')->index();
+            $table->string('title')->nullable()->index();
             $table->longText('content')->nullable();
             $table->string('day')->nullable();
             $table->string('time')->nullable();
@@ -77,11 +76,9 @@ class CreateStoryTables extends Migration
             $table->text('participants')->nullable();
             $table->integer('neighbor')->nullable();
             $table->string('direction', 6)->nullable();
-            $table->timestamp('published_at')->nullable();
+            $table->timestamp('published_at')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
-
-            $table->index(['story_id', 'post_type_id', 'published_at']);
         });
     }
 

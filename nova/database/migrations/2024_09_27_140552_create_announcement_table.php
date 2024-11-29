@@ -15,20 +15,20 @@ return new class extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(User::class);
-            $table->string('title');
-            $table->string('category')->nullable();
+            $table->foreignIdFor(User::class)->constrained();
+            $table->string('title')->index();
+            $table->string('category')->nullable()->index();
             $table->longText('content');
-            $table->boolean('published')->default(false);
+            $table->boolean('published')->default(false)->index();
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
 
         Schema::create('announcement_notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Announcement::class)->onDelete('cascade');
-            $table->foreignIdFor(User::class);
-            $table->boolean('is_seen')->default(false);
+            $table->foreignIdFor(Announcement::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class)->constrained();
+            $table->boolean('is_seen')->default(false)->index();
             $table->timestamps();
 
             $table->index(['user_id', 'announcement_id'], 'user_announcement_index');

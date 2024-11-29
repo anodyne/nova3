@@ -18,6 +18,7 @@ class PopulateThemesTable extends Migration
             [
                 'name' => 'Pulsar',
                 'location' => 'Pulsar',
+                'version' => '3.0',
                 'preview' => 'preview.jpg',
                 'settings' => new ThemeSettings(
                     fonts: new FontFamilies(
@@ -32,7 +33,7 @@ class PopulateThemesTable extends Migration
                     ],
                 ),
             ],
-            ['name' => 'Event Horizon', 'location' => 'EventHorizon', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
+            ['name' => 'Event Horizon', 'location' => 'EventHorizon', 'version' => '1.0', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
                 fonts: new FontFamilies(
                     headerProvider: 'local',
                     headerFamily: Randomize::publicHeaderFont(),
@@ -42,7 +43,7 @@ class PopulateThemesTable extends Migration
                 settings: []
             )],
 
-            ['name' => 'Titan', 'location' => 'Titan', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
+            ['name' => 'Titan', 'location' => 'Titan', 'version' => '3.0', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
                 fonts: new FontFamilies(
                     headerProvider: 'bunny',
                     headerFamily: 'Antonio',
@@ -51,7 +52,7 @@ class PopulateThemesTable extends Migration
                 ),
                 settings: []
             )],
-            ['name' => 'Cerritos', 'location' => 'Cerritos', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
+            ['name' => 'Cerritos', 'location' => 'Cerritos', 'version' => '1.0', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
                 fonts: new FontFamilies(
                     headerProvider: 'bunny',
                     headerFamily: 'Antonio',
@@ -60,7 +61,7 @@ class PopulateThemesTable extends Migration
                 ),
                 settings: []
             )],
-            ['name' => 'Celestial', 'location' => 'Celestial', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
+            ['name' => 'Celestial', 'location' => 'Celestial', 'version' => '1.0', 'preview' => 'preview.jpg', 'settings' => new ThemeSettings(
                 fonts: new FontFamilies(
                     headerProvider: 'local',
                     headerFamily: Randomize::publicHeaderFont(),

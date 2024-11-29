@@ -5,28 +5,30 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Themes\Enums\ThemeStatus;
+use Nova\Addons\Enums\AddonStatus;
 
-class CreateThemeTables extends Migration
+return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
-        Schema::create('themes', function (Blueprint $table) {
+        Schema::create('addons', function (Blueprint $table) {
             $table->id();
+            $table->prefixedId();
             $table->string('name')->index();
-            $table->string('location')->unique();
+            $table->string('location');
             $table->string('version');
             $table->text('credits')->nullable();
             $table->text('preview')->nullable();
-            $table->string('status')->default(ThemeStatus::Active)->index();
-            $table->json('settings');
+            $table->string('type')->index();
+            $table->string('status')->default(AddonStatus::Active->value)->index();
+            $table->json('settings')->nullable();
             $table->json('repository')->nullable();
             $table->timestamps();
         });
     }
 
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('themes');
+        Schema::dropIfExists('addons');
     }
-}
+};

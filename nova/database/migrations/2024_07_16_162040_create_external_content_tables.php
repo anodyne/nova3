@@ -25,7 +25,7 @@ return new class extends Migration
 
         Schema::create('external_content', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->string('key')->index();
             $table->longText('value');
             $table->timestamps();
         });
