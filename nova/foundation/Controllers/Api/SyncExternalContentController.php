@@ -20,7 +20,7 @@ class SyncExternalContentController
 
     protected function syncExternalChangelog(): void
     {
-        $changelog = Http::get('https://anodyne-productions.com/api/external-changelog');
+        $changelog = Http::get('https://anodyne-productions.com/api/nova/external-changelog');
 
         if ($changelog->ok()) {
             foreach ($changelog as $version) {
@@ -34,9 +34,15 @@ class SyncExternalContentController
 
     protected function syncExternalContent(): void
     {
-        $content = Http::get('https://anodyne-productions.com/api/external-content');
+        $content = Http::get('https://anodyne-productions.com/api/nova/external-content');
 
         if ($content->ok()) {
+            foreach ($content as $content) {
+                ExternalContent::updateOrCreate(
+                    ['key' => $content['key']],
+                    ['value' => $content['value']]
+                );
+            }
         }
     }
 }
