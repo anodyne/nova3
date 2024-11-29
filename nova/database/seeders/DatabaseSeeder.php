@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             ApplicationSeeder::class,
 
             DiscussionSeeder::class,
+
+            // AddonSeeder::class,
         ]);
 
         activity()->enableLogging();
