@@ -2,28 +2,29 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Data\Field;
 use Nova\Stories\Data\Fields;
 use Nova\Stories\Data\Options;
 use Nova\Stories\Enums\PostEditTimeframe;
 use Nova\Stories\Models\PostType;
+use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
 
-class PopulateStoryTables extends Migration
+return new class extends OneTimeOperation
 {
-    public function up()
+    protected bool $async = false;
+
+    protected string $queue = 'default';
+
+    protected ?string $tag = null;
+
+    public function process(): void
     {
         activity()->disableLogging();
 
         $this->populatePostTypes();
 
         activity()->enableLogging();
-    }
-
-    public function down()
-    {
-        PostType::truncate();
     }
 
     protected function populatePostTypes()
@@ -234,4 +235,4 @@ class PopulateStoryTables extends Migration
             collect($postTypes)->each([PostType::class, 'create']);
         });
     }
-}
+};

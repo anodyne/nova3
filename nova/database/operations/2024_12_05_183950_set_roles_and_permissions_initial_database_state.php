@@ -2,13 +2,19 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Models\Role;
+use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
 
-class PopulateAuthorizationTables extends Migration
+return new class extends OneTimeOperation
 {
-    public function up()
+    protected bool $async = false;
+
+    protected string $queue = 'default';
+
+    protected ?string $tag = null;
+
+    public function process(): void
     {
         activity()->disableLogging();
 
@@ -21,12 +27,6 @@ class PopulateAuthorizationTables extends Migration
         activity()->enableLogging();
     }
 
-    public function down()
-    {
-        Role::truncate();
-        Permission::truncate();
-    }
-
     protected function assignPermissionsToRoles()
     {
         $permissions = [
@@ -35,6 +35,7 @@ class PopulateAuthorizationTables extends Migration
                 'theme.create', 'theme.delete', 'theme.update', 'theme.view',
                 'addon.create', 'addon.delete', 'addon.update', 'addon.view',
                 'settings.update',
+                'site.update',
             ],
             'admin' => [
                 'user.create', 'user.delete', 'user.update', 'user.view', 'user.impersonate',
@@ -195,4 +196,4 @@ class PopulateAuthorizationTables extends Migration
             });
         });
     }
-}
+};

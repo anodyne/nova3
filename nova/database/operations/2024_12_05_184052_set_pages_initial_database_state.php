@@ -2,15 +2,21 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Nova\Pages\Actions\PublishPage;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Models\Page;
+use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
 
-class PopulatePagesTable extends Migration
+return new class extends OneTimeOperation
 {
-    public function up()
+    protected bool $async = false;
+
+    protected string $queue = 'default';
+
+    protected ?string $tag = null;
+
+    public function process(): void
     {
         activity()->disableLogging();
 
@@ -28,11 +34,6 @@ class PopulatePagesTable extends Migration
         }
 
         activity()->enableLogging();
-    }
-
-    public function down()
-    {
-        Page::truncate();
     }
 
     protected function populateAdminPages(): void
@@ -316,4 +317,4 @@ class PopulatePagesTable extends Migration
 
         Page::unguarded(fn () => collect($advancedPages)->each([Page::class, 'create']));
     }
-}
+};

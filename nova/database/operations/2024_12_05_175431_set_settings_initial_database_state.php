@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
 use Nova\Settings\Data\Appearance;
 use Nova\Settings\Data\Applications;
 use Nova\Settings\Data\Characters;
@@ -16,11 +15,20 @@ use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Models\Settings;
 use Nova\Setup\Randomize;
+use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
 
-class PopulateSettingsTable extends Migration
+return new class extends OneTimeOperation
 {
-    public function up()
+    protected bool $async = false;
+
+    protected string $queue = 'default';
+
+    protected ?string $tag = null;
+
+    public function process(): void
     {
+        activity()->disableLogging();
+
         $settings = [
             'general' => new General(
                 gameName: 'USS Nova',
@@ -122,10 +130,7 @@ class PopulateSettingsTable extends Migration
             'key' => 'custom',
         ], $settings));
         $custom->save();
-    }
 
-    public function down()
-    {
-        Settings::truncate();
+        activity()->enableLogging();
     }
-}
+};

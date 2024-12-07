@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
 use Nova\Menus\Enums\LinkType;
 use Nova\Menus\Models\Menu;
 use Nova\Pages\Models\Page;
+use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
 
-return new class extends Migration
+return new class extends OneTimeOperation
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    protected bool $async = false;
+
+    protected string $queue = 'default';
+
+    protected ?string $tag = null;
+
+    public function process(): void
     {
         activity()->disableLogging();
 
@@ -27,13 +30,5 @@ return new class extends Migration
         ]);
 
         activity()->enableLogging();
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //
     }
 };

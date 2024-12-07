@@ -2,28 +2,22 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
 use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Foundation\Models\NotificationType;
+use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
 
-class PopulateNotifications extends Migration
+return new class extends OneTimeOperation
 {
-    public function up()
+    protected bool $async = false;
+
+    protected string $queue = 'default';
+
+    protected ?string $tag = null;
+
+    public function process(): void
     {
         activity()->disableLogging();
 
-        $this->populateNotificationTypes();
-
-        activity()->enableLogging();
-    }
-
-    public function down()
-    {
-        NotificationType::truncate();
-    }
-
-    protected function populateNotificationTypes(): void
-    {
         $admin = collect([
             ['name' => 'Character requires approval', 'key' => 'character-requires-approval'],
             ['name' => 'User deleted their account', 'key' => 'user-deleted-account'],
@@ -66,6 +60,8 @@ class PopulateNotifications extends Migration
                 fn ($notification) => $this->createNotificationType($notification, NotificationAudience::Personal)
             );
         });
+
+        activity()->enableLogging();
     }
 
     protected function createNotificationType(array $data, NotificationAudience $audience): void
@@ -75,4 +71,4 @@ class PopulateNotifications extends Migration
             ['audience' => $audience]
         ));
     }
-}
+};

@@ -2,15 +2,21 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 use Nova\Forms\Actions\PublishFormManager;
 use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\Form;
+use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
 
-class PopulateFormTables extends Migration
+return new class extends OneTimeOperation
 {
-    public function up()
+    protected bool $async = false;
+
+    protected string $queue = 'default';
+
+    protected ?string $tag = null;
+
+    public function process(): void
     {
         activity()->disableLogging();
 
@@ -70,9 +76,4 @@ class PopulateFormTables extends Migration
 
         activity()->enableLogging();
     }
-
-    public function down()
-    {
-        Form::truncate();
-    }
-}
+};
