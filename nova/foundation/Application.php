@@ -181,6 +181,6 @@ class Application extends IlluminateApplication
 
     public function novaVersion(): string
     {
-        return $this['nova']->getVersion();
+        return $this['nova']->filesVersion();
     }
 }

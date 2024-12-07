@@ -32,6 +32,20 @@ class Addon extends Genre
         ];
     }
 
+    public function rankGroupAndItemsData(): array
+    {
+        return [
+            [
+                'name' => 'Command',
+                'items' => [
+                    [],
+                    // ...copy the lines above and add as many rank items for this rank group as you want
+                ]
+            ],
+            // ...copy the lines above and add as many rank groups as you want
+        ];
+    }
+
     public function rankNameData(): array
     {
         return [

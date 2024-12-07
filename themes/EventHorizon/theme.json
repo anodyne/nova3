@@ -1,5 +1,16 @@
 {
     "name": "Event Horizon",
     "location": "event-horizon",
-    "preview": "preview.jpg"
+    "version": "1.0",
+    "preview": "preview.jpg",
+    "credits": "",
+    "settings": {
+        "fonts": {
+            "headerProvider": "google",
+            "headerFamily": "Oxanium",
+            "bodyProvider": "local",
+            "bodyFamily": "Geist"
+        },
+        "settings": {}
+    }
 }

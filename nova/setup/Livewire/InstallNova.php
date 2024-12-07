@@ -6,20 +6,29 @@ namespace Nova\Setup\Livewire;
 
 use Exception;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Addons\Actions\BustActiveAddonsCache;
+use Nova\Addons\Actions\InstallAddon;
+use Nova\Addons\Models\Addon;
 use Nova\Foundation\EnvWriter;
+use Nova\Foundation\Models\ExternalChangelog;
+use Nova\Foundation\Models\ExternalContent;
 use Nova\Foundation\Nova;
 use Nova\Setup\Enums\NovaInstallStatus;
+use Nova\Setup\Enums\SetupType;
+use Nova\Themes\Actions\InstallTheme;
 use Symfony\Component\Finder\Finder;
 use Throwable;
 
+#[Layout('layouts.setup', ['type' => SetupType::Install])]
 class InstallNova extends Component
 {
     public string $name = '';
 
-    public string $genre = 'st24';
+    public ?string $genre = null;
 
     public bool $shouldSeed = false;
 
@@ -34,11 +43,17 @@ class InstallNova extends Component
 
             $this->setAppUrl();
 
-            // $this->installThemes();
+            $this->installThemes();
 
-            // $this->installExtensions();
+            $this->installExtensions();
+
+            $this->installGenreData();
 
             // $this->updateSettings();
+
+            $this->seedDatabase();
+
+            $this->syncExternalContentFromAnodyne();
 
             $this->status = NovaInstallStatus::Success;
         } catch (Throwable $th) {
@@ -70,6 +85,28 @@ class InstallNova extends Component
         };
     }
 
+    #[Computed]
+    public function availableGenres(): array
+    {
+        $finder = new Finder;
+        $finder->in(base_path('addons'))
+            ->files()
+            ->depth(1)
+            ->contains('extends Genre');
+
+        $disk = Storage::disk('addons');
+
+        return collect($finder)
+            ->flatMap(fn ($finder) => [$finder->getRelativePath()])
+            ->reject(fn ($path) => ! $disk->exists("{$path}/addon.json"))
+            ->flatMap(function ($path) use ($disk) {
+                $data = json_decode($disk->get("{$path}/addon.json"), true);
+
+                return [$path => data_get($data, 'name')];
+            })
+            ->toArray();
+    }
+
     public function mount()
     {
         if (app()->environment('local')) {
@@ -84,17 +121,19 @@ class InstallNova extends Component
     public function render()
     {
         return view('setup.install-nova.index', [
+            'availableGenres' => $this->availableGenres,
             'shouldShowForm' => $this->shouldShowForm,
             'shouldShowSuccessTable' => $this->shouldShowSuccessTable,
-        ])->layout('layouts.setup');
+        ]);
     }
 
     protected function runInstaller(): void
     {
         Artisan::call('migrate:fresh', [
-            '--seed' => $this->shouldSeed,
             '--force' => true,
         ]);
+
+        Artisan::call('operations:process');
 
         Artisan::call('optimize:clear');
         Artisan::call('package:discover');
@@ -104,28 +143,48 @@ class InstallNova extends Component
         Artisan::call('view:cache');
     }
 
-    protected function installThemes(): void {}
-
-    protected function installExtensions(): void
+    protected function seedDatabase(): void
     {
-        $finder = Finder::create()
-            ->in(addon_path())
+        if ($this->shouldSeed) {
+            Artisan::call('db:seed');
+        }
+    }
+
+    protected function installThemes(): void
+    {
+        $finder = new Finder;
+        $finder->in(theme_path())
             ->directories()
             ->depth(0);
 
-        $addons = collect($finder)
+        collect($finder)
+            ->flatMap(fn ($finder) => [$finder->getFilename()])
+            ->reject(fn ($theme) => ! file_exists(theme_path($theme.'/theme.json')))
+            ->each([InstallTheme::class, 'run']);
+    }
+
+    protected function installExtensions(): void
+    {
+        $finder = new Finder;
+        $finder->in(addon_path())
+            ->directories()
+            ->depth(0);
+
+        collect($finder)
             ->flatMap(fn ($finder) => [$finder->getFilename()])
             ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/addon.json')))
-            ->flatMap(fn ($addon) => ["Addons\\$addon\\Addon"])
-            ->each(fn ($addon) => (new $addon)->install());
+            ->each([InstallAddon::class, 'run']);
 
         BustActiveAddonsCache::run();
+    }
 
-        // Get all of the add-ons in the add-ons directory
-        // Make sure we only have add-ons with a QuickInstall file
-        // Install the add-on into the database
-        // Run any installer the add-on has
-        // Cache everything
+    protected function installGenreData(): void
+    {
+        if (filled($this->genre)) {
+            $genre = Addon::location($this->genre)->first();
+
+            $genre?->runScript('install');
+        }
     }
 
     protected function updateSettings(): void
@@ -152,5 +211,12 @@ class InstallNova extends Component
                 }
             }
         }
+    }
+
+    protected function syncExternalContentFromAnodyne(): void
+    {
+        ExternalChangelog::syncFromAnodyne();
+
+        ExternalContent::syncFromAnodyne();
     }
 }

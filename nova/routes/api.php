@@ -30,10 +30,13 @@ Route::name('api.')->group(function () {
         ->name('sync-external-content');
 
     Route::get('version', function () {
+        $notes = "- Fix one\r\n- Fix two\r\n- Fix three";
+
         return response()->json([
             'severity' => 'patch',
             'version' => '3.0.0-alpha13',
-            'notes' => 'Sint eiusmod esse sint elit anim aliqua non ex consectetur.',
+            'description' => 'Irure veniam ad sit ipsum sunt qui. Excepteur anim nulla consectetur pariatur excepteur in elit ad dolore non. Non proident id consequat nisi amet incididunt consequat excepteur elit Lorem.',
+            'notes' => $notes,
         ]);
     })->name('latest-version');
 });

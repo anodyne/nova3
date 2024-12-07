@@ -13,9 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
-use Nova\Addons\Data\AddonRepository;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -23,13 +21,9 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
-use Nova\Settings\Data\FontFamilies;
-use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Actions\DeleteTheme;
-use Nova\Themes\Data\ThemeData;
-use Nova\Themes\Data\ThemeSettings;
+use Nova\Themes\Actions\InstallTheme;
 use Nova\Themes\Enums\ThemeStatus;
-use Nova\Themes\Events\ThemeInstalled;
 use Nova\Themes\Models\Theme;
 
 class ThemesList extends TableComponent
@@ -116,28 +110,7 @@ class ThemesList extends TableComponent
 
                         foreach ($themes as $theme) {
                             try {
-                                $data = json_decode(Storage::disk('themes')->get("{$theme}/theme.json"), true);
-
-                                $theme = CreateTheme::run(new ThemeData(
-                                    name: data_get($data, 'name'),
-                                    location: data_get($data, 'location'),
-                                    version: data_get($data, 'version'),
-                                    credits: data_get($data, 'credits'),
-                                    status: ThemeStatus::Active,
-                                    preview: data_get($data, 'preview'),
-                                    settings: new ThemeSettings(
-                                        fonts: new FontFamilies(
-                                            headerProvider: 'local',
-                                            headerFamily: 'Geist',
-                                            bodyProvider: 'local',
-                                            bodyFamily: 'Inter',
-                                        ),
-                                        settings: []
-                                    ),
-                                    repository: AddonRepository::from(data_get($data, 'repository')),
-                                ));
-
-                                ThemeInstalled::dispatch($theme);
+                                InstallTheme::run($theme);
 
                                 $created[] = $theme;
                             } catch (FileNotFoundException $ex) {

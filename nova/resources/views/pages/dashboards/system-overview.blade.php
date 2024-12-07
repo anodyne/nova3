@@ -208,5 +208,60 @@
                 </x-panel>
             </x-panel>
         </div>
+
+        <div class="w-full max-w-2xl">
+            <x-h2>Advanced</x-h2>
+            <x-text class="mt-2">
+                The following are advanced actions that can be taken with Nova. It’s important that you only take these
+                actions if you know what you’re doing and the consequences of running them.
+            </x-text>
+
+            <x-panel class="mt-8" well>
+                <x-panel class="overflow-hidden">
+                    <div class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        <x-spacing size="md" class="grid bg-white lg:grid-cols-4 dark:bg-gray-900">
+                            <div class="lg:col-span-3">
+                                <x-text><x-text.strong>Clear Nova version check cache</x-text.strong></x-text>
+                                <x-text>
+                                    This will clear the cached data of the last version check with Anodyne’s servers.
+                                </x-text>
+                            </div>
+                            <div class="flex shrink-0 justify-end">
+                                <div>
+                                    <livewire:clear-version-check-cache-button />
+                                </div>
+                            </div>
+                        </x-spacing>
+
+                        <x-spacing size="md" class="grid bg-white lg:grid-cols-4 dark:bg-gray-900">
+                            <div class="lg:col-span-3">
+                                <x-text><x-text.strong>Clear Nova’s cache</x-text.strong></x-text>
+                                <x-text>
+                                    This will clear all of Nova’s cached data. You may notice degraded performance for
+                                    the first few page loads after clearing the cache.
+                                </x-text>
+                            </div>
+                            <div class="flex shrink-0 justify-end">
+                                <div>
+                                    <livewire:clear-nova-cache-button />
+                                </div>
+                            </div>
+                        </x-spacing>
+
+                        <x-spacing size="md" class="grid bg-white lg:grid-cols-4 dark:bg-gray-900">
+                            <div class="lg:col-span-3">
+                                <x-text><x-text.strong>Re-build search index</x-text.strong></x-text>
+                                <x-text>This will destroy and re-build Nova’s complete search index.</x-text>
+                            </div>
+                            <div class="flex shrink-0 justify-end">
+                                <div>
+                                    <livewire:rebuild-search-index-button />
+                                </div>
+                            </div>
+                        </x-spacing>
+                    </div>
+                </x-panel>
+            </x-panel>
+        </div>
     </div>
 </x-admin-layout>

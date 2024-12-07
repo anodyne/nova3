@@ -65,6 +65,7 @@
                     <x-panel class="divide-y divide-gray-950/5">
                         @include('setup.account._user-created')
                         @include('setup.account._roles-assigned')
+                        @include('setup.account._send-telemetry')
                         @include('setup.account._signin')
                     </x-panel>
                 </x-spacing>
@@ -78,6 +79,5 @@
 </div>
 
 @pushOnce('scripts')
-{{-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
 @endPushOnce

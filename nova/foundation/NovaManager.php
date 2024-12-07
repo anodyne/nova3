@@ -6,17 +6,20 @@ namespace Nova\Foundation;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Fonts\BunnyFontProvider;
 use Nova\Foundation\Fonts\Contracts\FontProvider;
 use Nova\Foundation\Fonts\GoogleFontProvider;
 use Nova\Foundation\Fonts\LocalFontProvider;
+use Nova\Foundation\Models\SystemInfo;
 use Throwable;
 
 class NovaManager
 {
-    public string $version = '3.0.0-alpha11';
+    public string $version = '3.0.0-alpha14';
 
     public function environment(): Environment
     {
@@ -63,9 +66,14 @@ class NovaManager
         };
     }
 
-    public function getVersion(): string
+    public function filesVersion(): string
     {
         return $this->version;
+    }
+
+    public function databaseVersion(): ?string
+    {
+        return SystemInfo::first()?->version;
     }
 
     public function isInstalled(): bool
@@ -75,6 +83,21 @@ class NovaManager
         } catch (Throwable $th) {
             return false;
         }
+    }
+
+    public function isUpdating(): bool
+    {
+        return Cache::has('nova-latest-version');
+    }
+
+    public function databaseIsConfigured(?string $connection = null): bool
+    {
+        if (is_null($connection)) {
+            $connection = Config::get('database.default');
+        }
+
+        return filled(Config::get("database.connections.{$connection}.database"))
+            && filled(Config::get("database.connections.{$connection}.username"));
     }
 
     public function adminStyles($options = [])

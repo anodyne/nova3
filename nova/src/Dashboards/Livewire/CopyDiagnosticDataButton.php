@@ -6,6 +6,7 @@ namespace Nova\Dashboards\Livewire;
 
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Foundation\Nova;
 
 class CopyDiagnosticDataButton extends Component
 {
@@ -17,7 +18,8 @@ class CopyDiagnosticDataButton extends Component
         $url = config('app.url');
         $theme = settings('appearance.theme');
 
-        $novaVersion = app()->novaVersion();
+        $novaFilesVersion = Nova::filesVersion();
+        $novaDatabaseVersion = Nova::databaseVersion();
         $phpVersion = PHP_VERSION;
         $database = "{$env->database->driverName()} {$env->database->version}";
         $laravelVersion = app()->version();
@@ -44,7 +46,8 @@ class CopyDiagnosticDataButton extends Component
 
         VERSIONS
         ====
-        Nova version: {$novaVersion}
+        Nova version (files): {$novaFilesVersion}
+        Nova version (database): {$novaDatabaseVersion}
         Laravel version: {$laravelVersion}
         Livewire version: {$livewireVersion}
         Filament version: {$filamentVersion}

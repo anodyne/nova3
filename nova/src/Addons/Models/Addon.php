@@ -81,6 +81,7 @@ class Addon extends Model
     {
         return collect(Storage::disk('addons')->directories())
             ->diff(static::pluck('location')->all())
+            ->reject(fn ($path) => ! file_exists(addon_path($path.DIRECTORY_SEPARATOR.'addon.json')))
             ->flatMap(function (string $addon): array {
                 $disk = Storage::disk('addons');
 

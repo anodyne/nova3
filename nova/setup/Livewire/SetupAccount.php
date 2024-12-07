@@ -6,16 +6,20 @@ namespace Nova\Setup\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
+use Nova\Setup\Enums\SetupType;
+use Nova\Setup\Telemetry;
 use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
 
+#[Layout('layouts.setup', ['type' => SetupType::Install])]
 class SetupAccount extends Component
 {
     public string $name = '';
@@ -48,6 +52,8 @@ class SetupAccount extends Component
         CreateFormSubmission::run(Form::key('userBio')->first(), $user);
 
         $user->refresh();
+
+        // (new Telemetry)->sendFullHeartbeat();
 
         Auth::login($user, remember: true);
 
@@ -82,6 +88,6 @@ class SetupAccount extends Component
         return view('setup.account.index', [
             'shouldShowForm' => $this->shouldShowForm,
             'shouldShowSuccessTable' => $this->shouldShowSuccessTable,
-        ])->layout('layouts.setup');
+        ]);
     }
 }

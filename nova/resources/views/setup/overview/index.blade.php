@@ -1,8 +1,10 @@
+@use('Nova\Setup\Enums\SetupType')
+
 @php
     $e = nova()->environment();
 @endphp
 
-<x-setup-layout>
+<x-setup-layout :type="nova()->isInstalled() ? 'update' : 'install'">
     <div class="mx-auto max-w-7xl space-y-16">
         <header class="mx-auto max-w-2xl space-y-6 text-center">
             <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Welcome to Nova</h1>
@@ -22,9 +24,15 @@
 
         @if ($e->passes())
             <div class="flex items-center justify-center">
-                <x-button.setup :href="url('setup/configure-database')" leading="tabler-database-cog">
-                    Connect to your database
-                </x-button.setup>
+                @if ($component->type === SetupType::Update)
+                    <x-button.setup :href="url('setup/update/whats-new')" leading="tabler-speakerphone">
+                        Learn about what’s new in this update
+                    </x-button.setup>
+                @else
+                    <x-button.setup :href="url('setup/configure-database')" leading="tabler-database-cog">
+                        Connect to your database
+                    </x-button.setup>
+                @endif
             </div>
         @endif
 

@@ -18,7 +18,9 @@ abstract class Genre extends BaseAddon
 {
     abstract public function departmentAndPositionsData(): array;
 
-    abstract public function rankNameData(): array;
+    abstract public function rankGroupsAndItemsData(): array;
+
+    abstract public function rankNamesData(): array;
 
     public function hasRankImages(): bool
     {
@@ -29,18 +31,47 @@ abstract class Genre extends BaseAddon
     {
         $this->uninstall();
 
-        foreach ($this->departmentAndPositionsData() as $department) {
-            $positions = data_get($department, 'positions');
+        if (count($this->departmentAndPositionsData()) > 0) {
+            foreach ($this->departmentAndPositionsData() as $department) {
+                $positions = data_get($department, 'positions');
 
-            $dept = Department::create(Arr::except($department, 'positions'));
+                $dept = Department::create(Arr::except($department, 'positions'));
 
-            if (filled($positions)) {
-                $dept->positions()->createMany($positions);
+                if (filled($positions)) {
+                    $dept->positions()->createMany($positions);
+                }
             }
         }
 
-        foreach ($this->rankNameData() as $rankName) {
-            RankName::create($rankName);
+        if (count($this->rankNamesData()) > 0) {
+            foreach ($this->rankNamesData() as $rankName) {
+                RankName::create($rankName);
+            }
+        }
+
+        if (count($this->rankGroupsAndItemsData()) > 0) {
+            $rankNames = RankName::pluck('id', 'name')->toArray();
+
+            foreach ($this->rankGroupsAndItemsData() as $group) {
+                $items = data_get($group, 'items');
+
+                $rankGroup = RankGroup::create(Arr::except($group, 'items'));
+
+                if (filled($items)) {
+                    foreach ($items as $item) {
+                        $name = data_get($item, 'name');
+
+                        if (filled($name)) {
+                            if (array_key_exists($name, $rankNames)) {
+                                $rankGroup->ranks()->create(array_merge(
+                                    Arr::except($item, 'name'),
+                                    ['name_id' => data_get($rankNames, $name)]
+                                ));
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         EnsureSingularActiveGenre::run($this->getModel());

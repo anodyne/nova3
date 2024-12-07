@@ -25,7 +25,9 @@ use Nova\Setup\Livewire\Migration\MigratePositions;
 use Nova\Setup\Livewire\Migration\MigratePosts;
 use Nova\Setup\Livewire\Migration\MigrateUsers;
 use Nova\Setup\Livewire\SetupAccount;
+use Nova\Setup\Livewire\UpdateNova;
 use Nova\Setup\View\Components\SetupLayout;
+use TimoKoerber\LaravelOneTimeOperations\Commands\OneTimeOperationsProcessCommand;
 
 class SetupServiceProvider extends DomainServiceProvider
 {
@@ -53,10 +55,11 @@ class SetupServiceProvider extends DomainServiceProvider
     public function consoleCommands(): array
     {
         return [
-            SeedRealStories::class,
+            // SeedRealStories::class,
             // DiscoverCommand::class, // Livewire only registers this in the console
             CacheCommand::class, // Blade Icons only registers this in the console
-            SetDatabaseInitialState::class,
+            OneTimeOperationsProcessCommand::class, // One-time Operations package only registers this in the console
+            // SetDatabaseInitialState::class,
         ];
     }
 
@@ -67,6 +70,8 @@ class SetupServiceProvider extends DomainServiceProvider
             'setup-migrate-steps' => MigrateNovaSteps::class,
             'setup-configure-database' => ConfigureDatabase::class,
             'setup-user-account' => SetupAccount::class,
+
+            'setup-update-nova' => UpdateNova::class,
 
             'setup-migrate-users' => MigrateUsers::class,
             'setup-migrate-characters' => MigrateCharacters::class,

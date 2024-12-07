@@ -9,8 +9,11 @@ class Install
     public function steps(): array
     {
         return [
-            new VerifyServer,
-            new DatabaseConnect,
+            new VerifyServerRequirements,
+            new ConfigureDatabase,
+            new InstallNova,
+            new MigrateNovaData,
+            new SetupUserAccount,
         ];
     }
 }

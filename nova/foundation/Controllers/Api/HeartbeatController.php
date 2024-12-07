@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Controllers\Api;
 
-use Illuminate\Http\Request;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Nova;
+use Nova\Setup\Telemetry;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
 class HeartbeatController
 {
-    public function __invoke(Request $request)
+    public function __invoke()
     {
+        return response()->json((new Telemetry)->gatherSimpleHeartbeatData());
+
         $environment = Nova::environment();
 
         return response()->json([
-            'nova_version' => Nova::getVersion(),
+            'nova_version' => Nova::filesVersion(),
             'php_version' => $environment?->php?->version,
             'db_driver' => $environment?->database->driverName(),
             'db_version' => $environment?->database?->version,

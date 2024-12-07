@@ -32,8 +32,38 @@
                         <div class="flex flex-col gap-8 divide-y divide-gray-950/5">
                             <nav class="flex flex-col gap-2 px-3">
                                 <ul role="list" class="space-y-6">
+                                    @foreach ($type->getSteps()->steps() as $step)
+                                        @if ($step->shouldShow())
+                                            <li class="relative isolate flex items-center gap-x-4">
+                                                @if (! $loop->last)
+                                                    <div
+                                                        class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center"
+                                                    >
+                                                        <div class="w-px bg-gray-300"></div>
+                                                    </div>
+                                                @endif
+
+                                                <div
+                                                    class="relative z-10 flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                                >
+                                                    {{ $step->icon() }}
+                                                </div>
+                                                <p class="relative z-10 flex-auto py-0.5 text-sm/6 text-gray-500">
+                                                    <span
+                                                        @class([
+                                                            'font-medium',
+                                                            'text-gray-500' => ! $step->isCurrent() && ! $step->isComplete(),
+                                                            'text-gray-900' => $step->isCurrent() || $step->isComplete(),
+                                                        ])
+                                                    >
+                                                        {{ $step->title() }}
+                                                    </span>
+                                                </p>
+                                            </li>
+                                        @endif
+                                    @endforeach
+
                                     {{--
-                                        @foreach ($collection as $step)
                                         <li class="relative isolate flex items-center gap-x-4">
                                         <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
                                         <div class="w-px bg-gray-300"></div>
@@ -41,7 +71,7 @@
                                         <div
                                         class="relative z-10 flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
                                         >
-                                        @if ($step->isComplete())
+                                        @if ($e->passes())
                                         <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"
@@ -57,161 +87,125 @@
                                         <path d="M9 12l2 2l4 -4" />
                                         </svg>
                                         @else
-                                        {{ $step->icon() }}
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="size-6 fill-white stroke-danger-500"
+                                        >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                        <path d="M10 10l4 4m0 -4l-4 4" />
+                                        </svg>
                                         @endif
                                         </div>
                                         <p class="relative z-10 flex-auto py-0.5 text-sm/6 text-gray-500">
-                                        <span class="font-medium text-gray-900">{{ $step->title() }}</span>
+                                        <span class="font-medium text-gray-900">Can I run Nova?</span>
                                         </p>
                                         </li>
-                                        @endforeach
+                                        <li class="relative flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                        <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        <div
+                                        class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                        <x-icon
+                                        size="md"
+                                        class="shrink-0 text-gray-400"
+                                        name="tabler-database-cog"
+                                        ></x-icon>
+                                        
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="size-6 fill-white stroke-success-500"
+                                        >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                        <path d="M9 12l2 2l4 -4" />
+                                        </svg>
+                                        </div>
+                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
+                                        <span class="font-medium text-gray-900">Connect to my database</span>
+                                        </p>
+                                        </li>
+                                        <li class="relative flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                        <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        <div
+                                        class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                        <x-icon
+                                        size="md"
+                                        class="shrink-0 text-gray-400"
+                                        name="tabler-sparkles"
+                                        ></x-icon>
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="size-6 fill-white stroke-success-500"
+                                        >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                        <path d="M9 12l2 2l4 -4" />
+                                        </svg>
+                                        </div>
+                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
+                                        <span class="font-medium text-gray-900">Install Nova</span>
+                                        </p>
+                                        </li>
+                                        <li class="relative flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                        <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        <div
+                                        class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                        <x-icon
+                                        size="md"
+                                        class="shrink-0 text-primary-500"
+                                        name="tabler-database-import"
+                                        ></x-icon>
+                                        </div>
+                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
+                                        <span class="font-medium text-gray-900">Migrate my Nova 2 data</span>
+                                        </p>
+                                        </li>
+                                        <li class="relative flex items-center gap-x-4">
+                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
+                                        <div class="w-px bg-gray-300"></div>
+                                        </div>
+                                        
+                                        <div
+                                        class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
+                                        >
+                                        <x-icon
+                                        size="md"
+                                        class="shrink-0 text-gray-400"
+                                        name="tabler-user-circle"
+                                        ></x-icon>
+                                        </div>
+                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
+                                        <span class="font-medium text-gray-900">Setup my account</span>
+                                        </p>
+                                        </li>
                                     --}}
-
-                                    <li class="relative isolate flex items-center gap-x-4">
-                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
-                                            <div class="w-px bg-gray-300"></div>
-                                        </div>
-                                        <div
-                                            class="relative z-10 flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
-                                        >
-                                            @if ($e->passes())
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.5"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    class="size-6 fill-white stroke-success-500"
-                                                >
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                                                    <path d="M9 12l2 2l4 -4" />
-                                                </svg>
-                                            @else
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                    fill="none"
-                                                    stroke="currentColor"
-                                                    stroke-width="1.5"
-                                                    stroke-linecap="round"
-                                                    stroke-linejoin="round"
-                                                    class="size-6 fill-white stroke-danger-500"
-                                                >
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                                                    <path d="M10 10l4 4m0 -4l-4 4" />
-                                                </svg>
-                                            @endif
-                                        </div>
-                                        <p class="relative z-10 flex-auto py-0.5 text-sm/6 text-gray-500">
-                                            <span class="font-medium text-gray-900">Can I run Nova?</span>
-                                        </p>
-                                    </li>
-                                    <li class="relative flex items-center gap-x-4">
-                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
-                                            <div class="w-px bg-gray-300"></div>
-                                        </div>
-                                        <div
-                                            class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
-                                        >
-                                            {{--
-                                                <x-icon
-                                                size="md"
-                                                class="shrink-0 text-gray-400"
-                                                name="tabler-database-cog"
-                                                ></x-icon>
-                                            --}}
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                stroke-width="1.5"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                class="size-6 fill-white stroke-success-500"
-                                            >
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                                                <path d="M9 12l2 2l4 -4" />
-                                            </svg>
-                                        </div>
-                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
-                                            <span class="font-medium text-gray-900">Connect to my database</span>
-                                        </p>
-                                    </li>
-                                    <li class="relative flex items-center gap-x-4">
-                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
-                                            <div class="w-px bg-gray-300"></div>
-                                        </div>
-                                        <div
-                                            class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
-                                        >
-                                            {{--
-                                                <x-icon
-                                                size="md"
-                                                class="shrink-0 text-gray-400"
-                                                name="tabler-sparkles"
-                                                ></x-icon>
-                                            --}}
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                stroke-width="1.5"
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                class="size-6 fill-white stroke-success-500"
-                                            >
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-                                                <path d="M9 12l2 2l4 -4" />
-                                            </svg>
-                                        </div>
-                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
-                                            <span class="font-medium text-gray-900">Install Nova</span>
-                                        </p>
-                                    </li>
-                                    <li class="relative flex items-center gap-x-4">
-                                        <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
-                                            <div class="w-px bg-gray-300"></div>
-                                        </div>
-                                        <div
-                                            class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
-                                        >
-                                            <x-icon
-                                                size="md"
-                                                class="shrink-0 text-primary-500"
-                                                name="tabler-database-import"
-                                            ></x-icon>
-                                        </div>
-                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
-                                            <span class="font-medium text-gray-900">Migrate my Nova 2 data</span>
-                                        </p>
-                                    </li>
-                                    <li class="relative flex items-center gap-x-4">
-                                        {{--
-                                            <div class="absolute -bottom-8 left-0 top-0 flex w-8 justify-center">
-                                            <div class="w-px bg-gray-300"></div>
-                                            </div>
-                                        --}}
-                                        <div
-                                            class="relative flex h-8 w-8 flex-none items-center justify-center bg-gray-100"
-                                        >
-                                            <x-icon
-                                                size="md"
-                                                class="shrink-0 text-gray-400"
-                                                name="tabler-user-circle"
-                                            ></x-icon>
-                                        </div>
-                                        <p class="flex-auto py-0.5 text-sm/6 text-gray-500">
-                                            <span class="font-medium text-gray-900">Setup my account</span>
-                                        </p>
-                                    </li>
                                 </ul>
 
                                 {{--
@@ -371,19 +365,26 @@
                                 Check out the install guide or join the Discord server to get help with setting up Nova.
                             </p>
                             <div class="grid grid-cols-2 gap-4">
-                                <x-button color="neutral">Install guide</x-button>
+                                <x-button
+                                    href="https://anodyne-productions.com/docs/3.0/installation"
+                                    target="_blank"
+                                    color="neutral"
+                                >
+                                    Install guide
+                                </x-button>
                                 <x-button color="neutral">Join Discord</x-button>
                             </div>
                         </div>
                     </div>
                 </aside>
 
-                <main
-                    class="ml-80 mt-3 flex-1 rounded-tl-lg bg-white ring-1 ring-gray-950/5 focus:outline-none"
-                    tabindex="0"
-                >
-                    <div class="px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-                        {{ $slot }}
+                <main class="flex flex-1 flex-col pb-2 lg:min-w-0 lg:pl-80 lg:pr-2 lg:pt-2">
+                    <div
+                        class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-900 dark:lg:ring-white/10"
+                    >
+                        <div class="relative z-[2] mx-auto max-w-6xl">
+                            {{ $slot }}
+                        </div>
                     </div>
                 </main>
             </div>

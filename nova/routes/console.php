@@ -11,6 +11,13 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
+Artisan::command('nova:refresh', function () {
+    $this->call('migrate:fresh');
+    $this->call('operations:process');
+    $this->call('db:seed');
+    $this->call('optimize:clear');
+});
+
 Artisan::command('nova:get-timezones {token}', function (string $token) {
     $response = Http::withToken($token)
         ->get('https://api.savvycal.com/v1/time_zones');

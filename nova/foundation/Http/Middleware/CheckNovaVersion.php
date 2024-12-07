@@ -23,6 +23,8 @@ class CheckNovaVersion
         if (Nova::isInstalled()) {
             Cache::flexible('nova-latest-version', [86_400, 129_600], function () {
                 return Http::get(route('api.latest-version'))->json();
+
+                // return Http::get(config('services.anodyne.api.latest-version'))->json();
             });
 
             Cache::flexible('nova-update-available', [86_400, 129_600], function () {
@@ -30,7 +32,7 @@ class CheckNovaVersion
                 $version = data_get($latestVersion, 'version', '0.0');
                 $severity = data_get($latestVersion, 'severity');
 
-                if (version_compare(nova()->version, $version, '<')) {
+                if (version_compare(Nova::filesVersion(), $version, '<')) {
                     return $severity;
                 }
 
