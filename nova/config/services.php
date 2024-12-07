@@ -21,6 +21,14 @@ return [
             'nova' => 'https://anodyne-productions.com/nova',
             'exchange' => 'https://anodyne-productions.com/exchange',
         ],
+        'api' => [
+            'latest-version' => 'https://anodyne-productions.com/api/nova/latest-version',
+            'register' => 'https://anodyne-productions.com/api/games',
+        ],
+        'external' => [
+            'changelog' => 'https://anodyne-productions.com/api/nova/external-changelog',
+            'content' => 'https://anodyne-productions.com/api/nova/external-content',
+        ],
     ],
 
     'mailgun' => [
