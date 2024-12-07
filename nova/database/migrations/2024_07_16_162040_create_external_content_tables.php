@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('version');
             $table->string('series');
             $table->longText('description');
+            $table->longText('notes');
             $table->text('tags');
             $table->dateTime('release_date');
             $table->timestamps();
