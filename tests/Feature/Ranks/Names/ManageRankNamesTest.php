@@ -17,10 +17,10 @@ uses()->group('ranks');
 
 beforeEach(function () {
     $this->rankNames = RankName::factory()
-        ->count(10)
+        ->count(2)
         ->sequence(
-            ['status' => RankNameStatus::active],
-            ['status' => RankNameStatus::inactive],
+            ['status' => RankNameStatus::Active, 'name' => 'Captain'],
+            ['status' => RankNameStatus::Inactive, 'name' => 'Commander'],
         )
         ->create();
 });
@@ -39,12 +39,12 @@ describe('authorized user', function () {
 
     test('can filter rank names by status', function () {
         livewire(RankNamesList::class)
-            ->filterTable('status', RankNameStatus::active->value)
-            ->assertCanSeeTableRecords($this->rankNames->where('status', RankNameStatus::active))
-            ->assertCanNotSeeTableRecords($this->rankNames->where('status', RankNameStatus::inactive))
-            ->filterTable('status', RankNameStatus::inactive->value)
-            ->assertCanSeeTableRecords($this->rankNames->where('status', RankNameStatus::inactive))
-            ->assertCanNotSeeTableRecords($this->rankNames->where('status', RankNameStatus::active));
+            ->filterTable('status', RankNameStatus::Active->value)
+            ->assertCanSeeTableRecords($this->rankNames->where('status', RankNameStatus::Active))
+            ->assertCanNotSeeTableRecords($this->rankNames->where('status', RankNameStatus::Inactive))
+            ->filterTable('status', RankNameStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->rankNames->where('status', RankNameStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->rankNames->where('status', RankNameStatus::Active));
     });
 
     test('can filter rank names by presence of assigned ranks', function () {

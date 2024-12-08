@@ -16,14 +16,14 @@ class RankGroupFactory extends Factory
     {
         return [
             'name' => ucfirst($this->faker->words(3, asText: true)),
-            'status' => RankGroupStatus::active,
+            'status' => RankGroupStatus::Active,
         ];
     }
 
     public function inactive()
     {
         return $this->state([
-            'status' => RankGroupStatus::inactive,
+            'status' => RankGroupStatus::Inactive,
         ]);
     }
 }

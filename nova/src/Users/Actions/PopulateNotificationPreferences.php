@@ -17,8 +17,8 @@ class PopulateNotificationPreferences
     {
         NotificationType::query()
             ->whereIn('audience', [
-                NotificationAudience::personal,
-                NotificationAudience::group,
+                NotificationAudience::Personal,
+                NotificationAudience::Group,
             ])
             ->get()
             ->each(fn (NotificationType $notification) => $notification->userNotificationPreferences()->create([

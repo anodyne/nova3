@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Nova\Dashboards\Providers;
 
 use Nova\Dashboards\Livewire\ActivityLogList;
+use Nova\Dashboards\Livewire\ClearNovaCacheButton;
+use Nova\Dashboards\Livewire\ClearVersionCheckCacheButton;
 use Nova\Dashboards\Livewire\CopyDiagnosticDataButton;
 use Nova\Dashboards\Livewire\NovaUpdatePanel;
+use Nova\Dashboards\Livewire\NovaVersionHistory;
+use Nova\Dashboards\Livewire\RebuildSearchIndexButton;
 use Nova\Dashboards\Policies\ActivityPolicy;
 use Nova\Dashboards\Spotlight\ViewSystemDashboard;
 use Nova\Dashboards\Spotlight\ViewUserDashboard;
@@ -19,8 +23,12 @@ class DashboardsServiceProvider extends DomainServiceProvider
     {
         return [
             'dashboard:activity-log-list' => ActivityLogList::class,
+            'clear-nova-cache-button' => ClearNovaCacheButton::class,
+            'clear-version-check-cache-button' => ClearVersionCheckCacheButton::class,
             'copy-diagnostic-data-button' => CopyDiagnosticDataButton::class,
+            'rebuild-search-index-button' => RebuildSearchIndexButton::class,
             'nova-update-panel' => NovaUpdatePanel::class,
+            'nova-version-history' => NovaVersionHistory::class,
         ];
     }
 

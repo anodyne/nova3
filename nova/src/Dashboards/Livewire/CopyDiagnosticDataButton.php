@@ -6,6 +6,7 @@ namespace Nova\Dashboards\Livewire;
 
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Foundation\Nova;
 
 class CopyDiagnosticDataButton extends Component
 {
@@ -17,7 +18,8 @@ class CopyDiagnosticDataButton extends Component
         $url = config('app.url');
         $theme = settings('appearance.theme');
 
-        $novaVersion = app()->novaVersion();
+        $novaFilesVersion = Nova::filesVersion();
+        $novaDatabaseVersion = Nova::databaseVersion();
         $phpVersion = PHP_VERSION;
         $database = "{$env->database->driverName()} {$env->database->version}";
         $laravelVersion = app()->version();
@@ -34,13 +36,18 @@ class CopyDiagnosticDataButton extends Component
         $queueDriver = config('queue.default');
         $broadcastingDriver = config('broadcasting.default');
 
+        $activeExtensions = collect(data_get(cache('nova.addons'), 'extension', []))->join(', ');
+        $activeGenre = collect(data_get(cache('nova.addons'), 'genre', []))->join(', ');
+        $activeRankSet = collect(data_get(cache('nova.addons'), 'rank', []))->join(', ');
+
         return <<<EOT
         ```
         URL: {$url}
 
         VERSIONS
         ====
-        Nova version: {$novaVersion}
+        Nova version (files): {$novaFilesVersion}
+        Nova version (database): {$novaDatabaseVersion}
         Laravel version: {$laravelVersion}
         Livewire version: {$livewireVersion}
         Filament version: {$filamentVersion}
@@ -61,6 +68,12 @@ class CopyDiagnosticDataButton extends Component
         Session: {$sessionDriver}
         Queue: {$queueDriver}
         Broadcasting: {$broadcastingDriver}
+
+        ADD-ONS
+        ====
+        Extensions: {$activeExtensions}
+        Genre: {$activeGenre}
+        Rank set: {$activeRankSet}
         ```
         EOT;
     }

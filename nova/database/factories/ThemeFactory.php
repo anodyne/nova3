@@ -20,7 +20,7 @@ class ThemeFactory extends Factory
         return [
             'name' => ucfirst($name),
             'location' => Str::slug($name),
-            'status' => ThemeStatus::active,
+            'status' => ThemeStatus::Active,
             'preview' => 'preview.jpg',
         ];
     }
@@ -28,7 +28,7 @@ class ThemeFactory extends Factory
     public function inactive()
     {
         return $this->state([
-            'status' => ThemeStatus::inactive,
+            'status' => ThemeStatus::Inactive,
         ]);
     }
 }

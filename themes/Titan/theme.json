@@ -1,5 +1,7 @@
 {
     "name": "Titan",
     "location": "titan",
-    "preview": "preview.jpg"
+    "version": "3.0",
+    "preview": "preview.jpg",
+    "credits": ""
 }

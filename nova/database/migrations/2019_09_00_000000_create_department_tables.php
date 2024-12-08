@@ -14,10 +14,10 @@ class CreateDepartmentTables extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->string('name');
+            $table->string('name')->index();
             $table->text('description')->nullable();
             $table->unsignedInteger('order_column')->nullable();
-            $table->string('status')->default(DepartmentStatus::active->value);
+            $table->string('status')->default(DepartmentStatus::Active)->index();
             $table->json('tags')->nullable();
             $table->timestamps();
         });

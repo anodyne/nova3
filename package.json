@@ -13,8 +13,9 @@
         "css:build-theme-titan": "cross-env ENV_BUILD=dev postcss \"themes/Titan/resources/css/**/*.css\" --base themes/Titan/resources/css --dir themes/Titan/design --verbose",
         "js:build-dev": "esbuild nova/resources/js/app.js --bundle --minify --sourcemap=inline --outfile=dist/js/app.js",
         "js:build-prod": "esbuild nova/resources/js/app.js --bundle --minify --outfile=dist/js/app.js",
-        "dev": "concurrently \"npm run js:build-dev\" \"npm run css:build-dev\" \"npm run css:build-themes\"",
-        "prod": "concurrently \"npm run js:build-prod\" \"npm run css:build-prod\" \"npm run css:build-dev\""
+        "js:build-setup": "esbuild nova/resources/js/setup.js --bundle --minify --outfile=dist/js/setup.js",
+        "dev": "concurrently \"npm run js:build-dev\" \"npm run js:build-setup\" \"npm run css:build-dev\" \"npm run css:build-themes\"",
+        "prod": "concurrently \"npm run js:build-prod\" \"npm run js:build-setup\" \"npm run css:build-prod\" \"npm run css:build-dev\""
     },
     "dependencies": {
         "@alpinejs/collapse": "^3.10",

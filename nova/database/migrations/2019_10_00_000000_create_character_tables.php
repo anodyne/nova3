@@ -18,9 +18,9 @@ class CreateCharacterTables extends Migration
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->string('name');
-            $table->string('type')->default(CharacterType::support->value);
-            $table->string('status');
+            $table->string('name')->index();
+            $table->string('type')->default(CharacterType::Support)->index();
+            $table->string('status')->index();
             $table->foreignIdFor(RankItem::class, 'rank_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -36,7 +36,7 @@ class CreateCharacterTables extends Migration
             $table->id();
             $table->foreignIdFor(Character::class);
             $table->foreignIdFor(User::class);
-            $table->boolean('primary')->default(false);
+            $table->boolean('primary')->default(false)->index();
             $table->timestamps();
         });
     }

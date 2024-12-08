@@ -67,7 +67,7 @@ return [
     'exclude' => [
         'dist/',
         'docs/',
-        'extensions/',
+        'addons/',
         'media/',
         'node_modules/',
         'nova/bootstrap/',

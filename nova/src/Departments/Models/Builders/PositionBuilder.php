@@ -11,7 +11,7 @@ class PositionBuilder extends Builder
 {
     public function active(): self
     {
-        return $this->where('status', PositionStatus::active);
+        return $this->where('status', PositionStatus::Active);
     }
 
     public function available(): self
@@ -26,7 +26,7 @@ class PositionBuilder extends Builder
 
     public function inactive(): self
     {
-        return $this->where('status', PositionStatus::inactive);
+        return $this->where('status', PositionStatus::Inactive);
     }
 
     public function searchFor($search): self

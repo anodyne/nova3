@@ -1,5 +1,7 @@
+@use('Nova\Addons\Models\Addon')
 @use('Nova\Menus\Models\MenuItem')
 @use('Nova\Themes\Models\Theme')
+@use('Spatie\Activitylog\Models\Activity')
 
 <x-sidebar.subnav>
     <x-sidebar.subnav.group>
@@ -10,6 +12,12 @@
             Overview
         </x-sidebar.subnav.item>
 
+        @can('viewAny', Addon::class)
+            <x-sidebar.subnav.item :href="route('admin.addons.index')" :active="request()->routeIs('admin.addons.*')">
+                Add-ons
+            </x-sidebar.subnav.item>
+        @endcan
+
         @can('viewAny', MenuItem::class)
             <x-sidebar.subnav.item
                 :href="route('admin.menu-items.index')"
@@ -19,15 +27,13 @@
             </x-sidebar.subnav.item>
         @endcan
 
-        {{-- <x-sidebar.subnav.item href="#">Add-ons</x-sidebar.subnav.item> --}}
-
         @can('viewAny', Theme::class)
             <x-sidebar.subnav.item :href="route('admin.themes.index')" :active="request()->routeIs('admin.themes.*')">
                 Themes
             </x-sidebar.subnav.item>
         @endcan
 
-        @can('viewAny', Spatie\Activitylog\Models\Activity::class)
+        @can('viewAny', Activity::class)
             <x-sidebar.subnav.item
                 :href="route('admin.activity-log.index')"
                 :active="request()->routeIs('admin.activity-log.*')"

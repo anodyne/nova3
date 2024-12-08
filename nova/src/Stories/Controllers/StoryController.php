@@ -39,9 +39,7 @@ class StoryController extends Controller
         $this->authorize('view', $story);
 
         return ShowStoryResponse::sendWith([
-            'story' => $story
-                ->loadCount('posts', 'recursivePosts')
-                ->loadSum(['recursivePosts', 'posts'], 'word_count'),
+            'story' => $story->loadCountsAndSums(),
             'ancestors' => $story->ancestors->splice(1),
         ]);
     }

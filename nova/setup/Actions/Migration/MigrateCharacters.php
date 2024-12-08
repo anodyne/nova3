@@ -37,9 +37,9 @@ class MigrateCharacters
                         default => Active::class,
                     },
                     'type' => match (true) {
-                        $legacyChar->user !== null => CharacterType::secondary,
-                        $isMainCharacter => CharacterType::primary,
-                        default => CharacterType::support,
+                        $legacyChar->user !== null => CharacterType::Secondary,
+                        $isMainCharacter => CharacterType::Primary,
+                        default => CharacterType::Support,
                     },
                     'force_password_reset' => true,
                     'created_at' => $date = $legacyChar->join_date ? Date::createFromTimestamp($legacyChar->join_date) : null,

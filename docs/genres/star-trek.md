@@ -1,0 +1,73 @@
+## Departments
+
+-   Command
+    -   Commanding Officer
+    -   Executive Officer
+-   Flight Control
+    -   Chief Flight Control Officer
+    -   Senior Helmsman/Navigator
+    -   Shuttle control
+    -   Deck operations
+    -   Space operations
+    -   Deck crew
+    -   Shuttle crew
+-   Tactical
+    -   Chief Tactical Officer
+    -   Energy Weapons Specialist
+    -   Projectile Weapons Specialist
+    -   Shield operations
+    -   Armory
+    -   Explosives technician
+    -   Security teams
+-   Operations
+    -   Chief Operations Officer
+    -   Operations Officer
+    -   Quartermaster
+    -   Transporter Chief
+    -   Transporter Technician
+    -   Communication Specialist
+    -   Communication Technician
+-   Engineering
+    -   Chief Engineer
+    -   Assistant Chief Engineer
+    -   Engineer
+    -   Chief Damage Control Officer
+    -   Sensor systems specialist
+    -   Fabrication specialist
+    -   Power systems
+    -   Propulsion systems
+    -   Environmental systems
+    -   Computer systems
+    -   Small craft maintenance
+-   Medical
+    -   Chief Medical Officer
+    -   Head Nurse
+    -   Nurse (3)
+    -   Medical Technician
+    -   Doctor
+    -   Surgeon
+    -   Counselor
+    -   Pharmacology Specialist
+-   Science
+
+    -   Chief Science Officer
+    -   Science Specialist
+    -   Science Technician
+    -   Environmental Sciences Officer
+    -   Xenobiologist
+    -   Astrophysicist
+    -   Historian
+    -   Exolinguist
+    -   Astrometrics
+    -   Geologist
+    -   Anthropologist
+    -   Archeologist
+    -   Biologist
+    -   Chemist
+
+    -   Life Sciences
+    -   Stellar Sciences
+        -   Stellar cartography
+        -   Spectral analysis
+    -   Exobiology
+    -   Quantum Mechanics

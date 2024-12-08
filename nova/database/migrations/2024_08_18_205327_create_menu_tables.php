@@ -17,22 +17,22 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('key');
-            $table->string('status')->default(MenuStatus::Active->value);
+            $table->string('key')->unique();
+            $table->string('status')->default(MenuStatus::Active->value)->index();
             $table->timestamps();
         });
 
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Menu::class);
+            $table->foreignIdFor(Menu::class)->constrained();
             $table->unsignedInteger('parent_id')->nullable();
             $table->string('label');
             $table->string('icon')->nullable();
             $table->string('link_type');
-            $table->foreignIdFor(Page::class)->nullable();
+            $table->foreignIdFor(Page::class)->nullable()->constrained();
             $table->string('url')->nullable();
             $table->string('target')->default(LinkTarget::Self);
-            $table->string('status')->default(MenuStatus::Active->value);
+            $table->string('status')->default(MenuStatus::Active->value)->index();
             $table->integer('order_column')->nullable();
             $table->timestamps();
         });

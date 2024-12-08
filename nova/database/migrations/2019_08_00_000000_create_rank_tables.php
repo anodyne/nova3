@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Schema;
 use Nova\Ranks\Enums\RankGroupStatus;
 use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Enums\RankNameStatus;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankName;
 
 class CreateRankTables extends Migration
 {
@@ -15,27 +17,27 @@ class CreateRankTables extends Migration
     {
         Schema::create('rank_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('status')->default(RankGroupStatus::active->value);
+            $table->string('name')->index();
+            $table->string('status')->default(RankGroupStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
 
         Schema::create('rank_names', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('status')->default(RankNameStatus::active->value);
+            $table->string('name')->index();
+            $table->string('status')->default(RankNameStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
 
         Schema::create('rank_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained('rank_groups');
-            $table->foreignId('name_id')->constrained('rank_names');
+            $table->foreignIdFor(RankGroup::class, 'group_id')->constrained('rank_groups');
+            $table->foreignIdFor(RankName::class, 'name_id')->constrained('rank_names');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
-            $table->string('status')->default(RankItemStatus::active->value);
+            $table->string('status')->default(RankItemStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });

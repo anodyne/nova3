@@ -19,19 +19,21 @@
         </span>
     </div>
 
-    @if ($story->children_count > 0)
-        <div class="flex items-center gap-x-1.5 text-gray-500">
-            <span>Total posts within</span>
-            <span class="font-medium text-gray-600 dark:text-gray-400">
-                {{ number_format((int) $story->recursive_posts_count) }}
-            </span>
-        </div>
+    @mysql
+        @if ($story->children_count > 0)
+            <div class="flex items-center gap-x-1.5 text-gray-500">
+                <span>Total posts within</span>
+                <span class="font-medium text-gray-600 dark:text-gray-400">
+                    {{ number_format((int) $story->recursive_posts_count) }}
+                </span>
+            </div>
 
-        <div class="flex items-center gap-x-1.5 text-gray-500">
-            <span>Total words within</span>
-            <span class="font-medium text-gray-600 dark:text-gray-400">
-                {{ number_format((int) $story->recursive_posts_sum_word_count) }}
-            </span>
-        </div>
-    @endif
+            <div class="flex items-center gap-x-1.5 text-gray-500">
+                <span>Total words within</span>
+                <span class="font-medium text-gray-600 dark:text-gray-400">
+                    {{ number_format((int) $story->recursive_posts_sum_word_count) }}
+                </span>
+            </div>
+        @endif
+    @endmysql
 </div>

@@ -21,10 +21,10 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Character::class)->nullable();
+            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(Character::class)->nullable()->constrained();
             $table->string('ip_address')->nullable();
-            $table->string('result')->default(ApplicationResult::Pending->value);
+            $table->string('result')->default(ApplicationResult::Pending->value)->index();
             $table->longText('decision_message')->nullable();
             $table->dateTime('decision_date')->nullable();
             $table->timestamps();
@@ -32,8 +32,8 @@ return new class extends Migration
 
         Schema::create('application_review', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Application::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Application::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
             $table->string('result')->nullable();
             $table->longText('comments')->nullable();
             $table->timestamps();
@@ -41,7 +41,7 @@ return new class extends Migration
 
         Schema::create('application_reviewers', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained();
             $table->string('type')->default(ReviewerType::Conditional->value);
             $table->json('conditions')->nullable();
             $table->timestamps();

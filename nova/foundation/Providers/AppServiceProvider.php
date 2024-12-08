@@ -28,6 +28,7 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
@@ -43,6 +44,7 @@ use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\IconSets;
 use Nova\Foundation\Icons\TablerIconSet;
+use Nova\Foundation\Listeners\AuthenticationEventSubscriber;
 use Nova\Foundation\Listeners\SetEmailSubjectPrefix;
 use Nova\Foundation\Livewire\AdvancedColorPicker;
 use Nova\Foundation\Livewire\ColorShadePicker;
@@ -71,10 +73,8 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->registerNovaSingleton();
-        $this->registerResponseFilters();
-        // $this->registerFilamentBindings();
-        $this->registerBlocks();
+        $this->configureNovaSingleton();
+        $this->configureTipTapBlocks();
 
         // $this->app->extend('blade.compiler', function ($compiler, $app) {
         //     return tap(new BladeCompiler(
@@ -115,11 +115,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->configureRateLimiting();
-        $this->registerMacros();
-        $this->updateAboutCommand();
-        $this->setupFactories();
-        $this->registerIcons();
-        $this->setupBlade();
+        $this->configureMacros();
+        $this->configureAboutCommand();
+        $this->configureDatabaseFactories();
+        $this->configureIconManager();
+        $this->configureBlade();
 
         if (Nova::isInstalled()) {
             // cache()->rememberForever(
@@ -132,19 +132,20 @@ class AppServiceProvider extends ServiceProvider
             //     fn () => Navigation::with('children.page', 'page', 'authorization')->public()->topLevel()->get()
             // );
 
-            $this->registerLivewireComponents();
-            $this->registerResponseFilters();
-            $this->setupFilament();
-            $this->setupGlobalEventListeners();
+            $this->configureLivewireComponents();
+            $this->configureResponseFilters();
+            $this->configureFilament();
+            $this->configureGlobalEventListeners();
+            $this->configureAddonProviders();
         }
     }
 
-    protected function registerNovaSingleton()
+    protected function configureNovaSingleton()
     {
         $this->app->scoped('nova', NovaManager::class);
     }
 
-    protected function registerMacros()
+    protected function configureMacros()
     {
         Arr::mixin(new Macros\ArrMacros);
         Redirector::mixin(new Macros\NotificationMacros);
@@ -182,7 +183,7 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    protected function registerIcons()
+    protected function configureIconManager()
     {
         $iconSets = new IconSets;
         $iconSets->addDefault('tabler', new TablerIconSet);
@@ -190,7 +191,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->scoped(IconSets::class, fn () => $iconSets);
     }
 
-    protected function setupBlade(): void
+    protected function configureBlade(): void
     {
         Blade::anonymousComponentPath(resource_path('views/public-components'), 'public');
 
@@ -206,9 +207,18 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('novaAdminStyles', [NovaBladeDirectives::class, 'novaAdminStyles']);
         Blade::directive('novaPublicScripts', [NovaBladeDirectives::class, 'novaPublicScripts']);
         Blade::directive('novaPublicStyles', [NovaBladeDirectives::class, 'novaPublicStyles']);
+        Blade::directive('novaSetupScripts', [NovaBladeDirectives::class, 'novaSetupScripts']);
+
+        Blade::directive('mysql', function ($expression) {
+            return '<?php if(app("nova.environment")->database->isMysql()): ?>';
+        });
+
+        Blade::directive('endmysql', function ($expression) {
+            return '<?php endif; ?>';
+        });
     }
 
-    protected function registerLivewireComponents()
+    protected function configureLivewireComponents()
     {
         // Livewire::component('nova:editor', Editor::class);
         Livewire::component('rating', Rating::class);
@@ -218,7 +228,7 @@ class AppServiceProvider extends ServiceProvider
         // Livewire::component('confirmation-modal', ConfirmationModal::class);
     }
 
-    protected function registerResponseFilters(): void
+    protected function configureResponseFilters(): void
     {
         $this->app->singleton(
             'nova.response-filters',
@@ -226,14 +236,14 @@ class AppServiceProvider extends ServiceProvider
         );
     }
 
-    protected function setupFactories()
+    protected function configureDatabaseFactories()
     {
         Factory::guessFactoryNamesUsing(
             fn ($model) => 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory'
         );
     }
 
-    protected function setupFilament(): void
+    protected function configureFilament(): void
     {
         FilamentColor::register($this->app['nova.settings']->appearance->getColors());
 
@@ -277,16 +287,19 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(FilamentNotification::class, Notification::class);
     }
 
-    protected function updateAboutCommand(): void
+    protected function configureAboutCommand(): void
     {
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Nova', [
-                'Version' => 'v'.Nova::getVersion(),
+                'Version' => 'v'.Nova::filesVersion(),
+                'Extensions' => collect(data_get(cache('nova.addons'), 'extension', []))->join(', '),
+                'Genre' => collect(data_get(cache('nova.addons'), 'genre', []))->join(', '),
+                'Rank set' => collect(data_get(cache('nova.addons'), 'rank', []))->join(', '),
             ]);
         }
     }
 
-    protected function registerBlocks(): void
+    protected function configureTipTapBlocks(): void
     {
         $blockManager = new BlockManager;
 
@@ -337,10 +350,12 @@ class AppServiceProvider extends ServiceProvider
         );
     }
 
-    protected function setupGlobalEventListeners(): void
+    protected function configureGlobalEventListeners(): void
     {
         Event::listen(Registered::class, SendEmailVerificationNotification::class);
         Event::listen(MessageSending::class, SetEmailSubjectPrefix::class);
+
+        Event::subscribe(AuthenticationEventSubscriber::class);
     }
 
     protected function configureRateLimiting(): void
@@ -356,5 +371,13 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('contact', function (Request $request) {
             return Limit::perMinute(15)->by($request->ip());
         });
+    }
+
+    protected function configureAddonProviders(): void
+    {
+        collect(data_get(Cache::get('nova.addons'), 'extension', []))
+            ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
+            ->flatMap(fn ($addon) => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
+            ->each(fn ($addon) => (new $addon($this->app))->boot());
     }
 }

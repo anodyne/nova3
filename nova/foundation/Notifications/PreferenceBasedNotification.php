@@ -25,7 +25,7 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
         $this->getNotificationType();
 
         return match ($this->notificationType->audience) {
-            NotificationAudience::admin => $this->setAdminAudienceChannels(),
+            NotificationAudience::Admin => $this->setAdminAudienceChannels(),
             default => $this->setNonAdminAudienceChannels($notifiable),
         };
     }

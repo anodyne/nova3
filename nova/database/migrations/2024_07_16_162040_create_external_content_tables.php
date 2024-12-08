@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('version');
             $table->string('series');
             $table->longText('description');
+            $table->longText('notes');
             $table->text('tags');
             $table->dateTime('release_date');
             $table->timestamps();
@@ -25,7 +26,7 @@ return new class extends Migration
 
         Schema::create('external_content', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->string('key')->index();
             $table->longText('value');
             $table->timestamps();
         });

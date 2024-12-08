@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
-use Nova\Foundation\Models\Changelog;
 use Nova\Foundation\Nova;
 
 class NovaUpdatePanel extends Component
@@ -16,15 +14,15 @@ class NovaUpdatePanel extends Component
     public bool $sidebarOpen = false;
 
     #[Computed]
-    public function databaseVersion()
+    public function databaseVersion(): ?string
     {
-        return Nova::getVersion();
+        return Nova::databaseVersion();
     }
 
     #[Computed]
-    public function filesVersion()
+    public function filesVersion(): string
     {
-        return Nova::getVersion();
+        return Nova::filesVersion();
     }
 
     #[Computed]
@@ -46,12 +44,15 @@ class NovaUpdatePanel extends Component
     }
 
     #[Computed]
-    public function versionHistory(): Collection
+    public function needsFilesUpdate(): bool
     {
-        return Changelog::query()
-            ->orderBy('series', 'desc')
-            ->orderBy('version', 'desc')
-            ->get();
+        return version_compare($this->filesVersion, $this->upstream['version'], '<');
+    }
+
+    #[Computed]
+    public function needsDatabaseUpdate(): bool
+    {
+        return version_compare($this->filesVersion, $this->databaseVersion, '>');
     }
 
     public function mount()
@@ -65,7 +66,9 @@ class NovaUpdatePanel extends Component
             'databaseVersion' => $this->databaseVersion,
             'filesVersion' => $this->filesVersion,
             'upstream' => $this->upstream,
-            'versionHistory' => $this->versionHistory,
+            'needsDatabaseUpdate' => $this->needsDatabaseUpdate,
+            'needsFilesUpdate' => $this->needsFilesUpdate,
+            'hasUpdate' => $this->hasUpdate,
         ]);
     }
 }

@@ -24,11 +24,11 @@ class CreateNotificationsTable extends Migration
 
         Schema::create('notification_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->index();
             $table->string('key')->unique();
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
-            $table->string('audience')->default(NotificationAudience::personal->value);
+            $table->string('audience')->default(NotificationAudience::Personal);
             $table->boolean('database')->default(true);
             $table->boolean('database_default')->default(true);
             $table->boolean('mail')->default(false);

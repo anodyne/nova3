@@ -169,6 +169,19 @@ class Story extends Model implements HasMedia, Sortable
             ->useDisk('media');
     }
 
+    public function loadCountsAndSums(): self
+    {
+        if (app('nova.environment')->database->isMysql()) {
+            return $this
+                ->loadCount('posts', 'recursivePosts', 'children')
+                ->loadSum(['recursivePosts', 'posts'], 'word_count');
+        }
+
+        return $this
+            ->loadCount('posts', 'children')
+            ->loadSum('posts', 'word_count');
+    }
+
     public function buildSortQuery(): Builder
     {
         return static::query()->parent($this->parent_id);

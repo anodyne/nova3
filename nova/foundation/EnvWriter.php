@@ -62,6 +62,15 @@ class EnvWriter
 
     public function writeLine(string $key, ?string $value): bool
     {
+        $value = match (true) {
+            filter_var($value, FILTER_VALIDATE_INT) !== false => $value,
+            filter_var($value, FILTER_VALIDATE_BOOLEAN) !== false => $value,
+            filter_var($value, FILTER_VALIDATE_IP) !== false => $value,
+            filter_var($value, FILTER_VALIDATE_URL) !== false => $value,
+            blank($value) => $value,
+            default => "\"{$value}\"",
+        };
+
         $newValue = "{$key}={$value}";
 
         if ($this->lineExists($key)) {

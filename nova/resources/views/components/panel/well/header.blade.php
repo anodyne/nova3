@@ -5,7 +5,7 @@
     'color' => null,
 ])
 
-<x-spacing width="md" height="sm">
+<x-spacing width="sm" top="xs" bottom="sm">
     <div class="flex items-center justify-between">
         <div class="space-y-1.5">
             @if (filled($title))

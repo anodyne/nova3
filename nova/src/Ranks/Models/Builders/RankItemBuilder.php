@@ -12,12 +12,12 @@ class RankItemBuilder extends Builder
 {
     public function active()
     {
-        return $this->where('status', RankItemStatus::active);
+        return $this->where('status', RankItemStatus::Active);
     }
 
     public function inactive()
     {
-        return $this->where('status', RankItemStatus::inactive);
+        return $this->where('status', RankItemStatus::Inactive);
     }
 
     public function group($group)

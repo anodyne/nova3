@@ -8,7 +8,7 @@ use Closure;
 
 class EnsurePhpVersion
 {
-    protected string $requiredVersion = '8.2';
+    protected string $requiredVersion = '8.3';
 
     public function handle(array $content, Closure $next)
     {

@@ -61,16 +61,6 @@ class UserSeeder extends Seeder
         PopulateNotificationPreferences::run($inactiveUser);
         CreateFormSubmission::run($form, $inactiveUser);
 
-        $pendingUser = User::factory()
-            ->pending()
-            ->create([
-                'name' => 'pending',
-                'email' => 'pending@pending.com',
-            ]);
-        PopulateAccountPreferences::run($pendingUser);
-        PopulateNotificationPreferences::run($pendingUser);
-        CreateFormSubmission::run($form, $pendingUser);
-
         foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
             $user = User::factory()->active()->create([
                 'name' => "user_{$item}",

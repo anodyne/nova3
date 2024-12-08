@@ -1,5 +1,5 @@
 # Use an official PHP image with Apache as the base image.
-FROM php:8.2-apache
+FROM php:8.3-apache
 
 # Set environment variables.
 ENV ACCEPT_EULA=Y

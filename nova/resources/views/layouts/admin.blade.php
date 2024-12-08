@@ -25,10 +25,18 @@
 
         @stack('headScripts')
 
+        <script>
+            document.documentElement.classList.toggle(
+                'dark',
+                localStorage.theme === 'dark' ||
+                    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
+            );
+        </script>
+
         {{ NovaView::renderHook('admin::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased dark:bg-gray-950 dark:text-gray-400 xl:bg-gray-100 dark:xl:bg-gray-950"
+        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
         @if (settings('appearance.panda')) data-panda @endif
     >
         {{ NovaView::renderHook('admin::body.start') }}
@@ -37,7 +45,7 @@
             {{ NovaView::renderHook('admin::page.start') }}
 
             <div
-                class="relative flex min-h-svh w-full bg-white dark:bg-gray-900 max-lg:flex-col lg:bg-gray-100 dark:lg:bg-gray-950"
+                class="relative flex min-h-svh w-full bg-white max-lg:flex-col lg:bg-gray-100 dark:bg-gray-900 dark:lg:bg-gray-950"
                 x-data="{ open: false }"
             >
                 {{-- Sidebar on desktop --}}
@@ -211,16 +219,16 @@
                                         <x-icon name="server" size="sm"></x-icon>
                                         <x-sidebar.label>System</x-sidebar.label>
 
-                                        @if (cache()->has('nova-update-available') || cache()->has('nova-critical-update-available'))
+                                        @if (! is_null(cache('nova-update-available')))
                                             <x-slot name="trailing">
                                                 <div
                                                     @class([
-                                                        'text-warning-500' => ! cache()->has('nova-critical-update-available'),
-                                                        'text-danger-500' => cache()->has('nova-critical-update-available'),
+                                                        'text-warning-500' => cache('nova-update-available') !== 'critical',
+                                                        'text-danger-500' => cache('nova-update-available') === 'critical',
                                                     ])
                                                 >
                                                     <x-icon
-                                                        :name="cache()->has('nova-critical-update-available') ? 'update-alert' : 'update'"
+                                                        :name="cache('nova-update-available') === 'critical' ? 'update-alert' : 'update'"
                                                         size="sm"
                                                     ></x-icon>
                                                 </div>
@@ -269,7 +277,7 @@
                                             My notifications
                                         </x-dropdown.item>
                                         <div
-                                            class="flex items-center px-4 py-3 text-base text-gray-700 dark:text-gray-300 md:text-sm"
+                                            class="flex items-center px-4 py-3 text-base text-gray-700 md:text-sm dark:text-gray-300"
                                         >
                                             <x-icon
                                                 name="moon"
@@ -348,7 +356,7 @@
                                                 aria-label="Close navigation"
                                                 type="button"
                                                 x-on:click="open = false"
-                                                class="relative flex min-w-0 cursor-default items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-gray-950 data-[active]:bg-gray-950/5 data-[hover]:bg-gray-950/5 data-[slot=avatar]:*:-m-0.5 data-[slot=avatar]:*:size-7 data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:data-[active]:fill-gray-950 data-[slot=icon]:*:data-[hover]:fill-gray-950 data-[slot=icon]:*:fill-gray-500 data-[slot=avatar]:*:[--avatar-radius:theme(borderRadius.DEFAULT)] data-[slot=avatar]:*:[--ring-opacity:10%] dark:text-white dark:data-[active]:bg-white/5 dark:data-[hover]:bg-white/5 dark:data-[slot=icon]:*:data-[active]:fill-white dark:data-[slot=icon]:*:data-[hover]:fill-white dark:data-[slot=icon]:*:fill-gray-400 sm:text-sm/5 sm:data-[slot=avatar]:*:size-6 sm:data-[slot=icon]:*:size-5 data-[slot=icon]:last:[&:not(:nth-child(2))]:*:ml-auto data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-5 sm:data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-4"
+                                                class="relative flex min-w-0 cursor-default items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-gray-950 data-[active]:bg-gray-950/5 data-[hover]:bg-gray-950/5 data-[slot=avatar]:*:-m-0.5 data-[slot=avatar]:*:size-7 data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:data-[active]:fill-gray-950 data-[slot=icon]:*:data-[hover]:fill-gray-950 data-[slot=icon]:*:fill-gray-500 data-[slot=avatar]:*:[--avatar-radius:theme(borderRadius.DEFAULT)] data-[slot=avatar]:*:[--ring-opacity:10%] sm:text-sm/5 sm:data-[slot=avatar]:*:size-6 sm:data-[slot=icon]:*:size-5 dark:text-white dark:data-[active]:bg-white/5 dark:data-[hover]:bg-white/5 dark:data-[slot=icon]:*:data-[active]:fill-white dark:data-[slot=icon]:*:data-[hover]:fill-white dark:data-[slot=icon]:*:fill-gray-400 data-[slot=icon]:last:[&:not(:nth-child(2))]:*:ml-auto data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-5 sm:data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-4"
                                             >
                                                 <span
                                                     class="absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
@@ -486,16 +494,16 @@
                                                         <x-icon name="server" size="sm"></x-icon>
                                                         <x-sidebar.label>System</x-sidebar.label>
 
-                                                        @if (cache()->has('nova-update-available') || cache()->has('nova-critical-update-available'))
+                                                        @if (! is_null(cache('nova-update-available')))
                                                             <x-slot name="trailing">
                                                                 <div
                                                                     @class([
-                                                                        'text-warning-500' => ! cache()->has('nova-critical-update-available'),
-                                                                        'text-danger-500' => cache()->has('nova-critical-update-available'),
+                                                                        'text-warning-500' => cache('nova-update-available') !== 'critical',
+                                                                        'text-danger-500' => cache('nova-update-available') === 'critical',
                                                                     ])
                                                                 >
                                                                     <x-icon
-                                                                        :name="cache()->has('nova-critical-update-available') ? 'update-alert' : 'update'"
+                                                                        :name="cache('nova-update-available') === 'critical' ? 'update-alert' : 'update'"
                                                                         size="sm"
                                                                     ></x-icon>
                                                                 </div>
@@ -581,7 +589,7 @@
                                         My notifications
                                     </x-dropdown.item>
                                     <div
-                                        class="flex items-center px-4 py-3 text-base text-gray-700 dark:text-gray-300 md:text-sm"
+                                        class="flex items-center px-4 py-3 text-base text-gray-700 md:text-sm dark:text-gray-300"
                                     >
                                         <x-icon
                                             name="moon"

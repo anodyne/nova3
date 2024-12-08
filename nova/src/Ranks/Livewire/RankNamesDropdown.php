@@ -28,7 +28,7 @@ class RankNamesDropdown extends Component
     {
         $name = CreateRankName::run(RankNameData::from([
             'name' => $this->search,
-            'status' => RankNameStatus::active,
+            'status' => RankNameStatus::Active,
         ]));
 
         $this->selectName($name->id);

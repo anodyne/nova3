@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-if (version_compare(PHP_VERSION, '8.2', '<')) {
+if (version_compare(PHP_VERSION, '8.3', '<')) {
     header('Location: message.php?type=php');
     exit();
 }

@@ -16,7 +16,7 @@ class CreateFormTables extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->string('name');
+            $table->string('name')->index();
             $table->string('key')->unique();
             $table->string('type');
             $table->text('description')->nullable();
@@ -24,16 +24,14 @@ class CreateFormTables extends Migration
             $table->json('options')->nullable();
             $table->longText('fields')->nullable();
             $table->longText('published_fields')->nullable();
-            $table->string('status')->default(FormStatus::Active->value);
+            $table->string('status')->default(FormStatus::Active->value)->index();
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
-
-            $table->index(['name', 'key']);
         });
 
         Schema::create('form_fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Form::class);
+            $table->foreignIdFor(Form::class)->constrained();
             $table->string('name');
             $table->string('uid');
             $table->string('label');
@@ -44,7 +42,7 @@ class CreateFormTables extends Migration
 
         Schema::create('form_submissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Form::class);
+            $table->foreignIdFor(Form::class)->constrained();
             $table->nullableMorphs('owner');
             $table->json('meta')->nullable();
             $table->timestamps();
@@ -52,7 +50,7 @@ class CreateFormTables extends Migration
 
         Schema::create('form_submission_responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(FormSubmission::class, 'submission_id');
+            $table->foreignIdFor(FormSubmission::class, 'submission_id')->constrained();
             $table->string('field_type');
             $table->string('field_uid');
             $table->longText('value')->nullable();

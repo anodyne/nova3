@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Nova\Setup\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Setup\Enums\NovaMigrateStatus;
+use Nova\Setup\Enums\SetupType;
 use Nova\Users\Models\User;
 
+#[Layout('layouts.setup', ['type' => SetupType::Install])]
 class MigrateNova extends Component
 {
     public ?NovaMigrateStatus $status = null;
@@ -26,7 +29,6 @@ class MigrateNova extends Component
 
     public function render()
     {
-        return view('setup.migrate-nova.index')
-            ->layout('layouts.setup');
+        return view('setup.migrate-nova.index');
     }
 }

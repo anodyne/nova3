@@ -52,4 +52,17 @@ class StoryBuilder extends Builder
     {
         return $this->whereNotState('status', Upcoming::class);
     }
+
+    public function withCountsAndSums(): self
+    {
+        if (app('nova.environment')->database->isMysql()) {
+            return $this
+                ->withCount('posts', 'recursivePosts', 'children')
+                ->withSum(['recursivePosts', 'posts'], 'word_count');
+        }
+
+        return $this
+            ->withCount('posts', 'children')
+            ->withSum('posts', 'word_count');
+    }
 }

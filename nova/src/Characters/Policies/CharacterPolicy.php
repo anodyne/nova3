@@ -129,7 +129,7 @@ class CharacterPolicy
 
         if (
             $this->createPrimary($user)->allowed() &&
-            $character->type === CharacterType::primary &&
+            $character->type === CharacterType::Primary &&
             settings('characters.approvePrimary') === false
         ) {
             return $this->allow();
@@ -137,7 +137,7 @@ class CharacterPolicy
 
         if (
             $this->createSecondary($user)->allowed() &&
-            $character->type === CharacterType::secondary &&
+            $character->type === CharacterType::Secondary &&
             settings('characters.approveSecondary') === false
         ) {
             return $this->allow();
@@ -145,7 +145,7 @@ class CharacterPolicy
 
         if (
             $this->createSupport($user)->allowed() &&
-            $character->type === CharacterType::support &&
+            $character->type === CharacterType::Support &&
             settings('characters.approveSupport') === false
         ) {
             return $this->allow();

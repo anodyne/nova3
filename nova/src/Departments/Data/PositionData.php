@@ -30,7 +30,7 @@ class PositionData extends Data
             name: data_get($data, 'name'),
             description: data_get($data, 'description'),
             available: data_get($data, 'available'),
-            status: PositionStatus::tryFrom(data_get($data, 'status', PositionStatus::active->value)),
+            status: PositionStatus::tryFrom(data_get($data, 'status', PositionStatus::Active->value)),
             department_id: data_get($data, 'department_id', 0),
         );
     }
@@ -41,7 +41,7 @@ class PositionData extends Data
             name: $request->input('name'),
             description: $request->input('description'),
             available: $request->integer('available'),
-            status: PositionStatus::tryFrom($request->input('status', PositionStatus::active->value)),
+            status: PositionStatus::tryFrom($request->input('status', PositionStatus::Active->value)),
             department_id: $request->integer('department_id'),
         );
     }

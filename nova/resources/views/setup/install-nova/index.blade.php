@@ -26,7 +26,11 @@
 
                     <x-fieldset.field label="What genre are you playing in?" id="game_genre" name="game_genre">
                         <x-select wire:model="genre">
-                            <option value="st24">Star Trek (24th century)</option>
+                            <option value="">Do not install any genre data</option>
+
+                            @foreach ($availableGenres as $genre => $name)
+                                <option value="{{ $genre }}">{{ $name }}</option>
+                            @endforeach
                         </x-select>
                     </x-fieldset.field>
 
@@ -62,7 +66,8 @@
                 <x-spacing size="2xs">
                     <x-panel class="divide-y divide-gray-950/5">
                         @include('setup.install-nova._check-installed')
-                        @include('setup.install-nova._check-genre')
+                        @include('setup.install-nova._check-installed-themes')
+                        @includeWhen(filled($this->genre), 'setup.install-nova._check-genre')
                         {{-- @include('setup.install-nova._check-app-url') --}}
                         @include('setup.install-nova._check-update-settings')
                     </x-panel>

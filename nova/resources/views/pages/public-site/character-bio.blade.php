@@ -1,4 +1,4 @@
-<x-public-layout>
+<x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page character-bio">
         <div class="avatar-container">
             <x-avatar :src="$character->avatar_url" size="3xl"></x-avatar>
@@ -40,4 +40,4 @@
             </div>
         </div>
     </div>
-</x-public-layout>
+</x-dynamic-component>

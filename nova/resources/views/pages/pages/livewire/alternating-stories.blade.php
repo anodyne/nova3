@@ -42,30 +42,36 @@
                             </div>
                         </div>
 
-                        @if ($story->children->count() > 0)
-                            <div class="nv-stories-story-stat border-l-2 border-gray-950/10 py-2 pl-6 dark:border-white/10">
-                                <h3 class="text-base/7 text-gray-600 dark:text-gray-400">
-                                    Total posts (all stories within)
-                                </h3>
-
+                        @mysql
+                            @if ($story->children->count() > 0)
                                 <div
-                                    class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
+                                    class="nv-stories-story-stat border-l-2 border-gray-950/10 py-2 pl-6 dark:border-white/10"
                                 >
-                                    {{ $story->recursive_posts_count }}
-                                </div>
-                            </div>
-                            <div class="nv-stories-story-stat border-l-2 border-gray-950/10 py-2 pl-6 dark:border-white/10">
-                                <h3 class="text-base/7 text-gray-600 dark:text-gray-400">
-                                    Total words (all stories within)
-                                </h3>
+                                    <h3 class="text-base/7 text-gray-600 dark:text-gray-400">
+                                        Total posts (all stories within)
+                                    </h3>
 
-                                <div
-                                    class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
-                                >
-                                    {{ number_format($story->recursive_posts_sum_word_count ?? 0) }}
+                                    <div
+                                        class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
+                                    >
+                                        {{ $story->recursive_posts_count }}
+                                    </div>
                                 </div>
-                            </div>
-                        @endif
+                                <div
+                                    class="nv-stories-story-stat border-l-2 border-gray-950/10 py-2 pl-6 dark:border-white/10"
+                                >
+                                    <h3 class="text-base/7 text-gray-600 dark:text-gray-400">
+                                        Total words (all stories within)
+                                    </h3>
+
+                                    <div
+                                        class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
+                                    >
+                                        {{ number_format($story->recursive_posts_sum_word_count ?? 0) }}
+                                    </div>
+                                </div>
+                            @endif
+                        @endmysql
                     </div>
                 @endif
             </div>

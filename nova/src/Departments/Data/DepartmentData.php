@@ -25,7 +25,7 @@ class DepartmentData extends Data
         return new self(
             name: data_get($data, 'name'),
             description: data_get($data, 'description'),
-            status: DepartmentStatus::tryFrom(data_get($data, 'status', DepartmentStatus::active->value)),
+            status: DepartmentStatus::tryFrom(data_get($data, 'status', DepartmentStatus::Active->value)),
         );
     }
 
@@ -34,7 +34,7 @@ class DepartmentData extends Data
         return new self(
             name: $request->input('name'),
             description: $request->input('description'),
-            status: DepartmentStatus::tryFrom($request->input('status', DepartmentStatus::active->value)),
+            status: DepartmentStatus::tryFrom($request->input('status', DepartmentStatus::Active->value)),
         );
     }
 }

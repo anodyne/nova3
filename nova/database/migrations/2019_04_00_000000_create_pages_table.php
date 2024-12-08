@@ -17,8 +17,8 @@ class CreatePagesTable extends Migration
             $table->prefixedId();
             $table->string('name');
             $table->string('uri');
-            $table->string('key')->nullable();
-            $table->string('verb')->default(PageVerb::get->value);
+            $table->string('key')->nullable()->index();
+            $table->string('verb')->default(PageVerb::Get);
             $table->string('resource')->nullable();
             $table->string('layout')->default('public');
             $table->text('middleware')->nullable();
@@ -34,8 +34,6 @@ class CreatePagesTable extends Migration
             $table->text('subheading')->nullable();
             $table->longText('intro')->nullable();
             $table->timestamps();
-
-            $table->index('key');
         });
     }
 

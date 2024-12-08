@@ -11,12 +11,12 @@ class RankGroupBuilder extends Builder
 {
     public function active()
     {
-        return $this->where('status', RankGroupStatus::active);
+        return $this->where('status', RankGroupStatus::Active);
     }
 
     public function inactive()
     {
-        return $this->where('status', RankGroupStatus::inactive);
+        return $this->where('status', RankGroupStatus::Inactive);
     }
 
     public function searchFor($search): self

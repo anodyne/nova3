@@ -23,7 +23,7 @@
         {{ NovaView::renderHook('auth::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased dark:bg-gray-950 dark:text-gray-400 xl:bg-gray-100 dark:xl:bg-gray-950"
+        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
         @if (settings('appearance.panda')) data-panda @endif
     >
         {{ NovaView::renderHook('auth::body.start') }}
@@ -33,7 +33,7 @@
 
             <x-spacing size="xl" class="flex min-h-screen flex-col justify-center">
                 <div class="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
-                    @if (app('nova.settings')->getFirstMedia('logo'))
+                    @if (app('nova.settings')?->getFirstMedia('logo'))
                         <div>
                             <img
                                 src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"

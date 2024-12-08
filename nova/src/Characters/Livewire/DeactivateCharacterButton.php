@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
-use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Events\CharacterDeactivated;
@@ -12,7 +11,6 @@ use Nova\Characters\Models\Character;
 
 class DeactivateCharacterButton extends Component
 {
-    #[Locked]
     public Character $character;
 
     public function deactivate(): void

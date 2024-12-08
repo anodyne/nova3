@@ -19,8 +19,8 @@ beforeEach(function () {
         ->count(5)
         ->hasPositions(3)
         ->sequence(
-            ['status' => DepartmentStatus::active],
-            ['status' => DepartmentStatus::inactive],
+            ['status' => DepartmentStatus::Active],
+            ['status' => DepartmentStatus::Inactive],
         )
         ->create();
 });
@@ -39,13 +39,13 @@ describe('authorized user', function () {
 
     test('can filter departments by status', function () {
         livewire(DepartmentsList::class)
-            ->filterTable('status', DepartmentStatus::active->value)
-            ->assertCanSeeTableRecords($this->departments->where('status', DepartmentStatus::active))
-            ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', DepartmentStatus::active))
+            ->filterTable('status', DepartmentStatus::Active->value)
+            ->assertCanSeeTableRecords($this->departments->where('status', DepartmentStatus::Active))
+            ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', DepartmentStatus::Active))
             ->resetTableFilters()
-            ->filterTable('status', DepartmentStatus::inactive->value)
-            ->assertCanSeeTableRecords($this->departments->where('status', DepartmentStatus::inactive))
-            ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', DepartmentStatus::inactive));
+            ->filterTable('status', DepartmentStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->departments->where('status', DepartmentStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', DepartmentStatus::Inactive));
     });
 
     test('can filter departments by the presence of positions', function () {

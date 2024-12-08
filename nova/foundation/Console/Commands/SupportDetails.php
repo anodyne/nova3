@@ -19,10 +19,10 @@ class SupportDetails extends Command
         $this->line(sprintf('<info>Nova</info> %s', Nova::version()));
         $this->line(sprintf('<info>Laravel</info> %s', Application::VERSION));
         $this->line(sprintf('<info>PHP</info> %s', phpversion()));
-        $this->extensions();
+        $this->addons();
     }
 
-    private function extensions()
+    private function addons()
     {
         return $this->line('No add-ons installed');
 

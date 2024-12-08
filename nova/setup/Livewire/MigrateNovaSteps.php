@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Nova\Setup\Enums\SetupType;
 use Nova\Setup\Livewire\Migration\MigrateUsers;
 
+#[Layout('layouts.setup', ['type' => SetupType::Install])]
 class MigrateNovaSteps extends Component
 {
     public bool $isFinished = false;
@@ -30,7 +33,6 @@ class MigrateNovaSteps extends Component
 
     public function render()
     {
-        return view('setup.migrate-nova.steps.index')
-            ->layout('layouts.setup');
+        return view('setup.migrate-nova.steps.index');
     }
 }

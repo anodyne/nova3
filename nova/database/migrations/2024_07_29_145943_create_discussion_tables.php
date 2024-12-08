@@ -22,15 +22,15 @@ return new class extends Migration
             $table->prefixedId();
             $table->nullableMorphs('discussable');
             $table->string('name')->nullable();
-            $table->boolean('is_direct_message')->default(false);
+            $table->boolean('is_direct_message')->default(false)->index();
             $table->text('direct_message_participants')->nullable();
             $table->timestamps();
         });
 
         Schema::create('discussion_messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Discussion::class)->onDelete('cascade');
-            $table->foreignIdFor(User::class)->nullable()->onDelete('set null');
+            $table->foreignIdFor(Discussion::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(User::class)->nullable()->constrained()->onDelete('set null');
             $table->longText('content');
             $table->string('type')->default(MessageType::Text->value);
             $table->timestamps();

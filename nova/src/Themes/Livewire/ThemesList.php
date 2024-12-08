@@ -11,8 +11,9 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -20,13 +21,9 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
-use Nova\Settings\Data\FontFamilies;
-use Nova\Themes\Actions\CreateTheme;
 use Nova\Themes\Actions\DeleteTheme;
-use Nova\Themes\Data\ThemeData;
-use Nova\Themes\Data\ThemeSettings;
+use Nova\Themes\Actions\InstallTheme;
 use Nova\Themes\Enums\ThemeStatus;
-use Nova\Themes\Events\ThemeInstalled;
 use Nova\Themes\Models\Theme;
 
 class ThemesList extends TableComponent
@@ -38,7 +35,9 @@ class ThemesList extends TableComponent
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
+                    ->description(fn (Theme $record): ?Htmlable => $record->has_update ? new HtmlString('<strong class="text-warning-600 dark:text-warning-500 font-medium text-xs">Version <span class="tabular-nums">'.$record->latest_version.'</span> is available</strong>') : null)
                     ->searchable(),
+                TextColumn::make('version')->toggleable(),
                 TextColumn::make('location')
                     ->prefix('themes/')
                     ->searchable()
@@ -48,9 +47,12 @@ class ThemesList extends TableComponent
                     ->icon(fn (bool $state): ?string => $state ? iconName('check') : null)
                     ->color(fn (bool $state): ?string => $state ? 'success' : null)
                     ->toggleable(),
+                TextColumn::make('repository.type')
+                    ->label('Checking version from')
+                    ->badge()
+                    ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Theme $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -63,6 +65,13 @@ class ThemesList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Theme $record): string => route('admin.themes.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        Action::make('goToUpdate')
+                            ->icon(iconName('cloud-share'))
+                            ->url(fn (Theme $record): ?string => $record->update_url)
+                            ->visible(fn (Theme $record): bool => $record->has_update),
+                    ])->authorizeAny(['create', 'update'])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -101,26 +110,7 @@ class ThemesList extends TableComponent
 
                         foreach ($themes as $theme) {
                             try {
-                                $data = json_decode(Storage::disk('themes')->get("{$theme}/theme.json"), true);
-
-                                $theme = CreateTheme::run(new ThemeData(
-                                    name: data_get($data, 'name'),
-                                    location: data_get($data, 'location'),
-                                    credits: data_get($data, 'credits'),
-                                    status: ThemeStatus::active,
-                                    preview: data_get($data, 'preview'),
-                                    settings: new ThemeSettings(
-                                        fonts: new FontFamilies(
-                                            headerProvider: 'local',
-                                            headerFamily: 'Geist',
-                                            bodyProvider: 'local',
-                                            bodyFamily: 'Inter',
-                                        ),
-                                        settings: []
-                                    )
-                                ));
-
-                                ThemeInstalled::dispatch($theme);
+                                InstallTheme::run($theme);
 
                                 $created[] = $theme;
                             } catch (FileNotFoundException $ex) {

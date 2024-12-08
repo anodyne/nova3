@@ -11,12 +11,12 @@ class ThemeBuilder extends Builder
 {
     public function active(): self
     {
-        return $this->where('status', ThemeStatus::active);
+        return $this->where('status', ThemeStatus::Active);
     }
 
     public function inactive(): self
     {
-        return $this->where('status', ThemeStatus::inactive);
+        return $this->where('status', ThemeStatus::Inactive);
     }
 
     public function location($location): self

@@ -13,15 +13,15 @@ class CreateThemeTables extends Migration
     {
         Schema::create('themes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('location');
+            $table->string('name')->index();
+            $table->string('location')->unique();
+            $table->string('version');
             $table->text('credits')->nullable();
             $table->text('preview')->nullable();
-            $table->string('status')->default(ThemeStatus::active->value);
+            $table->string('status')->default(ThemeStatus::Active)->index();
             $table->json('settings');
+            $table->json('repository')->nullable();
             $table->timestamps();
-
-            $table->index(['location', 'name']);
         });
     }
 

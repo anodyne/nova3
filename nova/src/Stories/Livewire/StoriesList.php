@@ -69,7 +69,8 @@ class StoriesList extends TableComponent
                     ->alignCenter()
                     ->sortable()
                     ->toggleable()
-                    ->toggledHiddenByDefault(),
+                    ->toggledHiddenByDefault()
+                    ->visible(app('nova.environment')->database->isMysql()),
                 TextColumn::make('posts_sum_word_count')
                     ->sum('posts', 'word_count')
                     ->label('# of words')

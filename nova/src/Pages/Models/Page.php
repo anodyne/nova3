@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Models;
 
+use Illuminate\Database\Eloquent\Attributes\CollectedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
@@ -16,6 +17,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[CollectedBy(PagesCollection::class)]
 class Page extends Model implements HasMedia
 {
     use HasPrefixedId;
@@ -103,11 +105,6 @@ class Page extends Model implements HasMedia
             ->setDescriptionForEvent(
                 fn (string $eventName): string => ":subject.key page was {$eventName}"
             );
-    }
-
-    public function newCollection(array $models = []): PagesCollection
-    {
-        return new PagesCollection($models);
     }
 
     public function newEloquentBuilder($query): Builders\PageBuilder

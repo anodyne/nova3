@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Setup\Enums\DatabaseConfigStatus;
+use Nova\Setup\Enums\SetupType;
 use PDO;
 use Throwable;
 
+#[Layout('layouts.setup', ['type' => SetupType::Install])]
 class ConfigureDatabase extends Component
 {
     use Concerns\HandlesMigration;
@@ -147,7 +150,7 @@ class ConfigureDatabase extends Component
             'shouldShowForm' => $this->shouldShowForm,
             'shouldShowManualInstructions' => $this->shouldShowManualInstructions,
             'shouldShowSuccessTable' => $this->shouldShowSuccessTable,
-        ])->layout('layouts.setup');
+        ]);
     }
 
     protected function setErrorMessage(Throwable $th): void
@@ -219,9 +222,9 @@ class ConfigureDatabase extends Component
             $this->status = DatabaseConfigStatus::IncompatibleVersion;
         }
 
-        if ($this->getPdoDriver($pdo) !== 'mysql') {
-            $this->status = DatabaseConfigStatus::IncompatibleDriver;
-        }
+        // if ($this->getPdoDriver($pdo) !== 'mysql') {
+        //     $this->status = DatabaseConfigStatus::IncompatibleDriver;
+        // }
     }
 
     protected function getPdoVersion(PDO $pdo): ?string

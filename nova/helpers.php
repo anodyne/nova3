@@ -115,6 +115,13 @@ if (! function_exists('nova')) {
     }
 }
 
+if (! function_exists('nova_path')) {
+    function nova_path($path = '')
+    {
+        return app()->novaPath($path);
+    }
+}
+
 if (! function_exists('theme')) {
     function theme(?string $property = null)
     {
@@ -128,17 +135,37 @@ if (! function_exists('theme')) {
     }
 }
 
-if (! function_exists('nova_path')) {
-    function nova_path($path = '')
-    {
-        return app()->novaPath($path);
-    }
-}
-
 if (! function_exists('theme_path')) {
     function theme_path($path = '')
     {
         return app()->themePath($path);
+    }
+}
+
+if (! function_exists('addon')) {
+    function addon(string $location)
+    {
+        $className = "Addons\\$location\\Addon";
+
+        if (! class_exists($className)) {
+            return null;
+        }
+
+        return new $className;
+    }
+}
+
+if (! function_exists('addon_path')) {
+    function addon_path($path = '')
+    {
+        return app()->addonPath($path);
+    }
+}
+
+if (! function_exists('rank_path')) {
+    function rank_path($path = '')
+    {
+        return app()->rankPath($path);
     }
 }
 

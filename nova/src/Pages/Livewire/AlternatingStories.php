@@ -27,8 +27,7 @@ class AlternatingStories extends Component
     {
         return Story::query()
             ->with('children')
-            ->withCount('posts', 'recursivePosts')
-            ->withSum(['recursivePosts', 'posts'], 'word_count')
+            ->withCountsAndSums()
             ->when($this->type === 'current', fn (Builder $query): Builder => $query->current())
             ->when($this->type === 'upcoming', fn (Builder $query): Builder => $query->upcoming())
             ->when($this->type === 'ongoing', fn (Builder $query): Builder => $query->ongoing())

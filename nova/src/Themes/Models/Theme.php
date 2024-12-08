@@ -9,29 +9,32 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Nova\Addons\Data\AddonRepository;
+use Nova\Foundation\Concerns\ChecksAddonVersion;
 use Nova\Themes\BaseTheme;
 use Nova\Themes\Data\ThemeSettings;
 use Nova\Themes\Enums\ThemeStatus;
 use Nova\Themes\Events;
 use Nova\Themes\Models\Builders\ThemeBuilder;
-use Nova\Themes\Models\Collections\ThemesCollection;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Theme extends Model
 {
+    use ChecksAddonVersion;
     use HasFactory;
     use LogsActivity;
 
     protected $table = 'themes';
 
     protected $fillable = [
-        'name', 'location', 'credits', 'status', 'preview', 'settings',
+        'name', 'location', 'version', 'credits', 'status', 'preview', 'settings', 'repository',
     ];
 
     protected $casts = [
         'status' => ThemeStatus::class,
         'settings' => ThemeSettings::class,
+        'repository' => AddonRepository::class,
     ];
 
     protected $dispatchesEvents = [
@@ -71,20 +74,23 @@ class Theme extends Model
             );
     }
 
-    public function newCollection(array $models = []): ThemesCollection
-    {
-        return new ThemesCollection($models);
-    }
-
     public function newEloquentBuilder($query): ThemeBuilder
     {
         return new ThemeBuilder($query);
     }
 
+    public function addonVersionCacheKey(): string
+    {
+        return 'nova-themes-latest-versions';
+    }
+
     public static function getInstallableThemes(): Collection
     {
-        return collect(Storage::disk('themes')->directories())
-            ->diff(static::pluck('location')->all());
+        $disk = Storage::disk('themes');
+
+        return collect($disk->directories())
+            ->diff(static::pluck('location')->all())
+            ->filter(fn ($location) => $disk->exists("{$location}/theme.json"));
     }
 
     public static function hasInstallableThemes(): bool

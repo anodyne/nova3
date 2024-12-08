@@ -11,12 +11,12 @@ class DepartmentBuilder extends Builder
 {
     public function active(): self
     {
-        return $this->where('status', DepartmentStatus::active);
+        return $this->where('status', DepartmentStatus::Active);
     }
 
     public function inactive(): self
     {
-        return $this->where('status', DepartmentStatus::inactive);
+        return $this->where('status', DepartmentStatus::Inactive);
     }
 
     public function searchFor($search): self

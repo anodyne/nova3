@@ -28,7 +28,7 @@ class RankGroupsDropdown extends Component
     {
         $group = CreateRankGroup::run(RankGroupData::from([
             'name' => $this->search,
-            'status' => RankGroupStatus::active,
+            'status' => RankGroupStatus::Active,
         ]));
 
         $this->selectGroup($group->id);

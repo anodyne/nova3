@@ -19,7 +19,7 @@ class CharacterFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'type' => CharacterType::support,
+            'type' => CharacterType::Support,
             'status' => Active::class,
         ];
     }
@@ -48,21 +48,21 @@ class CharacterFactory extends Factory
     public function primary()
     {
         return $this->state([
-            'type' => CharacterType::primary,
+            'type' => CharacterType::Primary,
         ]);
     }
 
     public function secondary()
     {
         return $this->state([
-            'type' => CharacterType::secondary,
+            'type' => CharacterType::Secondary,
         ]);
     }
 
     public function support()
     {
         return $this->state([
-            'type' => CharacterType::support,
+            'type' => CharacterType::Support,
         ]);
     }
 

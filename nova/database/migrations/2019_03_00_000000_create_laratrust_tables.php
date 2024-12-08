@@ -6,6 +6,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Foundation\Enums\AuthorizationType;
+use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
+use Nova\Users\Models\User;
 
 class CreateLaratrustTables extends Migration
 {
@@ -15,9 +18,9 @@ class CreateLaratrustTables extends Migration
             $table->id();
             $table->prefixedId();
             $table->string('name')->unique();
-            $table->string('display_name')->nullable();
+            $table->string('display_name')->nullable()->index();
             $table->string('description')->nullable();
-            $table->boolean('is_default')->default(false);
+            $table->boolean('is_default')->default(false)->index();
             $table->boolean('is_locked')->default(false);
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
@@ -26,30 +29,30 @@ class CreateLaratrustTables extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('display_name')->nullable();
+            $table->string('display_name')->nullable()->index();
             $table->string('description')->nullable();
             $table->timestamps();
         });
 
         Schema::create('role_user', function (Blueprint $table) {
-            $table->foreignId('role_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignIdFor(Role::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignIdFor(User::class)->constrained();
             $table->string('user_type');
 
             $table->primary(['user_id', 'role_id', 'user_type']);
         });
 
         Schema::create('permission_user', function (Blueprint $table) {
-            $table->foreignId('permission_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('user_id')->constrained();
+            $table->foreignIdFor(Permission::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignIdFor(User::class)->constrained();
             $table->string('user_type');
 
             $table->primary(['user_id', 'permission_id', 'user_type']);
         });
 
         Schema::create('permission_role', function (Blueprint $table) {
-            $table->foreignId('permission_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('role_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignIdFor(Permission::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignIdFor(Role::class)->constrained()->onDelete('cascade')->onUpdate('cascade');
 
             $table->primary(['permission_id', 'role_id']);
         });

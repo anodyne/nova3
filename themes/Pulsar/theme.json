@@ -1,5 +1,23 @@
 {
     "name": "Pulsar",
     "location": "pulsar",
-    "preview": "preview.jpg"
+    "version": "3.0",
+    "preview": "preview.jpg",
+    "credits": "",
+    "settings": {
+        "fonts": {
+            "headerProvider": "local",
+            "headerFamily": "Geist",
+            "bodyProvider": "local",
+            "bodyFamily": "Inter"
+        },
+        "settings": {
+            "accentColor": "#08a37e",
+            "textAccentColor": "#ffffff"
+        }
+    },
+    "repository": {
+        "type": "anodyne",
+        "id": ""
+    }
 }

@@ -27,9 +27,9 @@ class ManageOwnership extends Component
     public function characterStatus(): array
     {
         if (
-            ($this->characterType === CharacterType::primary && settings('characters.approvePrimary')) ||
-            ($this->characterType === CharacterType::secondary && settings('characters.approveSecondary')) ||
-            ($this->characterType === CharacterType::support && settings('characters.approveSupport'))
+            ($this->characterType === CharacterType::Primary && settings('characters.approvePrimary')) ||
+            ($this->characterType === CharacterType::Secondary && settings('characters.approveSecondary')) ||
+            ($this->characterType === CharacterType::Support && settings('characters.approveSupport'))
         ) {
             return [
                 'color' => 'warning',
@@ -47,14 +47,14 @@ class ManageOwnership extends Component
     public function characterType(): CharacterType
     {
         if ($this->assignAsPrimary) {
-            return CharacterType::primary;
+            return CharacterType::Primary;
         }
 
         if ($this->linkToUser) {
-            return CharacterType::secondary;
+            return CharacterType::Secondary;
         }
 
-        return CharacterType::support;
+        return CharacterType::Support;
     }
 
     #[Computed]

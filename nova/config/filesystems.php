@@ -70,10 +70,26 @@ return [
             'throw' => false,
         ],
 
+        'ranks' => [
+            'driver' => 'local',
+            'root' => base_path('ranks'),
+            'url' => env('APP_URL').'/ranks',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'themes' => [
             'driver' => 'local',
             'root' => base_path('themes'),
             'url' => env('APP_URL').'/themes',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'addons' => [
+            'driver' => 'local',
+            'root' => base_path('addons'),
+            'url' => env('APP_URL').'/addons',
             'visibility' => 'public',
             'throw' => false,
         ],
