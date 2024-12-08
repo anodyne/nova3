@@ -167,6 +167,7 @@ return new class extends OneTimeOperation
                 ['name' => 'announcement.view', 'display_name' => 'View announcements', 'description' => 'Allows a user to view any announcements'],
 
                 ['name' => 'site.contact', 'display_name' => 'Site contact', 'description' => 'Allows a user to receive site contact messages'],
+                ['name' => 'site.update', 'display_name' => 'Update site', 'description' => 'Allows a user to run the update scripts for the site'],
             ];
 
             collect($permissions)->each(function ($permission) {
