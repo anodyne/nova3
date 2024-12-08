@@ -42,7 +42,7 @@
 
                 @if ($filteredSettings->count() > 0)
                     @foreach ($filteredSettings as $setting)
-                        <div class="p-1.5 rounded-md odd:bg-gray-50">
+                        <div class="p-1.5 rounded-md odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]">
                             <a href="{{ route('settings.index', $setting['route']) }}">{{ $setting['name'] }}</a>
                         </div>
                     @endforeach

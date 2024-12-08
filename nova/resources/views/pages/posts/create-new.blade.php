@@ -141,12 +141,12 @@
                         <div class="pt-4 text-sm text-zinc-500 dark:text-zinc-300">
                             <ul>
                                 <li
-                                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-50 dark:odd:bg-gray-700/50"
+                                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
                                 >
                                     <div>Admiral Jean-Luc Picard</div>
                                 </li>
                                 <li
-                                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-50 dark:odd:bg-gray-700/50"
+                                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
                                 >
                                     <div>Martok (played by user1)</div>
                                 </li>
@@ -341,12 +341,12 @@
                     <x-spacing size="xs">
                     <ul>
                     <li
-                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-50 dark:odd:bg-gray-700/50"
+                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
                     >
                     <div>Captain Liam Shaw</div>
                     </li>
                     <li
-                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-50 dark:odd:bg-gray-700/50"
+                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
                     >
                     <div>Marktok (played by admin)</div>
                     </li>

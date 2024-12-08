@@ -6,8 +6,8 @@
             <div class="flex w-20 items-center justify-center">Email</div>
         </div>
 
-        @foreach ($record->userNotificationPreferences as $preference)
-            <div class="flex items-center py-1.5 even:bg-gray-50">
+        @foreach ($record->userNotificationPreferences->loadMissing('user') as $preference)
+            <div class="flex items-center py-1.5 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]">
                 <div class="flex-1 truncate">{{ $preference->user->name }}</div>
                 <div
                     @class([
@@ -16,7 +16,9 @@
                         'text-danger-500' => ! $preference->database,
                     ])
                 >
-                    <x-icon :name="$preference->database ? 'check' : 'dismiss'"></x-icon>
+                    <div>
+                        <x-icon :name="$preference->database ? 'check' : 'dismiss'"></x-icon>
+                    </div>
                 </div>
                 <div
                     @class([
@@ -25,7 +27,9 @@
                         'text-danger-500' => ! $preference->mail,
                     ])
                 >
-                    <x-icon :name="$preference->mail ? 'check' : 'dismiss'"></x-icon>
+                    <div>
+                        <x-icon :name="$preference->mail ? 'check' : 'dismiss'"></x-icon>
+                    </div>
                 </div>
             </div>
         @endforeach

@@ -18,7 +18,7 @@
             </x-fieldset.field>
 
             <div
-                class="mt-4 h-60 max-h-60 w-full overflow-auto bg-white text-base focus:outline-none dark:bg-gray-800 sm:text-sm"
+                class="mt-4 h-60 max-h-60 w-full overflow-auto bg-white text-base focus:outline-none sm:text-sm dark:bg-gray-800"
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
@@ -27,7 +27,7 @@
                 <div class="space-y-1">
                     @if ($posts->count() > 0)
                         @foreach ($posts as $post)
-                            <div class="rounded-md p-1.5 odd:bg-gray-50 dark:odd:bg-gray-700/50">
+                            <div class="rounded-md p-1.5 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]">
                                 <a
                                     role="button"
                                     class="flex w-full items-center space-x-2"

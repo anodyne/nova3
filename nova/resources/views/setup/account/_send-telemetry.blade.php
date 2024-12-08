@@ -35,7 +35,7 @@
     <div x-show="expanded" class="ml-12 mt-6" x-collapse x-cloak>
         <dl class="space-y-1">
             @foreach (nova()->fullHeartbeat() as $key => $value)
-                <div class="flex items-center rounded-md px-3 py-2 odd:bg-gray-100">
+                <div class="flex items-center rounded-md px-3 py-2 odd:bg-gray-950/[.04]">
                     <dt class="flex-1 font-medium text-gray-900">
                         {{
                             str($key)

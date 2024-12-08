@@ -1,7 +1,7 @@
 <x-modal title="Manage application reviewers" icon="users">
     <x-form action="">
         <x-fieldset>
-            <x-checkbox.group class="*:rounded-lg *:px-3 *:py-1 *:odd:bg-gray-50 *:dark:odd:bg-gray-700">
+            <x-checkbox.group class="*:rounded-lg *:px-3 *:py-1 *:odd:bg-gray-950/[.04] *:dark:odd:bg-white/[.07]">
                 @foreach ($users as $user)
                     <x-checkbox.field>
                         <x-checkbox

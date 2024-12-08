@@ -12,7 +12,7 @@
         <ul>
             @foreach ($application->reviews as $review)
                 <li
-                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-50 dark:odd:bg-gray-700/50"
+                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
                 >
                     <div>{{ $review->name }}</div>
 

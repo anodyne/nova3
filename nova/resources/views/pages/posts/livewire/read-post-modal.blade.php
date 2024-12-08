@@ -34,7 +34,7 @@
     </x-spacing>
 
     <x-spacing
-        class="z-20 rounded-b-lg bg-gray-50 sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse dark:bg-gray-700/50"
+        class="z-20 rounded-b-lg bg-gray-950/[.04] sm:flex sm:flex-row-reverse sm:space-x-4 sm:space-x-reverse dark:bg-white/[.07]"
         size="sm"
     >
         <x-button color="neutral" wire:click="dismiss">Close</x-button>
