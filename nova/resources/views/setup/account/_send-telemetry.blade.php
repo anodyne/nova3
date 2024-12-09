@@ -1,4 +1,9 @@
 @use('Illuminate\Support\Number')
+@use('Nova\Setup\Telemetry')
+
+@php
+    $telemetryData = (new Telemetry)->gatherFullHeartbeatData();
+@endphp
 
 <x-spacing size="sm" x-data="{ expanded: false }">
     <div class="flex items-center justify-between">
@@ -34,7 +39,7 @@
 
     <div x-show="expanded" class="ml-12 mt-6" x-collapse x-cloak>
         <dl class="space-y-1">
-            @foreach (nova()->fullHeartbeat() as $key => $value)
+            @foreach ($telemetryData as $key => $value)
                 <div class="flex items-center rounded-md px-3 py-2 odd:bg-gray-950/[.04]">
                     <dt class="flex-1 font-medium text-gray-900">
                         {{
