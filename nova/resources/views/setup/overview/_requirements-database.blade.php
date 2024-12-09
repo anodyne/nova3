@@ -1,5 +1,9 @@
 @php
-    $canVerifyDatabase = filled($e->database->version) && filled($e->database->driver);
+    try {
+        $canVerifyDatabase = filled($e->database?->version) && filled($e->database?->driver);
+    } catch (Throwable $th) {
+        $canVerifyDatabase = false;
+    }
 @endphp
 
 <x-spacing size="sm">
