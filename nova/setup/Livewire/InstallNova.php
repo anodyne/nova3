@@ -53,7 +53,7 @@ class InstallNova extends Component
 
             $this->seedDatabase();
 
-            $this->syncExternalContentFromAnodyne();
+            // $this->syncExternalContentFromAnodyne();
 
             $this->status = NovaInstallStatus::Success;
         } catch (Throwable $th) {

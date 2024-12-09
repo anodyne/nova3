@@ -31,7 +31,7 @@ class UpdateNova extends Component
         try {
             $this->runUpdater();
 
-            $this->syncExternalContentFromAnodyne();
+            // $this->syncExternalContentFromAnodyne();
 
             // (new Telemetry)->sendFullHeartbeat();
 
