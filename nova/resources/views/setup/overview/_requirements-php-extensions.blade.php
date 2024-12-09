@@ -17,8 +17,8 @@
         </div>
         <div class="ml-12 mt-2 max-w-lg space-y-4 text-sm/6 font-normal text-gray-500">
             <p>
-                Nova and its underlying framework require specific PHP extensions be enabled for different features to
-                be used.
+                Nova and its underlying framework require specific PHP extensions to be enabled for different features
+                to be used.
             </p>
 
             @if (count($e->extensions->missingExtensions()) > 0)

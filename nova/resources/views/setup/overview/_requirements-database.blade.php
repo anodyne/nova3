@@ -37,7 +37,7 @@
             <p>
                 Without a connection to the database, we cannot definitively determine if your database meets the
                 platform and version requirements. We will verify platform and version information after connecting to
-                the database in the next step.
+                the database.
             </p>
         @endif
     </div>
