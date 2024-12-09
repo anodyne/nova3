@@ -96,6 +96,13 @@ class NovaManager
             $connection = Config::get('database.default');
         }
 
+        if ($connection === 'nova2') {
+            return filled($nova2Database = Config::get("database.connections.{$connection}.database"))
+                && filled($nova2Username = Config::get("database.connections.{$connection}.username"))
+                && $nova2Database !== 'unconfigured'
+                && $nova2Username !== 'username';
+        }
+
         return filled(Config::get("database.connections.{$connection}.database"))
             && filled(Config::get("database.connections.{$connection}.username"));
     }
