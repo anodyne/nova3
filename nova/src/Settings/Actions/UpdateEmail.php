@@ -30,11 +30,11 @@ class UpdateEmail
                     [
                         'MAIL_MAILER' => $emailConfigData->mailer,
                         'MAIL_FROM_ADDRESS' => $emailConfigData->fromAddress,
-                        'MAIL_FROM_NAME' => "\"{$emailConfigData->fromName}\"",
+                        'MAIL_FROM_NAME' => $emailConfigData->fromName,
                     ],
                     match ($emailConfigData->mailer) {
                         'sendmail' => [
-                            'MAIL_SENDMAIL_PATH' => "\"{$emailConfigData->sendmailPath}\"",
+                            'MAIL_SENDMAIL_PATH' => $emailConfigData->sendmailPath,
                         ],
                         'smtp' => [
                             'MAIL_HOST' => $emailConfigData->smtpHost,
@@ -45,14 +45,14 @@ class UpdateEmail
                         ],
                         'mailgun' => [
                             'MAILGUN_DOMAIN' => $emailConfigData->mailgunDomain,
-                            'MAILGUN_SECRET' => "\"{$emailConfigData->mailgunSecret}\"",
+                            'MAILGUN_SECRET' => $emailConfigData->mailgunSecret,
                             'MAILGUN_ENDPOINT' => $emailConfigData->mailgunEndpoint,
                         ],
                         'mailersend' => [
-                            'MAILERSEND_API_KEY' => "\"{$emailConfigData->mailersendApiKey}\"",
+                            'MAILERSEND_API_KEY' => $emailConfigData->mailersendApiKey,
                         ],
                         'postmark' => [
-                            'POSTMARK_TOKEN' => "\"{$emailConfigData->postmarkToken}\"",
+                            'POSTMARK_TOKEN' => $emailConfigData->postmarkToken,
                         ],
                         'ses' => [
                             'AWS_ACCESS_KEY_ID' => $emailConfigData->awsAccessKeyId,
