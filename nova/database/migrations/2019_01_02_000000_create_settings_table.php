@@ -22,6 +22,7 @@ class CreateSettingsTable extends Migration
             $table->json('posting_activity')->nullable();
             $table->json('ratings')->nullable();
             $table->json('applications')->nullable();
+            $table->json('writing_dashboard')->nullable();
             $table->timestamps();
         });
     }
