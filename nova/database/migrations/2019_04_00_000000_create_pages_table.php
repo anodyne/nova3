@@ -27,7 +27,7 @@ class CreatePagesTable extends Migration
             $table->string('seo_title')->nullable();
             $table->text('seo_description')->nullable();
             $table->text('seo_keywords')->nullable();
-            $table->string('status')->default(PageStatus::active->value);
+            $table->string('status')->default(PageStatus::Active->value);
             $table->dateTime('published_at')->nullable();
             $table->boolean('content_can_be_edited')->default(false);
             $table->text('heading')->nullable();

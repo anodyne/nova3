@@ -52,7 +52,7 @@ class PostPolicy
         if (
             $post->is_published &&
             $post->participatingUsers->contains('id', $user->id) &&
-            $post->postType->options->editTimeframe !== PostEditTimeframe::never &&
+            $post->postType->options->editTimeframe !== PostEditTimeframe::Never &&
             $post->published_at->copy()->add($post->postType->options->editTimeframe->value)->gte(now())
         ) {
             return $this->allow();

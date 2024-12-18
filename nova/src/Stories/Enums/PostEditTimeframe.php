@@ -11,31 +11,31 @@ enum PostEditTimeframe: string implements HasLabel
 {
     use HasSelectOptions;
 
-    case never = 'never';
-    case min5 = '5m';
-    case min15 = '15m';
-    case min30 = '30m';
-    case hour1 = '1h';
-    case hour2 = '2h';
-    case hour4 = '4h';
-    case hour6 = '6h';
-    case hour8 = '8h';
-    case hour12 = '12h';
-    case hour24 = '24h';
+    case Never = 'never';
+    case Min5 = '5m';
+    case Min15 = '15m';
+    case Min30 = '30m';
+    case Hour1 = '1h';
+    case Hour2 = '2h';
+    case Hour4 = '4h';
+    case Hour6 = '6h';
+    case Hour8 = '8h';
+    case Hour12 = '12h';
+    case Hour24 = '24h';
 
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::min5 => '5 minutes',
-            self::min15 => '15 minutes',
-            self::min30 => '30 minutes',
-            self::hour1 => '1 hour',
-            self::hour2 => '2 hours',
-            self::hour4 => '4 hours',
-            self::hour6 => '6 hours',
-            self::hour8 => '8 hours',
-            self::hour12 => '12 hours',
-            self::hour24 => '24 hours',
+            self::Min5 => '5 minutes',
+            self::Min15 => '15 minutes',
+            self::Min30 => '30 minutes',
+            self::Hour1 => '1 hour',
+            self::Hour2 => '2 hours',
+            self::Hour4 => '4 hours',
+            self::Hour6 => '6 hours',
+            self::Hour8 => '8 hours',
+            self::Hour12 => '12 hours',
+            self::Hour24 => '24 hours',
             default => 'Not allowed to edit after publishing',
         };
     }

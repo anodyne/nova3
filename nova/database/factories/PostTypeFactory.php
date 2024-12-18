@@ -20,7 +20,7 @@ class PostTypeFactory extends Factory
         $word = $this->faker->word;
 
         return [
-            'status' => PostTypeStatus::active,
+            'status' => PostTypeStatus::Active,
             'description' => $this->faker->sentence,
             'key' => $this->faker->lexify("{$word}-????"),
             'name' => ucfirst($word),
@@ -72,7 +72,7 @@ class PostTypeFactory extends Factory
     public function inactive()
     {
         return $this->state([
-            'status' => PostTypeStatus::inactive,
+            'status' => PostTypeStatus::Inactive,
         ]);
     }
 }

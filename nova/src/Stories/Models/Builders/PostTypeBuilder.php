@@ -12,12 +12,12 @@ class PostTypeBuilder extends Builder
 {
     public function active(): Builder
     {
-        return $this->where('status', PostTypeStatus::active);
+        return $this->where('status', PostTypeStatus::Active);
     }
 
     public function inactive(): Builder
     {
-        return $this->where('status', PostTypeStatus::inactive);
+        return $this->where('status', PostTypeStatus::Inactive);
     }
 
     public function inCharacter(): Builder
