@@ -1,9 +1,9 @@
-<h4
-    @class([
-        'block font-[family-name:--font-header] text-sm font-medium text-gray-600 dark:text-gray-400',
-        $attributes->get('class') => $attributes->has('class'),
-    ])
-    {{ $attributes }}
+<h5
+    {{
+        $attributes->class([
+            'block font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400',
+        ])
+    }}
 >
     {{ $slot }}
-</h4>
+</h5>
