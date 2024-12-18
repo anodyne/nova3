@@ -1,5 +1,6 @@
 @props([
     'percentage' => 0,
+    'color' => 'primary',
 ])
 
 @php
@@ -13,7 +14,7 @@
         cy="50%"
         r="calc(50% - {{ $radius }})"
         stroke-width="{{ $strokeWidth }}"
-        class="stroke-gray-300 dark:stroke-gray-700"
+        class="stroke-gray-950/10 dark:stroke-white/10"
     />
 
     <circle
@@ -27,6 +28,14 @@
         stroke-linecap="round"
         transform="rotate(-90)"
         transform-origin="center"
-        class="stroke-primary-500"
+        @class([
+            match ($color) {
+                'danger' => 'stroke-danger-500',
+                'info' => 'stroke-info-500',
+                'success' => 'stroke-success-500',
+                'warning' => 'stroke-warning-500',
+                default => 'stroke-primary-500',
+            },
+        ])
     />
 </svg>
