@@ -21,8 +21,8 @@ beforeEach(function () {
     $this->postTypes = PostType::factory()
         ->count(10)
         ->sequence(
-            ['status' => PostTypeStatus::active],
-            ['status' => PostTypeStatus::inactive],
+            ['status' => PostTypeStatus::Active],
+            ['status' => PostTypeStatus::Inactive],
         )
         ->create();
 });
@@ -41,12 +41,12 @@ describe('authorized user', function () {
 
     test('can filter post types by status', function () {
         livewire(PostTypesList::class)
-            ->filterTable('status', PostTypeStatus::active->value)
-            ->assertCanSeeTableRecords($this->postTypes->where('status', PostTypeStatus::active))
-            ->assertCanNotSeeTableRecords($this->postTypes->where('status', PostTypeStatus::inactive))
-            ->filterTable('status', PostTypeStatus::inactive->value)
-            ->assertCanSeeTableRecords($this->postTypes->where('status', PostTypeStatus::inactive))
-            ->assertCanNotSeeTableRecords($this->postTypes->where('status', PostTypeStatus::active));
+            ->filterTable('status', PostTypeStatus::Active->value)
+            ->assertCanSeeTableRecords($this->postTypes->where('status', PostTypeStatus::Active))
+            ->assertCanNotSeeTableRecords($this->postTypes->where('status', PostTypeStatus::Inactive))
+            ->filterTable('status', PostTypeStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->postTypes->where('status', PostTypeStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->postTypes->where('status', PostTypeStatus::Active));
     });
 
     test('can filter post types by those that require a role', function () {

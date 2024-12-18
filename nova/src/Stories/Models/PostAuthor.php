@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Nova\Characters\Models\Character;
+use Nova\Stories\Models\Builders\PostAuthorBuilder;
 use Nova\Users\Models\User;
 
 class PostAuthor extends MorphPivot
@@ -21,13 +21,18 @@ class PostAuthor extends MorphPivot
         return null;
     }
 
+    public function post(): BelongsTo
+    {
+        return $this->belongsTo(Post::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function scopePost(Builder $query, $id): Builder
+    public function newEloquentBuilder($query): PostAuthorBuilder
     {
-        return $query->where('post_id', $id);
+        return new PostAuthorBuilder($query);
     }
 }

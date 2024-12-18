@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire\Steps;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Stories\Actions\UpdateContributorWordCount;
 use Nova\Stories\Livewire\Concerns\HasParentState;
 use Nova\Stories\Livewire\PostForm;
 use Nova\Stories\Models\Post;
@@ -57,11 +59,21 @@ class ComposePostStep extends WizardStep
 
         $shouldRedirect = false;
 
+        $oldPostWordCount = $this->post->word_count;
+
         $this->form->validate();
 
         $this->form->save();
 
-        $this->post->addParticipant(auth()->user());
+        $this->post->refresh();
+
+        $this->post->addParticipant($user = Auth::user());
+
+        UpdateContributorWordCount::run(
+            post: $this->post,
+            user: $user,
+            oldWordCount: $oldPostWordCount,
+        );
 
         if ($this->post->is_started) {
             if ($allowRedirect) {
@@ -72,8 +84,8 @@ class ComposePostStep extends WizardStep
         }
 
         $this->post->participatingUsers
-            ->filter(fn (User $user) => $user->id !== auth()->id())
-            ->each->notify(new PostSaved($this->post, auth()->user()));
+            ->filter(fn (User $user) => $user->id !== Auth::id())
+            ->each->notify(new PostSaved($this->post, Auth::user()));
 
         if (! $quiet) {
             Notification::make()

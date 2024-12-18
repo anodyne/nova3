@@ -39,8 +39,6 @@ enum AvatarStyle: string implements HasLabel
 
     case Glass = 'glass';
 
-    case Icons = 'icons';
-
     case Identicon = 'identicon';
 
     case Initials = 'initials';

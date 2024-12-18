@@ -13,6 +13,13 @@
 
         <x-form :action="route('admin.settings.characters.update')" method="PUT">
             <x-fieldset>
+                <x-panel.primary title="Looking for character manifest settings?" icon="characters">
+                    Character manifest settings can be found by going to the Design Page screen for the page the
+                    character manifest block is on.
+                </x-panel.primary>
+            </x-fieldset>
+
+            <x-fieldset>
                 <x-fieldset.heading>
                     <x-icon name="check"></x-icon>
                     <x-fieldset.legend>Character creation approvals</x-fieldset.legend>

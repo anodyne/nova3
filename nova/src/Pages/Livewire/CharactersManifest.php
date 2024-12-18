@@ -120,7 +120,7 @@ class CharactersManifest extends Component
     {
         return $this->showAvailablePositions
             && $position->available > 0
-            && $position->status === PositionStatus::active
+            && $position->status === PositionStatus::Active
             && (
                 $this->availablePositionsStatus === 'all' ||
                 ($this->availablePositionsStatus === 'choose' && in_array($position->id, $this->selectedAvailablePositions))

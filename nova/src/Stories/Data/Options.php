@@ -35,7 +35,7 @@ class Options extends Data implements Arrayable
             allowsCharacterAuthors: Arr::boolean($data, 'allowsCharacterAuthors'),
             allowsUserAuthors: Arr::boolean($data, 'allowsUserAuthors'),
             showContentInTimelineView: Arr::boolean($data, 'showContentInTimelineView'),
-            editTimeframe: PostEditTimeframe::tryFrom(data_get($data, 'editTimeframe', PostEditTimeframe::never->value))
+            editTimeframe: PostEditTimeframe::tryFrom(data_get($data, 'editTimeframe', PostEditTimeframe::Never->value))
         );
     }
 

@@ -11,10 +11,10 @@ use Nova\Stories\Events\PostCreating;
 use Nova\Stories\Events\PostPublished;
 use Nova\Stories\Listeners\SendPostPublishedNotificationToDiscord;
 use Nova\Stories\Listeners\SetDefaultContentRatings;
-use Nova\Stories\Livewire\MyDraftsList;
 use Nova\Stories\Livewire\PostsList;
 use Nova\Stories\Livewire\PostsTimeline;
 use Nova\Stories\Livewire\ReadPostModal;
+use Nova\Stories\Livewire\RecentPublishedPostsList;
 use Nova\Stories\Livewire\SelectPostPositionModal;
 use Nova\Stories\Livewire\Steps\ComposePostStep;
 use Nova\Stories\Livewire\Steps\PublishPostStep;
@@ -62,7 +62,7 @@ class PostServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'posts-my-drafts-list' => MyDraftsList::class,
+            'posts-recent-published-posts-list' => RecentPublishedPostsList::class,
             'posts-list' => PostsList::class,
             'posts-timeline' => PostsTimeline::class,
             'posts-read-post-modal' => ReadPostModal::class,

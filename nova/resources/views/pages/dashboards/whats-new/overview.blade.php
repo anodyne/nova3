@@ -4,8 +4,8 @@
         message="Discover Nova 3’s new features and changes from Nova 2"
     ></x-panel.header>
 
-    <div class="flex flex-col divide-gray-200 lg:flex-row lg:divide-x">
-        <div class="flex flex-1 flex-col gap-6 divide-y divide-gray-200">
+    <div class="flex flex-col divide-gray-950/5 lg:flex-row lg:divide-x">
+        <div class="flex flex-1 flex-col gap-6 divide-y divide-gray-950/5">
             <x-spacing size="md">
                 <div x-show="active === 'characters'" x-cloak>
                     @include('pages.dashboards.whats-new.characters')

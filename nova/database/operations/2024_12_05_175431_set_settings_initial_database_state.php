@@ -11,8 +11,13 @@ use Nova\Settings\Data\Discord;
 use Nova\Settings\Data\Email;
 use Nova\Settings\Data\FontFamilies;
 use Nova\Settings\Data\General;
+use Nova\Settings\Data\Leaderboard;
 use Nova\Settings\Data\MetaTags;
 use Nova\Settings\Data\PostingActivity;
+use Nova\Settings\Data\WritingDashboard;
+use Nova\Settings\Enums\LeaderboardTimeframe;
+use Nova\Settings\Enums\PostingTarget;
+use Nova\Settings\Enums\PostingTimeframe;
 use Nova\Settings\Models\Settings;
 use Nova\Setup\Randomize;
 use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
@@ -77,11 +82,10 @@ return new class extends OneTimeOperation
                 'color' => '#38b2ac',
             ]),
             'posting_activity' => new PostingActivity(
-                postsStrategy: 'author',
-                trackingStrategy: 'words',
-                requiredActivity: 1000,
-                wordCountPostConversion: 500,
-                wordCountStrategy: 'average'
+                target: PostingTarget::Words,
+                requirement: 250,
+                timeframe: PostingTimeframe::Rolling,
+                rollingDays: 7
             ),
             'ratings' => new ContentRatings(
                 language: new ContentRating(
@@ -118,6 +122,22 @@ return new class extends OneTimeOperation
                 alwaysShowResults: false,
                 allowVoteChanging: false,
                 showDecisionMessage: true
+            ),
+            'writing_dashboard' => new WritingDashboard(
+                leaderboard: new Leaderboard(
+                    title: 'Posting Contributors',
+                    icon: 'tabler-award',
+                    target: PostingTarget::Words,
+                    userSelectableTimeframe: false,
+                    timeframe: LeaderboardTimeframe::Days30,
+                    numberOfSpotsToShow: 10,
+                    showRankNumbers: false,
+                    hideUsersWithZero: true,
+                    onlyActiveUsers: true,
+                    enabled: true,
+                    showPodium: false
+                ),
+                milestonesTarget: PostingTarget::Words,
             ),
         ];
 

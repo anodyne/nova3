@@ -42,21 +42,23 @@
         >
             Environment
         </x-sidebar.subnav.item>
-
-        {{--
-            <x-sidebar.subnav.item
-            :href="route('admin.settings.posting-activity.edit')"
-            :active="request()->routeIs('admin.settings.posting-activity.edit')"
-            >
-            Posting activity
-            </x-sidebar.subnav.item>
-        --}}
-
         <x-sidebar.subnav.item
             :href="route('admin.settings.notifications.edit')"
             :active="request()->routeIs('admin.settings.notifications.edit')"
         >
             Notifications
+        </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
+            :href="route('admin.settings.posting-activity.edit')"
+            :active="request()->routeIs('admin.settings.posting-activity.edit')"
+        >
+            Posting activity
+        </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
+            :href="route('admin.settings.writing-dashboard.edit')"
+            :active="request()->routeIs('admin.settings.writing-dashboard.edit')"
+        >
+            Writing dashboard
         </x-sidebar.subnav.item>
     </x-sidebar.subnav.group>
 </x-sidebar.subnav>

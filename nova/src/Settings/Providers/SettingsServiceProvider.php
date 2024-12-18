@@ -8,6 +8,7 @@ use Nova\DomainServiceProvider;
 use Nova\Settings\Livewire\FontSelector;
 use Nova\Settings\Livewire\ManageGlobalReviewers;
 use Nova\Settings\Livewire\NotificationTypesList;
+use Nova\Settings\Livewire\PostingActivitySettings;
 use Nova\Settings\Models\Settings;
 use Nova\Settings\Spotlight;
 
@@ -19,6 +20,7 @@ class SettingsServiceProvider extends DomainServiceProvider
             'settings-font-selector' => FontSelector::class,
             'settings-notification-types-list' => NotificationTypesList::class,
             'settings-manage-global-reviewers' => ManageGlobalReviewers::class,
+            'settings-posting-activity' => PostingActivitySettings::class,
         ];
     }
 

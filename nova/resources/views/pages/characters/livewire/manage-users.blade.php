@@ -12,7 +12,7 @@
 
         @if ($users->count() > 0)
             <div
-                class="divide-y divide-gray-200 rounded-b-lg border-t border-gray-200 dark:divide-gray-800 dark:border-gray-800"
+                class="divide-y divide-gray-950/5 rounded-b-lg border-t border-gray-950/5 dark:divide-white/5 dark:border-white/5"
             >
                 @foreach ($users as $user)
                     <div

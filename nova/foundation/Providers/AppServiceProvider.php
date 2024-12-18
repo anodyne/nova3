@@ -158,7 +158,7 @@ class AppServiceProvider extends ServiceProvider
             /** @var Route */
             $route = $this;
 
-            return Page::key($route->getName())->first();
+            return once(fn () => Page::key($route->getName())->first());
         });
 
         ComponentAttributeBag::macro('hasStartsWith', function ($key) {

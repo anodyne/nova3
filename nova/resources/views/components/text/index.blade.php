@@ -11,8 +11,10 @@
             match ($color) {
                 'danger' => 'text-danger-600 dark:text-danger-400',
                 'info' => 'text-info-600 dark:text-info-400',
+                'primary' => 'text-primary-600 dark:text-primary-400',
                 'success' => 'text-success-600 dark:text-success-400',
                 'warning' => 'text-warning-600 dark:text-warning-400',
+                'subtle' => 'text-gray-500 dark:text-gray-400',
                 default => 'text-gray-600 dark:text-gray-300',
             },
             match ($size) {

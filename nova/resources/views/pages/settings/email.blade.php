@@ -94,7 +94,7 @@
                             name="sendmail_path"
                         >
                             <x-input.text
-                                :value="old('sendmail_path', config('mail.mailers.sendmail.path'))"
+                                :value="old('sendmail_path', config('mail.mailers.sendmail.path', '/usr/sbin/sendmail -bs -i'))"
                             ></x-input.text>
                         </x-fieldset.field>
                     </div>

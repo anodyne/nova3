@@ -8,23 +8,24 @@
 
 <span
     data-slot="avatar"
-    @class([
-        'inline-grid bg-gray-100 align-middle *:col-start-1 *:row-start-1',
-        'rounded-[20%] *:rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
-        'rounded-full *:rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
-        match ($size) {
-            'xs' => 'size-8',
-            'sm' => 'size-10',
-            'md' => 'size-12',
-            'lg' => 'size-16',
-            'xl' => 'size-24',
-            '2xl' => 'size-32',
-            '3xl' => 'size-48',
-            default => $size
-        },
-        $attributes->get('class') => $attributes->has('class'),
-    ])
-    {{ $attributes }}
+    {{
+        $attributes->class([
+            'inline-grid bg-gray-950/10 align-middle *:col-start-1 *:row-start-1 dark:bg-white/10',
+            'rounded-[20%] *:rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
+            'rounded-full *:rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
+            match ($size) {
+                '2xs' => 'size-6',
+                'xs' => 'size-8',
+                'sm' => 'size-10',
+                'md' => 'size-12',
+                'lg' => 'size-16',
+                'xl' => 'size-24',
+                '2xl' => 'size-32',
+                '3xl' => 'size-48',
+                default => $size
+            },
+        ])
+    }}
 >
     @if (filled($src))
         <img src="{{ $src }}" />
@@ -45,5 +46,5 @@
         </svg>
     @endif
 
-    <span class="ring-1 ring-inset ring-black/5 dark:ring-white/5 forced-colors:outline" aria-hidden="true"></span>
+    <span class="ring-1 ring-inset ring-black/5 dark:ring-white/5" aria-hidden="true"></span>
 </span>

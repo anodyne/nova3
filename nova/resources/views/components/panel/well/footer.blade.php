@@ -1,3 +1,3 @@
-<x-spacing width="md" height="sm">
+<x-spacing width="sm" bottom="xs" top="sm">
     {{ $slot }}
 </x-spacing>

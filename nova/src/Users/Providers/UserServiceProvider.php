@@ -6,6 +6,7 @@ namespace Nova\Users\Providers;
 
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\PasswordReset;
 use Lab404\Impersonate\Events\LeaveImpersonation;
 use Lab404\Impersonate\Events\TakeImpersonation;
 use Nova\DomainServiceProvider;
@@ -47,6 +48,9 @@ class UserServiceProvider extends DomainServiceProvider
             ],
             TakeImpersonation::class => [
                 Listeners\LogImpersonationStart::class,
+            ],
+            PasswordReset::class => [
+                Listeners\ClearForcedPasswordResetFlag::class,
             ],
         ];
     }

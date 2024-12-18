@@ -21,7 +21,7 @@
     >
         <div x-show="!codeView" wire:ignore>
             <nav
-                class="menu flex flex-wrap items-center divide-x divide-gray-100 border-b border-gray-200 bg-gray-50 px-3 py-1.5 dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900/50"
+                class="menu flex flex-wrap items-center divide-x divide-gray-950/5 border-b border-gray-950/5 bg-gray-50 px-3 py-1.5 dark:divide-white/5 dark:border-white/5 dark:bg-gray-900/50"
             >
                 <div class="my-1 flex items-center space-x-3 pr-3 md:my-0 md:space-x-2">
                     <x-button.editor-tools.bold></x-button.editor-tools.bold>

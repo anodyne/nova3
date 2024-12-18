@@ -1,12 +1,12 @@
 <div {{ $attributes->merge(['class' => 'align-middle min-w-full overflow-x-auto']) }}>
     <table class="min-w-full">
-        <thead class="border-t border-b border-gray-200 dark:border-gray-700">
+        <thead class="border-b border-t border-gray-950/5 dark:border-white/5">
             <tr>
                 {{ $head }}
             </tr>
         </thead>
 
-        <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700">
+        <tbody class="divide-y divide-gray-950/5 bg-white dark:divide-white/5">
             {{ $body }}
         </tbody>
     </table>

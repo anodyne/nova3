@@ -49,7 +49,7 @@
             x-trap.noscroll="isOpen"
             class="relative transition-all max-w-xl w-full"
         >
-            <div class="mx-auto max-w-xl transform divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden rounded-xl bg-white dark:bg-gray-800 dark:highlight-white/10 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
+            <div class="mx-auto max-w-xl transform divide-y divide-gray-950/5 dark:divide-white/5 overflow-hidden rounded-xl bg-white dark:bg-gray-800 dark:highlight-white/10 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                 <div class="relative flex items-center space-x-3 px-4 py-4">
                     <div class="shrink-0">
                         <x-icon name="arrow-right" size="md" class="text-gray-400"></x-icon>

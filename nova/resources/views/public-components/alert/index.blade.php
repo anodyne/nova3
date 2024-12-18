@@ -44,7 +44,7 @@
                 @endif
 
                 @if ($level === 'success')
-                    <x-icon.micro.check></x-icon.micro.check>
+                    <x-icon.micro.check-circle></x-icon.micro.check-circle>
                 @endif
 
                 @if ($level === 'warning')

@@ -105,7 +105,7 @@ class SetupPostStep extends WizardStep
     {
         $sendAuthorNotifications = $this->post->exists;
 
-        $originalPostParticipants = PostAuthor::post($this->post->id)->get();
+        $originalPostParticipants = PostAuthor::wherePost($this->post->id)->get();
 
         $this->post->post_type_id = $this->postTypeId;
         $this->post->story_id = $this->storyId;
@@ -127,7 +127,7 @@ class SetupPostStep extends WizardStep
 
             $this->sendNotificationsToAddedAuthors(
                 original: $originalPostParticipants,
-                new: $newPostParticipants = PostAuthor::post($this->post->id)->get()
+                new: $newPostParticipants = PostAuthor::wherePost($this->post->id)->get()
             );
 
             $this->sendNotificationsToRemovedAuthors(

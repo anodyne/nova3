@@ -12,9 +12,15 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('nova:refresh', function () {
+    $this->call('db:wipe');
     $this->call('migrate:fresh');
     $this->call('operations:process');
     $this->call('db:seed');
+
+    // $this->call('scout:delete-all-indexes');
+    // $this->call('scout:import', ['model' => 'App\Models\Product']);
+    // $this->call('scout:sync-index-settings');
+
     $this->call('optimize:clear');
 });
 

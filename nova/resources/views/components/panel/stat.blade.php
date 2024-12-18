@@ -3,7 +3,7 @@
     'value' => null,
 ])
 
-<div class="space-y-2 px-4 sm:px-6">
+<div {{ $attributes->class(['space-y-2 px-4 sm:px-6']) }}>
     @if (filled($label))
         <p class="text-sm font-medium leading-6 text-gray-600 dark:text-gray-400">{{ $label }}</p>
     @endif
