@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Number;
 use Nova\Addons\Models\Addon;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Department;
@@ -155,4 +156,37 @@ Route::get('telemetry', function () {
     }
 
     dd($data);
+});
+
+Route::get('leaderboard', function () {
+    // $leaderboard = User::with('posts')->get();
+
+    // $leaderboard = User::query()
+    //     ->has('posts')
+    //     ->withSum('posts as author_word_count', 'post_author.word_count')
+    //     // ->whereExists('posts')
+    //     // ->whereHas('posts', fn ($query) => $query->withSum('posts as author_word_count', 'post_author.word_count'))
+    //     ->get();
+
+    $leaderboard = User::query()
+        ->whereHas('publishedPosts')
+        ->withSum('publishedPosts as author_word_count', 'post_author.word_count')
+        ->orderByDesc('author_word_count')
+        ->get();
+
+    foreach ($leaderboard as $user) {
+        echo $user->name.' - '.Number::format((int) $user->author_word_count)."\r\n\r\n";
+    }
+
+    // dd($leaderboard->toArray());
+
+    // dd($leaderboard->participatingUsers->sum('pivot.word_count'));
+
+    return 'Done';
+});
+
+Route::get('attention', function () {
+    $post = Post::find(50);
+
+    dd($post->participatingUsers()->latest('pivot_updated_at')->first()?->pivot?->toArray());
 });

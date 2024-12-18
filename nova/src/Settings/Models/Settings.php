@@ -6,15 +6,7 @@ namespace Nova\Settings\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
-use Nova\Settings\Data\Appearance;
-use Nova\Settings\Data\Applications;
-use Nova\Settings\Data\Characters;
-use Nova\Settings\Data\ContentRatings;
-use Nova\Settings\Data\Discord;
-use Nova\Settings\Data\Email;
-use Nova\Settings\Data\General;
-use Nova\Settings\Data\MetaTags;
-use Nova\Settings\Data\PostingActivity;
+use Nova\Settings\Data;
 use Nova\Settings\Models\Builders\SettingsBuilder;
 use Spatie\MediaLibrary\HasMedia;
 
@@ -25,15 +17,16 @@ class Settings extends Model implements HasMedia
     protected $table = 'settings';
 
     protected $casts = [
-        'general' => General::class,
-        'email' => Email::class,
-        'appearance' => Appearance::class,
-        'characters' => Characters::class,
-        'meta_tags' => MetaTags::class,
-        'discord' => Discord::class,
-        'posting_activity' => PostingActivity::class,
-        'ratings' => ContentRatings::class,
-        'applications' => Applications::class,
+        'general' => Data\General::class,
+        'email' => Data\Email::class,
+        'appearance' => Data\Appearance::class,
+        'characters' => Data\Characters::class,
+        'meta_tags' => Data\MetaTags::class,
+        'discord' => Data\Discord::class,
+        'posting_activity' => Data\PostingActivity::class,
+        'ratings' => Data\ContentRatings::class,
+        'applications' => Data\Applications::class,
+        'writing_dashboard' => Data\WritingDashboard::class,
     ];
 
     protected $fillable = [
@@ -47,6 +40,7 @@ class Settings extends Model implements HasMedia
         'posting_activity',
         'ratings',
         'applications',
+        'writing_dashboard',
     ];
 
     public function newEloquentBuilder($query): SettingsBuilder

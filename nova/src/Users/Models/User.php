@@ -141,8 +141,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
 
     public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'post_author')
-            ->wherePivot('user_id', $this->id);
+        return $this->belongsToMany(Post::class, 'post_author');
     }
 
     public function draftPosts(): BelongsToMany

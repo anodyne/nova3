@@ -1,0 +1,114 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Nova\Dashboards\Livewire;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
+use Livewire\Component;
+use Nova\Settings\Data\Leaderboard;
+use Nova\Settings\Enums\LeaderboardTimeframe;
+use Nova\Settings\Enums\PostingTarget;
+use Nova\Users\Models\User;
+
+class PostingLeaderboard extends Component
+{
+    public string $timeframe;
+
+    #[Computed]
+    public function leaderboard(): ?Collection
+    {
+        if (! $this->settings->enabled) {
+            return null;
+        }
+
+        if ($this->settings->target === PostingTarget::Words) {
+            return $this->calculateLeaderboardByWords;
+        }
+
+        return $this->calculateLeaderboardByPosts;
+    }
+
+    #[Computed]
+    public function calculateLeaderboardByPosts(): Collection
+    {
+        return User::query()
+            ->when(
+                $this->settings->onlyActiveUsers === true,
+                fn (Builder $query): Builder => $query->active(),
+            )
+            ->when(
+                $this->settings->onlyActiveUsers === false,
+                fn (Builder $query): Builder => $query->activeOrInactive(),
+            )
+            ->when(
+                $this->settings->hideUsersWithZero,
+                fn (Builder $query): Builder => $query->whereHas('posts')
+            )
+            ->withCount([
+                'posts as author_count' => function (Builder $query): Builder {
+                    $timeframe = LeaderboardTimeframe::tryFrom($this->timeframe);
+
+                    return $timeframe->query($query);
+                },
+            ])
+            ->when(
+                filled($this->settings->numberOfSpotsToShow) && $this->settings->numberOfSpotsToShow > 0,
+                fn (Builder $query): Builder => $query->limit($this->settings->numberOfSpotsToShow)
+            )
+            ->orderByDesc('author_count')
+            ->get();
+    }
+
+    #[Computed]
+    public function calculateLeaderboardByWords(): Collection
+    {
+        return User::query()
+            ->when(
+                $this->settings->onlyActiveUsers === true,
+                fn (Builder $query): Builder => $query->active(),
+            )
+            ->when(
+                $this->settings->onlyActiveUsers === false,
+                fn (Builder $query): Builder => $query->activeOrInactive(),
+            )
+            ->when(
+                $this->settings->hideUsersWithZero,
+                fn (Builder $query): Builder => $query->whereHas('posts')
+            )
+            ->withSum([
+                'posts as author_count' => function (Builder $query): Builder {
+                    $timeframe = LeaderboardTimeframe::tryFrom($this->timeframe);
+
+                    return $timeframe->query($query);
+                },
+            ], 'post_author.word_count')
+            ->when(
+                filled($this->settings->numberOfSpotsToShow) && $this->settings->numberOfSpotsToShow > 0,
+                fn (Builder $query): Builder => $query->limit($this->settings->numberOfSpotsToShow)
+            )
+            ->orderByDesc('author_count')
+            ->get();
+    }
+
+    #[Computed]
+    public function settings(): Leaderboard
+    {
+        return settings('writing_dashboard.leaderboard');
+    }
+
+    public function mount()
+    {
+        $this->timeframe = $this->settings->timeframe->value;
+    }
+
+    public function render()
+    {
+        return view('pages.dashboards.livewire.posting-leaderboard', [
+            'leaderboard' => $this->leaderboard,
+            'settings' => $this->settings,
+        ]);
+    }
+}

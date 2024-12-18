@@ -39,6 +39,14 @@ class UserBuilder extends Builder
         return $this->whereState('status', Active::class);
     }
 
+    public function activeOrInactive(): self
+    {
+        return $this->where(function (Builder $query): Builder {
+            return $query->whereState('status', Active::class)
+                ->orWhereState('status', Inactive::class);
+        });
+    }
+
     public function hidden(): Builder
     {
         return $this->whereState('status', Hidden::class);

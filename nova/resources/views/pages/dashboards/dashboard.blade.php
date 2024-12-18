@@ -69,53 +69,29 @@
 
                         <x-panel.well.footer>
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                                <a
-                                    href="{{ route('admin.account.edit') }}"
-                                    class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
-                                >
-                                    <x-icon
-                                        name="preferences"
-                                        size="lg"
-                                        class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
-                                    ></x-icon>
-                                    <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
-                                        My preferences
-                                    </span>
-                                </a>
+                                <x-button :href="route('admin.account.edit')" color="heavy-neutral" text>
+                                    <x-icon name="preferences" size="sm"></x-icon>
+                                    My preferences
+                                </x-button>
 
-                                <a
-                                    href="{{ route('admin.characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]]) }}"
-                                    class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
+                                <x-button
+                                    :href="route('admin.characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
+                                    color="heavy-neutral"
+                                    text
                                 >
-                                    <x-icon
-                                        name="characters"
-                                        size="lg"
-                                        class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
-                                    ></x-icon>
-                                    <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
-                                        My characters
-                                    </span>
-                                </a>
+                                    <x-icon name="characters" size="sm"></x-icon>
+                                    My characters
+                                </x-button>
 
-                                <a
-                                    href="{{ route('admin.messages.index') }}"
-                                    class="group flex items-center justify-center space-x-2 px-6 text-center text-base font-medium transition md:text-sm"
-                                >
-                                    <x-icon
-                                        name="inbox"
-                                        size="lg"
-                                        class="text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-400"
-                                    ></x-icon>
-                                    <span class="group-hover:text-gray-900 dark:group-hover:text-gray-100">
-                                        Messages
-                                    </span>
-
+                                <x-button :href="route('admin.messages.index')" color="heavy-neutral" text>
+                                    <x-icon name="inbox" size="sm"></x-icon>
+                                    My messages
                                     @if ($unreadMessagesCount = auth()->user()->unread_messages_count > 0)
                                         <x-badge color="primary" class="tabular-nums">
                                             {{ $unreadMessagesCount }}
                                         </x-badge>
                                     @endif
-                                </a>
+                                </x-button>
                             </div>
                         </x-panel.well.footer>
                     </x-panel>

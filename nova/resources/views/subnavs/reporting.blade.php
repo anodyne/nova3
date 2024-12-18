@@ -1,0 +1,22 @@
+<x-sidebar.subnav>
+    <x-sidebar.subnav.group>
+        <x-sidebar.subnav.item
+            :href="route('admin.reporting.overview')"
+            :active="request()->routeIs('admin.reporting.overview')"
+        >
+            Overview
+        </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
+            :href="route('admin.settings.general.edit')"
+            :active="request()->routeIs('admin.settings.general.edit')"
+        >
+            Activity
+        </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
+            :href="route('admin.settings.general.edit')"
+            :active="request()->routeIs('admin.settings.general.edit')"
+        >
+            Contributions
+        </x-sidebar.subnav.item>
+    </x-sidebar.subnav.group>
+</x-sidebar.subnav>

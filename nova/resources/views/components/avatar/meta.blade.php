@@ -10,7 +10,7 @@
     <x-avatar :src="$src" :initials="$initials" :size="$size"></x-avatar>
 
     @if ($primary || $secondary)
-        <div class="ml-4 flex flex-col">
+        <div class="ml-2 flex flex-col">
             @if ($primary)
                 <div class="flex items-center truncate font-medium text-gray-900 dark:text-white">
                     {{ $primary }}

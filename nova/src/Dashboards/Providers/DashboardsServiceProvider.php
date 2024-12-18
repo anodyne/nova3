@@ -10,6 +10,7 @@ use Nova\Dashboards\Livewire\ClearVersionCheckCacheButton;
 use Nova\Dashboards\Livewire\CopyDiagnosticDataButton;
 use Nova\Dashboards\Livewire\NovaUpdatePanel;
 use Nova\Dashboards\Livewire\NovaVersionHistory;
+use Nova\Dashboards\Livewire\PostingLeaderboard;
 use Nova\Dashboards\Livewire\RebuildSearchIndexButton;
 use Nova\Dashboards\Policies\ActivityPolicy;
 use Nova\Dashboards\Spotlight\ViewSystemDashboard;
@@ -29,6 +30,7 @@ class DashboardsServiceProvider extends DomainServiceProvider
             'rebuild-search-index-button' => RebuildSearchIndexButton::class,
             'nova-update-panel' => NovaUpdatePanel::class,
             'nova-version-history' => NovaVersionHistory::class,
+            'posting-leaderboard' => PostingLeaderboard::class,
         ];
     }
 

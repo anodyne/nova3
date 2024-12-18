@@ -36,7 +36,7 @@
         {{ NovaView::renderHook('admin::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
+        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-900 dark:text-gray-400 dark:xl:bg-gray-900"
         @if (settings('appearance.panda')) data-panda @endif
     >
         {{ NovaView::renderHook('admin::body.start') }}
@@ -45,7 +45,7 @@
             {{ NovaView::renderHook('admin::page.start') }}
 
             <div
-                class="relative flex min-h-svh w-full bg-white max-lg:flex-col lg:bg-gray-100 dark:bg-gray-900 dark:lg:bg-gray-950"
+                class="relative flex min-h-svh w-full bg-white max-lg:flex-col lg:bg-gray-100 dark:bg-gray-900 dark:lg:bg-gray-900"
                 x-data="{ open: false }"
             >
                 {{-- Sidebar on desktop --}}
@@ -198,6 +198,16 @@
                                     >
                                         <x-icon name="form"></x-icon>
                                         <x-sidebar.label>Forms</x-sidebar.label>
+                                    </x-sidebar.item>
+                                @endif
+
+                                @if (auth()->user()->canManageForms)
+                                    <x-sidebar.item
+                                        :href="route('admin.reporting.overview')"
+                                        :active="$meta->subnavSection === 'reporting'"
+                                    >
+                                        <x-icon name="chart-dots"></x-icon>
+                                        <x-sidebar.label>Reporting</x-sidebar.label>
                                     </x-sidebar.item>
                                 @endif
 
@@ -476,6 +486,16 @@
                                                     </x-sidebar.item>
                                                 @endif
 
+                                                @if (auth()->user()->canManageForms)
+                                                    <x-sidebar.item
+                                                        :href="route('admin.reporting.overview')"
+                                                        :active="$meta->subnavSection === 'reporting'"
+                                                    >
+                                                        <x-icon name="chart-dots"></x-icon>
+                                                        <x-sidebar.label>Reporting</x-sidebar.label>
+                                                    </x-sidebar.item>
+                                                @endif
+
                                                 @can('update', $settings)
                                                     <x-sidebar.item
                                                         :href="route('admin.settings.general.edit')"
@@ -628,7 +648,7 @@
 
                 <main class="flex flex-1 flex-col pb-2 lg:min-w-0 lg:pl-64 lg:pr-2 lg:pt-2">
                     <div
-                        class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-900 dark:lg:ring-white/10"
+                        class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-950 dark:lg:ring-white/10"
                     >
                         <div class="relative z-[2] mx-auto max-w-6xl">
                             {{ $slot }}

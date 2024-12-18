@@ -10,7 +10,7 @@
 
     <div class="mx-auto max-w-lg space-y-8">
         <x-panel class="overflow-hidden">
-            <div class="divide-y divide-gray-200">
+            <div class="divide-y divide-gray-950/5">
                 @foreach ($roles as $role)
                     <x-spacing height="sm">
                         <div class="space-y-6" x-data="{ expanded: @js($role->name != 'active') }">

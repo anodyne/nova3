@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Concerns\SortableTrait;
@@ -75,25 +77,28 @@ class Post extends Model implements Sortable
     public function participatingUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'post_author')
-            ->withPivot(['post_id', 'user_id'])
-            ->groupBy('pivot_user_id', 'pivot_post_id');
+            // ->withPivot(['post_id', 'user_id', 'word_count'])
+            ->withPivot(['post_id', 'user_id', 'updated_at']);
+        // ->groupBy('pivot_user_id', 'pivot_post_id')
     }
 
-    public function characterAuthors()
+    public function characterAuthors(): MorphToMany
     {
         return $this->morphedByMany(Character::class, 'authorable', 'post_author')
             ->withPivot('user_id')
-            ->using(PostAuthor::class);
+            ->using(PostAuthor::class)
+            ->withTimestamps();
     }
 
-    public function userAuthors()
+    public function userAuthors(): MorphToMany
     {
         return $this->morphedByMany(User::class, 'authorable', 'post_author')
             ->withPivot(['as', 'user_id'])
-            ->using(PostAuthor::class);
+            ->using(PostAuthor::class)
+            ->withTimestamps();
     }
 
-    public function story()
+    public function story(): BelongsTo
     {
         return $this->belongsTo(Story::class);
     }
@@ -128,6 +133,20 @@ class Post extends Model implements Sortable
     {
         return Attribute::make(
             get: fn (): bool => $this->status->equals(PostStatus\Started::class)
+        );
+    }
+
+    public function hasLocationAndTime(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => filled($this->day) || filled($this->time) || filled($this->location)
+        );
+    }
+
+    public function needsAttention(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->participatingUsers()->latest('pivot_updated_at')->first()?->pivot?->user_id !== Auth::id()
         );
     }
 
