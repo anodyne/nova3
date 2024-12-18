@@ -41,7 +41,7 @@ return new class extends OneTimeOperation
         $pages = [
             ['name' => 'Dashboard', 'uri' => 'admin/dashboard', 'key' => 'admin.dashboard', 'resource' => 'Nova\\Dashboards\\Controllers\\DashboardController', 'layout' => 'admin', 'content_can_be_edited' => true],
             ['name' => 'System overview dashboard', 'uri' => 'admin/system-overview', 'key' => 'admin.system-overview', 'resource' => 'Nova\\Dashboards\\Controllers\\SystemOverviewController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'System overview'],
-            ['name' => 'Writing dashboard', 'uri' => 'admin/writing-overview', 'key' => 'admin.writing-overview', 'resource' => 'Nova\\Stories\\Controllers\\WritingOverviewController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'My draft posts', 'subheading' => 'Drafts are posts in progress that have not been published'],
+            ['name' => 'Writing dashboard', 'uri' => 'admin/writing-overview', 'key' => 'admin.writing-overview', 'resource' => 'Nova\\Stories\\Controllers\\WritingOverviewController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'My writing dashboard'],
             ['name' => 'List activity logs', 'uri' => 'admin/activity-log', 'key' => 'admin.activity-log.index', 'resource' => 'Nova\\Dashboards\\Controllers\\ActivityLogController@index', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Activity log', 'subheading' => 'Track all user activity in Nova'],
             ['name' => 'View activity log', 'uri' => 'admin/activity-log/{activity}/show', 'key' => 'admin.activity-log.show', 'resource' => 'Nova\\Dashboards\\Controllers\\ActivityLogController@show', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Activity log detail'],
 
@@ -96,6 +96,8 @@ return new class extends OneTimeOperation
             ['name' => 'Update environment settings', 'uri' => 'admin/settings/environment', 'key' => 'admin.settings.environment.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Settings\\Controllers\\EnvironmentSettingsController@update', 'layout' => 'admin'],
             ['name' => 'Application settings', 'uri' => 'admin/settings/applications', 'key' => 'admin.settings.applications.edit', 'resource' => 'Nova\\Settings\\Controllers\\ApplicationSettingsController@edit', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Applications settings'],
             ['name' => 'Update application settings', 'uri' => 'admin/settings/applications', 'key' => 'admin.settings.applications.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Settings\\Controllers\\ApplicationSettingsController@update', 'layout' => 'admin'],
+            ['name' => 'Writing dashboard settings', 'uri' => 'admin/settings/writing-dashboard', 'key' => 'admin.settings.writing-dashboard.edit', 'resource' => 'Nova\\Settings\\Controllers\\WritingDashboardSettingsController@edit', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Writing dashboard settings'],
+            ['name' => 'Update writing dashboard settings', 'uri' => 'admin/settings/writing-dashboard', 'key' => 'admin.settings.writing-dashboard.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Settings\\Controllers\\WritingDashboardSettingsController@update', 'layout' => 'admin'],
 
             ['name' => 'List rank groups', 'uri' => 'admin/ranks/groups', 'key' => 'admin.ranks.groups.index', 'resource' => 'Nova\\Ranks\\Controllers\\RankGroupController@index', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Rank groups', 'subheading' => 'Collections of related rank items for simpler searching and selecting'],
             ['name' => 'View rank group', 'uri' => 'admin/ranks/groups/{group}/show', 'key' => 'admin.ranks.groups.show', 'resource' => 'Nova\\Ranks\\Controllers\\RankGroupController@show', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'View rank group'],
@@ -207,6 +209,8 @@ return new class extends OneTimeOperation
             ['name' => 'Store add-on', 'uri' => 'admin/addons', 'key' => 'admin.addons.store', 'verb' => PageVerb::Post, 'resource' => 'Nova\\Addons\\Controllers\\AddonController@store', 'layout' => 'admin'],
             ['name' => 'Edit add-on', 'uri' => 'admin/addons/{addon}/edit', 'key' => 'admin.addons.edit', 'resource' => 'Nova\\Addons\\Controllers\\AddonController@edit', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Edit add-on'],
             ['name' => 'Update add-on', 'uri' => 'admin/addons/{addon}', 'key' => 'admin.addons.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Addons\\Controllers\\AddonController@update', 'layout' => 'admin'],
+
+            ['name' => 'Game overview dashboard', 'uri' => 'admin/reporting/overview', 'key' => 'admin.reporting.overview', 'resource' => 'Nova\\Reporting\\Controllers\\GameOverviewController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Game overview'],
         ];
 
         Page::unguarded(fn () => collect($pages)->each([Page::class, 'create']));

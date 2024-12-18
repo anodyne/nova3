@@ -36,6 +36,12 @@ class CreateStoryTables extends Migration
             $table->morphs('authorable');
             $table->foreignIdFor(User::class)->nullable();
             $table->text('as')->nullable();
+            $table->integer('word_count')->default(0);
+            $table->timestamps();
+
+            $table->index('user_id');
+            $table->index('post_id');
+            $table->index('updated_at');
         });
 
         Schema::create('post_types', function (Blueprint $table) {
@@ -47,7 +53,7 @@ class CreateStoryTables extends Migration
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
             $table->foreignIdFor(Role::class)->nullable()->constrained();
-            $table->string('status')->default(PostTypeStatus::active->value)->index();
+            $table->string('status')->default(PostTypeStatus::Active->value)->index();
             $table->string('visibility')->default('in-character')->index();
             $table->json('fields')->nullable();
             $table->json('options')->nullable();
@@ -69,9 +75,9 @@ class CreateStoryTables extends Migration
             $table->string('time')->nullable();
             $table->string('location')->nullable();
             $table->unsignedInteger('word_count')->default(0);
-            $table->unsignedSmallInteger('rating_language')->default(0);
-            $table->unsignedSmallInteger('rating_sex')->default(0);
-            $table->unsignedSmallInteger('rating_violence')->default(0);
+            $table->unsignedSmallInteger('rating_language')->nullable()->default(0);
+            $table->unsignedSmallInteger('rating_sex')->nullable()->default(0);
+            $table->unsignedSmallInteger('rating_violence')->nullable()->default(0);
             $table->longText('summary')->nullable();
             $table->text('participants')->nullable();
             $table->integer('neighbor')->nullable();
