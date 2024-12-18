@@ -124,37 +124,49 @@
                     {!! $post->content !!}
                 </div>
 
-                <div class="rounded-md bg-gray-50 ring-1 ring-inset ring-gray-950/5">
-                    <x-spacing size="md">
-                        <x-h2>{{ str('character')->plural($post->characterAuthors->count())->title() }}</x-h2>
+                <x-panel well>
+                    <x-panel.well.header title="Authors"></x-panel.well.header>
 
-                        <div class="mt-4 grid grid-cols-3 gap-6">
-                            @foreach ($post->characterAuthors as $character)
-                                <div>
-                                    <x-avatar.character :character="$character">
-                                        <x-slot name="secondary">by {{ $character->pivot->user?->name }}</x-slot>
-                                    </x-avatar.character>
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        @if ($post->characterAuthors->count() > 0)
+                            <x-spacing size="md">
+                                <x-h5>
+                                    {{ str('character')->plural($post->characterAuthors->count())->title() }}
+                                </x-h5>
+
+                                <div class="mt-4 grid grid-cols-2 gap-4">
+                                    @foreach ($post->characterAuthors as $character)
+                                        <div>
+                                            <x-avatar.character :$character>
+                                                <x-slot name="secondary">
+                                                    by {{ $character->pivot->user?->name }}
+                                                </x-slot>
+                                            </x-avatar.character>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
-                        </div>
-                    </x-spacing>
+                            </x-spacing>
+                        @endif
 
-                    <x-spacing size="md">
-                        <x-h2>
-                            {{ str('author')->plural($post->userAuthors->count())->prepend('Additional ') }}
-                        </x-h2>
+                        @if ($post->userAuthors->count() > 0)
+                            <x-spacing size="md">
+                                <x-h5>
+                                    {{ str('author')->plural($post->userAuthors->count())->prepend('Additional ') }}
+                                </x-h5>
 
-                        <div class="mt-4 grid grid-cols-3 gap-6">
-                            @foreach ($post->userAuthors as $user)
-                                <div>
-                                    <x-avatar.user :user="$user">
-                                        <x-slot name="secondary">as {{ $user->pivot->as }}</x-slot>
-                                    </x-avatar.user>
+                                <div class="mt-4 grid grid-cols-3 gap-6">
+                                    @foreach ($post->userAuthors as $user)
+                                        <div>
+                                            <x-avatar.user :$user>
+                                                <x-slot name="secondary">as {{ $user->pivot->as }}</x-slot>
+                                            </x-avatar.user>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
-                        </div>
-                    </x-spacing>
-                </div>
+                            </x-spacing>
+                        @endif
+                    </x-panel>
+                </x-panel>
             </div>
 
             <div class="p-16 text-center" x-show="showContentWarning" x-cloak>
