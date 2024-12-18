@@ -80,11 +80,9 @@
 
             <x-panel class="col-span-2 flex flex-col divide-y divide-gray-950/5 align-middle">
                 <x-spacing size="sm">
-                    <h3
-                        class="font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400"
-                    >
+                    <x-h5>
                         {{ settings('posting_activity.timeframe')->getStatsLabel() }}
-                    </h3>
+                    </x-h5>
 
                     <div class="mt-2 flex flex-1 items-center">
                         <div class="flex-1">
@@ -132,11 +130,7 @@
                     </div>
                 </x-spacing>
                 <x-spacing size="sm">
-                    <h3
-                        class="font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400"
-                    >
-                        Lifetime
-                    </h3>
+                    <x-h5>Lifetime</x-h5>
 
                     <div class="mt-2 flex flex-1 items-center">
                         <div class="flex-1">
