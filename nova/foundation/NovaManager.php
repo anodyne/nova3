@@ -79,7 +79,7 @@ class NovaManager
     public function isInstalled(): bool
     {
         try {
-            return Schema::hasTable('migrations');
+            return once(fn () => Schema::hasTable('migrations'));
         } catch (Throwable $th) {
             return false;
         }
