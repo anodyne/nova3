@@ -563,7 +563,7 @@
 
     --tw-border-opacity: 1;
 
-    border-color: rgb(244 244 245 / var(--tw-border-opacity))
+    border-color: rgb(244 244 245 / var(--tw-border-opacity, 1))
 }
 
 .bg-\[--bodyColor\] {
@@ -580,7 +580,7 @@
 
     --tw-bg-opacity: 1;
 
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
 }
 
 .bg-white\/90 {
@@ -592,7 +592,7 @@
 
     --tw-bg-opacity: 1;
 
-    background-color: rgb(250 250 250 / var(--tw-bg-opacity))
+    background-color: rgb(250 250 250 / var(--tw-bg-opacity, 1))
 }
 
 .bg-gradient-to-r {
@@ -762,21 +762,21 @@
 
     --tw-text-opacity: 1;
 
-    color: rgb(161 161 170 / var(--tw-text-opacity))
+    color: rgb(161 161 170 / var(--tw-text-opacity, 1))
 }
 
 .text-zinc-600 {
 
     --tw-text-opacity: 1;
 
-    color: rgb(82 82 91 / var(--tw-text-opacity))
+    color: rgb(82 82 91 / var(--tw-text-opacity, 1))
 }
 
 .text-zinc-800 {
 
     --tw-text-opacity: 1;
 
-    color: rgb(39 39 42 / var(--tw-text-opacity))
+    color: rgb(39 39 42 / var(--tw-text-opacity, 1))
 }
 
 .opacity-0 {
@@ -827,7 +827,7 @@
 
     --tw-ring-opacity: 1;
 
-    --tw-ring-color: rgb(244 244 245 / var(--tw-ring-opacity))
+    --tw-ring-color: rgb(244 244 245 / var(--tw-ring-opacity, 1))
 }
 
 .ring-zinc-900\/5 {
@@ -867,7 +867,7 @@ main#nova {
 
     --tw-bg-opacity: 1;
 
-    background-color: rgba(var(--gray-950), var(--tw-bg-opacity))
+    background-color: rgba(var(--gray-950), var(--tw-bg-opacity, 1))
 }
 
 .hover\:text-\[color\:rgb\(var\(--accentColor\)\/var\(--tw-ring-opacity\)\)\]:hover {
@@ -938,7 +938,7 @@ main#nova {
 
     --tw-bg-opacity: 1;
 
-    background-color: rgb(39 39 42 / var(--tw-bg-opacity))
+    background-color: rgb(39 39 42 / var(--tw-bg-opacity, 1))
 }
 
 .dark\:bg-zinc-800\/50:is(.dark *) {
@@ -976,35 +976,35 @@ main#nova {
 
     --tw-text-opacity: 1;
 
-    color: rgb(45 212 191 / var(--tw-text-opacity))
+    color: rgb(45 212 191 / var(--tw-text-opacity, 1))
 }
 
 .dark\:text-zinc-100:is(.dark *) {
 
     --tw-text-opacity: 1;
 
-    color: rgb(244 244 245 / var(--tw-text-opacity))
+    color: rgb(244 244 245 / var(--tw-text-opacity, 1))
 }
 
 .dark\:text-zinc-200:is(.dark *) {
 
     --tw-text-opacity: 1;
 
-    color: rgb(228 228 231 / var(--tw-text-opacity))
+    color: rgb(228 228 231 / var(--tw-text-opacity, 1))
 }
 
 .dark\:text-zinc-400:is(.dark *) {
 
     --tw-text-opacity: 1;
 
-    color: rgb(161 161 170 / var(--tw-text-opacity))
+    color: rgb(161 161 170 / var(--tw-text-opacity, 1))
 }
 
 .dark\:text-zinc-500:is(.dark *) {
 
     --tw-text-opacity: 1;
 
-    color: rgb(113 113 122 / var(--tw-text-opacity))
+    color: rgb(113 113 122 / var(--tw-text-opacity, 1))
 }
 
 .dark\:ring-0:is(.dark *) {
@@ -1025,7 +1025,7 @@ main#nova {
 
     --tw-text-opacity: 1;
 
-    color: rgb(45 212 191 / var(--tw-text-opacity))
+    color: rgb(45 212 191 / var(--tw-text-opacity, 1))
 }
 
 .dark\:hover\:ring-white\/20:hover:is(.dark *) {
