@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire\Steps;
 
+use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Stories\Actions\LockPost;
+use Nova\Stories\Actions\UnlockPost;
 use Nova\Stories\Actions\UpdateContributorWordCount;
 use Nova\Stories\Livewire\Concerns\HasParentState;
 use Nova\Stories\Livewire\PostForm;
@@ -23,6 +26,8 @@ class ComposePostStep extends WizardStep
     public PostForm $form;
 
     public ?Post $post = null;
+
+    public ?CarbonInterface $lastUpdate = null;
 
     public function stepInfo(): array
     {
@@ -51,6 +56,11 @@ class ComposePostStep extends WizardStep
                 ? $keys->join(', ', ' and ')
                 : $keys->join(', ', ', and ')
         );
+    }
+
+    public function updated(): void
+    {
+        $this->lastUpdate = now();
     }
 
     public function save($quiet = false, $allowRedirect = true): void
@@ -118,15 +128,44 @@ class ComposePostStep extends WizardStep
         $this->dispatch('nextStep');
     }
 
+    public function checkLock(): void
+    {
+        if ($this->post?->exists) {
+            if ($this->post->isLocked() && $this->lastUpdate->gte($this->post->locked_at)) {
+                LockPost::run($this->post, Auth::user());
+            } else {
+                UnlockPost::run($this->post, Auth::user());
+
+                redirect()->route('admin.writing-overview');
+            }
+        }
+    }
+
     public function mount(): void
     {
         $this->post = Post::findOrFail($this->postId);
 
-        $this->form->setPost($this->post);
+        if ($this->post?->exists) {
+            // if ($this->post->isLocked() && ! $this->post->lockIsOwnedBy(Auth::user())) {
+            //     abort(403, 'This post is being edited by someone else.');
+            // }
+
+            if (! $this->post->isLocked() || ($this->post->isLocked() && $this->post->lockIsOwnedBy(Auth::user()))) {
+                $this->form->setPost($this->post);
+
+                $this->lastUpdate = now();
+
+                LockPost::run($this->post, Auth::user());
+            }
+        }
     }
 
     public function render()
     {
+        if ($this->post->isLocked() && ! $this->post->lockIsOwnedBy(Auth::user())) {
+            return view('pages.posts.livewire.steps.post-locked');
+        }
+
         return view('pages.posts.livewire.steps.compose-post', [
             'canSave' => $this->canSave,
             'canSaveMessage' => $this->canSaveMessage,

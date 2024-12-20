@@ -20,7 +20,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\DeletePost;
-use Nova\Stories\Actions\UnlockPost;
+use Nova\Stories\Actions\ForceUnlockPost;
 use Nova\Stories\Models\Post;
 
 class PostsList extends TableComponent
@@ -109,7 +109,7 @@ class PostsList extends TableComponent
                             ->icon(iconName('lock-open'))
                             ->label('Release lock')
                             ->successNotificationTitle(fn (Post $record): string => $record->title.' post has been unlocked')
-                            ->action(fn (Post $record): mixed => UnlockPost::run($record))
+                            ->action(fn (Post $record): mixed => ForceUnlockPost::run($record))
                             ->visible(fn (Post $record): bool => $record->isLocked()),
                     ])->authorize('update')->divided(),
 

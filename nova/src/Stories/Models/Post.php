@@ -43,12 +43,14 @@ class Post extends Model implements Sortable
         'id', 'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
         'day', 'time', 'location', 'rating_language', 'rating_sex',
         'rating_violence', 'summary', 'participants', 'neighbor', 'direction',
-        'order_column',
+        'order_column', 'locked_at', 'locked_by',
     ];
 
     protected $with = ['postType', 'story'];
 
     protected $casts = [
+        'locked_at' => 'datetime',
+        'locked_by' => 'integer',
         'participants' => 'array',
         'published_at' => 'datetime',
         'rating_language' => 'integer',
@@ -280,6 +282,32 @@ class Post extends Model implements Sortable
             'next' => $query->where('order_column', '>', $this->order_column)->orderBy('order_column')->first(),
             default => $query->first(),
         };
+    }
+
+    public function isLocked(): bool
+    {
+        return $this->locked_by !== null && $this->locked_at !== null && $this->locked_at->diffInMinutes(now()) < 5;
+    }
+
+    public function lockIsOwnedBy(User $user): bool
+    {
+        return $this->locked_by === $user->id;
+    }
+
+    public function lock(User $user)
+    {
+        $this->update([
+            'locked_by' => $user->id,
+            'locked_at' => now(),
+        ]);
+    }
+
+    public function unlock()
+    {
+        $this->update([
+            'locked_by' => null,
+            'locked_at' => null,
+        ]);
     }
 
     public function getActivitylogOptions(): LogOptions

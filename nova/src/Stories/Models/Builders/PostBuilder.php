@@ -99,4 +99,26 @@ class PostBuilder extends Builder
 
         return $this->where('story_id', $storyId);
     }
+
+    public function locked(): self
+    {
+        return $this
+            ->whereNotNull('locked_at')
+            ->where('locked_at', '>=', Date::now()->subMinutes(5));
+    }
+
+    public function unlocked(): self
+    {
+        return $this->where(function (Builder $query): Builder {
+            return $query->whereNull('locked_at')
+                ->orWhere('locked_at', '<', Date::now()->subMinutes(5));
+        });
+    }
+
+    public function hasExpiredPostLock(): self
+    {
+        return $this
+            ->whereNotNull('locked_at')
+            ->where('locked_at', '<', Date::now()->subMinutes(5));
+    }
 }
