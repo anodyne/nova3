@@ -43,6 +43,10 @@ class PostPolicy
             return $this->allow();
         }
 
+        if ($post->isLocked() && ! $post->lockIsOwnedBy($user)) {
+            return $this->deny();
+        }
+
         $post->loadMissing('participatingUsers');
 
         if ($post->is_draft && $post->participatingUsers->contains('id', $user->id)) {

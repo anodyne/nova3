@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -19,6 +20,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\DeletePost;
+use Nova\Stories\Actions\ForceUnlockPost;
 use Nova\Stories\Models\Post;
 
 class PostsList extends TableComponent
@@ -103,6 +105,15 @@ class PostsList extends TableComponent
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
+                        Action::make('unlock')
+                            ->icon(iconName('lock-open'))
+                            ->label('Release lock')
+                            ->successNotificationTitle(fn (Post $record): string => $record->title.' post has been unlocked')
+                            ->action(fn (Post $record): mixed => ForceUnlockPost::run($record))
+                            ->visible(fn (Post $record): bool => $record->isLocked()),
+                    ])->authorize('update')->divided(),
+
+                    ActionGroup::make([
                         DeleteAction::make()
                             ->modalContentView('pages.posts.delete')
                             ->successNotificationTitle(fn (Model $record): string => $record->title.' post was deleted')
@@ -125,6 +136,15 @@ class PostsList extends TableComponent
                 TernaryFilter::make('published')
                     ->nullable()
                     ->attribute('published_at'),
+                TernaryFilter::make('locked')
+                    ->label('Lock status')
+                    ->trueLabel('Locked')
+                    ->falseLabel('Unlocked')
+                    ->queries(
+                        true: fn (Builder $query): Builder => $query->locked(),
+                        false: fn (Builder $query): Builder => $query->unlocked(),
+                        blank: fn (Builder $query): Builder => $query
+                    ),
             ])
             ->emptyStateIcon(iconName('write'))
             ->emptyStateHeading('No story posts found')

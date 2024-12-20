@@ -18,9 +18,12 @@ class PostAuthorBuilder extends Builder
             ->when(filled($end), fn (Builder $query): Builder => $query->where('updated_at', '<=', $end));
     }
 
-    public function wherePost(int|Post $post): self
+    public function wherePost(int|Post|null $post): self
     {
-        return $this->where('post_id', $post?->id);
+        return $this->when(
+            filled($post),
+            fn (Builder $query): Builder => $query->where('post_id', $post?->id)
+        );
     }
 
     public function whereUser(int|User $user): self

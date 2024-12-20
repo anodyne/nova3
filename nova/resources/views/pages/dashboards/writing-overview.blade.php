@@ -225,14 +225,34 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div
-                                        class="flex items-center text-gray-400 transition group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-500"
-                                    >
-                                        <x-icon name="chevron-right" size="sm"></x-icon>
+                                    <div class="flex items-center gap-x-2">
+                                        @if ($draft->isLocked() && ! $draft->lockIsOwnedBy(auth()->user()))
+                                            <x-badge color="warning">
+                                                <x-icon.micro.lock-closed
+                                                    class="size-3.5 shrink-0"
+                                                ></x-icon.micro.lock-closed>
+                                                <p>Locked for editing</p>
+                                            </x-badge>
+                                        @endif
+
+                                        @if ($draft->isLocked() && $draft->lockIsOwnedBy(auth()->user()))
+                                            <x-badge color="primary">
+                                                <x-icon.micro.lock-closed
+                                                    class="size-3.5 shrink-0"
+                                                ></x-icon.micro.lock-closed>
+                                                <p>Locked by you</p>
+                                            </x-badge>
+                                        @endif
+
+                                        <div
+                                            class="flex items-center text-gray-400 transition group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-500"
+                                        >
+                                            <x-icon name="chevron-right" size="sm"></x-icon>
+                                        </div>
                                     </div>
                                 </div>
 
-                                @can('edit', $draft)
+                                @can('update', $draft)
                                     <a href="{{ route('admin.posts.edit', $draft) }}" class="absolute inset-0"></a>
                                 @endcan
                             </x-spacing>

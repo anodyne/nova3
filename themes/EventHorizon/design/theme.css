@@ -478,14 +478,14 @@
 
     --tw-bg-opacity: 1;
 
-    background-color: rgba(var(--gray-950), var(--tw-bg-opacity))
+    background-color: rgba(var(--gray-950), var(--tw-bg-opacity, 1))
 }
 
 .bg-white {
 
     --tw-bg-opacity: 1;
 
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
 }
 
 .bg-white\/5 {
@@ -607,35 +607,35 @@
 
     --tw-text-opacity: 1;
 
-    color: rgba(var(--gray-300), var(--tw-text-opacity))
+    color: rgba(var(--gray-300), var(--tw-text-opacity, 1))
 }
 
 .text-gray-500 {
 
     --tw-text-opacity: 1;
 
-    color: rgba(var(--gray-500), var(--tw-text-opacity))
+    color: rgba(var(--gray-500), var(--tw-text-opacity, 1))
 }
 
 .text-gray-600 {
 
     --tw-text-opacity: 1;
 
-    color: rgba(var(--gray-600), var(--tw-text-opacity))
+    color: rgba(var(--gray-600), var(--tw-text-opacity, 1))
 }
 
 .text-sky-300 {
 
     --tw-text-opacity: 1;
 
-    color: rgb(125 211 252 / var(--tw-text-opacity))
+    color: rgb(125 211 252 / var(--tw-text-opacity, 1))
 }
 
 .text-white {
 
     --tw-text-opacity: 1;
 
-    color: rgb(255 255 255 / var(--tw-text-opacity))
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1))
 }
 
 .text-white\/30 {
@@ -690,14 +690,14 @@ main#nova {
 
     --tw-bg-opacity: 1;
 
-    background-color: rgba(var(--gray-950), var(--tw-bg-opacity))
+    background-color: rgba(var(--gray-950), var(--tw-bg-opacity, 1))
 }
 
 .hover\:text-sky-300:hover {
 
     --tw-text-opacity: 1;
 
-    color: rgb(125 211 252 / var(--tw-text-opacity))
+    color: rgb(125 211 252 / var(--tw-text-opacity, 1))
 }
 
 .group:hover .group-hover\:scale-100 {
@@ -713,7 +713,7 @@ main#nova {
 
     --tw-text-opacity: 1;
 
-    color: rgb(125 211 252 / var(--tw-text-opacity))
+    color: rgb(125 211 252 / var(--tw-text-opacity, 1))
 }
 
 .group:hover .group-hover\:opacity-100 {

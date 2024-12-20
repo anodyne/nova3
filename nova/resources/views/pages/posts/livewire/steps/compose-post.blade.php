@@ -2,7 +2,7 @@
     :steps="$steps"
     message="Compose your post. You’ll be able to set the content rating, summary, and order within the story before publishing."
 >
-    <x-spacing>
+    <x-spacing wire:poll.300s.keep-alive="checkLock">
         <div class="space-y-8">
             <div class="space-y-4">
                 <div class="space-y-1">

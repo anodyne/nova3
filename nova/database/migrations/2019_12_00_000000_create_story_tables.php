@@ -83,8 +83,12 @@ class CreateStoryTables extends Migration
             $table->integer('neighbor')->nullable();
             $table->string('direction', 6)->nullable();
             $table->timestamp('published_at')->nullable()->index();
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('locked_at');
         });
     }
 
