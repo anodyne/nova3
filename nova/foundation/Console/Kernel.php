@@ -6,6 +6,8 @@ namespace Nova\Foundation\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Nova\Stories\Actions\PruneAbandonedPosts;
+use Nova\Stories\Actions\ReleaseExpiredPostLocks;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,9 +19,12 @@ class Kernel extends ConsoleKernel
         $schedule->command('cache:prune-stale-tags')->hourly();
 
         // Delete any posts that are considered abandoned
-        $schedule->command('nova:prune-abandoned-posts')->daily();
+        $schedule->command(PruneAbandonedPosts::class)->daily();
 
         // Send a notification to users if they haven't posted in X days
+
+        // Cleanup any post lock data for expired post locks
+        $schedule->command(ReleaseExpiredPostLocks::class)->everyFifteenMinutes();
     }
 
     /**
