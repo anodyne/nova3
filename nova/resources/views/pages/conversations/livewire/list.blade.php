@@ -1,5 +1,5 @@
 <div class="grid grid-cols-3 gap-x-8">
-    <aside>
+    <aside class="col-span-1">
         <x-page-header>
             <x-slot name="heading">Messages</x-slot>
 
