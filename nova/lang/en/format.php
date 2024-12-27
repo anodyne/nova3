@@ -56,4 +56,8 @@ return [
 
     /* day as a string like "Jul. 29th" - see https://carbon.nesbot.com/docs/#iso-format-available-replacements */
     'day_short_month' => 'MMM Do',
+
+    'short_time' => 'h:mm A',
+
+    'long_time' => 'HH:mm',
 ];
