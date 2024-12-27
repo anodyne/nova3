@@ -8,6 +8,8 @@ use Nova\Dashboards\Livewire\ActivityLogList;
 use Nova\Dashboards\Livewire\ClearNovaCacheButton;
 use Nova\Dashboards\Livewire\ClearVersionCheckCacheButton;
 use Nova\Dashboards\Livewire\CopyDiagnosticDataButton;
+use Nova\Dashboards\Livewire\CopyStacktraceButton;
+use Nova\Dashboards\Livewire\ErrorLogViewer;
 use Nova\Dashboards\Livewire\NovaUpdatePanel;
 use Nova\Dashboards\Livewire\NovaVersionHistory;
 use Nova\Dashboards\Livewire\PostingLeaderboard;
@@ -27,10 +29,12 @@ class DashboardsServiceProvider extends DomainServiceProvider
             'clear-nova-cache-button' => ClearNovaCacheButton::class,
             'clear-version-check-cache-button' => ClearVersionCheckCacheButton::class,
             'copy-diagnostic-data-button' => CopyDiagnosticDataButton::class,
+            'copy-stacktrace-button' => CopyStacktraceButton::class,
             'rebuild-search-index-button' => RebuildSearchIndexButton::class,
             'nova-update-panel' => NovaUpdatePanel::class,
             'nova-version-history' => NovaVersionHistory::class,
             'posting-leaderboard' => PostingLeaderboard::class,
+            'error-log-viewer' => ErrorLogViewer::class,
         ];
     }
 
