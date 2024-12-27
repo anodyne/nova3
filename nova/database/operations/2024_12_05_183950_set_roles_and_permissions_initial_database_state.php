@@ -46,7 +46,7 @@ return new class extends OneTimeOperation
                 'form.create', 'form.delete', 'form.update',
                 'page.create', 'page.delete', 'page.update', 'page.view',
                 'application.approve',
-                'system.activity',
+                'system.activity', 'system.error-logs',
                 'menu.create', 'menu.delete', 'menu.update', 'menu.view',
                 'announcement.create', 'announcement.delete', 'announcement.update',
             ],
@@ -155,6 +155,7 @@ return new class extends OneTimeOperation
                 ['name' => 'application.approve', 'display_name' => 'Approve applications', 'description' => 'Allows a user to approve or deny applications'],
 
                 ['name' => 'system.activity', 'display_name' => 'View activity log', 'description' => 'Allows a user to view the activity log for the site'],
+                ['name' => 'system.error-logs', 'display_name' => 'View error logs', 'description' => 'Allows a user to view the error logs for the site'],
 
                 ['name' => 'menu.create', 'display_name' => 'Create menus', 'description' => 'Allows a user to add new menus'],
                 ['name' => 'menu.delete', 'display_name' => 'Delete menus', 'description' => 'Allows a user to remove menus'],

@@ -119,12 +119,13 @@ Route::get('manifest-test', function () {
     return 'done';
 });
 
-Route::get('logs', function () {
+Route::get('error-logs', function () {
     $files = LogViewer::getFiles();
 
-    $file = LogViewer::getFile('a2a4c792-laravel-2024-09-17.log');
+    $file = LogViewer::getFile('c119df65-laravel-2024-12-27.log');
 
-    dd($files, $file, $file->logs()->get());
+    dd($files, $file->logs()->reverse()->get());
+    // dd();
 });
 
 Route::get('telemetry', function () {

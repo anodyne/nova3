@@ -41,5 +41,14 @@
                 Activity log
             </x-sidebar.subnav.item>
         @endcan
+
+        @permission('system.error-logs')
+            <x-sidebar.subnav.item
+                :href="route('admin.error-logs.index')"
+                :active="request()->routeIs('admin.error-logs.*')"
+            >
+                Error logs
+            </x-sidebar.subnav.item>
+        @endpermission
     </x-sidebar.subnav.group>
 </x-sidebar.subnav>
