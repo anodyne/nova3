@@ -22,6 +22,7 @@ return [
             'exchange' => 'https://anodyne-productions.com/exchange',
         ],
         'api' => [
+            'addon-version-check' => 'https://anodyne-productions.com/api/addon/{id}/latest-version',
             'latest-version' => 'https://anodyne-productions.com/api/nova/latest-version',
             'register' => 'https://anodyne-productions.com/api/games',
         ],
@@ -56,6 +57,13 @@ return [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
+        ],
+    ],
+
+    'github' => [
+        'api' => [
+            'version' => '2022-11-28',
+            'latest-release' => 'https://api.github.com/repos/{id}/releases/latest',
         ],
     ],
 
