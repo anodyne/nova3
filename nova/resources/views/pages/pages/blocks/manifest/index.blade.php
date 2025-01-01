@@ -4,7 +4,7 @@
         'nv-manifest',
         'dark' => $dark,
     ])
-    style="--bgColor: {{ $backgroundColor ?? 'transparent' }}"
+    style="--bgColor: {{ $bgColor ?? 'transparent' }}"
 >
     <x-public::block.wrapper>
         <div class="nv-ctn mx-auto max-w-7xl">

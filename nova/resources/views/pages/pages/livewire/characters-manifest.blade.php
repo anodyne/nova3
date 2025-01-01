@@ -78,8 +78,8 @@
                                     @class([
                                         'flex flex-col rounded-lg px-4 py-6 transition',
                                         'items-center' => $cardOrientation === 'center',
-                                        'bg-white shadow ring-1 ring-gray-950/5 hover:shadow-lg' => ! $dark,
-                                        'bg-gray-900 ring-1 ring-inset ring-white/5 hover:ring-white/10' => $dark,
+                                        'bg-white shadow ring-1 ring-gray-950/5 hover:shadow-lg',
+                                        'dark:bg-gray-900 dark:shadow-none dark:ring-inset dark:ring-white/5 dark:hover:shadow-none dark:hover:ring-white/10',
                                     ])
                                 >
                                     <div class="size-24"></div>
@@ -93,8 +93,7 @@
                                         <div
                                             @class([
                                                 'flex items-center text-lg/7 font-bold tracking-tight',
-                                                'text-gray-900' => ! $dark,
-                                                'text-white' => $dark,
+                                                'text-gray-900 dark:text-white',
                                             ])
                                         >
                                             {{ $position->name }}
@@ -102,8 +101,7 @@
                                         <div
                                             @class([
                                                 'text-sm/6',
-                                                'text-gray-600' => ! $dark,
-                                                'text-gray-400' => $dark,
+                                                'text-gray-600 dark:text-gray-400',
                                             ])
                                         >
                                             Position available; apply now
