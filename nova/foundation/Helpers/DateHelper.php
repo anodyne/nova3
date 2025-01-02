@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Nova\Foundation\Helpers;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Nova\Users\Models\User;
 
 class DateHelper
@@ -14,7 +16,7 @@ class DateHelper
      * Return a date according to the timezone of the user, and the format
      * stored in the preferences for this user.
      */
-    public static function format(Carbon $date, User $user): string
+    public static function format(CarbonInterface $date, User $user): string
     {
         return $date->isoFormat($user->date_format);
     }
@@ -23,7 +25,7 @@ class DateHelper
      * Return a date according to the timezone of the user, in a
      * short format like "Oct 29, 1981".
      */
-    public static function formatDate(Carbon $date, ?string $timezone = null): string
+    public static function formatDate(CarbonInterface $date, ?string $timezone = null): string
     {
         if ($timezone) {
             $date->setTimezone($timezone);
@@ -36,11 +38,11 @@ class DateHelper
      * Return a date and the time according to the timezone of the user, in a
      * short format like "Oct 29, 1981 19:32".
      */
-    public static function formatShortDateWithTime(Carbon $date, ?string $timezone = null): string
+    public static function formatShortDateWithTime(CarbonInterface $date, ?string $timezone = null): string
     {
-        if ($timezone) {
-            $date->setTimezone($timezone);
-        }
+        $timezone = $timezone ?? Auth::user()?->preferences?->timezone ?? 'UTC';
+
+        $date->setTimezone($timezone);
 
         return $date->isoFormat(trans('format.short_date_year_time'));
     }
@@ -48,7 +50,7 @@ class DateHelper
     /**
      * Return the day and the month in a format like "July 29th".
      */
-    public static function formatMonthAndDay(Carbon $date): string
+    public static function formatMonthAndDay(CarbonInterface $date): string
     {
         return $date->isoFormat(trans('format.long_month_day'));
     }
@@ -56,7 +58,7 @@ class DateHelper
     /**
      * Return the short month and the year in a format like "Jul 2020".
      */
-    public static function formatMonthAndYear(Carbon $date): string
+    public static function formatMonthAndYear(CarbonInterface $date): string
     {
         return $date->isoFormat(trans('format.short_month_year'));
     }
@@ -64,7 +66,7 @@ class DateHelper
     /**
      * Return the long month and the year in a format like "September 2020".
      */
-    public static function formatLongMonthAndYear(Carbon $date): string
+    public static function formatLongMonthAndYear(CarbonInterface $date): string
     {
         return $date->isoFormat(trans('format.long_month_year'));
     }
@@ -72,7 +74,7 @@ class DateHelper
     /**
      * Return the day and the month in a format like "Jul 29".
      */
-    public static function formatShortMonthAndDay(Carbon $date): string
+    public static function formatShortMonthAndDay(CarbonInterface $date): string
     {
         return $date->isoFormat(trans('format.short_date'));
     }
@@ -80,7 +82,7 @@ class DateHelper
     /**
      * Return the day in a format like "Mon".
      */
-    public static function formatShortDay(Carbon $date): string
+    public static function formatShortDay(CarbonInterface $date): string
     {
         return $date->isoFormat(trans('format.short_day'));
     }
@@ -88,7 +90,7 @@ class DateHelper
     /**
      * Return the day and the month in a format like "Monday (July 29th)".
      */
-    public static function formatDayAndMonthInParenthesis(Carbon $date, ?string $timezone = null): string
+    public static function formatDayAndMonthInParenthesis(CarbonInterface $date, ?string $timezone = null): string
     {
         if ($timezone) {
             $date->setTimezone($timezone);
@@ -100,7 +102,7 @@ class DateHelper
     /**
      * Return the complete date like "Monday, July 29th 2020".
      */
-    public static function formatFullDate(Carbon $date): string
+    public static function formatFullDate(CarbonInterface $date): string
     {
         return $date->isoFormat(trans('format.full_date'));
     }
@@ -108,7 +110,7 @@ class DateHelper
     /**
      * Return the day as a number, like "03".
      */
-    public static function formatDayNumber(Carbon $date): string
+    public static function formatDayNumber(CarbonInterface $date): string
     {
         return $date->isoFormat(trans('format.day_number'));
     }
@@ -157,7 +159,7 @@ class DateHelper
     /**
      * Return the date as timestamp.
      */
-    public static function getTimestamp(?Carbon $date): string
+    public static function getTimestamp(?CarbonInterface $date): string
     {
         return $date ? $date->translatedFormat(config('api.timestamp_format')) : '';
     }

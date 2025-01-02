@@ -22,12 +22,13 @@ return [
             'exchange' => 'https://anodyne-productions.com/exchange',
         ],
         'api' => [
-            'latest-version' => 'https://anodyne-productions.com/api/nova/latest-version',
-            'register' => 'https://anodyne-productions.com/api/games',
+            'addon-version-check' => 'https://anodyne-productions.com.test/api/addon/{id}/latest-version',
+            'latest-version' => 'https://anodyne-productions.com.test/api/nova/latest-version',
+            'register' => 'https://anodyne-productions.com.test/api/games',
         ],
         'external' => [
-            'changelog' => 'https://anodyne-productions.com/api/nova/external-changelog',
-            'content' => 'https://anodyne-productions.com/api/nova/external-content',
+            'changelog' => 'https://anodyne-productions.com.test/api/nova/external-changelog',
+            'content' => 'https://anodyne-productions.com.test/api/nova/external-content',
         ],
     ],
 
@@ -56,6 +57,13 @@ return [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
+        ],
+    ],
+
+    'github' => [
+        'api' => [
+            'version' => '2022-11-28',
+            'latest-release' => 'https://api.github.com/repos/{id}/releases/latest',
         ],
     ],
 

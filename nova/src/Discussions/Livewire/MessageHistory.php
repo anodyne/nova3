@@ -10,6 +10,8 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;
+use Nova\Discussions\Actions\DeleteDiscussion;
+use Nova\Discussions\Actions\DeleteDiscussionMessage;
 use Nova\Discussions\Actions\LeaveDiscussion;
 use Nova\Discussions\Actions\SendMessage;
 use Nova\Discussions\Data\DiscussionData;
@@ -18,6 +20,7 @@ use Nova\Discussions\Data\DiscussionParticipantsData;
 use Nova\Discussions\Enums\MessageType;
 use Nova\Discussions\Exceptions\CannotLeaveDirectMessage;
 use Nova\Discussions\Models\Discussion;
+use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Users\Models\User;
 
@@ -29,11 +32,33 @@ class MessageHistory extends Component
 
     public ?string $content = null;
 
+    public bool $remainingMessagesLoaded = false;
+
     #[Computed]
     public function discussion(): ?Discussion
     {
         return Discussion::with('messages', 'participants', 'notifications')
             ->find($this->discussionId);
+    }
+
+    #[Computed]
+    public function latestMessage(): ?DiscussionMessage
+    {
+        if (blank($this->discussion)) {
+            return null;
+        }
+
+        return $this->discussion->messages->last();
+    }
+
+    #[Computed]
+    public function remainingMessages(): ?Collection
+    {
+        if (blank($this->discussion)) {
+            return null;
+        }
+
+        return $this->discussion->messages->slice(0, $this->discussion->messages->count() - 1);
     }
 
     #[Computed]
@@ -43,9 +68,9 @@ class MessageHistory extends Component
             return Collection::make();
         }
 
-        return $this->discussion->messages->groupBy(function ($message) {
-            return format_date($message->created_at, raw: true);
-        });
+        // return $this->discussion->messages->groupBy(function ($message) {
+        //     return format_date($message->created_at, raw: true);
+        // });
 
         return $this->discussion->messages;
     }
@@ -54,6 +79,30 @@ class MessageHistory extends Component
     public function participant(): ?User
     {
         return $this->discussion?->participants?->first();
+    }
+
+    public function deleteDiscussion(): void
+    {
+        $this->authorize('delete', $this->discussion);
+
+        DeleteDiscussion::run($this->discussion);
+
+        $this->dispatch('discussion-removed');
+
+        Notification::make()->success()
+            ->title('Conversation has been deleted')
+            ->send();
+    }
+
+    public function deleteMessage(DiscussionMessage $message): void
+    {
+        $this->authorize('delete', $this->discussion);
+
+        DeleteDiscussionMessage::run($message);
+
+        Notification::make()->success()
+            ->title('Message has been removed from the conversation')
+            ->send();
     }
 
     public function leaveDiscussion(): void
@@ -118,9 +167,8 @@ class MessageHistory extends Component
     {
         return view('pages.discussions.livewire.message-history', [
             'discussion' => $this->discussion,
-            'messages' => $this->messages,
-            'participant' => $this->participant,
-            'me' => Auth::user(),
+            'latestMessage' => $this->latestMessage,
+            'remainingMessages' => $this->remainingMessages,
         ]);
     }
 }

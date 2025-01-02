@@ -7,6 +7,7 @@ namespace Nova\Addons\Data;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Nova\Addons\Enums\AddonRepositoryType;
 use Spatie\LaravelData\Attributes\Validation\Enum;
 use Spatie\LaravelData\Data;
@@ -23,12 +24,15 @@ class AddonRepository extends Data implements Arrayable
     public function endpoint(): ?Response
     {
         if ($this->type === AddonRepositoryType::Anodyne) {
-            return Http::get('https://anodyne-productions.com.test/api/addon/'.$this->id.'/latest-version');
+            $url = Str::replaceArray('?', [$this->id], config('services.anodyne.api.addon-version-check'));
+
+            return Http::get($url);
         }
 
         if ($this->type === AddonRepositoryType::Github) {
-            return Http::withHeader('X-GitHub-Api-Version', '2022-11-28')
-                ->get('https://api.github.com/repos/'.$this->id.'/releases/latest');
+            $url = Str::replaceArray('?', [$this->id], config('services.github.api.latest-release'));
+
+            return Http::withHeader('X-GitHub-Api-Version', config('services.github.version'))->get($url);
         }
 
         return null;

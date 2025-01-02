@@ -31,8 +31,12 @@ Artisan::command('nova:get-timezones {token}', function (string $token) {
     $collection = collect($response->json())
         ->filter(fn ($tz) => $tz['golden'])
         ->map(fn ($tz) => [
-            'id' => $tz['id'],
-            'name' => $tz['long_name'],
+            'id' => data_get($tz, 'id'),
+            'name' => sprintf(
+                '(GMT%s) %s',
+                data_get($tz, 'formatted_offset'),
+                data_get($tz, 'long_name')
+            ),
         ]);
 
     File::put(nova_path('timezones.json'), json_encode($collection));

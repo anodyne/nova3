@@ -15,9 +15,7 @@ class DiscussionSeeder extends Seeder
      */
     public function run(): void
     {
-        $groupChat = Discussion::factory()
-            ->groupMessage()
-            ->create(['name' => 'Group message']);
+        $groupChat = Discussion::factory()->create(['name' => 'Group message']);
 
         $groupChat->allParticipants()->sync([1, 2, 3]);
 
@@ -32,9 +30,7 @@ class DiscussionSeeder extends Seeder
                 ]);
         }
 
-        $privateChat = Discussion::factory()
-            ->directMessage()
-            ->create(['direct_message_participants' => [1, 2]]);
+        $privateChat = Discussion::factory()->create();
 
         $privateChat->allParticipants()->sync([1, 2]);
 

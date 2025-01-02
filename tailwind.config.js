@@ -28,7 +28,7 @@ const createColorScale = (color) => ({
 module.exports = {
     presets: [preset],
     content: [
-        './nova/resources/**/*.{js,ts,blade.php,css}',
+        './nova/resources/**/*.{js,ts,blade.php,css,svg}',
         './nova/foundation/View/Components/*.php',
         './nova/src/**/Models/**/*.php',
         './vendor/filament/**/*.blade.php',

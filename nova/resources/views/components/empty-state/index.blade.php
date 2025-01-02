@@ -18,12 +18,17 @@
             // Icon styles
             '[&>[data-slot=icon]]:text-gray-400 dark:[&>[data-slot=icon]]:text-gray-500',
 
+            // Illustration styles
+            '[&>[data-slot=illustration]]:h-auto [&>[data-slot=illustration]]:w-2/3',
+
             // Text styles
             '[&>[data-slot=text]]:text-center [&>[data-slot=text]]:text-gray-500',
 
             // Spacing styles
             '[&>[data-slot=icon]+[data-slot=heading]]:mt-4',
+            '[&>[data-slot=illustration]+[data-slot=heading]]:mt-4',
             '[&>[data-slot=icon]+[data-slot=text]]:mt-4',
+            '[&>[data-slot=illustration]+[data-slot=text]]:mt-4',
             '[&>[data-slot=heading]+[data-slot=text]]:mt-2',
             '[&>[data-slot=heading]+[data-slot=button]]:mt-8',
             '[&>[data-slot=text]+[data-slot=button]]:mt-8',

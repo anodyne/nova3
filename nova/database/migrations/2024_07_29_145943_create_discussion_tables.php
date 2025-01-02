@@ -22,8 +22,6 @@ return new class extends Migration
             $table->prefixedId();
             $table->nullableMorphs('discussable');
             $table->string('name')->nullable();
-            $table->boolean('is_direct_message')->default(false)->index();
-            $table->text('direct_message_participants')->nullable();
             $table->timestamps();
         });
 

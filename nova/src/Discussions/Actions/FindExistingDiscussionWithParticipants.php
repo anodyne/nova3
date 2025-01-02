@@ -14,10 +14,6 @@ class FindExistingDiscussionWithParticipants
 
     public function handle(DiscussionData $data): ?Discussion
     {
-        if (! $data->isDirectMessage) {
-            return null;
-        }
-
         $ids = [$data->participants->sender, ...$data->participants->recipients];
 
         return Discussion::query()
