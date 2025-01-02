@@ -25,21 +25,6 @@ class DiscussionFactory extends Factory
             'discussable_type' => null,
             'discussable_id' => null,
             'name' => null,
-            'is_direct_message' => false,
         ];
-    }
-
-    public function directMessage()
-    {
-        return $this->state(fn (array $attributes) => [
-            'is_direct_message' => true,
-        ]);
-    }
-
-    public function groupMessage()
-    {
-        return $this->state(fn (array $attributes) => [
-            'is_direct_message' => false,
-        ]);
     }
 }

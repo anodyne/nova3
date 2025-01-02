@@ -23,13 +23,6 @@ class Discussion extends Model
 
     protected $fillable = [
         'name',
-        'is_direct_message',
-        'direct_message_participants',
-    ];
-
-    protected $casts = [
-        'is_direct_message' => 'bool',
-        'direct_message_participants' => 'array',
     ];
 
     public function discussable(): MorphTo
@@ -78,6 +71,20 @@ class Discussion extends Model
     {
         return Attribute::make(
             get: fn (): bool => $this->unreadCount() > 0
+        );
+    }
+
+    public function isDirectMessage(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->allParticipants()->count() === 2
+        );
+    }
+
+    public function isGroupMessage(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->allParticipants()->count() > 2
         );
     }
 

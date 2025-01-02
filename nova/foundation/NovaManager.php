@@ -19,7 +19,7 @@ use Throwable;
 
 class NovaManager
 {
-    public string $version = '3.0.0-alpha14';
+    public string $version = '3.0.0-alpha16';
 
     public function environment(): Environment
     {

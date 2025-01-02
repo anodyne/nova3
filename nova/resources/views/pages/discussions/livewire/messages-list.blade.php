@@ -1,3 +1,5 @@
+@use('Nova\Foundation\Helpers\DateHelper')
+
 <div class="relative">
     <aside @class([
         'w-full shrink-0 lg:fixed lg:w-96',
@@ -5,30 +7,14 @@
     ])>
         <x-page-header :heading="$pageHeading" :description="$pageSubheading" :intro="$pageIntro">
             <x-slot name="actions">
-                <x-dropdown placement="bottom-end">
-                    <x-slot name="emptyTrigger">
-                        <x-button color="primary">
-                            <x-icon name="write" size="sm"></x-icon>
-                        </x-button>
-                    </x-slot>
-
-                    <x-dropdown.group>
-                        <x-dropdown.item
-                            type="button"
-                            icon="user"
-                            wire:click="$dispatch('openModal', { component: 'discussions-compose-direct-message-modal' })"
-                        >
-                            New direct message
-                        </x-dropdown.item>
-                        <x-dropdown.item
-                            type="button"
-                            icon="users-group"
-                            wire:click="$dispatch('openModal', { component: 'discussions-compose-group-message-modal' })"
-                        >
-                            New group message
-                        </x-dropdown.item>
-                    </x-dropdown.group>
-                </x-dropdown>
+                <x-button
+                    type="button"
+                    color="primary"
+                    wire:click="$dispatch('openModal', { component: 'discussions-compose-message-modal', arguments: { mode: 'new' }})"
+                >
+                    <x-icon name="write" size="sm"></x-icon>
+                    <span class="block lg:hidden">New message</span>
+                </x-button>
             </x-slot>
         </x-page-header>
 
@@ -71,19 +57,29 @@
             </button>
         </div>
 
-        <ul role="list">
+        <ul
+            class="supports-[grid-template-columns:subgrid]:grid supports-[grid-template-columns:subgrid]:grid-cols-[auto_1fr_1.5rem_0.5rem_auto]"
+            role="list"
+        >
             @forelse ($discussions as $discussion)
                 @php($participant = $discussion->participants->first())
 
                 <li
                     @class([
                         'cursor-pointer rounded-lg px-2.5 py-4',
+                        'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-center supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
                         'bg-gray-100 dark:bg-gray-900' => $selected === $discussion->id,
                     ])
                     wire:click="selectDiscussion({{ $discussion->id }})"
                 >
-                    <div class="flex items-center gap-x-4">
-                        <div>
+                    @if ($discussion->has_unread_messages)
+                        <div class="col-start-1 row-start-1 -ml-0.5 mr-3.5 sm:mr-3">
+                            <div class="size-2.5 rounded-full bg-primary-500"></div>
+                        </div>
+                    @endif
+
+                    <div class="col-start-2 row-start-1">
+                        <div class="flex items-center gap-x-2.5">
                             @if (! $discussion->is_direct_message)
                                 <x-icon name="users-group" size="size-10"></x-icon>
                             @else
@@ -97,54 +93,34 @@
                                     <x-icon name="user" size="xl"></x-icon>
                                 @endif
                             @endif
-                        </div>
 
-                        <div class="flex w-full min-w-0 flex-col">
-                            <div class="grid grid-cols-3">
-                                <div class="col-span-2">
-                                    @if (filled($discussion->name))
-                                        <x-h4>{{ $discussion->name }}</x-h4>
-                                    @else
-                                        @if (filled($participant))
-                                            <div class="flex items-center gap-x-4">
-                                                <x-h4>{{ $participant?->name }}</x-h4>
+                            @if (filled($discussion->name))
+                                <x-h4>{{ $discussion->name }}</x-h4>
+                            @else
+                                @if (filled($participant))
+                                    <div class="flex items-center gap-x-4">
+                                        <x-h4>{{ $participant?->name }}</x-h4>
 
-                                                @if ($participant->trashed())
-                                                    <x-badge color="danger">Deleted user</x-badge>
-                                                @else
-                                                    @if ($participant?->status->name() !== 'active')
-                                                        <x-badge :color="$participant?->status?->color()">
-                                                            {{ ucfirst($participant?->status?->name()) }}
-                                                        </x-badge>
-                                                    @endif
-                                                @endif
-                                            </div>
+                                        @if ($participant->trashed())
+                                            <x-badge color="danger">Deleted user</x-badge>
                                         @else
-                                            <x-text size="lg">New message</x-text>
+                                            @if ($participant?->status->name() !== 'active')
+                                                <x-badge :color="$participant?->status?->color()">
+                                                    {{ ucfirst($participant?->status?->name()) }}
+                                                </x-badge>
+                                            @endif
                                         @endif
-                                    @endif
-                                </div>
-                                <div class="flex items-center justify-end">
-                                    <div class="text-xs/5 text-gray-500">
-                                        {{ format_date($discussion->updated_at) }}
                                     </div>
-                                </div>
-                            </div>
+                                @else
+                                    <x-text size="lg">New message</x-text>
+                                @endif
+                            @endif
+                        </div>
+                    </div>
 
-                            <div class="grid grid-cols-3">
-                                <div class="col-span-2">
-                                    @if (filled($discussion->lastMessage))
-                                        <p class="mt-1 truncate text-xs/5 text-gray-500">
-                                            {{ str($discussion->lastMessage->content)->limit(50, preserveWords: true) }}
-                                        </p>
-                                    @endif
-                                </div>
-                                <div class="flex items-center justify-end">
-                                    @if ($discussion->has_unread_messages)
-                                        <div class="size-2.5 rounded-full bg-primary-500"></div>
-                                    @endif
-                                </div>
-                            </div>
+                    <div class="col-start-5 row-start-1 flex justify-self-end">
+                        <div class="text-xs/5 text-gray-500">
+                            {{ DateHelper::formatDate($discussion->updated_at) }}
                         </div>
                     </div>
                 </li>
@@ -158,6 +134,10 @@
                 </li>
             @endforelse
         </ul>
+
+        <div class="mt-4">
+            {{ $discussions->links() }}
+        </div>
     </aside>
 
     <section class="lg:ml-[26rem] lg:flex-1">

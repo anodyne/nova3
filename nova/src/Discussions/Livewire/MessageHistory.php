@@ -10,6 +10,8 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
 use Livewire\Component;
+use Nova\Discussions\Actions\DeleteDiscussion;
+use Nova\Discussions\Actions\DeleteDiscussionMessage;
 use Nova\Discussions\Actions\LeaveDiscussion;
 use Nova\Discussions\Actions\SendMessage;
 use Nova\Discussions\Data\DiscussionData;
@@ -79,6 +81,30 @@ class MessageHistory extends Component
         return $this->discussion?->participants?->first();
     }
 
+    public function deleteDiscussion(): void
+    {
+        $this->authorize('delete', $this->discussion);
+
+        DeleteDiscussion::run($this->discussion);
+
+        $this->dispatch('discussion-removed');
+
+        Notification::make()->success()
+            ->title('Conversation has been deleted')
+            ->send();
+    }
+
+    public function deleteMessage(DiscussionMessage $message): void
+    {
+        $this->authorize('delete', $this->discussion);
+
+        DeleteDiscussionMessage::run($message);
+
+        Notification::make()->success()
+            ->title('Message has been removed from the conversation')
+            ->send();
+    }
+
     public function leaveDiscussion(): void
     {
         $this->authorize('leave', $this->discussion);
@@ -141,9 +167,8 @@ class MessageHistory extends Component
     {
         return view('pages.discussions.livewire.message-history', [
             'discussion' => $this->discussion,
-            'messages' => $this->messages,
-            'participant' => $this->participant,
-            'me' => Auth::user(),
+            'latestMessage' => $this->latestMessage,
+            'remainingMessages' => $this->remainingMessages,
         ]);
     }
 }

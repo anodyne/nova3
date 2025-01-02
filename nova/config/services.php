@@ -22,13 +22,13 @@ return [
             'exchange' => 'https://anodyne-productions.com/exchange',
         ],
         'api' => [
-            'addon-version-check' => 'https://anodyne-productions.com/api/addon/{id}/latest-version',
-            'latest-version' => 'https://anodyne-productions.com/api/nova/latest-version',
-            'register' => 'https://anodyne-productions.com/api/games',
+            'addon-version-check' => 'https://anodyne-productions.com.test/api/addon/{id}/latest-version',
+            'latest-version' => 'https://anodyne-productions.com.test/api/nova/latest-version',
+            'register' => 'https://anodyne-productions.com.test/api/games',
         ],
         'external' => [
-            'changelog' => 'https://anodyne-productions.com/api/nova/external-changelog',
-            'content' => 'https://anodyne-productions.com/api/nova/external-content',
+            'changelog' => 'https://anodyne-productions.com.test/api/nova/external-changelog',
+            'content' => 'https://anodyne-productions.com.test/api/nova/external-content',
         ],
     ],
 

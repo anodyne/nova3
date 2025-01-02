@@ -15,12 +15,12 @@ class DiscussionPolicy
 
     public function viewAny(User $user): Response
     {
-        return $$this->allow();
+        return $this->allow();
     }
 
     public function view(User $user, Discussion $discussion): Response
     {
-        return $discussion->allParticipants->contains('id', $user->id)
+        return $this->isParticipant($discussion, $user)
             ? $this->allow()
             : $this->deny();
     }
@@ -37,7 +37,9 @@ class DiscussionPolicy
 
     public function delete(User $user, Discussion $discussion): Response
     {
-        return $this->deny();
+        return $this->isParticipant($discussion, $user)
+            ? $this->allow()
+            : $this->deny();
     }
 
     public function duplicate(User $user, Discussion $discussion): Response
@@ -57,8 +59,13 @@ class DiscussionPolicy
 
     public function leave(User $user, Discussion $discussion): Response
     {
-        return $discussion->allParticipants->contains('id', $user->id)
+        return $this->isParticipant($discussion, $user)
             ? $this->allow()
             : $this->deny();
+    }
+
+    protected function isParticipant(Discussion $discussion, User $user): bool
+    {
+        return $discussion->allParticipants->contains('id', $user->id);
     }
 }

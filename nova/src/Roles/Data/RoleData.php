@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Data;
 
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Nova\Foundation\Rules\Boolean;
 use Spatie\LaravelData\Attributes\MapName;
@@ -20,6 +21,16 @@ class RoleData extends Data
         public ?string $description,
         public bool $isDefault = false,
     ) {}
+
+    public static function fromRequest(Request $request): static
+    {
+        return new self(
+            name: $request->input('name'),
+            displayName: $request->input('display_name'),
+            description: $request->input('description'),
+            isDefault: $request->boolean('is_default', false)
+        );
+    }
 
     public static function rules(ValidationContext $context): array
     {

@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Nova\Discussions\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Nova\Discussions\Actions\MarkDiscussionRead;
 use Nova\Discussions\Models\Discussion;
-use Nova\Users\Models\User;
 
 #[On('discussion-started')]
 #[On('discussion-updated')]
@@ -21,6 +21,8 @@ use Nova\Users\Models\User;
 #[On('message-sent')]
 class MessagesList extends Component
 {
+    use WithPagination;
+
     #[Locked]
     public ?int $selected = null;
 
@@ -39,25 +41,15 @@ class MessagesList extends Component
     }
 
     #[Computed]
-    public function discussions(): Collection
+    public function discussions(): Paginator
     {
-        return Discussion::with('messages', 'participants', 'notifications', 'lastMessage')
+        return Discussion::with('participants', 'notifications')
             ->conversation()
-            // ->withoutCurrentUser()
             ->forCurrentUser()
             ->when($this->filter === 'private', fn (Builder $query): Builder => $query->directMessage())
             ->when($this->filter === 'group', fn (Builder $query): Builder => $query->groupMessage())
             ->latest('updated_at')
-            ->get();
-    }
-
-    #[Computed]
-    public function users(): Collection
-    {
-        return User::query()
-            ->active()
-            ->where('id', '!=', Auth::id())
-            ->get();
+            ->simplePaginate(15);
     }
 
     public function changeFilter(string $value): void
@@ -100,20 +92,10 @@ class MessagesList extends Component
         $this->selectDiscussion($this->discussions->first()?->id);
     }
 
-    public function mount()
-    {
-        // if (filled($this->selected)) {
-        //     $this->selectDiscussion($discussion->id);
-        // }
-
-        // $this->selectedLatestDiscussion();
-    }
-
     public function render()
     {
         return view('pages.discussions.livewire.messages-list', [
             'discussions' => $this->discussions,
-            'users' => $this->users,
         ]);
     }
 }

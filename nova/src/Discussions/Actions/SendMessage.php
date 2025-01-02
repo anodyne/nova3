@@ -14,10 +14,6 @@ class SendMessage
 
     public function handle(Discussion $discussion, DiscussionData $data): void
     {
-        if ($discussion->is_direct_message) {
-            $discussion->allParticipants()->sync($discussion->direct_message_participants);
-        }
-
         $message = $discussion->messages()->create($data->message->all());
 
         // Broadcast

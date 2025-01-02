@@ -16,12 +16,12 @@ class DiscussionBuilder extends Builder
 
     public function directMessage(): self
     {
-        return $this->where('is_direct_message', true);
+        return $this->whereHas(relation: 'allParticipants', operator: '=', count: 2);
     }
 
     public function groupMessage(): self
     {
-        return $this->where('is_direct_message', false);
+        return $this->whereHas(relation: 'allParticipants', operator: '>', count: 2);
     }
 
     public function forCurrentUser(): self
@@ -30,7 +30,6 @@ class DiscussionBuilder extends Builder
             $query->whereNull('discussion_participant.deleted_at')
                 ->where('users.id', Auth::id());
         });
-        // return $this->whereRelation('allParticipants', 'users.id', '=', Auth::id());
     }
 
     public function withoutCurrentUser(): self

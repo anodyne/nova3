@@ -17,36 +17,26 @@ class StartDiscussion
 
     public function handle(DiscussionData $data): Discussion
     {
-        VerifyDirectMessageParticipantCount::runIf($data->isDirectMessage, $data);
+        DB::beginTransaction();
 
-        $discussion = FindExistingDiscussionWithParticipants::run($data);
+        try {
+            $discussion = Discussion::create(
+                $data->except('message', 'participants')->all()
+            );
 
-        if (filled($discussion)) {
+            $discussion = AddParticipantsToDiscussion::run($discussion, $data->participants);
+
             SendMessage::run($discussion, $data);
 
-            return $discussion->refresh();
-        } else {
-            DB::beginTransaction();
+            DB::commit();
 
-            try {
-                $discussion = Discussion::create(
-                    $data->except('message', 'participants')->all()
-                );
+            DiscussionStarted::dispatch($discussion);
 
-                $discussion = AddParticipantsToDiscussion::run($discussion, $data->participants);
+            return $discussion;
+        } catch (Throwable $th) {
+            DB::rollBack();
 
-                SendMessage::run($discussion, $data);
-
-                DB::commit();
-
-                DiscussionStarted::dispatch($discussion);
-
-                return $discussion;
-            } catch (Throwable $th) {
-                DB::rollBack();
-
-                throw $th;
-            }
+            throw $th;
         }
     }
 }
