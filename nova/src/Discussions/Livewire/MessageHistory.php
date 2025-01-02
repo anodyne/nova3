@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Discussions\Livewire;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
@@ -13,11 +12,6 @@ use Livewire\Component;
 use Nova\Discussions\Actions\DeleteDiscussion;
 use Nova\Discussions\Actions\DeleteDiscussionMessage;
 use Nova\Discussions\Actions\LeaveDiscussion;
-use Nova\Discussions\Actions\SendMessage;
-use Nova\Discussions\Data\DiscussionData;
-use Nova\Discussions\Data\DiscussionMessageData;
-use Nova\Discussions\Data\DiscussionParticipantsData;
-use Nova\Discussions\Enums\MessageType;
 use Nova\Discussions\Exceptions\CannotLeaveDirectMessage;
 use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Models\DiscussionMessage;
@@ -59,20 +53,6 @@ class MessageHistory extends Component
         }
 
         return $this->discussion->messages->slice(0, $this->discussion->messages->count() - 1);
-    }
-
-    #[Computed]
-    public function messages(): Collection
-    {
-        if (blank($this->discussion)) {
-            return Collection::make();
-        }
-
-        // return $this->discussion->messages->groupBy(function ($message) {
-        //     return format_date($message->created_at, raw: true);
-        // });
-
-        return $this->discussion->messages;
     }
 
     #[Computed]
@@ -135,32 +115,6 @@ class MessageHistory extends Component
                 ->title('Failed to leave discussion')
                 ->send();
         }
-    }
-
-    public function sendMessage(): void
-    {
-        $this->authorize('view', $this->discussion);
-
-        $data = new DiscussionData(
-            name: $this->discussion->name,
-            isDirectMessage: $this->discussion->is_direct_message,
-            directMessageParticipants: $this->discussion->direct_message_participants,
-            message: new DiscussionMessageData(
-                userId: Auth::id(),
-                content: $this->content,
-                type: MessageType::Text
-            ),
-            participants: new DiscussionParticipantsData(
-                sender: Auth::id(),
-                recipients: $this->discussion->participants->pluck('id')->all()
-            )
-        );
-
-        SendMessage::run($this->discussion, $data);
-
-        $this->reset('content');
-
-        $this->dispatch('message-sent');
     }
 
     public function render()

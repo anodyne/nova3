@@ -28,6 +28,30 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-x-4">
+                    @can('leave', $discussion)
+                        <x-dropdown placement="bottom-end">
+                            <x-slot name="trigger" color="neutral-danger">
+                                <x-icon name="exit" size="sm"></x-icon>
+                            </x-slot>
+
+                            <x-dropdown.group>
+                                <x-dropdown.text>Are you sure you want to leave this group message?</x-dropdown.text>
+                            </x-dropdown.group>
+                            <x-dropdown.group>
+                                <x-dropdown.item-danger type="button" icon="exit" wire:click="leaveDiscussion">
+                                    Leave
+                                </x-dropdown.item-danger>
+                                <x-dropdown.item
+                                    type="button"
+                                    icon="prohibited"
+                                    x-on:click.prevent="$dispatch('dropdown-close')"
+                                >
+                                    Cancel
+                                </x-dropdown.item>
+                            </x-dropdown.group>
+                        </x-dropdown>
+                    @endcan
+
                     @can('delete', $discussion)
                         <x-dropdown placement="bottom-end">
                             <x-slot name="trigger" color="neutral-danger">

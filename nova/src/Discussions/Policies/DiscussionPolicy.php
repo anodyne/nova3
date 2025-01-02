@@ -59,7 +59,7 @@ class DiscussionPolicy
 
     public function leave(User $user, Discussion $discussion): Response
     {
-        return $this->isParticipant($discussion, $user)
+        return $this->isParticipant($discussion, $user) && $discussion->is_group_message
             ? $this->allow()
             : $this->deny();
     }
