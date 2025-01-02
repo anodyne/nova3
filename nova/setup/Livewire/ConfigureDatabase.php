@@ -134,7 +134,7 @@ class ConfigureDatabase extends Component
 
             $this->status = DatabaseConfigStatus::AlreadyConfigured;
         } catch (Throwable $th) {
-            //throw $th;
+            report($th);
         }
     }
 

@@ -31,7 +31,8 @@ class Database
                 $this->hasMysql = in_array('mysql', PDO::getAvailableDrivers());
             }
         } catch (Throwable $th) {
-            //throw $th;
+            report($th);
+
             $this->hasMysql = in_array('mysql', PDO::getAvailableDrivers());
         }
     }
