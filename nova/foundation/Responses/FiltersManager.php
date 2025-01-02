@@ -24,7 +24,7 @@ class FiltersManager
         return $this;
     }
 
-    public function resolveFiltersFor(string $route): array
+    public function resolveFiltersFor(?string $route): array
     {
         return array_merge(
             $this->globalFilters,

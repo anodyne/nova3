@@ -66,13 +66,13 @@ abstract class Responsable implements LaravelResponsable
     {
         return app(Pipeline::class)
             ->send(collect($this->data))
-            ->through(app('nova.response-filters')->resolveFiltersFor($this->page->key))
+            ->through(app('nova.response-filters')->resolveFiltersFor($this->page?->key))
             ->then(fn ($data) => $data->all());
     }
 
     public function layout(): ?string
     {
-        if ($this->page->layout === 'public') {
+        if ($this->page?->layout === 'public') {
             return 'layouts.theme';
         }
 
@@ -99,10 +99,10 @@ abstract class Responsable implements LaravelResponsable
             layout: $this->layout(),
             subnav: $this->subnav(),
             subnavSection: $this->subnav,
-            menu: $this->page->layout === 'public' ? Menu::with('items.page', 'items.items')->public()->first() : null,
-            pageHeading: $this->page->heading,
-            pageSubheading: $this->page->subheading,
-            pageIntro: $this->page->intro,
+            menu: $this->page?->layout === 'public' ? Menu::with('items.page', 'items.items')->public()->first() : null,
+            pageHeading: $this->page?->heading,
+            pageSubheading: $this->page?->subheading,
+            pageIntro: $this->page?->intro,
         );
 
         app()->instance('nova.meta', $meta);
