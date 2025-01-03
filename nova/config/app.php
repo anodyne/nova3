@@ -141,6 +141,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Nova' => Nova\Foundation\Nova::class,
         'NovaView' => Nova\Foundation\Facades\NovaView::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
     ])->toArray(),
