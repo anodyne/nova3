@@ -34,6 +34,19 @@ class ArrMacros
         };
     }
 
+    public static function isMultiDimensional()
+    {
+        return function (array $array): bool {
+            foreach ($array as $item) {
+                if (is_array($item)) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+    }
+
     //    public static function enum()
     //    {
     //        return function ($key, $enumClass) {
