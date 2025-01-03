@@ -182,7 +182,13 @@
 
                             <div class="mt-4 grid grid-cols-4 gap-4 text-sm/6">
                                 @foreach (Arr::except($logLine->context, 'exception') as $key => $contextLine)
-                                    @if (! is_array($contextLine))
+                                    @if (is_array($contextLine))
+                                        @foreach (Arr::except($contextLine, 'exception') as $cKey => $cLine)
+                                            <x-fieldset.field :label="$cKey">
+                                                <x-text>{{ $cLine }}</x-text>
+                                            </x-fieldset.field>
+                                        @endforeach
+                                    @else
                                         <x-fieldset.field :label="$key">
                                             <x-text>{{ $contextLine }}</x-text>
                                         </x-fieldset.field>
@@ -191,7 +197,7 @@
                             </div>
                         </x-spacing>
 
-                        @if (data_get($logLine->context, 'exception') !== null)
+                        @if ($this->getStacktrace($logLine) !== null)
                             <x-spacing size="sm" x-data="{ showStacktrace: false }">
                                 <x-h5>Stacktrace</x-h5>
 
@@ -199,13 +205,13 @@
                                     <x-button x-on:click="showStacktrace = ! showStacktrace">Show stacktrace</x-button>
 
                                     <livewire:copy-stacktrace-button
-                                        :stacktrace="$logLine->context['exception']"
+                                        :stacktrace="$this->getStacktrace($logLine)"
                                         wire:key="stacktrace-button-{{ $logLine->index.$logLine->filePosition }}"
                                     />
                                 </div>
 
                                 <div class="mt-4" x-show="showStacktrace" x-collapse>
-                                    {{ $logLine->context['exception'] }}
+                                    {{ $this->getStacktrace($logLine) }}
                                 </div>
                             </x-spacing>
                         @endif

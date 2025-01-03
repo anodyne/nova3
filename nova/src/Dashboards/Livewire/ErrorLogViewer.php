@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
+use Illuminate\Support\Arr;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Opcodes\LogViewer\Facades\LogViewer;
 use Opcodes\LogViewer\LogFile;
 use Opcodes\LogViewer\LogFileCollection;
+use Opcodes\LogViewer\Logs\Log;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ErrorLogViewer extends Component
@@ -38,6 +40,21 @@ class ErrorLogViewer extends Component
     public function files(): LogFileCollection
     {
         return LogViewer::getFiles()->take(14);
+    }
+
+    public function getStacktrace(Log $log): ?string
+    {
+        if (Arr::isMultiDimensional($log->context)) {
+            foreach ($log->context as $key => $value) {
+                if (Arr::has($value, 'exception')) {
+                    return Arr::get($value, 'exception');
+                }
+            }
+
+            return null;
+        }
+
+        return Arr::get($log->context, 'exception');
     }
 
     public function deleteLogFile(): void
