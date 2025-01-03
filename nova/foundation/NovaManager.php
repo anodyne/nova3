@@ -9,17 +9,29 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
+use Nova\Characters\Models\Character;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Fonts\BunnyFontProvider;
 use Nova\Foundation\Fonts\Contracts\FontProvider;
 use Nova\Foundation\Fonts\GoogleFontProvider;
 use Nova\Foundation\Fonts\LocalFontProvider;
 use Nova\Foundation\Models\SystemInfo;
+use Nova\Users\Models\User;
 use Throwable;
 
 class NovaManager
 {
     public string $version = '3.0.0-alpha16';
+
+    public function characterCount(): int
+    {
+        return once(fn () => Character::count());
+    }
+
+    public function userCount(): int
+    {
+        return once(fn () => User::count());
+    }
 
     public function environment(): Environment
     {
