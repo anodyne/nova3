@@ -1,7 +1,5 @@
-@php
-    use Nova\Applications\Models\Application;
-    use Nova\Pages\Models\Page;
-@endphp
+@use('Nova\Applications\Models\Application')
+@use('Nova\Pages\Models\Page')
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
@@ -75,39 +73,43 @@
                                     <x-sidebar.label>Search</x-sidebar.label>
                                 </x-sidebar.item>
 
-                                <x-sidebar.item
-                                    :href="route('admin.messages.index')"
-                                    :active="request()->routeIs('admin.messages.*')"
-                                >
-                                    <x-icon name="inbox"></x-icon>
-                                    <x-sidebar.label>Messages</x-sidebar.label>
+                                @if (Nova::userCount() > 1)
+                                    <x-sidebar.item
+                                        :href="route('admin.messages.index')"
+                                        :active="request()->routeIs('admin.messages.*')"
+                                    >
+                                        <x-icon name="inbox"></x-icon>
+                                        <x-sidebar.label>Messages</x-sidebar.label>
 
-                                    @if ($unreadMessagesCount() > 0)
-                                        <x-slot name="trailing">
-                                            <x-badge color="primary" class="tabular-nums">
-                                                {{ $unreadMessagesCount() }}
-                                            </x-badge>
-                                        </x-slot>
-                                    @endif
-                                </x-sidebar.item>
+                                        @if ($unreadMessagesCount() > 0)
+                                            <x-slot name="trailing">
+                                                <x-badge color="primary" class="tabular-nums">
+                                                    {{ $unreadMessagesCount() }}
+                                                </x-badge>
+                                            </x-slot>
+                                        @endif
+                                    </x-sidebar.item>
+                                @endif
 
                                 <livewire:users-notifications />
 
-                                <x-sidebar.item
-                                    :href="route('admin.announcements.index')"
-                                    :active="request()->routeIs('admin.announcements.*')"
-                                >
-                                    <x-icon name="megaphone"></x-icon>
-                                    <x-sidebar.label>Announcements</x-sidebar.label>
+                                @if (Nova::userCount() > 1)
+                                    <x-sidebar.item
+                                        :href="route('admin.announcements.index')"
+                                        :active="request()->routeIs('admin.announcements.*')"
+                                    >
+                                        <x-icon name="megaphone"></x-icon>
+                                        <x-sidebar.label>Announcements</x-sidebar.label>
 
-                                    @if ($unreadAnnouncementsCount() > 0)
-                                        <x-slot name="trailing">
-                                            <x-badge color="primary" class="tabular-nums">
-                                                {{ $unreadAnnouncementsCount() }}
-                                            </x-badge>
-                                        </x-slot>
-                                    @endif
-                                </x-sidebar.item>
+                                        @if ($unreadAnnouncementsCount() > 0)
+                                            <x-slot name="trailing">
+                                                <x-badge color="primary" class="tabular-nums">
+                                                    {{ $unreadAnnouncementsCount() }}
+                                                </x-badge>
+                                            </x-slot>
+                                        @endif
+                                    </x-sidebar.item>
+                                @endif
                             </x-sidebar.section>
                         </x-sidebar.header>
 
@@ -576,23 +578,27 @@
                                 <x-icon name="search"></x-icon>
                             </x-navbar.item>
 
-                            <x-navbar.item :href="route('admin.messages.index')" class="relative">
-                                @if ($unreadMessagesCount() > 0)
-                                    <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
-                                @endif
+                            @if (Nova::userCount() > 1)
+                                <x-navbar.item :href="route('admin.messages.index')" class="relative">
+                                    @if ($unreadMessagesCount() > 0)
+                                        <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
+                                    @endif
 
-                                <x-icon name="inbox"></x-icon>
-                            </x-navbar.item>
+                                    <x-icon name="inbox"></x-icon>
+                                </x-navbar.item>
+                            @endif
 
                             <livewire:users-notifications />
 
-                            <x-navbar.item :href="route('admin.announcements.index')">
-                                @if ($unreadAnnouncementsCount() > 0)
-                                    <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
-                                @endif
+                            @if (Nova::userCount() > 1)
+                                <x-navbar.item :href="route('admin.announcements.index')">
+                                    @if ($unreadAnnouncementsCount() > 0)
+                                        <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
+                                    @endif
 
-                                <x-icon name="megaphone"></x-icon>
-                            </x-navbar.item>
+                                    <x-icon name="megaphone"></x-icon>
+                                </x-navbar.item>
+                            @endif
 
                             <x-dropdown placement="bottom-end" class="w-full">
                                 <x-slot name="emptyTrigger">
