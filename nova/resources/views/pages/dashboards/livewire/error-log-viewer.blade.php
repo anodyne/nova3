@@ -182,9 +182,11 @@
 
                             <div class="mt-4 grid grid-cols-4 gap-4 text-sm/6">
                                 @foreach (Arr::except($logLine->context, 'exception') as $key => $contextLine)
-                                    <x-fieldset.field :label="$key">
-                                        <x-text>{{ $contextLine }}</x-text>
-                                    </x-fieldset.field>
+                                    @if (! is_array($contextLine))
+                                        <x-fieldset.field :label="$key">
+                                            <x-text>{{ $contextLine }}</x-text>
+                                        </x-fieldset.field>
+                                    @endif
                                 @endforeach
                             </div>
                         </x-spacing>
