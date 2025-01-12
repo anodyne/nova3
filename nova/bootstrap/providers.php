@@ -27,6 +27,7 @@ return [
     Nova\Pages\Providers\PageServiceProvider::class,
     Nova\PublicSite\Providers\PublicSiteServiceProvider::class,
     Nova\Ranks\Providers\RankServiceProvider::class,
+    Nova\Reporting\Providers\ReportingServiceProvider::class,
     Nova\Roles\Providers\RoleServiceProvider::class,
     Nova\Search\Providers\SearchServiceProvider::class,
     Nova\Settings\Providers\SettingsServiceProvider::class,

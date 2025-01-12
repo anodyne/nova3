@@ -49,6 +49,7 @@ return new class extends OneTimeOperation
                 'system.activity', 'system.error-logs',
                 'menu.create', 'menu.delete', 'menu.update', 'menu.view',
                 'announcement.create', 'announcement.delete', 'announcement.update',
+                'report.view',
             ],
             'story-manager' => [
                 'story.create', 'story.delete', 'story.update',
@@ -169,6 +170,8 @@ return new class extends OneTimeOperation
 
                 ['name' => 'site.contact', 'display_name' => 'Site contact', 'description' => 'Allows a user to receive site contact messages'],
                 ['name' => 'site.update', 'display_name' => 'Update site', 'description' => 'Allows a user to run the update scripts for the site'],
+
+                ['name' => 'report.view', 'display_name' => 'View reports', 'description' => 'Allows a user to view any reports'],
             ];
 
             collect($permissions)->each(function ($permission) {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Users\Models\States\Status;
 
 use Nova\Characters\Models\States\Status\Inactive as InactiveCharacter;
+use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Users\Models\User;
 use Spatie\ModelStates\Transition;
 
@@ -29,6 +30,8 @@ class ActiveToInactive extends Transition
         $this->user->save();
 
         $this->user->syncRoles([]);
+
+        TrackStatusUpdate::run($this->user);
 
         return $this->user;
     }

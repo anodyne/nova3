@@ -1,105 +1,134 @@
+@use('Illuminate\Support\Number')
+@use('Nova\Stories\Models\PostType')
+
 <x-admin-layout>
-    <x-page-header heading="Game overview over the last 7 days"></x-page-header>
+    <x-page-header heading="Game report">
+        <x-slot name="description">
+            An overview of the game for {{ $settings->timeframe->getStatsDescription() }}
+        </x-slot>
+    </x-page-header>
 
-    <div class="space-y-8">
+    <div class="space-y-12">
         <div class="grid gap-8 lg:grid-cols-2">
-            <x-panel well>
-                <x-panel.well.header
-                    title="Participation"
-                    description="This provides insight into player participation over the last 7 days."
-                ></x-panel.well.header>
+            <livewire:widget-player-participation
+                :stats="$participation->currentActivityTimeframe()"
+                :change-badge="$participation->percentageChangeBadge()"
+                :show-link="true"
+            />
 
-                <x-panel>
-                    <x-spacing size="md" class="flex items-center justify-center gap-x-8">
-                        <x-circular-progress :percentage="83" class="size-20"></x-circular-progress>
-                        <div>
-                            <h2
-                                class="shrink-0 text-6xl font-extrabold tabular-nums tracking-tight text-gray-950 dark:text-white"
-                            >
-                                83%
-                            </h2>
-                            <div class="flex items-center gap-x-4">
-                                <x-text>10 of 12 users</x-text>
-                                <x-badge color="success">&uarr; 4%</x-badge>
-                            </div>
-                        </div>
-                    </x-spacing>
-                </x-panel>
-
-                <x-panel.well.footer>
-                    <x-button text>View the contribution report &rarr;</x-button>
-                </x-panel.well.footer>
-            </x-panel>
-
-            <x-panel well>
-                <x-panel.well.header
-                    title="Activity"
-                    description="This provides insight into player activity level over the last 7 days."
-                ></x-panel.well.header>
-
-                <x-panel>
-                    <x-spacing size="md" class="flex items-center justify-center gap-x-8">
-                        <x-circular-progress :percentage="42" color="warning" class="size-20"></x-circular-progress>
-                        <div>
-                            <h2
-                                class="shrink-0 text-6xl font-extrabold tabular-nums tracking-tight text-gray-950 dark:text-white"
-                            >
-                                42%
-                            </h2>
-                            <div class="flex items-center gap-x-4">
-                                <x-text>5 of 12 users</x-text>
-                                <x-badge color="danger">&darr; 18%</x-badge>
-                            </div>
-                        </div>
-                    </x-spacing>
-                </x-panel>
-
-                <x-panel.well.footer>
-                    <x-button text>View the activity report &rarr;</x-button>
-                </x-panel.well.footer>
-            </x-panel>
+            <livewire:widget-player-activity
+                :stats="$activity->currentActivityTimeframe()"
+                :change-badge="$activity->percentageChangeBadge()"
+                :show-link="true"
+            />
         </div>
 
-        <div class="grid gap-8 lg:grid-cols-2">
-            <x-panel well>
-                <x-panel.well.header
-                    title="Posting"
-                    description="This provides insight into the number of posts over the last 7 days."
-                ></x-panel.well.header>
+        <x-panel>
+            <x-spacing size="md">
+                <x-h5>{{ $settings->timeframe->getStatsLabel() }}</x-h5>
 
-                <x-panel>
-                    <x-spacing size="md">
-                        <div class="grid grid-cols-1 lg:grid-cols-2">
-                            <x-panel.stat label="Published posts" value="18"></x-panel.stat>
-                            <x-panel.stat label="Draft posts" value="4"></x-panel.stat>
+                <div class="mt-4 grid gap-8 lg:grid-cols-3">
+                    <div class="flex gap-x-3">
+                        <div class="shrink-0">
+                            <x-icon name="check-circle" size="lg" class="text-gray-500"></x-icon>
                         </div>
-                    </x-spacing>
-                </x-panel>
+                        <div>
+                            <x-text size="lg">Published posts</x-text>
 
-                <x-panel.well.footer>
-                    <x-button text>Go to the writing dashboard &rarr;</x-button>
-                </x-panel.well.footer>
-            </x-panel>
-
-            <x-panel well>
-                <x-panel.well.header
-                    title="Activity"
-                    description="This provides insight into player activity level over the last 7 days."
-                ></x-panel.well.header>
-
-                <x-panel>
-                    <x-spacing size="md">
-                        <div class="grid grid-cols-1 lg:grid-cols-2">
-                            <x-panel.stat label="Published posts" value="18"></x-panel.stat>
-                            <x-panel.stat label="Draft posts" value="4"></x-panel.stat>
+                            <h2
+                                class="mt-2 shrink-0 text-4xl font-semibold tabular-nums tracking-tight text-gray-950 dark:text-white"
+                            >
+                                {{ Number::format($postingStats->published_post_count) }}
+                            </h2>
                         </div>
-                    </x-spacing>
-                </x-panel>
+                    </div>
 
-                <x-panel.well.footer>
-                    <x-button text>View the activity report &rarr;</x-button>
-                </x-panel.well.footer>
-            </x-panel>
-        </div>
+                    <div class="flex gap-x-3">
+                        <div class="shrink-0">
+                            <x-icon name="circle-dashed" size="lg" class="text-gray-500"></x-icon>
+                        </div>
+                        <div>
+                            <x-text size="lg">Draft posts</x-text>
+
+                            <h2
+                                class="mt-2 shrink-0 text-4xl font-semibold tabular-nums tracking-tight text-gray-950 dark:text-white"
+                            >
+                                {{ Number::format($postingStats->draft_post_count) }}
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-x-3">
+                        <div class="shrink-0">
+                            <x-icon name="abc" size="lg" class="text-gray-500"></x-icon>
+                        </div>
+                        <div>
+                            <x-text size="lg">Post words</x-text>
+
+                            <h2
+                                class="mt-2 shrink-0 text-4xl font-semibold tabular-nums tracking-tight text-gray-950 dark:text-white"
+                            >
+                                {{ Number::format($postingStats->total_word_count) }}
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </x-spacing>
+        </x-panel>
+
+        <x-spacing width="md">
+            <div class="grid gap-8 lg:grid-cols-3">
+                <div class="flex gap-x-3">
+                    <div class="shrink-0">
+                        <x-icon name="calendar" size="lg"></x-icon>
+                    </div>
+                    <div>
+                        <x-text>
+                            <x-text.strong>Monthly summary</x-text.strong>
+                        </x-text>
+                        <x-text>A summary of activity for the current and previous months.</x-text>
+                        <div class="mt-3">
+                            <x-button :href="route('admin.reporting.game-stats')" color="heavy-neutral" text>
+                                View summary &rarr;
+                            </x-button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-x-3">
+                    <div class="shrink-0">
+                        <x-icon name="chart-infographic" size="lg"></x-icon>
+                    </div>
+                    <div>
+                        <x-text>
+                            <x-text.strong>Game stats</x-text.strong>
+                        </x-text>
+                        <x-text>A summary of major metrics over the game’s lifetime.</x-text>
+                        <div class="mt-3">
+                            <x-button :href="route('admin.reporting.game-stats')" color="heavy-neutral" text>
+                                View stats &rarr;
+                            </x-button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-x-3">
+                    <div class="shrink-0">
+                        <x-icon name="edit-settings" size="lg"></x-icon>
+                    </div>
+                    <div>
+                        <x-text>
+                            <x-text.strong>Post types report</x-text.strong>
+                        </x-text>
+                        <x-text>A summary of post types and their stats for the game.</x-text>
+                        <div class="mt-3">
+                            <x-button :href="route('admin.reporting.post-types')" color="heavy-neutral" text>
+                                View report &rarr;
+                            </x-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </x-spacing>
     </div>
 </x-admin-layout>

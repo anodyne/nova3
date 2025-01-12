@@ -15,6 +15,7 @@
 
         <x-fonts section="admin" />
         @filamentStyles
+        @fluxStyles
         @novaAdminStyles
         @stack('styles')
 
@@ -22,14 +23,6 @@
         {{ NovaView::renderHook('admin::head-scripts.before') }}
 
         @stack('headScripts')
-
-        <script>
-            document.documentElement.classList.toggle(
-                'dark',
-                localStorage.theme === 'dark' ||
-                    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches),
-            );
-        </script>
 
         {{ NovaView::renderHook('admin::head-scripts.after') }}
     </head>
@@ -203,15 +196,15 @@
                                     </x-sidebar.item>
                                 @endif
 
-                                @if (auth()->user()->canManageForms)
+                                @permission('report.view')
                                     <x-sidebar.item
-                                        :href="route('admin.reporting.overview')"
+                                        :href="route('admin.reporting.game-overview')"
                                         :active="$meta->subnavSection === 'reporting'"
                                     >
                                         <x-icon name="chart-dots"></x-icon>
                                         <x-sidebar.label>Reporting</x-sidebar.label>
                                     </x-sidebar.item>
-                                @endif
+                                @endpermission
 
                                 @can('update', $settings)
                                     <x-sidebar.item
@@ -298,7 +291,8 @@
                                             ></x-icon>
                                             <div class="flex w-full items-center justify-between">
                                                 <div class="flex-1 font-medium">Dark mode</div>
-                                                <livewire:users-admin-theme-toggle />
+                                                {{-- <livewire:users-admin-theme-toggle /> --}}
+                                                <flux:switch x-data x-model="$flux.dark" />
                                             </div>
                                         </div>
                                     </x-dropdown.group>
@@ -488,15 +482,15 @@
                                                     </x-sidebar.item>
                                                 @endif
 
-                                                @if (auth()->user()->canManageForms)
+                                                @permission('report.view')
                                                     <x-sidebar.item
-                                                        :href="route('admin.reporting.overview')"
+                                                        :href="route('admin.reporting.game-overview')"
                                                         :active="$meta->subnavSection === 'reporting'"
                                                     >
                                                         <x-icon name="chart-dots"></x-icon>
                                                         <x-sidebar.label>Reporting</x-sidebar.label>
                                                     </x-sidebar.item>
-                                                @endif
+                                                @endpermission
 
                                                 @can('update', $settings)
                                                     <x-sidebar.item
@@ -624,7 +618,8 @@
                                         ></x-icon>
                                         <div class="flex w-full items-center justify-between">
                                             <div class="flex-1 font-medium">Dark mode</div>
-                                            <livewire:users-admin-theme-toggle />
+                                            {{-- <livewire:users-admin-theme-toggle /> --}}
+                                            <flux:switch x-data x-model="$flux.dark" />
                                         </div>
                                     </div>
                                 </x-dropdown.group>
@@ -677,6 +672,7 @@
         {{ NovaView::renderHook('admin::scripts.before') }}
 
         @filamentScripts(withCore: true)
+        @fluxScripts
         @novaAdminScripts
         @stack('scripts')
 

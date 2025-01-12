@@ -25,6 +25,7 @@ use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Models\StatusHistory;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
@@ -119,6 +120,11 @@ class Character extends Model implements HasMedia
     public function application(): HasOne
     {
         return $this->hasOne(Application::class);
+    }
+
+    public function statusHistories(): MorphMany
+    {
+        return $this->morphMany(StatusHistory::class, 'statusable');
     }
 
     public function getActivitylogOptions(): LogOptions

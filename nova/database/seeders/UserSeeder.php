@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Users\Actions\PopulateAccountPreferences;
@@ -37,8 +38,9 @@ class UserSeeder extends Seeder
             globalReviewers: [$admin->id],
         ));
         CreateFormSubmission::run($form, $admin);
+        TrackStatusUpdate::run($admin);
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 15; $i++) {
             $activeUser = User::factory()
                 ->active()
                 ->create([
@@ -49,6 +51,7 @@ class UserSeeder extends Seeder
             PopulateAccountPreferences::run($activeUser);
             PopulateNotificationPreferences::run($activeUser);
             CreateFormSubmission::run($form, $activeUser);
+            TrackStatusUpdate::run($activeUser);
         }
 
         $inactiveUser = User::factory()
@@ -60,6 +63,10 @@ class UserSeeder extends Seeder
         PopulateAccountPreferences::run($inactiveUser);
         PopulateNotificationPreferences::run($inactiveUser);
         CreateFormSubmission::run($form, $inactiveUser);
+
+        TrackStatusUpdate::run($inactiveUser);
+        sleep(2);
+        TrackStatusUpdate::run($inactiveUser);
 
         foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
             $user = User::factory()->active()->create([
@@ -79,6 +86,7 @@ class UserSeeder extends Seeder
             PopulateAccountPreferences::run($user);
             PopulateNotificationPreferences::run($user);
             CreateFormSubmission::run($form, $user);
+            TrackStatusUpdate::run($user);
         }
 
         activity()->enableLogging();

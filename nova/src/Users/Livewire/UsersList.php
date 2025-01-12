@@ -72,12 +72,10 @@ class UsersList extends TableComponent
                 TextColumn::make('latestLogin.created_at')
                     ->label('Last sign in')
                     ->since()
-                    ->sortable()
                     ->toggleable(),
                 TextColumn::make('latestPost.0.published_at')
                     ->label('Last post')
                     ->since()
-                    ->sortable()
                     ->toggleable()
                     ->color(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'danger' : null)
                     ->weight(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'semibold' : null),

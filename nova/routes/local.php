@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Number;
 use Nova\Addons\Models\Addon;
@@ -190,4 +191,88 @@ Route::get('attention', function () {
     $post = Post::find(50);
 
     dd($post->participatingUsers()->latest('pivot_updated_at')->first()?->pivot?->toArray());
+});
+
+Route::get('participation', function () {
+    $startDate = now()->subDays(7)->startOfDay();
+    $endDate = now()->endOfDay();
+
+    // $results = DB::table('users')
+    //     ->join('status_history', function ($join) {
+    //         $join->on('users.id', '=', 'status_history.statusable_id')
+    //             ->where('status_history.statusable_type', '=', 'user');
+    //     })
+    //     ->leftJoin('logins', 'users.id', '=', 'logins.user_id')
+    //     ->leftJoin('post_author', 'users.id', '=', 'post_author.user_id')
+    //     ->leftJoin('posts', 'post_author.post_id', '=', 'posts.id')
+    //     ->where('status_history.status', 'active') // Only consider "active" statuses
+    //     ->where(function ($query) use ($startDate, $endDate) {
+    //         $query->where('status_history.started_at', '<=', $endDate)
+    //             ->where(function ($query) use ($startDate) {
+    //                 $query->whereNull('status_history.ended_at')
+    //                     ->orWhere('status_history.ended_at', '>=', $startDate);
+    //             });
+    //     })
+    //     ->select(
+    //         'users.id',
+    //         'users.name',
+    //         DB::raw('COUNT(DISTINCT logins.id) as login_count'), // Count of logins for each user
+    //         DB::raw('COUNT(DISTINCT CASE WHEN posts.status = "published" THEN posts.id END) as published_post_count'), // Count of published posts for each user
+    //         DB::raw('COUNT(DISTINCT CASE WHEN posts.status = "draft" THEN posts.id END) as draft_post_count'), // Count of draft posts for each user
+    //         DB::raw('SUM(post_author.word_count) as total_word_count') // Sum of word_count for each user
+    //     )
+    //     ->groupBy('users.id', 'users.name') // Group by individual users
+    //     ->get();
+
+    $results = DB::table('users')
+        ->join('status_history', function ($join) {
+            $join->on('users.id', '=', 'status_history.statusable_id')
+                ->where('status_history.statusable_type', '=', 'user');
+        })
+        ->leftJoin('logins', 'users.id', '=', 'logins.user_id')
+        ->leftJoin('post_author', 'users.id', '=', 'post_author.user_id')
+        ->leftJoin('posts', 'post_author.post_id', '=', 'posts.id')
+        ->leftJoin('post_types', 'posts.post_type_id', '=', 'post_types.id') // Include post_types for JSON filtering
+        ->where(function ($query) use ($startDate, $endDate) {
+            $query->where('status_history.started_at', '<=', $endDate)
+                ->where(function ($query) use ($startDate) {
+                    $query->whereNull('status_history.ended_at')
+                        ->orWhere('status_history.ended_at', '>=', $startDate);
+                });
+        })
+        ->select(
+            'users.id',
+            'users.name',
+            DB::raw('COUNT(DISTINCT CASE WHEN logins.created_at BETWEEN "'.$startDate.'" AND "'.$endDate.'" THEN logins.id END) as total_logins'), // Count of logins for each user
+            DB::raw('COUNT(DISTINCT CASE
+                WHEN posts.status = "published"
+                    AND JSON_EXTRACT(post_types.options, "$.includedInPostTracking") = true
+                    AND post_author.updated_at BETWEEN "'.$startDate.'" AND "'.$endDate.'"
+                    AND posts.published_at BETWEEN "'.$startDate.'" AND "'.$endDate.'"
+                THEN posts.id
+            END) as total_published_posts'), // Count of published posts for each user
+            DB::raw('COUNT(DISTINCT CASE
+                WHEN posts.status = "draft"
+                    AND JSON_EXTRACT(post_types.options, "$.includedInPostTracking") = true
+                    AND post_author.updated_at BETWEEN "'.$startDate.'" AND "'.$endDate.'"
+                THEN posts.id
+            END) as total_draft_posts'), // Count of draft posts for each user
+            DB::raw('SUM(CASE
+                WHEN JSON_EXTRACT(post_types.options, "$.includedInPostTracking") = true
+                    AND post_author.updated_at BETWEEN "'.$startDate.'" AND "'.$endDate.'"
+                THEN post_author.word_count
+                ELSE 0
+            END) as total_words') // Sum of word_count for each user
+        )
+        ->groupBy('users.id', 'users.name') // Group by individual users
+        ->get();
+
+    // $results = User::query()
+    //     ->withCount([
+    //         'logins as total_logins' => fn ($query) => $query->whereBetween('created_at', [$start, $end]),
+    //     ])
+    //     ->activeBetween(start: $start, end: $end)
+    //     ->first();
+
+    dd($results->toArray());
 });

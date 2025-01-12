@@ -9,6 +9,7 @@ use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\SendPendingCharacterNotification;
 use Nova\Characters\Actions\SetCharacterType;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Users\Models\User;
 use Spatie\ModelStates\Transition;
 
@@ -24,6 +25,8 @@ class PendingToActive extends Transition
         $this->character->save();
 
         $this->resetCharacterState();
+
+        TrackStatusUpdate::run($this->character);
 
         // TODO: Decrement available positions if needed
 

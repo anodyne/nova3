@@ -12,7 +12,7 @@ class Randomize
 {
     public static function avatarShape(): AvatarShape
     {
-        return Arr::random(AvatarShape::cases());
+        return Arr::random([AvatarShape::Circle, AvatarShape::Square]);
     }
 
     public static function avatarStyle(): AvatarStyle

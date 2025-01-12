@@ -9,6 +9,8 @@ class TablerIconSet extends IconSet
     public function icons(): array
     {
         return [
+            'abc' => 'tabler-abc',
+            'activity' => 'tabler-activity',
             'add' => 'tabler-square-rounded-plus',
             'alarm' => 'tabler-alarm',
             'alert' => 'tabler-alert-square-rounded',
@@ -34,13 +36,16 @@ class TablerIconSet extends IconSet
             'chart' => 'tabler-chart-bar',
             'chart-dots' => 'tabler-chart-dots',
             'chart-histogram' => 'tabler-chart-histogram',
+            'chart-infographic' => 'tabler-chart-infographic',
             'chart-line' => 'tabler-chart-line',
             'check' => 'tabler-square-rounded-check',
+            'check-circle' => 'tabler-circle-check',
             'checks' => 'tabler-checks',
             'chevron-down' => 'tabler-chevron-down',
             'chevron-left' => 'tabler-chevron-left',
             'chevron-right' => 'tabler-chevron-right',
             'chevron-up' => 'tabler-chevron-up',
+            'circle-dashed' => 'tabler-circle-dashed',
             'clipboard' => 'tabler-clipboard',
             'clock' => 'tabler-clock-hour-3',
             'clock-edit' => 'tabler-clock-edit',

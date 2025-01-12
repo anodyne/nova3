@@ -18,6 +18,26 @@ class PostAuthorBuilder extends Builder
             ->when(filled($end), fn (Builder $query): Builder => $query->where('updated_at', '<=', $end));
     }
 
+    public function updatedBetween(?CarbonInterface $start = null, ?CarbonInterface $end = null): self
+    {
+        return $this->whereBetween('updated_at', [$start, $end]);
+    }
+
+    public function includedInPostTracking(): self
+    {
+        return $this->whereRelation('post.postType', 'options->includedInPostTracking', '=', true);
+    }
+
+    public function published(): self
+    {
+        return $this->whereRelation('post', 'status', '=', 'published');
+    }
+
+    public function draft(): self
+    {
+        return $this->whereRelation('post', 'status', '=', 'draft');
+    }
+
     public function wherePost(int|Post|null $post): self
     {
         return $this->when(

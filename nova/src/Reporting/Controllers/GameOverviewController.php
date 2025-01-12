@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Reporting\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Reporting\Reports\ActivityReporter;
+use Nova\Reporting\Reports\ParticipationReporter;
 use Nova\Reporting\Responses\GameOverviewResponse;
 
 class GameOverviewController extends Controller
@@ -18,10 +21,50 @@ class GameOverviewController extends Controller
 
     public function __invoke()
     {
-        // Participation - get a list of users who are part of a post in the
-        // published or draft state in the last X number of days who have a
-        // sum total of post words on those posts of greater than 0
+        $activity = ActivityReporter::make();
+        $participation = ParticipationReporter::make();
 
-        return GameOverviewResponse::send();
+        return GameOverviewResponse::sendWith([
+            'activity' => $activity,
+            'participation' => $participation,
+            'postingStats' => $this->getPostingStats(),
+            'settings' => settings('posting_activity'),
+        ]);
+    }
+
+    protected function getPostingStats()
+    {
+        $tablePrefix = DB::getTablePrefix();
+
+        $start = settings('posting_activity')->timeframe->startDate();
+        $end = settings('posting_activity')->timeframe->endDate();
+
+        return DB::table('posts')
+            ->leftJoin('post_types', 'posts.post_type_id', '=', 'post_types.id') // Include post_types for JSON filtering
+            ->selectRaw('
+                COUNT(DISTINCT CASE
+                    WHEN '.$tablePrefix.'posts.status = "published"
+                        AND JSON_EXTRACT('.$tablePrefix.'post_types.options, "$.includedInPostTracking") = true
+                        AND '.$tablePrefix.'posts.published_at BETWEEN ? AND ?
+                    THEN '.$tablePrefix.'posts.id
+                END) as published_post_count,
+                COUNT(DISTINCT CASE
+                    WHEN '.$tablePrefix.'posts.status = "draft"
+                        AND JSON_EXTRACT('.$tablePrefix.'post_types.options, "$.includedInPostTracking") = true
+                        AND '.$tablePrefix.'posts.updated_at BETWEEN ? AND ?
+                    THEN '.$tablePrefix.'posts.id
+                END) as draft_post_count,
+                SUM(CASE
+                    WHEN JSON_EXTRACT('.$tablePrefix.'post_types.options, "$.includedInPostTracking") = true
+                        AND '.$tablePrefix.'posts.updated_at BETWEEN ? AND ?
+                    THEN '.$tablePrefix.'posts.word_count
+                    ELSE 0
+                END) as total_word_count
+            ', [
+                $start, $end, // For published_post_count
+                $start, $end, // For draft_post_count
+                $start, $end, // For total_word_count
+            ])
+            ->first();
     }
 }

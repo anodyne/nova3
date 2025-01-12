@@ -11,10 +11,13 @@ use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\Hidden;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
+use Nova\Foundation\Models\Builders\Concerns\ActiveBetween;
 use Nova\Users\Models\User;
 
 class CharacterBuilder extends Builder
 {
+    use ActiveBetween;
+
     public function isAssignedTo(User $user): self
     {
         return $this->whereRelation('users', 'users.id', '=', $user->id);
@@ -108,5 +111,20 @@ class CharacterBuilder extends Builder
     public function notSupport(): Builder
     {
         return $this->where('type', '!=', CharacterType::Support);
+    }
+
+    public function selectTotalCount(): self
+    {
+        return $this->selectRaw('COUNT(*) as total_count');
+    }
+
+    public function selectTypeCounts(): self
+    {
+        return $this
+            ->selectRaw("
+                SUM(CASE WHEN type = 'primary' THEN 1 ELSE 0 END) as primary_count,
+                SUM(CASE WHEN type = 'secondary' THEN 1 ELSE 0 END) as secondary_count,
+                SUM(CASE WHEN type = 'support' THEN 1 ELSE 0 END) as support_count
+            ");
     }
 }

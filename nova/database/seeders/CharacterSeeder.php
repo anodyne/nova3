@@ -9,6 +9,7 @@ use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Users\Models\User;
 
 class CharacterSeeder extends Seeder
@@ -25,6 +26,7 @@ class CharacterSeeder extends Seeder
         ]);
         $picard->users()->save(User::find(1));
         CreateFormSubmission::run($form, $picard);
+        TrackStatusUpdate::run($picard);
 
         $riker = Character::factory()->primary()->create([
             'name' => 'William Riker',
@@ -33,6 +35,7 @@ class CharacterSeeder extends Seeder
         $riker->users()->save(User::find(2));
         $riker->users()->save(User::find(4), ['primary' => true]);
         CreateFormSubmission::run($form, $riker);
+        TrackStatusUpdate::run($riker);
 
         $laforge = Character::factory()->primary()->create([
             'name' => 'Geordi LaForge',
@@ -40,17 +43,20 @@ class CharacterSeeder extends Seeder
         ]);
         $laforge->users()->save(User::find(2), ['primary' => true]);
         CreateFormSubmission::run($form, $laforge);
+        TrackStatusUpdate::run($laforge);
 
         $worf = Character::factory()->create([
             'name' => 'Worf',
         ]);
         CreateFormSubmission::run($form, $worf);
+        TrackStatusUpdate::run($worf);
 
         $crusher = Character::factory()->create([
             'name' => 'Beverly Crusher',
             'rank_id' => 4,
         ]);
         CreateFormSubmission::run($form, $crusher);
+        TrackStatusUpdate::run($crusher);
 
         $shaw = Character::factory()->primary()->create([
             'name' => 'Liam Shaw',
@@ -59,6 +65,7 @@ class CharacterSeeder extends Seeder
         $shaw->positions()->save(Position::find(1));
         $shaw->users()->save(User::find(1), ['primary' => true]);
         CreateFormSubmission::run($form, $shaw);
+        TrackStatusUpdate::run($shaw);
 
         $seven = Character::factory()->primary()->create([
             'name' => 'Seven of Nine',
@@ -67,6 +74,7 @@ class CharacterSeeder extends Seeder
         $seven->positions()->save(Position::find(2));
         $seven->users()->save(User::find(2), ['primary' => true]);
         CreateFormSubmission::run($form, $seven);
+        TrackStatusUpdate::run($seven);
 
         $sidney = Character::factory()->secondary()->create([
             'name' => 'Sidney LaForge',
@@ -75,6 +83,7 @@ class CharacterSeeder extends Seeder
         $sidney->users()->save(User::find(2));
         $sidney->positions()->save(Position::find(5));
         CreateFormSubmission::run($form, $sidney);
+        TrackStatusUpdate::run($sidney);
 
         $alandra = Character::factory()->secondary()->create([
             'name' => 'Alandra LaForge',
@@ -82,6 +91,7 @@ class CharacterSeeder extends Seeder
         ]);
         $alandra->users()->save(User::find(2));
         CreateFormSubmission::run($form, $alandra);
+        TrackStatusUpdate::run($alandra);
 
         $jack = Character::factory()->pending()->create([
             'name' => 'Jack Crusher',

@@ -25,16 +25,16 @@ class DashboardsServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'dashboard:activity-log-list' => ActivityLogList::class,
+            'activity-log-list' => ActivityLogList::class,
             'clear-nova-cache-button' => ClearNovaCacheButton::class,
             'clear-version-check-cache-button' => ClearVersionCheckCacheButton::class,
             'copy-diagnostic-data-button' => CopyDiagnosticDataButton::class,
             'copy-stacktrace-button' => CopyStacktraceButton::class,
-            'rebuild-search-index-button' => RebuildSearchIndexButton::class,
+            'error-log-viewer' => ErrorLogViewer::class,
             'nova-update-panel' => NovaUpdatePanel::class,
             'nova-version-history' => NovaVersionHistory::class,
             'posting-leaderboard' => PostingLeaderboard::class,
-            'error-log-viewer' => ErrorLogViewer::class,
+            'rebuild-search-index-button' => RebuildSearchIndexButton::class,
         ];
     }
 
