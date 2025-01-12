@@ -38,6 +38,8 @@ module.exports = {
         './vendor/rawilk/laravel-form-components/resources/js/*.js',
         './vendor/awcodes/scribble/resources/**/*{.blade.php,.svelte}',
         './vendor/awcodes/typist/resources/views/**/*.blade.php',
+        './vendor/livewire/flux-pro/stubs/**/*.blade.php',
+        './vendor/livewire/flux/stubs/**/*.blade.php',
         './storage/framework/views/*.php',
     ],
     safelist: [
@@ -110,6 +112,7 @@ module.exports = {
                 red: {
                     500: '#ef4444',
                 },
+                zinc: colors.gray,
             },
             fontFamily: {
                 sans: ['var(--font-family)', ...defaultTheme.fontFamily.sans],

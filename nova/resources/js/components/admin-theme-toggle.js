@@ -8,7 +8,7 @@ export default (appearance) => ({
     },
 
     refreshTheme() {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('flux.appearance') === 'dark' || (!('flux.appearance' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
@@ -26,10 +26,10 @@ export default (appearance) => ({
     update(theme = null) {
         this.appearance = theme;
 
-        if (theme === 'light' || theme === 'dark') {
-            localStorage.theme = theme;
-        } else {
-            localStorage.removeItem('theme');
-        }
+        // if (theme === 'light' || theme === 'dark') {
+        //     localStorage.setItem('flux.appearance', theme);
+        // } else {
+        //     localStorage.removeItem('flux.appearance');
+        // }
     },
 });

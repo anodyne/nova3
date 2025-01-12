@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Users\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Foundation\Models\Builders\Concerns\ActiveBetween;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\States\Status\Hidden;
 use Nova\Users\Models\States\Status\Inactive;
@@ -12,6 +13,8 @@ use Nova\Users\Models\States\Status\Pending;
 
 class UserBuilder extends Builder
 {
+    use ActiveBetween;
+
     public function countDistinct(): self
     {
         return $this->selectRaw('count(distinct(users.id))');
@@ -70,5 +73,10 @@ class UserBuilder extends Builder
     public function notPending(): self
     {
         return $this->whereNotState('status', Pending::class);
+    }
+
+    public function selectTotalCount(): self
+    {
+        return $this->selectRaw('COUNT(*) as total_count');
     }
 }

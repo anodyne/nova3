@@ -29,7 +29,7 @@ enum PostingTimeframe: string implements HasLabel
         return match ($this) {
             self::Monthly => 'A calendar month starting on the 1st and ending on the last day of the month',
             self::Rolling => 'A rolling period encompassing the last specified number of days from today',
-            self::Weekly => 'A rolling week encompassing the last 7 days from today',
+            self::Weekly => 'A calendar week starting on Sunday and ending on Saturday',
         };
     }
 
@@ -54,6 +54,17 @@ enum PostingTimeframe: string implements HasLabel
         };
     }
 
+    public function getStatsDescription(): ?string
+    {
+        $days = settings('posting_activity.rollingDays');
+
+        return match ($this) {
+            self::Monthly => 'this month',
+            self::Rolling => 'the last '.$days.' days',
+            self::Weekly => 'this week',
+        };
+    }
+
     public function startDate(): CarbonInterface
     {
         return match ($this) {
@@ -63,12 +74,30 @@ enum PostingTimeframe: string implements HasLabel
         };
     }
 
+    public function previousStartDate(): CarbonInterface
+    {
+        return match ($this) {
+            self::Monthly => Date::now()->subMonth()->startOfMonth(),
+            self::Weekly => Date::now()->subWeek()->startOfWeek(),
+            self::Rolling => Date::now()->subDays(settings('posting_activity.rollingDays') * 2)->startOfDay(),
+        };
+    }
+
     public function endDate(): CarbonInterface
     {
         return match ($this) {
             self::Monthly => Date::now()->endOfMonth(),
             self::Weekly => Date::now()->endOfWeek(),
             self::Rolling => Date::now()->endOfDay(),
+        };
+    }
+
+    public function previousEndDate(): CarbonInterface
+    {
+        return match ($this) {
+            self::Monthly => Date::now()->subMonth()->endOfMonth(),
+            self::Weekly => Date::now()->subWeek()->endOfWeek(),
+            self::Rolling => Date::now()->subDays(settings('posting_activity.rollingDays'))->endOfDay(),
         };
     }
 }

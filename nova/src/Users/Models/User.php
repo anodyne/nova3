@@ -29,11 +29,13 @@ use Nova\Characters\Models\Character;
 use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Models\DiscussionNotification;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Models\StatusHistory;
 use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Notes\Models\Note;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Data\UserPreferences;
 use Nova\Users\Events;
@@ -162,6 +164,11 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return $this->morphToMany(Post::class, 'authorable', 'post_author');
     }
 
+    public function postAuthors(): HasMany
+    {
+        return $this->hasMany(PostAuthor::class);
+    }
+
     public function publishedPosts(): BelongsToMany
     {
         return $this->posts()->published();
@@ -180,6 +187,11 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     public function announcements(): HasMany
     {
         return $this->hasMany(Announcement::class);
+    }
+
+    public function statusHistories(): MorphMany
+    {
+        return $this->morphMany(StatusHistory::class, 'statusable');
     }
 
     public function avatarUrl(): Attribute

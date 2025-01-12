@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models\States\Status;
 
+use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 use Spatie\ModelStates\Transition;
@@ -23,6 +24,8 @@ class InactiveToActive extends Transition
         $roles = Role::isDefault()->pluck('id')->all();
 
         $this->user->syncRoles($roles);
+
+        TrackStatusUpdate::run($this->user);
 
         return $this->user;
     }

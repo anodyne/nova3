@@ -65,4 +65,20 @@ class StoryBuilder extends Builder
             ->withCount('posts', 'children')
             ->withSum('posts', 'word_count');
     }
+
+    public function selectTotalCount(): self
+    {
+        return $this->selectRaw('COUNT(*) as total_count');
+    }
+
+    public function selectStatusCounts(): self
+    {
+        return $this
+            ->selectRaw("
+                SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed_count,
+                SUM(CASE WHEN status = 'current' THEN 1 ELSE 0 END) as current_count,
+                SUM(CASE WHEN status = 'ongoing' THEN 1 ELSE 0 END) as ongoing_count,
+                SUM(CASE WHEN status = 'upcoming' THEN 1 ELSE 0 END) as upcoming_count
+            ");
+    }
 }

@@ -1,11 +1,19 @@
 @props([
     'percentage' => 0,
-    'color' => 'primary',
+    'color' => null,
 ])
 
 @php
     $strokeWidth = 12;
     $radius = sprintf('%dpx', $strokeWidth / 2);
+
+    $color = ! is_null($color)
+        ? $color
+        : match (true) {
+            $percentage < 50 => 'danger',
+            $percentage < 75 => 'warning',
+            default => 'primary',
+        };
 @endphp
 
 <svg viewBox="0 0 100 100" fill="none" {{ $attributes }}>

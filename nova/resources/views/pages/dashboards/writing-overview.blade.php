@@ -45,7 +45,7 @@
                         <div class="relative h-3 overflow-hidden rounded-full bg-gray-950/10 dark:bg-white/10">
                             <div
                                 @class([
-                                    'absolute h-3 rounded-full bg-primary-500',
+                                    'absolute h-3 rounded-full bg-primary-500 ring-2 ring-white dark:ring-gray-800',
                                     'w-3' => $postingLevelPercentage === 0,
                                 ])
                                 @style([
@@ -66,7 +66,7 @@
             <x-panel class="flex items-center">
                 <x-spacing size="sm">
                     <div class="flex flex-col items-center">
-                        <x-circular-progress :percentage="$activityPercentage" class="size-20"></x-circular-progress>
+                        <x-progress.circular :percentage="$activityPercentage" class="size-20"></x-progress.circular>
 
                         <div class="mt-4 flex flex-col items-center">
                             <x-text>

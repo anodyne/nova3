@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Characters\Models\States\Status;
 
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\TrackStatusUpdate;
 use Spatie\ModelStates\Transition;
 
 class InactiveToActive extends Transition
@@ -17,6 +18,8 @@ class InactiveToActive extends Transition
     {
         $this->character->status = Active::class;
         $this->character->save();
+
+        TrackStatusUpdate::run($this->character);
 
         // TODO: Decrement the available positions as needed
 

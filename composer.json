@@ -31,6 +31,8 @@
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.11",
         "laravel/tinker": "^2.7",
+        "livewire/flux": "^1.1",
+        "livewire/flux-pro": "^1.1",
         "livewire/livewire": "^3.4",
         "lorisleiva/laravel-actions": "^2.1",
         "mailersend/laravel-driver": "^2.3",
@@ -154,5 +156,11 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": {
+        "flux-pro": {
+            "type": "composer",
+            "url": "https://composer.fluxui.dev"
+        }
+    }
 }

@@ -211,7 +211,11 @@ return new class extends OneTimeOperation
             ['name' => 'Edit add-on', 'uri' => 'admin/addons/{addon}/edit', 'key' => 'admin.addons.edit', 'resource' => 'Nova\\Addons\\Controllers\\AddonController@edit', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Edit add-on'],
             ['name' => 'Update add-on', 'uri' => 'admin/addons/{addon}', 'key' => 'admin.addons.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Addons\\Controllers\\AddonController@update', 'layout' => 'admin'],
 
-            ['name' => 'Game overview dashboard', 'uri' => 'admin/reporting/overview', 'key' => 'admin.reporting.overview', 'resource' => 'Nova\\Reporting\\Controllers\\GameOverviewController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Game overview'],
+            ['name' => 'Game overview dashboard', 'uri' => 'admin/reporting/game-overview', 'key' => 'admin.reporting.game-overview', 'resource' => 'Nova\\Reporting\\Controllers\\GameOverviewController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Game overview'],
+            ['name' => 'Game stats report', 'uri' => 'admin/reporting/game-stats', 'key' => 'admin.reporting.game-stats', 'resource' => 'Nova\\Reporting\\Controllers\\GameStatsController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Game stats'],
+            ['name' => 'Player participation report', 'uri' => 'admin/reporting/player-participation', 'key' => 'admin.reporting.player-participation', 'resource' => 'Nova\\Reporting\\Controllers\\PlayerParticipationController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Player participation report'],
+            ['name' => 'Player activity report', 'uri' => 'admin/reporting/player-activity', 'key' => 'admin.reporting.player-activity', 'resource' => 'Nova\\Reporting\\Controllers\\PlayerActivityController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Player activity report'],
+            ['name' => 'Post types report', 'uri' => 'admin/reporting/post-types', 'key' => 'admin.reporting.post-types', 'resource' => 'Nova\\Reporting\\Controllers\\PostTypesController', 'layout' => 'admin', 'content_can_be_edited' => true, 'heading' => 'Post types report'],
         ];
 
         Page::unguarded(fn () => collect($pages)->each([Page::class, 'create']));

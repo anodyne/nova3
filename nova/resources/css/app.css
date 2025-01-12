@@ -68,3 +68,11 @@ select:not(.choices) {
 .laravel-embed__responsive-wrapper embed {
     @apply aspect-video w-full;
 }
+
+[data-flux-modal] > dialog::backdrop {
+    @apply backdrop-blur;
+}
+
+[data-flux-modal] > dialog[data-flux-flyout] {
+    @apply inset-y-4 right-4 h-full max-h-[revert-layer] min-h-0 rounded-xl !border-none shadow-xl ring-1 ring-gray-950/5 dark:ring-white/5;
+}
