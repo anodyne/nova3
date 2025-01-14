@@ -1,7 +1,7 @@
-@if ($stories->count() > 0)
-    <div>
+<div>
+    @if ($stories->count() > 0)
         <x-public::stories.timeline :$stories :expanded="true"></x-public::stories.timeline>
-    </div>
-@else
-    <div>No stories</div>
-@endif
+    @else
+        No stories
+    @endif
+</div>
