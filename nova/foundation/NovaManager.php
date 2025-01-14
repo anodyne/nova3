@@ -21,7 +21,7 @@ use Throwable;
 
 class NovaManager
 {
-    public string $version = '3.0.0-alpha16';
+    public string $version = '3.0.0-alpha17';
 
     public function characterCount(): int
     {
