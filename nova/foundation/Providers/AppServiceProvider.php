@@ -245,7 +245,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureFilament(): void
     {
-        FilamentColor::register($this->app['nova.settings']->appearance->getColors());
+        FilamentColor::register($this->app['nova.settings']?->appearance?->getColors() ?? []);
 
         FilamentColor::addShades('badge', [200, 300, 400, 700, 800, 950]);
         FilamentColor::addShades('tables::columns.toggle-column.on', [500, 900]);

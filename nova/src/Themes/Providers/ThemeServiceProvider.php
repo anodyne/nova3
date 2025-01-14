@@ -24,7 +24,7 @@ class ThemeServiceProvider extends DomainServiceProvider
     public function domainBooted(): void
     {
         if (Nova::isInstalled()) {
-            $themeName = strtolower(settings('appearance.theme'));
+            $themeName = strtolower(settings('appearance.theme') ?? 'Pulsar');
 
             $themeNamespace = str($themeName)->studly();
 

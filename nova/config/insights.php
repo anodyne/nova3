@@ -65,7 +65,6 @@ return [
     */
 
     'exclude' => [
-        'dist/',
         'docs/',
         'addons/',
         'media/',
@@ -74,6 +73,7 @@ return [
         'nova/config/',
         'nova/database/',
         'nova/resources/',
+        'public/dist/',
         'storage/',
         'themes/',
         'vendor/',

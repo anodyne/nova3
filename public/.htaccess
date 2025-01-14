@@ -19,7 +19,3 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
-
-<Files ".env">
-    Require all denied
-</Files>

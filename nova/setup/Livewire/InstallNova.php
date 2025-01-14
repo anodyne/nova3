@@ -141,6 +141,7 @@ class InstallNova extends Component
 
         Artisan::call('icons:cache');
         Artisan::call('view:cache');
+        Artisan::call('storage:link');
     }
 
     protected function seedDatabase(): void

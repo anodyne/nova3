@@ -6,6 +6,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
 
 abstract class TestCase extends BaseTestCase
@@ -24,5 +25,10 @@ abstract class TestCase extends BaseTestCase
                 'notes' => 'Sint eiusmod esse sint elit anim aliqua non ex consectetur.',
             ]),
         ]);
+    }
+
+    protected function afterRefreshingDatabase()
+    {
+        Artisan::call('operations:process');
     }
 }

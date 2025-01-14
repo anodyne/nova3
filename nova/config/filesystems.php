@@ -128,8 +128,10 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('addons') => base_path('addons'),
+        public_path('media') => base_path('media'),
         public_path('ranks') => base_path('ranks'),
+        public_path('storage') => storage_path('app/public'),
         public_path('themes') => base_path('themes'),
     ],
 

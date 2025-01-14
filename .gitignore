@@ -1,10 +1,11 @@
 /.phpunit.cache
-/dist/hot
-/dist/mix-manifest.json
-/dist/storage
 /node_modules
+/public/addons
 /public/hot
+/public/media
+/public/ranks
 /public/storage
+/public/themes
 /public/mix-manifest.json
 /storage/*.key
 /storage/*.index

@@ -22,6 +22,7 @@ Artisan::command('nova:refresh', function () {
     // $this->call('scout:sync-index-settings');
 
     $this->call('optimize:clear');
+    $this->call('storage:link');
 });
 
 Artisan::command('nova:get-timezones {token}', function (string $token) {
