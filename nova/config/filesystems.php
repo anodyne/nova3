@@ -62,6 +62,42 @@ return [
             'throw' => false,
         ],
 
+        'media-characters' => [
+            'driver' => 'scoped',
+            'disk' => 'media',
+            'prefix' => 'characters',
+        ],
+
+        'media-departments' => [
+            'driver' => 'scoped',
+            'disk' => 'media',
+            'prefix' => 'departments',
+        ],
+
+        'media-pages' => [
+            'driver' => 'scoped',
+            'disk' => 'media',
+            'prefix' => 'pages',
+        ],
+
+        'media-settings' => [
+            'driver' => 'scoped',
+            'disk' => 'media',
+            'prefix' => 'settings',
+        ],
+
+        'media-stories' => [
+            'driver' => 'scoped',
+            'disk' => 'media',
+            'prefix' => 'stories',
+        ],
+
+        'media-users' => [
+            'driver' => 'scoped',
+            'disk' => 'media',
+            'prefix' => 'users',
+        ],
+
         'nova' => [
             'driver' => 'local',
             'root' => nova_path(),
