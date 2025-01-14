@@ -79,8 +79,8 @@ class ImageTilesHeroBlockSettings extends HeroBlockSettings
                     ->maxItems(5)
                     ->schema([
                         FileUpload::make('image')
-                            ->disk('media')
-                            ->directory('pages/'.$page)
+                            ->disk('media-pages')
+                            ->directory($page)
                             ->image(),
                     ]),
                 Radio::make('orientation')

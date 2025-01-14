@@ -216,14 +216,14 @@ class Character extends Model implements HasMedia
     {
         $this->addMediaCollection('avatar')
             ->useFallbackUrl(Nova::getAvatarUrl($this->name))
-            ->useDisk('media')
+            ->useDisk('media-characters')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();
     }
 
     public static function getMediaPath(): string
     {
-        return 'characters/{model_id}/{media_id}/';
+        return '{model_id}/{media_id}/';
     }
 
     public function toSearchableArray(): array

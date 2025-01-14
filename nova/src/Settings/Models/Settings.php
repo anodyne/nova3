@@ -53,16 +53,16 @@ class Settings extends Model implements HasMedia
         $this->addMediaCollection('logo')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
-            ->useDisk('media');
+            ->useDisk('media-settings');
 
         $this->addMediaCollection('email-logo')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
-            ->useDisk('media');
+            ->useDisk('media-settings');
     }
 
     public static function getMediaPath(): string
     {
-        return 'settings/{model_id}/{media_id}/';
+        return '{model_id}/{media_id}/';
     }
 }

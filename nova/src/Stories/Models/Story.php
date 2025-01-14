@@ -166,7 +166,7 @@ class Story extends Model implements HasMedia, Sortable
         $this->addMediaCollection('story-image')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
-            ->useDisk('media');
+            ->useDisk('media-stories');
     }
 
     public function loadCountsAndSums(): self
@@ -210,7 +210,7 @@ class Story extends Model implements HasMedia, Sortable
 
     public static function getMediaPath(): string
     {
-        return 'stories/{model_id}/{media_id}/';
+        return '{model_id}/{media_id}/';
     }
 
     public static function getStatuses(): Collection

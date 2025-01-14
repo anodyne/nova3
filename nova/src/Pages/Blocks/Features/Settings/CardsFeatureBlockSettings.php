@@ -64,8 +64,8 @@ class CardsFeatureBlockSettings extends FeatureBlockSettings
                             TextInput::make('heading'),
                             Textarea::make('description'),
                             FileUpload::make('image')
-                                ->disk('media')
-                                ->directory('pages/'.$page),
+                                ->disk('media-pages')
+                                ->directory($page),
                         ]),
                 ]),
             ]),

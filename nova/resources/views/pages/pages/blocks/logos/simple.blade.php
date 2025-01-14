@@ -54,7 +54,7 @@
                     <a href="{{ $logo->url ?? '#' }}" target="_blank" rel="nofollow">
                         <img
                             class="max-h-12 w-full object-contain"
-                            src="{{ asset('media/'.$logo->image) }}"
+                            src="{{ asset('media/pages/'.$logo->image) }}"
                             alt=""
                             width="158"
                             height="48"

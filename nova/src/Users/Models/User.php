@@ -396,13 +396,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     {
         $this->addMediaCollection('avatar')
             ->useFallbackUrl(Nova::getAvatarUrl($this->name))
-            ->useDisk('media')
+            ->useDisk('media-users')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();
     }
 
     public static function getMediaPath(): string
     {
-        return 'users/{model_id}/{media_id}/';
+        return '{model_id}/{media_id}/';
     }
 }

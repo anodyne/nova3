@@ -38,9 +38,7 @@ abstract class LogosBlockSettings extends ScribbleModal
                         TextInput::make('url')
                             ->label('URL')
                             ->url(),
-                        FileUpload::make('image')
-                            ->disk('media')
-                            ->directory('pages'),
+                        FileUpload::make('image')->disk('media-pages'),
                     ]),
             ]),
         ];

@@ -107,11 +107,11 @@ class Department extends Model implements HasMedia, Sortable
         $this->addMediaCollection('header')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
-            ->useDisk('media');
+            ->useDisk('media-departments');
     }
 
     public static function getMediaPath(): string
     {
-        return 'departments/{model_id}/{media_id}/';
+        return '{model_id}/{media_id}/';
     }
 }

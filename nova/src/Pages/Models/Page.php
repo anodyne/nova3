@@ -116,15 +116,15 @@ class Page extends Model implements HasMedia
     {
         $this->addMediaCollection('block-images')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
-            ->useDisk('media');
+            ->useDisk('media-pages');
 
         $this->addMediaCollection('seo-image')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
-            ->useDisk('media');
+            ->useDisk('media-pages');
     }
 
     public static function getMediaPath(): string
     {
-        return 'pages/{model_id}/{media_id}/';
+        return '{model_id}/{media_id}/';
     }
 }

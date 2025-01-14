@@ -48,8 +48,8 @@ class AlternatingFeatureBlockSettings extends FeatureBlockSettings
                         ->profile(DefaultProfile::class)
                         ->renderToolbar(),
                     FileUpload::make('image')
-                        ->disk('media')
-                        ->directory('pages/'.$page),
+                        ->disk('media-pages')
+                        ->directory($page),
                 ]),
             ]),
         ];
