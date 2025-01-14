@@ -153,22 +153,6 @@ class Application extends IlluminateApplication
         return $this->joinPaths($this->novaPath('bootstrap'), $path);
     }
 
-    /**
-     * Are we using the secure skeleton?
-     */
-    public function usesSecureSkeleton(): bool
-    {
-        return is_dir(base_path('public'));
-    }
-
-    /**
-     * Are we using the simple skeleton?
-     */
-    public function usesSimpleSkeleton(): bool
-    {
-        return ! $this->usesSecureSkeleton();
-    }
-
     public function filamentVersion(): string
     {
         return str(InstalledVersions::getPrettyVersion('filament/support'))->after('v')->toString();

@@ -48,8 +48,4 @@ $app->useLangPath(path: $app->novaPath('lang'));
 $app->useThemePath(path: $app->basePath('themes'));
 $app->useRankPath(path: $app->basePath('ranks'));
 
-if ($app->usesSimpleSkeleton()) {
-    $app->usePublicPath(path: $app->basePath());
-}
-
 return $app;
