@@ -281,20 +281,12 @@
                                         <x-dropdown.item :href="route('admin.account.notifications')" icon="bell">
                                             My notifications
                                         </x-dropdown.item>
-                                        <div
-                                            class="flex items-center px-4 py-3 text-base text-gray-700 md:text-sm dark:text-gray-300"
-                                        >
-                                            <x-icon
-                                                name="moon"
-                                                size="sm"
-                                                class="mr-3 text-gray-500 dark:text-gray-400"
-                                            ></x-icon>
+                                        <x-dropdown.item type="div" icon="moon">
                                             <div class="flex w-full items-center justify-between">
                                                 <div class="flex-1 font-medium">Dark mode</div>
-                                                {{-- <livewire:users-admin-theme-toggle /> --}}
                                                 <flux:switch x-data x-model="$flux.dark" />
                                             </div>
-                                        </div>
+                                        </x-dropdown.item>
                                     </x-dropdown.group>
 
                                     <x-dropdown.group>
@@ -608,20 +600,12 @@
                                     <x-dropdown.item :href="route('admin.account.notifications')" icon="notification">
                                         My notifications
                                     </x-dropdown.item>
-                                    <div
-                                        class="flex items-center px-4 py-3 text-base text-gray-700 md:text-sm dark:text-gray-300"
-                                    >
-                                        <x-icon
-                                            name="moon"
-                                            size="sm"
-                                            class="mr-3 text-gray-500 dark:text-gray-400"
-                                        ></x-icon>
+                                    <x-dropdown.item type="div" icon="moon">
                                         <div class="flex w-full items-center justify-between">
                                             <div class="flex-1 font-medium">Dark mode</div>
-                                            {{-- <livewire:users-admin-theme-toggle /> --}}
                                             <flux:switch x-data x-model="$flux.dark" />
                                         </div>
-                                    </div>
+                                    </x-dropdown.item>
                                 </x-dropdown.group>
 
                                 <x-dropdown.group>
