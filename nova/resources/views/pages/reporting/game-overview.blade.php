@@ -68,7 +68,7 @@
                             <h2
                                 class="mt-2 shrink-0 text-4xl font-semibold tabular-nums tracking-tight text-gray-950 dark:text-white"
                             >
-                                {{ Number::format($postingStats->total_word_count) }}
+                                {{ Number::format($postingStats->total_word_count ?? 0) }}
                             </h2>
                         </div>
                     </div>
