@@ -4,18 +4,24 @@
     'buttonForm' => false,
 ])
 
+@php
+    $parentClasses = 'group flex w-full shrink-0 items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-100 focus:outline-none md:text-sm dark:text-gray-300 dark:hover:bg-gray-600/50';
+
+    $iconClasses = 'mr-3 shrink-0 text-gray-500 dark:text-gray-400';
+@endphp
+
 @if ($type === 'link')
-    <a {{ $attributes->merge(['href' => '#', 'class' => 'group rounded-md flex items-center w-full px-4 py-2 text-base md:text-sm font-medium transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600/50 focus:outline-none shrink-0']) }} role="menuitem">
+    <a {{ $attributes->merge(['href' => '#', 'class' => $parentClasses]) }} role="menuitem">
         @if ($icon)
-            <x-icon :name="$icon" size="sm" class="mr-3 text-gray-500 dark:text-gray-400"></x-icon>
+            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
         @endif
 
         {{ $slot }}
     </a>
 @elseif ($type === 'button' || $type === 'submit')
-    <button {{ $attributes->merge(['type' => $type, 'class' => 'group rounded-md flex items-center w-full px-4 py-2 text-base md:text-sm font-medium transition text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600/50 focus:outline-none shrink-0']) }} role="menuitem">
+    <button {{ $attributes->merge(['type' => $type, 'class' => $parentClasses]) }} role="menuitem">
         @if ($icon)
-            <x-icon :name="$icon" size="sm" class="mr-3 text-gray-500 dark:text-gray-400"></x-icon>
+            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
         @endif
 
         {{ $slot }}
@@ -24,4 +30,12 @@
     @if ($buttonForm)
         {{ $buttonForm }}
     @endif
+@else
+    <div {{ $attributes->merge(['class' => $parentClasses]) }} role="menuitem">
+        @if ($icon)
+            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
+        @endif
+
+        {{ $slot }}
+    </div>
 @endif
