@@ -31,6 +31,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.11",
         "laravel/tinker": "^2.7",
+        "league/flysystem-path-prefixing": "^3.0",
         "livewire/flux": "^1.1",
         "livewire/flux-pro": "^1.1",
         "livewire/livewire": "^3.4",
