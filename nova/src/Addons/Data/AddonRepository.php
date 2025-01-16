@@ -30,7 +30,7 @@ class AddonRepository extends Data implements Arrayable
         }
 
         if ($this->type === AddonRepositoryType::Github) {
-            $url = Str::replaceArray('?', [$this->id], config('services.github.api.latest-release'));
+            $url = Str::replaceArray('{id}', [$this->id], config('services.github.api.latest-release'));
 
             return Http::withHeader('X-GitHub-Api-Version', config('services.github.version'))->get($url);
         }
@@ -47,7 +47,7 @@ class AddonRepository extends Data implements Arrayable
         if ($this->type === AddonRepositoryType::Github) {
             $json = $this->endpoint()->json();
 
-            $repo = Http::withHeader('X-GitHub-Api-Version', '2022-11-28')
+            $repo = Http::withHeader('X-GitHub-Api-Version', config('services.github.version'))
                 ->get('https://api.github.com/repos/'.$this->id);
 
             return [
