@@ -63,6 +63,7 @@ return [
     'github' => [
         'api' => [
             'version' => '2022-11-28',
+            'all-releases' => 'https://api.github.com/repos/{id}/releases',
             'latest-release' => 'https://api.github.com/repos/{id}/releases/latest',
         ],
     ],
