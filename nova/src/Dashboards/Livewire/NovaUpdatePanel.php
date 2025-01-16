@@ -7,7 +7,9 @@ namespace Nova\Dashboards\Livewire;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Foundation\Enums\ReleaseSeverity;
 use Nova\Foundation\Nova;
+use Nova\Foundation\Values\LatestVersion;
 
 class NovaUpdatePanel extends Component
 {
@@ -26,7 +28,7 @@ class NovaUpdatePanel extends Component
     }
 
     #[Computed]
-    public function upstream()
+    public function upstream(): LatestVersion
     {
         return Cache::get('nova-latest-version');
     }
@@ -40,13 +42,13 @@ class NovaUpdatePanel extends Component
     #[Computed]
     public function hasCriticalUpdate(): bool
     {
-        return $this->hasUpdate && $this->upstream['severity'] === 'critical';
+        return $this->hasUpdate && $this->upstream->severity === ReleaseSeverity::Critical;
     }
 
     #[Computed]
     public function needsFilesUpdate(): bool
     {
-        return version_compare($this->filesVersion, $this->upstream['version'], '<');
+        return version_compare($this->filesVersion, $this->upstream->version, '<');
     }
 
     #[Computed]

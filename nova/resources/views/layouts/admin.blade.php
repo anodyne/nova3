@@ -1,4 +1,5 @@
 @use('Nova\Applications\Models\Application')
+@use('Nova\Foundation\Enums\ReleaseSeverity')
 @use('Nova\Pages\Models\Page')
 
 <!DOCTYPE html>
@@ -228,12 +229,12 @@
                                             <x-slot name="trailing">
                                                 <div
                                                     @class([
-                                                        'text-warning-500' => cache('nova-update-available') !== 'critical',
-                                                        'text-danger-500' => cache('nova-update-available') === 'critical',
+                                                        'text-warning-500' => cache('nova-update-available') !== ReleaseSeverity::Critical,
+                                                        'text-danger-500' => cache('nova-update-available') === ReleaseSeverity::Critical,
                                                     ])
                                                 >
                                                     <x-icon
-                                                        :name="cache('nova-update-available') === 'critical' ? 'update-alert' : 'update'"
+                                                        :name="cache('nova-update-available') === ReleaseSeverity::Critical ? 'update-alert' : 'update'"
                                                         size="sm"
                                                     ></x-icon>
                                                 </div>
@@ -246,7 +247,7 @@
                             <x-sidebar.spacer></x-sidebar.spacer>
 
                             <x-sidebar.section>
-                                <x-sidebar.item href="https://discord.gg/7WmKUks" target="_blank">
+                                <x-sidebar.item :href="external_content('discord')" target="_blank">
                                     <x-icon name="help" size="sm"></x-icon>
                                     <x-sidebar.label>Get help</x-sidebar.label>
                                     <x-slot name="trailing">
@@ -506,12 +507,12 @@
                                                             <x-slot name="trailing">
                                                                 <div
                                                                     @class([
-                                                                        'text-warning-500' => cache('nova-update-available') !== 'critical',
-                                                                        'text-danger-500' => cache('nova-update-available') === 'critical',
+                                                                        'text-warning-500' => cache('nova-update-available') !== ReleaseSeverity::Critical,
+                                                                        'text-danger-500' => cache('nova-update-available') === ReleaseSeverity::Critical,
                                                                     ])
                                                                 >
                                                                     <x-icon
-                                                                        :name="cache('nova-update-available') === 'critical' ? 'update-alert' : 'update'"
+                                                                        :name="cache('nova-update-available') === ReleaseSeverity::Critical ? 'update-alert' : 'update'"
                                                                         size="sm"
                                                                     ></x-icon>
                                                                 </div>
@@ -524,7 +525,7 @@
                                             <x-sidebar.spacer></x-sidebar.spacer>
 
                                             <x-sidebar.section>
-                                                <x-sidebar.item href="https://discord.gg/7WmKUks" target="_blank">
+                                                <x-sidebar.item :href="external_content('discord')" target="_blank">
                                                     <x-icon name="help" size="sm"></x-icon>
                                                     <x-sidebar.label>Get help</x-sidebar.label>
                                                     <x-slot name="trailing">

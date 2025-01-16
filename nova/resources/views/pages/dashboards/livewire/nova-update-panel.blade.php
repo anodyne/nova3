@@ -1,3 +1,5 @@
+@use('Nova\Foundation\Enums\ReleaseSeverity')
+
 <div x-data="{ open: $wire.entangle('sidebarOpen') }" class="leading-none">
     <button type="button" x-on:click="open = true">
         @if (! $needsFilesUpdate)
@@ -13,14 +15,14 @@
                 </x-badge>
             @endif
         @else
-            @if ($upstream['severity'] === 'critical')
+            @if ($upstream->severity === ReleaseSeverity::Critical)
                 <x-badge size="lg" color="danger" pill>
-                    <x-badge size="lg" color="danger" pill>Nova {{ $upstream['version'] }} is available</x-badge>
+                    <x-badge size="lg" color="danger" pill>Nova {{ $upstream->version }} is available</x-badge>
                     Update from {{ $filesVersion }}
                 </x-badge>
             @else
                 <x-badge size="lg" color="warning" pill>
-                    <x-badge size="lg" color="warning" pill>Nova {{ $upstream['version'] }} is available</x-badge>
+                    <x-badge size="lg" color="warning" pill>Nova {{ $upstream->version }} is available</x-badge>
                     Update from {{ $filesVersion }}
                 </x-badge>
             @endif
@@ -105,9 +107,9 @@
                             @if ($hasUpdate)
                                 <x-panel well>
                                     <x-panel.well-heading>
-                                        <x-slot name="heading">Nova {{ $upstream['version'] }} available</x-slot>
+                                        <x-slot name="heading">Nova {{ $upstream->version }} is available</x-slot>
 
-                                        @if ($upstream['severity'] === 'critical')
+                                        @if ($upstream->severity === ReleaseSeverity::Critical)
                                             <x-slot name="controls">
                                                 <div
                                                     class="flex items-center gap-x-1 text-sm/6 font-medium text-danger-500"
@@ -121,17 +123,21 @@
 
                                     <x-panel>
                                         <x-spacing size="md">
-                                            <x-text size="lg" class="max-w-2xl">
-                                                {{ $upstream['description'] }}
-                                            </x-text>
+                                            @if (filled($upstream->notes))
+                                                <x-text size="lg" class="max-w-2xl">
+                                                    {{ $upstream->notes }}
+                                                </x-text>
+                                            @endif
 
-                                            <div class="prose mt-4 dark:prose-invert">
-                                                {!! str($upstream['notes'])->markdown() !!}
-                                            </div>
+                                            @if (filled($upstream->details))
+                                                <div class="prose mt-4 dark:prose-invert">
+                                                    {!! str($upstream->details)->markdown() !!}
+                                                </div>
+                                            @endif
 
                                             <div class="mt-8 flex items-center gap-2">
                                                 @if ($needsFilesUpdate)
-                                                    <x-button href="https://anodyne-productions.com" color="primary">
+                                                    <x-button :href="$upstream->downloadLink" color="primary">
                                                         Get the update files &rarr;
                                                     </x-button>
                                                 @endif
@@ -142,7 +148,7 @@
                                                     </x-button>
                                                 @endif
 
-                                                <x-button plain>Learn more</x-button>
+                                                {{-- <x-button plain>Learn more</x-button> --}}
                                             </div>
                                         </x-spacing>
                                     </x-panel>
