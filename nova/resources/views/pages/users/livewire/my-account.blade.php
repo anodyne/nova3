@@ -123,9 +123,15 @@
         </x-fieldset.heading>
 
         <x-fieldset.field-group constrained>
-            <x-fieldset.field label="Timezone" id="timezone" name="timezone" :error="$errors->first('form.timezone')">
-                <x-input.text wire:model.live.debounce="form.timezone"></x-input.text>
-            </x-fieldset.field>
+            <flux:field>
+                <flux:label>Timezone</flux:label>
+
+                <flux:select variant="listbox" searchable placeholder="Choose timezone" wire:model.live="form.timezone">
+                    @foreach ($timezones as $tz)
+                        <flux:option value="{{ $tz->id }}">{{ $tz->name }}</flux:option>
+                    @endforeach
+                </flux:select>
+            </flux:field>
 
             <x-switch.field>
                 <x-fieldset.label>Dark mode</x-fieldset.label>

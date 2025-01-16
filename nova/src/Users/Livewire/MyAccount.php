@@ -44,6 +44,7 @@ class MyAccount extends Component
     {
         return view('pages.users.livewire.my-account', [
             'errors' => $this->errors,
+            'timezones' => $this->timezones,
         ]);
     }
 }
