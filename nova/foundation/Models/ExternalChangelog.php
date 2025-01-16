@@ -6,20 +6,22 @@ namespace Nova\Foundation\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Nova\Foundation\Casts\CsvCast;
+use Nova\Foundation\Enums\ReleaseSeverity;
 
 class ExternalChangelog extends Model
 {
     protected $table = 'external_changelog';
 
     protected $fillable = [
-        'version', 'series', 'description', 'notes', 'release_date', 'tags',
+        'version', 'series', 'description', 'notes', 'release_date', 'tags', 'severity',
     ];
 
     protected $casts = [
         'release_date' => 'date',
-        'tags' => CsvCast::class,
+        'severity' => ReleaseSeverity::class,
+        'tags' => 'array',
     ];
 
     public static function syncFromAnodyne(): void
@@ -27,12 +29,23 @@ class ExternalChangelog extends Model
         $changelog = Http::get(config('services.anodyne.external.changelog'));
 
         if ($changelog->ok()) {
-            foreach ($changelog as $version) {
+            foreach ($changelog->collect('data') as $version) {
                 ExternalChangelog::updateOrCreate(
                     ['version' => $version['version']],
                     Arr::except($version, 'version')
                 );
             }
+
+            static::refreshCache();
         }
+    }
+
+    public static function refreshCache(): void
+    {
+        Cache::forget('external-changelog');
+
+        Cache::rememberForever('external-changelog', function () {
+            return ExternalChangelog::get();
+        });
     }
 }

@@ -5,7 +5,9 @@ declare(strict_types=1);
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
+use Mistralys\VersionParser\VersionParser;
 use Nova\Foundation\Icons\Icon;
+use Nova\Foundation\Nova;
 use Nova\Foundation\Toast;
 
 if (! function_exists('blank')) {
@@ -175,5 +177,57 @@ if (! function_exists('get_class_name')) {
         $parts = explode('\\', $value);
 
         return array_pop($parts);
+    }
+}
+
+if (! function_exists('external_content')) {
+    function external_content($key, $default = null)
+    {
+        $subject = data_get(cache('external-content'), $key, $default);
+
+        if (blank($subject)) {
+            return null;
+        }
+
+        $version = VersionParser::create(Nova::filesVersion());
+
+        return parse(
+            subject: $subject,
+            variables: [
+                'versionLong' => $version->getTagVersion(),
+                'versionShort' => sprintf('%s.%s', $version->getMajorVersion(), $version->getMinorVersion()),
+            ]
+        );
+    }
+}
+
+if (! function_exists('parse')) {
+    function parse(string $subject, array $variables, string $escapeChar = '@', $errPlaceholder = null)
+    {
+        $esc = preg_quote($escapeChar);
+        $expr = "/
+            $esc$esc(?=$esc*+{)
+          | $esc{
+          | {(\w+)}
+        /x";
+
+        $callback = function ($match) use ($variables, $escapeChar, $errPlaceholder) {
+            switch ($match[0]) {
+                case $escapeChar.$escapeChar:
+                    return $escapeChar;
+
+                case $escapeChar.'{':
+                    return '{';
+
+                default:
+                    if (isset($variables[$match[1]])) {
+                        return $variables[$match[1]];
+                    }
+
+                    return isset($errPlaceholder) ? $errPlaceholder : $match[0];
+            }
+        };
+
+        return preg_replace_callback($expr, $callback, $subject);
     }
 }
