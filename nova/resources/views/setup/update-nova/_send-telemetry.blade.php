@@ -24,7 +24,7 @@
             statistics. You can see the full set of data sent to Anodyne below and learn more about telemetry data and
             how it’s used in the
             {{-- format-ignore-start --}}
-            <a href="#" target="_blank" class="text-primary-500 hover:text-primary-600 underline font-medium">telemetry guide</a>.
+            <a href="{{ external_content('telemetry-guide') }}" target="_blank" class="text-primary-500 hover:text-primary-600 underline font-medium">telemetry guide</a>.
             {{-- format-ignore-end --}}
         </p>
 
