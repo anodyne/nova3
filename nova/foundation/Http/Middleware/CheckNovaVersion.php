@@ -8,7 +8,9 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Nova\Foundation\Nova;
+use Nova\Foundation\Values\LatestVersion;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckNovaVersion
@@ -22,18 +24,28 @@ class CheckNovaVersion
     {
         if (Nova::isInstalled()) {
             Cache::flexible('nova-latest-version', [86_400, 129_600], function () {
-                return Http::get(route('api.latest-version'))->json();
+                // TODO: remove this for the 3.0 release
+                $latestVersion = Http::get(config('services.anodyne.api.latest-version'))->json();
 
-                // return Http::get(config('services.anodyne.api.latest-version'))->json();
+                if (str(data_get($latestVersion, 'version'))->startsWith('3')) {
+                    return LatestVersion::fromAnodyne($latestVersion);
+                }
+
+                $url = Str::replaceArray('{id}', ['anodyne/nova3'], config('services.github.api.all-releases'));
+
+                $githubVersion = Http::withHeader('X-GitHub-Api-Version', config('services.github.version'))
+                    ->get($url)
+                    ->collect()
+                    ->first();
+
+                return LatestVersion::fromGithub($githubVersion);
             });
 
             Cache::flexible('nova-update-available', [86_400, 129_600], function () {
                 $latestVersion = Cache::get('nova-latest-version');
-                $version = data_get($latestVersion, 'version', '0.0');
-                $severity = data_get($latestVersion, 'severity');
 
-                if (version_compare(Nova::filesVersion(), $version, '<')) {
-                    return $severity;
+                if (version_compare(Nova::filesVersion(), $latestVersion->version, '<')) {
+                    return $latestVersion->severity;
                 }
 
                 return null;

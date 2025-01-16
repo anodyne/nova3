@@ -21,8 +21,6 @@ use Throwable;
 
 class NovaManager
 {
-    public string $version = '3.0.0-alpha17';
-
     public function characterCount(): int
     {
         return once(fn () => Character::count());
@@ -52,12 +50,12 @@ class NovaManager
         return settings('appearance.fontFamily') ?? 'Inter';
     }
 
-    public function getBodyFontFamily(string $section): string
+    public function getBodyFontFamily(): string
     {
         return settings('appearance.fontFamily') ?? 'Inter';
     }
 
-    public function getHeaderFontFamily(string $section): string
+    public function getHeaderFontFamily(): string
     {
         return settings('appearance.fontFamily') ?? 'Inter';
     }
@@ -80,7 +78,7 @@ class NovaManager
 
     public function filesVersion(): string
     {
-        return $this->version;
+        return config('nova.version');
     }
 
     public function databaseVersion(): ?string

@@ -37,6 +37,7 @@
         "livewire/livewire": "^3.4",
         "lorisleiva/laravel-actions": "^2.1",
         "mailersend/laravel-driver": "^2.3",
+        "mistralys/version-parser": "^2.1",
         "opcodesio/log-viewer": "^3.11",
         "santigarcor/laratrust": "^8.0",
         "spatie/eloquent-sortable": "^4.0",

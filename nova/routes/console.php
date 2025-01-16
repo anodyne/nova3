@@ -6,6 +6,8 @@ use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
+use Nova\Foundation\Models\ExternalChangelog;
+use Nova\Foundation\Models\ExternalContent;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -16,6 +18,8 @@ Artisan::command('nova:refresh', function () {
     $this->call('migrate:fresh');
     $this->call('operations:process');
     $this->call('db:seed');
+
+    $this->call('nova:sync-external-content');
 
     // $this->call('scout:delete-all-indexes');
     // $this->call('scout:import', ['model' => 'App\Models\Product']);
@@ -43,4 +47,18 @@ Artisan::command('nova:get-timezones {token}', function (string $token) {
     File::put(nova_path('timezones.json'), json_encode($collection));
 
     $this->info('Timezones updated');
+});
+
+Artisan::command('nova:sync-external-content', function () {
+    ExternalChangelog::syncFromAnodyne();
+    ExternalContent::syncFromAnodyne();
+
+    $this->info('External content and changelog has been synced.');
+});
+
+Artisan::command('nova:refresh-external-content', function () {
+    ExternalChangelog::refreshCache();
+    ExternalContent::refreshCache();
+
+    $this->info('External content and changelog cache has been refreshed.');
 });

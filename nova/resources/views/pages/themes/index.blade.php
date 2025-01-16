@@ -3,7 +3,7 @@
 <x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
-            <x-button href="https://anodyne-productions.com/docs/3.0/themes/overview" target="_blank" plain>
+            <x-button :href="external_content('theme-docs')" target="_blank" plain>
                 <x-icon name="book" size="sm"></x-icon>
                 Learn more
             </x-button>
@@ -26,7 +26,7 @@
                     Looking for more themes for your game? Check out the Nova Add-on Exchange!
                 </p>
                 <p class="mt-3 shrink-0 text-base md:ml-6 md:mt-0 md:text-sm">
-                    <x-button :href="config('services.anodyne.links.exchange')" target="_blank" color="primary" text>
+                    <x-button :href="external_content('exchange-link')" target="_blank" color="primary" text>
                         Go &rarr;
                     </x-button>
                 </p>

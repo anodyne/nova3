@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Number;
+use Illuminate\Support\Str;
 use Nova\Addons\Models\Addon;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Department;
@@ -12,6 +14,7 @@ use Nova\Discussions\Data\DiscussionData;
 use Nova\Discussions\Models\Discussion;
 use Nova\Foundation\Models\SystemInfo;
 use Nova\Foundation\Nova;
+use Nova\Foundation\Values\LatestVersion;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
@@ -275,4 +278,25 @@ Route::get('participation', function () {
     //     ->first();
 
     dd($results->toArray());
+});
+
+Route::get('external', function () {
+    dd(external_content('discord'));
+});
+
+Route::get('version', function () {
+    $latestVersion = Http::get(config('services.anodyne.api.latest-version'))->json();
+
+    $url = Str::replaceArray('{id}', ['anodyne/nova3'], config('services.github.api.all-releases'));
+
+    $githubVersion = Http::withHeader('X-GitHub-Api-Version', config('services.github.version'))
+        ->get($url)
+        ->collect();
+
+    dd($url, $githubVersion);
+
+    $versionAnodyne = LatestVersion::fromAnodyne($latestVersion);
+    $versionGithub = LatestVersion::fromGithub($githubVersion);
+
+    dd($latestVersion, $githubVersion, $versionAnodyne, $versionGithub);
 });
