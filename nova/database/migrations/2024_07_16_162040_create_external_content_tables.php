@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('version');
             $table->string('series');
+            $table->string('severity');
             $table->longText('description');
-            $table->longText('notes');
-            $table->text('tags');
+            $table->longText('notes')->nullable();
+            $table->json('tags')->nullable();
             $table->dateTime('release_date');
             $table->timestamps();
         });
