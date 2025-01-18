@@ -138,10 +138,7 @@ class Character extends Model implements HasMedia
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function avatarUrl(): Attribute

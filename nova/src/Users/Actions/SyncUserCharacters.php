@@ -27,7 +27,27 @@ class SyncUserCharacters
             ->mapWithKeys(fn ($character) => [$character => ['primary' => (int) $character === $data->primaryCharacter]])
             ->all();
 
-        $user->characters()->sync($characters);
+        $operations = $user->characters()->sync($characters);
+
+        if (count($operations['attached']) > 0) {
+            activity()
+                ->performedOn($user)
+                ->withProperties([
+                    'characterIds' => $operations['attached'],
+                ])
+                ->event('assigned')
+                ->log('assigned');
+        }
+
+        if (count($operations['detached']) > 0) {
+            activity()
+                ->performedOn($user)
+                ->withProperties([
+                    'characterIds' => $operations['detached'],
+                ])
+                ->event('unassigned')
+                ->log('unassigned');
+        }
 
         $this->updateCharacterTypes($data->characters);
 

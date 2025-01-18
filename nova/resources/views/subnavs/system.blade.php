@@ -33,14 +33,16 @@
             </x-sidebar.subnav.item>
         @endcan
 
-        @can('viewAny', Activity::class)
+        {{--
+            @can('viewAny', Activity::class)
             <x-sidebar.subnav.item
-                :href="route('admin.activity-log.index')"
-                :active="request()->routeIs('admin.activity-log.*')"
+            :href="route('admin.activity-log.index')"
+            :active="request()->routeIs('admin.activity-log.*')"
             >
-                Activity log
+            Activity log
             </x-sidebar.subnav.item>
-        @endcan
+            @endcan
+        --}}
 
         @permission('system.error-logs')
             <x-sidebar.subnav.item

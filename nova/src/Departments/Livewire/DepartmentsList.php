@@ -31,6 +31,9 @@ use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class DepartmentsList extends TableComponent
 {
@@ -80,6 +83,21 @@ class DepartmentsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('admin.departments.edit', $record)),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->eventDescriptions([
+                                        'duplicated' => fn (Activity $activity) => sprintf(
+                                            '**%s** duplicated the department as **%s**.',
+                                            $activity->causer->name,
+                                            Department::find($activity->getExtraProperty('replica'))?->name
+                                        ),
+                                        'uploaded' => fn (Activity $activity) => sprintf(
+                                            '**%s** uploaded a department header image.',
+                                            $activity->causer->name
+                                        ),
+                                    ]);
+                            }),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([

@@ -18,9 +18,9 @@ class ActivateUser
             $user->status->transitionTo(Active::class);
 
             activity()
-                ->causedBy(auth()->user())
                 ->performedOn($user)
-                ->log(':subject.name was activated');
+                ->event('activated')
+                ->log('activated');
         }
 
         return $user->refresh();

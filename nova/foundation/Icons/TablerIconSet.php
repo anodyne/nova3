@@ -99,6 +99,7 @@ class TablerIconSet extends IconSet
             'leaf' => 'tabler-leaf',
             'link' => 'tabler-link',
             'list' => 'tabler-list',
+            'list-details' => 'tabler-list-details',
             'location' => 'tabler-map-pin',
             'lock-check' => 'tabler-lock-check',
             'lock-closed' => 'tabler-lock',

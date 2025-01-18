@@ -25,6 +25,7 @@
         "filament/tables": "^3.0-stable",
         "flowframe/laravel-trend": "^0.3.0",
         "guzzlehttp/guzzle": "^7.2",
+        "jacksleight/blade-tailor": "^0.3.2",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/fortify": "^1.16",
         "laravel/framework": "^11.0",
@@ -39,6 +40,7 @@
         "mailersend/laravel-driver": "^2.3",
         "mistralys/version-parser": "^2.1",
         "opcodesio/log-viewer": "^3.11",
+        "ralphjsmit/laravel-filament-activitylog": "^1.8",
         "santigarcor/laratrust": "^8.0",
         "spatie/eloquent-sortable": "^4.0",
         "spatie/laravel-activitylog": "^4.0",
@@ -154,7 +156,8 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "ralphjsmit/packages": true
         }
     },
     "minimum-stability": "dev",
@@ -163,6 +166,10 @@
         "flux-pro": {
             "type": "composer",
             "url": "https://composer.fluxui.dev"
+        },
+        "activity-log-pro": {
+            "type": "composer",
+            "url": "https://satis.ralphjsmit.com"
         }
     }
 }

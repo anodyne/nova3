@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f3568f47a530b59b0b5de5a0c7e2d36",
+    "content-hash": "58d9025c386dbe0841a342dd3a2a1bf0",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1233,16 +1233,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.337.0",
+            "version": "3.337.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7e40cecb3ce66749bbd5eaa9f370de48c16acd6c"
+                "reference": "f885dd803a257da9d54e72a4750bba73e1196aee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e40cecb3ce66749bbd5eaa9f370de48c16acd6c",
-                "reference": "7e40cecb3ce66749bbd5eaa9f370de48c16acd6c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f885dd803a257da9d54e72a4750bba73e1196aee",
+                "reference": "f885dd803a257da9d54e72a4750bba73e1196aee",
                 "shasum": ""
             },
             "require": {
@@ -1325,9 +1325,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.337.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.337.2"
             },
-            "time": "2025-01-15T19:58:52+00:00"
+            "time": "2025-01-17T19:10:04+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -3812,6 +3812,50 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "jacksleight/blade-tailor",
+            "version": "0.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jacksleight/blade-tailor.git",
+                "reference": "f18511baa8accdbce5123acdf6c8c0dd2cccf364"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jacksleight/blade-tailor/zipball/f18511baa8accdbce5123acdf6c8c0dd2cccf364",
+                "reference": "f18511baa8accdbce5123acdf6c8c0dd2cccf364",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^10.0|^11.0",
+                "php": "^8.1|^8.2|^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JackSleight\\BladeTailor\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JackSleight\\BladeTailor\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "support": {
+                "issues": "https://github.com/jacksleight/blade-tailor/issues",
+                "source": "https://github.com/jacksleight/blade-tailor/tree/0.3.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/jacksleight",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-11-28T14:23:46+00:00"
         },
         {
             "name": "kelunik/certificate",
@@ -8551,6 +8595,124 @@
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
+            "name": "ralphjsmit/laravel-filament-activitylog",
+            "version": "1.8.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:ralphjsmit/laravel-filament-activitylog.git",
+                "reference": "b16549862b7f0dc11d59be9ce8fc42f27122482c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://satis.ralphjsmit.com/dist/ralphjsmit/laravel-filament-activitylog/ralphjsmit-laravel-filament-activitylog-b16549862b7f0dc11d59be9ce8fc42f27122482c-zip-bc1670.zip",
+                "reference": "b16549862b7f0dc11d59be9ce8fc42f27122482c",
+                "shasum": "c2153e9bcaa9c3ebbf245e9e3ac243f5ca28c589"
+            },
+            "require": {
+                "filament/forms": "^3.1",
+                "filament/support": "^3.1",
+                "illuminate/contracts": "^10.0|^11.0",
+                "php": "^8.1",
+                "ralphjsmit/packages": "^1.4",
+                "spatie/laravel-activitylog": "^4.7",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.8|^8.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "RalphJSmit\\Filament\\Activitylog\\ActivitylogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RalphJSmit\\Filament\\Activitylog\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": []
+            },
+            "scripts": {
+                "format": [
+                    "vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ralph J. Smit",
+                    "email": "rjs@ralphjsmit.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A package to integrate Spatie Activitylog with Filament.",
+            "homepage": "https://github.com/ralphjsmit/laravel-filament-activitylog",
+            "keywords": [
+                "Ralph J. Smit",
+                "laravel",
+                "laravel-filament-activitylog"
+            ],
+            "support": {
+                "source": "https://github.com/ralphjsmit/laravel-filament-activitylog/tree/1.8.2",
+                "issues": "https://github.com/ralphjsmit/laravel-filament-activitylog/issues"
+            },
+            "time": "2024-12-26T16:33:31+00:00"
+        },
+        {
+            "name": "ralphjsmit/packages",
+            "version": "1.4.2",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:ralphjsmit/packages.git",
+                "reference": "69650da1603c282ee71bfac969293e3faca36e3f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://satis.ralphjsmit.com/dist/ralphjsmit/packages/ralphjsmit-packages-69650da1603c282ee71bfac969293e3faca36e3f-zip-06dcad.zip",
+                "reference": "69650da1603c282ee71bfac969293e3faca36e3f",
+                "shasum": "a1e35fea977f8e1bbfc6ac0d82ece7268aa11b10"
+            },
+            "require": {
+                "composer-plugin-api": "^2.0",
+                "php": "^8.0",
+                "spatie/url": "^2.4"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0",
+                "mockery/mockery": "^1.6",
+                "pestphp/pest": "^2.30",
+                "spatie/ray": "^1.40"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "RalphJSmit\\Packages\\Plugin",
+                "plugin-modifies-downloads": true
+            },
+            "autoload": {
+                "psr-4": {
+                    "RalphJSmit\\Packages\\": "src/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ]
+            },
+            "support": {
+                "source": "https://github.com/ralphjsmit/packages/tree/1.4.2",
+                "issues": "https://github.com/ralphjsmit/packages/issues"
+            },
+            "time": "2024-06-05T09:41:46+00:00"
+        },
+        {
             "name": "ramsey/collection",
             "version": "2.0.0",
             "source": {
@@ -9232,16 +9394,16 @@
         },
         {
             "name": "spatie/image",
-            "version": "3.7.5",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/image.git",
-                "reference": "8a4f258e01f080218b2e13b42981ad220e919c40"
+                "reference": "06cf293f66c833704935ba18e16c784d7e8433a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/image/zipball/8a4f258e01f080218b2e13b42981ad220e919c40",
-                "reference": "8a4f258e01f080218b2e13b42981ad220e919c40",
+                "url": "https://api.github.com/repos/spatie/image/zipball/06cf293f66c833704935ba18e16c784d7e8433a7",
+                "reference": "06cf293f66c833704935ba18e16c784d7e8433a7",
                 "shasum": ""
             },
             "require": {
@@ -9289,7 +9451,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/image/tree/3.7.5"
+                "source": "https://github.com/spatie/image/tree/3.8.0"
             },
             "funding": [
                 {
@@ -9301,7 +9463,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-13T13:19:27+00:00"
+            "time": "2025-01-17T10:19:44+00:00"
         },
         {
             "name": "spatie/image-optimizer",
@@ -10565,6 +10727,68 @@
                 }
             ],
             "time": "2025-01-13T13:04:43+00:00"
+        },
+        {
+            "name": "spatie/url",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/url.git",
+                "reference": "93a51db743cdec22b081c64593e193887c9cd395"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/url/zipball/93a51db743cdec22b081c64593e193887c9cd395",
+                "reference": "93a51db743cdec22b081c64593e193887c9cd395",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0",
+                "psr/http-message": "^1.0 || ^2.0",
+                "spatie/macroable": "^1.0 || ^2.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "^1.21"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Url\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Parse, build and manipulate URL's",
+            "homepage": "https://github.com/spatie/url",
+            "keywords": [
+                "spatie",
+                "url"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/url/issues",
+                "source": "https://github.com/spatie/url/tree/2.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-03-08T11:35:19+00:00"
         },
         {
             "name": "staudenmeir/eloquent-has-many-deep",

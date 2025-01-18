@@ -9,6 +9,7 @@ use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Actions\UpdateFormSubmission;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\UpdateUserRequest;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class UpdateUserManager
 {
@@ -16,6 +17,8 @@ class UpdateUserManager
 
     public function handle(User $user, UpdateUserRequest $request): User
     {
+        LogBatch::startBatch();
+
         $user = UpdateUser::run($user, $request->getUserData());
 
         if (filled($request->assigned_characters)) {
@@ -31,6 +34,8 @@ class UpdateUserManager
         RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
 
         $this->updateFormSubmission($user, $request->input('userBio', []));
+
+        LogBatch::endBatch();
 
         return $user->refresh();
     }

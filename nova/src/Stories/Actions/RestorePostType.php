@@ -17,9 +17,9 @@ class RestorePostType
             $postType->restore();
 
             activity()
-                ->causedBy(auth()->user())
                 ->performedOn($postType)
-                ->log(':subject.name was restored');
+                ->event('restored')
+                ->log('restored');
         }
 
         return $postType->refresh();

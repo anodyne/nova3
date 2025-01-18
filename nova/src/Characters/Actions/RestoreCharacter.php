@@ -17,9 +17,9 @@ class RestoreCharacter
             $character->restore();
 
             activity()
-                ->causedBy(auth()->user())
                 ->performedOn($character)
-                ->log(':subject.name was restored');
+                ->event('restored')
+                ->log('restored');
         }
 
         return $character->refresh();

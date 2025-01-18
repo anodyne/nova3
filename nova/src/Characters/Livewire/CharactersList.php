@@ -42,6 +42,8 @@ use Nova\Foundation\Filament\Actions\RestoreBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class CharactersList extends TableComponent
 {
@@ -94,6 +96,14 @@ class CharactersList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('admin.characters.edit', $record)),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->itemIcon('activated', iconName('check'))
+                                    ->itemIconColor('activated', 'success')
+                                    ->itemIcon('deactivated', iconName('remove'))
+                                    ->itemIconColor('deactivated', 'warning');
+                            }),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([

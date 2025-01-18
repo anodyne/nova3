@@ -22,6 +22,7 @@ use Nova\Departments\Actions\DuplicatePosition;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Events\PositionDuplicated;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -32,6 +33,9 @@ use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class PositionsList extends TableComponent
 {
@@ -48,7 +52,7 @@ class PositionsList extends TableComponent
                 Group::make('department.name')->label('Department name')->collapsible(),
                 Group::make('department.order_column')
                     ->label('Department order')
-                    ->getTitleFromRecordUsing(fn (Model $record): string => $record->department->name)
+                    ->getTitleFromRecordUsing(fn (Position $record): string => $record->department->name)
                     ->collapsible(),
             ])
             ->defaultGroup('department.order_column')
@@ -80,7 +84,7 @@ class PositionsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
+                    ->color(fn (Position $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -88,10 +92,28 @@ class PositionsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.positions.show', $record)),
+                            ->url(fn (Position $record): string => route('admin.positions.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.positions.edit', $record)),
+                            ->url(fn (Position $record): string => route('admin.positions.edit', $record)),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->attributeLabels([
+                                        'available' => 'availability',
+                                        'department_id' => 'department',
+                                    ])
+                                    ->attributeValues([
+                                        'department_id' => fn ($value) => Department::find($value)?->name,
+                                    ])
+                                    ->eventDescriptions([
+                                        'duplicated' => fn (Activity $activity) => sprintf(
+                                            '**%s** duplicated the position as **%s**.',
+                                            $activity->causer->name,
+                                            Position::find($activity->getExtraProperty('replica'))?->name
+                                        ),
+                                    ]);
+                            }),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -102,7 +124,7 @@ class PositionsList extends TableComponent
                                 Select::make('department_id')->relationship('department', 'name'),
                             ])
                             ->modalContentView('pages.positions.duplicate')
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (Position $record, array $data): void {
                                 $replica = DuplicatePosition::run(
                                     $record,
                                     PositionData::from(array_merge($record->toArray(), $data))
@@ -121,8 +143,8 @@ class PositionsList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.positions.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->name.' position was deleted')
-                            ->using(fn (Model $record): Model => DeletePosition::run($record)),
+                            ->successNotificationTitle(fn (Position $record): string => $record->name.' position was deleted')
+                            ->using(fn (Position $record): Model => DeletePosition::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -134,7 +156,7 @@ class PositionsList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Position $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -143,7 +165,7 @@ class PositionsList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeletePosition::run($record));
+                            ->each(fn (Position $record): Model => DeletePosition::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('position was|positions were', count($records)).' deleted')

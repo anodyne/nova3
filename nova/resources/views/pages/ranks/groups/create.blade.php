@@ -13,9 +13,7 @@
         <x-form :action="route('admin.ranks.groups.store')">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
-                        <x-input.text :value="old('name')" data-cy="name" />
-                    </x-fieldset.field>
+                    <flux:input label="Name" name="name" :value="old('name')"></flux:input>
 
                     <div class="flex items-center gap-x-2.5">
                         <x-switch
@@ -31,7 +29,7 @@
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Add</x-button>
+                <x-button type="submit" variant="primary">Add</x-button>
                 <x-button :href="route('admin.ranks.groups.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>

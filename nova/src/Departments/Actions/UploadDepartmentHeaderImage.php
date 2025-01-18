@@ -14,6 +14,11 @@ class UploadDepartmentHeaderImage
     public function handle(Department $department, $imagePath): Department
     {
         if ($imagePath !== null) {
+            activity()
+                ->performedOn($department)
+                ->event('uploaded')
+                ->log('uploaded');
+
             $department->addMedia($imagePath)->toMediaCollection('header');
         }
 

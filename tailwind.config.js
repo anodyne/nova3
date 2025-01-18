@@ -40,6 +40,7 @@ module.exports = {
         './vendor/awcodes/typist/resources/views/**/*.blade.php',
         './vendor/livewire/flux-pro/stubs/**/*.blade.php',
         './vendor/livewire/flux/stubs/**/*.blade.php',
+        './vendor/ralphjsmit/laravel-filament-activitylog/resources/**/*.blade.php',
         './storage/framework/views/*.php',
     ],
     safelist: [

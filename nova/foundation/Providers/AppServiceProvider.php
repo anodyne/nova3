@@ -27,6 +27,7 @@ use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
@@ -38,6 +39,8 @@ use Illuminate\View\ComponentAttributeBag;
 use Illuminate\View\DynamicComponent;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Nova\Forms\Fields;
 use Nova\Foundation\Blocks\BlockManager;
 use Nova\Foundation\Environment\Environment;
@@ -67,7 +70,11 @@ use Nova\Foundation\View\Layouts\PublicLayout;
 use Nova\Navigation\Models\Navigation;
 use Nova\Pages\Blocks;
 use Nova\Pages\Models\Page;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankName;
 use Nova\Settings\Models\Settings;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -283,6 +290,37 @@ class AppServiceProvider extends ServiceProvider
         TiptapEditor::configureUsing(function (TiptapEditor $component) {
             return $component->blocks($this->app[BlockManager::class]->blocks());
         });
+
+        Timeline::configureUsing(function (Timeline $timeline) {
+            $timeline
+                ->attributeLabels([
+                    'order_column' => 'sort order',
+                ])
+                ->attributeValues([
+                    'status' => fn ($value) => strtolower($value?->value ?? ''),
+                ], [
+                    Department::class,
+                    Position::class,
+                    RankGroup::class,
+                    RankName::class,
+                ])
+                ->causerName(null, 'System')
+                ->itemDateTimeTimezone(fn () => Auth::user()->preferences->timezone)
+                ->itemIcons([
+                    'created' => iconName('add'),
+                    'duplicated' => iconName('copy'),
+                ])
+                ->itemIconColors([
+                    'created' => 'success',
+                    'duplicated' => 'success',
+                ]);
+        });
+
+        TimelineAction::configureUsing(function (TimelineAction $action) {
+            $action
+                ->icon(iconName('list-details'))
+                ->label('Activity logs');
+        }, isImportant: true);
 
         $this->app->bind(FilamentNotification::class, Notification::class);
     }

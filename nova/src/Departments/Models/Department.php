@@ -82,7 +82,9 @@ class Department extends Model implements HasMedia, Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -91,10 +93,7 @@ class Department extends Model implements HasMedia, Sortable
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name department was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function newEloquentBuilder($query): DepartmentBuilder

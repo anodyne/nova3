@@ -22,6 +22,8 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Actions\ForceUnlockPost;
 use Nova\Stories\Models\Post;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class PostsList extends TableComponent
 {
@@ -31,11 +33,11 @@ class PostsList extends TableComponent
             ->query(Post::with('characterAuthors', 'userAuthors'))
             ->groups([
                 Group::make('status')
-                    ->getTitleFromRecordUsing(fn (Model $record): string => $record->status->displayName())
+                    ->getTitleFromRecordUsing(fn (Post $record): string => $record->status->displayName())
                     ->collapsible(),
                 Group::make('story_id')
                     ->label('Story')
-                    ->getTitleFromRecordUsing(fn (Model $record): string => $record->story->title)
+                    ->getTitleFromRecordUsing(fn (Post $record): string => $record->story->title)
                     ->collapsible(),
             ])
             ->defaultSort('published_at', 'desc')
@@ -58,7 +60,7 @@ class PostsList extends TableComponent
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('timeline')
-                    ->getStateUsing(fn (Model $record): string => $record->timeline)
+                    ->getStateUsing(fn (Post $record): string => $record->timeline)
                     ->toggleable(),
                 TextColumn::make('day')
                     ->sortable()
@@ -78,8 +80,8 @@ class PostsList extends TableComponent
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
-                    ->formatStateUsing(fn (Model $record): string => $record->status->displayName())
+                    ->color(fn (Post $record): string => $record->status->color())
+                    ->formatStateUsing(fn (Post $record): string => $record->status->displayName())
                     ->toggleable(),
                 TextColumn::make('published_at')
                     ->label('Published')
@@ -98,10 +100,18 @@ class PostsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.posts.show', ['story' => $record->story, 'post' => $record])),
+                            ->url(fn (Post $record): string => route('admin.posts.show', ['story' => $record->story, 'post' => $record])),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.posts.edit', $record)),
+                            ->url(fn (Post $record): string => route('admin.posts.edit', $record)),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->itemIcon('locked', iconName('lock-closed'))
+                                    ->itemIcon('unlocked', iconName('lock-open'))
+                                    ->itemIcon('published', iconName('check-circle'))
+                                    ->itemIconColor('published', 'primary');
+                            }),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -116,8 +126,8 @@ class PostsList extends TableComponent
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalContentView('pages.posts.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->title.' post was deleted')
-                            ->using(fn (Model $record): Model => DeletePost::run($record)),
+                            ->successNotificationTitle(fn (Post $record): string => $record->title.' post was deleted')
+                            ->using(fn (Post $record): Model => DeletePost::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])

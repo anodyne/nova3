@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models;
 
+use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -51,7 +52,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
-class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerifyEmail
+class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, MustVerifyEmail
 {
     use CausesActivity;
     use HasFactory;
@@ -377,7 +378,12 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logExcept([
+                'password',
+            ])
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -386,10 +392,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function registerMediaCollections(): void
@@ -399,6 +402,11 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
             ->useDisk('media-users')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile();
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->name;
     }
 
     public static function getMediaPath(): string

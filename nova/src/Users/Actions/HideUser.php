@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Models\States\Status\Hidden;
 use Nova\Users\Models\User;
@@ -19,9 +18,9 @@ class HideUser
             $user->status->transitionTo(Hidden::class);
 
             activity()
-                ->causedBy(Auth::user())
                 ->performedOn($user)
-                ->log(':subject.name was hidden');
+                ->event('hidden')
+                ->log('hidden');
         }
 
         return $user->refresh();

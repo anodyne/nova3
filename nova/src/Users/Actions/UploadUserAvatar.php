@@ -14,6 +14,11 @@ class UploadUserAvatar
     public function handle(User $user, ?string $path = null): User
     {
         if (filled($path)) {
+            activity()
+                ->performedOn($user)
+                ->event('uploaded avatar')
+                ->log('uploaded avatar');
+
             $user->addMedia($path)->toMediaCollection('avatar');
         }
 

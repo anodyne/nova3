@@ -21,34 +21,15 @@
         <x-form :action="route('admin.ranks.items.update', $item)" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
-                    <x-fieldset.field
-                        label="Rank group"
-                        id="group_id"
-                        name="group_id"
-                        :error="$errors->first('group_id')"
-                    >
-                        <div data-slot="control" class="flex w-full items-center">
-                            <livewire:rank-groups-dropdown :group-id="old('group_id', $item->group_id)" />
+                    <flux:field>
+                        <flux:label>Rank group</flux:label>
+                        <livewire:rank-groups-dropdown :group="old('group_id', $item->group_id)" />
+                    </flux:field>
 
-                            @can('create', RankGroup::class)
-                                <x-button :href="route('admin.ranks.groups.index')" color="neutral" class="ml-3" text>
-                                    <x-icon name="settings" size="md"></x-icon>
-                                </x-button>
-                            @endcan
-                        </div>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Rank name" id="name_id" name="name_id" :error="$errors->first('name_id')">
-                        <div data-slot="control" class="flex w-full items-center">
-                            <livewire:rank-names-dropdown :name-id="old('name_id', $item->name_id)" />
-
-                            @can('create', RankName::class)
-                                <x-button :href="route('admin.ranks.names.index')" color="neutral" class="ml-3" text>
-                                    <x-icon name="settings" size="md"></x-icon>
-                                </x-button>
-                            @endcan
-                        </div>
-                    </x-fieldset.field>
+                    <flux:field>
+                        <flux:label>Rank name</flux:label>
+                        <livewire:rank-names-dropdown :name="old('name_id', $item->name_id)" />
+                    </flux:field>
 
                     <div class="flex items-center gap-x-2.5">
                         <x-switch
@@ -67,13 +48,24 @@
                         name="rank_preview"
                         :error="$errors->first('base_image')"
                     >
-                        <div data-slot="control" x-show="overlay === '' && base === ''" class="h-10">
-                            Make a selection below to see a live preview of your rank item
-                        </div>
+                        <div data-slot="control">
+                            <div x-show="overlay === '' && base === ''" class="h-10">
+                                Make a selection below to see a live preview of your rank item
+                            </div>
 
-                        <div data-slot="control" class="rank" x-show="overlay !== '' || base !== ''">
-                            <div class="rank-overlay" :style="`background-image: url(/ranks/overlay/${overlay})`"></div>
-                            <div class="rank-base" :style="`background-image: url(/ranks/base/${base});`"></div>
+                            <div
+                                class="nv-rank-ctn grid h-10 w-36 shrink-0 overflow-hidden [grid-template-areas:'rank']"
+                                x-show="overlay !== '' || base !== ''"
+                            >
+                                <div
+                                    class="nv-rank-overlay-img h-10 w-36 bg-transparent [background-size:144px_40px] [grid-area:rank]"
+                                    x-bind:style="`background-image:url(/ranks/base/${base})`"
+                                ></div>
+                                <div
+                                    class="nv-rank-base-img h-10 w-36 bg-transparent [background-size:144px_40px] [grid-area:rank]"
+                                    x-bind:style="`background-image:url(/ranks/overlay/${overlay})`"
+                                ></div>
+                            </div>
                         </div>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
@@ -90,14 +82,16 @@
                 </x-fieldset.heading>
 
                 <div class="mt-8">
-                    <x-tab.group name="images">
-                        <x-tab.heading name="base">Base images</x-tab.heading>
-                        <x-tab.heading name="overlay">Overlay images</x-tab.heading>
-                    </x-tab.group>
+                    <flux:tab.group>
+                        <flux:tabs>
+                            <flux:tab name="base">Base images</flux:tab>
+                            <flux:tab name="overlay">Overlay images</flux:tab>
+                        </flux:tabs>
 
-                    <div class="mt-6 sm:h-96 sm:overflow-y-scroll">
-                        <div x-show="isTab('base')">
-                            <div class="mx-auto grid max-w-lg grid-cols-2 gap-4 lg:max-w-none lg:grid-cols-3">
+                        <flux:tab.panel name="base">
+                            <div
+                                class="mx-auto grid max-w-lg grid-cols-2 gap-4 sm:h-96 sm:overflow-y-scroll lg:max-w-none lg:grid-cols-3"
+                            >
                                 @foreach ($baseImages as $baseImage)
                                     <a
                                         x-on:click.prevent="base = '{{ $baseImage }}'"
@@ -117,10 +111,12 @@
                                     </a>
                                 @endforeach
                             </div>
-                        </div>
+                        </flux:tab.panel>
 
-                        <div x-show="isTab('overlay')" x-cloak>
-                            <div class="mx-auto grid max-w-lg grid-cols-2 gap-4 lg:max-w-none lg:grid-cols-3">
+                        <flux:tab.panel name="overlay">
+                            <div
+                                class="mx-auto grid max-w-lg grid-cols-2 gap-4 sm:h-96 sm:overflow-y-scroll lg:max-w-none lg:grid-cols-3"
+                            >
                                 @foreach ($overlayImages as $overlayImage)
                                     <a
                                         x-on:click.prevent="overlay = '{{ $overlayImage }}'"
@@ -140,8 +136,8 @@
                                     </a>
                                 @endforeach
                             </div>
-                        </div>
-                    </div>
+                        </flux:tab.panel>
+                    </flux:tab.group>
                 </div>
 
                 <input type="hidden" name="base_image" x-model="base" />
@@ -149,7 +145,7 @@
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Update</x-button>
+                <x-button type="submit" variant="primary">Update</x-button>
                 <x-button :href="route('admin.ranks.items.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>

@@ -6,6 +6,7 @@ namespace Nova\Users\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class DeleteUserManager
 {
@@ -13,9 +14,13 @@ class DeleteUserManager
 
     public function handle(User $user): User
     {
-        DeleteUserCharacters::run($user);
+        LogBatch::startBatch();
 
         DeleteUser::run($user);
+
+        DeleteUserCharacters::run($user);
+
+        LogBatch::endBatch();
 
         return $user;
     }

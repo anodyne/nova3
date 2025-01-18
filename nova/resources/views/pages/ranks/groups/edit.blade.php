@@ -13,9 +13,7 @@
         <x-form :action="route('admin.ranks.groups.update', $group)" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
-                        <x-input.text :value="old('name', $group->name)" data-cy="name" />
-                    </x-fieldset.field>
+                    <flux:input label="Name" name="name" :value="old('name', $group->name)"></flux:input>
 
                     <div class="flex items-center gap-x-2.5">
                         <x-switch

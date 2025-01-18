@@ -29,6 +29,9 @@ use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Enums\RankNameStatus;
 use Nova\Ranks\Events\RankNameDuplicated;
 use Nova\Ranks\Models\RankName;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class RankNamesList extends TableComponent
 {
@@ -51,7 +54,7 @@ class RankNamesList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
+                    ->color(fn (RankName $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -59,10 +62,21 @@ class RankNamesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.ranks.names.show', $record)),
+                            ->url(fn (RankName $record): string => route('admin.ranks.names.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.ranks.names.edit', $record)),
+                            ->url(fn (RankName $record): string => route('admin.ranks.names.edit', $record)),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->eventDescriptions([
+                                        'duplicated' => fn (Activity $activity) => sprintf(
+                                            '**%s** duplicated the rank name as **%s**.',
+                                            $activity->causer->name,
+                                            RankName::find($activity->getExtraProperty('replica'))?->name
+                                        ),
+                                    ]);
+                            }),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -72,7 +86,7 @@ class RankNamesList extends TableComponent
                                 TextInput::make('name')->label('New rank name'),
                             ])
                             ->modalContentView('pages.ranks.names.duplicate')
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (RankName $record, array $data): void {
                                 $replica = DuplicateRankName::run(
                                     $record,
                                     RankNameData::from(array_merge($record->toArray(), $data))
@@ -90,8 +104,8 @@ class RankNamesList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.ranks.names.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->name.' rank name was deleted')
-                            ->using(fn (Model $record): Model => DeleteRankNameManager::run($record)),
+                            ->successNotificationTitle(fn (RankName $record): string => $record->name.' rank name was deleted')
+                            ->using(fn (RankName $record): Model => DeleteRankNameManager::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -103,7 +117,7 @@ class RankNamesList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (RankName $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -112,7 +126,7 @@ class RankNamesList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeleteRankNameManager::run($record));
+                            ->each(fn (RankName $record): Model => DeleteRankNameManager::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('rank name was|rank names were', count($records)).' deleted')

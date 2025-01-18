@@ -18,6 +18,12 @@ class DuplicateRankName
         $replica->fill($data->all());
         $replica->save();
 
+        activity()
+            ->performedOn($original)
+            ->withProperty('replica', $replica->id)
+            ->event('duplicated')
+            ->log('duplicated');
+
         return $replica->refresh();
     }
 }

@@ -296,23 +296,44 @@ class Post extends Model implements Sortable
 
     public function lock(User $user)
     {
-        $this->update([
-            'locked_by' => $user->id,
-            'locked_at' => now(),
-        ]);
+        activity()
+            ->causedBy($user)
+            ->performedOn($this)
+            ->event('locked')
+            ->log('locked');
+
+        activity()->withoutLogs(function () use ($user) {
+            $this->update([
+                'locked_by' => $user->id,
+                'locked_at' => now(),
+            ]);
+        });
     }
 
     public function unlock()
     {
-        $this->update([
-            'locked_by' => null,
-            'locked_at' => null,
-        ]);
+        activity()
+            ->performedOn($this)
+            ->event('unlocked')
+            ->log('unlocked');
+
+        activity()->withoutLogs(function () {
+            $this->update([
+                'locked_by' => null,
+                'locked_at' => null,
+            ]);
+        });
     }
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()->logFillable()->logExcept([
+            'content',
+            'direction',
+            'neighbor',
+            'participants',
+            'word_count',
+        ]);
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -321,10 +342,7 @@ class Post extends Model implements Sortable
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.title post was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function toSearchableArray(): array

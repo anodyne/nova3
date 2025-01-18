@@ -24,6 +24,7 @@ class CreateActivityLogTable extends Migration
             $table->timestamps();
 
             $table->index('log_name');
+            $table->index(['subject_id', 'subject_type']);
         });
     }
 
