@@ -23,6 +23,7 @@ use Nova\Notes\Actions\DeleteNote;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
 use Nova\Notes\Models\Note;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class NotesList extends TableComponent
 {
@@ -51,6 +52,11 @@ class NotesList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('admin.notes.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make()->authorize('view'),
+                    ])->authorize('view')->divided(),
+
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
@@ -65,6 +71,7 @@ class NotesList extends TableComponent
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
+
                     ActionGroup::make([
                         DeleteAction::make()
                             ->authorize('delete')

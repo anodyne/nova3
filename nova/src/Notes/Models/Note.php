@@ -35,7 +35,10 @@ class Note extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logExcept(['content'])
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -44,10 +47,7 @@ class Note extends Model
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.title note was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function newEloquentBuilder($query): NoteBuilder
