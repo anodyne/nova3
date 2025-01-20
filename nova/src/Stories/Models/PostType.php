@@ -14,6 +14,7 @@ use Nova\Roles\Models\Role;
 use Nova\Stories\Data\Fields;
 use Nova\Stories\Data\Options;
 use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\PostTypeBuilder;
 use Spatie\Activitylog\LogOptions;
@@ -44,6 +45,7 @@ class PostType extends Model implements Sortable
         'options' => Options::class,
         'order_column' => 'integer',
         'status' => PostTypeStatus::class,
+        'visibility' => PostTypeVisibility::class,
     ];
 
     protected $dispatchesEvents = [
@@ -96,7 +98,9 @@ class PostType extends Model implements Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -105,9 +109,6 @@ class PostType extends Model implements Sortable
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name post type was {$eventName}"
-            );
+        return $logOptions;
     }
 }

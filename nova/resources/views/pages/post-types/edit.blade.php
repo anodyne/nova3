@@ -1,3 +1,5 @@
+@use('Nova\Stories\Enums\PostTypeVisibility')
+
 <x-admin-layout>
     <x-spacing x-data="tabsList('details')" constrained>
         <x-page-header>
@@ -67,25 +69,19 @@
                     </x-fieldset.heading>
 
                     <x-radio.group>
-                        <x-radio.field>
-                            <x-fieldset.label for="in_character">In character</x-fieldset.label>
-                            <x-radio
-                                id="in_character"
-                                name="visibility"
-                                value="in-character"
-                                :checked="old('visibility', $postType->visibility === 'in-character')"
-                            ></x-radio>
-                        </x-radio.field>
-
-                        <x-radio.field>
-                            <x-fieldset.label for="out_of_character">Out of character</x-fieldset.label>
-                            <x-radio
-                                id="out_of_character"
-                                name="visibility"
-                                value="out-of-character"
-                                :checked="old('visibility', $postType->visibility === 'out-of-character')"
-                            ></x-radio>
-                        </x-radio.field>
+                        @foreach (PostTypeVisibility::cases() as $visibility)
+                            <x-radio.field>
+                                <x-fieldset.label for="{{ $visibility->htmlId() }}">
+                                    {{ $visibility->getLabel() }}
+                                </x-fieldset.label>
+                                <x-radio
+                                    id="{{ $visibility->htmlId() }}"
+                                    name="visibility"
+                                    value="{{ $visibility->value }}"
+                                    :checked="old('visibility', $postType->visibility->value === $visibility->value)"
+                                ></x-radio>
+                            </x-radio.field>
+                        @endforeach
                     </x-radio.group>
                 </x-fieldset>
 

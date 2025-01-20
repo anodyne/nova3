@@ -7,6 +7,7 @@ use Nova\Stories\Data\Field;
 use Nova\Stories\Data\Fields;
 use Nova\Stories\Data\Options;
 use Nova\Stories\Enums\PostEditTimeframe;
+use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Models\PostType;
 use TimoKoerber\LaravelOneTimeOperations\OneTimeOperation;
 
@@ -38,7 +39,7 @@ return new class extends OneTimeOperation
                 'description' => 'A post that drives the story forward. It can be a singular post or a collaborative post with other characters in the game.',
                 'color' => '#0ea5e9',
                 'icon' => 'book',
-                'visibility' => 'in-character',
+                'visibility' => PostTypeVisibility::InCharacter,
                 'fields' => Fields::from([
                     'title' => Field::from([
                         'enabled' => true,
@@ -87,7 +88,7 @@ return new class extends OneTimeOperation
                 'description' => 'A post more geared toward telling the perspective of individual characters. This can often be thought of as an inner monologue or journal entry.',
                 'color' => '#10b981',
                 'icon' => 'user',
-                'visibility' => 'in-character',
+                'visibility' => PostTypeVisibility::InCharacter,
                 'fields' => Fields::from([
                     'title' => Field::from([
                         'enabled' => true,
@@ -136,7 +137,7 @@ return new class extends OneTimeOperation
                 'description' => 'Mark time or location for the story to give players an indication that the action has moved location or timeframes.',
                 'color' => '#ec4899',
                 'icon' => 'location',
-                'visibility' => 'out-of-character',
+                'visibility' => PostTypeVisibility::OutOfCharacter,
                 'fields' => Fields::from([
                     'title' => Field::from([
                         'enabled' => true,
@@ -186,7 +187,7 @@ return new class extends OneTimeOperation
                 'description' => 'Inform players of key pieces of information about the story in a single place. Players will be able to see all notes when composing a new story post.',
                 'color' => '#a855f7',
                 'icon' => 'bulb',
-                'visibility' => 'out-of-character',
+                'visibility' => PostTypeVisibility::OutOfCharacter,
                 'fields' => Fields::from([
                     'title' => Field::from([
                         'enabled' => true,

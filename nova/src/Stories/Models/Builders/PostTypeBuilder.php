@@ -7,6 +7,7 @@ namespace Nova\Stories\Models\Builders;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Stories\Enums\PostTypeVisibility;
 
 class PostTypeBuilder extends Builder
 {
@@ -22,7 +23,7 @@ class PostTypeBuilder extends Builder
 
     public function inCharacter(): Builder
     {
-        return $this->where('visibility', 'in-character');
+        return $this->where('visibility', PostTypeVisibility::InCharacter);
     }
 
     public function searchFor($search): Builder

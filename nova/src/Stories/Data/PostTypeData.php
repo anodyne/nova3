@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Nova\Stories\Data;
 
 use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Stories\Enums\PostTypeVisibility;
 use Spatie\LaravelData\Attributes\Validation\Enum;
-use Spatie\LaravelData\Attributes\Validation\In;
 use Spatie\LaravelData\Data;
 
 class PostTypeData extends Data
@@ -27,8 +27,8 @@ class PostTypeData extends Data
 
         public ?int $role_id,
 
-        #[In('in-character', 'out-of-character')]
-        public string $visibility,
+        #[Enum(PostTypeVisibility::class)]
+        public PostTypeVisibility $visibility,
 
         public ?string $icon,
 

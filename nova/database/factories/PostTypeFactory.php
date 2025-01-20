@@ -9,6 +9,7 @@ use Nova\Stories\Data\Field;
 use Nova\Stories\Data\Fields;
 use Nova\Stories\Data\Options;
 use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Models\PostType;
 
 class PostTypeFactory extends Factory
@@ -24,7 +25,7 @@ class PostTypeFactory extends Factory
             'description' => $this->faker->sentence,
             'key' => $this->faker->lexify("{$word}-????"),
             'name' => ucfirst($word),
-            'visibility' => $this->faker->randomElement(['in-character', 'out-of-character']),
+            'visibility' => $this->faker->randomElement(PostTypeVisibility::cases()),
             'color' => $this->faker->hexColor,
             'icon' => 'book',
             'fields' => Fields::from([
