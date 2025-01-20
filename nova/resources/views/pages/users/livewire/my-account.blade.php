@@ -126,7 +126,7 @@
             <flux:field>
                 <flux:label>Timezone</flux:label>
 
-                <flux:select variant="listbox" searchable placeholder="Choose timezone" wire:model.live="form.timezone">
+                <flux:select variant="listbox" placeholder="Choose timezone" wire:model.live="form.timezone" searchable>
                     @foreach ($timezones as $tz)
                         <flux:option value="{{ $tz->id }}">{{ $tz->name }}</flux:option>
                     @endforeach
@@ -136,7 +136,7 @@
             <x-switch.field>
                 <x-fieldset.label>Dark mode</x-fieldset.label>
                 <x-fieldset.description>Show the admin panel in dark mode</x-fieldset.description>
-                <livewire:users-admin-theme-toggle />
+                <flux:switch x-data x-model="$flux.dark" />
             </x-switch.field>
         </x-fieldset.field-group>
     </x-fieldset>
