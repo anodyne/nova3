@@ -6,10 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Characters\Enums\CharacterType;
-use Nova\Characters\Models\Character;
-use Nova\Departments\Models\Position;
-use Nova\Ranks\Models\RankItem;
-use Nova\Users\Models\User;
 
 class CreateCharacterTables extends Migration
 {
@@ -21,21 +17,21 @@ class CreateCharacterTables extends Migration
             $table->string('name')->index();
             $table->string('type')->default(CharacterType::Support)->index();
             $table->string('status')->index();
-            $table->foreignIdFor(RankItem::class, 'rank_id')->nullable();
+            $table->foreignId('rank_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('character_position', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Character::class);
-            $table->foreignIdFor(Position::class);
+            $table->foreignId('character_id');
+            $table->foreignId('position_id');
         });
 
         Schema::create('character_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Character::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignId('character_id');
+            $table->foreignId('user_id');
             $table->boolean('primary')->default(false)->index();
             $table->timestamps();
         });

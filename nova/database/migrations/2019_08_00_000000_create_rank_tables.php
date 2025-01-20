@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Schema;
 use Nova\Ranks\Enums\RankGroupStatus;
 use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Enums\RankNameStatus;
-use Nova\Ranks\Models\RankGroup;
-use Nova\Ranks\Models\RankName;
 
 class CreateRankTables extends Migration
 {
@@ -33,8 +31,8 @@ class CreateRankTables extends Migration
 
         Schema::create('rank_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(RankGroup::class, 'group_id')->constrained('rank_groups');
-            $table->foreignIdFor(RankName::class, 'name_id')->constrained('rank_names');
+            $table->foreignId('group_id')->constrained('rank_groups');
+            $table->foreignId('name_id')->constrained('rank_names');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
             $table->string('status')->default(RankItemStatus::Active)->index();

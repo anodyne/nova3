@@ -6,8 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Foundation\Enums\NotificationAudience;
-use Nova\Foundation\Models\NotificationType;
-use Nova\Users\Models\User;
 
 class CreateNotificationsTable extends Migration
 {
@@ -40,8 +38,8 @@ class CreateNotificationsTable extends Migration
 
         Schema::create('user_notification_preferences', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(NotificationType::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignId('notification_type_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->boolean('database')->default(true);
             $table->boolean('mail')->default(false);
             $table->boolean('discord')->default(false);

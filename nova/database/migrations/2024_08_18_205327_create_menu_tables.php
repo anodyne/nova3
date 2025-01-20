@@ -7,8 +7,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\MenuStatus;
-use Nova\Menus\Models\Menu;
-use Nova\Pages\Models\Page;
 
 return new class extends Migration
 {
@@ -24,12 +22,12 @@ return new class extends Migration
 
         Schema::create('menu_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Menu::class)->constrained();
+            $table->foreignId('menu_id')->constrained();
             $table->unsignedInteger('parent_id')->nullable();
             $table->string('label');
             $table->string('icon')->nullable();
             $table->string('link_type');
-            $table->foreignIdFor(Page::class)->nullable()->constrained();
+            $table->foreignId('page_id')->nullable()->constrained();
             $table->string('url')->nullable();
             $table->string('target')->default(LinkTarget::Self);
             $table->string('status')->default(MenuStatus::Active->value)->index();

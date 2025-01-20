@@ -6,9 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Discussions\Enums\MessageType;
-use Nova\Discussions\Models\Discussion;
-use Nova\Discussions\Models\DiscussionMessage;
-use Nova\Users\Models\User;
 
 return new class extends Migration
 {
@@ -27,8 +24,8 @@ return new class extends Migration
 
         Schema::create('discussion_messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Discussion::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class)->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('discussion_id')->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->longText('content');
             $table->string('type')->default(MessageType::Text->value);
             $table->timestamps();
@@ -36,9 +33,9 @@ return new class extends Migration
 
         Schema::create('discussion_notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Discussion::class)->onDelete('cascade');
-            $table->foreignIdFor(DiscussionMessage::class)->onDelete('cascade');
-            $table->foreignIdFor(User::class);
+            $table->foreignId('discussion_id')->onDelete('cascade');
+            $table->foreignId('discussion_message_id')->onDelete('cascade');
+            $table->foreignId('user_id');
             $table->boolean('is_seen')->default(false);
             $table->boolean('is_sender')->default(false);
             $table->timestamps();
@@ -49,8 +46,8 @@ return new class extends Migration
 
         Schema::create('discussion_participant', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Discussion::class)->onDelete('cascade');
-            $table->foreignIdFor(User::class);
+            $table->foreignId('discussion_id')->onDelete('cascade');
+            $table->foreignId('user_id');
             $table->timestamps();
             $table->softDeletes();
 

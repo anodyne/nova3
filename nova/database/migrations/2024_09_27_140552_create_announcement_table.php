@@ -5,8 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Announcements\Models\Announcement;
-use Nova\Users\Models\User;
 
 return new class extends Migration
 {
@@ -15,7 +13,7 @@ return new class extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('title')->index();
             $table->string('category')->nullable()->index();
             $table->longText('content');
@@ -26,8 +24,8 @@ return new class extends Migration
 
         Schema::create('announcement_notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Announcement::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignId('announcement_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
             $table->boolean('is_seen')->default(false)->index();
             $table->timestamps();
 
@@ -37,6 +35,7 @@ return new class extends Migration
 
     public function down(): void
     {
+        Schema::dropIfExists('announcement_notifications');
         Schema::dropIfExists('announcements');
     }
 };

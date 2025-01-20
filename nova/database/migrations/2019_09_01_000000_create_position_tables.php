@@ -6,7 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Nova\Departments\Enums\PositionStatus;
-use Nova\Departments\Models\Department;
 
 class CreatePositionTables extends Migration
 {
@@ -15,7 +14,7 @@ class CreatePositionTables extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(Department::class)->constrained();
+            $table->foreignId('department_id')->constrained();
             $table->string('name')->index();
             $table->text('description')->nullable();
             $table->unsignedSmallInteger('available')->default(1)->index();
