@@ -41,7 +41,9 @@ class Role extends LaratrustRole implements Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -50,10 +52,7 @@ class Role extends LaratrustRole implements Sortable
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.display_name role was {$eventName}"
-            );
+        return $logOptions;
     }
 
     /**

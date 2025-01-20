@@ -141,7 +141,9 @@ class Story extends Model implements HasMedia, Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -150,10 +152,7 @@ class Story extends Model implements HasMedia, Sortable
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.title story was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function newEloquentBuilder($query): StoryBuilder

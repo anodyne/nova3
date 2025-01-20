@@ -327,13 +327,16 @@ class Post extends Model implements Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable()->logExcept([
-            'content',
-            'direction',
-            'neighbor',
-            'participants',
-            'word_count',
-        ]);
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logExcept([
+                'content',
+                'direction',
+                'neighbor',
+                'participants',
+                'word_count',
+            ])
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')

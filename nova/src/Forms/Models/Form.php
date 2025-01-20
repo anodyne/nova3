@@ -120,7 +120,9 @@ class Form extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -129,10 +131,7 @@ class Form extends Model
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name form was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function newEloquentBuilder($query): FormBuilder

@@ -92,7 +92,9 @@ class Page extends Model implements HasMedia
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -101,10 +103,7 @@ class Page extends Model implements HasMedia
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.key page was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function newEloquentBuilder($query): Builders\PageBuilder

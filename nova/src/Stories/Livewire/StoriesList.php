@@ -21,10 +21,12 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Forms\Components\DatePicker;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\UpdateStory;
 use Nova\Stories\Actions\UpdateStoryStatus;
 use Nova\Stories\Models\Story;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
 use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class StoriesList extends TableComponent
@@ -112,7 +114,15 @@ class StoriesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('admin.stories.edit', $record)),
-                        TimelineAction::make(),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->attributeValues([
+                                        'ended_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                                        'started_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                                        'status' => fn ($value) => $value->name(),
+                                    ]);
+                            }),
                         Action::make('dates')
                             ->authorize('updateDates')
                             ->label('Update dates')

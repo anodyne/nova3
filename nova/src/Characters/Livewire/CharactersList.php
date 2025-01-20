@@ -54,14 +54,17 @@ class CharactersList extends TableComponent
 
     public function table(Table $table): Table
     {
+        /** @var User */
+        $user = Auth::user();
+
         return $table
             ->query(
                 Character::with('media', 'positions', 'rank.name', 'users', 'activeUsers', 'application.reviews')
                     ->withTrashed()
                     ->notHidden()
                     ->unless(
-                        Auth::user()->can('manage', new Character),
-                        fn (Builder $query): Builder => $query->isAssignedTo(Auth::user())
+                        $user->can('manage', new Character),
+                        fn (Builder $query): Builder => $query->isAssignedTo($user)
                     )
             )
             ->groups([
@@ -73,7 +76,7 @@ class CharactersList extends TableComponent
                     ->view('filament.tables.columns.character-avatar')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('activeUsers.name')
-                    ->visible(Auth::user()->can('viewAny', Character::class))
+                    ->visible($user->can('viewAny', Character::class))
                     ->label('Played by')
                     ->listWithLineBreaks()
                     ->toggleable(),
@@ -99,10 +102,14 @@ class CharactersList extends TableComponent
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
-                                    ->itemIcon('activated', iconName('check'))
-                                    ->itemIconColor('activated', 'success')
-                                    ->itemIcon('deactivated', iconName('remove'))
-                                    ->itemIconColor('deactivated', 'warning');
+                                    ->itemIcons([
+                                        'activated' => iconName('check'),
+                                        'deactivated' => iconName('remove'),
+                                    ])
+                                    ->itemIconColors([
+                                        'activated' => 'success',
+                                        'deactivated' => 'warning',
+                                    ]);
                             }),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
@@ -373,7 +380,7 @@ class CharactersList extends TableComponent
                             fn (Builder $query): Builder => $query->whereRelation('users', 'users.id', '=', Auth::id())
                         );
                     })
-                    ->visible(Auth::user()->can('manage', new Character)),
+                    ->visible($user->can('manage', new Character)),
                 TrashedFilter::make()->label('Deleted characters'),
             ])
             ->emptyStateIcon(iconName('characters'))
