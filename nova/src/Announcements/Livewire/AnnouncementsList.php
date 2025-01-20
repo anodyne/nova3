@@ -28,10 +28,13 @@ class AnnouncementsList extends TableComponent
 {
     public function table(Table $table): Table
     {
+        /** @var User */
+        $user = Auth::user();
+
         return $table
             ->query(
                 Announcement::with('user')->unless(
-                    Auth::user()->can('manage', Announcement::class),
+                    $user->can('manage', Announcement::class),
                     fn (Builder $query): Builder => $query->published()
                 )
             )
@@ -56,7 +59,7 @@ class AnnouncementsList extends TableComponent
                         true => 'success',
                         false => 'danger'
                     })
-                    ->visible(Auth::user()->can('manage', Announcement::class)),
+                    ->visible($user->can('manage', Announcement::class)),
                 TextColumn::make('published_at')
                     ->dateTime(settings('general')->phpDateFormat())
                     ->sortable()
@@ -69,6 +72,7 @@ class AnnouncementsList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Announcement $record): string => route('admin.announcements.edit', $record)),
                         TimelineAction::make()
+                            ->authorize('update')
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->attributeValues([
@@ -97,7 +101,7 @@ class AnnouncementsList extends TableComponent
                         false: fn (Builder $query): Builder => $query->notPublished(),
                         blank: fn (Builder $query): Builder => $query,
                     )
-                    ->visible(Auth::user()->can('manage', Announcement::class)),
+                    ->visible($user->can('manage', Announcement::class)),
                 SelectFilter::make('category')
                     ->options(Announcement::select('category')->distinct()->pluck('category')->flatMap(fn ($item) => [$item => $item])->all()),
             ])
