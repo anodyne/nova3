@@ -19,6 +19,7 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class StoryPostsList extends TableComponent
 {
@@ -85,6 +86,7 @@ class StoryPostsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('admin.posts.edit', $record)),
+                        TimelineAction::make(),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([

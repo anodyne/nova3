@@ -25,6 +25,7 @@ use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Actions\InstallTheme;
 use Nova\Themes\Enums\ThemeStatus;
 use Nova\Themes\Models\Theme;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class ThemesList extends TableComponent
 {
@@ -64,6 +65,7 @@ class ThemesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Theme $record): string => route('admin.themes.edit', $record)),
+                        TimelineAction::make(),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([

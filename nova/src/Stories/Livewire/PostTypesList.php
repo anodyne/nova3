@@ -39,6 +39,7 @@ use Nova\Stories\Data\PostTypeData;
 use Nova\Stories\Enums\PostTypeStatus;
 use Nova\Stories\Events\PostTypeDuplicated;
 use Nova\Stories\Models\PostType;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class PostTypesList extends TableComponent
 {
@@ -103,6 +104,7 @@ class PostTypesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('admin.post-types.edit', $record)),
+                        TimelineAction::make(),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([

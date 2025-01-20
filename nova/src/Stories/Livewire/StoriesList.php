@@ -25,6 +25,7 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\UpdateStory;
 use Nova\Stories\Actions\UpdateStoryStatus;
 use Nova\Stories\Models\Story;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class StoriesList extends TableComponent
 {
@@ -111,6 +112,7 @@ class StoriesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('admin.stories.edit', $record)),
+                        TimelineAction::make(),
                         Action::make('dates')
                             ->authorize('updateDates')
                             ->label('Update dates')

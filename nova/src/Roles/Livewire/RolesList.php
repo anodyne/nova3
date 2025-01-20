@@ -28,6 +28,7 @@ use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Events\RoleDuplicated;
 use Nova\Roles\Models\Role;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class RolesList extends TableComponent
 {
@@ -70,6 +71,7 @@ class RolesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Model $record): string => route('admin.roles.edit', $record)),
+                        TimelineAction::make(),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([

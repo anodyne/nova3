@@ -24,6 +24,7 @@ use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
 use Nova\Menus\Enums\MenuStatus;
 use Nova\Menus\Models\MenuItem;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class MenuItemsList extends TableComponent
 {
@@ -59,6 +60,7 @@ class MenuItemsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (MenuItem $record): string => route('admin.menu-items.edit', $record)),
+                        TimelineAction::make(),
                     ])->authorize('update')->divided(),
 
                     ActionGroup::make([

@@ -31,6 +31,7 @@ use Nova\Pages\Enums\PageStatus;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events\PageDuplicated;
 use Nova\Pages\Models\Page;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class PagesList extends TableComponent
 {
@@ -108,6 +109,7 @@ class PagesList extends TableComponent
                             ->authorize('design')
                             ->icon(iconName('tools'))
                             ->url(fn (Page $record): string => route('admin.pages.design', $record)),
+                        TimelineAction::make(),
                     ])->authorizeAny(['view', 'update', 'design'])->divided(),
 
                     ActionGroup::make([

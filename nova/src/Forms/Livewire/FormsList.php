@@ -22,6 +22,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class FormsList extends TableComponent
 {
@@ -56,6 +57,7 @@ class FormsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Form $record): string => route('admin.forms.edit', $record)),
+                        TimelineAction::make(),
                     ])->authorize('update')->divided(),
 
                     ActionGroup::make([
