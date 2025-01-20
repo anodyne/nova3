@@ -11,11 +11,14 @@ use Laravel\Scout\Searchable;
 use Nova\Announcements\Events;
 use Nova\Announcements\Models\Builders\AnnouncementBuilder;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Announcement extends Model
 {
     use HasPrefixedId;
+    use LogsActivity;
     use Searchable;
 
     protected $fillable = [
@@ -51,6 +54,23 @@ class Announcement extends Model
     public function unreadFor(User $user): bool
     {
         return $this->notifications()->user($user->id)->unread()->count() > 0;
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logExcept(['content'])
+            ->logOnlyDirty();
+
+        if (app('impersonate')->isImpersonating()) {
+            return $logOptions->useLogName('impersonation')
+                ->setDescriptionForEvent(
+                    fn (string $eventName): string => ":subject.title announcement was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
+                );
+        }
+
+        return $logOptions;
     }
 
     public function newEloquentBuilder($query): AnnouncementBuilder

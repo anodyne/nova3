@@ -19,7 +19,10 @@ use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class AnnouncementsList extends TableComponent
 {
@@ -65,6 +68,13 @@ class AnnouncementsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Announcement $record): string => route('admin.announcements.edit', $record)),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->attributeValues([
+                                        'published_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                                    ]);
+                            }),
                     ])->authorize('update')->divided(),
 
                     ActionGroup::make([

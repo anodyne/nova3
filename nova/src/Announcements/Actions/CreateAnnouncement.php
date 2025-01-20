@@ -16,7 +16,7 @@ class CreateAnnouncement
     {
         $announcement = $data->user()
             ->announcements()
-            ->create(array_merge($data->all(), [
+            ->create(array_merge($data->toArray(), [
                 'published_at' => $data->published ? now() : null,
             ]));
 

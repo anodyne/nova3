@@ -6,7 +6,7 @@
             <x-slot name="actions">
                 <x-button :href="route('admin.announcements.create')" color="primary">
                     <x-icon name="add" size="sm"></x-icon>
-                    Add an announcement
+                    Add
                 </x-button>
             </x-slot>
         @endcan

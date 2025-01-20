@@ -14,7 +14,7 @@ class StoreAnnouncementRequest extends FormRequest
         return [
             'title' => ['required'],
             'category' => ['nullable'],
-            'published_at' => ['nullable'],
+            'published' => ['nullable'],
             'content' => ['nullable'],
         ];
     }

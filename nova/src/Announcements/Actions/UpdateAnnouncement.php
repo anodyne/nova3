@@ -16,7 +16,7 @@ class UpdateAnnouncement
     {
         $publishing = $announcement->published === false && $data->published === true;
 
-        $announcement->update(array_merge($data->all(), [
+        $announcement->update(array_merge($data->toArray(), [
             'published_at' => $publishing ? now() : $announcement->published_at,
         ]));
 
