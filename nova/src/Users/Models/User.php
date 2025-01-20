@@ -81,7 +81,7 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
 
     protected $fillable = [
         'name', 'email', 'password', 'force_password_reset', 'status',
-        'pronouns', 'appearance', 'preferences',
+        'pronouns', 'preferences',
     ];
 
     protected $hidden = [
