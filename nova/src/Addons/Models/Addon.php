@@ -57,7 +57,9 @@ class Addon extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
+        $logOptions = LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
 
         if (app('impersonate')->isImpersonating()) {
             return $logOptions->useLogName('impersonation')
@@ -66,10 +68,7 @@ class Addon extends Model
                 );
         }
 
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name add-on was {$eventName}"
-            );
+        return $logOptions;
     }
 
     public function newEloquentBuilder($query): AddonBuilder
@@ -101,9 +100,7 @@ class Addon extends Model
     {
         $addonClass = $this->getAddonClass();
 
-        if (method_exists($addonClass, $name)) {
-            $addonClass->{$name}();
-        }
+        $addonClass->runScript($name);
     }
 
     public function addonVersionCacheKey(): string

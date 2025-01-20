@@ -30,7 +30,7 @@ class AddonBuilder extends Builder
         return $this->where('status', AddonStatus::Inactive);
     }
 
-    public function location($location): self
+    public function location(string $location): self
     {
         return $this->where('location', $location);
     }

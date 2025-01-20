@@ -97,4 +97,18 @@ abstract class Genre extends BaseAddon
             collect($disk->allDirectories())->each(fn (string $dir): bool => $disk->deleteDirectory($dir));
         }
     }
+
+    final public function runScript(string $name): void
+    {
+        if (method_exists($this, $name)) {
+            $this->{$name}();
+
+            $event = "ran-{$name}";
+
+            activity()
+                ->performedOn($this->getModel())
+                ->event($event)
+                ->log($event);
+        }
+    }
 }

@@ -15,22 +15,14 @@ class CreateAddonManager
 
     public function handle(StoreAddonRequest $request): Addon
     {
-        try {
-            DB::beginTransaction();
-
+        return DB::transaction(function () use ($request) {
             $addon = CreateAddon::run($request->getAddonData());
 
             SetupAddonDirectory::run($request->getAddonData());
 
             BustActiveAddonsCache::run();
 
-            DB::commit();
-
             return $addon;
-        } catch (\Throwable $th) {
-            DB::rollBack();
-
-            throw $th;
-        }
+        });
     }
 }

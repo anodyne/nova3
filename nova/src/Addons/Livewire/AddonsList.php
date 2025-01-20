@@ -27,6 +27,10 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Facades\LogBatch;
+use Spatie\Activitylog\Models\Activity;
 
 class AddonsList extends TableComponent
 {
@@ -65,6 +69,58 @@ class AddonsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Addon $record): string => route('admin.addons.edit', $record)),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->itemIcons([
+                                        'ran-append' => iconName('image-add'),
+                                        'ran-install' => iconName('bolt'),
+                                        'ran-migrations' => iconName('database'),
+                                        'ran-migrations-rollback' => iconName('database-off'),
+                                        'ran-replace' => iconName('image-alert'),
+                                        'ran-uninstall' => iconName('bolt-off'),
+                                    ])
+                                    ->itemIconColors([
+                                        'ran-install' => 'primary',
+                                        'ran-migrations' => 'success',
+                                        'ran-migrations-rollback' => 'warning',
+                                        'ran-uninstall' => 'danger',
+                                    ])
+                                    ->attributeValues([
+                                        'status' => fn ($value) => strtolower($value->getLabel() ?? ''),
+                                    ])
+                                    ->eventDescriptions([
+                                        'ran-append' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'rank image append',
+                                        ]),
+                                        'ran-install' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'install',
+                                        ]),
+                                        'ran-migrations' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'database migrations',
+                                        ]),
+                                        'ran-migrations-rollback' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'database migrations rollback',
+                                        ]),
+                                        'ran-replace' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'rank image replacement',
+                                        ]),
+                                        'ran-uninstall' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'uninstall',
+                                        ]),
+                                        'ran-update' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'update',
+                                        ]),
+                                    ])
+                                    ->modelLabel(Addon::class, 'add-on');
+                            }),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
@@ -184,11 +240,15 @@ class AddonsList extends TableComponent
                 ->size(ActionSize::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
+                    LogBatch::startBatch();
+
                     $record->runScript('install');
 
                     $record->update(['status' => AddonStatus::Active]);
 
                     BustActiveAddonsCache::run();
+
+                    LogBatch::endBatch();
 
                     Notification::make()->success()
                         ->title('Extension has been installed')
@@ -199,11 +259,15 @@ class AddonsList extends TableComponent
                 ->size(ActionSize::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record) {
+                    LogBatch::startBatch();
+
                     $record->runScript('uninstall');
 
                     $record->update(['status' => AddonStatus::Inactive]);
 
                     BustActiveAddonsCache::run();
+
+                    LogBatch::endBatch();
 
                     Notification::make()->success()
                         ->title('Extension has been uninstalled')

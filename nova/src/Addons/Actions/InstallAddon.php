@@ -40,6 +40,11 @@ class InstallAddon
 
         AddonInstalled::dispatch($addon);
 
+        activity()
+            ->performedOn($addon)
+            ->event('installed')
+            ->log('installed');
+
         return $addon;
     }
 }

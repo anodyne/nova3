@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Enums\AddonStatus;
 use Nova\Addons\Models\Addon;
@@ -14,8 +15,10 @@ class EnsureSingularActiveGenre
 
     public function handle(Addon $addon): void
     {
-        Addon::active()->genre()->update(['status' => AddonStatus::Inactive]);
+        DB::transaction(function () use ($addon) {
+            Addon::active()->genre()->update(['status' => AddonStatus::Inactive]);
 
-        $addon->update(['status' => AddonStatus::Active]);
+            $addon->update(['status' => AddonStatus::Active]);
+        });
     }
 }

@@ -36,7 +36,7 @@ class AddonPolicy
 
     public function update(User $user, Addon $addon): Response
     {
-        return $user->isAbleTo('addon.update')
+        return $user->isAbleTo('addon.update') && blank($addon->repository)
             ? $this->allow()
             : $this->deny();
     }
@@ -73,6 +73,8 @@ class AddonPolicy
             return $this->deny();
         }
 
-        return $this->update($user, $addon);
+        return $user->isAbleTo('addon.update')
+            ? $this->allow()
+            : $this->deny();
     }
 }

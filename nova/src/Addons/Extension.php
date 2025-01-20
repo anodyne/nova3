@@ -39,4 +39,22 @@ abstract class Extension extends BaseAddon
             '--path' => 'addons/'.$this->location.'/Migrations',
         ]);
     }
+
+    final public function runScript(string $name): void
+    {
+        if (method_exists($this, $name)) {
+            $this->{$name}();
+
+            $event = match ($name) {
+                'rollbackMigrations' => 'ran-migrations-rollback',
+                'runMigrations' => 'ran-migrations',
+                default => "ran-{$name}",
+            };
+
+            activity()
+                ->performedOn($this->getModel())
+                ->event($event)
+                ->log($event);
+        }
+    }
 }

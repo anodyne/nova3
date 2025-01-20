@@ -16,7 +16,7 @@ abstract class RankSet extends BaseAddon
 
         $files = new Filesystem;
 
-        foreach ($disk->allFiles() as $file) {
+        foreach ($disk->allFiles('ranks') as $file) {
             $filename = str($file)->remove('ranks'.DIRECTORY_SEPARATOR)->toString();
 
             if (! file_exists(rank_path($filename))) {
@@ -52,7 +52,7 @@ abstract class RankSet extends BaseAddon
 
         $files = new Filesystem;
 
-        foreach ($disk->allFiles() as $file) {
+        foreach ($disk->allFiles('ranks') as $file) {
             $filename = str($file)->remove('ranks'.DIRECTORY_SEPARATOR)->toString();
 
             if (file_exists(rank_path($filename))) {
@@ -71,6 +71,20 @@ abstract class RankSet extends BaseAddon
         $disk->delete($disk->allFiles());
 
         collect($disk->allDirectories())->each(fn (string $dir): bool => $disk->deleteDirectory($dir));
+    }
+
+    final public function runScript(string $name): void
+    {
+        if (method_exists($this, $name)) {
+            $this->{$name}();
+
+            $event = "ran-{$name}";
+
+            activity()
+                ->performedOn($this->getModel())
+                ->event($event)
+                ->log($event);
+        }
     }
 
     protected function addonDisk(): FilesystemContract
