@@ -16,6 +16,8 @@ use Nova\Characters\Models\Character;
 use Nova\Discussions\Concerns\Discussable;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Application extends Model
@@ -23,6 +25,7 @@ class Application extends Model
     use Discussable;
     use HasFactory;
     use HasPrefixedId;
+    use LogsActivity;
 
     protected $fillable = [
         'character_id',
@@ -79,5 +82,12 @@ class Application extends Model
     public function newEloquentBuilder($query): ApplicationBuilder
     {
         return new ApplicationBuilder($query);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logFillable()
+            ->logOnlyDirty();
     }
 }

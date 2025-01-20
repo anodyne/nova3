@@ -25,6 +25,7 @@ use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Data\UserData;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class CreateApplicationManager
 {
@@ -32,9 +33,9 @@ class CreateApplicationManager
 
     public function handle(StoreApplicationRequest $request): void
     {
-        DB::beginTransaction();
+        DB::transaction(function () use ($request) {
+            LogBatch::startBatch();
 
-        try {
             $character = $this->createPendingCharacter($request);
 
             $user = $this->findOrCreateUser($request);
@@ -43,12 +44,8 @@ class CreateApplicationManager
 
             $application = $this->createApplication($request, $character, $user);
 
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-
-            throw $th;
-        }
+            LogBatch::endBatch();
+        });
     }
 
     protected function createPendingCharacter(StoreApplicationRequest $request): Character

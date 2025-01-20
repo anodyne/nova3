@@ -31,10 +31,31 @@ class ApplicationReviewersModal extends ModalComponent
 
         $changes = $this->application->reviews()->sync($this->selectedReviewers);
 
-        User::query()
-            ->whereIn('id', $changes['attached'])
-            ->get()
-            ->each->notify(new ApplicationReadyForReview($this->application));
+        if (count($changes['attached']) > 0) {
+            $attachedUsers = User::query()
+                ->whereIn('id', $changes['attached'])
+                ->get();
+
+            $attachedUsers->each->notify(new ApplicationReadyForReview($this->application));
+
+            activity()
+                ->performedOn($this->application)
+                ->withProperty('addedReviewers', $attachedUsers->pluck('id'))
+                ->event('reviewers-added')
+                ->log('reviewers-added');
+        }
+
+        if (count($changes['detached']) > 0) {
+            $detachedUsers = User::query()
+                ->whereIn('id', $changes['detached'])
+                ->get();
+
+            activity()
+                ->performedOn($this->application)
+                ->withProperty('removedReviewers', $detachedUsers->pluck('id'))
+                ->event('reviewers-removed')
+                ->log('reviewers-removed');
+        }
 
         $this->dispatch('reviewers-updated');
 

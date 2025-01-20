@@ -32,6 +32,11 @@ class ApplicationReviewForm extends Form
             'result' => $this->result,
             'comments' => $this->comments,
         ]);
+
+        activity()
+            ->performedOn($this->application)
+            ->event('vote-'.$this->result->value)
+            ->log('vote-'.$this->result->value);
     }
 
     public function setReview(Application $application, ApplicationReview $review, User $user): void

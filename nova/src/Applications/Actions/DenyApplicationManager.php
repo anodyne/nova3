@@ -12,6 +12,7 @@ use Nova\Applications\Models\Application;
 use Nova\Applications\Notifications\ApplicationDenied;
 use Nova\Characters\Actions\HideCharacter;
 use Nova\Users\Actions\HideUser;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class DenyApplicationManager
 {
@@ -19,9 +20,9 @@ class DenyApplicationManager
 
     public function handle(Application $application, ApplicationDecisionData $data): void
     {
-        DB::beginTransaction();
+        DB::transaction(function () use ($application, $data) {
+            LogBatch::startBatch();
 
-        try {
             HideCharacter::run($application->character);
 
             HideUser::run($application->user);
@@ -32,9 +33,12 @@ class DenyApplicationManager
 
             ApplicationDeniedEvent::dispatch($application);
 
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-        }
+            activity()
+                ->performedOn($application)
+                ->event('denied')
+                ->log('denied');
+
+            LogBatch::endBatch();
+        });
     }
 }
