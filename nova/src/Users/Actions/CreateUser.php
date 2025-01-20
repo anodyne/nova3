@@ -14,6 +14,11 @@ class CreateUser
 
     public function handle(UserData $data): User
     {
-        return User::create($data->except('roles')->all());
+        return User::create([
+            ...$data->except('roles')->all(),
+            ...[
+                'force_password_reset' => false,
+            ],
+        ]);
     }
 }

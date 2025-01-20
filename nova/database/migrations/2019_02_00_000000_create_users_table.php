@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Users\Models\User;
 
 class CreateUsersTable extends Migration
 {
@@ -20,9 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('status')->index();
             $table->json('pronouns');
             $table->rememberToken();
-            $table->boolean('force_password_reset')->default(false);
+            $table->boolean('force_password_reset');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('appearance', 5)->nullable()->default('light');
             $table->json('preferences')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -38,7 +36,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('logins', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class);
+            $table->foreignId('user_id');
             $table->string('ip_address', 50);
             $table->timestamp('created_at');
         });

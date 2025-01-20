@@ -15,6 +15,7 @@ class PopulateAccountPreferences
     public function handle(User $user): User
     {
         $user->preferences = new UserPreferences(
+            appearance: 'light',
             timezone: 'UTC'
         );
         $user->save();

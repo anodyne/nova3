@@ -9,6 +9,7 @@ use Spatie\LaravelData\Data;
 class UserPreferences extends Data
 {
     public function __construct(
+        public ?string $appearance,
         public ?string $timezone
     ) {}
 }

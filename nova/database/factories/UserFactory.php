@@ -22,7 +22,7 @@ class UserFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'password' => 'secret',
             'pronouns' => PronounsData::from(['value' => 'none']),
-            'appearance' => 'light',
+            'force_password_reset' => false,
         ];
     }
 
