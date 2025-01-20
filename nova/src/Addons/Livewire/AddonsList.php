@@ -90,31 +90,31 @@ class AddonsList extends TableComponent
                                         'status' => fn ($value) => strtolower($value->getLabel() ?? ''),
                                     ])
                                     ->eventDescriptions([
-                                        'ran-append' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                        'ran-append' => fn (Activity $activity) => __('activity.addons.ran-script', [
                                             'name' => $activity->causer->name,
                                             'script' => 'rank image append',
                                         ]),
-                                        'ran-install' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                        'ran-install' => fn (Activity $activity) => __('activity.addons.ran-script', [
                                             'name' => $activity->causer->name,
                                             'script' => 'install',
                                         ]),
-                                        'ran-migrations' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                        'ran-migrations' => fn (Activity $activity) => __('activity.addons.ran-script', [
                                             'name' => $activity->causer->name,
                                             'script' => 'database migrations',
                                         ]),
-                                        'ran-migrations-rollback' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                        'ran-migrations-rollback' => fn (Activity $activity) => __('activity.addons.ran-script', [
                                             'name' => $activity->causer->name,
                                             'script' => 'database migrations rollback',
                                         ]),
-                                        'ran-replace' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                        'ran-replace' => fn (Activity $activity) => __('activity.addons.ran-script', [
                                             'name' => $activity->causer->name,
                                             'script' => 'rank image replacement',
                                         ]),
-                                        'ran-uninstall' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                        'ran-uninstall' => fn (Activity $activity) => __('activity.addons.ran-script', [
                                             'name' => $activity->causer->name,
                                             'script' => 'uninstall',
                                         ]),
-                                        'ran-update' => fn (Activity $activity) => __('activity.ran-addon-script', [
+                                        'ran-update' => fn (Activity $activity) => __('activity.addons.ran-script', [
                                             'name' => $activity->causer->name,
                                             'script' => 'update',
                                         ]),
