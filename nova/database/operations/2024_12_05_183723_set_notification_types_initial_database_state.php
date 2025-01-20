@@ -66,9 +66,18 @@ return new class extends OneTimeOperation
 
     protected function createNotificationType(array $data, NotificationAudience $audience): void
     {
-        NotificationType::create(array_merge(
-            $data,
-            ['audience' => $audience]
-        ));
+        $defaults = [
+            'database' => true,
+            'database_default' => true,
+            'mail' => false,
+            'mail_default' => false,
+            'discord' => false,
+        ];
+
+        NotificationType::create([
+            ...$defaults,
+            ...$data,
+            ...['audience' => $audience],
+        ]);
     }
 };

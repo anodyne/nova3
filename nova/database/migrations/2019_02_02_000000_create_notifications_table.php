@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Foundation\Enums\NotificationAudience;
 
 class CreateNotificationsTable extends Migration
 {
@@ -26,12 +25,12 @@ class CreateNotificationsTable extends Migration
             $table->string('key')->unique();
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
-            $table->string('audience')->default(NotificationAudience::Personal);
-            $table->boolean('database')->default(true);
-            $table->boolean('database_default')->default(true);
-            $table->boolean('mail')->default(false);
-            $table->boolean('mail_default')->default(false);
-            $table->boolean('discord')->default(false);
+            $table->string('audience');
+            $table->boolean('database');
+            $table->boolean('database_default');
+            $table->boolean('mail');
+            $table->boolean('mail_default');
+            $table->boolean('discord');
             $table->json('discord_settings')->nullable();
             $table->timestamps();
         });
@@ -40,9 +39,9 @@ class CreateNotificationsTable extends Migration
             $table->id();
             $table->foreignId('notification_type_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->boolean('database')->default(true);
-            $table->boolean('mail')->default(false);
-            $table->boolean('discord')->default(false);
+            $table->boolean('database');
+            $table->boolean('mail');
+            $table->boolean('discord');
             $table->json('discord_settings')->nullable();
         });
     }
