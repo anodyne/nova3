@@ -70,11 +70,10 @@ class RankNamesList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => sprintf(
-                                            '**%s** duplicated the rank name as **%s**.',
-                                            $activity->causer->name,
-                                            RankName::find($activity->getExtraProperty('replica'))?->name
-                                        ),
+                                        'duplicated' => fn (Activity $activity) => __('activity.ranks.name-duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'rankName' => RankName::find($activity->getExtraProperty('replica'))?->name,
+                                        ]),
                                     ]);
                             }),
                     ])->authorizeAny(['view', 'update'])->divided(),

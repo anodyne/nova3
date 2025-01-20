@@ -74,11 +74,10 @@ class RankGroupsList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => sprintf(
-                                            '**%s** duplicated the rank group as **%s**.',
-                                            $activity->causer->name,
-                                            RankGroup::find($activity->getExtraProperty('replica'))?->name
-                                        ),
+                                        'duplicated' => fn (Activity $activity) => __('activity.ranks.group-duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'rankGroup' => RankGroup::find($activity->getExtraProperty('replica'))?->name,
+                                        ]),
                                     ]);
                             }),
                     ])->authorizeAny(['view', 'update'])->divided(),
