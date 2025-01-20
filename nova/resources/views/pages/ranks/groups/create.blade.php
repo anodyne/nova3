@@ -29,7 +29,7 @@
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" variant="primary">Add</x-button>
+                <x-button type="submit" color="primary">Add</x-button>
                 <x-button :href="route('admin.ranks.groups.index')" plain>Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
