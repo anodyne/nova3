@@ -318,8 +318,8 @@ class AppServiceProvider extends ServiceProvider
 
         TimelineAction::configureUsing(function (TimelineAction $action) {
             $action
-                ->icon(iconName('list-details'))
-                ->label('Activity logs');
+                ->icon(iconName('history'))
+                ->label('Activity history');
         }, isImportant: true);
 
         $this->app->bind(FilamentNotification::class, Notification::class);
