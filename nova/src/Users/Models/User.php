@@ -30,11 +30,11 @@ use Nova\Characters\Models\Character;
 use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Models\DiscussionNotification;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\StatusHistory;
 use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
-use Nova\Notes\Models\Note;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Data\PronounsData;
@@ -47,7 +47,6 @@ use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\States\Status\UserStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\CausesActivity;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
@@ -55,13 +54,16 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, MustVerifyEmail
 {
     use CausesActivity;
+    use Concerns\HasNotes;
     use HasFactory;
     use HasPrefixedId;
     use HasRolesAndPermissions;
     use HasStates;
     use Impersonate;
     use InteractsWithMedia;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
     use Notifiable;
     use SoftDeletes;
 
@@ -119,11 +121,6 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
     public function latestLogin(): HasOne
     {
         return $this->logins()->one()->ofMany();
-    }
-
-    public function notes(): HasMany
-    {
-        return $this->hasMany(Note::class);
     }
 
     public function formSubmissions(): MorphMany
@@ -378,21 +375,9 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logExcept([
-                'password',
-            ])
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
+        return $this->baseActivitylogOptions()->logExcept([
+            'password',
+        ]);
     }
 
     public function registerMediaCollections(): void

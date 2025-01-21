@@ -7,18 +7,20 @@ namespace Nova\Notes\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Notes\Events;
 use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Note extends Model
 {
     use HasFactory;
     use HasPrefixedId;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
 
     protected $fillable = ['user_id', 'title', 'content'];
 
@@ -35,19 +37,7 @@ class Note extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logExcept(['content'])
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.title note was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
+        return $this->baseActivitylogOptions()->logExcept(['content']);
     }
 
     public function newEloquentBuilder($query): NoteBuilder

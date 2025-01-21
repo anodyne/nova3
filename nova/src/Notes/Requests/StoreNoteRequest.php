@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Requests;
 
-use Nova\Foundation\Http\Requests\ValidatesRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Nova\Notes\Data\NoteData;
 
-class CreateNoteRequest extends ValidatesRequest
+class StoreNoteRequest extends FormRequest
 {
     public function rules(): array
     {
@@ -14,5 +15,10 @@ class CreateNoteRequest extends ValidatesRequest
             'title' => ['required'],
             'content' => ['nullable'],
         ];
+    }
+
+    public function getNoteData(): NoteData
+    {
+        return NoteData::from($this);
     }
 }

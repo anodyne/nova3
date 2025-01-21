@@ -10,11 +10,6 @@ use Nova\Users\Models\User;
 
 class NoteBuilder extends Builder
 {
-    public function searchFor($search): self
-    {
-        return $this->whereAny(['title', 'content'], 'like', "%{$search}%");
-    }
-
     public function author(User $user): self
     {
         return $this->where('user_id', $user->id);
@@ -23,5 +18,10 @@ class NoteBuilder extends Builder
     public function currentUser(): self
     {
         return $this->where('user_id', Auth::id());
+    }
+
+    public function searchFor($search): self
+    {
+        return $this->whereAny(['title', 'content'], 'like', "%{$search}%");
     }
 }

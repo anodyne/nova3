@@ -9,9 +9,8 @@ use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Notes\Actions\CreateNote;
 use Nova\Notes\Actions\UpdateNote;
-use Nova\Notes\Data\NoteData;
 use Nova\Notes\Models\Note;
-use Nova\Notes\Requests\CreateNoteRequest;
+use Nova\Notes\Requests\StoreNoteRequest;
 use Nova\Notes\Requests\UpdateNoteRequest;
 use Nova\Notes\Responses\CreateNoteResponse;
 use Nova\Notes\Responses\EditNoteResponse;
@@ -46,12 +45,11 @@ class NoteController extends Controller
         return CreateNoteResponse::send();
     }
 
-    public function store(CreateNoteRequest $request): RedirectResponse
+    public function store(StoreNoteRequest $request): RedirectResponse
     {
-        $note = CreateNote::run(NoteData::from($request));
+        $note = CreateNote::run($request->getNoteData());
 
-        return redirect()
-            ->route('admin.notes.index')
+        return to_route('admin.notes.index')
             ->notify("{$note->title} was created");
     }
 
@@ -68,7 +66,7 @@ class NoteController extends Controller
     {
         $this->authorize('update', $note);
 
-        $note = UpdateNote::run($note, NoteData::from($request));
+        $note = UpdateNote::run($note, $request->getNoteData());
 
         return back()->notify("{$note->title} was updated");
     }

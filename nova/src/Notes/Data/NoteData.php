@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Nova\Users\Models\User;
 use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
 
-class NoteData extends Data
+readonly class NoteData extends Bag
 {
     public function __construct(
         public string $title,
@@ -19,6 +22,15 @@ class NoteData extends Data
 
     public function user(): User
     {
-        return auth()->user();
+        return Auth::user();
+    }
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'title' => $request->input('title'),
+            'content' => $request->input('editor-content'),
+        ];
     }
 }

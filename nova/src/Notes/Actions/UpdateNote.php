@@ -15,7 +15,7 @@ class UpdateNote
     public function handle(Note $note, NoteData $data): Note
     {
         return tap($note)
-            ->update($data->all())
+            ->update($data->toArray())
             ->refresh();
     }
 }
