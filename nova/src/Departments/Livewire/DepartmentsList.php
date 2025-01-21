@@ -86,6 +86,9 @@ class DepartmentsList extends TableComponent
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
+                                    ->attributeValues([
+                                        'tags' => fn ($value) => is_array($value) ? implode(', ', $value) : '',
+                                    ])
                                     ->eventDescriptions([
                                         'duplicated' => fn (Activity $activity) => sprintf(
                                             '**%s** duplicated the department as **%s**.',
@@ -117,7 +120,12 @@ class DepartmentsList extends TableComponent
                             ->action(function (Model $record, array $data): void {
                                 $replica = DuplicateDepartment::run(
                                     $record,
-                                    DepartmentData::from(array_merge($record->toArray(), $data))
+                                    DepartmentData::from(
+                                        name: data_get($data, 'name'),
+                                        description: $record->description,
+                                        tags: $record->tags,
+                                        status: $record->status
+                                    )
                                 );
 
                                 DepartmentDuplicated::dispatch($replica, $record);

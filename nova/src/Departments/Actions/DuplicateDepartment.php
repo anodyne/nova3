@@ -24,7 +24,7 @@ class DuplicateDepartment
                 'active_users_count',
                 'prefixed_id',
             ]);
-            $replica->forceFill($data->all());
+            $replica->forceFill($data->toArray());
             $replica->save();
 
             $original->positions->each(fn (Position $position) => $replica->positions()->create(

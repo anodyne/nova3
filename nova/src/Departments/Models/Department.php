@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,11 +13,10 @@ use Nova\Characters\Models\States\Status\Active as CharacterActive;
 use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Users\Models\States\Status\Active as UserActive;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
@@ -80,20 +80,11 @@ class Department extends Model implements HasMedia, Sortable
         )->distinct();
     }
 
-    public function getActivitylogOptions(): LogOptions
+    public function tagsAsString(): Attribute
     {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name department was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
+        return Attribute::make(
+            get: fn () => implode(', ', $this->tags)
+        );
     }
 
     public function newEloquentBuilder($query): DepartmentBuilder

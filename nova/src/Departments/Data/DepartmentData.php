@@ -4,37 +4,28 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
 use Illuminate\Http\Request;
 use Nova\Departments\Enums\DepartmentStatus;
-use Spatie\LaravelData\Attributes\Validation\Enum;
-use Spatie\LaravelData\Data;
 
-class DepartmentData extends Data
+readonly class DepartmentData extends Bag
 {
     public function __construct(
         public string $name,
-
         public ?string $description,
-
-        #[Enum(DepartmentStatus::class)]
-        public ?DepartmentStatus $status,
+        public array $tags,
+        public DepartmentStatus $status,
     ) {}
 
-    public static function fromArray(array $data): static
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        return new self(
-            name: data_get($data, 'name'),
-            description: data_get($data, 'description'),
-            status: DepartmentStatus::tryFrom(data_get($data, 'status', DepartmentStatus::Active->value)),
-        );
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            name: $request->input('name'),
-            description: $request->input('description'),
-            status: DepartmentStatus::tryFrom($request->input('status', DepartmentStatus::Active->value)),
-        );
+        return [
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'tags' => array_map('trim', explode(',', $request->input('tags', ''))),
+            'status' => DepartmentStatus::tryFrom($request->input('status')) ?? DepartmentStatus::Active,
+        ];
     }
 }
