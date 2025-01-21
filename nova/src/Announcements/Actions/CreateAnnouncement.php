@@ -16,9 +16,10 @@ class CreateAnnouncement
     {
         $announcement = $data->user()
             ->announcements()
-            ->create(array_merge($data->toArray(), [
-                'published_at' => $data->published ? now() : null,
-            ]));
+            ->create([
+                ...$data->toArray(),
+                ...['published_at' => $data->published ? now() : null],
+            ]);
 
         NotifyUsers::runIf($data->published, $announcement, $data);
 

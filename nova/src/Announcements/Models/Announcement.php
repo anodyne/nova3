@@ -10,15 +10,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 use Nova\Announcements\Events;
 use Nova\Announcements\Models\Builders\AnnouncementBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Announcement extends Model
 {
     use HasPrefixedId;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
     use Searchable;
 
     protected $fillable = [
@@ -58,19 +60,7 @@ class Announcement extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logExcept(['content'])
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.title announcement was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
+        return $this->baseActivitylogOptions()->logExcept(['content']);
     }
 
     public function newEloquentBuilder($query): AnnouncementBuilder
