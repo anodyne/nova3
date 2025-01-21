@@ -19,6 +19,7 @@ class CreatePositionTables extends Migration
             $table->text('description')->nullable();
             $table->unsignedSmallInteger('available')->default(1)->index();
             $table->string('status')->default(PositionStatus::Active)->index();
+            $table->json('tags')->nullable();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });

@@ -59,8 +59,7 @@ class PositionController extends Controller
     {
         $position = CreatePosition::run($request->getPositionData());
 
-        return redirect()
-            ->route('admin.positions.index')
+        return to_route('admin.positions.index')
             ->notify("{$position->name} was created");
     }
 

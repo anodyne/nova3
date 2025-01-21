@@ -14,6 +14,6 @@ class CreatePosition
 
     public function handle(PositionData $data): Position
     {
-        return Position::create($data->all());
+        return Position::create($data->toArray());
     }
 }

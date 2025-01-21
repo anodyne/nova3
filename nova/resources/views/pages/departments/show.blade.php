@@ -30,12 +30,6 @@
                         </x-fieldset.field>
                     @endif
 
-                    @if (filled($department->tags))
-                        <x-fieldset.field label="Tags">
-                            <x-text>{{ $department->tags_as_string }}</x-text>
-                        </x-fieldset.field>
-                    @endif
-
                     <x-fieldset.field label="Status">
                         <div data-slot="text">
                             <x-badge :color="$department->status->color()">
@@ -43,6 +37,12 @@
                             </x-badge>
                         </div>
                     </x-fieldset.field>
+
+                    @if (filled($department->tags))
+                        <x-fieldset.field label="Tags">
+                            <x-text>{{ $department->tags_as_string }}</x-text>
+                        </x-fieldset.field>
+                    @endif
                 </x-fieldset.field-group>
             </x-fieldset>
 

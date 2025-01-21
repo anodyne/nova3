@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,10 +14,9 @@ use Nova\Characters\Models\Character;
 use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\PositionBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
@@ -34,13 +34,14 @@ class Position extends Model implements Sortable
     protected $table = 'positions';
 
     protected $fillable = [
-        'name', 'description', 'order_column', 'available', 'department_id', 'status',
+        'name', 'description', 'order_column', 'available', 'department_id', 'status', 'tags',
     ];
 
     protected $casts = [
+        'available' => 'integer',
         'order_column' => 'integer',
         'status' => PositionStatus::class,
-        // 'tags' => 'array',
+        'tags' => 'array',
     ];
 
     protected $dispatchesEvents = [
@@ -77,25 +78,16 @@ class Position extends Model implements Sortable
         return $this->belongsTo(Department::class);
     }
 
+    public function tagsAsString(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => implode(', ', $this->tags)
+        );
+    }
+
     public function buildSortQuery(): Builder
     {
         return static::query()->where('department_id', $this->department_id);
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name position was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
     }
 
     public function newEloquentBuilder($query): PositionBuilder

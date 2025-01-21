@@ -105,6 +105,7 @@ class PositionsList extends TableComponent
                                     ])
                                     ->attributeValues([
                                         'department_id' => fn ($value) => Department::find($value)?->name,
+                                        'tags' => fn ($value) => is_array($value) ? implode(', ', $value) : '',
                                     ])
                                     ->eventDescriptions([
                                         'duplicated' => fn (Activity $activity) => sprintf(
@@ -127,7 +128,14 @@ class PositionsList extends TableComponent
                             ->action(function (Position $record, array $data): void {
                                 $replica = DuplicatePosition::run(
                                     $record,
-                                    PositionData::from(array_merge($record->toArray(), $data))
+                                    PositionData::from(
+                                        name: data_get($data, 'name'),
+                                        description: $record->description,
+                                        available: $record->available,
+                                        tags: $record->tags,
+                                        status: $record->status,
+                                        department_id: data_get($data, 'department_id')
+                                    )
                                 );
 
                                 PositionDuplicated::dispatch($replica, $record);

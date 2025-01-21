@@ -41,6 +41,12 @@
                             </x-badge>
                         </div>
                     </x-fieldset.field>
+
+                    @if (filled($position->tags))
+                        <x-fieldset.field label="Tags">
+                            <x-text>{{ $position->tags_as_string }}</x-text>
+                        </x-fieldset.field>
+                    @endif
                 </x-fieldset.field-group>
             </x-fieldset>
 

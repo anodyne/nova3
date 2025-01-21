@@ -21,7 +21,7 @@ class DuplicatePosition
                 'active_users_count',
                 'prefixed_id',
             ]);
-            $replica->forceFill(collect($data->all())->filter()->toArray());
+            $replica->forceFill(collect($data->toArray())->filter()->toArray());
             $replica->save();
 
             activity()

@@ -53,6 +53,17 @@
                         ></x-switch>
                         <x-fieldset.label for="status">Active</x-fieldset.label>
                     </div>
+
+                    <x-fieldset.field
+                        label="Tags"
+                        description="A comma-separated list of tags that can be used for organizing your manifest(s)"
+                        id="tags"
+                        name="tags"
+                    >
+                        <x-input.textarea rows="2">
+                            {{ old('tags', $position->tags_as_string) }}
+                        </x-input.textarea>
+                    </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>
 
