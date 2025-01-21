@@ -23,10 +23,10 @@ class DuplicateRankGroup
             $replica->save();
 
             $original->ranks->each(
-                fn (RankItem $rank) => $replica->ranks()->create(array_merge(
-                    Arr::except($rank->toArray(), ['id', 'name', 'created_at', 'updated_at']),
-                    Arr::only($data->toArray(), 'base_image')
-                ))
+                fn (RankItem $rank) => $replica->ranks()->create([
+                    ...Arr::except($rank->toArray(), ['id', 'name', 'created_at', 'updated_at']),
+                    ...Arr::only($data->toArray(), 'base_image'),
+                ])
             );
 
             activity()

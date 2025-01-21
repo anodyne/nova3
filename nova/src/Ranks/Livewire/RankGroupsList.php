@@ -96,7 +96,11 @@ class RankGroupsList extends TableComponent
                             ->action(function (RankGroup $record, array $data): void {
                                 $replica = DuplicateRankGroup::run(
                                     $record,
-                                    RankGroupData::from(array_merge($record->toArray(), $data))
+                                    RankGroupData::from(
+                                        name: data_get($data, 'name'),
+                                        status: $record->status,
+                                        base_image: data_get($data, 'base_image')
+                                    )
                                 );
 
                                 RankGroupDuplicated::dispatch($replica, $record);

@@ -14,6 +14,6 @@ class CreateRankItem
 
     public function handle(RankItemData $data): RankItem
     {
-        return RankItem::create($data->all());
+        return RankItem::create($data->toArray());
     }
 }

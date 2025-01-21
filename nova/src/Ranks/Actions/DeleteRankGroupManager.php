@@ -16,8 +16,6 @@ class DeleteRankGroupManager
     {
         $group->ranks->each(fn (RankItem $item) => DeleteRankItemManager::run($item));
 
-        $group = DeleteRankGroup::run($group);
-
-        return $group;
+        return DeleteRankGroup::run($group);
     }
 }

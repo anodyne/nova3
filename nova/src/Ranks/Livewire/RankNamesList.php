@@ -88,7 +88,10 @@ class RankNamesList extends TableComponent
                             ->action(function (RankName $record, array $data): void {
                                 $replica = DuplicateRankName::run(
                                     $record,
-                                    RankNameData::from(array_merge($record->toArray(), $data))
+                                    RankNameData::from(
+                                        name: data_get($data, 'name'),
+                                        status: $record->status
+                                    )
                                 );
 
                                 RankNameDuplicated::dispatch($replica, $record);

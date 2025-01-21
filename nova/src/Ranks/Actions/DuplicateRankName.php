@@ -15,7 +15,7 @@ class DuplicateRankName
     public function handle(RankName $original, RankNameData $data): RankName
     {
         $replica = $original->replicate(['ranks_count']);
-        $replica->fill($data->all());
+        $replica->fill($data->toArray());
         $replica->save();
 
         activity()

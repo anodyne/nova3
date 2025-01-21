@@ -18,8 +18,6 @@ class DeleteRankNameManager
 
         $name->ranks->each(fn (RankItem $item) => DeleteRankItemManager::run($item));
 
-        $name = DeleteRankName::run($name);
-
-        return $name;
+        return DeleteRankName::run($name);
     }
 }

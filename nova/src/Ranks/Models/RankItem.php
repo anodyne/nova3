@@ -9,11 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
@@ -55,22 +54,6 @@ class RankItem extends Model implements Sortable
     public function name(): BelongsTo
     {
         return $this->belongsTo(RankName::class, 'name_id');
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name rank item was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
     }
 
     public function newEloquentBuilder($query): RankItemBuilder

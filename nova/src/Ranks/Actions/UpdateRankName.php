@@ -15,7 +15,7 @@ class UpdateRankName
     public function handle(RankName $name, RankNameData $data): RankName
     {
         return tap($name)
-            ->update($data->all())
+            ->update($data->toArray())
             ->refresh();
     }
 }

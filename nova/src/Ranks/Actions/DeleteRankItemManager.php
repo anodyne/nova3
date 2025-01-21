@@ -25,8 +25,6 @@ class DeleteRankItemManager
             ));
         });
 
-        $item = DeleteRankItem::run($item);
-
-        return $item;
+        return DeleteRankItem::run($item);
     }
 }

@@ -4,18 +4,26 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Illuminate\Http\Request;
 use Nova\Ranks\Enums\RankGroupStatus;
-use Spatie\LaravelData\Attributes\Validation\Enum;
-use Spatie\LaravelData\Data;
 
-class RankGroupData extends Data
+readonly class RankGroupData extends Bag
 {
     public function __construct(
         public string $name,
-
-        #[Enum(RankGroupStatus::class)]
-        public ?RankGroupStatus $status,
-
+        public RankGroupStatus $status,
         public ?string $base_image
     ) {}
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'name' => $request->input('name'),
+            'status' => RankGroupStatus::tryFrom($request->input('status')) ?? RankGroupStatus::Active,
+            'base_image' => $request->input('base_image'),
+        ];
+    }
 }
