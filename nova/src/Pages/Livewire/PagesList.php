@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Url;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -27,7 +28,6 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Pages\Actions\DeletePage;
 use Nova\Pages\Actions\DuplicatePage;
 use Nova\Pages\Data\PageData;
-use Nova\Pages\Enums\PageStatus;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events\PageDuplicated;
 use Nova\Pages\Models\Page;
@@ -80,7 +80,6 @@ class PagesList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Page $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -196,7 +195,7 @@ class PagesList extends TableComponent
                     ->placeholder('All pages')
                     ->trueLabel('Advanced pages')
                     ->falseLabel('Basic pages'),
-                SelectFilter::make('status')->options(PageStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
                 SelectFilter::make('layout')->options([
                     'public' => 'Public pages',
                     'admin' => 'Admin pages',

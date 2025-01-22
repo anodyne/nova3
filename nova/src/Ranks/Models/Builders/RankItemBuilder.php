@@ -5,20 +5,12 @@ declare(strict_types=1);
 namespace Nova\Ranks\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Ranks\Enums\RankItemStatus;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Ranks\Models\RankName;
 
 class RankItemBuilder extends Builder
 {
-    public function active()
-    {
-        return $this->where('status', RankItemStatus::Active);
-    }
-
-    public function inactive()
-    {
-        return $this->where('status', RankItemStatus::Inactive);
-    }
+    use QueriesStatus;
 
     public function group($group)
     {

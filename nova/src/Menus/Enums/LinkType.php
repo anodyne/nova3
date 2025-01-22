@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Enums;
 
+use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 use Nova\Foundation\Concerns\HasSelectOptions;
 
-enum LinkType: string implements HasLabel
+enum LinkType: string implements HasColor, HasLabel
 {
     use HasSelectOptions;
 
@@ -15,15 +16,7 @@ enum LinkType: string implements HasLabel
 
     case Url = 'url';
 
-    public function bgColor(): string
-    {
-        return match ($this) {
-            self::Page => 'bg-primary-500',
-            self::Url => 'bg-info-500',
-        };
-    }
-
-    public function color(): string
+    public function getColor(): string|array|null
     {
         return match ($this) {
             self::Page => 'primary',

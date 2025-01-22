@@ -7,13 +7,13 @@ namespace Nova\Pages\Models;
 use Illuminate\Database\Eloquent\Attributes\CollectedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Media\Concerns\InteractsWithMedia;
-use Nova\Pages\Enums\PageStatus;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events;
 use Nova\Pages\Models\Collections\PagesCollection;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
@@ -22,7 +22,9 @@ class Page extends Model implements HasMedia
 {
     use HasPrefixedId;
     use InteractsWithMedia;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
 
     protected $fillable = [
         'name',
@@ -48,7 +50,7 @@ class Page extends Model implements HasMedia
         'middleware' => 'array',
         'published_at' => 'datetime',
         'published_blocks' => 'array',
-        'status' => PageStatus::class,
+        'status' => BasicStatus::class,
         'verb' => PageVerb::class,
         'content_can_be_edited' => 'boolean',
     ];
@@ -92,18 +94,11 @@ class Page extends Model implements HasMedia
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.key page was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
+        return $this->baseActivitylogOptions()->logExcept([
+            'blocks',
+            'published_blocks',
+            'intro',
+        ]);
     }
 
     public function newEloquentBuilder($query): Builders\PageBuilder

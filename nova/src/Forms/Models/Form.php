@@ -9,12 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Forms\Data\FormOptions;
-use Nova\Forms\Enums\FormStatus;
 use Nova\Forms\Enums\FormType;
 use Nova\Forms\Events;
 use Nova\Forms\Models\Builders\FormBuilder;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Form extends Model
@@ -40,7 +39,7 @@ class Form extends Model
         'fields' => 'array',
         'published_at' => 'datetime',
         'published_fields' => 'array',
-        'status' => FormStatus::class,
+        'status' => BasicStatus::class,
         'type' => FormType::class,
         'options' => FormOptions::class,
     ];
@@ -116,22 +115,6 @@ class Form extends Model
                     ->all();
             }
         );
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name form was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
     }
 
     public function newEloquentBuilder($query): FormBuilder

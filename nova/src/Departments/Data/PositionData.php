@@ -7,7 +7,7 @@ namespace Nova\Departments\Data;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
-use Nova\Departments\Enums\PositionStatus;
+use Nova\Foundation\Enums\BasicStatus;
 
 readonly class PositionData extends Bag
 {
@@ -16,7 +16,7 @@ readonly class PositionData extends Bag
         public ?string $description,
         public int $available,
         public array $tags,
-        public PositionStatus $status,
+        public BasicStatus $status,
         public int $department_id = 0
     ) {}
 
@@ -28,7 +28,7 @@ readonly class PositionData extends Bag
             'description' => $request->input('description'),
             'available' => $request->integer('available'),
             'tags' => array_map('trim', explode(',', $request->input('tags', ''))),
-            'status' => PositionStatus::tryFrom($request->input('status')) ?? PositionStatus::Active,
+            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
             'department_id' => $request->integer('department_id'),
         ];
     }

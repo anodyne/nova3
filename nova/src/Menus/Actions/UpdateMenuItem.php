@@ -14,6 +14,6 @@ class UpdateMenuItem
 
     public function handle(MenuItem $menuItem, MenuItemData $data): MenuItem
     {
-        return tap($menuItem)->update($data->all());
+        return tap($menuItem)->update($data->toArray());
     }
 }

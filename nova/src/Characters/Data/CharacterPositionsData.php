@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Data;
 
+use Bag\Bag;
 use Illuminate\Support\Collection;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
-use Spatie\LaravelData\Data;
 
-class CharacterPositionsData extends Data
+readonly class CharacterPositionsData extends Bag
 {
     public function __construct(
         public Character $character,

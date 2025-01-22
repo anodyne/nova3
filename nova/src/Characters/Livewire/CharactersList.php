@@ -82,11 +82,10 @@ class CharactersList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('type')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->type->color())
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->trashed() ? 'danger' : $record->status->color())
+                    ->color(fn (Model $record): string => $record->trashed() ? 'danger' : $record->status->getColor())
                     ->formatStateUsing(fn (Model $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
                     ->toggleable(),
             ])

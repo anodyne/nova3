@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Concerns\LogsActivity;
-use Nova\Ranks\Enums\RankGroupStatus;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankGroupBuilder;
 use Spatie\EloquentSortable\Sortable;
@@ -28,7 +28,7 @@ class RankGroup extends Model implements Sortable
 
     protected $casts = [
         'order_column' => 'integer',
-        'status' => RankGroupStatus::class,
+        'status' => BasicStatus::class,
     ];
 
     protected $dispatchesEvents = [

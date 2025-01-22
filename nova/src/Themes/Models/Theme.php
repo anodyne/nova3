@@ -11,13 +11,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Nova\Addons\Data\AddonRepository;
 use Nova\Foundation\Concerns\ChecksAddonVersion;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Themes\BaseTheme;
 use Nova\Themes\Data\ThemeSettings;
-use Nova\Themes\Enums\ThemeStatus;
 use Nova\Themes\Events;
 use Nova\Themes\Models\Builders\ThemeBuilder;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class Theme extends Model
 {
@@ -32,7 +31,7 @@ class Theme extends Model
     ];
 
     protected $casts = [
-        'status' => ThemeStatus::class,
+        'status' => BasicStatus::class,
         'settings' => ThemeSettings::class,
         'repository' => AddonRepository::class,
     ];
@@ -55,22 +54,6 @@ class Theme extends Model
         $themeClass = 'Themes\\'.$this->location.'\\Theme';
 
         return new $themeClass;
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name theme was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
     }
 
     public function newEloquentBuilder($query): ThemeBuilder

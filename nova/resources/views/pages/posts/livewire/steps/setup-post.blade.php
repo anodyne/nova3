@@ -34,7 +34,7 @@
                                     {{ $currentStory->title }}
 
                                     @if ($currentStory?->status->name() !== 'current')
-                                            ({{ $currentStory->status->displayName() }})
+                                        ({{ $currentStory->status->getLabel() }})
                                     @endif
                                 </option>
                             @endforeach

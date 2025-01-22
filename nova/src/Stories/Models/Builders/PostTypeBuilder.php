@@ -6,20 +6,12 @@ namespace Nova\Stories\Models\Builders;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Stories\Enums\PostTypeVisibility;
 
 class PostTypeBuilder extends Builder
 {
-    public function active(): Builder
-    {
-        return $this->where('status', PostTypeStatus::Active);
-    }
-
-    public function inactive(): Builder
-    {
-        return $this->where('status', PostTypeStatus::Inactive);
-    }
+    use QueriesStatus;
 
     public function inCharacter(): Builder
     {

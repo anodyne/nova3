@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Themes\Data;
 
 use Nova\Addons\Data\AddonRepository;
-use Nova\Themes\Enums\ThemeStatus;
+use Nova\Foundation\Enums\BasicStatus;
 use Spatie\LaravelData\Attributes\Validation\Enum;
 use Spatie\LaravelData\Data;
 
@@ -20,8 +20,8 @@ class ThemeData extends Data
 
         public ?string $credits,
 
-        #[Enum(ThemeStatus::class)]
-        public ?ThemeStatus $status,
+        #[Enum(BasicStatus::class)]
+        public ?BasicStatus $status,
 
         public string $preview,
 

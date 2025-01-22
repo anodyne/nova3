@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -28,7 +29,6 @@ use Nova\Ranks\Actions\DeleteRankGroupManager;
 use Nova\Ranks\Actions\DuplicateRankGroup;
 use Nova\Ranks\Concerns\FindRankImages;
 use Nova\Ranks\Data\RankGroupData;
-use Nova\Ranks\Enums\RankGroupStatus;
 use Nova\Ranks\Events\RankGroupDuplicated;
 use Nova\Ranks\Models\RankGroup;
 use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
@@ -58,7 +58,6 @@ class RankGroupsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (RankGroup $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -159,7 +158,7 @@ class RankGroupsList extends TableComponent
                         true: fn (Builder $query): Builder => $query->whereHas('ranks'),
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('ranks')
                     ),
-                SelectFilter::make('status')->options(RankGroupStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))

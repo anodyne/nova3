@@ -17,9 +17,9 @@ use Illuminate\Support\HtmlString;
 use Nova\Addons\Actions\BustActiveAddonsCache;
 use Nova\Addons\Actions\DeleteAddon;
 use Nova\Addons\Actions\InstallAddon;
-use Nova\Addons\Enums\AddonStatus;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -157,7 +157,7 @@ class AddonsList extends TableComponent
             ])
             ->filters([
                 SelectFilter::make('type')->options(AddonType::class),
-                SelectFilter::make('status')->options(AddonStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->headerActions([
                 Action::make('install')
@@ -219,7 +219,7 @@ class AddonsList extends TableComponent
                     }),
             ])
             ->emptyStateIcon(iconName('puzzle'))
-            ->emptyStateHeading('No add-on found')
+            ->emptyStateHeading('No add-ons found')
             ->emptyStateDescription('Add-ons allow you to personalize and extend Nova to work and behave the way you want.')
             ->emptyStateActions([
                 CreateAction::make()
@@ -244,7 +244,7 @@ class AddonsList extends TableComponent
 
                     $record->runScript('install');
 
-                    $record->update(['status' => AddonStatus::Active]);
+                    $record->update(['status' => BasicStatus::Active]);
 
                     BustActiveAddonsCache::run();
 
@@ -263,7 +263,7 @@ class AddonsList extends TableComponent
 
                     $record->runScript('uninstall');
 
-                    $record->update(['status' => AddonStatus::Inactive]);
+                    $record->update(['status' => BasicStatus::Inactive]);
 
                     BustActiveAddonsCache::run();
 

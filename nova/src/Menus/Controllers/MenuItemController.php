@@ -63,7 +63,6 @@ class MenuItemController extends Controller
     {
         $menuItem = UpdateMenuItem::run($menuItem, $request->getMenuItemData());
 
-        return back()
-            ->notify("{$menuItem->label} menu item has been updated");
+        return back()->notify("{$menuItem->label} menu item has been updated");
     }
 }

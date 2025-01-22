@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Stories\Data\PostData;
 use Nova\Stories\Events;
@@ -21,7 +22,6 @@ use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\States\PostStatus;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
@@ -32,7 +32,9 @@ class Post extends Model implements Sortable
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
     use Searchable;
     use SortableTrait;
     use WithData;
@@ -327,25 +329,13 @@ class Post extends Model implements Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logExcept([
-                'content',
-                'direction',
-                'neighbor',
-                'participants',
-                'word_count',
-            ])
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.title post was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
+        return $this->baseActivitylogOptions()->logExcept([
+            'content',
+            'direction',
+            'neighbor',
+            'participants',
+            'word_count',
+        ]);
     }
 
     public function toSearchableArray(): array

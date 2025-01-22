@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Data;
 
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class ApplicationDecisionData extends Data
+readonly class ApplicationDecisionData extends Bag
 {
     public function __construct(
         public ?string $message,

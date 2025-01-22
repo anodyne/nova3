@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Laravel\Scout\Searchable;
 use Nova\Foundation\Casts\DateTimeCast;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Stories\Data\StoryData;
@@ -20,7 +21,6 @@ use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\States\StoryStatus;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
@@ -35,7 +35,9 @@ class Story extends Model implements HasMedia, Sortable
     use HasRecursiveRelationships;
     use HasStates;
     use InteractsWithMedia;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
     use Searchable;
     use SortableTrait;
     use WithData;
@@ -141,18 +143,10 @@ class Story extends Model implements HasMedia, Sortable
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.title story was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
+        return $this->baseActivitylogOptions()->logExcept([
+            'description',
+            'summary',
+        ]);
     }
 
     public function newEloquentBuilder($query): StoryBuilder

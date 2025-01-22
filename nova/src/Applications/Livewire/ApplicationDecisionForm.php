@@ -35,7 +35,7 @@ class ApplicationDecisionForm extends Form
         AcceptApplicationManager::runIf(
             $this->result === ApplicationResult::Accept,
             application: $this->application,
-            data: new ApplicationDecisionData(
+            data: ApplicationDecisionData::from(
                 message: $this->message,
                 rank_id: $this->rankId,
                 positions: $this->positions
@@ -45,7 +45,7 @@ class ApplicationDecisionForm extends Form
         DenyApplicationManager::runIf(
             $this->result === ApplicationResult::Deny,
             application: $this->application,
-            data: new ApplicationDecisionData(
+            data: ApplicationDecisionData::from(
                 message: $this->message
             )
         );

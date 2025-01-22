@@ -6,7 +6,7 @@
             <x-slot name="heading">
                 <div class="flex items-center gap-x-4">
                     <span>{{ $application->character->name }}</span>
-                    <x-badge :color="$application->result->color()">
+                    <x-badge :color="$application->result->getColor()">
                         {{ $application->result->getLabel() }}
                     </x-badge>
                 </div>
@@ -52,7 +52,7 @@
                                                 <x-fieldset.legend>User details</x-fieldset.legend>
                                             </div>
                                             <div class="ml-8 flex shrink-0 items-center space-x-3">
-                                                <x-badge :color="$application->user->status->color()">
+                                                <x-badge :color="$application->user->status->getColor()">
                                                     {{ $application->user->status->simple() }}
                                                 </x-badge>
 
@@ -130,7 +130,7 @@
                                                 <x-fieldset.legend>Character details</x-fieldset.legend>
                                             </div>
                                             <div class="ml-8 flex shrink-0 items-center space-x-3">
-                                                <x-badge :color="$application->character->type->color()">
+                                                <x-badge :color="$application->character->type->getColor()">
                                                     {{ $application->character->type->getLabel() }}
                                                 </x-badge>
 
@@ -262,7 +262,7 @@
                                                                 name="app_status"
                                                             >
                                                                 <div data-slot="text">
-                                                                    <x-badge :color="$application->result->color()">
+                                                                    <x-badge :color="$application->result->getColor()">
                                                                         {{ $application->result->getLabel() }}
                                                                     </x-badge>
                                                                 </div>
@@ -342,7 +342,7 @@
                                                                 >
                                                                     <div data-slot="text">
                                                                         <x-badge
-                                                                            :color="$application->result->color()"
+                                                                            :color="$application->result->getColor()"
                                                                         >
                                                                             {{ $application->result->getLabel() }}
                                                                         </x-badge>

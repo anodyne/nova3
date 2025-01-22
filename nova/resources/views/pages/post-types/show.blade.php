@@ -38,7 +38,7 @@
 
                     <x-fieldset.field label="Status">
                         <div data-slot="text">
-                            <x-badge :color="$postType->status->color()">
+                            <x-badge :color="$postType->status->getColor()">
                                 {{ $postType->status->getLabel() }}
                             </x-badge>
                         </div>

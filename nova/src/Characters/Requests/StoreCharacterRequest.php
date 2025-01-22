@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Characters\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Nova\Characters\Data\AssignCharacterOwnersData;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Data\CharacterData;
@@ -63,10 +64,10 @@ class StoreCharacterRequest extends FormRequest
 
     public function getAutoLinkedCharacterOwnersData(): AssignCharacterOwnersData
     {
-        return AssignCharacterOwnersData::from([
-            'users' => $this->boolean('link_to_user') ? [auth()->id()] : [],
-            'primaryUsers' => $this->boolean('assign_as_primary') ? [auth()->id()] : [],
-        ]);
+        return new AssignCharacterOwnersData(
+            users: $this->boolean('link_to_user') ? [Auth::id()] : [],
+            primaryUsers: $this->boolean('assign_as_primary') ? [Auth::id()] : []
+        );
     }
 
     public function getCharacterPositionsData(): AssignCharacterPositionsData

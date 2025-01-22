@@ -7,11 +7,11 @@ namespace Nova\Themes\Actions;
 use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Data\AddonRepository;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Settings\Data\FontFamilies;
 use Nova\Setup\Randomize;
 use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Data\ThemeSettings;
-use Nova\Themes\Enums\ThemeStatus;
 use Nova\Themes\Events\ThemeInstalled;
 use Nova\Themes\Models\Theme;
 
@@ -38,7 +38,7 @@ class InstallTheme
             location: data_get($data, 'location'),
             version: data_get($data, 'version'),
             credits: data_get($data, 'credits'),
-            status: ThemeStatus::Active,
+            status: BasicStatus::Active,
             preview: data_get($data, 'preview'),
             settings: $settings,
             repository: AddonRepository::from(data_get($data, 'repository')),

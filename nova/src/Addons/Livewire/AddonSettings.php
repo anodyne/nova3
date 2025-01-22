@@ -32,9 +32,9 @@ class AddonSettings extends Component implements HasForms
 
     public function save(): void
     {
-        $settings = AddonSettingsData::from([
-            'settings' => $this->form->getState(),
-        ]);
+        $settings = AddonSettingsData::from(
+            settings: $this->form->getState()
+        );
 
         $this->addon->update(['settings' => $settings]);
 

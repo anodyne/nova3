@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Gate;
 use Nova\Departments\Actions\DeleteDepartment;
 use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Data\DepartmentData;
-use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events\DepartmentDuplicated;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -71,7 +71,6 @@ class DepartmentsList extends TableComponent
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -183,7 +182,7 @@ class DepartmentsList extends TableComponent
                         true: fn (Builder $query) => $query->whereHas('positions'),
                         false: fn (Builder $query) => $query->whereDoesntHave('positions')
                     ),
-                SelectFilter::make('status')->options(DepartmentStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))

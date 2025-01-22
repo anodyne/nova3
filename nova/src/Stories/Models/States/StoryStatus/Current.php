@@ -8,12 +8,12 @@ class Current extends StoryStatus
 {
     public static $name = 'current';
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'primary';
     }
 
-    public function description(): string
+    public function getDescription(): string
     {
         return 'Story that is currently running and players can post into';
     }

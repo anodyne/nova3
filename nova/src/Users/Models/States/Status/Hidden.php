@@ -13,7 +13,7 @@ class Hidden extends UserStatus
         return 'Denied user';
     }
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'gray';
     }

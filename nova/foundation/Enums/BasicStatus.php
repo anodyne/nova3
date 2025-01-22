@@ -2,16 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Nova\Addons\Enums;
+namespace Nova\Foundation\Enums;
 
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
-use Nova\Foundation\Concerns\HasSelectOptions;
 
-enum AddonStatus: string implements HasColor, HasLabel
+enum BasicStatus: string implements HasColor, HasLabel
 {
-    use HasSelectOptions;
-
     case Active = 'active';
 
     case Inactive = 'inactive';
@@ -24,7 +21,7 @@ enum AddonStatus: string implements HasColor, HasLabel
         };
     }
 
-    public function getColor(): string
+    public function getColor(): string|array|null
     {
         return match ($this) {
             self::Active => 'success',

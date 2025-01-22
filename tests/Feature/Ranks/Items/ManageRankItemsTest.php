@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Livewire\RankItemsList;
 use Nova\Ranks\Models\RankItem;
 
@@ -18,8 +18,8 @@ beforeEach(function () {
     $this->rankItems = RankItem::factory()
         ->count(10)
         ->sequence(
-            ['status' => RankItemStatus::Active],
-            ['status' => RankItemStatus::Inactive],
+            ['status' => BasicStatus::Active],
+            ['status' => BasicStatus::Inactive],
         )
         ->create();
 });
@@ -38,12 +38,12 @@ describe('authorized user', function () {
 
     test('can filter rank items by status', function () {
         livewire(RankItemsList::class)
-            ->filterTable('status', RankItemStatus::Active->value)
-            ->assertCanSeeTableRecords($this->rankItems->where('status', RankItemStatus::Active))
-            ->assertCanNotSeeTableRecords($this->rankItems->where('status', RankItemStatus::Inactive))
-            ->filterTable('status', RankItemStatus::Inactive->value)
-            ->assertCanSeeTableRecords($this->rankItems->where('status', RankItemStatus::Inactive))
-            ->assertCanNotSeeTableRecords($this->rankItems->where('status', RankItemStatus::Active));
+            ->filterTable('status', BasicStatus::Active->value)
+            ->assertCanSeeTableRecords($this->rankItems->where('status', BasicStatus::Active))
+            ->assertCanNotSeeTableRecords($this->rankItems->where('status', BasicStatus::Inactive))
+            ->filterTable('status', BasicStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->rankItems->where('status', BasicStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->rankItems->where('status', BasicStatus::Active));
     });
 
     test('can filter rank items by group', function () {

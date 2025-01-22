@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Ranks\Enums\RankGroupStatus;
 use Nova\Ranks\Livewire\RankGroupsList;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
@@ -19,8 +19,8 @@ beforeEach(function () {
     $this->rankGroups = RankGroup::factory()
         ->count(10)
         ->sequence(
-            ['status' => RankGroupStatus::Active],
-            ['status' => RankGroupStatus::Inactive],
+            ['status' => BasicStatus::Active],
+            ['status' => BasicStatus::Inactive],
         )
         ->create();
 });
@@ -39,12 +39,12 @@ describe('authorized user', function () {
 
     test('can filter rank groups by status', function () {
         livewire(RankGroupsList::class)
-            ->filterTable('status', RankGroupStatus::Active->value)
-            ->assertCanSeeTableRecords($this->rankGroups->where('status', RankGroupStatus::Active))
-            ->assertCanNotSeeTableRecords($this->rankGroups->where('status', RankGroupStatus::Inactive))
-            ->filterTable('status', RankGroupStatus::Inactive->value)
-            ->assertCanSeeTableRecords($this->rankGroups->where('status', RankGroupStatus::Inactive))
-            ->assertCanNotSeeTableRecords($this->rankGroups->where('status', RankGroupStatus::Active));
+            ->filterTable('status', BasicStatus::Active->value)
+            ->assertCanSeeTableRecords($this->rankGroups->where('status', BasicStatus::Active))
+            ->assertCanNotSeeTableRecords($this->rankGroups->where('status', BasicStatus::Inactive))
+            ->filterTable('status', BasicStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->rankGroups->where('status', BasicStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->rankGroups->where('status', BasicStatus::Active));
     });
 
     test('can filter rank groups by presence of assigned ranks', function () {

@@ -10,9 +10,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
-use Nova\Menus\Enums\MenuStatus;
 use Nova\Menus\Events;
 use Nova\Menus\Models\Builders\MenuItemBuilder;
 use Nova\Pages\Models\Page;
@@ -22,6 +23,7 @@ use Spatie\EloquentSortable\SortableTrait;
 class MenuItem extends Model implements Sortable
 {
     use HasFactory;
+    use LogsActivity;
     use SortableTrait;
 
     protected $fillable = [
@@ -38,7 +40,7 @@ class MenuItem extends Model implements Sortable
 
     protected $casts = [
         'link_type' => LinkType::class,
-        'status' => MenuStatus::class,
+        'status' => BasicStatus::class,
         'page_id' => 'integer',
         'parent_id' => 'integer',
         'order_column' => 'integer',

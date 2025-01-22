@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Concerns\LogsActivity;
-use Nova\Ranks\Enums\RankItemStatus;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Ranks\Events;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
 use Spatie\EloquentSortable\Sortable;
@@ -32,7 +32,7 @@ class RankItem extends Model implements Sortable
 
     protected $casts = [
         'order_column' => 'integer',
-        'status' => RankItemStatus::class,
+        'status' => BasicStatus::class,
     ];
 
     protected $dispatchesEvents = [

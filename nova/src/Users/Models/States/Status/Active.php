@@ -13,7 +13,7 @@ class Active extends UserStatus
         return 'Existing user';
     }
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'success';
     }

@@ -7,7 +7,7 @@ namespace Nova\Ranks\Data;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
-use Nova\Ranks\Enums\RankItemStatus;
+use Nova\Foundation\Enums\BasicStatus;
 
 readonly class RankItemData extends Bag
 {
@@ -16,7 +16,7 @@ readonly class RankItemData extends Bag
         public ?string $overlay_image,
         public ?int $group_id,
         public ?int $name_id,
-        public RankItemStatus $status
+        public BasicStatus $status
     ) {}
 
     #[Transforms(Request::class)]
@@ -27,7 +27,7 @@ readonly class RankItemData extends Bag
             'overlay_image' => $request->input('overlay_image'),
             'group_id' => $request->integer('group_id'),
             'name_id' => $request->integer('name_id'),
-            'status' => RankItemStatus::tryFrom($request->input('status')) ?? RankItemStatus::Active,
+            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
         ];
     }
 }

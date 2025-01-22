@@ -20,10 +20,10 @@ use Livewire\Attributes\Url;
 use Nova\Departments\Actions\DeletePosition;
 use Nova\Departments\Actions\DuplicatePosition;
 use Nova\Departments\Data\PositionData;
-use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Events\PositionDuplicated;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -84,7 +84,6 @@ class PositionsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Position $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -205,7 +204,7 @@ class PositionsList extends TableComponent
                         true: fn (Builder $query): Builder => $query->whereHas('activeCharacters'),
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('activeCharacters')
                     ),
-                SelectFilter::make('status')->options(PositionStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.positions-reordering-notice') : null)
             ->emptyStateIcon(iconName('list'))

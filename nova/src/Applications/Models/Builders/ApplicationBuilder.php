@@ -9,15 +9,15 @@ use Nova\Applications\Enums\ApplicationResult;
 
 class ApplicationBuilder extends Builder
 {
+    public function pending(): Builder
+    {
+        return $this->where('result', ApplicationResult::Pending);
+    }
+
     public function searchFor($search): Builder
     {
         return $this
             ->whereRelation('characters', 'characters.name', 'like', "%{$search}%")
             ->orWhereRelation('users', 'users.name', 'like', "%{$search}%");
-    }
-
-    public function pending(): Builder
-    {
-        return $this->where('result', ApplicationResult::Pending);
     }
 }

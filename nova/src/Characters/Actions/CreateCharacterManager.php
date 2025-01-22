@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Models\Character;
@@ -19,50 +20,52 @@ class CreateCharacterManager
 
     public function handle(StoreCharacterRequest $request): Character
     {
-        $character = CreateCharacter::run($request->getCharacterData());
+        return DB::transaction(function () use ($request) {
+            $character = CreateCharacter::run($request->getCharacterData());
 
-        $character = AssignCharacterPositions::run(
-            $character,
-            $request->getCharacterPositionsData()
-        );
-
-        if ($request->user()->can('create', Character::class)) {
-            $character = AssignCharacterOwners::run(
+            $character = AssignCharacterPositions::run(
                 $character,
-                $request->getCharacterOwnersData()
+                $request->getCharacterPositionsData()
             );
-        } else {
-            AssignCharacterOwners::run(
+
+            if ($request->user()->can('create', Character::class)) {
+                $character = AssignCharacterOwners::run(
+                    $character,
+                    $request->getCharacterOwnersData()
+                );
+            } else {
+                AssignCharacterOwners::run(
+                    $character,
+                    $request->getAutoLinkedCharacterOwnersData()
+                );
+            }
+
+            $character = SetCharacterType::run($character);
+
+            $positions = new CharacterPositionsData(
+                character: $character,
+                currentType: $character->type,
+                currentPositions: $character->positions
+            );
+
+            UpdatePositionAvailability::run($positions);
+
+            UploadCharacterAvatar::run($character, $request->image_path);
+
+            if ($request->user()->can('activateOnCreation', $character)) {
+                $character = ActivateCharacter::run($character);
+            }
+
+            $this->createFormSubmission($character, $request->input('characterBio', []));
+
+            SendPendingCharacterNotification::runUnless(
+                $character->is_active,
                 $character,
-                $request->getAutoLinkedCharacterOwnersData()
+                $request->user()
             );
-        }
 
-        $character = SetCharacterType::run($character);
-
-        $positions = new CharacterPositionsData(
-            character: $character,
-            currentType: $character->type,
-            currentPositions: $character->positions
-        );
-
-        UpdatePositionAvailability::run($positions);
-
-        UploadCharacterAvatar::run($character, $request->image_path);
-
-        if ($request->user()->can('activateOnCreation', $character)) {
-            $character = ActivateCharacter::run($character);
-        }
-
-        $this->createFormSubmission($character, $request->input('characterBio', []));
-
-        SendPendingCharacterNotification::runUnless(
-            $character->is_active,
-            $character,
-            $request->user()
-        );
-
-        return $character->refresh();
+            return $character->refresh();
+        });
     }
 
     protected function createFormSubmission(Character $character, ?array $data = []): void

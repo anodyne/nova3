@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Roles\Models\Role;
-use Nova\Stories\Enums\PostTypeStatus;
 use Nova\Stories\Livewire\PostTypesList;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
@@ -21,8 +21,8 @@ beforeEach(function () {
     $this->postTypes = PostType::factory()
         ->count(10)
         ->sequence(
-            ['status' => PostTypeStatus::Active],
-            ['status' => PostTypeStatus::Inactive],
+            ['status' => BasicStatus::Active],
+            ['status' => BasicStatus::Inactive],
         )
         ->create();
 });
@@ -41,12 +41,12 @@ describe('authorized user', function () {
 
     test('can filter post types by status', function () {
         livewire(PostTypesList::class)
-            ->filterTable('status', PostTypeStatus::Active->value)
-            ->assertCanSeeTableRecords($this->postTypes->where('status', PostTypeStatus::Active))
-            ->assertCanNotSeeTableRecords($this->postTypes->where('status', PostTypeStatus::Inactive))
-            ->filterTable('status', PostTypeStatus::Inactive->value)
-            ->assertCanSeeTableRecords($this->postTypes->where('status', PostTypeStatus::Inactive))
-            ->assertCanNotSeeTableRecords($this->postTypes->where('status', PostTypeStatus::Active));
+            ->filterTable('status', BasicStatus::Active->value)
+            ->assertCanSeeTableRecords($this->postTypes->where('status', BasicStatus::Active))
+            ->assertCanNotSeeTableRecords($this->postTypes->where('status', BasicStatus::Inactive))
+            ->filterTable('status', BasicStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->postTypes->where('status', BasicStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->postTypes->where('status', BasicStatus::Active));
     });
 
     test('can filter post types by those that require a role', function () {

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Enums;
 
+use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
-use Nova\Foundation\Concerns\HasSelectOptions;
 
-enum ApplicationResult: string implements HasLabel
+enum ApplicationResult: string implements HasColor, HasLabel
 {
-    use HasSelectOptions;
-
     case Accept = 'accept';
 
     case Deny = 'deny';
@@ -26,7 +24,7 @@ enum ApplicationResult: string implements HasLabel
         };
     }
 
-    public function color(): string
+    public function getColor(): string
     {
         return match ($this) {
             self::Accept => 'success',

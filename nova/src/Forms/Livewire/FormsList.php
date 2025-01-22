@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Nova\Forms\Actions\DeleteFormManager;
-use Nova\Forms\Enums\FormStatus;
 use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -48,7 +48,6 @@ class FormsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Form $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -123,7 +122,7 @@ class FormsList extends TableComponent
             ])
             ->filters([
                 SelectFilter::make('type')->options(FormType::class),
-                SelectFilter::make('status')->options(FormStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No forms found')

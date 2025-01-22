@@ -8,7 +8,7 @@ class Draft extends PostStatus
 {
     public static $name = 'draft';
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'gray';
     }

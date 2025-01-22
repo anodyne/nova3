@@ -36,7 +36,9 @@
 
                     <x-fieldset.field label="Type">
                         <div data-slot="text">
-                            <x-badge :color="$addon->type->getColor()">{{ $addon->type->getLabel() }}</x-badge>
+                            <x-badge :color="$addon->type->getColor()">
+                                {{ $addon->type->getLabel() }}
+                            </x-badge>
                         </div>
                     </x-fieldset.field>
 
@@ -56,7 +58,7 @@
                 </x-fieldset.field-group>
             </x-fieldset>
 
-            @if (filled($addon->repository))
+            @if (filled($addon->repository?->id))
                 <x-fieldset>
                     <x-panel well>
                         <x-panel.well.header title="Latest version"></x-panel.well.header>
@@ -84,7 +86,7 @@
                                 </div>
                                 <div>
                                     <x-text>
-                                        {{ $addon->repository->type->getLabel() }}
+                                        {{ $addon->repository?->type?->getLabel() }}
                                     </x-text>
                                 </div>
                             </x-spacing>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Data;
 
-use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Stories\Enums\PostTypeVisibility;
 use Spatie\LaravelData\Attributes\Validation\Enum;
 use Spatie\LaravelData\Data;
@@ -18,8 +18,8 @@ class PostTypeData extends Data
 
         public ?string $description,
 
-        #[Enum(PostTypeStatus::class)]
-        public ?PostTypeStatus $status,
+        #[Enum(BasicStatus::class)]
+        public ?BasicStatus $status,
 
         public Fields $fields,
 

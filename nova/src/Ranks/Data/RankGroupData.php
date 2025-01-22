@@ -7,13 +7,13 @@ namespace Nova\Ranks\Data;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
-use Nova\Ranks\Enums\RankGroupStatus;
+use Nova\Foundation\Enums\BasicStatus;
 
 readonly class RankGroupData extends Bag
 {
     public function __construct(
         public string $name,
-        public RankGroupStatus $status,
+        public BasicStatus $status,
         public ?string $base_image
     ) {}
 
@@ -22,7 +22,7 @@ readonly class RankGroupData extends Bag
     {
         return [
             'name' => $request->input('name'),
-            'status' => RankGroupStatus::tryFrom($request->input('status')) ?? RankGroupStatus::Active,
+            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
             'base_image' => $request->input('base_image'),
         ];
     }

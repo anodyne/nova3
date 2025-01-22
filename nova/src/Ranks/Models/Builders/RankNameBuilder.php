@@ -5,19 +5,11 @@ declare(strict_types=1);
 namespace Nova\Ranks\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Ranks\Enums\RankNameStatus;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class RankNameBuilder extends Builder
 {
-    public function active()
-    {
-        return $this->where('status', RankNameStatus::Active);
-    }
-
-    public function inactive()
-    {
-        return $this->where('status', RankNameStatus::Inactive);
-    }
+    use QueriesStatus;
 
     public function searchFor($search): self
     {

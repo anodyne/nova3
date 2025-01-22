@@ -4,21 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Enums;
 
+use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
-use Nova\Foundation\Concerns\HasSelectOptions;
 
-enum ReviewerType: string implements HasLabel
+enum ReviewerType: string implements HasColor, HasLabel
 {
-    use HasSelectOptions;
-
     case Global = 'global';
 
     case Conditional = 'conditional';
-
-    public function getLabel(): ?string
-    {
-        return ucfirst($this->value);
-    }
 
     public function bgColor(): string
     {
@@ -28,11 +21,16 @@ enum ReviewerType: string implements HasLabel
         };
     }
 
-    public function color(): string
+    public function getColor(): string
     {
         return match ($this) {
             self::Global => 'primary',
             self::Conditional => 'info',
         };
+    }
+
+    public function getLabel(): ?string
+    {
+        return ucfirst($this->value);
     }
 }

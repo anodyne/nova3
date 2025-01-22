@@ -5,9 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Ranks\Enums\RankGroupStatus;
-use Nova\Ranks\Enums\RankItemStatus;
-use Nova\Ranks\Enums\RankNameStatus;
+use Nova\Foundation\Enums\BasicStatus;
 
 class CreateRankTables extends Migration
 {
@@ -16,7 +14,7 @@ class CreateRankTables extends Migration
         Schema::create('rank_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->string('status')->default(RankGroupStatus::Active)->index();
+            $table->string('status')->default(BasicStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
@@ -24,7 +22,7 @@ class CreateRankTables extends Migration
         Schema::create('rank_names', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->string('status')->default(RankNameStatus::Active)->index();
+            $table->string('status')->default(BasicStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
@@ -35,7 +33,7 @@ class CreateRankTables extends Migration
             $table->foreignId('name_id')->constrained('rank_names');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
-            $table->string('status')->default(RankItemStatus::Active)->index();
+            $table->string('status')->default(BasicStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });

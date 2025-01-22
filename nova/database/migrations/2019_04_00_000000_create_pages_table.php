@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Pages\Enums\PageStatus;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Pages\Enums\PageVerb;
 
 class CreatePagesTable extends Migration
@@ -27,7 +27,7 @@ class CreatePagesTable extends Migration
             $table->string('seo_title')->nullable();
             $table->text('seo_description')->nullable();
             $table->text('seo_keywords')->nullable();
-            $table->string('status')->default(PageStatus::Active->value);
+            $table->string('status')->default(BasicStatus::Active->value);
             $table->dateTime('published_at')->nullable();
             $table->boolean('content_can_be_edited')->default(false);
             $table->text('heading')->nullable();

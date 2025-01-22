@@ -87,7 +87,7 @@
                                     <x-avatar.user :user="$user">
                                         <x-slot name="secondary">
                                             <div class="flex items-center gap-x-2">
-                                                <x-badge :color="$user->status->color()">
+                                                <x-badge :color="$user->status->getColor()">
                                                     {{ $user->status->getLabel() }}
                                                 </x-badge>
 

@@ -53,7 +53,7 @@
 
                     <x-fieldset.field label="Status">
                         <div data-slot="text">
-                            <x-badge :color="$user->status->color()">
+                            <x-badge :color="$user->status->getColor()">
                                 {{ $user->status->getLabel() }}
                             </x-badge>
                         </div>

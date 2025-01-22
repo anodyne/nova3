@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Nova\Applications\Models\Application;
-use Nova\Characters\Data\CharacterData;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
@@ -25,6 +24,7 @@ use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\StatusHistory;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
@@ -32,8 +32,6 @@ use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
 use Nova\Users\Models\States\Status\Active as ActiveUser;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
@@ -66,8 +64,6 @@ class Character extends Model implements HasMedia
     protected $fillable = [
         'name', 'status', 'rank_id', 'type',
     ];
-
-    protected $dataClass = CharacterData::class;
 
     public function activeUsers()
     {
@@ -125,22 +121,6 @@ class Character extends Model implements HasMedia
     public function statusHistories(): MorphMany
     {
         return $this->morphMany(StatusHistory::class, 'statusable');
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
     }
 
     public function avatarUrl(): Attribute

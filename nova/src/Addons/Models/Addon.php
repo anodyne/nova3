@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Storage;
 use Nova\Addons\BaseAddon;
 use Nova\Addons\Data\AddonRepository;
 use Nova\Addons\Data\AddonSettings;
-use Nova\Addons\Enums\AddonStatus;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Events;
 use Nova\Addons\Models\Builders\AddonBuilder;
 use Nova\Foundation\Concerns\ChecksAddonVersion;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Addon extends Model
@@ -32,7 +31,7 @@ class Addon extends Model
     ];
 
     protected $casts = [
-        'status' => AddonStatus::class,
+        'status' => BasicStatus::class,
         'settings' => AddonSettings::class,
         'type' => AddonType::class,
         'repository' => AddonRepository::class,
@@ -53,22 +52,6 @@ class Addon extends Model
         }
 
         return new $addonClass;
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()
-            ->logFillable()
-            ->logOnlyDirty();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name add-on was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions;
     }
 
     public function newEloquentBuilder($query): AddonBuilder

@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Nova\Forms\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Forms\Enums\FormStatus;
 use Nova\Forms\Enums\FormType;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class FormBuilder extends Builder
 {
-    public function active(): Builder
-    {
-        return $this->where('status', FormStatus::Active);
-    }
+    use QueriesStatus;
 
     public function basic(): Builder
     {

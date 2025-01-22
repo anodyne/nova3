@@ -9,7 +9,7 @@
                 </x-fieldset.field>
             </div>
             <div class="flex items-start justify-end">
-                <x-badge :color="$characterType->color()">{{ $characterType->getLabel() }}</x-badge>
+                <x-badge :color="$characterType->getColor()">{{ $characterType->getLabel() }}</x-badge>
             </div>
         </x-spacing>
 

@@ -108,10 +108,10 @@ class CreateApplicationManager
     {
         AssignCharacterOwners::run(
             $character,
-            AssignCharacterOwnersData::from([
-                'users' => [$user->id],
-                'primaryUsers' => [$user->id],
-            ])
+            new AssignCharacterOwnersData(
+                users: [$user->id],
+                primaryUsers: [$user->id]
+            )
         );
 
         if ($user->is_pending) {
@@ -123,11 +123,13 @@ class CreateApplicationManager
 
     protected function createApplication(StoreApplicationRequest $request, Character $character, User $user): Application
     {
-        $application = CreateApplication::run(ApplicationData::from([
-            'character_id' => $character->id,
-            'user_id' => $user->id,
-            'ip_address' => $request->ip(),
-        ]));
+        $data = ApplicationData::from(
+            character_id: $character->id,
+            user_id: $user->id,
+            ip_address: $request->ip(),
+        );
+
+        $application = CreateApplication::run($data);
 
         $this->createFormSubmissionForApplication($application, $request->input('applicationInfo', []));
 

@@ -7,7 +7,7 @@ namespace Nova\Departments\Data;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
-use Nova\Departments\Enums\DepartmentStatus;
+use Nova\Foundation\Enums\BasicStatus;
 
 readonly class DepartmentData extends Bag
 {
@@ -15,7 +15,7 @@ readonly class DepartmentData extends Bag
         public string $name,
         public ?string $description,
         public array $tags,
-        public DepartmentStatus $status,
+        public BasicStatus $status,
     ) {}
 
     #[Transforms(Request::class)]
@@ -25,7 +25,7 @@ readonly class DepartmentData extends Bag
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'tags' => array_map('trim', explode(',', $request->input('tags', ''))),
-            'status' => DepartmentStatus::tryFrom($request->input('status')) ?? DepartmentStatus::Active,
+            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
         ];
     }
 }

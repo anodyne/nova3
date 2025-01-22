@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Status\Active as CharacterActive;
-use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Users\Models\States\Status\Active as UserActive;
 use Nova\Users\Models\User;
@@ -39,7 +39,7 @@ class Department extends Model implements HasMedia, Sortable
 
     protected $casts = [
         'order_column' => 'integer',
-        'status' => DepartmentStatus::class,
+        'status' => BasicStatus::class,
         'tags' => 'array',
     ];
 

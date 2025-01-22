@@ -32,7 +32,7 @@ class AcceptApplicationManager
 
             UpdateCharacter::run(
                 $character = $application->character,
-                new CharacterData(
+                CharacterData::from(
                     name: $character->name,
                     rank_id: $data->rank_id
                 )

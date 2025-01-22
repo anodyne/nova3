@@ -6,7 +6,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Nova\Themes\Enums\ThemeStatus;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Themes\Models\Theme;
 
 class ThemeFactory extends Factory
@@ -20,7 +20,7 @@ class ThemeFactory extends Factory
         return [
             'name' => ucfirst($name),
             'location' => Str::slug($name),
-            'status' => ThemeStatus::Active,
+            'status' => BasicStatus::Active,
             'preview' => 'preview.jpg',
         ];
     }
@@ -28,7 +28,7 @@ class ThemeFactory extends Factory
     public function inactive()
     {
         return $this->state([
-            'status' => ThemeStatus::Inactive,
+            'status' => BasicStatus::Inactive,
         ]);
     }
 }

@@ -39,10 +39,10 @@ class ApplicationReview extends Pivot
         );
     }
 
-    public function isRejected(): Attribute
+    public function isDenied(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->result === ApplicationResult::Reject
+            get: fn (): bool => $this->result === ApplicationResult::Deny
         );
     }
 }

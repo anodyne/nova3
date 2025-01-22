@@ -13,7 +13,7 @@ class Pending extends UserStatus
         return 'New user';
     }
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'warning';
     }

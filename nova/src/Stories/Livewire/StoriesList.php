@@ -37,7 +37,7 @@ class StoriesList extends TableComponent
             ->query(Story::query())
             ->groups([
                 Group::make('status')
-                    ->getTitleFromRecordUsing(fn (Model $record): string => $record->status->displayName())
+                    ->getTitleFromRecordUsing(fn (Model $record): string => $record->status->getLabel())
                     ->collapsible(),
                 Group::make('parent_id')
                     ->label('Parent story')
@@ -101,8 +101,6 @@ class StoriesList extends TableComponent
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
-                    ->formatStateUsing(fn (Model $record): string => $record->status->displayName())
                     ->toggleable(),
             ])
             ->actions([
@@ -117,10 +115,14 @@ class StoriesList extends TableComponent
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
+                                    ->attributeLabels([
+                                        'parent_id' => 'parent story',
+                                    ])
                                     ->attributeValues([
                                         'ended_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                                        'parent_id' => fn ($value) => Story::find($value)?->title,
                                         'started_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
-                                        'status' => fn ($value) => $value->name(),
+                                        'status' => fn ($value) => $value?->name(),
                                     ]);
                             }),
                         Action::make('dates')

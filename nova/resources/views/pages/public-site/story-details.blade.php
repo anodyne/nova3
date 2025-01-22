@@ -10,8 +10,8 @@
             <div class="story-title">
                 <x-public::h2>{{ $story->title }}</x-public::h2>
 
-                <x-badge :color="$story->status->color()" size="md">
-                    {{ $story->status->displayName() }}
+                <x-badge :color="$story->status->getColor()" size="md">
+                    {{ $story->status->getLabel() }}
                 </x-badge>
             </div>
 

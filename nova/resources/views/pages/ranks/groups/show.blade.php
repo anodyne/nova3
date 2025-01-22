@@ -26,7 +26,9 @@
 
                     <x-fieldset.field label="Status">
                         <div data-slot="text">
-                            <x-badge :color="$group->status->color()">{{ $group->status->getLabel() }}</x-badge>
+                            <x-badge :color="$group->status->getColor()">
+                                {{ $group->status->getLabel() }}
+                            </x-badge>
                         </div>
                     </x-fieldset.field>
                 </x-fieldset.field-group>

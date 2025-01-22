@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -22,8 +23,9 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Menus\Actions\DeleteMenuItem;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
-use Nova\Menus\Enums\MenuStatus;
 use Nova\Menus\Models\MenuItem;
+use Nova\Pages\Models\Page;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
 use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class MenuItemsList extends TableComponent
@@ -45,13 +47,11 @@ class MenuItemsList extends TableComponent
                     ->sortable(),
                 TextColumn::make('link_type')
                     ->badge()
-                    ->color(fn (MenuItem $record): string => $record->link_type->color())
                     ->toggleable(),
                 TextColumn::make('parent.label')
                     ->label('Parent menu item'),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (MenuItem $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -60,7 +60,20 @@ class MenuItemsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (MenuItem $record): string => route('admin.menu-items.edit', $record)),
-                        TimelineAction::make(),
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->attributeLabels([
+                                        'page_id' => 'page',
+                                        'parent_id' => 'parent menu item',
+                                        'url' => 'URL',
+                                    ])
+                                    ->attributeValues([
+                                        'page_id' => fn (?int $value) => Page::find($value)?->name,
+                                        'parent_id' => fn (?int $value) => MenuItem::find($value)?->label,
+                                        'target' => fn (?LinkTarget $value) => $value?->getLabel(),
+                                    ]);
+                            }),
                     ])->authorize('update')->divided(),
 
                     ActionGroup::make([
@@ -104,7 +117,7 @@ class MenuItemsList extends TableComponent
                     }),
             ])
             ->filters([
-                SelectFilter::make('status')->options(MenuStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
                 SelectFilter::make('link_type')->options(LinkType::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)

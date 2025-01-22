@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Data;
 
+use Bag\Bag;
 use Illuminate\Http\Request;
-use Spatie\LaravelData\Data;
 
-class AssignCharacterOwnersData extends Data
+readonly class AssignCharacterOwnersData extends Bag
 {
     public function __construct(
         public ?array $users,
         public ?array $primaryUsers
     ) {}
 
-    public static function fromRequest(Request $request): static
+    public static function fromRequest(Request $request): array
     {
-        return new self(
-            users: explode(',', $request->input('assigned_users', '') ?? ''),
-            primaryUsers: explode(',', $request->input('primary_users', '') ?? ''),
-        );
+        return [
+            'users' => array_map('trim', explode(',', $request->input('assigned_users') ?? '')),
+            'primaryUsers' => array_map('trim', explode(',', $request->input('primary_users') ?? '')),
+        ];
     }
 }

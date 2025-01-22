@@ -8,12 +8,12 @@ class Completed extends StoryStatus
 {
     public static $name = 'completed';
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'gray';
     }
 
-    public function description(): string
+    public function getDescription(): string
     {
         return 'Story or story arc that has concluded';
     }

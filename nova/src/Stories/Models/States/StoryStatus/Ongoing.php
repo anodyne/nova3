@@ -8,12 +8,12 @@ class Ongoing extends StoryStatus
 {
     public static $name = 'ongoing';
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'success';
     }
 
-    public function description(): string
+    public function getDescription(): string
     {
         return 'Active story or story arc that cannot be posted into';
     }

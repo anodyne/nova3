@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -37,7 +38,6 @@ use Nova\Stories\Actions\ForceDeletePostType;
 use Nova\Stories\Actions\MovePostTypePosts;
 use Nova\Stories\Actions\RestorePostType;
 use Nova\Stories\Data\PostTypeData;
-use Nova\Stories\Enums\PostTypeStatus;
 use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Events\PostTypeDuplicated;
 use Nova\Stories\Models\PostType;
@@ -94,7 +94,7 @@ class PostTypesList extends TableComponent
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->trashed() ? 'danger' : $record->status->color())
+                    ->color(fn (Model $record): string => $record->trashed() ? 'danger' : $record->status->getColor())
                     ->formatStateUsing(fn (Model $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
                     ->toggleable(),
             ])
@@ -332,7 +332,7 @@ class PostTypesList extends TableComponent
                         true: fn (Builder $query): Builder => $query->whereHas('publishedPosts'),
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('publishedPosts')
                     ),
-                SelectFilter::make('status')->options(PostTypeStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
                 SelectFilter::make('visibility')->options(PostTypeVisibility::class),
                 TrashedFilter::make()->label('Deleted post types'),
             ])

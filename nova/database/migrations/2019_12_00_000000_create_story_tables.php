@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Roles\Models\Role;
-use Nova\Stories\Enums\PostTypeStatus;
 use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
@@ -54,7 +54,7 @@ class CreateStoryTables extends Migration
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
             $table->foreignIdFor(Role::class)->nullable()->constrained();
-            $table->string('status')->default(PostTypeStatus::Active->value)->index();
+            $table->string('status')->default(BasicStatus::Active->value)->index();
             $table->string('visibility')->default(PostTypeVisibility::InCharacter->value)->index();
             $table->json('fields')->nullable();
             $table->json('options')->nullable();

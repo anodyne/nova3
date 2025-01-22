@@ -5,19 +5,11 @@ declare(strict_types=1);
 namespace Nova\Departments\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Departments\Enums\DepartmentStatus;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class DepartmentBuilder extends Builder
 {
-    public function active(): self
-    {
-        return $this->where('status', DepartmentStatus::Active);
-    }
-
-    public function inactive(): self
-    {
-        return $this->where('status', DepartmentStatus::Inactive);
-    }
+    use QueriesStatus;
 
     public function searchFor($search): self
     {

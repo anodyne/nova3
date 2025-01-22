@@ -8,7 +8,7 @@ class Started extends PostStatus
 {
     public static $name = 'started';
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'gray';
     }

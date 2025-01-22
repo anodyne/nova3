@@ -33,7 +33,7 @@ class PostsList extends TableComponent
             ->query(Post::with('characterAuthors', 'userAuthors'))
             ->groups([
                 Group::make('status')
-                    ->getTitleFromRecordUsing(fn (Post $record): string => $record->status->displayName())
+                    ->getTitleFromRecordUsing(fn (Post $record): string => $record->status->getLabel())
                     ->collapsible(),
                 Group::make('story_id')
                     ->label('Story')
@@ -80,8 +80,6 @@ class PostsList extends TableComponent
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Post $record): string => $record->status->color())
-                    ->formatStateUsing(fn (Post $record): string => $record->status->displayName())
                     ->toggleable(),
                 TextColumn::make('published_at')
                     ->label('Published')

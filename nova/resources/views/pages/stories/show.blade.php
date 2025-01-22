@@ -14,8 +14,8 @@
 
         <x-page-header class="mt-6" :heading="$story->title">
             <x-slot name="description">
-                <x-badge :color="$story->status->color()" size="md">
-                    {{ $story->status->displayName() }}
+                <x-badge :color="$story->status->getColor()" size="md">
+                    {{ $story->status->getLabel() }}
                 </x-badge>
             </x-slot>
 
@@ -55,7 +55,7 @@
                 <div class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-8 md:space-y-0">
                     @if ($story->started_at)
                         <div
-                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
+                            class="flex items-center space-x-2 font-medium text-gray-600 md:text-sm dark:text-gray-400"
                         >
                             <x-icon name="calendar" size="md" class="text-gray-500"></x-icon>
                             <span>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div
-                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
+                            class="flex items-center space-x-2 font-medium text-gray-600 md:text-sm dark:text-gray-400"
                         >
                             <x-icon name="clock" size="md" class="text-gray-500"></x-icon>
                             <span>

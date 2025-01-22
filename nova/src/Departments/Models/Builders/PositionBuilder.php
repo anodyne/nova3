@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Nova\Departments\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Departments\Enums\PositionStatus;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class PositionBuilder extends Builder
 {
-    public function active(): self
-    {
-        return $this->where('status', PositionStatus::Active);
-    }
+    use QueriesStatus;
 
     public function available(): self
     {
@@ -22,11 +19,6 @@ class PositionBuilder extends Builder
     public function department($id): self
     {
         return $this->where('department_id', $id);
-    }
-
-    public function inactive(): self
-    {
-        return $this->where('status', PositionStatus::Inactive);
     }
 
     public function searchFor($search): self

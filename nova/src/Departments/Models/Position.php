@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Nova\Characters\Models\Character;
-use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\PositionBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
 use Spatie\EloquentSortable\Sortable;
@@ -40,7 +40,7 @@ class Position extends Model implements Sortable
     protected $casts = [
         'available' => 'integer',
         'order_column' => 'integer',
-        'status' => PositionStatus::class,
+        'status' => BasicStatus::class,
         'tags' => 'array',
     ];
 

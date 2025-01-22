@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Livewire\DepartmentsList;
 use Nova\Departments\Models\Department;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -19,8 +19,8 @@ beforeEach(function () {
         ->count(5)
         ->hasPositions(3)
         ->sequence(
-            ['status' => DepartmentStatus::Active],
-            ['status' => DepartmentStatus::Inactive],
+            ['status' => BasicStatus::Active],
+            ['status' => BasicStatus::Inactive],
         )
         ->create();
 });
@@ -39,13 +39,13 @@ describe('authorized user', function () {
 
     test('can filter departments by status', function () {
         livewire(DepartmentsList::class)
-            ->filterTable('status', DepartmentStatus::Active->value)
-            ->assertCanSeeTableRecords($this->departments->where('status', DepartmentStatus::Active))
-            ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', DepartmentStatus::Active))
+            ->filterTable('status', BasicStatus::Active->value)
+            ->assertCanSeeTableRecords($this->departments->where('status', BasicStatus::Active))
+            ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', BasicStatus::Active))
             ->resetTableFilters()
-            ->filterTable('status', DepartmentStatus::Inactive->value)
-            ->assertCanSeeTableRecords($this->departments->where('status', DepartmentStatus::Inactive))
-            ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', DepartmentStatus::Inactive));
+            ->filterTable('status', BasicStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->departments->where('status', BasicStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', BasicStatus::Inactive));
     });
 
     test('can filter departments by the presence of positions', function () {

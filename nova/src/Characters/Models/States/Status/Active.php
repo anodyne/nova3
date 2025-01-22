@@ -8,14 +8,14 @@ class Active extends CharacterStatus
 {
     public static $name = 'active';
 
-    public function color(): string
-    {
-        return 'success';
-    }
-
     public function bgColor(): string
     {
         return 'bg-success-500';
+    }
+
+    public function getColor(): string
+    {
+        return 'success';
     }
 
     public function name(): string

@@ -43,7 +43,6 @@ class ApplicationsList extends TableComponent
                     ->sortable(),
                 TextColumn::make('result')
                     ->badge()
-                    ->color(fn (Application $record): string => $record->result->color())
                     ->toggleable(),
                 TextColumn::make('ip_address')
                     ->label('IP address')

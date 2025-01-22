@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -23,7 +24,6 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankItemManager;
-use Nova\Ranks\Enums\RankItemStatus;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
@@ -56,7 +56,6 @@ class RankItemsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (RankItem $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -131,7 +130,7 @@ class RankItemsList extends TableComponent
                     ->relationship('name', 'name')
                     ->multiple()
                     ->label('Rank name'),
-                SelectFilter::make('status')->options(RankItemStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('rank'))

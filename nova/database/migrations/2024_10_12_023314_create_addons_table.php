@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Addons\Enums\AddonStatus;
+use Nova\Foundation\Enums\BasicStatus;
 
 return new class extends Migration
 {
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('credits')->nullable();
             $table->text('preview')->nullable();
             $table->string('type')->index();
-            $table->string('status')->default(AddonStatus::Active->value)->index();
+            $table->string('status')->default(BasicStatus::Active->value)->index();
             $table->json('settings')->nullable();
             $table->json('repository')->nullable();
             $table->timestamps();

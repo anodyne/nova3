@@ -5,19 +5,11 @@ declare(strict_types=1);
 namespace Nova\Themes\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Themes\Enums\ThemeStatus;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class ThemeBuilder extends Builder
 {
-    public function active(): self
-    {
-        return $this->where('status', ThemeStatus::Active);
-    }
-
-    public function inactive(): self
-    {
-        return $this->where('status', ThemeStatus::Inactive);
-    }
+    use QueriesStatus;
 
     public function location($location): self
     {

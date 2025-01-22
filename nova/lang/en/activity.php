@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 return [
 
+    'impersonated' => ':description (Impersonated by **:user**)',
+
     'addons' => [
         'ran-script' => '**:name** ran the :script script for the add-on.',
     ],

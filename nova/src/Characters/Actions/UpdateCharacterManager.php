@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Models\Character;
@@ -20,41 +21,45 @@ class UpdateCharacterManager
         Character $character,
         UpdateCharacterRequest $request
     ): Character {
-        $positions = new CharacterPositionsData(
-            character: $character,
-            previousType: $character->type,
-            previousPositions: $character->positions
-        );
+        return DB::transaction(function () use ($character, $request) {
+            $positions = new CharacterPositionsData(
+                character: $character,
+                previousType: $character->type,
+                previousPositions: $character->positions
+            );
 
-        $character = UpdateCharacter::run(
-            $character,
-            $request->getCharacterData()
-        );
+            $character = UpdateCharacter::run(
+                $character,
+                $request->getCharacterData()
+            );
 
-        $character = AssignCharacterPositions::run(
-            $character,
-            $request->getCharacterPositionsData()
-        );
+            $character = AssignCharacterPositions::run(
+                $character,
+                $request->getCharacterPositionsData()
+            );
 
-        $character = AssignCharacterOwners::run(
-            $character,
-            $request->getCharacterOwnersData()
-        );
+            $character = AssignCharacterOwners::run(
+                $character,
+                $request->getCharacterOwnersData()
+            );
 
-        $character = SetCharacterType::run($character);
+            $character = SetCharacterType::run($character);
 
-        $positions->currentType = $character->type;
-        $positions->currentPositions = $character->positions;
+            $positions = $positions->with([
+                'currentType' => $character->type,
+                'currentPositions' => $character->positions,
+            ]);
 
-        UpdatePositionAvailability::run($positions);
+            UpdatePositionAvailability::run($positions);
 
-        UploadCharacterAvatar::run($character, $request->image_path);
+            UploadCharacterAvatar::run($character, $request->image_path);
 
-        RemoveCharacterAvatar::run($character, $request->boolean('remove_existing_image', false));
+            RemoveCharacterAvatar::run($character, $request->boolean('remove_existing_image', false));
 
-        $this->updateFormSubmission($character, $request->input('characterBio', []));
+            $this->updateFormSubmission($character, $request->input('characterBio', []));
 
-        return $character->refresh();
+            return $character->refresh();
+        });
     }
 
     protected function updateFormSubmission(Character $character, ?array $data = []): void

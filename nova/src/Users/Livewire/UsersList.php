@@ -13,7 +13,6 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
@@ -86,8 +85,6 @@ class UsersList extends TableComponent
                     ->weight(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'semibold' : null),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (User $record): string => $record->status->color())
-                    ->formatStateUsing(fn (User $record): string => $record->status->getLabel())
                     ->toggleable(),
             ])
             ->actions([
@@ -147,7 +144,7 @@ class UsersList extends TableComponent
                             ->modalSubmitActionLabel('Impersonate')
                             ->color('gray')
                             ->icon(iconName('spy'))
-                            ->action(fn (User $record): RedirectResponse => to_route('impersonate', $record->id)),
+                            ->action(fn (User $record) => to_route('impersonate', $record->id)),
                     ])->authorize('impersonate')->divided(),
 
                     ActionGroup::make([

@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Forms\Enums\FormStatus;
+use Nova\Foundation\Enums\BasicStatus;
 
 class CreateFormTables extends Migration
 {
@@ -22,7 +22,7 @@ class CreateFormTables extends Migration
             $table->json('options')->nullable();
             $table->longText('fields')->nullable();
             $table->longText('published_fields')->nullable();
-            $table->string('status')->default(FormStatus::Active->value)->index();
+            $table->string('status')->default(BasicStatus::Active->value)->index();
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });

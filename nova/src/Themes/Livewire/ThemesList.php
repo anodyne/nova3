@@ -14,6 +14,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\HtmlString;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -23,7 +24,6 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Actions\InstallTheme;
-use Nova\Themes\Enums\ThemeStatus;
 use Nova\Themes\Models\Theme;
 use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
@@ -84,7 +84,7 @@ class ThemesList extends TableComponent
                 ]),
             ])
             ->filters([
-                SelectFilter::make('status')->options(ThemeStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->headerActions([
                 Action::make('install')

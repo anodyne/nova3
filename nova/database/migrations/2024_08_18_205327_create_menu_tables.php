@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Menus\Enums\LinkTarget;
-use Nova\Menus\Enums\MenuStatus;
 
 return new class extends Migration
 {
@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('key')->unique();
-            $table->string('status')->default(MenuStatus::Active->value)->index();
+            $table->string('status')->default(BasicStatus::Active->value)->index();
             $table->timestamps();
         });
 
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreignId('page_id')->nullable()->constrained();
             $table->string('url')->nullable();
             $table->string('target')->default(LinkTarget::Self);
-            $table->string('status')->default(MenuStatus::Active->value)->index();
+            $table->string('status')->default(BasicStatus::Active->value)->index();
             $table->integer('order_column')->nullable();
             $table->timestamps();
         });
