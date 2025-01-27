@@ -7,11 +7,19 @@
                 <x-badge size="lg" color="info" pill>
                     <x-badge size="lg" color="info" pill>Nova {{ $filesVersion }}</x-badge>
                     Your database needs to be updated from {{ $databaseVersion }}
+
+                    @if ($hasUpcomingUpdate)
+                        <x-icon.micro.calendar class="size-4"></x-icon.micro.calendar>
+                    @endif
                 </x-badge>
             @else
                 <x-badge size="lg" color="success" pill>
                     <x-badge size="lg" color="success" pill>Nova {{ $filesVersion }}</x-badge>
                     Your site is up-to-date
+
+                    @if ($hasUpcomingUpdate)
+                        <x-icon.micro.calendar class="size-4"></x-icon.micro.calendar>
+                    @endif
                 </x-badge>
             @endif
         @else
@@ -19,11 +27,19 @@
                 <x-badge size="lg" color="danger" pill>
                     <x-badge size="lg" color="danger" pill>Nova {{ $upstream->version }} is available</x-badge>
                     Update from {{ $filesVersion }}
+
+                    @if ($hasUpcomingUpdate)
+                        <x-icon.micro.calendar class="size-4"></x-icon.micro.calendar>
+                    @endif
                 </x-badge>
             @else
                 <x-badge size="lg" color="warning" pill>
                     <x-badge size="lg" color="warning" pill>Nova {{ $upstream->version }} is available</x-badge>
                     Update from {{ $filesVersion }}
+
+                    @if ($hasUpcomingUpdate)
+                        <x-icon.micro.calendar class="size-4"></x-icon.micro.calendar>
+                    @endif
                 </x-badge>
             @endif
         @endif
@@ -153,6 +169,33 @@
                                         </x-spacing>
                                     </x-panel>
                                 </x-panel>
+                            @endif
+
+                            @if ($hasUpcomingUpdate)
+                                <x-panel.info icon="calendar">
+                                    @if (is_null($upcoming->date))
+                                        <x-slot name="title">Upcoming Nova update planned</x-slot>
+
+                                        <div>
+                                            A {{ str($upcoming->severity->getLabel())->lower() }} release for Nova
+                                            ({{ $upcoming->version }}) is currently planned, but no release date is
+                                            available. This message will be updated with more details as they become
+                                            available.
+                                        </div>
+                                    @else
+                                        <x-slot name="title">Upcoming Nova update scheduled</x-slot>
+
+                                        <div>
+                                            {{ str("Nova {$upcoming->version} is currently scheduled for release on **{$upcoming->date->format('F dS')}**.")->inlineMarkdown()->toHtmlString() }}
+                                        </div>
+                                    @endif
+
+                                    <div
+                                        class="prose prose-sm [--tw-prose-quote-borders:theme(colors.info.300)] prose-blockquote:text-info-600 dark:[--tw-prose-quote-borders:theme(colors.info.700)] dark:prose-blockquote:text-info-400"
+                                    >
+                                        {!! str("> {$upcoming->notes}")->markdown() !!}
+                                    </div>
+                                </x-panel.info>
                             @endif
 
                             <div class="space-y-6">

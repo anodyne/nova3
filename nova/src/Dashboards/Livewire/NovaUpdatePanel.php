@@ -34,9 +34,21 @@ class NovaUpdatePanel extends Component
     }
 
     #[Computed]
+    public function upcoming(): ?LatestVersion
+    {
+        return Cache::get('nova-next-version');
+    }
+
+    #[Computed]
     public function hasUpdate(): bool
     {
         return Cache::has('nova-update-available');
+    }
+
+    #[Computed]
+    public function hasUpcomingUpdate(): bool
+    {
+        return Cache::has('nova-update-upcoming');
     }
 
     #[Computed]
@@ -71,6 +83,8 @@ class NovaUpdatePanel extends Component
             'needsDatabaseUpdate' => $this->needsDatabaseUpdate,
             'needsFilesUpdate' => $this->needsFilesUpdate,
             'hasUpdate' => $this->hasUpdate,
+            'hasUpcomingUpdate' => $this->hasUpcomingUpdate,
+            'upcoming' => $this->upcoming,
         ]);
     }
 }

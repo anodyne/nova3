@@ -13,7 +13,7 @@ class LatestVersion implements Wireable
 {
     public function __construct(
         public readonly string $version,
-        public readonly CarbonInterface $date,
+        public readonly ?CarbonInterface $date,
         public readonly ReleaseSeverity $severity,
         public readonly ?string $notes,
         public readonly ?string $details,
@@ -23,9 +23,11 @@ class LatestVersion implements Wireable
 
     public static function fromAnodyne(array $data): static
     {
+        $releaseDate = data_get($data, 'date');
+
         return new static(
             version: data_get($data, 'version'),
-            date: Date::parse(data_get($data, 'date')),
+            date: is_null($releaseDate) ? $releaseDate : Date::parse($releaseDate),
             severity: ReleaseSeverity::tryFrom(data_get($data, 'severity', 'patch')),
             notes: data_get($data, 'notes'),
             details: data_get($data, 'details'),

@@ -41,11 +41,35 @@ class CheckNovaVersion
                 return LatestVersion::fromGithub($githubVersion);
             });
 
+            Cache::flexible('nova-next-version', [86_400, 129_600], function () {
+                $nextVersion = Http::get(config('services.anodyne.api.next-version'))->json();
+
+                if (is_null($nextVersion)) {
+                    return null;
+                }
+
+                return LatestVersion::fromAnodyne($nextVersion);
+            });
+
             Cache::flexible('nova-update-available', [86_400, 129_600], function () {
                 $latestVersion = Cache::get('nova-latest-version');
 
                 if (version_compare(Nova::filesVersion(), $latestVersion->version, '<')) {
                     return $latestVersion->severity;
+                }
+
+                return null;
+            });
+
+            Cache::flexible('nova-update-upcoming', [86_400, 129_600], function () {
+                $nextVersion = Cache::get('nova-next-version');
+
+                if (is_null($nextVersion)) {
+                    return null;
+                }
+
+                if (version_compare(Nova::filesVersion(), $nextVersion->version, '<')) {
+                    return $nextVersion->severity;
                 }
 
                 return null;

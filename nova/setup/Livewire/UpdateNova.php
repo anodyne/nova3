@@ -92,6 +92,8 @@ class UpdateNova extends Component
         Artisan::call('storage:link');
 
         Cache::forget('nova-update-available');
+        Cache::forget('nova-update-upcoming');
+        Cache::forget('nova-next-version');
     }
 
     protected function syncExternalContentFromAnodyne(): void

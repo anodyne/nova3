@@ -24,6 +24,7 @@ return [
         'api' => [
             'addon-version-check' => 'https://anodyne-productions.com.test/api/addon/{id}/latest-version',
             'latest-version' => 'https://anodyne-productions.com.test/api/nova/latest-version',
+            'next-version' => 'https://anodyne-productions.com.test/api/nova/next-version',
             'register' => 'https://anodyne-productions.com.test/api/games',
         ],
         'external' => [
