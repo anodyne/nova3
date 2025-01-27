@@ -36,16 +36,7 @@ class ExternalChangelog extends Model
                 );
             }
 
-            static::refreshCache();
+            Cache::forget('external-changelog');
         }
-    }
-
-    public static function refreshCache(): void
-    {
-        Cache::forget('external-changelog');
-
-        Cache::rememberForever('external-changelog', function () {
-            return ExternalChangelog::get();
-        });
     }
 }

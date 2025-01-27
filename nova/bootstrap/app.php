@@ -7,6 +7,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Support\Facades\Route;
 use Nova\Foundation\Application;
 use Nova\Foundation\Http\Middleware\CheckAddonAndThemeVersions;
+use Nova\Foundation\Http\Middleware\CheckExternalContentCache;
 use Nova\Foundation\Http\Middleware\CheckNovaVersion;
 
 $app = Application::configure(basePath: dirname(__DIR__, 2))
@@ -31,6 +32,7 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
         $middleware->web(append: [
             CheckNovaVersion::class,
             CheckAddonAndThemeVersions::class,
+            CheckExternalContentCache::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
