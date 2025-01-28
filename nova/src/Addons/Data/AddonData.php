@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Nova\Addons\Enums\AddonType;
 use Nova\Foundation\Enums\BasicStatus;
 
+/**
+ * @method static static from(string $name, string $location, string $version, ?string $credits, AddonType $type, BasicStatus $status, ?string $preview, ?AddonSettings $settings, ?AddonRepository $repository)
+ */
 readonly class AddonData extends Bag
 {
     public function __construct(

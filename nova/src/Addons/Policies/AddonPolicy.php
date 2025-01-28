@@ -36,7 +36,7 @@ class AddonPolicy
 
     public function update(User $user, Addon $addon): Response
     {
-        return $user->isAbleTo('addon.update') && blank($addon->repository)
+        return $user->isAbleTo('addon.update') && blank($addon->repository?->id)
             ? $this->allow()
             : $this->deny();
     }

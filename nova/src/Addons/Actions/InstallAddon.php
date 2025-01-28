@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Data\AddonData;
 use Nova\Addons\Data\AddonRepository;
+use Nova\Addons\Data\AddonSettings;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Events\AddonInstalled;
 use Nova\Addons\Models\Addon;
@@ -29,7 +30,7 @@ class InstallAddon
             status: BasicStatus::Inactive,
             type: AddonType::tryFrom(data_get($jsonData, 'type', 'extension')),
             preview: data_get($jsonData, 'preview'),
-            settings: null,
+            settings: AddonSettings::from(settings: []),
             repository: data_get($jsonData, 'repository') ? AddonRepository::from(data_get($jsonData, 'repository')) : null,
         );
 

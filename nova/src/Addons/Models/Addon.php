@@ -27,14 +27,22 @@ class Addon extends Model
     use LogsActivity;
 
     protected $fillable = [
-        'name', 'location', 'version', 'credits', 'status', 'preview', 'settings', 'type', 'repository',
+        'name',
+        'location',
+        'version',
+        'credits',
+        'status',
+        'preview',
+        'settings',
+        'type',
+        'repository',
     ];
 
     protected $casts = [
-        'status' => BasicStatus::class,
-        'settings' => AddonSettings::class,
-        'type' => AddonType::class,
         'repository' => AddonRepository::class,
+        'settings' => AddonSettings::class,
+        'status' => BasicStatus::class,
+        'type' => AddonType::class,
     ];
 
     protected $dispatchesEvents = [
