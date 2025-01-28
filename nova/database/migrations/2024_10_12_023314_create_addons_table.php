@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->prefixedId();
             $table->string('name')->index();
-            $table->string('location');
+            $table->string('location')->unique();
             $table->string('version');
             $table->text('credits')->nullable();
             $table->text('preview')->nullable();
