@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('addons', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->string('name')->index();
+            $table->string('name');
             $table->string('location')->unique();
             $table->string('version');
             $table->text('credits')->nullable();
             $table->text('preview')->nullable();
-            $table->string('type')->index();
-            $table->string('status')->default(BasicStatus::Active->value)->index();
+            $table->string('type');
+            $table->string('status')->default(BasicStatus::Active->value);
             $table->json('settings')->nullable();
             $table->json('repository')->nullable();
             $table->timestamps();
