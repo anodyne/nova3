@@ -22,6 +22,7 @@ class Action extends FilamentAction
         $this->modalDescription(null);
         $this->modalContent(fn (?Model $record): View => view($this->modalContentView, [
             'record' => $record,
+            'action' => $this,
         ]));
     }
 }

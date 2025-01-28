@@ -28,6 +28,7 @@ class DeleteBulkAction extends FilamentDeleteBulkAction
         $this->modalCancelActionLabel('No, keep them');
         $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
             'records' => $records,
+            'action' => $this,
         ]));
     }
 }

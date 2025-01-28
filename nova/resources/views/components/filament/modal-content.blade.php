@@ -1,7 +1,14 @@
 @props([
     'icon' => null,
+    'color' => null,
     'title',
+    'action',
 ])
+
+@php
+    $color ??= $action->getColor();
+    $icon ??= $action->getIcon();
+@endphp
 
 {{-- format-ignore-start --}}
 <div class="flex flex-col gap-6">

@@ -29,6 +29,7 @@ class RestoreAction extends FilamentRestoreAction
         $this->modalCancelActionLabel('No, keep it deleted');
         $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
             'record' => $record,
+            'action' => $this,
         ]));
     }
 }
