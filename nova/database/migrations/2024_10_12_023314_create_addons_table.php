@@ -24,6 +24,11 @@ return new class extends Migration
             $table->json('settings')->nullable();
             $table->json('repository')->nullable();
             $table->timestamps();
+
+            $table->fullText(['name', 'location']);
+            $table->index(['type', 'status']);
+            $table->index('type');
+            $table->index('status');
         });
     }
 

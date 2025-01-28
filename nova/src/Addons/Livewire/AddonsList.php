@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 use Nova\Addons\Actions\BustActiveAddonsCache;
 use Nova\Addons\Actions\DeleteAddon;
@@ -56,12 +57,12 @@ class AddonsList extends TableComponent
                 TextColumn::make('name')
                     ->titleColumn()
                     ->description(fn (Addon $record): ?Htmlable => $record->has_update ? new HtmlString('<strong class="text-warning-600 dark:text-warning-500 font-medium text-xs">Version <span class="tabular-nums">'.$record->latest_version.'</span> is available</strong>') : null)
-                    ->searchable(),
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor('name', $search)),
                 TextColumn::make('version')
                     ->toggleable(),
                 TextColumn::make('location')
                     ->prefix('addons/')
-                    ->searchable()
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor('location', $search))
                     ->toggleable(),
                 TextColumn::make('type')
                     ->badge()
