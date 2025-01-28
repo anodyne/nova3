@@ -90,18 +90,21 @@
                                     </x-text>
                                 </div>
                             </x-spacing>
-                            <x-spacing size="sm" class="group flex items-center justify-between">
-                                <div>
-                                    <x-text>
-                                        <x-text.strong>URL</x-text.strong>
-                                    </x-text>
-                                </div>
-                                <div>
-                                    <x-button :href="$addon->update_url" color="heavy-neutral" text>
-                                        Go to theme repository &rarr;
-                                    </x-button>
-                                </div>
-                            </x-spacing>
+
+                            @if (filled($addon->update_url))
+                                <x-spacing size="sm" class="group flex items-center justify-between">
+                                    <div>
+                                        <x-text>
+                                            <x-text.strong>URL</x-text.strong>
+                                        </x-text>
+                                    </div>
+                                    <div>
+                                        <x-button :href="$addon->update_url" color="heavy-neutral" text>
+                                            Go to add-on repository &rarr;
+                                        </x-button>
+                                    </div>
+                                </x-spacing>
+                            @endif
                         </x-panel>
                     </x-panel>
                 </x-fieldset>
