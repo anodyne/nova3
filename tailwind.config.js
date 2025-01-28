@@ -114,6 +114,7 @@ module.exports = {
                     500: '#ef4444',
                 },
                 zinc: colors.gray,
+                discord: '#5865f2',
             },
             fontFamily: {
                 sans: ['var(--font-family)', ...defaultTheme.fontFamily.sans],
