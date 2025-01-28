@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Nova\Foundation\Actions\OptimizeOrRepairDatabase;
 use Nova\Foundation\Application;
 use Nova\Foundation\Http\Middleware\CheckAddonAndThemeVersions;
 use Nova\Foundation\Http\Middleware\CheckExternalContentCache;
@@ -36,8 +38,20 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        // /** @var Nova\Users\Models\User */
+        // $user = Auth::user();
+
+        // /** @var Illuminate\Http\Request */
+        // $request = request();
+
+        // $exceptions->context(fn () => [
+        //     'user' => $user ? $user->name.':'.$user->id : null,
+        //     'url' => $request->method().':'.$request->fullUrl(),
+        // ]);
     })
+    ->withCommands([
+        OptimizeOrRepairDatabase::class,
+    ])
     ->create();
 
 $app->useNovaPath(path: $app->basePath('nova'));

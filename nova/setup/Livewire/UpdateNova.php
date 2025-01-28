@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Date;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Nova\Foundation\Actions\OptimizeOrRepairDatabase;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Models\ExternalContent;
 use Nova\Foundation\Models\SystemInfo;
@@ -36,6 +37,8 @@ class UpdateNova extends Component
             // (new Telemetry)->sendFullHeartbeat();
 
             $this->updateSystemInfo();
+
+            $this->runDatabaseMaintenance();
 
             $this->status = NovaInstallStatus::Success;
         } catch (Throwable $th) {
@@ -109,5 +112,10 @@ class UpdateNova extends Component
             'version' => Nova::filesVersion(),
             'last_update' => Date::now(),
         ]);
+    }
+
+    protected function runDatabaseMaintenance(): void
+    {
+        OptimizeOrRepairDatabase::run();
     }
 }

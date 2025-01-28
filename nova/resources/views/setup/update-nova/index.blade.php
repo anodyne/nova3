@@ -37,6 +37,7 @@
                     @include('setup.update-nova._check-updated')
                     @include('setup.update-nova._check-update-settings')
                     @include('setup.update-nova._send-telemetry')
+                    @include('setup.update-nova._database-maintenance')
                 </x-panel>
             </x-panel>
         </div>
