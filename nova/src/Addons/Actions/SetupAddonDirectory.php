@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Artisan;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Data\AddonData;
 use Nova\Addons\Enums\AddonType;
-use Nova\Addons\Exceptions\AddonException;
+use Nova\Addons\Exceptions\AddonAlreadyExistsException;
+use Nova\Addons\Exceptions\AddonRanksAlreadyExistsException;
 use Throwable;
 
 class SetupAddonDirectory
@@ -96,7 +97,7 @@ class SetupAddonDirectory
 
         throw_if(
             $this->files->exists($location),
-            AddonException::addonAlreadyExists($location)
+            new AddonAlreadyExistsException($location)
         );
 
         $this->files->makeDirectory($location);
@@ -108,7 +109,7 @@ class SetupAddonDirectory
 
         throw_if(
             $this->files->exists($location),
-            AddonException::addonRanksAlreadyExists($location)
+            new AddonRanksAlreadyExistsException($location)
         );
 
         $this->files->makeDirectory($location);
