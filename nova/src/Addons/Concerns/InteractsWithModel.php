@@ -14,24 +14,14 @@ trait InteractsWithModel
 
     public $settings;
 
-    /**
-     * Get the model for the add-on.
-     *
-     * @return Addon
-     */
-    public function getModel()
+    public function getModel(): Addon
     {
         return once(function () {
             return Addon::location($this->location)->firstOrFail();
         });
     }
 
-    /**
-     * Set the properties of the class from the model.
-     *
-     * @return \Nova\Addons\BaseAddon
-     */
-    public function setAddonProperties()
+    public function setAddonProperties(): self
     {
         $this->name = $this->model->name;
         $this->credits = $this->model->credits;
