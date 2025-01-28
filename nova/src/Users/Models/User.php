@@ -22,8 +22,6 @@ use Illuminate\Notifications\Notification;
 use Lab404\Impersonate\Models\Impersonate;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
-use Nova\Announcements\Models\Announcement;
-use Nova\Announcements\Models\AnnouncementNotification;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReviewer;
 use Nova\Characters\Models\Character;
@@ -54,6 +52,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, MustVerifyEmail
 {
     use CausesActivity;
+    use Concerns\HasAnnouncements;
     use Concerns\HasNotes;
     use HasFactory;
     use HasPrefixedId;
@@ -180,11 +179,6 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
     public function globalApplicationReviewer(): HasOne
     {
         return $this->hasOne(ApplicationReviewer::class)->global();
-    }
-
-    public function announcements(): HasMany
-    {
-        return $this->hasMany(Announcement::class);
     }
 
     public function statusHistories(): MorphMany
@@ -341,13 +335,6 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
                     || $this->isAbleTo('story.*')
                     || $this->isAbleTo('post-type.*');
             }
-        );
-    }
-
-    public function unreadAnnouncementsCount(): Attribute
-    {
-        return new Attribute(
-            get: fn (): int => once(fn () => AnnouncementNotification::user($this->id)->unread()->count()),
         );
     }
 

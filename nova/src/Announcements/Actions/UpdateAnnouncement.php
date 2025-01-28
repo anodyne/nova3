@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Data\AnnouncementData;
 use Nova\Announcements\Models\Announcement;
@@ -14,15 +15,17 @@ class UpdateAnnouncement
 
     public function handle(Announcement $announcement, AnnouncementData $data): Announcement
     {
-        $publishing = $announcement->published === false && $data->published === true;
+        return DB::transaction(function () use ($announcement, $data): Announcement {
+            $publishing = $announcement->published === false && $data->published === true;
 
-        $announcement->update([
-            ...$data->toArray(),
-            ...['published_at' => $publishing ? now() : $announcement->published_at],
-        ]);
+            $announcement->update([
+                ...$data->toArray(),
+                ...['published_at' => $publishing ? now() : $announcement->published_at],
+            ]);
 
-        NotifyUsers::runIf($publishing, $announcement, $data);
+            NotifyUsers::runIf($publishing, $announcement, $data);
 
-        return $announcement;
+            return $announcement;
+        });
     }
 }

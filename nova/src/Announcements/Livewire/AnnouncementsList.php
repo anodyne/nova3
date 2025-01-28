@@ -12,6 +12,7 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Nova\Announcements\Actions\DeleteAnnouncement;
 use Nova\Announcements\Models\Announcement;
@@ -33,10 +34,23 @@ class AnnouncementsList extends TableComponent
 
         return $table
             ->query(
-                Announcement::with('user')->unless(
-                    $user->can('manage', Announcement::class),
-                    fn (Builder $query): Builder => $query->published()
-                )
+                Announcement::query()
+                    ->with([
+                        'user',
+                        'notifications' => fn (HasMany $query): HasMany => $query->where('user_id', $user->id),
+                    ])
+                    ->select([
+                        'id',
+                        'user_id',
+                        'title',
+                        'category',
+                        'published',
+                        'published_at',
+                    ])
+                    ->unless(
+                        $user->can('manage', Announcement::class),
+                        fn (Builder $query): Builder => $query->published()
+                    )
             )
             ->recordUrl(fn (Announcement $record): string => route('admin.announcements.show', $record))
             ->columns([
@@ -71,15 +85,17 @@ class AnnouncementsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Announcement $record): string => route('admin.announcements.edit', $record)),
+                    ])->authorize('update')->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
-                            ->authorize('update')
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->attributeValues([
                                         'published_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
                                     ]);
                             }),
-                    ])->authorize('update')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -91,6 +107,16 @@ class AnnouncementsList extends TableComponent
                 ]),
             ])
             ->filters([
+                TernaryFilter::make('is_seen')
+                    ->label('Unread')
+                    ->placeholder('All announcements')
+                    ->trueLabel('Only unread announcements')
+                    ->falseLabel('Only read announcements')
+                    ->queries(
+                        true: fn (Builder $query): Builder => $query->withUnreadNotificationsForUser($user),
+                        false: fn (Builder $query): Builder => $query->withReadNotificationsForUser($user),
+                        blank: fn (Builder $query): Builder => $query
+                    ),
                 TernaryFilter::make('published_at')
                     ->label('Published')
                     ->placeholder('All announcements')
@@ -99,11 +125,11 @@ class AnnouncementsList extends TableComponent
                     ->queries(
                         true: fn (Builder $query): Builder => $query->published(),
                         false: fn (Builder $query): Builder => $query->notPublished(),
-                        blank: fn (Builder $query): Builder => $query,
+                        blank: fn (Builder $query): Builder => $query
                     )
                     ->visible($user->can('manage', Announcement::class)),
                 SelectFilter::make('category')
-                    ->options(Announcement::select('category')->distinct()->pluck('category')->flatMap(fn ($item) => [$item => $item])->all()),
+                    ->options(Announcement::query()->uniqueCategories()->pluck('category', 'category')->all()),
             ])
             ->emptyStateIcon(iconName('megaphone'))
             ->emptyStateHeading('No announcements')
