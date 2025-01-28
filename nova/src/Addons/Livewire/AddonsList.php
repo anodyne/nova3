@@ -17,6 +17,8 @@ use Illuminate\Support\HtmlString;
 use Nova\Addons\Actions\BustActiveAddonsCache;
 use Nova\Addons\Actions\DeleteAddon;
 use Nova\Addons\Actions\InstallAddon;
+use Nova\Addons\Actions\UpdateAddonSettings;
+use Nova\Addons\Data\AddonSettings;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Models\Addon;
 use Nova\Foundation\Enums\BasicStatus;
@@ -24,6 +26,7 @@ use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\TextAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
@@ -37,7 +40,18 @@ class AddonsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Addon::query())
+            ->query(
+                Addon::query()
+                    ->select([
+                        'id',
+                        'name',
+                        'version',
+                        'location',
+                        'type',
+                        'status',
+                        'repository',
+                    ])
+            )
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
@@ -69,10 +83,19 @@ class AddonsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Addon $record): string => route('admin.addons.edit', $record)),
+                        TextAction::make('textNotice')
+                            ->icon(iconName('edit-off'))
+                            ->label('This add-on was installed from a QuickInstall file and cannot be edited')
+                            ->visible(fn (Addon $record): bool => filled($record->repository?->id)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
+                            ->authorize('view')
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->itemIcons([
+                                        'installed' => icon('add'),
                                         'ran-append' => iconName('image-add'),
                                         'ran-install' => iconName('bolt'),
                                         'ran-migrations' => iconName('database'),
@@ -81,6 +104,7 @@ class AddonsList extends TableComponent
                                         'ran-uninstall' => iconName('bolt-off'),
                                     ])
                                     ->itemIconColors([
+                                        'installed' => 'success',
                                         'ran-install' => 'primary',
                                         'ran-migrations' => 'success',
                                         'ran-migrations-rollback' => 'warning',
@@ -121,10 +145,30 @@ class AddonsList extends TableComponent
                                     ])
                                     ->modelLabel(Addon::class, 'add-on');
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->authorize('view')->divided(),
 
                     ActionGroup::make([
+                        Action::make('addonSettings')
+                            ->authorize('update')
+                            ->slideOver()
+                            ->icon(iconName('settings'))
+                            ->modalWidth('lg')
+                            ->modalIcon(null)
+                            ->modalHeading(fn (Addon $record): string => $record->name.' add-on settings')
+                            ->modalDescription(null)
+                            ->fillForm(fn (Addon $record): ?array => $record->settings?->settings ?? [])
+                            ->form(fn (Addon $record): ?array => $record->getAddonClass()->settingsForm())
+                            ->action(function (Addon $record, array $data) {
+                                $settingsData = new AddonSettings(settings: $data);
+
+                                UpdateAddonSettings::run($record, $settingsData);
+
+                                Notification::make()->success()
+                                    ->title('Add-on settings have been updated')
+                                    ->send();
+                            }),
                         Action::make('openActionsPanel')
+                            ->authorize('runActions')
                             ->slideOver()
                             ->icon(iconName('automation'))
                             ->modalWidth('xl')
@@ -138,7 +182,7 @@ class AddonsList extends TableComponent
                                 'action' => $action,
                             ]))
                             ->registerModalActions($this->actionPanelActions()),
-                    ])->authorize('runActions')->divided(),
+                    ])->authorizeAny(['runActions', 'updateSettings'])->divided(),
 
                     ActionGroup::make([
                         Action::make('goToUpdate')
@@ -171,7 +215,9 @@ class AddonsList extends TableComponent
                     ->modalHeading('')
                     ->modalDescription(null)
                     ->modalSubmitActionLabel('Install')
-                    ->modalContent(fn (): View => view('pages.add-ons.pending-addons'))
+                    ->modalContent(fn (Action $action): View => view('pages.add-ons.pending-addons', [
+                        'action' => $action,
+                    ]))
                     ->form([
                         CheckboxList::make('addons')
                             ->options(Addon::getInstallableAddons())

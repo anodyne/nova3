@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -50,6 +51,13 @@ class Addon extends Model
         'deleted' => Events\AddonDeleted::class,
         'updated' => Events\AddonUpdated::class,
     ];
+
+    public function hasAddonClass(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => class_exists('Addons\\'.$this->location.'\\Addon')
+        );
+    }
 
     public function getAddonClass(): ?BaseAddon
     {

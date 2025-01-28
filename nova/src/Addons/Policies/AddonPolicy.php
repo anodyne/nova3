@@ -67,9 +67,7 @@ class AddonPolicy
 
     public function runActions(User $user, Addon $addon): Response
     {
-        $addonClass = $addon->getAddonClass();
-
-        if (is_null($addonClass)) {
+        if (! $addon->has_addon_class) {
             return $this->deny();
         }
 
