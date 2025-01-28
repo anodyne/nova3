@@ -7,10 +7,6 @@
                 @can('viewAny', $addon::class)
                     <x-button :href="route('admin.addons.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
-
-                @can('updateSettings', $addon)
-                    <livewire:addon-settings :addon="$addon" :iconTrigger="false" />
-                @endcan
             </x-slot>
         </x-page-header>
 
