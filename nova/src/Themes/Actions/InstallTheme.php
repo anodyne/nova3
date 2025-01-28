@@ -41,7 +41,7 @@ class InstallTheme
             status: BasicStatus::Active,
             preview: data_get($data, 'preview'),
             settings: $settings,
-            repository: AddonRepository::from(data_get($data, 'repository')),
+            repository: AddonRepository::from(data_get($data, 'repository') ?? []),
         );
 
         $theme = CreateTheme::run($data);
