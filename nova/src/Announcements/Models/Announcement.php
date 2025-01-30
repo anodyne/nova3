@@ -26,11 +26,11 @@ class Announcement extends Model
     use Searchable;
 
     protected $fillable = [
-        'title',
-        'content',
         'category',
-        'published',
+        'content',
         'published_at',
+        'published',
+        'title',
         'user_id',
     ];
 

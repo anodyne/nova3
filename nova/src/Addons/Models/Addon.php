@@ -28,15 +28,15 @@ class Addon extends Model
     use LogsActivity;
 
     protected $fillable = [
-        'name',
-        'location',
-        'version',
         'credits',
-        'status',
+        'location',
+        'name',
         'preview',
-        'settings',
-        'type',
         'repository',
+        'settings',
+        'status',
+        'type',
+        'version',
     ];
 
     protected $casts = [
@@ -61,11 +61,11 @@ class Addon extends Model
 
     public function getAddonClass(): ?BaseAddon
     {
-        $addonClass = 'Addons\\'.$this->location.'\\Addon';
-
-        if (! class_exists($addonClass)) {
+        if (! $this->has_addon_class) {
             return null;
         }
+
+        $addonClass = 'Addons\\'.$this->location.'\\Addon';
 
         return new $addonClass;
     }
