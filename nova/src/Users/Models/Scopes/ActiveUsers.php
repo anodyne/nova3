@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nova\Applications\Models\Scopes;
+namespace Nova\Users\Models\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
