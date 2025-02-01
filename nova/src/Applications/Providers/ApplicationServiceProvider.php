@@ -12,6 +12,8 @@ use Nova\Applications\Livewire\ApplicationReviewersModal;
 use Nova\Applications\Livewire\ApplicationReviewModal;
 use Nova\Applications\Livewire\ApplicationsList;
 use Nova\Applications\Models\Application;
+use Nova\Applications\Models\ApplicationReview as ApplicationReviewModel;
+use Nova\Applications\Models\ApplicationReviewer;
 use Nova\DomainServiceProvider;
 
 class ApplicationServiceProvider extends DomainServiceProvider
@@ -33,6 +35,8 @@ class ApplicationServiceProvider extends DomainServiceProvider
     {
         return [
             'application' => Application::class,
+            'application-review' => ApplicationReviewModel::class,
+            'application-reviewer' => ApplicationReviewer::class,
         ];
     }
 

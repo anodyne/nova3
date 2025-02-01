@@ -7,10 +7,10 @@ namespace Nova\Applications\Livewire;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
-use LivewireUI\Modal\ModalComponent;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Notifications\ApplicationReadyForReview;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Livewire\ModalComponent;
 use Nova\Users\Models\User;
 
 class ApplicationReviewersModal extends ModalComponent
@@ -19,11 +19,6 @@ class ApplicationReviewersModal extends ModalComponent
     public Application $application;
 
     public array $selectedReviewers = [];
-
-    public function dismiss(): void
-    {
-        $this->forceClose()->closeModal();
-    }
 
     public function save(): void
     {

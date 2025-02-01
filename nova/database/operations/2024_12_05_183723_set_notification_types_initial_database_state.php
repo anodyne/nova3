@@ -42,6 +42,8 @@ return new class extends OneTimeOperation
             ['name' => 'Draft post discarded', 'key' => 'draft-post-discarded'],
             ['name' => 'Post saved', 'key' => 'post-saved'],
             ['name' => 'Application ready for review', 'key' => 'application-ready-for-review'],
+            ['name' => 'Application reviewer voted to accept', 'key' => 'application-reviewer-voted-to-accept'],
+            ['name' => 'Application reviewer voted to deny', 'key' => 'application-reviewer-voted-to-deny'],
             ['name' => 'Application accepted', 'key' => 'application-accepted', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
             ['name' => 'Application denied', 'key' => 'application-denied', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
             ['name' => 'Discussion message received', 'key' => 'discussion-message-received', 'database' => false, 'database_default' => false],

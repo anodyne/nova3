@@ -7,7 +7,9 @@ namespace Nova\Applications\Livewire;
 use Filament\Infolists\Infolist;
 use Livewire\Attributes\Locked;
 use Nova\Applications\Models\Application;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\InfolistComponent;
+use Nova\Ranks\Models\RankItem;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -24,6 +26,13 @@ class ApplicationHistory extends InfolistComponent
             ->schema([
                 Timeline::make()
                     ->hiddenLabel()
+                    ->attributeLabels([
+                        'rank_id' => 'rank',
+                    ])
+                    ->attributeValues([
+                        'decision_date' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                        'rank_id' => fn ($value) => filled($value) ? RankItem::find($value)?->name?->name : null,
+                    ])
                     ->eventDescriptions([
                         'message-added' => fn (Activity $activity) => __('activity.applications.message-added', [
                             'name' => $activity->causer->name,
@@ -60,8 +69,6 @@ class ApplicationHistory extends InfolistComponent
                     ->itemIcons([
                         'accepted' => iconName('progress-check'),
                         'denied' => iconName('progress-x'),
-                        'vote-accept' => iconName('progress-check'),
-                        'vote-deny' => iconName('progress-x'),
                     ])
                     ->itemIconColors([
                         'accepted' => 'success',

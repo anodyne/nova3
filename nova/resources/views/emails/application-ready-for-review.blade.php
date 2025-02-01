@@ -2,7 +2,7 @@
 <x-email-layout>
 # Application ready for review
 
-You have been added as a reviewer on an application for **{{ $application->character->name }}**. You can begin reviewing
+You have been added as a reviewer on an application for **{{ $application->character->name }}**. You can begin reviewing the application using the link below.
 
 <x-mail::button :url="route('admin.applications.show', $application)">
 Start reviewing &rarr;

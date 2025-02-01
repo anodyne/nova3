@@ -10,13 +10,21 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Users\Models\User;
 
 class ApplicationReview extends Pivot
 {
+    use LogsActivity;
+
     protected $casts = [
         'result' => ApplicationResult::class,
     ];
+
+    public function application(): BelongsTo
+    {
+        return $this->belongsTo(Application::class);
+    }
 
     public function user(): BelongsTo
     {

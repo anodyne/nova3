@@ -73,7 +73,7 @@
                     class="w-full"
                 >
                     <x-icon name="progress" size="sm"></x-icon>
-                    Add review
+                    {{ $currentUserHasReviewed ? 'Update review' : 'Add review' }}
                 </x-button>
             @endcan
 

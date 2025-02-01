@@ -7,7 +7,6 @@ namespace Nova\Applications\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
-use LivewireUI\Modal\ModalComponent;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview;
 use Nova\Forms\Actions\CreateFormSubmission;
@@ -15,6 +14,7 @@ use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Forms\Models\FormSubmissionResponse;
+use Nova\Foundation\Livewire\ModalComponent;
 use Nova\Users\Models\User;
 
 class ApplicationReviewModal extends ModalComponent
@@ -31,11 +31,6 @@ class ApplicationReviewModal extends ModalComponent
     public ApplicationReviewForm $form;
 
     public array $values = [];
-
-    public function dismiss(): void
-    {
-        $this->forceClose()->closeModal();
-    }
 
     public function save(): void
     {

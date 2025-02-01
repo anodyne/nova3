@@ -10,9 +10,6 @@ use Nova\Applications\Enums\ReviewerType;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('applications', function (Blueprint $table) {
@@ -21,35 +18,42 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('character_id')->nullable()->constrained();
             $table->string('ip_address')->nullable();
-            $table->string('result')->default(ApplicationResult::Pending->value)->index();
+            $table->string('result')->default(ApplicationResult::Pending->value);
             $table->longText('decision_message')->nullable();
             $table->dateTime('decision_date')->nullable();
             $table->timestamps();
+
+            $table->index('result');
         });
 
         Schema::create('application_review', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('application_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('application_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('result')->nullable();
             $table->longText('comments')->nullable();
             $table->timestamps();
+
+            $table->index('application_id');
+            $table->index(['application_id', 'user_id']);
+            $table->index('result');
+            $table->index(['application_id', 'result']);
         });
 
         Schema::create('application_reviewers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('type')->default(ReviewerType::Conditional->value);
             $table->json('conditions')->nullable();
             $table->timestamps();
+
+            $table->index('type');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
+        Schema::dropIfExists('application_reviewers');
         Schema::dropIfExists('application_review');
         Schema::dropIfExists('applications');
     }

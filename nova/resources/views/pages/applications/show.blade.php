@@ -12,12 +12,15 @@
                 </div>
             </x-slot>
             <x-slot name="description">
-                <div class="flex items-center max-md:gap-y-4 lg:gap-x-6">
+                <div class="flex items-center max-md:gap-y-4 lg:gap-x-8">
                     @if (filled($application->character->positions))
-                        <div>{{ $application->character->positions->first()?->name }}</div>
+                        <x-metadata
+                            label="Position"
+                            :value="$application->character->positions->first()?->name"
+                        ></x-metadata>
                     @endif
 
-                    <div>Applied {{ $application->created_at->diffForHumans() }}</div>
+                    <x-metadata label="Applied" :value="$application->created_at->diffForHumans()"></x-metadata>
                 </div>
             </x-slot>
 

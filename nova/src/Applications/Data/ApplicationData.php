@@ -7,6 +7,8 @@ namespace Nova\Applications\Data;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
+use Nova\Characters\Models\Character;
+use Nova\Users\Models\User;
 
 readonly class ApplicationData extends Bag
 {
@@ -15,6 +17,16 @@ readonly class ApplicationData extends Bag
         public ?int $user_id,
         public ?string $ip_address
     ) {}
+
+    public function character(): ?Character
+    {
+        return Character::find($this->character_id);
+    }
+
+    public function user(): ?User
+    {
+        return User::find($this->user_id);
+    }
 
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array

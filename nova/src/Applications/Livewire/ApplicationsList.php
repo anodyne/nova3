@@ -24,7 +24,18 @@ class ApplicationsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Application::with('character.positions', 'user'))
+            ->query(
+                Application::with('character.positions', 'user')
+                    ->select([
+                        'character_id',
+                        'created_at',
+                        'decision_date',
+                        'id',
+                        'ip_address',
+                        'result',
+                        'user_id',
+                    ])
+            )
             ->groups([
                 Group::make('result')->collapsible(),
             ])
