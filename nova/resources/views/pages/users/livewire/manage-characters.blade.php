@@ -1,6 +1,6 @@
 @use('Nova\Characters\Models\Character')
 
-<div>
+<div data-slot="panel">
     <x-panel.manage>
         <x-panel.manage.search
             :search="$search"
