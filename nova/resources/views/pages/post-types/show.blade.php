@@ -31,7 +31,7 @@
                     <x-fieldset.field label="Visibility">
                         <div data-slot="text">
                             <x-badge>
-                                {{ str($postType->visibility)->replace('-', ' ')->title() }}
+                                {{ $postType->visibility->getLabel() }}
                             </x-badge>
                         </div>
                     </x-fieldset.field>

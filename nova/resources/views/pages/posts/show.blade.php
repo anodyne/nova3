@@ -1,3 +1,6 @@
+@use('Illuminate\Support\Number')
+@use('Nova\Foundation\Helpers\DateHelper')
+
 <x-admin-layout>
     <div x-data="{ showContentWarning: @js($post->show_content_warning) }">
         <x-spacing class="space-y-8" constrained-lg>
@@ -42,24 +45,16 @@
                         </span>
                     </div>
 
-                    <div class="flex items-center gap-x-1.5 text-gray-500">
-                        <span>Published</span>
-                        <span class="font-medium text-gray-600 dark:text-gray-400">
-                            {{ format_date($post->published_at) }}
-                        </span>
-                    </div>
+                    @if ($post->is_published)
+                        <x-metadata
+                            label="Published"
+                            :value="DateHelper::formatDate($post->published_at)"
+                        ></x-metadata>
+                    @endif
 
-                    <div class="flex items-center gap-x-1.5 text-gray-500">
-                        <span>Reading time</span>
-                        <span class="font-medium text-gray-600 dark:text-gray-400">{{ $post->reading_time }}</span>
-                    </div>
+                    <x-metadata label="Reading time" :value="$post->reading_time"></x-metadata>
 
-                    <div class="flex items-center gap-x-1.5 text-gray-500">
-                        <span>Words</span>
-                        <span class="font-medium text-gray-600 dark:text-gray-400">
-                            {{ number_format($post->word_count) }}
-                        </span>
-                    </div>
+                    <x-metadata label="Words" :value="Number::format($post->word_count)"></x-metadata>
                 </div>
             </div>
 
@@ -69,30 +64,15 @@
                         class="relative flex flex-col space-y-3 text-lg md:flex-row md:items-center md:space-x-8 md:space-y-0"
                     >
                         @if ($post->postType->fields->location->enabled && filled($post->location))
-                            <div class="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-400">
-                                <div class="text-gray-400 dark:text-gray-500">
-                                    <x-icon name="location" size="lg"></x-icon>
-                                </div>
-                                <div>{{ $post->location }}</div>
-                            </div>
+                            <x-metadata icon="location" :value="$post->location"></x-metadata>
                         @endif
 
                         @if ($post->postType->fields->day->enabled && filled($post->day))
-                            <div class="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-400">
-                                <div class="text-gray-400 dark:text-gray-500">
-                                    <x-icon name="calendar" size="lg"></x-icon>
-                                </div>
-                                <div>{{ $post->day }}</div>
-                            </div>
+                            <x-metadata icon="calendar" :value="$post->day"></x-metadata>
                         @endif
 
                         @if ($post->postType->fields->time->enabled && filled($post->time))
-                            <div class="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-400">
-                                <div class="text-gray-400 dark:text-gray-500">
-                                    <x-icon name="clock" size="lg"></x-icon>
-                                </div>
-                                <div>{{ $post->time }}</div>
-                            </div>
+                            <x-metadata icon="clock" :value="$post->time"></x-metadata>
                         @endif
                     </div>
                 @endif
