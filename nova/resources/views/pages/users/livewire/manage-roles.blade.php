@@ -1,4 +1,4 @@
-<div>
+<div data-slot="panel">
     <x-panel.manage>
         <x-panel.manage.search :search="$search" placeholder="Find a role to assign (type * to see all roles)">
             @if ($searchResults->count() === 0)
@@ -15,11 +15,11 @@
             @endif
         </x-panel.manage.search>
 
-        @if ($roles->count() > 0)
+        @if ($assigned->count() > 0)
             <div
                 class="divide-y divide-gray-950/5 rounded-b-lg border-t border-gray-950/5 dark:divide-white/5 dark:border-white/5"
             >
-                @foreach ($roles as $role)
+                @foreach ($assigned as $role)
                     <div
                         class="flex items-center justify-between bg-white px-6 py-3 last:rounded-b-lg dark:bg-gray-900"
                         wire:key="row-{{ $role->id }}"
