@@ -66,7 +66,11 @@ class Database
 
     public function passes(): bool
     {
-        return $this->hasMysql;
+        return match ($this->driver) {
+            'mysql' => version_compare($this->version, '8.0', '>='),
+            'mariadb' => version_compare($this->version, '10.0', '>='),
+            default => false,
+        };
     }
 
     public function isMysql(): bool
