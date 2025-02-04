@@ -15,7 +15,7 @@ class ActivateCharacter
     public function handle(Character $character): Character
     {
         if ($character->status->canTransitionTo(Active::class)) {
-            $character->status->transitionTo(Active::class);
+            activity()->withoutLogs(fn () => $character->status->transitionTo(Active::class));
 
             activity()
                 ->performedOn($character)

@@ -12,6 +12,7 @@ use Nova\Characters\Requests\UpdateCharacterRequest;
 use Nova\Departments\Actions\UpdatePositionAvailability;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Actions\UpdateFormSubmission;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class UpdateCharacterManager
 {
@@ -22,11 +23,10 @@ class UpdateCharacterManager
         UpdateCharacterRequest $request
     ): Character {
         return DB::transaction(function () use ($character, $request) {
-            $positions = new CharacterPositionsData(
-                character: $character,
-                previousType: $character->type,
-                previousPositions: $character->positions
-            );
+            LogBatch::startBatch();
+
+            $oldCharacterType = $character->type;
+            $oldCharacterPositions = $character->positions;
 
             $character = UpdateCharacter::run(
                 $character,
@@ -45,10 +45,13 @@ class UpdateCharacterManager
 
             $character = SetCharacterType::run($character);
 
-            $positions = $positions->with([
-                'currentType' => $character->type,
-                'currentPositions' => $character->positions,
-            ]);
+            $positions = new CharacterPositionsData(
+                character: $character,
+                oldType: $oldCharacterType,
+                oldPositions: $oldCharacterPositions,
+                newType: $character->type,
+                newPositions: $character->positions,
+            );
 
             UpdatePositionAvailability::run($positions);
 
@@ -57,6 +60,8 @@ class UpdateCharacterManager
             RemoveCharacterAvatar::run($character, $request->boolean('remove_existing_image', false));
 
             $this->updateFormSubmission($character, $request->input('characterBio', []));
+
+            LogBatch::endBatch();
 
             return $character->refresh();
         });

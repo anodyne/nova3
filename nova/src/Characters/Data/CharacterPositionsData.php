@@ -13,47 +13,47 @@ readonly class CharacterPositionsData extends Bag
 {
     public function __construct(
         public Character $character,
-        public ?CharacterType $previousType = null,
-        public ?CharacterType $currentType = null,
-        public ?Collection $previousPositions = null,
-        public ?Collection $currentPositions = null
+        public ?CharacterType $oldType = null,
+        public ?CharacterType $newType = null,
+        public ?Collection $oldPositions = null,
+        public ?Collection $newPositions = null
     ) {}
 
-    public function canAutoManageCurrentType(): bool
+    public function canAutoManageNewType(): bool
     {
         return settings(sprintf(
             'characters.autoAvailabilityFor%s',
-            ucfirst($this->currentType->value)
+            ucfirst($this->newType->value)
         ));
     }
 
-    public function canAutoManagePreviousType(): bool
+    public function canAutoManageOldType(): bool
     {
         return settings(sprintf(
             'characters.autoAvailabilityFor%s',
-            ucfirst($this->previousType->value)
+            ucfirst($this->oldType->value)
         ));
     }
 
-    public function getCurrentActionableIds(): array
+    public function getNewActionableIds(): array
     {
-        return $this->currentPositions
-            ->when($this->previousPositions !== null, fn ($collection) => $collection->diff($this->previousPositions))
+        return $this->newPositions
+            ->when($this->oldPositions !== null, fn ($collection) => $collection->diff($this->oldPositions))
             ->pluck('id')
             ->all();
     }
 
-    public function getPreviousActionableIds(): array
+    public function getOldActionableIds(): array
     {
-        return $this->previousPositions
-            ->when($this->currentPositions !== null, fn ($collection) => $collection->diff($this->currentPositions))
+        return $this->oldPositions
+            ->when($this->newPositions !== null, fn ($collection) => $collection->diff($this->newPositions))
             ->pluck('id')
             ->all();
     }
 
     public function hasPositionChanges(): bool
     {
-        return count($this->getPreviousActionableIds()) > 0 ||
-            count($this->getCurrentActionableIds()) > 0;
+        return count($this->getOldActionableIds()) > 0 ||
+            count($this->getNewActionableIds()) > 0;
     }
 }

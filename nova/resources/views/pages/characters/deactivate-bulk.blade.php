@@ -6,7 +6,7 @@
     $count = $records->count();
 @endphp
 
-<x-filament.modal-content icon="check">
+<x-filament.modal-content :$action>
     <x-slot name="title">Deactivate {{ $count }} selected {{ str('character')->plural($count) }}?</x-slot>
 
     <p>Are you sure you want to deactivate the following characters?</p>

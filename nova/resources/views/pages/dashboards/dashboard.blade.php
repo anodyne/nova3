@@ -75,7 +75,7 @@
                                 </x-button>
 
                                 <x-button
-                                    :href="route('admin.characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
+                                    :href="route('admin.characters.index', ['only_my_characters' => true])"
                                     color="heavy-neutral"
                                     text
                                 >

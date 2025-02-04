@@ -1,4 +1,4 @@
-<div>
+<div data-slot="panel">
     <x-panel.manage>
         <x-panel.manage.search :search="$search" placeholder="Find a user to assign (type * to see all users)">
             <x-dropdown.group>

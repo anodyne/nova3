@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Forms\Casts\ResponseValue;
+use Nova\Foundation\Concerns\LogsActivity;
 
 class FormSubmissionResponse extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = [
         'id',

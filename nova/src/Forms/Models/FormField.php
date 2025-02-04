@@ -9,12 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Forms\Models\Builders\FormFieldBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
 use Spatie\EloquentSortable\Sortable;
 
 class FormField extends Model implements Sortable
 {
     use HasFactory;
+    use LogsActivity;
     use SortableTrait;
 
     protected $fillable = [

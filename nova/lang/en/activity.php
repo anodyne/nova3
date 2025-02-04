@@ -18,6 +18,11 @@ return [
         'vote-deny' => '**:name** voted to deny the application.',
     ],
 
+    'characters' => [
+        'removed-avatar' => '**:name** removed the avatar for the character.',
+        'uploaded-avatar' => '**:name** uploaded an avatar for the character.',
+    ],
+
     'ranks' => [
         'group-duplicated' => '**:name** duplicated the rank group to the new group **:rankGroup**.',
         'name-duplicated' => '**:name** duplicated the rank name to the new name **:rankName**.',

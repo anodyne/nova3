@@ -14,13 +14,16 @@ use Nova\Forms\Events;
 use Nova\Forms\Models\Builders\FormBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
+use Spatie\Activitylog\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Form extends Model
 {
     use HasFactory;
     use HasPrefixedId;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
 
     protected $fillable = [
         'name',
@@ -115,6 +118,15 @@ class Form extends Model
                     ->all();
             }
         );
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return $this->baseActivitylogOptions()
+            ->logExcept([
+                'fields',
+                'published_fields',
+            ]);
     }
 
     public function newEloquentBuilder($query): FormBuilder

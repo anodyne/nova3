@@ -15,7 +15,7 @@ class DeactivateCharacter
     public function handle(Character $character): Character
     {
         if ($character->status->canTransitionTo(Inactive::class)) {
-            $character->status->transitionTo(Inactive::class);
+            activity()->withoutLogs(fn () => $character->status->transitionTo(Inactive::class));
 
             activity()
                 ->performedOn($character)

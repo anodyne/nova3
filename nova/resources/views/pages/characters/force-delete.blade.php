@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="trash" title="Force delete character?">
+<x-filament.modal-content :$action title="Force delete character?">
     {{-- format-ignore-start --}}
     <p>
         Are you sure you want to force delete

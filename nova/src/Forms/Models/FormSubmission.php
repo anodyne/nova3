@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Nova\Forms\Models\Builders\FormSubmissionBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
 
 class FormSubmission extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = ['meta'];
 

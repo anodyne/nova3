@@ -6,7 +6,7 @@
     $count = $records->count();
 @endphp
 
-<x-filament.modal-content icon="history">
+<x-filament.modal-content :$action>
     <x-slot name="title">Restore {{ $count }} selected {{ str('character')->plural($count) }}?</x-slot>
 
     <p>Are you sure you want to restore the following characters?</p>
