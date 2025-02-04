@@ -4,6 +4,8 @@
     <div class="@container advanced-page story-post">
         <div class="story-post-container">
             <div class="main-column">
+                {{ NovaView::renderHook('public::story-post.main-column.before') }}
+
                 <div class="pretitle">{{ $story->title }}</div>
 
                 <x-public::h2>{{ $post->title }}</x-public::h2>
@@ -68,6 +70,8 @@
                     {!! $post->content !!}
                 </div>
 
+                {{ NovaView::renderHook('public::story-post.main-column.after') }}
+
                 @if (filled($previousPost) || filled($nextPost))
                     <div class="post-navigation-container">
                         @if (filled($previousPost))
@@ -131,6 +135,8 @@
 
             <div class="secondary-column">
                 <dl class="secondary-column-container">
+                    {{ NovaView::renderHook('public::story-post.secondary-column.before') }}
+
                     @if ($post->postType->fields->rating->enabled)
                         <div class="ratings-container">
                             <x-rating.display
@@ -171,6 +177,8 @@
                             @endif
                         @endforeach
                     </div>
+
+                    {{ NovaView::renderHook('public::story-post.secondary-column.after') }}
                 </dl>
             </div>
         </div>
