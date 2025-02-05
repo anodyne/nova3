@@ -83,7 +83,7 @@ class Department extends Model implements HasMedia, Sortable
     public function tagsAsString(): Attribute
     {
         return Attribute::make(
-            get: fn () => implode(', ', $this->tags)
+            get: fn () => implode(', ', $this->tags ?? [])
         );
     }
 

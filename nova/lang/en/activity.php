@@ -23,6 +23,15 @@ return [
         'uploaded-avatar' => '**:name** uploaded an avatar for the character.',
     ],
 
+    'departments' => [
+        'duplicated' => '**:name** duplicated the department as **:replica**.',
+        'uploaded' => '**:name** uploaded a department header image.',
+    ],
+
+    'positions' => [
+        'duplicated' => '**:name** duplicated the position as **:replica**.',
+    ],
+
     'ranks' => [
         'group-duplicated' => '**:name** duplicated the rank group to the new group **:rankGroup**.',
         'name-duplicated' => '**:name** duplicated the rank name to the new name **:rankName**.',

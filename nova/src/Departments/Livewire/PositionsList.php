@@ -47,7 +47,17 @@ class PositionsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Position::with('department', 'activeCharacters', 'activeUsers'))
+            ->query(
+                Position::with('department', 'activeCharacters', 'activeUsers')
+                    ->select([
+                        'available',
+                        'department_id',
+                        'id',
+                        'name',
+                        'order_column',
+                        'status',
+                    ])
+            )
             ->groups([
                 Group::make('department.name')->label('Department name')->collapsible(),
                 Group::make('department.order_column')
@@ -95,6 +105,9 @@ class PositionsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Position $record): string => route('admin.positions.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -107,14 +120,13 @@ class PositionsList extends TableComponent
                                         'tags' => fn ($value) => is_array($value) ? implode(', ', $value) : '',
                                     ])
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => sprintf(
-                                            '**%s** duplicated the position as **%s**.',
-                                            $activity->causer->name,
-                                            Position::find($activity->getExtraProperty('replica'))?->name
-                                        ),
+                                        'duplicated' => fn (Activity $activity) => __('activity.positions.duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'replica' => Position::find($activity->getExtraProperty('replica'))?->name,
+                                        ]),
                                     ]);
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
@@ -191,6 +203,7 @@ class PositionsList extends TableComponent
                     ->relationship('department', 'name')
                     ->label('Department')
                     ->multiple()
+                    ->preload()
                     ->searchable(),
                 TernaryFilter::make('available')
                     ->label('Has available slots')

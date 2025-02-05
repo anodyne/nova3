@@ -17,6 +17,7 @@ class StorePositionRequest extends FormRequest
             'description' => ['nullable'],
             'name' => ['required'],
             'status' => ['required'],
+            'tags' => ['nullable'],
         ];
     }
 

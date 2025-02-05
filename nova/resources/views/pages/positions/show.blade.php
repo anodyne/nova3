@@ -1,6 +1,24 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-header :heading="$position->name">
+            <x-slot name="description">
+                <div class="flex items-center gap-x-8">
+                    <x-metadata label="Department" :value="$position->department->name"></x-metadata>
+
+                    <x-metadata label="Status">
+                        <x-badge :color="$position->status->getColor()">
+                            {{ $position->status->getLabel() }}
+                        </x-badge>
+                    </x-metadata>
+                </div>
+            </x-slot>
+
+            @if (filled($position->description))
+                <x-slot name="intro">
+                    {{ $position->description }}
+                </x-slot>
+            @endif
+
             <x-slot name="actions">
                 @can('viewAny', $position::class)
                     <x-button :href="route('admin.positions.index', 'department='.$position->department->id)" plain>
@@ -18,37 +36,19 @@
         </x-page-header>
 
         <x-form action="">
-            <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Name">
-                        <x-text>{{ $position->name }}</x-text>
-                    </x-fieldset.field>
-
-                    @if (filled($position->description))
-                        <x-fieldset.field label="Description">
-                            <x-text>{{ $position->description }}</x-text>
-                        </x-fieldset.field>
-                    @endif
-
-                    <x-fieldset.field label="Department">
-                        <x-text>{{ $position->department->name }}</x-text>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Status">
-                        <div data-slot="text">
-                            <x-badge :color="$position->status->getColor()">
-                                {{ $position->status->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
-
-                    @if (filled($position->tags))
+            @if (filled($position->tags))
+                <x-fieldset>
+                    <x-fieldset.field-group constrained>
                         <x-fieldset.field label="Tags">
-                            <x-text>{{ $position->tags_as_string }}</x-text>
+                            <div data-slot="control">
+                                @foreach ($position->tags as $tag)
+                                    <x-badge>{{ $tag }}</x-badge>
+                                @endforeach
+                            </div>
                         </x-fieldset.field>
-                    @endif
-                </x-fieldset.field-group>
-            </x-fieldset>
+                    </x-fieldset.field-group>
+                </x-fieldset>
+            @endif
 
             <x-fieldset>
                 <x-panel variant="well">

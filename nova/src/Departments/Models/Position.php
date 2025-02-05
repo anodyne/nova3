@@ -81,7 +81,7 @@ class Position extends Model implements Sortable
     public function tagsAsString(): Attribute
     {
         return Attribute::make(
-            get: fn () => implode(', ', $this->tags)
+            get: fn () => implode(', ', $this->tags ?? [])
         );
     }
 
