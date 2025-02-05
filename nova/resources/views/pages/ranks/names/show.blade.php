@@ -32,23 +32,20 @@
                 </x-fieldset.field-group>
             </x-fieldset>
 
-            <x-panel well>
-                <x-spacing size="sm">
-                    <x-fieldset.legend>Ranks assigned this name</x-fieldset.legend>
-                </x-spacing>
+            <x-panel variant="well">
+                <x-panel.header title="Ranks assigned this name"></x-panel.header>
 
-                <x-spacing size="2xs">
                     <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
                         @forelse ($name->ranks as $rank)
-                            <x-spacing size="sm" class="group flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="flex items-center gap-2">
+                            <x-spacing size="row" class="group flex items-center justify-between">
+                                <div class="flex items-center gap-x-3">
+                                    <div class="flex items-center gap-3">
                                         <x-status :status="$rank->status"></x-status>
                                         <x-rank :rank="$rank"></x-rank>
                                     </div>
-                                    <x-text class="ml-3">
-                                        <x-text.strong>{{ $rank->name?->name }}</x-text.strong>
-                                    </x-text>
+                                    <div class="font-medium truncate text-gray-950 dark:text-white">
+                                        {{ $rank->name?->name }}
+                                    </div>
                                 </div>
 
                                 @can('update', $rank)

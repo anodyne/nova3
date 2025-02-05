@@ -19,10 +19,12 @@
 
     @if ($originalCount !== $count)
         <x-panel.warning>
-            You selected {{ $originalCount }} {{ str('character')->plural($originalCount) }}, but only {{ $count }}
-            {{ trans_choice('character is|characters are', $count) }} eligible for deactivation. We will only
-            deactivate the {{ $count }} {{ str('character')->plural($count) }} and ignore the others. If you would
-            like to activate any inactive characters, you can use the Activate bulk action.
+            <x-slot name="description">
+                You selected {{ $originalCount }} {{ str('character')->plural($originalCount) }}, but only
+                {{ $count }} {{ trans_choice('character is|characters are', $count) }} eligible for deactivation. We
+                will only deactivate the {{ $count }} {{ str('character')->plural($count) }} and ignore the others. If
+                you would like to activate any inactive characters, you can use the Activate bulk action.
+            </x-slot>
         </x-panel.warning>
     @endif
 </x-filament.modal-content>

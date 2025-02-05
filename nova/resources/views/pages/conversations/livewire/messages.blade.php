@@ -1,10 +1,10 @@
-<x-panel well>
+<x-panel variant="well">
     @if (filled($conversation))
-        <x-panel.well.header :title="$participant?->name ?? 'New message'">
+        <x-panel.header :title="$participant?->name ?? 'New message'">
             @if (filled($participant))
                 <x-slot name="description">Conversation began on {{ format_date($conversation->created_at) }}</x-slot>
             @endif
-        </x-panel.well.header>
+        </x-panel.header>
     @endif
 
     <x-panel>
@@ -64,7 +64,7 @@
                                         rows="3"
                                         @class([
                                             'relative block h-full max-h-60 w-full resize-none appearance-none rounded-lg px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] [field-sizing:content] sm:px-[calc(theme(spacing.3)-1px)] sm:py-[calc(theme(spacing[1.5])-1px)]',
-                                            'text-base/6 text-gray-950 placeholder:text-gray-500 dark:text-white sm:text-sm/6',
+                                            'text-base/6 text-gray-950 placeholder:text-gray-500 sm:text-sm/6 dark:text-white',
                                             'border-0 bg-transparent focus:ring-0',
                                         ])
                                         placeholder="Message {{ $participant?->name }}"

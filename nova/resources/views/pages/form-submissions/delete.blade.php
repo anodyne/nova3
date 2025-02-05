@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="trash" title="Delete form submission?">
+<x-filament.modal-content :$action title="Delete form submission?">
     {{-- format-ignore-start --}}
     <p>
         Are you sure you want to delete this form submission for the

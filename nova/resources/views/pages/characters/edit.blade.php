@@ -42,79 +42,73 @@
                 </x-fieldset>
 
                 <x-fieldset title="Positions">
-                    <x-panel well>
-                        <x-panel.well-heading
-                            heading="Positions"
+                    <x-panel variant="well">
+                        <x-panel.header
+                            title="Positions"
                             description="Characters can be assigned to any number of positions. On the manifest, the character will be displayed for each position they’re assigned to."
-                        ></x-panel.well-heading>
+                        ></x-panel.header>
 
-                        <x-spacing size="2xs">
-                            <livewire:characters-manage-positions :character="$character" />
-                        </x-spacing>
+                        <livewire:characters-manage-positions :character="$character" />
                     </x-panel>
                 </x-fieldset>
 
                 <x-fieldset>
-                    <x-panel well>
-                        <x-panel.well-heading
-                            heading="Ownership"
+                    <x-panel variant="well">
+                        <x-panel.header
+                            title="Ownership"
                             description="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character."
-                        ></x-panel.well-heading>
+                        ></x-panel.header>
 
-                        <x-spacing size="2xs">
-                            <livewire:characters-manage-users :character="$character" />
-                        </x-spacing>
+                        <livewire:characters-manage-users :character="$character" />
                     </x-panel>
                 </x-fieldset>
 
                 @canany(['activate', 'deactivate'], $character)
                     <x-fieldset>
-                        <x-panel well>
-                            <x-panel.well-heading heading="Admin actions"></x-panel.well-heading>
+                        <x-panel variant="well">
+                            <x-panel.header title="Admin actions"></x-panel.header>
 
-                            <x-spacing size="2xs">
-                                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                                    @can('activate', $character)
-                                        <x-spacing size="md" class="grid grid-cols-3 gap-6">
-                                            <div class="col-span-2">
-                                                <div class="flex items-center gap-2">
-                                                    <x-icon name="check" size="md" class="text-gray-500"></x-icon>
-                                                    <x-h3>Activate character</x-h3>
-                                                </div>
-                                                <x-text class="mt-2">
-                                                    When activating the character, if they were previously a primary
-                                                    character for the user, but the user has since had a new primary
-                                                    character set for themselves, this character will be set as a
-                                                    secondary character for the user.
-                                                </x-text>
+                            <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                                @can('activate', $character)
+                                    <x-spacing size="md" class="grid grid-cols-3 gap-6">
+                                        <div class="col-span-2">
+                                            <div class="flex items-center gap-2">
+                                                <x-icon name="check" size="md" class="text-gray-500"></x-icon>
+                                                <x-h3>Activate character</x-h3>
                                             </div>
-                                            <div class="flex items-start justify-end">
-                                                <livewire:characters-activate-button :character="$character" />
-                                            </div>
-                                        </x-spacing>
-                                    @endcan
+                                            <x-text class="mt-2">
+                                                When activating the character, if they were previously a primary
+                                                character for the user, but the user has since had a new primary
+                                                character set for themselves, this character will be set as a secondary
+                                                character for the user.
+                                            </x-text>
+                                        </div>
+                                        <div class="flex items-start justify-end">
+                                            <livewire:characters-activate-button :character="$character" />
+                                        </div>
+                                    </x-spacing>
+                                @endcan
 
-                                    @can('deactivate', $character)
-                                        <x-spacing size="md" class="grid grid-cols-3 gap-6">
-                                            <div class="col-span-2">
-                                                <div class="flex items-center gap-2">
-                                                    <x-icon name="remove" size="md" class="text-gray-500"></x-icon>
-                                                    <x-h3>Deactivate character</x-h3>
-                                                </div>
-                                                <x-text class="mt-2">
-                                                    When deactivating the character, the owning user(s) will remain at
-                                                    their current status. Pay special attention to deactivating a
-                                                    character who is the only character assigned to a user as it may
-                                                    impede their ability to contribute to stories.
-                                                </x-text>
+                                @can('deactivate', $character)
+                                    <x-spacing size="md" class="grid grid-cols-3 gap-6">
+                                        <div class="col-span-2">
+                                            <div class="flex items-center gap-2">
+                                                <x-icon name="remove" size="md" class="text-gray-500"></x-icon>
+                                                <x-h3>Deactivate character</x-h3>
                                             </div>
-                                            <div class="flex items-start justify-end">
-                                                <livewire:characters-deactivate-button :character="$character" />
-                                            </div>
-                                        </x-spacing>
-                                    @endcan
-                                </x-panel>
-                            </x-spacing>
+                                            <x-text class="mt-2">
+                                                When deactivating the character, the owning user(s) will remain at their
+                                                current status. Pay special attention to deactivating a character who is
+                                                the only character assigned to a user as it may impede their ability to
+                                                contribute to stories.
+                                            </x-text>
+                                        </div>
+                                        <div class="flex items-start justify-end">
+                                            <livewire:characters-deactivate-button :character="$character" />
+                                        </div>
+                                    </x-spacing>
+                                @endcan
+                            </x-panel>
                         </x-panel>
                     </x-fieldset>
                 @endcanany

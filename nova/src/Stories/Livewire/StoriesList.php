@@ -143,8 +143,9 @@ class StoriesList extends TableComponent
                             ->modalHeading('')
                             ->modalDescription(null)
                             ->modalSubmitActionLabel('Update')
-                            ->modalContent(fn (Model $record): View => view('pages.stories.edit-dates', [
+                            ->modalContent(fn (Model $record, Action $action): View => view('pages.stories.edit-dates', [
                                 'record' => $record,
+                                'action' => $action,
                             ]))
                             ->action(function (Model $record, array $data): void {
                                 $storyData = $record->getData();

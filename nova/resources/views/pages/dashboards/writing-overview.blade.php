@@ -17,7 +17,7 @@
 
     <div class="space-y-12">
         <div class="grid auto-rows-fr grid-cols-5 gap-8">
-            <x-panel class="col-span-2 flex items-center">
+            <x-panel class="col-span-2 flex items-center" variant="card">
                 <x-spacing size="sm">
                     <div class="flex flex-col items-center gap-y-2">
                         <div class="relative">
@@ -63,7 +63,7 @@
                 </x-spacing>
             </x-panel>
 
-            <x-panel class="flex items-center">
+            <x-panel class="flex items-center" variant="card">
                 <x-spacing size="sm">
                     <div class="flex flex-col items-center">
                         <x-progress.circular :percentage="$activityPercentage" class="size-20"></x-progress.circular>
@@ -78,7 +78,7 @@
                 </x-spacing>
             </x-panel>
 
-            <x-panel class="col-span-2 flex flex-col divide-y divide-gray-950/5 align-middle">
+            <x-panel class="col-span-2 flex flex-col divide-y divide-gray-950/5 align-middle" variant="card">
                 <x-spacing size="sm">
                     <x-h5>
                         {{ settings('posting_activity.timeframe')->getStatsLabel() }}
@@ -168,20 +168,20 @@
                     'col-span-3' => settings('writing_dashboard.leaderboard.enabled'),
                 ])
             >
-                <x-panel well>
-                    <x-panel.well.header
+                <x-panel variant="well">
+                    <x-panel.header
                         title="My draft posts"
                         description="Drafts are posts in progress that have not been published."
                     >
                         @can('create', Post::class)
-                            <x-slot name="controls">
+                            <x-slot name="actions">
                                 <x-button :href="route('admin.posts.create')">
                                     <x-icon name="write" size="sm"></x-icon>
                                     Start writing
                                 </x-button>
                             </x-slot>
                         @endcan
-                    </x-panel.well.header>
+                    </x-panel.header>
 
                     <x-panel class="divide-y divide-gray-950/5 overflow-hidden">
                         @forelse ($drafts as $draft)

@@ -40,7 +40,15 @@ class DepartmentsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Department::with('positions'))
+            ->query(
+                Department::with('positions')
+                    ->select([
+                        'id',
+                        'name',
+                        'order_column',
+                        'status',
+                    ])
+            )
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
@@ -78,10 +86,13 @@ class DepartmentsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.departments.show', $record)),
+                            ->url(fn (Department $record): string => route('admin.departments.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.departments.edit', $record)),
+                            ->url(fn (Department $record): string => route('admin.departments.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -89,24 +100,22 @@ class DepartmentsList extends TableComponent
                                         'tags' => fn ($value) => is_array($value) ? implode(', ', $value) : '',
                                     ])
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => sprintf(
-                                            '**%s** duplicated the department as **%s**.',
-                                            $activity->causer->name,
-                                            Department::find($activity->getExtraProperty('replica'))?->name
-                                        ),
-                                        'uploaded' => fn (Activity $activity) => sprintf(
-                                            '**%s** uploaded a department header image.',
-                                            $activity->causer->name
-                                        ),
+                                        'duplicated' => fn (Activity $activity) => __('activity.departments.duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'replica' => Department::find($activity->getExtraProperty('replica'))?->name,
+                                        ]),
+                                        'uploaded' => fn (Activity $activity) => __('activity.departments.uploaded', [
+                                            'name' => $activity->causer->name,
+                                        ]),
                                     ]);
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('positions')
                             ->authorize('viewAny', Position::class)
                             ->icon(iconName('list'))
-                            ->url(fn (Model $record): string => route('admin.positions.index', ['tableFilters' => ['department_id' => ['values' => [$record->id]]]])),
+                            ->url(fn (Department $record): string => route('admin.positions.index', ['tableFilters' => ['department_id' => ['values' => [$record->id]]]])),
                     ])->authorize('viewAny', Position::class)->divided(),
 
                     ActionGroup::make([
@@ -116,7 +125,7 @@ class DepartmentsList extends TableComponent
                                 TextInput::make('name')->label('New department name'),
                             ])
                             ->modalContentView('pages.departments.duplicate')
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (Department $record, array $data): void {
                                 $replica = DuplicateDepartment::run(
                                     $record,
                                     DepartmentData::from(
@@ -140,8 +149,8 @@ class DepartmentsList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.departments.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->name.' department was deleted')
-                            ->using(fn (Model $record): Model => DeleteDepartment::run($record)),
+                            ->successNotificationTitle(fn (Department $record): string => $record->name.' department was deleted')
+                            ->using(fn (Department $record): Model => DeleteDepartment::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -153,7 +162,7 @@ class DepartmentsList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Department $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -162,7 +171,7 @@ class DepartmentsList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeleteDepartment::run($record));
+                            ->each(fn (Department $record): Model => DeleteDepartment::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('department was|departments were', count($records)).' deleted')
@@ -179,8 +188,8 @@ class DepartmentsList extends TableComponent
             ->filters([
                 TernaryFilter::make('has_positions')
                     ->queries(
-                        true: fn (Builder $query) => $query->whereHas('positions'),
-                        false: fn (Builder $query) => $query->whereDoesntHave('positions')
+                        true: fn (Builder $query): Builder => $query->whereHas('positions'),
+                        false: fn (Builder $query): Builder => $query->whereDoesntHave('positions')
                     ),
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])

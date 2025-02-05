@@ -23,11 +23,11 @@
         </div>
 
         <div class="grid gap-8 lg:grid-cols-2">
-            <x-panel well>
-                <x-panel.well.header
+            <x-panel variant="well">
+                <x-panel.header
                     title="Environment"
                     description="Get an overview of the environment Nova is running in."
-                ></x-panel.well.header>
+                ></x-panel.header>
 
                 <x-panel>
                     <x-spacing size="md">
@@ -129,11 +129,11 @@
                 </x-panel>
             </x-panel>
 
-            <x-panel well>
-                <x-panel.well.header
+            <x-panel variant="well">
+                <x-panel.header
                     title="Drivers"
                     description="Get an overview of the drivers for different systems that Nova uses."
-                ></x-panel.well.header>
+                ></x-panel.header>
 
                 <x-panel>
                     <x-spacing size="md">
@@ -216,10 +216,12 @@
                 actions if you know what you’re doing and the consequences of running them.
             </x-text>
 
-            <x-panel class="mt-8" well>
-                <x-panel class="overflow-hidden">
+            <x-panel class="mt-8" variant="well">
+                <x-panel.header title="Advanced"></x-panel.header>
+
+                <x-panel>
                     <div class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        <x-spacing size="md" class="grid bg-white lg:grid-cols-4 dark:bg-gray-900">
+                        <x-spacing size="md" class="grid lg:grid-cols-4">
                             <div class="lg:col-span-3">
                                 <x-text><x-text.strong>Clear Nova version check cache</x-text.strong></x-text>
                                 <x-text>
@@ -233,7 +235,7 @@
                             </div>
                         </x-spacing>
 
-                        <x-spacing size="md" class="grid bg-white lg:grid-cols-4 dark:bg-gray-900">
+                        <x-spacing size="md" class="grid lg:grid-cols-4">
                             <div class="lg:col-span-3">
                                 <x-text><x-text.strong>Clear Nova’s cache</x-text.strong></x-text>
                                 <x-text>
@@ -248,7 +250,7 @@
                             </div>
                         </x-spacing>
 
-                        <x-spacing size="md" class="grid bg-white lg:grid-cols-4 dark:bg-gray-900">
+                        <x-spacing size="md" class="grid lg:grid-cols-4">
                             <div class="lg:col-span-3">
                                 <x-text><x-text.strong>Re-build search index</x-text.strong></x-text>
                                 <x-text>This will destroy and re-build Nova’s complete search index.</x-text>

@@ -123,23 +123,22 @@
                     </x-fieldset>
 
                     <x-fieldset>
-                        <x-panel well>
-                            <x-panel.well.header
+                        <x-panel variant="well">
+                            <x-panel.header
                                 title="Characters assigned to this user"
                                 description="Users can be assigned as many characters as you want."
-                            ></x-panel.well.header>
+                            ></x-panel.header>
 
                             <livewire:users-manage-characters :user="$user" />
                         </x-panel>
                     </x-fieldset>
 
                     <x-fieldset>
-                        <x-panel well>
-                            <x-panel.well.header
+                        <x-panel variant="well">
+                            <x-panel.header
                                 title="Roles assigned to this user"
-                                description="Roles control what users can do inside of Nova. You can assign as many roles as
-                                    needed to users."
-                            ></x-panel.well.header>
+                                description="Roles control what users can do inside of Nova. You can assign as many roles as needed to users"
+                            ></x-panel.header>
 
                             <livewire:users-manage-roles :user="$user" />
                         </x-panel>
@@ -147,8 +146,8 @@
 
                     @canany(['activate', 'deactivate', 'forcePasswordReset'], $user)
                         <x-fieldset>
-                            <x-panel well>
-                                <x-panel.well.header title="Administrative actions"></x-panel.well.header>
+                            <x-panel variant="well">
+                                <x-panel.header title="Administrative actions"></x-panel.header>
 
                                 <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
                                     @can('activate', $user)

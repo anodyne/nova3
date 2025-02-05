@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="remove" title="Deactivate user?">
+<x-filament.modal-content :$action title="Deactivate user?">
     {{-- format-ignore-start --}}
     <p>
         Are you sure you want to deactivate

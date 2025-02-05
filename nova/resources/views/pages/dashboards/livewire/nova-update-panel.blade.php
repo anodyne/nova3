@@ -115,18 +115,22 @@
 
                         <div class="relative mt-6 w-full flex-1 space-y-8 px-4 pb-8 leading-normal sm:px-6">
                             @if (! $hasUpdate)
-                                <x-panel.primary icon="check" title="Nova is up-to-date">
-                                    You are running the latest available release of Nova.
-                                </x-panel.primary>
+                                <x-panel variant="well" color="primary">
+                                    <x-panel.header
+                                        title="Nova is up-to-date"
+                                        icon="check"
+                                        description="You are running the latest available release of Nova."
+                                    ></x-panel.header>
+                                </x-panel>
                             @endif
 
                             @if ($hasUpdate)
-                                <x-panel well>
-                                    <x-panel.well-heading>
-                                        <x-slot name="heading">Nova {{ $upstream->version }} is available</x-slot>
+                                <x-panel variant="well">
+                                    <x-panel.header>
+                                        <x-slot name="title">Nova {{ $upstream->version }} is available</x-slot>
 
                                         @if ($upstream->severity === ReleaseSeverity::Critical)
-                                            <x-slot name="controls">
+                                            <x-slot name="actions">
                                                 <div
                                                     class="flex items-center gap-x-1 text-sm/6 font-medium text-danger-500"
                                                 >
@@ -135,7 +139,7 @@
                                                 </div>
                                             </x-slot>
                                         @endif
-                                    </x-panel.well-heading>
+                                    </x-panel.header>
 
                                     <x-panel>
                                         <x-spacing size="md">
@@ -172,30 +176,34 @@
                             @endif
 
                             @if ($hasUpcomingUpdate)
-                                <x-panel.info icon="calendar">
-                                    @if (is_null($upcoming->date))
-                                        <x-slot name="title">Upcoming Nova update planned</x-slot>
+                                <x-panel variant="well" color="info">
+                                    <x-panel.header icon="calendar">
+                                        @if (is_null($upcoming->date))
+                                            <x-slot name="title">Upcoming Nova update planned</x-slot>
 
-                                        <div>
-                                            A {{ str($upcoming->severity->getLabel())->lower() }} release for Nova
-                                            ({{ $upcoming->version }}) is currently planned, but no release date is
-                                            available. This message will be updated with more details as they become
-                                            available.
-                                        </div>
-                                    @else
-                                        <x-slot name="title">Upcoming Nova update scheduled</x-slot>
+                                            <x-slot name="description">
+                                                A {{ str($upcoming->severity->getLabel())->lower() }} release for Nova
+                                                ({{ $upcoming->version }}) is currently planned, but no release date is
+                                                available. This message will be updated with more details as they become
+                                                available.
+                                            </x-slot>
+                                        @else
+                                            <x-slot name="title">Upcoming Nova update scheduled</x-slot>
 
-                                        <div>
-                                            {{ str("Nova {$upcoming->version} is currently scheduled for release on **{$upcoming->date->format('F dS')}**.")->inlineMarkdown()->toHtmlString() }}
-                                        </div>
-                                    @endif
+                                            <x-slot name="description">
+                                                {{ str("Nova {$upcoming->version} is currently scheduled for release on **{$upcoming->date->format('F dS')}**.")->inlineMarkdown()->toHtmlString() }}
+                                            </x-slot>
+                                        @endif
+                                    </x-panel.header>
 
-                                    <div
-                                        class="prose prose-sm [--tw-prose-quote-borders:theme(colors.info.300)] prose-blockquote:text-info-600 dark:[--tw-prose-quote-borders:theme(colors.info.700)] dark:prose-blockquote:text-info-400"
-                                    >
-                                        {!! str("> {$upcoming->notes}")->markdown() !!}
-                                    </div>
-                                </x-panel.info>
+                                    <x-panel color="info">
+                                        <x-spacing size="row">
+                                            <div class="prose prose-sm">
+                                                {!! str("> {$upcoming->notes}")->markdown() !!}
+                                            </div>
+                                        </x-spacing>
+                                    </x-panel>
+                                </x-panel>
                             @endif
 
                             <div class="space-y-6">

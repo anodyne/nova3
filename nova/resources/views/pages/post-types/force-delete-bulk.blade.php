@@ -1,6 +1,6 @@
 @php($count = $records->count())
 
-<x-filament.modal-content icon="check">
+<x-filament.modal-content :$action>
     <x-slot name="title">Force delete {{ $count }} selected {{ str('post type')->plural($count) }}?</x-slot>
 
     <p>

@@ -16,28 +16,13 @@
         </x-page-header>
 
         <div class="my-4 flex items-center gap-x-8 text-sm">
-            <div class="flex items-center gap-x-1 text-gray-500">
-                <span>Author</span>
-                <span class="font-semibold text-gray-900 dark:text-white">
-                    {{ $announcement->user->name }}
-                </span>
-            </div>
+            <x-metadata label="Author" :value="$announcement->user->name"></x-metadata>
 
             @if (filled($announcement->category))
-                <div class="flex items-center gap-x-1 text-gray-500">
-                    <span>Category</span>
-                    <span class="font-semibold text-gray-900 dark:text-white">
-                        {{ $announcement->category }}
-                    </span>
-                </div>
+                <x-metadata label="Category" :value="$announcement->category"></x-metadata>
             @endif
 
-            <div class="flex items-center gap-x-1 text-gray-500">
-                <span>Published</span>
-                <span class="font-semibold text-gray-900 dark:text-white">
-                    {{ DateHelper::formatDate($announcement->published_at) }}
-                </span>
-            </div>
+            <x-metadata label="Published" :value="DateHelper::formatDate($announcement->published_at)"></x-metadata>
         </div>
 
         <div class="prose max-w-none dark:prose-invert">

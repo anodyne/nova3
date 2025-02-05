@@ -25,10 +25,11 @@
     </x-page-header>
 
     <div class="my-8 max-w-2xl">
-        <x-panel.primary title="Please note" icon="show">
-            The preview below is not intended to be a high fidelity representation of your page. Once you save your
-            page, you will be able to preview it in the browser.
-        </x-panel.primary>
+        <x-panel.primary
+            title="Please note"
+            icon="show"
+            description="The preview below is not intended to be a high fidelity representation of your page. Once you save your page, you will be able to preview it in the browser."
+        ></x-panel.primary>
     </div>
 
     <livewire:pages-designer :page="$page" />

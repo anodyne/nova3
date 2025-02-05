@@ -104,8 +104,8 @@
                     {!! $post->content !!}
                 </div>
 
-                <x-panel well>
-                    <x-panel.well.header title="Authors"></x-panel.well.header>
+                <x-panel variant="well">
+                    <x-panel.header title="Authors"></x-panel.header>
 
                     <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
                         @if ($post->characterAuthors->count() > 0)

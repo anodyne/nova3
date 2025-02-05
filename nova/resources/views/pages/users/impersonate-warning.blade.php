@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="spy" title="Impersonate user">
+<x-filament.modal-content :$action title="Impersonate user">
     {{-- format-ignore-start --}}
     <x-text>You are about to impersonate the account belonging to <x-text.strong>{{ $record->name }}</x-text.strong> (<em>{{ $record->email }}</em>).</x-text>
     {{-- format-ignore-end --}}

@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="check" title="Activate user?">
+<x-filament.modal-content :$action title="Activate user?">
     {{-- format-ignore-start --}}
     <p>
         Are you sure you want to activate

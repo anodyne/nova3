@@ -34,46 +34,42 @@
                 </x-fieldset.field-group>
             </x-fieldset>
 
-            <x-panel well>
-                <x-spacing size="sm">
-                    <x-fieldset.legend>Ranks assigned to this group</x-fieldset.legend>
-                </x-spacing>
+            <x-panel variant="well">
+                <x-panel.header title="Ranks assigned to this group"></x-panel.header>
 
-                <x-spacing size="2xs">
-                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        @forelse ($group->ranks as $rank)
-                            <x-spacing size="sm" class="group flex items-center justify-between">
-                                <div class="flex items-center">
-                                    <div class="flex items-center gap-2">
-                                        <x-status :status="$rank->status"></x-status>
-                                        <x-rank :rank="$rank"></x-rank>
-                                    </div>
-                                    <x-text class="ml-3">
-                                        <x-text.strong>{{ $rank->name?->name }}</x-text.strong>
-                                    </x-text>
+                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                    @forelse ($group->ranks as $rank)
+                        <x-spacing size="row" class="group flex items-center justify-between">
+                            <div class="flex items-center gap-x-3">
+                                <div class="flex items-center gap-x-3">
+                                    <x-status :status="$rank->status"></x-status>
+                                    <x-rank :rank="$rank"></x-rank>
                                 </div>
+                                <div class="truncate font-medium text-gray-950 dark:text-white">
+                                    {{ $rank->name?->name }}
+                                </div>
+                            </div>
 
-                                @can('update', $rank)
-                                    <x-button
-                                        :href="route('admin.ranks.items.edit', $rank)"
-                                        class="group-hover:visible sm:invisible"
-                                        text
-                                    >
-                                        <x-icon name="edit" size="md"></x-icon>
-                                    </x-button>
-                                @endcan
-                            </x-spacing>
-                        @empty
-                            <x-empty-state.small
-                                icon="rank"
-                                title="No ranks found for this rank group"
-                                :link="route('admin.ranks.items.create')"
-                                :link-access="gate()->allows('create', RankItem::class)"
-                                label="Add a rank item &rarr;"
-                            ></x-empty-state.small>
-                        @endforelse
-                    </x-panel>
-                </x-spacing>
+                            @can('update', $rank)
+                                <x-button
+                                    :href="route('admin.ranks.items.edit', $rank)"
+                                    class="group-hover:visible sm:invisible"
+                                    text
+                                >
+                                    <x-icon name="edit" size="md"></x-icon>
+                                </x-button>
+                            @endcan
+                        </x-spacing>
+                    @empty
+                        <x-empty-state.small
+                            icon="rank"
+                            title="No ranks found for this rank group"
+                            :link="route('admin.ranks.items.create')"
+                            :link-access="gate()->allows('create', RankItem::class)"
+                            label="Add a rank item &rarr;"
+                        ></x-empty-state.small>
+                    @endforelse
+                </x-panel>
             </x-panel>
         </x-form>
     </x-spacing>

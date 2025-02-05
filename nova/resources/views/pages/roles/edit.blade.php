@@ -13,10 +13,12 @@
         <x-form :action="route('admin.roles.update', $role)" method="PUT">
             <x-fieldset>
                 @if ($role->is_default)
-                    <x-panel.warning icon="warning" class="mt-4">
-                        You’re editing a role that is given to every new user. Exercise caution when making changes to
-                        this role.
-                    </x-panel.warning>
+                    <x-panel.warning
+                        icon="warning"
+                        icon-size="xl"
+                        class="mt-4"
+                        description="You’re editing a role that is given to every new user. Exercise caution when making changes to this role."
+                    ></x-panel.warning>
                 @endif
 
                 <x-fieldset.field-group constrained>
@@ -51,35 +53,29 @@
             </x-fieldset>
 
             <x-fieldset>
-                <x-panel well>
-                    <x-spacing size="sm">
-                        <x-fieldset.legend>Permissions for this role</x-fieldset.legend>
-                        <x-fieldset.description>
+                <x-panel variant="well">
+                    <x-panel.header title="Permissions for this role">
+                        <x-slot name="description">
                             There are {{ $role->permissions_count }}
                             {{ str('permission')->plural($role->permissions_count) }} assigned to this role. All
                             assigned users will have these permissions.
-                        </x-fieldset.description>
-                    </x-spacing>
+                        </x-slot>
+                    </x-panel.header>
 
-                    <x-spacing size="2xs">
-                        <livewire:roles-manage-permissions :role="$role" />
-                    </x-spacing>
+                    <livewire:roles-manage-permissions :role="$role" />
                 </x-panel>
             </x-fieldset>
 
             <x-fieldset>
-                <x-panel well>
-                    <x-spacing size="sm">
-                        <x-fieldset.legend>Users with this role</x-fieldset.legend>
-                        <x-fieldset.description>
+                <x-panel variant="well">
+                    <x-panel.header title="Users with this role">
+                        <x-slot name="description">
                             There are {{ $role->user_count }} active {{ str('user')->plural($role->user_count) }}
                             assigned this role. Users will have all of the permissions listed below.
-                        </x-fieldset.description>
-                    </x-spacing>
+                        </x-slot>
+                    </x-panel.header>
 
-                    <x-spacing size="2xs">
-                        <livewire:roles-manage-users :role="$role" />
-                    </x-spacing>
+                    <livewire:roles-manage-users :role="$role" />
                 </x-panel>
             </x-fieldset>
 

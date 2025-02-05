@@ -32,20 +32,16 @@
             </x-fieldset>
 
             <x-fieldset>
-                <x-panel well>
-                    <x-spacing size="sm">
-                        <x-fieldset.legend>Properties</x-fieldset.legend>
-                    </x-spacing>
+                <x-panel variant="well">
+                    <x-panel.header title="Properties"></x-panel.header>
 
-                    <x-spacing size="2xs">
-                        <x-panel>
-                            <x-spacing size="md">
-                                <x-text.code size="sm">
-                                    {{ json_encode($activity->properties, JSON_PRETTY_PRINT) }}
-                                </x-text.code>
-                            </x-spacing>
-                        </x-panel>
-                    </x-spacing>
+                    <x-panel>
+                        <x-spacing size="md">
+                            <x-text.code size="sm">
+                                {{ json_encode($activity->properties, JSON_PRETTY_PRINT) }}
+                            </x-text.code>
+                        </x-spacing>
+                    </x-panel>
                 </x-panel>
             </x-fieldset>
         </x-form>

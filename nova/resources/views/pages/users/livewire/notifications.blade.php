@@ -141,9 +141,11 @@
                                         </div>
                                     </div>
                                 @empty
-                                    <x-panel.primary icon="check" title="You're all caught up">
-                                        You don’t have any unread notifications
-                                    </x-panel.primary>
+                                    <x-panel.primary
+                                        icon="check"
+                                        title="You’re all caught up"
+                                        description="You don’t have any unread notifications"
+                                    ></x-panel.primary>
                                 @endforelse
                             </div>
 

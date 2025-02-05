@@ -43,7 +43,7 @@
                 <section aria-labelledby="profile-overview-title">
                     <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
 
-                    <x-panel well>
+                    <x-panel variant="well">
                         <x-panel>
                             <x-spacing size="md">
                                 <div class="flex flex-col items-center md:flex-row md:justify-between">
@@ -67,7 +67,7 @@
                             </x-spacing>
                         </x-panel>
 
-                        <x-panel.well.footer>
+                        <x-panel.footer>
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                                 <x-button :href="route('admin.account.edit')" color="heavy-neutral" text>
                                     <x-icon name="preferences" size="sm"></x-icon>
@@ -93,74 +93,48 @@
                                     @endif
                                 </x-button>
                             </div>
-                        </x-panel.well.footer>
-                    </x-panel>
-                </section>
-
-                <section class="hidden" aria-labelledby="dashboard-stats-title">
-                    <x-panel well>
-                        <x-spacing size="sm">
-                            <x-fieldset.legend id="dashboard-stats-title">Stats</x-fieldset.legend>
-                        </x-spacing>
-
-                        <x-spacing size="2xs">
-                            <x-panel>
-                                <x-spacing size="sm">
-                                    <div class="grid grid-cols-1 lg:grid-cols-3">
-                                        <x-panel.stat label="Active users" :value="14"></x-panel.stat>
-                                        <x-panel.stat label="Active characters" :value="26"></x-panel.stat>
-                                        <x-panel.stat label="Total posts" :value="715"></x-panel.stat>
-                                    </div>
-                                </x-spacing>
-                            </x-panel>
-                        </x-spacing>
+                        </x-panel.footer>
                     </x-panel>
                 </section>
 
                 <section aria-labelledby="dashboard-stories-title">
-                    <x-panel well>
-                        <x-spacing size="2xs">
-                            <x-panel class="overflow-hidden">
-                                <div class="relative">
-                                    <img
-                                        src="{{ asset('dist/test6.jpg') }}"
-                                        alt=""
-                                        class="h-auto w-full object-cover"
-                                    />
+                    <x-panel variant="well">
+                        <x-panel class="overflow-hidden" variant="inset">
+                            <div class="relative">
+                                <img src="{{ asset('dist/test6.jpg') }}" alt="" class="h-auto w-full object-cover" />
 
-                                    <div
-                                        class="absolute bottom-0 left-0 h-1/2 w-full rounded-b-lg backdrop-blur-2xl [mask-image:linear-gradient(to_bottom,transparent,black_70%)]"
-                                    ></div>
+                                <div
+                                    class="absolute bottom-0 left-0 h-1/2 w-full rounded-b-lg backdrop-blur-2xl [mask-image:linear-gradient(to_bottom,transparent,black_70%)]"
+                                ></div>
 
-                                    <div class="absolute bottom-0 left-0">
-                                        <x-spacing width="sm" height="md">
-                                            <x-h3 class="text-white">The Best of Both Worlds</x-h3>
-                                        </x-spacing>
+                                <div class="absolute bottom-0 left-0">
+                                    <x-spacing width="sm" height="md">
+                                        <x-h3 class="text-white">The Best of Both Worlds</x-h3>
+                                    </x-spacing>
+                                </div>
+                            </div>
+                        </x-panel>
+
+                        <x-spacing size="sm">
+                            <x-text>
+                                The Borg advance their plans to assimilate the human race by kidnapping Picard and
+                                making him into their spokesman.
+                            </x-text>
+
+                            <div class="mt-2 flex items-center justify-between">
+                                <div class="flex items-center gap-x-8">
+                                    <div class="flex items-baseline gap-x-1">
+                                        <div class="text-2xl font-bold text-gray-900 dark:text-white">81</div>
+                                        <div class="text-base text-gray-500 sm:text-sm/6">posts</div>
+                                    </div>
+                                    <div class="flex items-baseline gap-x-1">
+                                        <div class="text-2xl font-bold text-gray-900 dark:text-white">11,410</div>
+                                        <div class="text-base text-gray-500 sm:text-sm/6">words</div>
                                     </div>
                                 </div>
-                            </x-panel>
 
-                            <x-spacing size="sm">
-                                <x-text>
-                                    The Borg advance their plans to assimilate the human race by kidnapping Picard and
-                                    making him into their spokesman.
-                                </x-text>
-
-                                <div class="mt-2 flex items-center justify-between">
-                                    <div class="flex items-center gap-x-8">
-                                        <div class="flex items-baseline gap-x-1">
-                                            <div class="text-2xl font-bold text-gray-900 dark:text-white">81</div>
-                                            <div class="text-base text-gray-500 sm:text-sm/6">posts</div>
-                                        </div>
-                                        <div class="flex items-baseline gap-x-1">
-                                            <div class="text-2xl font-bold text-gray-900 dark:text-white">11,410</div>
-                                            <div class="text-base text-gray-500 sm:text-sm/6">words</div>
-                                        </div>
-                                    </div>
-
-                                    <x-button plain>Go to story &rarr;</x-button>
-                                </div>
-                            </x-spacing>
+                                <x-button plain>Go to story &rarr;</x-button>
+                            </div>
                         </x-spacing>
                     </x-panel>
                 </section>

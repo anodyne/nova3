@@ -1,5 +1,5 @@
 <x-auth-layout page-header="Sign in to your account">
-    <x-panel well>
+    <x-panel variant="well">
         <x-panel>
             <x-spacing size="md">
                 <x-form :action="route('login')">
@@ -39,8 +39,8 @@
             </x-spacing>
         </x-panel>
 
-        <x-panel.well.footer class="flex items-center justify-center">
+        <x-panel.footer class="flex items-center justify-center">
             <x-button :href="route('password.request')" text>Forgot your password?</x-button>
-        </x-panel.well.footer>
+        </x-panel.footer>
     </x-panel>
 </x-auth-layout>

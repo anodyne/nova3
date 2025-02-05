@@ -61,52 +61,44 @@
         </div>
     </x-spacing>
 
-    <x-panel well>
-        <x-spacing size="sm">
-            <div class="flex items-center justify-between">
-                <x-fieldset.legend>{{ $postType->name }} in {{ $story->title }}</x-fieldset.legend>
+    <x-panel variant="well">
+        <x-panel.header>
+            <x-slot name="title">{{ $postType->name }} in {{ $story->title }}</x-slot>
 
-                <div class="flex items-center">
-                    <x-button
-                        wire:click="$dispatch('showStep', { toStepName: 'posts-wizard-step-setup' })"
-                        size="xs"
-                        plain
-                    >
-                        Edit post details
-                    </x-button>
-                </div>
-            </div>
-        </x-spacing>
+            <x-slot name="actions">
+                <x-button wire:click="$dispatch('showStep', { toStepName: 'posts-wizard-step-setup' })">
+                    Edit post details
+                </x-button>
+            </x-slot>
+        </x-panel.header>
 
-        <x-spacing size="2xs">
-            <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                @if (filled($post->characterAuthors))
-                    <x-spacing size="md" class="grid grid-cols-3 gap-4">
-                        @foreach ($post->characterAuthors as $character)
-                            <div class="flex flex-col">
-                                <x-text size="md">
-                                    <x-text.strong>{{ $character->display_name }}</x-text.strong>
-                                </x-text>
-                                <div class="text-sm text-gray-500">played by {{ $character->pivot->user?->name }}</div>
-                            </div>
-                        @endforeach
-                    </x-spacing>
-                @endif
+        <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+            @if (filled($post->characterAuthors))
+                <x-spacing size="md" class="grid grid-cols-3 gap-4">
+                    @foreach ($post->characterAuthors as $character)
+                        <div class="flex flex-col">
+                            <x-text size="md">
+                                <x-text.strong>{{ $character->display_name }}</x-text.strong>
+                            </x-text>
+                            <div class="text-sm text-gray-500">played by {{ $character->pivot->user?->name }}</div>
+                        </div>
+                    @endforeach
+                </x-spacing>
+            @endif
 
-                @if (filled($post->userAuthors))
-                    <x-spacing size="md" class="grid grid-cols-3 gap-4">
-                        @foreach ($post->userAuthors as $user)
-                            <div class="flex flex-col">
-                                <x-text size="md">
-                                    <x-text.strong>{{ $user->pivot->as ?? 'Additional character' }}</x-text.strong>
-                                </x-text>
-                                <div class="text-sm text-gray-500">played by {{ $user->name }}</div>
-                            </div>
-                        @endforeach
-                    </x-spacing>
-                @endif
-            </x-panel>
-        </x-spacing>
+            @if (filled($post->userAuthors))
+                <x-spacing size="md" class="grid grid-cols-3 gap-4">
+                    @foreach ($post->userAuthors as $user)
+                        <div class="flex flex-col">
+                            <x-text size="md">
+                                <x-text.strong>{{ $user->pivot->as ?? 'Additional character' }}</x-text.strong>
+                            </x-text>
+                            <div class="text-sm text-gray-500">played by {{ $user->name }}</div>
+                        </div>
+                    @endforeach
+                </x-spacing>
+            @endif
+        </x-panel>
     </x-panel>
 
     <x-fieldset.controls>
@@ -180,9 +172,7 @@
                 </div>
             </div>
         @else
-            <x-panel.warning class="w-full">
-                {{ $canSaveMessage }}
-            </x-panel.warning>
+            <x-panel.warning class="w-full" :description="$canSaveMessage"></x-panel.warning>
         @endif
     </x-fieldset.controls>
 </x-write-post-wizard-layout>

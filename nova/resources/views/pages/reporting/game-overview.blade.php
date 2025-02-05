@@ -23,7 +23,7 @@
             />
         </div>
 
-        <x-panel>
+        <x-panel variant="card">
             <x-spacing size="md">
                 <x-h5>{{ $settings->timeframe->getStatsLabel() }}</x-h5>
 

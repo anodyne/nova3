@@ -44,12 +44,12 @@
                     </x-fieldset.field-group>
                 </x-fieldset>
 
-                <x-panel well>
-                    <x-panel.well.header title="Assigned positions"></x-panel.well.header>
+                <x-panel variant="well">
+                    <x-panel.header title="Assigned positions"></x-panel.header>
 
                     <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
                         @forelse ($character->positions as $position)
-                            <x-spacing size="sm">
+                            <x-spacing size="row">
                                 <div class="truncate font-medium text-gray-900 dark:text-white">
                                     {{ $position->name }}
                                 </div>
@@ -60,11 +60,11 @@
                     </x-panel>
                 </x-panel>
 
-                <x-panel well>
-                    <x-panel.well.header title="Assigned users"></x-panel.well.header>
+                <x-panel variant="well">
+                    <x-panel.header title="Assigned users"></x-panel.header>
 
                     <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        <x-spacing size="sm" class="grid lg:grid-cols-2">
+                        <x-spacing size="md" class="grid lg:grid-cols-2">
                             <x-panel.stat label="Active users" :value="$character->active_users_count"></x-panel.stat>
                             <x-panel.stat
                                 label="Primary users"

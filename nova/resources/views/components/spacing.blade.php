@@ -23,6 +23,7 @@
                 'md' => 'p-6',
                 'lg' => 'p-8',
                 'xl' => 'p-12',
+                'row' => 'px-6 py-4',
                 default => null,
             } => filled($size),
             match ($height) {

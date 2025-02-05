@@ -14,8 +14,8 @@
         </x-page-header>
 
         <x-form action="">
-            <x-panel well>
-                <x-panel>
+            <x-panel variant="well">
+                <x-panel variant="inset">
                     <img
                         src="{{ asset('themes/'.$theme->location.'/'.$theme->preview) }}"
                         alt=""
@@ -46,11 +46,15 @@
 
             @if (filled($theme->repository))
                 <x-fieldset>
-                    <x-panel well>
-                        <x-panel.well.header title="Latest version"></x-panel.well.header>
+                    <x-panel variant="well">
+                        <x-panel.header
+                            title="Version check info"
+                            icon="tabler-broadcast"
+                            description="Basic information about how the theme checks for new versions"
+                        ></x-panel.header>
 
                         <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                            <x-spacing size="sm" class="group flex items-center justify-between">
+                            <x-spacing size="row" class="group flex items-center justify-between">
                                 <div>
                                     <x-text>
                                         <x-text.strong>Latest version</x-text.strong>
@@ -64,7 +68,7 @@
                                     <x-text class="tabular-nums">{{ $theme->latest_version }}</x-text>
                                 </div>
                             </x-spacing>
-                            <x-spacing size="sm" class="group flex items-center justify-between">
+                            <x-spacing size="row" class="group flex items-center justify-between">
                                 <div>
                                     <x-text>
                                         <x-text.strong>Checking version from</x-text.strong>
@@ -76,18 +80,21 @@
                                     </x-text>
                                 </div>
                             </x-spacing>
-                            <x-spacing size="sm" class="group flex items-center justify-between">
-                                <div>
-                                    <x-text>
-                                        <x-text.strong>URL</x-text.strong>
-                                    </x-text>
-                                </div>
-                                <div>
-                                    <x-button :href="$theme->update_url" color="heavy-neutral" text>
-                                        Go to theme repository &rarr;
-                                    </x-button>
-                                </div>
-                            </x-spacing>
+
+                            @if (filled($theme->update_url))
+                                <x-spacing size="row" class="group flex items-center justify-between">
+                                    <div>
+                                        <x-text>
+                                            <x-text.strong>URL</x-text.strong>
+                                        </x-text>
+                                    </div>
+                                    <div>
+                                        <x-button :href="$theme->update_url" color="heavy-neutral" text>
+                                            Go to theme repository &rarr;
+                                        </x-button>
+                                    </div>
+                                </x-spacing>
+                            @endif
                         </x-panel>
                     </x-panel>
                 </x-fieldset>

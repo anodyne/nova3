@@ -43,25 +43,22 @@
                 </x-fieldset>
 
                 <x-fieldset title="Positions">
-                    <x-panel well>
-                        <x-panel.well.header
+                    <x-panel variant="well">
+                        <x-panel.header
                             title="Positions"
-                            description="Characters can be assigned to any number of positions. On the manifest, the character
-                                will be displayed for each position they’re assigned to."
-                        ></x-panel.well.header>
+                            description="Characters can be assigned to any number of positions. On the manifest, the character will be displayed for each position they’re assigned to."
+                        ></x-panel.header>
 
                         <livewire:characters-manage-positions />
                     </x-panel>
                 </x-fieldset>
 
                 <x-fieldset>
-                    <x-panel well>
-                        <x-panel.well.header
+                    <x-panel variant="well">
+                        <x-panel.header
                             title="Ownership"
-                            description="Characters can be assigned to any number of users and all assigned users will have the
-                                same rights with the character. Additionally, any notifications on behalf of the
-                                character will be sent to all users assigned to the character."
-                        ></x-panel.well.header>
+                            description="Characters can be assigned to any number of users and all assigned users will have the same rights with the character. Additionally, any notifications on behalf of the character will be sent to all users assigned to the character."
+                        ></x-panel.header>
 
                         @can('create', Character::class)
                             <livewire:characters-manage-users />

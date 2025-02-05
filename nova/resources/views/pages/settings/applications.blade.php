@@ -85,25 +85,31 @@
                 </x-fieldset.heading>
 
                 <x-fieldset.field-group>
-                    <x-panel well>
-                        <x-panel.well-heading
-                            heading="Global reviewers"
+                    <x-panel variant="well">
+                        <x-panel.header
+                            title="Global reviewers"
                             description="Reviewers that are added to every new application (in addition to users with the Approve Applications permission)"
-                        ></x-panel.well-heading>
+                        ></x-panel.header>
 
-                        <x-spacing size="2xs">
-                            <livewire:settings-manage-global-reviewers />
-                        </x-spacing>
+                        <livewire:settings-manage-global-reviewers />
 
+                        <x-panel.footer>
+                            <x-fieldset.error-message>
+                                None of the global reviewers have permission to approve applications. Please make sure
+                                that at least one global reviewer has the
+                                <code class="font-semibold">application.approve</code>
+                                permission.
+                            </x-fieldset.error-message>
+                        </x-panel.footer>
                         @if ($usersWithApprovePermissionsCount === 0)
-                            <x-spacing width="sm" top="2xs" bottom="xs">
+                            <x-panel.footer>
                                 <x-fieldset.error-message>
                                     None of the global reviewers have permission to approve applications. Please make
                                     sure that at least one global reviewer has the
                                     <code class="font-semibold">application.approve</code>
                                     permission.
                                 </x-fieldset.error-message>
-                            </x-spacing>
+                            </x-panel.footer>
                         @endif
                     </x-panel>
                 </x-fieldset.field-group>

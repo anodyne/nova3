@@ -1,8 +1,8 @@
 <x-admin-layout>
     <x-spacing class="relative" x-data="tabsList('details')">
         @if ($story->hasMedia('story-image'))
-            <x-panel well>
-                <x-panel>
+            <x-panel variant="well">
+                <x-panel variant="inset">
                     <img
                         src="{{ $story->getFirstMediaUrl('story-image') }}"
                         alt=""

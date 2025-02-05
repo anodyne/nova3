@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="copy" title="Duplicate post type?">
+<x-filament.modal-content :$action title="Duplicate post type?">
     <p>
         Are you sure you want to duplicate the
         <strong class="font-semibold">{{ $record->name }}</strong>

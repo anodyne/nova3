@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="trash" title="Delete role?">
+<x-filament.modal-content :$action title="Delete role?">
     <x-text>
         Are you sure you want to delete the
         <x-text.strong>{{ $record->display_name }}</x-text.strong>

@@ -19,9 +19,11 @@
 
     @if ($originalCount !== $count)
         <x-panel.warning>
-            You selected {{ $originalCount }} {{ str('character')->plural($originalCount) }}, but only {{ $count }}
-            {{ trans_choice('character is|characters are', $count) }} eligible for restoration. We will only restore
-            the {{ $count }} {{ str('character')->plural($count) }} and ignore the others.
+            <x-slot name="description">
+                You selected {{ $originalCount }} {{ str('character')->plural($originalCount) }}, but only
+                {{ $count }} {{ trans_choice('character is|characters are', $count) }} eligible for restoration. We
+                will only restore the {{ $count }} {{ str('character')->plural($count) }} and ignore the others.
+            </x-slot>
         </x-panel.warning>
     @endif
 </x-filament.modal-content>

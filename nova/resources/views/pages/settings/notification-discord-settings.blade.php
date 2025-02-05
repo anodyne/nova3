@@ -6,9 +6,7 @@
     </x-text>
 
     @if (filled($record->notes))
-        <x-panel.primary title="Please note">
-            {{ $record->notes }}
-        </x-panel.primary>
+        <x-panel.primary title="Please note" :description="$record->notes"></x-panel.primary>
     @endif
 
     <hr class="my-6" />
