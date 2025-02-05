@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="discord" title="Discord settings">
+<x-filament.modal-content :$action icon="discord" title="Discord settings">
     <x-text>
         You can set the settings for the Discord webhook and accent color for the
         <strong class="font-semibold">{{ $record->name }}</strong>

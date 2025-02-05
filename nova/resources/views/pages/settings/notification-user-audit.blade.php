@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="preferences" title="User preference audit">
+<x-filament.modal-content :$action icon="preferences" title="User preference audit">
     <div class="flex flex-col">
         <div class="flex items-center px-3 py-1.5 font-medium text-gray-600 dark:text-gray-400">
             <div class="flex-1">User</div>
