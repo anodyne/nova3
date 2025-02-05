@@ -60,16 +60,14 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel well>
-                <x-spacing size="2xs">
-                    <x-panel class="divide-y divide-gray-950/5">
-                        @include('setup.account._user-created')
-                        @include('setup.account._roles-assigned')
-                        @include('setup.account._send-telemetry')
-                        @include('setup.account._signin')
-                    </x-panel>
-                </x-spacing>
-            </x-panel>
+            <x-setup::panel well>
+                <x-setup::panel class="divide-y divide-gray-950/5">
+                    @include('setup.account._user-created')
+                    @include('setup.account._roles-assigned')
+                    @include('setup.account._send-telemetry')
+                    @include('setup.account._signin')
+                </x-setup::panel>
+            </x-setup::panel>
         </div>
 
         <div class="flex items-center justify-center">

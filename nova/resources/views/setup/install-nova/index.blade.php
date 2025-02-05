@@ -62,17 +62,15 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel well>
-                <x-spacing size="2xs">
-                    <x-panel class="divide-y divide-gray-950/5">
-                        @include('setup.install-nova._check-installed')
-                        @include('setup.install-nova._check-installed-themes')
-                        @includeWhen(filled($this->genre), 'setup.install-nova._check-genre')
-                        {{-- @include('setup.install-nova._check-app-url') --}}
-                        @include('setup.install-nova._check-update-settings')
-                    </x-panel>
-                </x-spacing>
-            </x-panel>
+            <x-setup::panel well>
+                <x-setup::panel class="divide-y divide-gray-950/5">
+                    @include('setup.install-nova._check-installed')
+                    @include('setup.install-nova._check-installed-themes')
+                    @includeWhen(filled($this->genre), 'setup.install-nova._check-genre')
+                    {{-- @include('setup.install-nova._check-app-url') --}}
+                    @include('setup.install-nova._check-update-settings')
+                </x-setup::panel>
+            </x-setup::panel>
         </div>
 
         <div class="flex items-center justify-center gap-8">

@@ -32,14 +32,14 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel well>
-                <x-panel class="divide-y divide-gray-950/5">
+            <x-setup::panel well>
+                <x-setup::panel class="divide-y divide-gray-950/5">
                     @include('setup.update-nova._check-updated')
                     @include('setup.update-nova._check-update-settings')
                     @include('setup.update-nova._send-telemetry')
                     @include('setup.update-nova._database-maintenance')
-                </x-panel>
-            </x-panel>
+                </x-setup::panel>
+            </x-setup::panel>
         </div>
 
         <div class="flex items-center justify-center gap-8">

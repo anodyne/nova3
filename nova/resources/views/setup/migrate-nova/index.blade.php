@@ -6,15 +6,13 @@
     </header>
 
     <div class="mx-auto max-w-lg space-y-8">
-        <x-panel well>
-            <x-spacing size="2xs">
-                <x-panel class="divide-y divide-gray-950/5">
-                    @include('setup.migrate-nova._configure-database')
-                    @include('setup.migrate-nova._migrate-data')
-                    @include('setup.migrate-nova._set-user-access')
-                    @include('setup.migrate-nova._finalize-migration')
-                </x-panel>
-            </x-spacing>
-        </x-panel>
+        <x-setup::panel well>
+            <x-setup::panel class="divide-y divide-gray-950/5">
+                @include('setup.migrate-nova._configure-database')
+                @include('setup.migrate-nova._migrate-data')
+                @include('setup.migrate-nova._set-user-access')
+                @include('setup.migrate-nova._finalize-migration')
+            </x-setup::panel>
+        </x-setup::panel>
     </div>
 </div>

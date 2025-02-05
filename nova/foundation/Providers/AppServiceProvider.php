@@ -210,6 +210,7 @@ class AppServiceProvider extends ServiceProvider
     protected function configureBlade(): void
     {
         Blade::anonymousComponentPath(resource_path('views/public-components'), 'public');
+        Blade::anonymousComponentPath(resource_path('views/setup-components'), 'setup');
 
         Blade::component('admin-layout', AdminLayout::class);
         Blade::component('auth-layout', AuthLayout::class);
