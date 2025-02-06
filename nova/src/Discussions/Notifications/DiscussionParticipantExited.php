@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Nova\Discussions\Notifications;
 
 use Illuminate\Contracts\Mail\Mailable;
-use Nova\Discussions\Mail\SendDiscussionMessageReceived;
+use Nova\Discussions\Mail\SendDiscussionParticipantExitedMail;
 use Nova\Discussions\Models\Discussion;
-use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Foundation\Notifications\PreferenceBasedNotification;
+use Nova\Users\Models\User;
 
-class DiscussionMessageReceived extends PreferenceBasedNotification
+class DiscussionParticipantExited extends PreferenceBasedNotification
 {
-    protected string $key = 'discussion-message-received';
+    protected string $key = 'discussion-participant-exited';
 
     public function __construct(
         protected Discussion $discussion,
-        protected DiscussionMessage $message
+        protected User $user
     ) {}
 
     public function toArray(object $notifiable): array
@@ -24,17 +24,15 @@ class DiscussionMessageReceived extends PreferenceBasedNotification
         return [
             'discussion_id' => $this->discussion->id,
             'discussion_subject' => $this->discussion->subject,
-            'is_direct_message' => $this->discussion->is_direct_message,
-            'message' => $this->message->content,
-            'sender' => $this->message->user->name,
+            'user_name' => $this->user?->name,
         ];
     }
 
     public function mailable(): Mailable
     {
-        return new SendDiscussionMessageReceived(
+        return new SendDiscussionParticipantExitedMail(
             discussion: $this->discussion,
-            message: $this->message
+            user: $this->user
         );
     }
 }

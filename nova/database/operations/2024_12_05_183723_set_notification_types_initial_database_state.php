@@ -47,6 +47,7 @@ return new class extends OneTimeOperation
             ['name' => 'Application accepted', 'key' => 'application-accepted', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
             ['name' => 'Application denied', 'key' => 'application-denied', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
             ['name' => 'Discussion message received', 'key' => 'discussion-message-received', 'database' => false, 'database_default' => false],
+            ['name' => 'Discussion participant exited', 'key' => 'discussion-participant-exited'],
         ]);
 
         NotificationType::unguarded(function () use ($admin, $group, $personal) {

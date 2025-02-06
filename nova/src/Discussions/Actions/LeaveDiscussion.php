@@ -6,9 +6,8 @@ namespace Nova\Discussions\Actions;
 
 use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Nova\Discussions\Data\DiscussionMessageData;
-use Nova\Discussions\Enums\MessageType;
 use Nova\Discussions\Models\Discussion;
+use Nova\Discussions\Notifications\DiscussionParticipantExited;
 
 class LeaveDiscussion
 {
@@ -18,12 +17,13 @@ class LeaveDiscussion
     {
         $discussion = RemoveParticipantsFromDiscussion::run($discussion, [Auth::id()]);
 
-        SendSystemMessage::runUnless($discussion->is_direct_message, $discussion, new DiscussionMessageData(
-            userId: null,
-            content: Auth::user()->name.' left the conversation',
-            type: MessageType::SystemDanger,
+        $discussion->refresh();
+
+        $discussion->participants->each->notify(new DiscussionParticipantExited(
+            discussion: $discussion,
+            user: Auth::user()
         ));
 
-        return $discussion->refresh();
+        return $discussion;
     }
 }

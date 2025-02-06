@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Actions;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Discussions\Data\DiscussionData;
 use Nova\Discussions\Events\DiscussionStarted;
 use Nova\Discussions\Models\Discussion;
-use Throwable;
 
 class StartDiscussion
 {
@@ -17,26 +17,18 @@ class StartDiscussion
 
     public function handle(DiscussionData $data): Discussion
     {
-        DB::beginTransaction();
-
-        try {
+        return DB::transaction(function () use ($data) {
             $discussion = Discussion::create(
-                $data->except('message', 'participants')->all()
+                Arr::except($data->toArray(), ['message', 'participants'])
             );
 
             $discussion = AddParticipantsToDiscussion::run($discussion, $data->participants);
 
             SendMessage::run($discussion, $data);
 
-            DB::commit();
-
             DiscussionStarted::dispatch($discussion);
 
             return $discussion;
-        } catch (Throwable $th) {
-            DB::rollBack();
-
-            throw $th;
-        }
+        });
     }
 }

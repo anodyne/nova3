@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Discussions\Livewire;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Reactive;
@@ -31,8 +33,19 @@ class MessageHistory extends Component
     #[Computed]
     public function discussion(): ?Discussion
     {
-        return Discussion::with('messages', 'participants', 'notifications')
-            ->find($this->discussionId);
+        if (is_null($this->discussionId)) {
+            return null;
+        }
+
+        return once(function () {
+            return Discussion::query()
+                ->with([
+                    'messages',
+                    'participants',
+                    'notifications' => fn (HasMany $query): HasMany => $query->where('user_id', Auth::id()),
+                ])
+                ->find($this->discussionId);
+        });
     }
 
     #[Computed]
@@ -106,11 +119,15 @@ class MessageHistory extends Component
                     ->send();
             }
         } catch (CannotLeaveDirectMessage $th) {
+            report($th);
+
             Notification::make()->danger()
                 ->title('Failed to leave discussion')
                 ->body($th->getMessage())
                 ->send();
         } catch (\Throwable $th) {
+            report($th);
+
             Notification::make()->danger()
                 ->title('Failed to leave discussion')
                 ->send();

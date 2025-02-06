@@ -36,4 +36,12 @@ class DiscussionBuilder extends Builder
     {
         return $this->whereRelation('allParticipants', 'users.id', '=', Auth::id());
     }
+
+    public function searchFor(string $search): self
+    {
+        return $this
+            ->where('discussions.subject', 'like', "%{$search}%")
+            ->orWhereRelation('messages', 'discussion_messages.content', 'like', "%{$search}%")
+            ->orWhereRelation('participants', 'users.name', 'like', "%{$search}%");
+    }
 }

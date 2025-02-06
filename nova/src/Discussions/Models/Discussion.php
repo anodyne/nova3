@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Auth;
 use Nova\Discussions\Models\Builders\DiscussionBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Users\Models\User;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
@@ -20,9 +21,10 @@ class Discussion extends Model
 {
     use HasFactory;
     use HasPrefixedId;
+    use LogsActivity;
 
     protected $fillable = [
-        'name',
+        'subject',
     ];
 
     public function discussable(): MorphTo
@@ -56,6 +58,33 @@ class Discussion extends Model
     {
         return $this->allParticipants()
             ->where('users.id', '!=', Auth::id());
+    }
+
+    public function participantsString(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => $this->participants->implode('name', ', ')
+        );
+    }
+
+    public function truncatedParticipantsString(): Attribute
+    {
+        return Attribute::make(
+            get: function (): string {
+                $participants = $this->participants;
+                $count = $participants->count();
+                $remaining = $count - 2;
+
+                if ($remaining > 0) {
+                    return implode(', ', [
+                        ...$participants->take(2)->pluck('name'),
+                        ...["+{$remaining} more"],
+                    ]);
+                }
+
+                return $participants->implode('name', ', ');
+            }
+        );
     }
 
     public function unreadCount(?User $user = null): int

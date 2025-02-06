@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->prefixedId();
             $table->nullableMorphs('discussable');
-            $table->string('name')->nullable();
+            $table->string('subject')->nullable();
             $table->timestamps();
         });
 

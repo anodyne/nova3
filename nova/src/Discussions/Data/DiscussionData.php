@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Data;
 
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class DiscussionData extends Data
+/**
+ * @method static static from(?string $subject, DiscussionMessageData $message, DiscussionParticipantsData $participants)
+ */
+readonly class DiscussionData extends Bag
 {
     public function __construct(
-        public ?string $name,
+        public ?string $subject,
         public DiscussionMessageData $message,
         public DiscussionParticipantsData $participants
     ) {}

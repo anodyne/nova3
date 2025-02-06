@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Nova\Discussions\Enums\MessageType;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Users\Models\User;
 
 class DiscussionMessage extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = ['user_id', 'content', 'type'];
 

@@ -15,7 +15,7 @@ class DiscussionSeeder extends Seeder
      */
     public function run(): void
     {
-        $groupChat = Discussion::factory()->create(['name' => 'Group message']);
+        $groupChat = Discussion::factory()->create(['subject' => 'Group message']);
 
         $groupChat->allParticipants()->sync([1, 2, 3]);
 
