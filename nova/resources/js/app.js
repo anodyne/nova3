@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import Clipboard from '@ryangjchandler/alpine-clipboard';
-import AdminThemeToggle from './components/admin-theme-toggle';
 import ColorPicker from './components/color-picker';
 import DatePicker from './components/date-picker';
 import DateFormatPicker from './components/date-format-picker';
@@ -14,7 +13,6 @@ import SwitchToggle from './components/switch-toggle';
 import WordCount from './components/word-count';
 
 document.addEventListener('alpine:init', () => {
-    window.Alpine.data('adminThemeToggle', AdminThemeToggle);
     window.Alpine.data('colorPicker', ColorPicker);
     window.Alpine.data('datePicker', DatePicker);
     window.Alpine.data('dateFormatPicker', DateFormatPicker);
