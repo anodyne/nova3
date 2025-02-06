@@ -75,7 +75,8 @@ class AnnouncementsList extends TableComponent
                     })
                     ->visible($user->can('manage', Announcement::class)),
                 TextColumn::make('published_at')
-                    ->dateTime(settings('general')->phpDateFormat())
+                    ->dateTime()
+                    ->formatStateUsing(fn (Announcement $record): ?string => filled($record->published_at) ? DateHelper::formatDate($record->published_at) : null)
                     ->sortable()
                     ->toggleable(),
             ])

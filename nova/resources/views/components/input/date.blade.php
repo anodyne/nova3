@@ -3,7 +3,7 @@
     'value' => '',
 ])
 
-@php($format = settings('general')->jsDateFormat())
+@php($format = 'MMM dd, yyyy')
 
 <div
     data-slot="control"
@@ -114,7 +114,7 @@
                 <div class="border border-transparent p-1 text-center text-sm"></div>
             </template>
             <template x-for="(day, dayIndex) in datePickerDaysInMonth" :key="dayIndex">
-                <div class="aspect-square mb-1 px-0.5">
+                <div class="mb-1 aspect-square px-0.5">
                     <div
                         x-text="day"
                         @click="datePickerDayClicked(day)"

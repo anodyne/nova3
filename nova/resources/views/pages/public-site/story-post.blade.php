@@ -1,4 +1,6 @@
 @use('Illuminate\Support\Number')
+@use('Nova\Foundation\Helpers\DateHelper')
+@use('Nova\Foundation\Helpers\TimeHelper')
 
 <x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page story-post">
@@ -20,12 +22,12 @@
                     <div class="metadata-item metadata-item-sm">
                         <div class="metadata-item-leading">Published</div>
                         <div class="metadata-item-label">
-                            {{ format_date($post->published_at) }}
+                            {{ DateHelper::formatDate($post->published_at) }}
                         </div>
                     </div>
                     <div class="metadata-item metadata-item-sm">
                         <div class="metadata-item-leading">Reading time</div>
-                        <div class="metadata-item-label">{{ Number::format(ceil($post->word_count / 200)) }}m</div>
+                        <div class="metadata-item-label">{{ $post->reading_time }}</div>
                     </div>
                     <div class="metadata-item metadata-item-sm">
                         <div class="metadata-item-leading">Words</div>

@@ -16,6 +16,7 @@ use Laravel\Scout\Searchable;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
+use Nova\Foundation\Helpers\TimeHelper;
 use Nova\Stories\Data\PostData;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\PostBuilder;
@@ -157,7 +158,7 @@ class Post extends Model implements Sortable
     public function readingTime(): Attribute
     {
         return Attribute::make(
-            get: fn (): string => ceil($this->word_count / 200).'m'
+            get: fn (): string => TimeHelper::readingTime($this->word_count)
         );
     }
 

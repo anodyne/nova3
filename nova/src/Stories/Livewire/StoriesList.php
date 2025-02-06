@@ -91,12 +91,14 @@ class StoriesList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('started_at')
                     ->wrap()
-                    ->date(settings('general')->phpDateFormat())
+                    ->date()
+                    ->formatStateUsing(fn (Story $record): ?string => filled($record->started_at) ? DateHelper::formatDate($record->started_at) : null)
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 TextColumn::make('ended_at')
                     ->wrap()
-                    ->date(settings('general')->phpDateFormat())
+                    ->date()
+                    ->formatStateUsing(fn (Story $record): ?string => filled($record->ended_at) ? DateHelper::formatDate($record->ended_at) : null)
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')

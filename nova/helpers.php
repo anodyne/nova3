@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Mistralys\VersionParser\VersionParser;
@@ -30,30 +29,6 @@ if (! function_exists('blank')) {
         }
 
         return empty($value);
-    }
-}
-
-if (! function_exists('format_date')) {
-    function format_date(?CarbonInterface $date, bool $tooltip = true, bool $raw = false)
-    {
-        if (blank($date)) {
-            return $date;
-        }
-
-        if ($raw) {
-            return $date?->format(settings('general')->phpDateFormat());
-        }
-
-        $html = html()
-            ->element('time')
-            ->text($date?->format(settings('general')->phpDateFormat()))
-            ->attribute('datetime', $date);
-
-        if ($tooltip) {
-            return $html->attribute('x-tooltip.delay.1000-100.raw', $date);
-        }
-
-        return $html;
     }
 }
 

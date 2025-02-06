@@ -1,3 +1,5 @@
+@use('Nova\Foundation\Helpers\DateHelper')
+
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
@@ -19,7 +21,7 @@
                     <x-fieldset.field>
                         <x-fieldset.label>Submitted on</x-fieldset.label>
                         <x-text>
-                            {{ $submission->created_at->format(settings('general')->phpDateFormat()) }}
+                            {{ DateHelper::formatDate($submission->created_at) }}
                         </x-text>
                     </x-fieldset.field>
 

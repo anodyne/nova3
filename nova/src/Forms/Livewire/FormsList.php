@@ -21,6 +21,7 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
 use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
@@ -44,7 +45,8 @@ class FormsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('published_at')
                     ->label('Last published')
-                    ->dateTime(settings('general')->phpDateFormat())
+                    ->dateTime()
+                    ->formatStateUsing(fn (Form $record): ?string => filled($record->published_at) ? DateHelper::formatDate($record->published_at) : null)
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()

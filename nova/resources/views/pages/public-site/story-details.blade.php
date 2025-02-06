@@ -1,4 +1,5 @@
 @use('Illuminate\Support\Number')
+@use('Nova\Foundation\Helpers\DateHelper')
 
 <x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page story-details">
@@ -36,10 +37,10 @@
                                     @endif
 
                                     <div class="metadata-item-label">
-                                        {{ format_date($story->started_at, false) }}
+                                        {{ DateHelper::formatDate($story->started_at, false) }}
                                         @if ($story->ended_at)
                                             &ndash;
-                                            {{ format_date($story->ended_at) }}
+                                            {{ DateHelper::formatDate($story->ended_at) }}
                                         @endif
                                     </div>
                                 </div>

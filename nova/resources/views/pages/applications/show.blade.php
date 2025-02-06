@@ -1,4 +1,5 @@
 @use('Nova\Applications\Enums\ApplicationResult')
+@use('Nova\Foundation\Helpers\DateHelper')
 
 <x-admin-layout>
     <x-spacing>
@@ -215,7 +216,7 @@
                                                     name="app_date"
                                                 >
                                                     <x-text>
-                                                        {{ format_date($application->created_at) }}
+                                                        {{ DateHelper::formatShortDateWithTime($application->created_at) }}
                                                     </x-text>
                                                 </x-fieldset.field>
 
@@ -293,7 +294,7 @@
                                                                     name="result_date"
                                                                 >
                                                                     <x-text>
-                                                                        {{ format_date($application->decision_date) }}
+                                                                        {{ DateHelper::formatShortDateWithTime($application->decision_date) }}
                                                                     </x-text>
                                                                 </x-fieldset.field>
 
