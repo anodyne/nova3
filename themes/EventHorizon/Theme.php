@@ -8,5 +8,5 @@ use Nova\Themes\BaseTheme;
 
 class Theme extends BaseTheme
 {
-    public $location = 'EventHorizon';
+    public string $location = 'EventHorizon';
 }

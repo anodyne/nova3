@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Themes;
 
-use Nova\Pages\Models\Page;
+use Nova\Themes\Models\Theme;
+use Throwable;
 
 abstract class BaseTheme
 {
@@ -12,31 +13,18 @@ abstract class BaseTheme
     use Concerns\InteractsWithModel;
     use Concerns\RendersTheme;
 
-    /**
-     * @var string
-     */
-    public $location;
+    public string $location;
 
-    /**
-     * @var \Nova\Themes\Models\Theme
-     */
-    protected $model;
+    protected Theme $model;
 
     public function __construct()
     {
-        $this->model = $this->getModel();
+        try {
+            $this->model = $this->getModel();
 
-        $this->setThemeProperties();
-    }
-
-    /**
-     * Get the layout for a specific page.
-     *
-     *
-     * @return string
-     */
-    public function getPageLayout(Page $page)
-    {
-        return $this->model->getLayoutForPage($page);
+            $this->setThemeProperties();
+        } catch (Throwable $th) {
+            // Don't do anything
+        }
     }
 }
