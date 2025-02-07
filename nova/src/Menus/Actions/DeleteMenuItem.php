@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Menus\Models\MenuItem;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class DeleteMenuItem
 {
@@ -13,10 +15,18 @@ class DeleteMenuItem
 
     public function handle(MenuItem $menuItem): MenuItem
     {
-        $menuItem->loadMissing('items');
+        return DB::transaction(function () use ($menuItem) {
+            $menuItem->loadMissing('items');
 
-        $menuItem->items->each->delete();
+            LogBatch::startBatch();
 
-        return tap($menuItem)->delete();
+            $menuItem->items->each->delete();
+
+            $menuItem = tap($menuItem)->delete();
+
+            LogBatch::endBatch();
+
+            return $menuItem;
+        });
     }
 }

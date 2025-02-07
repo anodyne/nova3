@@ -40,10 +40,10 @@ class MenuItem extends Model implements Sortable
 
     protected $casts = [
         'link_type' => LinkType::class,
-        'status' => BasicStatus::class,
+        'order_column' => 'integer',
         'page_id' => 'integer',
         'parent_id' => 'integer',
-        'order_column' => 'integer',
+        'status' => BasicStatus::class,
         'target' => LinkTarget::class,
     ];
 

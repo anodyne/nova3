@@ -33,7 +33,21 @@ class MenuItemsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(MenuItem::with('page')->public())
+            ->query(
+                MenuItem::query()
+                    ->with('page')
+                    ->select([
+                        'id',
+                        'label',
+                        'link_type',
+                        'order_column',
+                        'page_id',
+                        'parent_id',
+                        'status',
+                        'target',
+                    ])
+                    ->public()
+            )
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
@@ -60,6 +74,9 @@ class MenuItemsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (MenuItem $record): string => route('admin.menu-items.edit', $record)),
+                    ])->authorize('update')->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -74,7 +91,7 @@ class MenuItemsList extends TableComponent
                                         'target' => fn (?LinkTarget $value) => $value?->getLabel(),
                                     ]);
                             }),
-                    ])->authorize('update')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()

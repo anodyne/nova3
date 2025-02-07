@@ -14,7 +14,9 @@ class Menu extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(MenuItem::class)->whereNull('parent_id')->ordered();
+        return $this->hasMany(MenuItem::class)
+            ->whereNull('parent_id')
+            ->ordered();
     }
 
     public function newEloquentBuilder($query): MenuBuilder
