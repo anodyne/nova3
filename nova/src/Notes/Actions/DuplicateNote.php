@@ -17,6 +17,14 @@ class DuplicateNote
         $replica->title = "Copy of {$replica->title}";
         $replica->save();
 
-        return $replica->refresh();
+        $replica->refresh();
+
+        activity()
+            ->performedOn($original)
+            ->withProperty('replica', $replica->id)
+            ->event('duplicated')
+            ->log('duplicated');
+
+        return $replica;
     }
 }

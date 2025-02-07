@@ -23,13 +23,17 @@ return [
         'uploaded-avatar' => '**:name** uploaded an avatar for the character.',
     ],
 
+    'departments' => [
+        'duplicated' => '**:name** duplicated the department as **:replica**.',
+        'uploaded' => '**:name** uploaded a department header image.',
+    ],
+
     'forms' => [
         'duplicated' => '**:name** duplicated the form as **:replica**.',
     ],
 
-    'departments' => [
-        'duplicated' => '**:name** duplicated the department as **:replica**.',
-        'uploaded' => '**:name** uploaded a department header image.',
+    'notes' => [
+        'duplicated' => '**:name** duplicated the note as **:replica**.',
     ],
 
     'positions' => [
