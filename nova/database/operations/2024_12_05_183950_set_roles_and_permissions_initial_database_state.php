@@ -44,6 +44,7 @@ return new class extends OneTimeOperation
                 'character.create', 'character.delete', 'character.update', 'character.view', 'character.activate', 'character.deactivate', 'character.restore',
                 'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view', 'post-type.restore',
                 'form.create', 'form.delete', 'form.update',
+                'form-submission.view-all', 'form-submission.delete',
                 'page.create', 'page.delete', 'page.update', 'page.view',
                 'application.approve',
                 'system.activity', 'system.error-logs',
@@ -56,7 +57,7 @@ return new class extends OneTimeOperation
                 'post.delete', 'post.update',
             ],
             'active' => [
-                'form.view', 'announcement.view',
+                'announcement.view',
             ],
             'writer' => [
                 'story.view',
@@ -147,6 +148,9 @@ return new class extends OneTimeOperation
                 ['name' => 'form.delete', 'display_name' => 'Delete forms', 'description' => 'Allows a user to remove forms'],
                 ['name' => 'form.update', 'display_name' => 'Update forms', 'description' => 'Allows a user to edit forms'],
                 ['name' => 'form.view', 'display_name' => 'View forms', 'description' => 'Allows a user to view any forms'],
+
+                ['name' => 'form-submission.view-all', 'display_name' => 'View all form submissions', 'description' => 'Allows a user to view any form submission'],
+                ['name' => 'form-submission.delete', 'display_name' => 'Delete form submissions', 'description' => 'Allows a user to remove any form submission'],
 
                 ['name' => 'page.create', 'display_name' => 'Create pages', 'description' => 'Allows a user to add new pages'],
                 ['name' => 'page.delete', 'display_name' => 'Delete pages', 'description' => 'Allows a user to remove pages'],

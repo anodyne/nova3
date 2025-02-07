@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class DeleteFormManager
 {
@@ -14,13 +16,21 @@ class DeleteFormManager
 
     public function handle(Form $form): Form
     {
-        FormSubmission::query()
-            ->form($form)
-            ->get()
-            ->each(fn (FormSubmission $submission) => DeleteFormSubmission::run($submission));
+        return DB::transaction(function () use ($form) {
+            LogBatch::startBatch();
 
-        $form->formFields()->delete();
+            FormSubmission::query()
+                ->form($form)
+                ->get()
+                ->each(fn (FormSubmission $submission) => DeleteFormSubmission::run($submission));
 
-        return tap($form)->delete();
+            $form->formFields()->delete();
+
+            $form = DeleteForm::run($form);
+
+            LogBatch::endBatch();
+
+            return $form;
+        });
     }
 }

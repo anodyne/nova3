@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Controllers;
 
-use Illuminate\Http\Request;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Responses\PreviewFormResponse;
 use Nova\Foundation\Controllers\Controller;
@@ -18,7 +17,7 @@ class PreviewFormController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, Form $form, ?string $theme = 'public')
+    public function __invoke(Form $form, ?string $theme = 'public')
     {
         return PreviewFormResponse::sendWith([
             'form' => $form,

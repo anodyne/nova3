@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\Form;
 
@@ -18,12 +19,14 @@ class PublishFormManager
         // Delete any fields that have been removed
         // Cleanup any submission data of deleted fields
 
-        $form = PublishForm::run($form);
+        return DB::transaction(function () use ($form) {
+            $form = PublishForm::run($form);
 
-        SyncDatabaseFormFields::run($form);
+            SyncDatabaseFormFields::run($form);
 
-        RemoveDeletedFormFields::run($form);
+            RemoveDeletedFormFields::run($form);
 
-        return $form->refresh();
+            return $form->refresh();
+        });
     }
 }

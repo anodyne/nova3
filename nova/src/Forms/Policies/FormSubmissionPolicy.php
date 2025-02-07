@@ -6,6 +6,7 @@ namespace Nova\Forms\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Users\Models\User;
 
@@ -15,44 +16,46 @@ class FormSubmissionPolicy
 
     public function viewAny(User $user): Response
     {
-        return $user->isAbleTo('form.*')
-            ? $this->allow()
-            : $this->deny();
+        return $this->allow();
     }
 
     public function view(User $user, FormSubmission $submission): Response
     {
-        return $user->isAbleTo('form.view')
-            ? $this->allow()
-            : $this->deny();
+        if ($submission->form->type !== FormType::Basic) {
+            return $this->deny();
+        }
+
+        if ($user->isAbleTo('form-submission.view-all')) {
+            return $this->allow();
+        }
+
+        if ($submission->owner_type === 'user' && $submission->owner_id === $user->id) {
+            return $this->allow();
+        }
+
+        return $this->deny();
     }
 
     public function create(User $user): Response
     {
-        return $user->isAbleTo('form.create')
-            ? $this->allow()
-            : $this->deny();
+        return $this->allow();
     }
 
     public function update(User $user, FormSubmission $submission): Response
     {
-        return $user->isAbleTo('form.update')
-            ? $this->allow()
-            : $this->deny();
+        return $this->deny();
     }
 
     public function delete(User $user, FormSubmission $submission): Response
     {
-        return $user->isAbleTo('form.delete')
+        return $user->isAbleTo('form-submission.delete')
             ? $this->allow()
             : $this->deny();
     }
 
     public function duplicate(User $user, FormSubmission $submission): Response
     {
-        return $user->isAbleTo('form.create') && $user->isAbleTo('form.update')
-            ? $this->allow()
-            : $this->deny();
+        return $this->denyWithStatus(418);
     }
 
     public function restore(User $user, FormSubmission $submission): Response
@@ -65,8 +68,10 @@ class FormSubmissionPolicy
         return $this->denyWithStatus(418);
     }
 
-    public function design(User $user, FormSubmission $submission): Response
+    public function manage(User $user): Response
     {
-        return $this->update($user, $submission);
+        return $user->isAbleTo('form-submission.view-all')
+            ? $this->allow()
+            : $this->deny();
     }
 }

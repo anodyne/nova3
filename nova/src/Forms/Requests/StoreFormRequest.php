@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Nova\Forms\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Nova\Forms\Data\FormData;
+use Nova\Forms\Enums\FormType;
+use Nova\Foundation\Enums\BasicStatus;
 
 class StoreFormRequest extends FormRequest
 {
@@ -14,9 +17,10 @@ class StoreFormRequest extends FormRequest
         return [
             'name' => ['required'],
             'key' => ['required', 'unique:forms'],
-            'type' => ['required', 'in:advanced,basic'],
+            'type' => ['required', Rule::enum(FormType::class)],
             'description' => ['nullable'],
             'options' => ['sometimes'],
+            'status' => ['required', Rule::enum(BasicStatus::class)],
         ];
     }
 

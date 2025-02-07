@@ -23,14 +23,26 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
 use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class FormsList extends TableComponent
 {
     public function table(Table $table): Table
     {
         return $table
-            ->query(Form::query())
+            ->query(
+                Form::query()
+                    ->select([
+                        'id',
+                        'is_locked',
+                        'name',
+                        'published_at',
+                        'status',
+                        'type',
+                    ])
+            )
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
@@ -41,7 +53,6 @@ class FormsList extends TableComponent
                     ->sortable(),
                 TextColumn::make('type')
                     ->badge()
-                    ->color(fn (Form $record): string => $record->type->color())
                     ->toggleable(),
                 TextColumn::make('published_at')
                     ->label('Last published')
@@ -58,8 +69,27 @@ class FormsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Form $record): string => route('admin.forms.edit', $record)),
-                        TimelineAction::make(),
                     ])->authorize('update')->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->attributeLabels([
+                                        'is_locked' => 'locked',
+                                    ])
+                                    ->eventDescriptions([
+                                        'duplicated' => fn (Activity $activity) => __('activity.forms.duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'replica' => Form::find($activity->getExtraProperty('replica'))?->name,
+                                        ]),
+                                    ])
+                                    ->itemIconColors([
+                                        'published' => 'success',
+                                        'unpublished' => 'warning',
+                                    ]);
+                            }),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('design')
@@ -75,7 +105,7 @@ class FormsList extends TableComponent
                     ActionGroup::make([
                         Action::make('submissions')
                             ->icon(iconName('clipboard'))
-                            ->url(fn (Form $record): string => route('admin.form-submissions.index'))
+                            ->url(route('admin.form-submissions.index'))
                             ->visible(fn (Form $record): bool => $record->options?->collectResponses ?? false),
                     ])->divided(),
 

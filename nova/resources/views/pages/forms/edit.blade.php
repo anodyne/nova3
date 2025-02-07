@@ -33,13 +33,15 @@
                         <x-input.text :value="old('name', $form->name)" data-cy="name" />
                     </x-fieldset.field>
 
-                    <x-fieldset.field label="Key" id="key" name="key">
+                    <x-fieldset.field label="Key" id="key" name="key" :error="$errors->first('key')">
                         <x-text>{{ $form->key }}</x-text>
                         <input type="hidden" name="key" value="{{ $form->key }}" />
                     </x-fieldset.field>
 
-                    <x-fieldset.field label="Type" id="type" name="type">
-                        <x-text>{{ $form->type->getLabel() }}</x-text>
+                    <x-fieldset.field label="Type" id="type" name="type" :error="$errors->first('type')">
+                        <div data-slot="control">
+                            <x-badge :color="$form->type->getColor()">{{ $form->type->getLabel() }}</x-badge>
+                        </div>
                         <input type="hidden" name="type" value="{{ $form->type }}" />
                     </x-fieldset.field>
 

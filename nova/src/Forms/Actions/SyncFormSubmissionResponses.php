@@ -25,7 +25,7 @@ class SyncFormSubmissionResponses
                 ];
             });
 
-        $submission->responses()->createUpdateOrDelete($data->all());
+        $submission->responses()->createUpdateOrDelete($data->toArray());
 
         return $submission->refresh();
     }

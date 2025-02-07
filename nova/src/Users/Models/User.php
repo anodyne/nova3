@@ -322,7 +322,8 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
             get: function (): bool {
                 return $this->isAbleTo('theme.*')
                     || $this->isAbleTo('menu.*')
-                    || $this->isAbleTo('system.activity');
+                    || $this->isAbleTo('system.*')
+                    || $this->isAbleTo('addon.*');
             }
         );
     }

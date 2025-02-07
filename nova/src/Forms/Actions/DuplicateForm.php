@@ -14,12 +14,22 @@ class DuplicateForm
 
     public function handle(Form $original): Form
     {
-        $form = $original->replicate(['prefixed_id']);
+        $form = activity()->withoutLogs(function () use ($original) {
+            $form = $original->replicate(['prefixed_id']);
 
-        $form->key = implode('-', (new WordGenerator)->words(2));
-        $form->name = "Copy of {$form->name}";
+            $form->key = implode('-', (new WordGenerator)->words(2));
+            $form->name = "Copy of {$form->name}";
 
-        $form->save();
+            $form->save();
+
+            return $form;
+        });
+
+        activity()
+            ->performedOn($original)
+            ->withProperty('replica', $form->id)
+            ->event('duplicated')
+            ->log('duplicated');
 
         return $form->refresh();
     }

@@ -39,7 +39,7 @@ class FormSubmissionController extends Controller
     {
         return CreateFormSubmissionResponse::sendWith([
             'form' => $form,
-            'forms' => Form::submissible()->get(),
+            'forms' => Form::query()->active()->submissible()->get(),
         ]);
     }
 

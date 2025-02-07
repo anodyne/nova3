@@ -196,6 +196,14 @@
                                         <x-icon name="form"></x-icon>
                                         <x-sidebar.label>Forms</x-sidebar.label>
                                     </x-sidebar.item>
+                                @else
+                                    <x-sidebar.item
+                                        :href="route('admin.form-submissions.index')"
+                                        :active="$meta->subnavSection === 'forms'"
+                                    >
+                                        <x-icon name="form"></x-icon>
+                                        <x-sidebar.label>Forms</x-sidebar.label>
+                                    </x-sidebar.item>
                                 @endif
 
                                 @permission('report.view')
@@ -469,6 +477,14 @@
                                                 @if (auth()->user()->canManageForms)
                                                     <x-sidebar.item
                                                         :href="route('admin.forms.index')"
+                                                        :active="$meta->subnavSection === 'forms'"
+                                                    >
+                                                        <x-icon name="form"></x-icon>
+                                                        <x-sidebar.label>Forms</x-sidebar.label>
+                                                    </x-sidebar.item>
+                                                @else
+                                                    <x-sidebar.item
+                                                        :href="route('admin.form-submissions.index')"
                                                         :active="$meta->subnavSection === 'forms'"
                                                     >
                                                         <x-icon name="form"></x-icon>

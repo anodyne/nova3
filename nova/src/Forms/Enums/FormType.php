@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Enums;
 
+use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 use Nova\Foundation\Concerns\HasSelectOptions;
 
-enum FormType: string implements HasLabel
+enum FormType: string implements HasColor, HasLabel
 {
     use HasSelectOptions;
 
@@ -23,7 +24,7 @@ enum FormType: string implements HasLabel
         };
     }
 
-    public function color(): string
+    public function getColor(): string|array|null
     {
         return match ($this) {
             self::Advanced => 'primary',

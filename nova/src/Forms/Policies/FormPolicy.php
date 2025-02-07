@@ -34,11 +34,16 @@ class FormPolicy
             : $this->deny();
     }
 
-    public function update(User $user, Form $form): Response
+    public function updateAny(User $user): Response
     {
         return $user->isAbleTo('form.update')
             ? $this->allow()
             : $this->deny();
+    }
+
+    public function update(User $user, Form $form): Response
+    {
+        return $this->updateAny($user);
     }
 
     public function deleteAny(User $user): Response

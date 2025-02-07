@@ -9,7 +9,9 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Nova\Forms\Actions\DeleteFormSubmission;
+use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -22,10 +24,21 @@ class FormSubmissionsList extends TableComponent
 {
     public function table(Table $table): Table
     {
+        /** @var User */
+        $user = Auth::user();
+
         return $table
             ->query(
                 FormSubmission::query()
-                    ->whereHas('form', fn (Builder $query): Builder => $query->basic())
+                    ->select([
+                        'created_at',
+                        'form_id',
+                        'id',
+                        'owner_id',
+                        'owner_type',
+                    ])
+                    ->whereRelation('form', 'type', '=', FormType::Basic)
+                    ->unless($user->can('manage', new FormSubmission), fn (Builder $query): Builder => $query->ownerIsUser($user))
             )
             ->defaultSort('created_at', 'desc')
             ->groups([
@@ -42,7 +55,8 @@ class FormSubmissionsList extends TableComponent
                 TextColumn::make('owner.name')
                     ->label('Submitted by')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->visible($user->can('manage', FormSubmission::class)),
                 TextColumn::make('created_at')
                     ->label('Submitted on')
                     ->dateTime()
@@ -54,9 +68,8 @@ class FormSubmissionsList extends TableComponent
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
-                            ->authorize('view')
                             ->url(fn (FormSubmission $record): string => route('admin.form-submissions.show', $record)),
-                    ])->authorize('view')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
