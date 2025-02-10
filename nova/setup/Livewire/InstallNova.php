@@ -17,6 +17,10 @@ use Nova\Foundation\EnvWriter;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Models\ExternalContent;
 use Nova\Foundation\Nova;
+use Nova\Menus\Actions\BustMenusCache;
+use Nova\Menus\Actions\RecacheMenus;
+use Nova\Pages\Actions\BustPagesCache;
+use Nova\Pages\Actions\RecachePages;
 use Nova\Setup\Enums\NovaInstallStatus;
 use Nova\Setup\Enums\SetupType;
 use Nova\Themes\Actions\InstallTheme;
@@ -40,6 +44,8 @@ class InstallNova extends Component
     {
         try {
             $this->runInstaller();
+
+            $this->runCacheCommands();
 
             $this->setAppUrl();
 
@@ -149,6 +155,15 @@ class InstallNova extends Component
         if ($this->shouldSeed) {
             Artisan::call('db:seed');
         }
+    }
+
+    protected function runCacheCommands(): void
+    {
+        BustPagesCache::run();
+        BustMenusCache::run();
+
+        RecachePages::run();
+        RecacheMenus::run();
     }
 
     protected function installThemes(): void
