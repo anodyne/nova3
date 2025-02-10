@@ -52,6 +52,7 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
 {
     use CausesActivity;
     use Concerns\HasAnnouncements;
+    use Concerns\HasCharacters;
     use Concerns\HasNotes;
     use HasFactory;
     use HasPrefixedId;
