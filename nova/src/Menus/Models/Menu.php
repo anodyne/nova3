@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Nova\Foundation\Models\Model;
 use Nova\Menus\Models\Builders\MenuBuilder;
 
 class Menu extends Model

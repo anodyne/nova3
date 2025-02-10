@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laratrust\Models\Role as LaratrustRole;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Roles\Events;
 use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Users\Models\States\Status\Active;
@@ -19,6 +20,7 @@ class Role extends LaratrustRole implements Sortable
 {
     use HasFactory;
     use HasPrefixedId;
+    use HasTableHelpers;
     use LogsActivity;
     use SortableTrait;
 

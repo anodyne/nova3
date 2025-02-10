@@ -6,7 +6,6 @@ namespace Nova\Addons\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Nova\Addons\BaseAddon;
@@ -18,6 +17,7 @@ use Nova\Addons\Models\Builders\AddonBuilder;
 use Nova\Foundation\Concerns\ChecksAddonVersion;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Models\Model;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Addon extends Model

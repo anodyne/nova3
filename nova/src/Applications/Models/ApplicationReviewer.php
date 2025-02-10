@@ -6,11 +6,11 @@ namespace Nova\Applications\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Applications\Enums\ReviewerType;
 use Nova\Applications\Models\Builders\ApplicationReviewerBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
 use Nova\Users\Models\Scopes\ActiveUsers;
 use Nova\Users\Models\User;
 

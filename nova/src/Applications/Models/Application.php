@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Applications\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -16,6 +15,7 @@ use Nova\Characters\Models\Character;
 use Nova\Discussions\Concerns\Discussable;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 

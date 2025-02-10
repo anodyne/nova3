@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Nova\Forms\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Forms\Models\Builders\FormFieldBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
+use Nova\Foundation\Models\Model;
 use Spatie\EloquentSortable\Sortable;
 
 class FormField extends Model implements Sortable

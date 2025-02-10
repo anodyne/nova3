@@ -7,7 +7,6 @@ namespace Nova\Characters\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -25,13 +24,12 @@ use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
 use Nova\Foundation\Models\StatusHistory;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
-use Nova\Users\Models\States\Status\Active as ActiveUser;
-use Nova\Users\Models\User;
 use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
@@ -39,6 +37,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Character extends Model implements HasMedia
 {
+    use Concerns\HasUsers;
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
@@ -65,14 +64,10 @@ class Character extends Model implements HasMedia
         'name', 'status', 'rank_id', 'type',
     ];
 
-    public function activeUsers()
-    {
-        return $this->users()->whereState('status', ActiveUser::class);
-    }
-
     public function positions()
     {
-        return $this->belongsToMany(Position::class);
+        return $this->belongsToMany(Position::class)
+            ->using(CharacterPosition::class);
     }
 
     public function posts(): MorphToMany
@@ -80,26 +75,9 @@ class Character extends Model implements HasMedia
         return $this->morphToMany(Post::class, 'authorable', 'post_author');
     }
 
-    public function activePrimaryUsers()
-    {
-        return $this->activeUsers()->wherePivot('primary', true);
-    }
-
-    public function primaryUsers()
-    {
-        return $this->users()->wherePivot('primary', true);
-    }
-
     public function rank()
     {
         return $this->hasOne(RankItem::class, 'id', 'rank_id');
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class)
-            ->withPivot('primary')
-            ->withTimestamps();
     }
 
     public function formSubmissions(): MorphMany

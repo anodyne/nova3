@@ -7,11 +7,14 @@ namespace Nova\Stories\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Stories\Models\Builders\PostAuthorBuilder;
 use Nova\Users\Models\User;
 
 class PostAuthor extends MorphPivot
 {
+    use HasTableHelpers;
+
     public function character(): BelongsTo
     {
         if ($this->authorable_type === 'character') {

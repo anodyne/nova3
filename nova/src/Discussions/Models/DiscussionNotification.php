@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Nova\Discussions\Models\Builders\DiscussionNotificationBuilder;
+use Nova\Foundation\Models\Model;
 
 class DiscussionNotification extends Model
 {

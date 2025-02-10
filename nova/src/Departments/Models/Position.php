@@ -7,14 +7,16 @@ namespace Nova\Departments\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Nova\Characters\Models\Character;
+use Nova\Characters\Models\CharacterPosition;
+use Nova\Characters\Models\CharacterUser;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\PositionBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Models\Model;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
 use Spatie\EloquentSortable\Sortable;
@@ -57,19 +59,21 @@ class Position extends Model implements Sortable
 
     public function activeUsers(): HasManyDeep
     {
-        return $this->users()->whereState('users.status', Active::class);
+        return $this->users()
+            ->whereState(User::column('status'), Active::class);
     }
 
     public function characters(): BelongsToMany
     {
-        return $this->belongsToMany(Character::class);
+        return $this->belongsToMany(Character::class)
+            ->using(CharacterPosition::class);
     }
 
     public function users(): HasManyDeep
     {
         return $this->hasManyDeep(
             User::class,
-            ['character_position', Character::class, 'character_user']
+            [CharacterPosition::table(), Character::class, CharacterUser::table()]
         )->distinct();
     }
 

@@ -9,9 +9,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Nova\Foundation\Models\StatusHistory;
 use Nova\Reporting\Data\ActivityReport;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Enums\PostingTarget;
+use Nova\Users\Models\User;
 
 class ActivityReporter
 {
@@ -94,11 +96,11 @@ class ActivityReporter
 
         return DB::table('users')
             ->join('status_history', function ($join) {
-                $join->on('users.id', '=', 'status_history.statusable_id')
-                    ->where('status_history.statusable_type', '=', 'user');
+                $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
+                    ->where(StatusHistory::column('statusable_type'), '=', 'user');
             })
-            ->leftJoin('logins', 'users.id', '=', 'logins.user_id')
-            ->leftJoin('post_author', 'users.id', '=', 'post_author.user_id')
+            ->leftJoin('logins', User::column('id'), '=', 'logins.user_id')
+            ->leftJoin('post_author', User::column('id'), '=', 'post_author.user_id')
             ->leftJoin('posts', 'post_author.post_id', '=', 'posts.id')
             ->leftJoin('post_types', 'posts.post_type_id', '=', 'post_types.id') // Include post_types for JSON filtering
             ->where(function ($query) use ($start, $end) {

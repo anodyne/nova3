@@ -11,10 +11,12 @@ use Nova\Applications\Enums\ApplicationResult;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Users\Models\User;
 
 class ApplicationReview extends Pivot
 {
+    use HasTableHelpers;
     use LogsActivity;
 
     protected $casts = [

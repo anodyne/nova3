@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Nova\Announcements\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 use Nova\Announcements\Events;
 use Nova\Announcements\Models\Builders\AnnouncementBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;

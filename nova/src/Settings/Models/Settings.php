@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Settings\Data;
 use Nova\Settings\Models\Builders\SettingsBuilder;

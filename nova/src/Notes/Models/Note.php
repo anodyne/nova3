@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Nova\Notes\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
 use Nova\Notes\Events;
 use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Users\Models\User;

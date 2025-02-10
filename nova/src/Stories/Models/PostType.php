@@ -6,12 +6,12 @@ namespace Nova\Stories\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Models\Model;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Data\Fields;
 use Nova\Stories\Data\Options;

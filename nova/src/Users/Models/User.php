@@ -24,13 +24,12 @@ use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReviewer;
-use Nova\Characters\Models\Character;
 use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Models\DiscussionNotification;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Foundation\Models\StatusHistory;
-use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Stories\Models\Post;
@@ -58,6 +57,7 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
     use HasPrefixedId;
     use HasRolesAndPermissions;
     use HasStates;
+    use HasTableHelpers;
     use Impersonate;
     use InteractsWithMedia;
     use LogsActivity {
@@ -88,23 +88,6 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
     protected $hidden = [
         'password', 'remember_token', 'force_password_reset',
     ];
-
-    public function characters(): BelongsToMany
-    {
-        return $this->belongsToMany(Character::class)
-            ->withPivot('primary')
-            ->withTimestamps();
-    }
-
-    public function activeCharacters(): BelongsToMany
-    {
-        return $this->characters()->active();
-    }
-
-    public function primaryCharacter(): BelongsToMany
-    {
-        return $this->activeCharacters()->wherePivot('primary', true);
-    }
 
     public function discussions(): BelongsToMany
     {

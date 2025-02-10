@@ -6,6 +6,7 @@ namespace Nova\Forms\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Nova\Characters\Models\Character;
 use Nova\Forms\Models\Form;
 use Nova\Users\Models\User;
 
@@ -28,9 +29,9 @@ class FormSubmissionBuilder extends Builder
                     ->orWhere(function (Builder $query): Builder {
                         return $query->where('owner_type', 'character')
                             ->whereIn('owner_id', function ($subQuery) {
-                                $subQuery->select('characters.id')
+                                $subQuery->select(Character::column('id'))
                                     ->from('characters')
-                                    ->join('character_user', 'characters.id', '=', 'character_user.character_id')
+                                    ->join('character_user', Character::column('id'), '=', 'character_user.character_id')
                                     ->where('character_user.user_id', Auth::id());
                             });
                     });

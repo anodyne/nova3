@@ -6,13 +6,13 @@ namespace Nova\Themes\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Nova\Addons\Data\AddonRepository;
 use Nova\Foundation\Concerns\ChecksAddonVersion;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Models\Model;
 use Nova\Themes\BaseTheme;
 use Nova\Themes\Data\ThemeSettings;
 use Nova\Themes\Events;

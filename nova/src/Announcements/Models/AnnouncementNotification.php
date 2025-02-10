@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder;
+use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 
 class AnnouncementNotification extends Model

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Nova\Foundation\Models;
+namespace Nova\Users\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Nova\Users\Models\User;
+use Nova\Foundation\Models\Model;
+use Nova\Foundation\Models\NotificationType;
 
 class UserNotificationPreference extends Model
 {

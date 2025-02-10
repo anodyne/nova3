@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Nova\Forms\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Forms\Casts\ResponseValue;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
 
 class FormSubmissionResponse extends Model
 {
