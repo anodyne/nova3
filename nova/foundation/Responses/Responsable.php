@@ -9,9 +9,11 @@ use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Nova\Foundation\Concerns\SetSEOValues;
+use Nova\Menus\Actions\RecacheMenus;
 use Nova\Menus\Models\Menu;
 use Nova\Pages\Models\Page;
 
@@ -99,7 +101,7 @@ abstract class Responsable implements LaravelResponsable
             layout: $this->layout(),
             subnav: $this->subnav(),
             subnavSection: $this->subnav,
-            menu: $this->page?->layout === 'public' ? Menu::with('items.page', 'items.items')->public()->first() : null,
+            menu: $this->page?->layout === 'public' ? $this->getPublicMenuItems() : null,
             pageHeading: $this->page?->heading,
             pageSubheading: $this->page?->subheading,
             pageIntro: $this->page?->intro,
@@ -149,5 +151,12 @@ abstract class Responsable implements LaravelResponsable
         }
 
         return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
+    }
+
+    protected function getPublicMenuItems(): Menu
+    {
+        RecacheMenus::run();
+
+        return Cache::get('nova.basic-menu');
     }
 }
