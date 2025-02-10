@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,10 +17,12 @@ use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
 use Nova\Menus\Events;
 use Nova\Menus\Models\Builders\MenuItemBuilder;
+use Nova\Menus\Observers\MenuItemObserver;
 use Nova\Pages\Models\Page;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
+#[ObservedBy([MenuItemObserver::class])]
 class MenuItem extends Model implements Sortable
 {
     use HasFactory;
@@ -27,15 +30,15 @@ class MenuItem extends Model implements Sortable
     use SortableTrait;
 
     protected $fillable = [
-        'label',
         'icon',
-        'url',
-        'page_id',
+        'label',
         'link_type',
         'order_column',
-        'status',
+        'page_id',
         'parent_id',
+        'status',
         'target',
+        'url',
     ];
 
     protected $casts = [
