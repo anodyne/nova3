@@ -5,19 +5,24 @@ declare(strict_types=1);
 namespace Nova\Pages\Models;
 
 use Illuminate\Database\Eloquent\Attributes\CollectedBy;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Media\Concerns\InteractsWithMedia;
+use Nova\Menus\Models\MenuItem;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events;
 use Nova\Pages\Models\Collections\PagesCollection;
+use Nova\Pages\Observers\PageObserver;
 use Spatie\Activitylog\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 #[CollectedBy(PagesCollection::class)]
+#[ObservedBy([PageObserver::class])]
 class Page extends Model implements HasMedia
 {
     use HasPrefixedId;
@@ -27,32 +32,32 @@ class Page extends Model implements HasMedia
     }
 
     protected $fillable = [
-        'name',
-        'uri',
-        'key',
-        'verb',
-        'resource',
-        'layout',
         'blocks',
-        'published_blocks',
-        'status',
+        'heading',
+        'intro',
+        'key',
+        'layout',
         'middleware',
-        'seo_title',
+        'name',
+        'published_blocks',
+        'resource',
         'seo_description',
         'seo_keywords',
-        'heading',
+        'seo_title',
+        'status',
         'subheading',
-        'intro',
+        'uri',
+        'verb',
     ];
 
     protected $casts = [
         'blocks' => 'array',
+        'content_can_be_edited' => 'boolean',
         'middleware' => 'array',
         'published_at' => 'datetime',
         'published_blocks' => 'array',
         'status' => BasicStatus::class,
         'verb' => PageVerb::class,
-        'content_can_be_edited' => 'boolean',
     ];
 
     protected $dispatchesEvents = [
@@ -60,6 +65,11 @@ class Page extends Model implements HasMedia
         'deleted' => Events\PageDeleted::class,
         'updated' => Events\PageUpdated::class,
     ];
+
+    public function menuItems(): HasMany
+    {
+        return $this->hasMany(MenuItem::class);
+    }
 
     public function isAdvanced(): Attribute
     {
@@ -89,6 +99,13 @@ class Page extends Model implements HasMedia
 
                 return false;
             }
+        );
+    }
+
+    public function isPublished(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => filled($this->published_at)
         );
     }
 

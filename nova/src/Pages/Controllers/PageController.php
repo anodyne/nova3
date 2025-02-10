@@ -51,8 +51,7 @@ class PageController extends Controller
                 ->notify("{$page->name} page was created");
         }
 
-        return redirect()
-            ->route('admin.pages.index')
+        return to_route('admin.pages.index')
             ->notify("{$page->name} page was created");
     }
 
@@ -67,8 +66,6 @@ class PageController extends Controller
     {
         $page = UpdatePageManager::run($page, $request);
 
-        return redirect()
-            ->route('admin.pages.edit', $page)
-            ->notify("{$page->name} page was updated");
+        return back()->notify("{$page->name} page was updated");
     }
 }

@@ -180,7 +180,7 @@
 
                                 @can('viewAny', Page::class)
                                     <x-sidebar.item
-                                        :href="route('admin.pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
+                                        :href="route('admin.pages.index', ['pageType' => 0])"
                                         :active="request()->routeIs('admin.pages.*')"
                                     >
                                         <x-icon name="www" size="sm"></x-icon>
@@ -466,7 +466,7 @@
 
                                                 @can('viewAny', Page::class)
                                                     <x-sidebar.item
-                                                        :href="route('admin.pages.index', ['tableFilters' => ['pageType' => ['value' => 0]]])"
+                                                        :href="route('admin.pages.index', ['pageType' => 0])"
                                                         :active="request()->routeIs('admin.pages.*')"
                                                     >
                                                         <x-icon name="www" size="sm"></x-icon>

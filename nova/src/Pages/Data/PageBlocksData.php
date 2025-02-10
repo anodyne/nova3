@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Data;
 
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class PageBlocksData extends Data
+readonly class PageBlocksData extends Bag
 {
     public function __construct(
         public array $blocks

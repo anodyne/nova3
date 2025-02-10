@@ -99,6 +99,17 @@
                             ></x-radio>
                         </x-radio.field>
                     </x-radio.group>
+
+                    <div x-show="type === 'basic'" class="flex items-center gap-x-2.5">
+                        <x-switch
+                            name="status"
+                            :value="old('status', $page->status->value ?? 'active')"
+                            on-value="active"
+                            off-value="inactive"
+                            id="status"
+                        ></x-switch>
+                        <x-fieldset.label for="status">Active</x-fieldset.label>
+                    </div>
                 </x-fieldset.field-group>
             </x-fieldset>
 
@@ -136,6 +147,8 @@
                             data-cy="resource"
                         />
                     </x-fieldset.field>
+
+                    {{-- <input type="hidden" name="status" value="{{ $page->status->value }}" /> --}}
                 </x-fieldset.field-group>
             </x-fieldset>
 

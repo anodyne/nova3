@@ -5,18 +5,28 @@ declare(strict_types=1);
 namespace Nova\Pages\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Pages\Data\PageData;
+use Nova\Pages\Enums\PageVerb;
 
 class StorePageRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'uri' => ['required'],
+            'heading' => ['nullable'],
+            'intro' => ['nullable'],
             'key' => ['required'],
-            'verb' => ['required'],
+            'name' => ['required'],
             'resource' => ['nullable'],
+            'seo_description' => ['nullable'],
+            'seo_keywords' => ['nullable'],
+            'seo_title' => ['nullable'],
+            'status' => ['required', Rule::enum(BasicStatus::class)],
+            'subheading' => ['nullable'],
+            'uri' => ['required'],
+            'verb' => ['required', Rule::enum(PageVerb::class)],
         ];
     }
 

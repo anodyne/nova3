@@ -15,6 +15,11 @@ class UploadSeoImage
     {
         if (filled($path)) {
             $page->addMedia($path)->toMediaCollection('seo-image');
+
+            activity()
+                ->performedOn($page)
+                ->event('uploaded-image')
+                ->log('uploaded-image');
         }
 
         return $page->refresh();

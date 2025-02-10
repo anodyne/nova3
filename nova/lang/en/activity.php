@@ -36,6 +36,11 @@ return [
         'duplicated' => '**:name** duplicated the note as **:replica**.',
     ],
 
+    'pages' => [
+        'duplicated' => '**:name** duplicated the page as **:replica**.',
+        'uploaded' => '**:name** uploaded an SEO image.',
+    ],
+
     'positions' => [
         'duplicated' => '**:name** duplicated the position as **:replica**.',
     ],

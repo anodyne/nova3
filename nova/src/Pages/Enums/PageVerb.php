@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Enums;
 
+use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 use Nova\Foundation\Concerns\HasSelectOptions;
 
-enum PageVerb: string implements HasLabel
+enum PageVerb: string implements HasColor, HasLabel
 {
     use HasSelectOptions;
 
@@ -19,7 +20,7 @@ enum PageVerb: string implements HasLabel
 
     case Put = 'put';
 
-    public function color(): string
+    public function getColor(): string|array|null
     {
         return match ($this) {
             self::Get => 'primary',

@@ -13,7 +13,6 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Attributes\Url;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -31,19 +30,29 @@ use Nova\Pages\Data\PageData;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events\PageDuplicated;
 use Nova\Pages\Models\Page;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
 use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class PagesList extends TableComponent
 {
-    #[Url]
-    public ?array $tableFilters = [
-        'pageType',
-    ];
-
     public function table(Table $table): Table
     {
         return $table
-            ->query(Page::query())
+            ->query(
+                Page::query()
+                    ->select([
+                        'id',
+                        'key',
+                        'layout',
+                        'name',
+                        'published_at',
+                        'resource',
+                        'status',
+                        'uri',
+                        'verb',
+                    ])
+            )
             ->defaultPaginationPageOption(25)
             ->columns([
                 TextColumn::make('name')
@@ -58,7 +67,6 @@ class PagesList extends TableComponent
                 TextColumn::make('verb')
                     ->badge()
                     ->label('HTTP Verb')
-                    ->color(fn (Page $record): string => $record->verb->color())
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('pageType')
@@ -89,12 +97,11 @@ class PagesList extends TableComponent
                             ->icon(iconName('www'))
                             ->label('Live page')
                             ->url(fn (Page $record): string => url($record->uri))
-                            ->visible(fn (Page $record): bool => filled($record->published_blocks)),
+                            ->visible(fn (Page $record): bool => $record->is_published),
                         Action::make('preview')
                             ->icon(iconName('www-preview'))
                             ->label('Preview page')
-                            ->url(fn (Page $record): string => route('preview-basic-page', $record->key))
-                            ->visible(fn (Page $record): bool => $record->is_previewable),
+                            ->url(fn (Page $record): string => route('preview-basic-page', $record->key)),
                     ])->divided(),
 
                     ActionGroup::make([
@@ -108,8 +115,23 @@ class PagesList extends TableComponent
                             ->authorize('design')
                             ->icon(iconName('tools'))
                             ->url(fn (Page $record): string => route('admin.pages.design', $record)),
-                        TimelineAction::make(),
                     ])->authorizeAny(['view', 'update', 'design'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->eventDescriptions([
+                                        'duplicated' => fn (Activity $activity) => __('activity.pages.duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'replica' => Page::find($activity->getExtraProperty('replica'))?->name,
+                                        ]),
+                                        'uploaded' => fn (Activity $activity) => __('activity.pages.uploaded', [
+                                            'name' => $activity->causer->name,
+                                        ]),
+                                    ]);
+                            }),
+                    ])->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
@@ -125,13 +147,13 @@ class PagesList extends TableComponent
                                     ->helperText('The key must be a unique value to identify the page'),
                             ])
                             ->action(function (Page $record, array $data): void {
-                                $pageData = PageData::from([
-                                    'name' => data_get($data, 'name'),
-                                    'key' => data_get($data, 'key'),
-                                    'uri' => data_get($data, 'uri'),
-                                    'verb' => $record->verb,
-                                    'resource' => $record->resource,
-                                ]);
+                                $pageData = PageData::from(
+                                    name: data_get($data, 'name'),
+                                    key: data_get($data, 'key'),
+                                    uri: data_get($data, 'uri'),
+                                    verb: $record->verb,
+                                    resource: $record->resource
+                                );
 
                                 $replica = DuplicatePage::run($record, $pageData);
 
@@ -194,7 +216,8 @@ class PagesList extends TableComponent
                     ->attribute('resource')
                     ->placeholder('All pages')
                     ->trueLabel('Advanced pages')
-                    ->falseLabel('Basic pages'),
+                    ->falseLabel('Basic pages')
+                    ->default(fn () => request()->query('pageType', 0)),
                 SelectFilter::make('status')->options(BasicStatus::class),
                 SelectFilter::make('layout')->options([
                     'public' => 'Public pages',

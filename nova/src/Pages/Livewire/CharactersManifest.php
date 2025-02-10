@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
-use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Enums\BasicStatus;
 
 class CharactersManifest extends Component
 {
@@ -120,7 +120,7 @@ class CharactersManifest extends Component
     {
         return $this->showAvailablePositions
             && $position->available > 0
-            && $position->status === PositionStatus::Active
+            && $position->status === BasicStatus::Active
             && (
                 $this->availablePositionsStatus === 'all' ||
                 ($this->availablePositionsStatus === 'choose' && in_array($position->id, $this->selectedAvailablePositions))

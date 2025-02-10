@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="copy">
+<x-filament.modal-content :$action>
     <x-slot name="title">Duplicate {{ $record->is_basic ? 'basic' : 'advanced' }} page?</x-slot>
 
     <x-text>
