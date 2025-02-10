@@ -67,6 +67,9 @@ class RankItemsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (RankItem $record): string => route('admin.ranks.items.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -79,7 +82,7 @@ class RankItemsList extends TableComponent
                                         'name_id' => fn ($value) => RankName::find($value)?->name,
                                     ]);
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()

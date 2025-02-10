@@ -69,6 +69,9 @@ class RankGroupsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (RankGroup $record): string => route('admin.ranks.groups.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -79,7 +82,7 @@ class RankGroupsList extends TableComponent
                                         ]),
                                     ]);
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()

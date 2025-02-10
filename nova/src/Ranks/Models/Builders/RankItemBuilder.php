@@ -6,6 +6,7 @@ namespace Nova\Ranks\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
+use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 
 class RankItemBuilder extends Builder
@@ -24,13 +25,13 @@ class RankItemBuilder extends Builder
 
     public function searchFor($search): self
     {
-        return $this->whereRelation('name', 'name', 'like', "%{$search}%");
+        return $this->whereRelation('name', RankName::column('name'), 'like', "%{$search}%");
     }
 
     public function withRankName()
     {
         return $this->addSelect(['rank_name' => RankName::select('name')
-            ->whereColumn('id', 'rank_items.name_id')
+            ->whereColumn('id', RankItem::column('name_id'))
             ->take(1),
         ]);
     }

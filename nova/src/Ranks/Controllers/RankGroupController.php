@@ -47,8 +47,7 @@ class RankGroupController extends Controller
     {
         $group = CreateRankGroup::run($request->getRankGroupData());
 
-        return redirect()
-            ->route('admin.ranks.groups.index')
+        return to_route('admin.ranks.groups.index')
             ->notify("{$group->name} rank group was created");
     }
 

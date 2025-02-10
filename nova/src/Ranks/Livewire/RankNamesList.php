@@ -65,6 +65,9 @@ class RankNamesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (RankName $record): string => route('admin.ranks.names.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -75,7 +78,7 @@ class RankNamesList extends TableComponent
                                         ]),
                                     ]);
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
