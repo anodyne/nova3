@@ -100,7 +100,7 @@
                         </x-radio.field>
                     </x-radio.group>
 
-                    <div x-show="type === 'basic'" class="flex items-center gap-x-2.5">
+                    <x-switch.field>
                         <x-switch
                             name="status"
                             :value="old('status', $page->status->value ?? 'active')"
@@ -109,7 +109,11 @@
                             id="status"
                         ></x-switch>
                         <x-fieldset.label for="status">Active</x-fieldset.label>
-                    </div>
+                        <x-fieldset.warning-message>
+                            Use caution when disabling pages, especially advanced pages, as doing so could cause your
+                            site to break.
+                        </x-fieldset.warning-message>
+                    </x-switch.field>
                 </x-fieldset.field-group>
             </x-fieldset>
 
@@ -147,8 +151,6 @@
                             data-cy="resource"
                         />
                     </x-fieldset.field>
-
-                    {{-- <input type="hidden" name="status" value="{{ $page->status->value }}" /> --}}
                 </x-fieldset.field-group>
             </x-fieldset>
 

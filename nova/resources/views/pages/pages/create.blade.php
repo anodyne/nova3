@@ -14,7 +14,7 @@
         <x-form
             :action="route('admin.pages.store')"
             x-data="{
-                type: null,
+                type: '{{ old('type') }}',
                 verb: 'get',
                 resource: null
             }"
@@ -44,6 +44,8 @@
                             <x-radio id="type_advanced" name="uri" value="advanced" x-model="type"></x-radio>
                         </x-radio.field>
                     </x-radio.group>
+
+                    <input type="hidden" name="status" value="active" />
                 </x-fieldset.field-group>
             </x-fieldset>
 
@@ -142,7 +144,7 @@
 
                 <x-fieldset.field-group constrained>
                     <x-fieldset.field label="Heading" id="heading" name="heading" :error="$errors->first('heading')">
-                        <x-input.text :value="old('heading', $page->heading)" data-cy="heading" />
+                        <x-input.text :value="old('heading')" data-cy="heading" />
                     </x-fieldset.field>
 
                     <x-fieldset.field
@@ -151,12 +153,12 @@
                         name="subheading"
                         :error="$errors->first('subheading')"
                     >
-                        <x-input.text :value="old('subheading', $page->subheading)" data-cy="subheading" />
+                        <x-input.text :value="old('subheading')" data-cy="subheading" />
                     </x-fieldset.field>
 
                     <x-fieldset.field label="Intro" id="intro" name="intro" :error="$errors->first('intro')">
                         <x-input.textarea rows="5" data-cy="intro">
-                            {{ old('intro', $page->intro) }}
+                            {{ old('intro') }}
                         </x-input.textarea>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
