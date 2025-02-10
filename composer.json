@@ -70,12 +70,13 @@
         "laravel/pint": "^1.8",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^2.9",
-        "pestphp/pest-plugin-arch": "^2.7",
-        "pestphp/pest-plugin-laravel": "^2.1",
-        "pestphp/pest-plugin-livewire": "^2.1",
-        "pestphp/pest-plugin-type-coverage": "^2.8",
-        "phpunit/phpunit": "^10.0"
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-arch": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "pestphp/pest-plugin-livewire": "^3.0",
+        "pestphp/pest-plugin-stressless": "^3.1",
+        "pestphp/pest-plugin-type-coverage": "^3.0",
+        "rector/rector": "^2.0"
     },
     "extra": {
         "laravel": {
@@ -113,14 +114,23 @@
         "lint": [
             "pint"
         ],
+        "refactor": [
+            "rector"
+        ],
         "test:lint": [
             "pint --test"
+        ],
+        "test:refactor": [
+            "rector --dry-run"
         ],
         "test:types": [
             "phpstan analyse"
         ],
         "test:type-coverage": [
             "pest --type-coverage --min=100"
+        ],
+        "test:arch": [
+            "pest --filter=arch"
         ],
         "test:unit": [
             "pest --parallel --ci --coverage --min=100.0"
@@ -130,6 +140,7 @@
         ],
         "test": [
             "@test:lint",
+            "@test:refactor",
             "@test:types",
             "@test:type-coverage",
             "@test:unit"
