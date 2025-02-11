@@ -161,6 +161,7 @@ class TablerIconSet extends IconSet
             'tools' => 'tabler-tools',
             'trash' => 'tabler-trash',
             'trash-alt' => 'tabler-trash-x',
+            'trash-off' => 'tabler-trash-off',
             'typography' => 'tabler-typography',
             'update' => 'tabler-refresh-dot',
             'update-alert' => 'tabler-refresh-alert',

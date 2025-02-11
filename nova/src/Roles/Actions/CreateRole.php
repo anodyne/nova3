@@ -16,7 +16,7 @@ class CreateRole
     {
         return Role::create([
             ...['is_locked' => false],
-            ...$data->all(),
+            ...$data->toArray(),
         ]);
     }
 }

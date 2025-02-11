@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Actions;
 
+use Illuminate\Support\Arr;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Role;
@@ -14,9 +15,11 @@ class UpdateRole
 
     public function handle(Role $role, RoleData $data): Role
     {
-        $role->update(
-            $data->exceptWhen('name', $role->is_locked)->all()
-        );
+        $updateData = $role->is_locked
+            ? Arr::except($data->toArray(), ['name'])
+            : $data->toArray();
+
+        $role->update($updateData);
 
         return $role->refresh();
     }
