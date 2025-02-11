@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Reporting\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Bag;
 use Illuminate\Support\Collection;
 use Livewire\Wireable;
-use Spatie\LaravelData\Concerns\WireableData;
-use Spatie\LaravelData\Data;
+use Nova\Foundation\Data\Concerns\WireableBag;
 
-class ParticipationReport extends Data implements Arrayable, Wireable
+/**
+ * @method static static from(int $active, int $total, ?Collection $results)
+ */
+readonly class ParticipationReport extends Bag implements Wireable
 {
-    use WireableData;
+    use WireableBag;
 
     public function __construct(
         public int $active,

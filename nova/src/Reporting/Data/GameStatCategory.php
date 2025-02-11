@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Reporting\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class GameStatCategory extends Data implements Arrayable
+/**
+ * @method static static from(string $label, ?string $hint, array $stats)
+ */
+readonly class GameStatCategory extends Bag
 {
     public function __construct(
         public string $label,

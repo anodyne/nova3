@@ -13,6 +13,10 @@ use Nova\Foundation\Models\StatusHistory;
 use Nova\Reporting\Data\ActivityReport;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Enums\PostingTarget;
+use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostAuthor;
+use Nova\Stories\Models\PostType;
+use Nova\Users\Models\Login;
 use Nova\Users\Models\User;
 
 class ActivityReporter
@@ -38,7 +42,7 @@ class ActivityReporter
             );
         });
 
-        return new ActivityReport(
+        return ActivityReport::from(
             active: $this->calculateActive($result),
             total: $result->count(),
             results: $result
@@ -54,7 +58,7 @@ class ActivityReporter
             );
         });
 
-        return new ActivityReport(
+        return ActivityReport::from(
             active: $this->calculateActive($result),
             total: $result->count(),
             results: null
@@ -92,49 +96,47 @@ class ActivityReporter
 
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection
     {
-        $tablePrefix = DB::getTablePrefix();
-
         return DB::table('users')
             ->join('status_history', function ($join) {
                 $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
                     ->where(StatusHistory::column('statusable_type'), '=', 'user');
             })
-            ->leftJoin('logins', User::column('id'), '=', 'logins.user_id')
-            ->leftJoin('post_author', User::column('id'), '=', 'post_author.user_id')
-            ->leftJoin('posts', 'post_author.post_id', '=', 'posts.id')
-            ->leftJoin('post_types', 'posts.post_type_id', '=', 'post_types.id') // Include post_types for JSON filtering
+            ->leftJoin('logins', User::column('id'), '=', Login::column('user_id'))
+            ->leftJoin('post_author', User::column('id'), '=', PostAuthor::column('user_id'))
+            ->leftJoin('posts', PostAuthor::column('post_id'), '=', Post::column('id'))
+            ->leftJoin('post_types', Post::column('post_type_id'), '=', PostType::column('id')) // Include post_types for JSON filtering
             ->where(function ($query) use ($start, $end) {
-                $query->where('status_history.started_at', '<=', $end)
+                $query->where(StatusHistory::column('started_at'), '<=', $end)
                     ->where(function ($query) use ($start) {
-                        $query->whereNull('status_history.ended_at')
-                            ->orWhere('status_history.ended_at', '>=', $start);
+                        $query->whereNull(StatusHistory::column('ended_at'))
+                            ->orWhere(StatusHistory::column('ended_at'), '>=', $start);
                     });
             })
             ->selectRaw('
-                '.$tablePrefix.'users.id,
-                '.$tablePrefix.'users.name,
+                '.User::prefixedColumn('id').',
+                '.User::prefixedColumn('name').',
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'logins.created_at BETWEEN ? AND ?
-                    THEN '.$tablePrefix.'logins.id
+                    WHEN '.Login::prefixedColumn('created_at').' BETWEEN ? AND ?
+                    THEN '.Login::prefixedColumn('id').'
                 END) as login_count,
-                MAX('.$tablePrefix.'logins.created_at) as latest_login,
+                MAX('.Login::prefixedColumn('created_at').') as latest_login,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'posts.status = "published"
-                        AND JSON_EXTRACT('.$tablePrefix.'post_types.options, "$.includedInPostTracking") = true
-                        AND '.$tablePrefix.'post_author.updated_at BETWEEN ? AND ?
-                        AND '.$tablePrefix.'posts.published_at BETWEEN ? AND ?
-                    THEN '.$tablePrefix.'posts.id
+                    WHEN '.Post::prefixedColumn('status').' = "published"
+                        AND JSON_EXTRACT('.PostType::prefixedColumn('options').', "$.includedInPostTracking") = true
+                        AND '.PostAuthor::prefixedColumn('updated_at').' BETWEEN ? AND ?
+                        AND '.Post::prefixedColumn('published_at').' BETWEEN ? AND ?
+                    THEN '.Post::prefixedColumn('id').'
                 END) as published_post_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'posts.status = "draft"
-                        AND JSON_EXTRACT('.$tablePrefix.'post_types.options, "$.includedInPostTracking") = true
-                        AND '.$tablePrefix.'post_author.updated_at BETWEEN ? AND ?
-                    THEN '.$tablePrefix.'posts.id
+                    WHEN '.Post::prefixedColumn('status').' = "draft"
+                        AND JSON_EXTRACT('.PostType::prefixedColumn('options').', "$.includedInPostTracking") = true
+                        AND '.PostAuthor::prefixedColumn('updated_at').' BETWEEN ? AND ?
+                    THEN '.Post::prefixedColumn('id').'
                 END) as draft_post_count,
                 SUM(CASE
-                    WHEN JSON_EXTRACT('.$tablePrefix.'post_types.options, "$.includedInPostTracking") = true
-                        AND '.$tablePrefix.'post_author.updated_at BETWEEN ? AND ?
-                    THEN '.$tablePrefix.'post_author.word_count
+                    WHEN JSON_EXTRACT('.PostType::prefixedColumn('options').', "$.includedInPostTracking") = true
+                        AND '.PostAuthor::prefixedColumn('updated_at').' BETWEEN ? AND ?
+                    THEN '.PostAuthor::prefixedColumn('word_count').'
                     ELSE 0
                 END) as total_word_count
             ', [
@@ -144,7 +146,7 @@ class ActivityReporter
                 $start, $end,  // For post_author.updated_at (draft posts)
                 $start, $end,  // For post_author.updated_at (word count)
             ])
-            ->groupBy('users.id', 'users.name') // Group by individual users
+            ->groupBy(User::column('id'), User::column('name')) // Group by individual users
             ->get()
             ->map(function ($user) {
                 // Convert `latest_login` to Carbon, handling null values

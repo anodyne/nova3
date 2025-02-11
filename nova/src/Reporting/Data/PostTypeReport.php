@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Reporting\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Bag;
 use Illuminate\Database\Eloquent\Collection;
-use Spatie\LaravelData\Data;
 
-class PostTypeReport extends Data implements Arrayable
+/**
+ * @method static static from(?Collection $results)
+ */
+readonly class PostTypeReport extends Bag
 {
     public function __construct(
         public ?Collection $results
