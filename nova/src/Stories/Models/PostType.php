@@ -35,8 +35,17 @@ class PostType extends Model implements Sortable
     protected $table = 'post_types';
 
     protected $fillable = [
-        'name', 'description', 'key', 'status', 'visibility', 'fields',
-        'options', 'order_column', 'icon', 'color', 'role_id',
+        'color',
+        'description',
+        'fields',
+        'icon',
+        'key',
+        'name',
+        'options',
+        'order_column',
+        'role_id',
+        'status',
+        'visibility',
     ];
 
     protected $casts = [

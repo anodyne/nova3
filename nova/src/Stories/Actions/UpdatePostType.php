@@ -15,7 +15,7 @@ class UpdatePostType
     public function handle(PostType $postType, PostTypeData $data): PostType
     {
         return tap($postType)
-            ->update($data->all())
+            ->update($data->toArray())
             ->refresh();
     }
 }

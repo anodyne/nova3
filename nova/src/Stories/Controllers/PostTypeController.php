@@ -85,7 +85,6 @@ class PostTypeController extends Controller
             $request->getPostTypeData()
         );
 
-        return to_route('admin.post-types.edit', $postType)
-            ->notify("{$postType->name} post type was updated");
+        return back()->notify("{$postType->name} post type was updated");
     }
 }

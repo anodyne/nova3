@@ -13,20 +13,20 @@ class PostTypeBuilder extends Builder
 {
     use QueriesStatus;
 
-    public function inCharacter(): Builder
+    public function inCharacter(): self
     {
         return $this->where('visibility', PostTypeVisibility::InCharacter);
     }
 
-    public function searchFor($search): Builder
+    public function searchFor($search): self
     {
         return $this->where('name', 'like', "%{$search}%");
     }
 
-    public function userHasAccess(Authenticatable $user): Builder
+    public function userHasAccess(Authenticatable $user): self
     {
         return $this->where(
-            fn (Builder $query) => $query->whereNull('role_id')->orWhereIn('role_id', $user->roles()->pluck('id')->all())
+            fn (Builder $query): Builder => $query->whereNull('role_id')->orWhereIn('role_id', $user->roles()->pluck('id')->all())
         );
     }
 }

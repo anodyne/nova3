@@ -49,7 +49,21 @@ class PostTypesList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(PostType::withCount('posts')->withTrashed())
+            ->query(
+                PostType::query()
+                    ->withCount('posts')
+                    ->withTrashed()
+                    ->select([
+                        'color',
+                        'deleted_at',
+                        'icon',
+                        'id',
+                        'name',
+                        'order_column',
+                        'role_id',
+                        'status',
+                    ])
+            )
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
@@ -94,8 +108,8 @@ class PostTypesList extends TableComponent
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->trashed() ? 'danger' : $record->status->getColor())
-                    ->formatStateUsing(fn (Model $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
+                    ->color(fn (PostType $record): string => $record->trashed() ? 'danger' : $record->status->getColor())
+                    ->formatStateUsing(fn (PostType $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
                     ->toggleable(),
             ])
             ->actions([
@@ -103,10 +117,13 @@ class PostTypesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.post-types.show', $record)),
+                            ->url(fn (PostType $record): string => route('admin.post-types.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.post-types.edit', $record)),
+                            ->url(fn (PostType $record): string => route('admin.post-types.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -121,7 +138,7 @@ class PostTypesList extends TableComponent
                                         },
                                     ]);
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
@@ -130,7 +147,7 @@ class PostTypesList extends TableComponent
                             ->form([
                                 TextInput::make('name')->label('Post type name'),
                             ])
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (PostType $record, array $data): void {
                                 $postTypeData = PostTypeData::from([
                                     'name' => $name = data_get($data, 'name'),
                                     'key' => str($name)->slug(),
@@ -153,7 +170,7 @@ class PostTypesList extends TableComponent
                         RestoreAction::make()
                             ->authorize('restore')
                             ->modalContentView('pages.post-types.restore')
-                            ->action(function (Model $record): void {
+                            ->action(function (PostType $record): void {
                                 RestorePostType::run($record);
 
                                 Notification::make()->success()
@@ -163,7 +180,7 @@ class PostTypesList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.post-types.delete')
-                            ->form(function (Model $record): ?array {
+                            ->form(function (PostType $record): ?array {
                                 if ($record->posts_count === 0) {
                                     return null;
                                 }
@@ -174,7 +191,7 @@ class PostTypesList extends TableComponent
                                         ->options(PostType::where('id', '!=', $record->id)->pluck('name', 'id')),
                                 ];
                             })
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (PostType $record, array $data): void {
                                 if ($newPostTypeId = data_get($data, 'new_post_type')) {
                                     MovePostTypePosts::run(
                                         $record,
@@ -196,7 +213,7 @@ class PostTypesList extends TableComponent
                         ForceDeleteAction::make()
                             ->authorize('forceDelete')
                             ->modalContentView('pages.post-types.force-delete')
-                            ->form(function (Model $record): ?array {
+                            ->form(function (PostType $record): ?array {
                                 if ($record->posts_count === 0) {
                                     return null;
                                 }
@@ -207,7 +224,7 @@ class PostTypesList extends TableComponent
                                         ->options(PostType::where('id', '!=', $record->id)->pluck('name', 'id')),
                                 ];
                             })
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (PostType $record, array $data): void {
                                 $newPostTypeId = data_get($data, 'new_post_type');
 
                                 MovePostTypePosts::run(
@@ -235,7 +252,7 @@ class PostTypesList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (PostType $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('restore', $record)) {
                                     return true;
                                 }
@@ -244,7 +261,7 @@ class PostTypesList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => RestorePostType::run($record));
+                            ->each(fn (PostType $record): Model => RestorePostType::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('post type was|post types were', count($records)).' restored')
@@ -264,7 +281,7 @@ class PostTypesList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (PostType $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -273,7 +290,7 @@ class PostTypesList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeletePostType::run($record));
+                            ->each(fn (PostType $record): Model => DeletePostType::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('post type was|post types were', count($records)).' deleted')
@@ -293,7 +310,7 @@ class PostTypesList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (PostType $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('forceDelete', $record)) {
                                     return true;
                                 }
@@ -302,7 +319,7 @@ class PostTypesList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => ForceDeletePostType::run($record));
+                            ->each(fn (PostType $record): Model => ForceDeletePostType::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' force deleted')

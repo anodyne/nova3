@@ -14,6 +14,6 @@ class CreatePostType
 
     public function handle(PostTypeData $data): PostType
     {
-        return PostType::create($data->all());
+        return PostType::create($data->toArray());
     }
 }

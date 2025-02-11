@@ -4,31 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Arr;
-use Nova\Foundation\Rules\Boolean;
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class Field extends Data implements Arrayable
+/**
+ * @method static static from(bool $enabled, bool $required)
+ */
+readonly class Field extends Bag
 {
     public function __construct(
         public bool $enabled,
         public bool $required,
     ) {}
-
-    public static function fromArray(array $data): static
-    {
-        return new self(
-            enabled: Arr::boolean($data, 'enabled'),
-            required: Arr::boolean($data, 'required')
-        );
-    }
-
-    public static function rules(): array
-    {
-        return [
-            'enabled' => [new Boolean],
-            'required' => [new Boolean],
-        ];
-    }
 }
