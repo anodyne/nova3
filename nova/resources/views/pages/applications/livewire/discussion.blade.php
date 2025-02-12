@@ -2,7 +2,7 @@
 @use('Nova\Applications\Models\ApplicationReview')
 @use('Nova\Discussions\Models\DiscussionMessage')
 
-<div>
+<div wire:poll.15s>
     @if ($application->result === ApplicationResult::Pending)
         <div class="flex items-start gap-x-4">
             <div class="min-w-0 flex-1">
@@ -13,7 +13,7 @@
                         <label for="comment" class="sr-only">Add your message</label>
                         <textarea
                             rows="3"
-                            class="block max-h-60 w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 [field-sizing:content] placeholder:text-gray-400 focus:ring-0 dark:text-white dark:placeholder:text-gray-500 sm:text-sm sm:leading-6"
+                            class="block max-h-60 w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 [field-sizing:content] placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 dark:text-white dark:placeholder:text-gray-500"
                             placeholder="Add a message to the application review"
                             wire:model.live="content"
                         ></textarea>
