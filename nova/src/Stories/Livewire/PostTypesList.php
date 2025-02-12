@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Number;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -81,6 +82,7 @@ class PostTypesList extends TableComponent
                 TextColumn::make('published_posts_count')
                     ->counts('publishedPosts')
                     ->label('# of published posts')
+                    ->formatStateUsing(fn (int $state): string => Number::format($state ?? 0))
                     ->alignCenter()
                     ->sortable()
                     ->toggleable(),
@@ -88,6 +90,7 @@ class PostTypesList extends TableComponent
                     ->counts('posts')
                     ->label('# of posts')
                     ->alignCenter()
+                    ->formatStateUsing(fn (int $state): string => Number::format($state ?? 0))
                     ->sortable()
                     ->toggleable(),
                 IconColumn::make('includedInPostTracking')
