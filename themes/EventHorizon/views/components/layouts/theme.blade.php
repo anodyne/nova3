@@ -1,10 +1,8 @@
-@extends($meta->structure)
-
 @push('styles')
     <link rel="stylesheet" href="{{ asset('themes/EventHorizon/design/theme.css') }}" />
 @endpush
 
-@section('layout')
+<x-public-layout>
     <div class="relative flex-none overflow-hidden text-white">
         <div class="relative w-[25%] pl-6 lg:fixed lg:inset-0 lg:flex">
             <div class="absolute inset-0 -z-10 overflow-hidden bg-gray-950 lg:min-w-[32rem]">
@@ -143,7 +141,7 @@
         </div>
 
         <div class="relative ml-[35%] flex-1 overflow-y-scroll px-6 lg:px-12">
-            @yield('template')
+            {{ $slot }}
         </div>
     </div>
-@endsection
+</x-public-layout>

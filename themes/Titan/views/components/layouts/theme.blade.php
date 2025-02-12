@@ -1,10 +1,8 @@
-@extends($meta->structure)
-
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('themes/titan/design/theme.css') }}" />
+    <link rel="stylesheet" href="{{ asset('themes/Titan/design/theme.css') }}" />
 @endpush
 
-@section('layout')
+<x-public-layout>
     <div class="mx-auto flex h-full max-w-7xl flex-col py-6">
         <header class="relative flex">
             <div class="w-12 space-y-1">
@@ -171,7 +169,7 @@
                 </div>
 
                 <div class="pb-16 pt-3 text-[--grayLighter]">
-                    @yield('template')
+                    {{ $slot }}
                 </div>
             </div>
 
@@ -188,7 +186,7 @@
             </div>
         </main>
     </div>
-@endsection
+</x-public-layout>
 
 @section('layout-old')
     <div class="mx-auto flex h-full max-w-7xl flex-col">

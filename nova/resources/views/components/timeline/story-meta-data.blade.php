@@ -14,7 +14,7 @@
 
     <x-metadata
         :label="str('word')->plural($story->posts_sum_word_count)->title()"
-        :value="Number::format($story->posts_sum_word_count)"
+        :value="Number::format($story->posts_sum_word_count ?? 0)"
     ></x-metadata>
 
     @mysql
@@ -23,7 +23,7 @@
 
             <x-metadata
                 label="Total words within"
-                :value="Number::format($story->recursive_posts_sum_word_count)"
+                :value="Number::format($story->recursive_posts_sum_word_count ?? 0)"
             ></x-metadata>
         @endif
     @endmysql

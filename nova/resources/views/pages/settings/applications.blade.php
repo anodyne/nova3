@@ -93,14 +93,6 @@
 
                         <livewire:settings-manage-global-reviewers />
 
-                        <x-panel.footer>
-                            <x-fieldset.error-message>
-                                None of the global reviewers have permission to approve applications. Please make sure
-                                that at least one global reviewer has the
-                                <code class="font-semibold">application.approve</code>
-                                permission.
-                            </x-fieldset.error-message>
-                        </x-panel.footer>
                         @if ($usersWithApprovePermissionsCount === 0)
                             <x-panel.footer>
                                 <x-fieldset.error-message>
