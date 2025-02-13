@@ -24,18 +24,19 @@ class PostFactory extends Factory
         return [
             'title' => ucwords(fake()->words(mt_rand(2, 8), asText: true)),
 
-            'post_type_id' => function () {
-                return Arr::randomWeightedElement([
-                    1 => 50,
-                    2 => 30,
-                    3 => 5,
-                    4 => 15,
-                ]);
-            },
+            'post_type_id' => fn () => Arr::randomWeightedElement([
+                1 => 50,
+                2 => 30,
+                3 => 5,
+                4 => 15,
+            ]),
 
             'story_id' => fn () => Story::factory(),
 
-            'status' => Draft::class,
+            'status' => fn () => Arr::randomWeightedElement([
+                Draft::class => 25,
+                Published::class => 75,
+            ]),
 
             'content' => function (array $attributes) {
                 $paragraphCount = match ($attributes['post_type_id'] ?? '') {
@@ -51,6 +52,12 @@ class PostFactory extends Factory
             },
 
             'word_count' => fn (array $attributes) => str_word_count(strip_tags($attributes['content'])),
+
+            'rating_language' => fn () => mt_rand(0, 3),
+
+            'rating_sex' => fn () => mt_rand(0, 3),
+
+            'rating_violence' => fn () => mt_rand(0, 3),
         ];
     }
 
@@ -61,14 +68,23 @@ class PostFactory extends Factory
 
             $distributedWords = $this->distributeWordsRandomly($post->word_count, $numberOfAuthors);
 
+            $users = [];
+
             for ($i = 0; $i < $numberOfAuthors; $i++) {
                 $character = Character::with('users')->inRandomOrder()->first();
 
+                $user = $character->users->first() ?? User::active()->inRandomOrder()->first();
+
+                $users[] = $user->id;
+
                 $post->characterAuthors()->attach($character->id, [
-                    'user_id' => $character->users->first()?->id ?? User::active()->inRandomOrder()->first()->id,
+                    'user_id' => $user->id,
                     'word_count' => $distributedWords[$i],
                 ]);
             }
+
+            $post->participants = collect($users)->filter()->unique()->values()->all();
+            $post->save();
         });
     }
 
