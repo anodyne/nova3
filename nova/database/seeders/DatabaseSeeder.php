@@ -33,15 +33,12 @@ class DatabaseSeeder extends Seeder
             CharacterSeeder::class,
 
             StorySeeder::class,
-            // NimitzStorySeeder::class,
             PostSeeder::class,
             FormSeeder::class,
 
             ApplicationSeeder::class,
 
             DiscussionSeeder::class,
-
-            // AddonSeeder::class,
 
             AnnouncementSeeder::class,
         ]);
