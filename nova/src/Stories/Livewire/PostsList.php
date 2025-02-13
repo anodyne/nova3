@@ -30,7 +30,24 @@ class PostsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Post::with('characterAuthors', 'userAuthors'))
+            ->query(
+                Post::query()
+                    ->with('characterAuthors', 'userAuthors')
+                    ->select([
+                        'day',
+                        'id',
+                        'location',
+                        'locked_at',
+                        'locked_by',
+                        'post_type_id',
+                        'published_at',
+                        'status',
+                        'story_id',
+                        'time',
+                        'title',
+                        'updated_at',
+                    ])
+            )
             ->groups([
                 Group::make('status')
                     ->getTitleFromRecordUsing(fn (Post $record): string => $record->status->getLabel())
@@ -102,6 +119,9 @@ class PostsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Post $record): string => route('admin.posts.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -110,7 +130,7 @@ class PostsList extends TableComponent
                                     ->itemIcon('published', iconName('check-circle'))
                                     ->itemIconColor('published', 'primary');
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('unlock')

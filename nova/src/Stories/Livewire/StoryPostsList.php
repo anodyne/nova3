@@ -32,7 +32,27 @@ class StoryPostsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Post::with('characterAuthors', 'userAuthors')->story($this->story)->published())
+            ->deferLoading()
+            ->query(
+                Post::query()
+                    ->with('characterAuthors', 'userAuthors')
+                    ->select([
+                        'day',
+                        'id',
+                        'location',
+                        'order_column',
+                        'post_type_id',
+                        'story_id',
+                        'time',
+                        'title',
+                        'updated_at',
+                        'locked_by',
+                        'locked_at',
+                        'status',
+                    ])
+                    ->story($this->story)
+                    ->published()
+            )
             ->defaultSort('order_column', 'desc')
             ->paginationPageOptions([10, 25, 50])
             ->defaultPaginationPageOption(25)

@@ -18,10 +18,24 @@ class RecentPublishedPostsList extends TableComponent
     {
         return $table
             ->query(
-                Post::with('postType', 'story')
+                Post::query()
+                    ->with('postType', 'story')
+                    ->select([
+                        'day',
+                        'id',
+                        'location',
+                        'post_type_id',
+                        'published_at',
+                        'story_id',
+                        'time',
+                        'title',
+                        'locked_by',
+                        'locked_at',
+                    ])
                     ->published()
                     ->where('published_at', '>=', now()->subMonth())
             )
+            ->defaultSort('published_at', 'desc')
             ->columns([
                 ViewColumn::make('title')
                     ->view('filament.tables.columns.post-title')
@@ -38,8 +52,13 @@ class RecentPublishedPostsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('day')
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
                 TextColumn::make('time')
+                    ->sortable()
+                    ->toggleable()
+                    ->toggledHiddenByDefault(),
+                TextColumn::make('timeline')
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('characterAuthors.name')
@@ -50,7 +69,7 @@ class RecentPublishedPostsList extends TableComponent
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('published_at')
                     ->since()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
             ])
             ->filters([
                 SelectFilter::make('postType')->relationship('postType', 'name')->multiple(),
