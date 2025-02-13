@@ -33,7 +33,7 @@
                             <x-fieldset.description>
                                 A simple page that uses the page builder to create the content of the page.
                             </x-fieldset.description>
-                            <x-radio id="type_basic" name="uri" value="basic" x-model="type"></x-radio>
+                            <x-radio id="type_basic" name="type" value="basic" x-model="type"></x-radio>
                         </x-radio.field>
 
                         <x-radio.field>
@@ -41,7 +41,7 @@
                             <x-fieldset.description>
                                 A page that requires a controller and code to create the content / action of the page.
                             </x-fieldset.description>
-                            <x-radio id="type_advanced" name="uri" value="advanced" x-model="type"></x-radio>
+                            <x-radio id="type_advanced" name="type" value="advanced" x-model="type"></x-radio>
                         </x-radio.field>
                     </x-radio.group>
 
