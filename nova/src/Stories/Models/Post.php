@@ -217,6 +217,7 @@ class Post extends Model implements Sortable
             ->filter()
             ->push($user->id)
             ->unique()
+            ->values()
             ->all();
 
         $this->fill(['participants' => $participants])->save();
