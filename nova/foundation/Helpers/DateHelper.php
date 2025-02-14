@@ -176,6 +176,8 @@ class DateHelper
 
     public static function getUserTimezone(): string
     {
-        return Auth::user()?->preferences?->timezone ?? 'UTC';
+        $userTimezone = Auth::user()?->preferences?->timezone;
+
+        return filled($userTimezone) ? $userTimezone : 'UTC';
     }
 }

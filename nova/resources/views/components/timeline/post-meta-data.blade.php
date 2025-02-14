@@ -11,7 +11,9 @@
 
     <x-metadata label="Words" :value="$post->word_count"></x-metadata>
 
-    <x-metadata label="Published" :value="DateHelper::formatDate($post->published_at)"></x-metadata>
+    @if (filled($post->published_at))
+        <x-metadata label="Published" :value="DateHelper::formatDate($post->published_at)"></x-metadata>
+    @endif
 
     @if ($post->postType->fields->rating->enabled)
         <x-metadata label="Content ratings">

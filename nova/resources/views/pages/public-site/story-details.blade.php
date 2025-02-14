@@ -30,15 +30,16 @@
                 <x-public::tabs.pane class="details-columns" x-show="isTab('info')" x-cloak>
                     <div class="main-column">
                         <div class="metadata">
-                            @if ($story->started_at)
+                            @if (filled($story->started_at))
                                 <div class="metadata-item">
                                     @if (blank($story->ended_at))
                                         <div class="metadata-item-leading">Started on</div>
                                     @endif
 
                                     <div class="metadata-item-label">
-                                        {{ DateHelper::formatDate($story->started_at, false) }}
-                                        @if ($story->ended_at)
+                                        {{ DateHelper::formatDate($story->started_at) }}
+
+                                        @if (filled($story->ended_at))
                                             &ndash;
                                             {{ DateHelper::formatDate($story->ended_at) }}
                                         @endif
