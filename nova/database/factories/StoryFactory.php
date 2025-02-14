@@ -13,15 +13,31 @@ use Nova\Stories\Models\Story;
 
 class StoryFactory extends Factory
 {
+    use Concerns\CanAddMedia;
+
     protected $model = Story::class;
 
     public function definition()
     {
         return [
-            'title' => ucfirst($this->faker->words($this->faker->numberBetween(1, 5), asText: true)),
-            'status' => $this->faker->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
-            'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), asText: true),
+            'title' => ucfirst(fake()->words(mt_rand(1, 8), asText: true)),
+
+            'description' => fake()->sentences(mt_rand(1, 5), asText: true),
+
+            'status' => fake()->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Story $story) {
+            $this->addRandomMedia(
+                model: $story,
+                source: 'media/samples/stories',
+                destination: 'media/samples',
+                mediaCollection: 'story-image'
+            );
+        });
     }
 
     public function upcoming()
@@ -59,14 +75,14 @@ class StoryFactory extends Factory
     public function withStartDate()
     {
         return $this->state([
-            'started_at' => $this->faker->date(),
+            'started_at' => fake()->date(),
         ]);
     }
 
     public function withEndDate()
     {
         return $this->state([
-            'ended_at' => $this->faker->date(),
+            'ended_at' => fake()->date(),
         ]);
     }
 
