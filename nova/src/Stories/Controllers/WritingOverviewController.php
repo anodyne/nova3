@@ -7,6 +7,7 @@ namespace Nova\Stories\Controllers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Number;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Settings\Enums\PostingTarget;
 use Nova\Stories\Models\Post;
@@ -59,8 +60,8 @@ class WritingOverviewController extends Controller
             : $report->posts;
 
         return [
-            'activityInTimeframe' => $activity,
-            'activityTarget' => $settings->requirement,
+            'activityInTimeframe' => Number::format($activity ?? 0),
+            'activityTarget' => Number::format($settings->requirement),
             'activityPercentage' => $report->percentageComplete(),
             'activityLabel' => sprintf(
                 '%s %s goal',
