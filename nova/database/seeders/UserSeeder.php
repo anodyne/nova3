@@ -55,23 +55,23 @@ class UserSeeder extends Seeder
         sleep(2);
         TrackStatusUpdate::run($inactiveUser);
 
-        foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
-            $user = User::factory()->active()->create([
-                'name' => "user_{$item}",
-                'email' => "user_{$item}@user.com",
-            ]);
+        // foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
+        //     $user = User::factory()->active()->create([
+        //         'name' => "user_{$item}",
+        //         'email' => "user_{$item}@user.com",
+        //     ]);
 
-            $str = str($item);
+        //     $str = str($item);
 
-            match (true) {
-                $str->contains('p') => $user->addRole('create-primary-characters'),
-                $str->contains('s') => $user->addRole('create-secondary-characters'),
-                $str->contains('u') => $user->addRole('create-support-characters'),
-                default => $user,
-            };
+        //     match (true) {
+        //         $str->contains('p') => $user->addRole('create-primary-characters'),
+        //         $str->contains('s') => $user->addRole('create-secondary-characters'),
+        //         $str->contains('u') => $user->addRole('create-support-characters'),
+        //         default => $user,
+        //     };
 
-            CreateFormSubmission::run($form, $user);
-        }
+        //     CreateFormSubmission::run($form, $user);
+        // }
 
         activity()->enableLogging();
     }
