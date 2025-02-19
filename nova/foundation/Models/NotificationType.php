@@ -6,8 +6,8 @@ namespace Nova\Foundation\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Nova\Foundation\Data\DiscordSettings;
 use Nova\Foundation\Enums\NotificationAudience;
+use Nova\Settings\Data\Discord;
 use Nova\Users\Models\User;
 use Nova\Users\Models\UserNotificationPreference;
 
@@ -36,7 +36,7 @@ class NotificationType extends Model
         'database' => 'boolean',
         'database_default' => 'boolean',
         'discord' => 'boolean',
-        'discord_settings' => DiscordSettings::class,
+        'discord_settings' => Discord::class,
     ];
 
     public function discordColor(): Attribute

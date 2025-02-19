@@ -4,21 +4,26 @@ declare(strict_types=1);
 
 namespace Nova\Users\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
 use Illuminate\Http\Request;
-use Spatie\LaravelData\Data;
 
-class AssignUserCharactersData extends Data
+/**
+ * @method static static from(?array $characters, ?int $primaryCharacter)
+ */
+readonly class AssignUserCharactersData extends Bag
 {
     public function __construct(
         public ?array $characters,
         public ?int $primaryCharacter
     ) {}
 
-    public static function fromRequest(Request $request): static
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        return new self(
-            characters: explode(',', $request->input('assigned_characters', '') ?? ''),
-            primaryCharacter: $request->integer('primary_character', null),
-        );
+        return [
+            'characters' => explode(',', $request->input('assigned_characters', '') ?? ''),
+            'primaryCharacter' => $request->integer('primary_character', null),
+        ];
     }
 }

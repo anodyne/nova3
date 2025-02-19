@@ -14,6 +14,6 @@ class LogImpersonationStart
             ->causedBy($event->impersonator)
             ->performedOn($event->impersonated)
             ->event('started impersonation')
-            ->log('Impersonation session started for '.$event->impersonated->name);
+            ->log('started impersonation');
     }
 }

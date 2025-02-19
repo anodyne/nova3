@@ -96,6 +96,17 @@ class UsersList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (User $record): string => route('admin.users.edit', $record)),
+                    ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        Action::make('application')
+                            ->label('View application')
+                            ->color('gray')
+                            ->icon(iconName('progress'))
+                            ->url(fn (User $record): ?string => route('admin.applications.show', $record->application)),
+                    ])->visible(fn (User $record): bool => filled($record->application))->divided(),
+
+                    ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
@@ -127,15 +138,7 @@ class UsersList extends TableComponent
                                         fn (?PronounsData $value): ?string => (string) $value
                                     );
                             }),
-                    ])->authorizeAny(['view', 'update'])->divided(),
-
-                    ActionGroup::make([
-                        Action::make('application')
-                            ->label('View application')
-                            ->color('gray')
-                            ->icon(iconName('progress'))
-                            ->url(fn (User $record): ?string => route('admin.applications.show', $record->application)),
-                    ])->visible(fn (User $record): bool => filled($record->application))->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('impersonate')

@@ -9,6 +9,9 @@ use Illuminate\Support\Collection;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
 
+/**
+ * @method static static from(Character $character, ?CharacterType $oldType, ?CharacterType $newType, ?Collection $oldPositions, ?Collection $newPositions)
+ */
 readonly class CharacterPositionsData extends Bag
 {
     public function __construct(

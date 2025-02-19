@@ -9,6 +9,9 @@ use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
 
+/**
+ * @method static static from(?array $users, ?array $primaryUsers)
+ */
 #[StripExtraParameters]
 readonly class AssignCharacterOwnersData extends Bag
 {

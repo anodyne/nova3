@@ -4,6 +4,4 @@
         the settings for an individual Discord notification, you’ll be able to change to notification-specific settings
         if you need to.
     </x-text>
-
-    <hr class="my-6" />
 </x-filament.modal-content>

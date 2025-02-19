@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
@@ -14,13 +15,16 @@ use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
+/**
+ * @extends Factory<Model>
+ */
 class UserFactory extends Factory
 {
     use Concerns\CanAddMedia;
 
     protected $model = User::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => fn (array $attributes) => sprintf(
@@ -30,7 +34,7 @@ class UserFactory extends Factory
             ),
             'email' => fake()->unique()->safeEmail,
             'password' => 'secret',
-            'pronouns' => PronounsData::from(['value' => fake()->randomElement(['male', 'female'])]),
+            'pronouns' => PronounsData::from(fake()->randomElement(['male', 'female'])),
             'force_password_reset' => false,
         ];
     }
@@ -58,35 +62,35 @@ class UserFactory extends Factory
         });
     }
 
-    public function verifiedEmail()
+    public function verifiedEmail(): static
     {
         return $this->state([
             'email_verified_at' => now(),
         ]);
     }
 
-    public function forcePasswordReset()
+    public function forcePasswordReset(): static
     {
         return $this->state([
             'force_password_reset' => true,
         ]);
     }
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => Active::class,
         ]);
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => Inactive::class,
         ]);
     }
 
-    public function pending()
+    public function pending(): static
     {
         return $this->state([
             'status' => Pending::class,

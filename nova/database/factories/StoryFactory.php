@@ -11,13 +11,16 @@ use Nova\Stories\Models\States\StoryStatus\Ongoing;
 use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Nova\Stories\Models\Story;
 
+/**
+ * @extends Factory<Model>
+ */
 class StoryFactory extends Factory
 {
     use Concerns\CanAddMedia;
 
     protected $model = Story::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => ucfirst(fake()->words(mt_rand(1, 8), asText: true)),
@@ -40,14 +43,14 @@ class StoryFactory extends Factory
         });
     }
 
-    public function upcoming()
+    public function upcoming(): static
     {
         return $this->state([
             'status' => Upcoming::$name,
         ]);
     }
 
-    public function current()
+    public function current(): static
     {
         return $this->state([
             'status' => Current::$name,
@@ -55,7 +58,7 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function completed()
+    public function completed(): static
     {
         return $this->state([
             'status' => Completed::$name,
@@ -64,7 +67,7 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function ongoing()
+    public function ongoing(): static
     {
         return $this->state([
             'status' => Ongoing::$name,
@@ -72,21 +75,21 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function withStartDate()
+    public function withStartDate(): static
     {
         return $this->state([
             'started_at' => fake()->date(),
         ]);
     }
 
-    public function withEndDate()
+    public function withEndDate(): static
     {
         return $this->state([
             'ended_at' => fake()->date(),
         ]);
     }
 
-    public function withParent(?Story $parent = null)
+    public function withParent(?Story $parent = null): static
     {
         return $this->state([
             'parent_id' => $parent?->id ?? Story::factory(),

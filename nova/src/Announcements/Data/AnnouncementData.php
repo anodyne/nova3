@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Nova\Users\Models\User;
 
+/**
+ * @method static static from(string $title, ?string $category, bool $published, ?string $content)
+ */
 readonly class AnnouncementData extends Bag
 {
     public function __construct(

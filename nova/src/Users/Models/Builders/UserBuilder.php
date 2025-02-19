@@ -19,7 +19,7 @@ class UserBuilder extends Builder
 
     public function countDistinct(): self
     {
-        return $this->selectRaw('count(distinct(users.id))');
+        return $this->selectRaw('count(distinct('.User::column('id').'))');
     }
 
     public function searchFor(string $search): self
@@ -46,10 +46,10 @@ class UserBuilder extends Builder
 
     public function activeOrInactive(): self
     {
-        return $this->where(function (Builder $query): Builder {
-            return $query->whereState('status', Active::class)
-                ->orWhereState('status', Inactive::class);
-        });
+        return $this->whereAny('status', [
+            Active::class,
+            Inactive::class,
+        ]);
     }
 
     public function hidden(): Builder

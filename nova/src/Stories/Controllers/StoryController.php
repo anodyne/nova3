@@ -57,8 +57,7 @@ class StoryController extends Controller
 
         $story = CreateStoryManager::run($request);
 
-        return redirect()
-            ->route('admin.stories.index')
+        return to_route('admin.stories.index')
             ->notify("{$story->title} story was created");
     }
 
@@ -77,9 +76,7 @@ class StoryController extends Controller
 
         $story = UpdateStoryManager::run($story, $request);
 
-        return redirect()
-            ->route('admin.stories.edit', $story)
-            ->notify("{$story->title} was updated");
+        return back()->notify("{$story->title} was updated");
     }
 
     public function delete($id)
@@ -102,8 +99,7 @@ class StoryController extends Controller
 
         $deletedStories = DeleteStoriesManager::run($request);
 
-        return redirect()
-            ->route('admin.stories.index')
+        return to_route('admin.stories.index')
             ->notify($deletedStories.' '.trans_choice('story was|stories were', $deletedStories).' deleted');
     }
 }

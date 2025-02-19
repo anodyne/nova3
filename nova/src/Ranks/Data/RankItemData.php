@@ -9,6 +9,9 @@ use Bag\Bag;
 use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
+/**
+ * @method static static from(string $base_image, ?string $overlay_image, ?int $group_id, ?int $name_id, BasicStatus $status)
+ */
 readonly class RankItemData extends Bag
 {
     public function __construct(
@@ -25,8 +28,8 @@ readonly class RankItemData extends Bag
         return [
             'base_image' => $request->input('base_image'),
             'overlay_image' => $request->input('overlay_image'),
-            'group_id' => $request->integer('group_id'),
-            'name_id' => $request->integer('name_id'),
+            'group_id' => $request->integer('group_id', null),
+            'name_id' => $request->integer('name_id', null),
             'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
         ];
     }

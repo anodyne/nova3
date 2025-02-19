@@ -8,6 +8,9 @@ use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
 
+/**
+ * @method static static from(string $name, ?int $rank_id)
+ */
 readonly class CharacterData extends Bag
 {
     public function __construct(
@@ -20,7 +23,7 @@ readonly class CharacterData extends Bag
     {
         return [
             'name' => $request->input('name'),
-            'rank_id' => $request->input('rank_id'),
+            'rank_id' => $request->integer('rank_id', null),
         ];
     }
 }

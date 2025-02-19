@@ -12,7 +12,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Nova\Foundation\Data\DiscordSettings;
 use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -20,6 +19,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Foundation\Models\NotificationType;
 use Nova\Settings\Actions\UpdateSettings;
+use Nova\Settings\Data\Discord;
 use Spatie\Html\Facades\Html;
 
 class NotificationTypesList extends TableComponent
@@ -149,7 +149,7 @@ class NotificationTypesList extends TableComponent
                             ->action(function (NotificationType $record, ?array $data): void {
                                 $useGlobal = data_get($data, 'use_global');
 
-                                $settings = $useGlobal === true ? null : DiscordSettings::from($data);
+                                $settings = $useGlobal === true ? null : Discord::from($data);
 
                                 $record->update(['discord_settings' => $settings]);
 
@@ -189,7 +189,7 @@ class NotificationTypesList extends TableComponent
                         ColorPicker::make('color')->label('Accent color'),
                     ])
                     ->action(function (?array $data): void {
-                        UpdateSettings::run('discord', DiscordSettings::from($data));
+                        UpdateSettings::run('discord', Discord::from($data));
 
                         Notification::make()->success()
                             ->title('Global discord settings were updated')

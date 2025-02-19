@@ -14,6 +14,6 @@ class LogImpersonationEnd
             ->causedBy($event->impersonator)
             ->performedOn($event->impersonated)
             ->event('ended impersonation')
-            ->log('Impersonation session ended for '.$event->impersonated->name);
+            ->log('ended impersonation');
     }
 }

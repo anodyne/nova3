@@ -14,6 +14,6 @@ class CreateStory
 
     public function handle(StoryData $data): Story
     {
-        return Story::create($data->all());
+        return Story::create($data->toArray());
     }
 }

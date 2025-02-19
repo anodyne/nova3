@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Data;
 
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class PostData extends Data
+/**
+ * @method static static from(?int $id, ?string $content, ?int $post_type_id, ?int $story_id, ?string $title, ?string $day, ?string $time, ?string $location, int $word_count, int $rating_language, int $rating_sex, int $rating_violence)
+ */
+readonly class PostData extends Bag
 {
     public function __construct(
         public ?int $id,

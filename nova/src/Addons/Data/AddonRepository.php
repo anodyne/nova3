@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Nova\Addons\Enums\AddonRepositoryType;
 
+/**
+ * @method static static from(?AddonRepositoryType $type, ?string $id)
+ */
 readonly class AddonRepository extends Bag
 {
     public function __construct(

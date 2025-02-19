@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Users\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Bag;
 use Illuminate\Support\Number;
 use Nova\Foundation\Helpers\TimeHelper;
 use Nova\Settings\Enums\PostingTarget;
-use Spatie\LaravelData\Data;
 
-class UserPostingReport extends Data implements Arrayable
+/**
+ * @method static static from(int $posts, int $words)
+ */
+readonly class UserPostingReport extends Bag
 {
     public function __construct(
         public int $posts,

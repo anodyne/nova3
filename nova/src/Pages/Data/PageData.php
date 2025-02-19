@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Pages\Enums\PageVerb;
 
+/**
+ * @method static static from(string $name, string $key, string $uri, PageVerb $verb, BasicStatus $status, ?string $resource, string $layout, ?string $seo_title, ?string $seo_description, ?string $seo_keywords, ?string $heading, ?string $subheading, ?string $intro)
+ */
 readonly class PageData extends Bag
 {
     public function __construct(

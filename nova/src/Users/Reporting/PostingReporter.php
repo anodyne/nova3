@@ -30,7 +30,7 @@ class PostingReporter
     {
         $result = $this->query();
 
-        return new UserPostingReport(
+        return UserPostingReport::from(
             posts: (int) $result->total_posts,
             words: (int) $result->total_words
         );
@@ -43,7 +43,7 @@ class PostingReporter
             end: $this->postingActivitySettings->timeframe->endDate()
         );
 
-        return new UserPostingReport(
+        return UserPostingReport::from(
             posts: (int) $result->total_posts,
             words: (int) $result->total_words
         );

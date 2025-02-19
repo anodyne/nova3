@@ -9,6 +9,9 @@ use Bag\Bag;
 use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
+/**
+ * @method static static from(string $name, BasicStatus $status, ?string $base_image)
+ */
 readonly class RankGroupData extends Bag
 {
     public function __construct(

@@ -21,7 +21,6 @@ class Settings extends Model implements HasMedia
         'email' => Data\Email::class,
         'appearance' => Data\Appearance::class,
         'characters' => Data\Characters::class,
-        'meta_tags' => Data\MetaTags::class,
         'discord' => Data\Discord::class,
         'posting_activity' => Data\PostingActivity::class,
         'ratings' => Data\ContentRatings::class,

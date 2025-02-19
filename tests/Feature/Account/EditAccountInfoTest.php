@@ -32,7 +32,6 @@ test('a user can view their account info', function () {
         ->assertSet('form.pronouns', $this->user->pronouns->value)
         ->assertSet('form.pronounSubject', $this->user->pronouns->subject)
         ->assertSet('form.pronounObject', $this->user->pronouns->object)
-        ->assertSet('form.pronounPossessive', $this->user->pronouns->possessive)
         ->assertSet('form.currentPassword', '')
         ->assertSet('form.newPassword', '')
         ->assertSet('form.newPasswordConfirmation', '');
@@ -45,7 +44,6 @@ test('a user can update their account info without updating their password', fun
         'pronouns->value' => 'none',
         'pronouns->subject' => null,
         'pronouns->object' => null,
-        'pronouns->possessive' => null,
     ]);
 
     livewire(MyAccount::class)
@@ -62,7 +60,6 @@ test('a user can update their account info without updating their password', fun
         'pronouns->value' => 'male',
         'pronouns->subject' => 'he',
         'pronouns->object' => 'him',
-        'pronouns->possessive' => 'his',
     ]);
 });
 

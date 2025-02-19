@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Data;
 
+use Bag\Attributes\MapInputName;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
+use Bag\Mappers\Alias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Nova\Users\Models\User;
-use Spatie\LaravelData\Attributes\MapInputName;
 
+/**
+ * @method static static from(string $title, ?string $content)
+ */
 readonly class NoteData extends Bag
 {
     public function __construct(
         public string $title,
 
-        #[MapInputName('editor-content')]
+        #[MapInputName(Alias::class, 'editor-content')]
         public ?string $content
     ) {}
 

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Settings\Providers;
 
 use Nova\DomainServiceProvider;
+use Nova\Settings\Livewire\ContentRatingsSettings;
+use Nova\Settings\Livewire\EmailSettings;
 use Nova\Settings\Livewire\FontSelector;
 use Nova\Settings\Livewire\ManageGlobalReviewers;
 use Nova\Settings\Livewire\NotificationTypesList;
@@ -17,6 +19,8 @@ class SettingsServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
+            'settings-content-ratings' => ContentRatingsSettings::class,
+            'settings-email' => EmailSettings::class,
             'settings-font-selector' => FontSelector::class,
             'settings-notification-types-list' => NotificationTypesList::class,
             'settings-manage-global-reviewers' => ManageGlobalReviewers::class,

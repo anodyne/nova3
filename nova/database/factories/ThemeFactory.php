@@ -9,11 +9,14 @@ use Illuminate\Support\Str;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Themes\Models\Theme;
 
+/**
+ * @extends Factory<Model>
+ */
 class ThemeFactory extends Factory
 {
     protected $model = Theme::class;
 
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->words(mt_rand(1, 3), true);
 
@@ -25,7 +28,7 @@ class ThemeFactory extends Factory
         ];
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,

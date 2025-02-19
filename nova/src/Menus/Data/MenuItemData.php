@@ -11,6 +11,9 @@ use Nova\Foundation\Enums\BasicStatus;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
 
+/**
+ * @method static static from(string $label, ?string $icon, ?string $url, ?int $page_id, ?int $parent_id, LinkType $link_type, LinkTarget $target, BasicStatus $status)
+ */
 readonly class MenuItemData extends Bag
 {
     public function __construct(
@@ -31,8 +34,8 @@ readonly class MenuItemData extends Bag
             'label' => $request->input('label'),
             'icon' => $request->input('icon'),
             'url' => $request->input('url'),
-            'page_id' => $request->input('page_id'),
-            'parent_id' => $request->input('parent_id'),
+            'page_id' => $request->integer('page_id', null),
+            'parent_id' => $request->integer('parent_id', null),
             'link_type' => LinkType::tryFrom($request->input('link_type')) ?? LinkType::Url,
             'target' => LinkTarget::tryFrom($request->input('target')) ?? LinkTarget::Blank,
             'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,

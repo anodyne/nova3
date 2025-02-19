@@ -4,25 +4,32 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Bag\Attributes\MapInputName;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Bag\Mappers\SnakeCase;
+use Illuminate\Http\Request;
+use Nova\Settings\Enums\ServerEnvironment;
 
-#[MapInputName(SnakeCaseMapper::class)]
-class EnvironmentConfiguration extends Data implements Arrayable
+/**
+ * @method static static from(?string $url, ?string $environment, ?int $debugMode)
+ */
+#[MapInputName(SnakeCase::class)]
+readonly class EnvironmentConfiguration extends Bag
 {
     public function __construct(
         public ?string $url,
-        public ?string $environment,
-        public ?int $debugMode
+        public ServerEnvironment $environment,
+        public bool $debugMode
     ) {}
 
-    public function debugMode(): string
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        return match ($this->debugMode) {
-            1 => 'true',
-            default => 'false',
-        };
+        return [
+            'url' => $request->input('url'),
+            'environment' => ServerEnvironment::tryFrom($request->input('environment')) ?? ServerEnvironment::Production,
+            'debugMode' => $request->boolean('debug_mode', false),
+        ];
     }
 }

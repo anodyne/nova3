@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
 
+/**
+ * @method static static from(?int $character_id, ?int $user_id, ?string $ip_address)
+ */
 readonly class ApplicationData extends Bag
 {
     public function __construct(

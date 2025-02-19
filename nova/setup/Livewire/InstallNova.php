@@ -218,9 +218,7 @@ class InstallNova extends Component
             $path = $envWriter->envFilePath();
 
             if (file_exists($path)) {
-                $write = $envWriter->write([
-                    'APP_URL' => url('/'),
-                ]);
+                $write = $envWriter->set('APP_URL', url('/'));
 
                 if (! $write) {
                     throw new Exception('error writing to the ENV file');

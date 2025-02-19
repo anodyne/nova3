@@ -10,5 +10,5 @@ class CreatePostResponse extends Responsable
 {
     public ?string $subnav = 'writing';
 
-    public string $view = 'posts.create';
+    public string $view = 'posts.create-new';
 }

@@ -50,4 +50,8 @@ return [
         'name-duplicated' => '**:name** duplicated the rank name to the new name **:rankName**.',
     ],
 
+    'stories' => [
+        'uploaded-image' => '**:name** uploaded a story image.',
+    ],
+
 ];

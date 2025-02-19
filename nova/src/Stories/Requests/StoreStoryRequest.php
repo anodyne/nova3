@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Nova\Stories\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Nova\Stories\Data\StoryData;
 use Nova\Stories\Data\StoryPositionData;
+use Nova\Stories\Enums\PositionDirection;
 
 class StoreStoryRequest extends FormRequest
 {
@@ -19,7 +21,7 @@ class StoreStoryRequest extends FormRequest
             'ended_at' => ['nullable'],
             'summary' => ['nullable'],
             'parent_id' => ['nullable', 'exists:stories,id'],
-            'display_direction' => ['nullable'],
+            'display_direction' => ['nullable', Rule::enum(PositionDirection::class)],
             'display_neighbor' => ['nullable'],
         ];
     }

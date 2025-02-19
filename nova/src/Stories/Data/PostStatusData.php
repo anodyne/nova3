@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Data;
 
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class PostStatusData extends Data
+/**
+ * @method static static from(string $status)
+ */
+readonly class PostStatusData extends Bag
 {
     public function __construct(
         public string $status

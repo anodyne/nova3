@@ -14,12 +14,12 @@ class RemoveUserAvatar
     public function handle(User $user, bool $remove = false): User
     {
         if ($remove) {
+            $user->clearMediaCollection('avatar');
+
             activity()
                 ->performedOn($user)
                 ->event('removed avatar')
                 ->log('removed avatar');
-
-            $user->clearMediaCollection('avatar');
         }
 
         return $user->refresh();

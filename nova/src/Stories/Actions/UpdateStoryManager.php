@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\UpdateStoryRequest;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class UpdateStoryManager
 {
@@ -14,14 +16,20 @@ class UpdateStoryManager
 
     public function handle(Story $story, UpdateStoryRequest $request): Story
     {
-        $story = UpdateStory::run($story, $request->getStoryData());
+        return DB::transaction(function () use ($story, $request) {
+            LogBatch::startBatch();
 
-        SetStoryPosition::run($story, $request->getStoryPositionData());
+            $story = UpdateStory::run($story, $request->getStoryData());
 
-        UpdateStoryStatus::run($story, $request->status);
+            SetStoryPosition::run($story, $request->getStoryPositionData());
 
-        UploadStoryImages::run($story, $request->image_path);
+            UpdateStoryStatus::run($story, $request->status);
 
-        return $story->refresh();
+            UploadStoryImages::run($story, $request->image_path);
+
+            LogBatch::endBatch();
+
+            return $story->refresh();
+        });
     }
 }

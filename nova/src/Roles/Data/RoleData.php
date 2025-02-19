@@ -11,6 +11,9 @@ use Bag\Bag;
 use Bag\Mappers\SnakeCase;
 use Illuminate\Http\Request;
 
+/**
+ * @method static static from(string $name, string $displayName, ?string $description, bool $isDefault)
+ */
 #[MapInputName(SnakeCase::class)]
 #[MapOutputName(SnakeCase::class)]
 readonly class RoleData extends Bag

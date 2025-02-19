@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
         $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
-        UpdateApplicationReviewers::run(new ApplicationReviewers(
+        UpdateApplicationReviewers::run(ApplicationReviewers::from(
             globalReviewers: [$admin->id],
         ));
         CreateFormSubmission::run($form, $admin);

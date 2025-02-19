@@ -4,24 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Bag;
 use Illuminate\Support\Number;
 use Nova\Settings\Enums\PostingTarget;
 use Nova\Settings\Enums\PostingTimeframe;
-use Spatie\LaravelData\Attributes\Validation\Enum;
-use Spatie\LaravelData\Data;
 
-class PostingActivity extends Data implements Arrayable
+/**
+ * @method static static from(PostingTarget $target, int $requirement, PostingTimeframe $timeframe, ?int $rollingDays)
+ */
+readonly class PostingActivity extends Bag
 {
     public function __construct(
-        #[Enum(PostingTarget::class)]
         public PostingTarget $target,
-
         public int $requirement,
-
-        #[Enum(PostingTimeframe::class)]
         public PostingTimeframe $timeframe,
-
         public ?int $rollingDays
     ) {}
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Actions\UpdateFormSubmission;
@@ -17,27 +18,29 @@ class UpdateUserManager
 
     public function handle(User $user, UpdateUserRequest $request): User
     {
-        LogBatch::startBatch();
+        return DB::transaction(function () use ($user, $request) {
+            LogBatch::startBatch();
 
-        $user = UpdateUser::run($user, $request->getUserData());
+            $user = UpdateUser::run($user, $request->getUserData());
 
-        if (filled($request->assigned_characters)) {
-            $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
-        }
+            if (filled($request->assigned_characters)) {
+                $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
+            }
 
-        if (filled($request->assigned_roles)) {
-            $user = SyncUserRoles::run($user, $request->getUserRolesData());
-        }
+            if (filled($request->assigned_roles)) {
+                $user = SyncUserRoles::run($user, $request->getUserRolesData());
+            }
 
-        UploadUserAvatar::run($user, $request->image_path);
+            UploadUserAvatar::run($user, $request->image_path);
 
-        RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
+            RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
 
-        $this->updateFormSubmission($user, $request->input('userBio', []));
+            $this->updateFormSubmission($user, $request->input('userBio', []));
 
-        LogBatch::endBatch();
+            LogBatch::endBatch();
 
-        return $user->refresh();
+            return $user->refresh();
+        });
     }
 
     protected function updateFormSubmission(User $user, ?array $data = []): void

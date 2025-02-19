@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
@@ -14,7 +15,7 @@ class MyAccount extends Component
 
     public function save(): void
     {
-        $this->authorize('updateAccount', auth()->user());
+        $this->authorize('updateAccount', Auth::user());
 
         $this->form->save();
 
@@ -37,7 +38,7 @@ class MyAccount extends Component
 
     public function mount(): void
     {
-        $this->form->setAccount(auth()->user());
+        $this->form->setAccount(Auth::user());
     }
 
     public function render()

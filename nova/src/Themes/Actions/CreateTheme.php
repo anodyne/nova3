@@ -14,6 +14,6 @@ class CreateTheme
 
     public function handle(ThemeData $data): Theme
     {
-        return Theme::create($data->all());
+        return Theme::create($data->toArray());
     }
 }

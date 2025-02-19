@@ -1,3 +1,5 @@
+@use('Nova\Settings\Enums\ServerEnvironment')
+
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
@@ -16,8 +18,9 @@
                 <x-fieldset.field-group class="w-full max-w-md" x-data="{ environment: '{{ app()->environment() }}' }">
                     <x-fieldset.field label="Environment" id="environment" name="environment">
                         <x-select x-model="environment">
-                            <option value="production">Production</option>
-                            <option value="local">Local</option>
+                            @foreach (ServerEnvironment::cases() as $environment)
+                                <option value="{{ $environment->value }}">{{ $environment->getLabel() }}</option>
+                            @endforeach
                         </x-select>
 
                         <x-slot name="description">
@@ -45,13 +48,7 @@
                                 </x-fieldset.error-message>
                             @endif
                         </x-fieldset.description>
-                        <x-switch
-                            id="debug_mode"
-                            name="debug_mode"
-                            :on-value="1"
-                            :off-value="0"
-                            :value="(int) config('app.debug')"
-                        ></x-switch>
+                        <x-switch id="debug_mode" name="debug_mode" :value="(bool) config('app.debug')"></x-switch>
                     </x-switch.field>
 
                     <x-fieldset.field

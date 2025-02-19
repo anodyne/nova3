@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class Discord extends Data implements Arrayable
+/**
+ * @method static static from(?string $color, ?string $webhook)
+ */
+readonly class Discord extends Bag
 {
     public function __construct(
         public ?string $color,

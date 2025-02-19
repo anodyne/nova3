@@ -7,6 +7,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 use Nova\Characters\Models\Character;
+use Nova\Stories\Enums\ContentRatingValue;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\States\PostStatus\Draft;
@@ -53,11 +54,11 @@ class PostFactory extends Factory
 
             'word_count' => fn (array $attributes) => str_word_count(strip_tags($attributes['content'])),
 
-            'rating_language' => fn () => mt_rand(0, 3),
+            'rating_language' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
 
-            'rating_sex' => fn () => mt_rand(0, 3),
+            'rating_sex' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
 
-            'rating_violence' => fn () => mt_rand(0, 3),
+            'rating_violence' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
         ];
     }
 

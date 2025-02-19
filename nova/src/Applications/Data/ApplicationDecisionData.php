@@ -7,6 +7,9 @@ namespace Nova\Applications\Data;
 use Bag\Bag;
 use Nova\Ranks\Models\RankItem;
 
+/**
+ * @method static static from(?string $message, ?int $rank_id, array $positions)
+ */
 readonly class ApplicationDecisionData extends Bag
 {
     public function __construct(

@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Attributes\MapInputName;
+use Bag\Bag;
+use Bag\Mappers\SnakeCase;
 use Nova\Settings\Data\FontFamilies;
 use Spatie\Color\Contrast;
 use Spatie\Color\Hex;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
-#[MapInputName(SnakeCaseMapper::class)]
-class ThemeSettings extends Data implements Arrayable
+/**
+ * @method static static from(FontFamilies $fonts, array $settings)
+ */
+#[MapInputName(SnakeCase::class)]
+readonly class ThemeSettings extends Bag
 {
     public function __construct(
         public FontFamilies $fonts,

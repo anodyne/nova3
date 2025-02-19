@@ -17,6 +17,11 @@ class UpdateAppearance
     {
         if ($data->imagePath !== null) {
             settings()->addMedia($data->imagePath)->toMediaCollection('logo');
+
+            activity()
+                ->performedOn(settings())
+                ->event('uploaded image')
+                ->log('uploaded image');
         }
 
         return settings()->refresh();

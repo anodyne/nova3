@@ -9,6 +9,9 @@ use Bag\Bag;
 use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
+/**
+ * @method static static from(string $name, ?string $description, array $tags, BasicStatus $status)
+ */
 readonly class DepartmentData extends Bag
 {
     public function __construct(

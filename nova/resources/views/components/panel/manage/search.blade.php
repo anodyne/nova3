@@ -6,7 +6,7 @@
 <x-spacing size="2xs">
     <div class="relative">
         <div
-            class="group relative flex w-full items-center gap-x-2 rounded-lg bg-gray-950/[.02] px-3 py-2 ring-1 ring-inset ring-gray-950/5 dark:bg-white/[.04] dark:ring-white/5"
+            class="group relative flex w-full items-center gap-x-2 rounded-lg bg-gray-950/[.02] px-4 py-2 ring-1 ring-inset ring-gray-950/5 dark:bg-white/[.04] dark:ring-white/5"
         >
             <div
                 class="shrink-0 text-gray-400 group-focus-within:text-gray-600 dark:text-gray-600 dark:group-focus-within:text-gray-400"

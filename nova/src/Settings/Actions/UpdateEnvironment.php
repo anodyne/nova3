@@ -19,15 +19,15 @@ class UpdateEnvironment
         $envWriter = app(EnvWriter::class);
 
         if ($envWriter->isEnvWritable()) {
-            $envConfigData = EnvironmentConfiguration::from($request);
+            $data = EnvironmentConfiguration::from($request);
 
             $path = $envWriter->envFilePath();
 
             if (file_exists($path)) {
-                $write = $envWriter->write([
-                    'APP_ENV' => $envConfigData->environment,
-                    'APP_DEBUG' => $envConfigData->debugMode(),
-                    'APP_URL' => $envConfigData->url,
+                $write = $envWriter->set([
+                    'APP_ENV' => $data->environment->value,
+                    'APP_DEBUG' => $data->debugMode,
+                    'APP_URL' => $data->url,
                 ]);
 
                 if (! $write) {

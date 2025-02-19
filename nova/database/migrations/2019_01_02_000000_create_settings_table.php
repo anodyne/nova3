@@ -17,7 +17,6 @@ class CreateSettingsTable extends Migration
             $table->json('email')->nullable();
             $table->json('appearance')->nullable();
             $table->json('characters')->nullable();
-            $table->json('meta_tags')->nullable();
             $table->json('discord')->nullable();
             $table->json('posting_activity')->nullable();
             $table->json('ratings')->nullable();

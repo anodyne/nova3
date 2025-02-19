@@ -62,7 +62,6 @@ class ThemeController extends Controller
     {
         $theme = UpdateTheme::run($theme, $request->getThemeData());
 
-        return to_route('admin.themes.edit', $theme)
-            ->notify("{$theme->name} theme was updated");
+        return back()->notify("{$theme->name} theme was updated");
     }
 }

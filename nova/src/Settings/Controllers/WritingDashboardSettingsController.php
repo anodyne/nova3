@@ -34,7 +34,6 @@ class WritingDashboardSettingsController extends Controller
 
         UpdateSettings::run('writing_dashboard', WritingDashboard::from($request));
 
-        return to_route('admin.settings.writing-dashboard.edit')
-            ->notify('Writing dashboard settings have been updated');
+        return back()->notify('Writing dashboard settings have been updated');
     }
 }

@@ -17,19 +17,19 @@ use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Foundation\Helpers\TimeHelper;
 use Nova\Foundation\Models\Model;
-use Nova\Stories\Data\PostData;
+use Nova\Stories\Enums\ContentRatingValue;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\States\PostStatus;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\EloquentSortable\Sortable;
-use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Post extends Model implements Sortable
 {
+    use Concerns\HasContentRatings;
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
@@ -38,7 +38,6 @@ class Post extends Model implements Sortable
     }
     use Searchable;
     use SortableTrait;
-    use WithData;
 
     protected $table = 'posts';
 
@@ -56,9 +55,9 @@ class Post extends Model implements Sortable
         'locked_by' => 'integer',
         'participants' => 'array',
         'published_at' => 'datetime',
-        'rating_language' => 'integer',
-        'rating_sex' => 'integer',
-        'rating_violence' => 'integer',
+        'rating_language' => ContentRatingValue::class,
+        'rating_sex' => ContentRatingValue::class,
+        'rating_violence' => ContentRatingValue::class,
         'status' => PostStatus\PostStatus::class,
         'word_count' => 'integer',
     ];
@@ -71,8 +70,6 @@ class Post extends Model implements Sortable
         'saving' => Events\PostSaving::class,
         'updated' => Events\PostUpdated::class,
     ];
-
-    protected $dataClass = PostData::class;
 
     public $sortable = [
         'order_column_name' => 'order_column',
@@ -162,19 +159,6 @@ class Post extends Model implements Sortable
         );
     }
 
-    public function showContentWarning(): Attribute
-    {
-        return Attribute::make(
-            get: function (): bool {
-                $settings = settings('ratings');
-
-                return (filled($settings->sex->warning_threshold) && $this->rating_sex >= settings('ratings.sex.warning_threshold')) ||
-                    (filled($settings->language->warning_threshold) && $this->rating_language >= settings('ratings.language.warning_threshold')) ||
-                    (filled($settings->violence->warning_threshold) && $this->rating_violence >= settings('ratings.violence.warning_threshold'));
-            }
-        );
-    }
-
     public function timeline(): Attribute
     {
         return Attribute::make(
@@ -247,18 +231,16 @@ class Post extends Model implements Sortable
             ->delete();
     }
 
-    public function shouldShowContentWarning(): bool
-    {
-        return $this->rating_language >= 2
-            || $this->rating_sex >= 2
-            || $this->rating_violence >= 2;
-    }
-
     public function buildSortQuery(): Builder
     {
         return static::query()
             ->story($this->story)
             ->whereNotState('status', PostStatus\Started::class);
+    }
+
+    public function shouldSortWhenCreating(): bool
+    {
+        return true;
     }
 
     public function nextSibling($status = null, array $types = []): ?self

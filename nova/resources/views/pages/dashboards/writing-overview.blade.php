@@ -166,6 +166,7 @@
             <div
                 @class([
                     'col-span-3' => settings('writing_dashboard.leaderboard.enabled'),
+                    'col-span-5' => ! settings('writing_dashboard.leaderboard.enabled'),
                 ])
             >
                 <x-panel variant="well">
@@ -198,13 +199,13 @@
                                         </div>
 
                                         <div class="flex flex-col gap-y-1">
-                                            <div class="flex items-center gap-x-2">
+                                            <div class="flex items-center gap-x-3 truncate">
                                                 <x-text>
                                                     <x-text.strong>{{ $draft->title }}</x-text.strong>
                                                 </x-text>
 
                                                 @if ($draft->needs_attention)
-                                                    <x-badge color="warning">Attention needed</x-badge>
+                                                    <x-badge color="warning" class="shrink-0">Attention needed</x-badge>
                                                 @endif
                                             </div>
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Settings\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Nova\Applications\Models\ApplicationReviewer;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
@@ -36,11 +37,12 @@ class ApplicationSettingsController extends Controller
     {
         $this->authorize('update', settings());
 
-        UpdateSettings::run('applications', Applications::from($request));
+        DB::transaction(function () use ($request) {
+            UpdateSettings::run('applications', Applications::from($request));
 
-        UpdateApplicationReviewers::run(ApplicationReviewers::from($request));
+            UpdateApplicationReviewers::run(ApplicationReviewers::from($request));
+        });
 
-        return to_route('admin.settings.applications.edit')
-            ->notify('Applications settings have been updated');
+        return back()->notify('Applications settings have been updated');
     }
 }

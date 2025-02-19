@@ -13,9 +13,6 @@ class RecordLoginTime implements ShouldQueue
 
     public function handle($event)
     {
-        $event->user->logins()->create([
-            'ip_address' => request()->ip(),
-            'created_at' => now(),
-        ]);
+        $event->user->recordLogin(request()->ip());
     }
 }

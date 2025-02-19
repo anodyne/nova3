@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Settings\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Settings\Actions\UpdateAppearance;
 use Nova\Settings\Actions\UpdateSettings;
@@ -35,11 +36,12 @@ class AppearanceSettingsController extends Controller
     {
         $this->authorize('update', settings());
 
-        UpdateSettings::run('appearance', $data = Appearance::from($request));
+        DB::transaction(function () use ($request) {
+            UpdateSettings::run('appearance', $data = Appearance::from($request));
 
-        UpdateAppearance::run($data, $request);
+            UpdateAppearance::run($data, $request);
+        });
 
-        return to_route('admin.settings.appearance.edit')
-            ->notify('Appearance settings have been updated');
+        return back()->notify('Appearance settings have been updated');
     }
 }

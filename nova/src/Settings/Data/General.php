@@ -4,38 +4,34 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Attributes\MapInputName;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Bag\Mappers\SnakeCase;
 use Illuminate\Http\Request;
-use Nova\Foundation\Rules\Boolean;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-class General extends Data implements Arrayable
+/**
+ * @method static static from(string $gameName, bool $contactFormEnabled, ?string $contactFormDisabledMessage)
+ */
+readonly class General extends Bag
 {
     public function __construct(
-        #[MapInputName('game_name')]
+        #[MapInputName(SnakeCase::class)]
         public string $gameName,
 
         public bool $contactFormEnabled,
 
-        #[MapInputName('contact_form_disabled_message')]
+        #[MapInputName(SnakeCase::class)]
         public ?string $contactFormDisabledMessage
     ) {}
 
-    public static function rules(ValidationContext $context): array
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
         return [
-            'contactFormEnabled' => new Boolean,
+            'gameName' => $request->input('game_name'),
+            'contactFormEnabled' => $request->boolean('contactFormEnabled', true),
+            'contactFormDisabledMessage' => $request->input('contact_form_disabled_message'),
         ];
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            gameName: $request->input('game_name'),
-            contactFormEnabled: $request->boolean('contactFormEnabled', true),
-            contactFormDisabledMessage: $request->input('contact_form_disabled_message')
-        );
     }
 }

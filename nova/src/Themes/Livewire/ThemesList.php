@@ -65,8 +65,11 @@ class ThemesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Theme $record): string => route('admin.themes.edit', $record)),
-                        TimelineAction::make(),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('goToUpdate')

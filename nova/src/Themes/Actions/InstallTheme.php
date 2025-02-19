@@ -33,7 +33,7 @@ class InstallTheme
             settings: data_get($data, 'settings.settings', [])
         );
 
-        $data = new ThemeData(
+        $data = ThemeData::from(
             name: data_get($data, 'name'),
             location: data_get($data, 'location'),
             version: data_get($data, 'version'),

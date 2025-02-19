@@ -30,7 +30,6 @@ use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
-use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
@@ -45,7 +44,6 @@ class Character extends Model implements HasMedia
     use LogsActivity;
     use Searchable;
     use SoftDeletes;
-    use WithData;
 
     protected $casts = [
         'status' => CharacterStatus::class,

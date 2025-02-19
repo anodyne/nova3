@@ -4,36 +4,26 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Spatie\LaravelData\Data;
+use Bag\Bag;
+use Nova\Stories\Enums\ContentRatingValue;
 
-class ContentRating extends Data implements Arrayable
+/**
+ * @method static static from(ContentRatingValue $rating, ?string $description0, ?string $description1, ?string $description2, ?string $description3, ContentRatingValue $warningThreshold, ?string $warningThresholdMessage)
+ */
+readonly class ContentRating extends Bag
 {
     public function __construct(
-        public int $rating,
-        public ?string $description_0,
-        public ?string $description_1,
-        public ?string $description_2,
-        public ?string $description_3,
-        public ?int $warning_threshold,
-        public ?string $warning_threshold_message,
+        public ContentRatingValue $rating,
+        public ?string $description0,
+        public ?string $description1,
+        public ?string $description2,
+        public ?string $description3,
+        public ContentRatingValue $warningThreshold,
+        public ?string $warningThresholdMessage,
     ) {}
-
-    public static function fromArray(array $data): static
-    {
-        return new self(
-            rating: filter_var(data_get($data, 'rating', 1), FILTER_VALIDATE_INT),
-            description_0: data_get($data, 'description_0', ''),
-            description_1: data_get($data, 'description_1', ''),
-            description_2: data_get($data, 'description_2', ''),
-            description_3: data_get($data, 'description_3', ''),
-            warning_threshold: filter_var(data_get($data, 'warning_threshold'), FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
-            warning_threshold_message: data_get($data, 'warning_threshold_message', ''),
-        );
-    }
 
     public function getDescription(): ?string
     {
-        return $this->{"description_{$this->rating}"};
+        return $this->{"description{$this->rating->value}"};
     }
 }

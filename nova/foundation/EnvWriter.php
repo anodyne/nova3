@@ -7,7 +7,6 @@ namespace Nova\Foundation;
 use Dotenv\Dotenv;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\File;
 
 class EnvWriter
 {
@@ -49,7 +48,16 @@ class EnvWriter
         DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 
-    public function write(array $keys = []): bool
+    public function set(string|array $key, mixed $value = null): bool
+    {
+        if (is_array($key)) {
+            return $this->writeMultipleLines($key);
+        }
+
+        return $this->writeLine($key, $value);
+    }
+
+    public function writeMultipleLines(array $keys = []): bool
     {
         foreach ($keys as $key => $value) {
             if ($this->writeLine($key, $value) === false) {
@@ -60,46 +68,78 @@ class EnvWriter
         return true;
     }
 
-    public function writeLine(string $key, ?string $value): bool
+    public function writeLine(string $key, mixed $value): bool
     {
-        $value = match (true) {
-            filter_var($value, FILTER_VALIDATE_INT) !== false => $value,
-            filter_var($value, FILTER_VALIDATE_BOOLEAN) !== false => $value,
-            filter_var($value, FILTER_VALIDATE_IP) !== false => $value,
-            filter_var($value, FILTER_VALIDATE_URL) !== false => $value,
-            blank($value) => $value,
-            default => "\"{$value}\"",
-        };
+        $env = $this->envFileContents;
 
-        $newValue = "{$key}={$value}";
+        $formattedValue = $this->formatValue($value);
 
-        if ($this->lineExists($key)) {
-            $replacedLine = str($this->envFileContents)->replaceMatches("/^$key=.*$/m", $newValue);
+        $pattern = "/^{$key}=.*/m";
 
-            File::put($this->envFilePath(), $replacedLine);
+        if (preg_match($pattern, $env)) {
+            $env = preg_replace($pattern, "{$key}={$formattedValue}", $env);
         } else {
-            // If the last line isn't a new line, add one before the value
-            if (! str($this->envFileContents)->isMatch("/\n$/")) {
-                $newValue = "\n$newValue";
-            }
-
-            File::append($this->envFilePath(), $newValue);
+            $env .= PHP_EOL."{$key}={$formattedValue}";
         }
+
+        $writeOperation = file_put_contents($this->envFilePath(), trim($env).PHP_EOL) !== false;
 
         $this->loadEnvContent();
 
-        return true;
+        return $writeOperation;
     }
 
-    public function lineExists(string $key): bool
+    protected function formatValue(mixed $value): string
     {
-        return str($this->envFileContents)->isMatch("/^$key=/m");
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        if (is_numeric($value)) {
+            return (string) $value;
+        }
+
+        if ($this->isIpAddress($value) || $this->isUrl($value)) {
+            return $value;
+        }
+
+        if ($this->isBase64String($value)) {
+            return $value;
+        }
+
+        if ($this->isSimpleString($value)) {
+            return $value;
+        }
+
+        $escapedValue = str_replace('"', '\"', $value);
+
+        return '"'.$escapedValue.'"';
+    }
+
+    protected function isIpAddress(string $value): bool
+    {
+        return filter_var($value, FILTER_VALIDATE_IP) !== false;
+    }
+
+    protected function isUrl(string $value): bool
+    {
+        return filter_var($value, FILTER_VALIDATE_URL) !== false;
+    }
+
+    protected function isSimpleString(string $value): bool
+    {
+        return (bool) preg_match('/^[a-zA-Z0-9_-]+$/', $value);
+    }
+
+    protected function isBase64String(string $value): bool
+    {
+        return (bool) preg_match('/^base64:[A-Za-z0-9+\/=]+$/', $value);
     }
 
     protected function loadEnvContent()
     {
         $this->isEnvWritable();
 
-        $this->envFileContents = File::get($this->envFilePath());
+        $this->envFileContents = file_get_contents($this->envFilePath());
     }
 }

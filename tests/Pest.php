@@ -24,6 +24,8 @@ pest()->extend(Tests\TestCase::class)
         $this->freezeTime();
     });
 
+pest()->extend(Tests\TestCase::class)->in('Unit');
+
 /*
 |--------------------------------------------------------------------------
 | Expectations

@@ -4,44 +4,32 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
 use Illuminate\Http\Request;
-use Nova\Foundation\Rules\Boolean;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-class Applications extends Data implements Arrayable
+/**
+ * @method static static from(bool $enabled, ?string $disabledMessage, bool $alwaysShowResults, bool $allowVoteChanging, bool $showDecisionMessage)
+ */
+readonly class Applications extends Bag
 {
     public function __construct(
         public bool $enabled,
-
-        #[MapInputName('disabled_message')]
         public ?string $disabledMessage,
-
         public bool $alwaysShowResults,
         public bool $allowVoteChanging,
         public bool $showDecisionMessage
     ) {}
 
-    public static function rules(ValidationContext $context): array
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
         return [
-            'enabled' => new Boolean,
-            'alwaysShowResults' => new Boolean,
-            'allowVoteChanging' => new Boolean,
-            'showDecisionMessage' => new Boolean,
+            'enabled' => $request->boolean('enabled', true),
+            'disabledMessage' => $request->input('disabled_message'),
+            'alwaysShowResults' => $request->boolean('alwaysShowResults', false),
+            'allowVoteChanging' => $request->boolean('allowVoteChanging', false),
+            'showDecisionMessage' => $request->boolean('showDecisionMessage', true),
         ];
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            enabled: $request->boolean('enabled', true),
-            disabledMessage: $request->input('disabled_message'),
-            alwaysShowResults: $request->boolean('alwaysShowResults', false),
-            allowVoteChanging: $request->boolean('allowVoteChanging', false),
-            showDecisionMessage: $request->boolean('showDecisionMessage', true)
-        );
     }
 }

@@ -6,26 +6,14 @@ namespace Nova\Foundation\Livewire;
 
 use Livewire\Attributes\Modelable;
 use Livewire\Component;
+use Nova\Stories\Enums\ContentRatingValue;
 
 class Rating extends Component
 {
     #[Modelable]
-    public int $value = 0;
+    public ContentRatingValue $value = ContentRatingValue::Level0;
 
     public string $area = '';
-
-    // public function setRating(int $value): void
-    // {
-    //     if (! $this->static) {
-    //         $this->value = $value;
-
-    //         $this->dispatch(
-    //             'ratingUpdated',
-    //             rating: $this->rating,
-    //             type: $this->type
-    //         );
-    //     }
-    // }
 
     public function render()
     {

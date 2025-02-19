@@ -8,6 +8,9 @@ use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
 
+/**
+ * @method static static from(?array $positions)
+ */
 readonly class AssignCharacterPositionsData extends Bag
 {
     public function __construct(

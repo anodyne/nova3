@@ -21,7 +21,7 @@ trait InteractsWithEnvFile
                 $keyPrefix = $this->isMigrating ? 'DB_NOVA2_' : 'DB_';
                 $connection = $this->isMigrating ? 'nova2' : 'mysql';
 
-                $write = $envWriter->write([
+                $write = $envWriter->set([
                     $keyPrefix.'HOST' => $this->host,
                     $keyPrefix.'PORT' => $this->port,
                     $keyPrefix.'DATABASE' => $this->database,

@@ -9,6 +9,9 @@ use Bag\Bag;
 use Illuminate\Http\Request;
 use Nova\Stories\Enums\PostEditTimeframe;
 
+/**
+ * @method static static from(bool $notifiesUsers, bool $includedInPostTracking, bool $allowsMultipleAuthors, bool $allowsCharacterAuthors, bool $allowsUserAuthors, bool $showContentInTimelineView, PostEditTimeframe $editTimeframe)
+ */
 readonly class Options extends Bag
 {
     public function __construct(

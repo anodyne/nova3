@@ -6,6 +6,9 @@ namespace Nova\Pages\Data;
 
 use Bag\Bag;
 
+/**
+ * @method static static from(array $blocks)
+ */
 readonly class PageBlocksData extends Bag
 {
     public function __construct(

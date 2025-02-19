@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Users\Responses\EditAccountResponse;
@@ -20,7 +21,7 @@ class EditAccountController extends Controller
     public function __invoke(): Responsable
     {
         return EditAccountResponse::sendWith([
-            'user' => auth()->user(),
+            'user' => Auth::user(),
         ]);
     }
 }

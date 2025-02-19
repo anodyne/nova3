@@ -16,17 +16,16 @@ use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
-use Nova\Stories\Data\StoryData;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\States\StoryStatus;
 use Spatie\Activitylog\LogOptions;
 use Spatie\EloquentSortable\Sortable;
-use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
 
 class Story extends Model implements HasMedia, Sortable
 {
@@ -40,7 +39,6 @@ class Story extends Model implements HasMedia, Sortable
     }
     use Searchable;
     use SortableTrait;
-    use WithData;
 
     protected $table = 'stories';
 
@@ -51,8 +49,8 @@ class Story extends Model implements HasMedia, Sortable
 
     protected $casts = [
         'ended_at' => DateTimeCast::class,
-        'parent_id' => 'integer',
         'order_column' => 'integer',
+        'parent_id' => 'integer',
         'started_at' => DateTimeCast::class,
         'status' => StoryStatus\StoryStatus::class,
     ];
@@ -62,8 +60,6 @@ class Story extends Model implements HasMedia, Sortable
         'deleted' => Events\StoryDeleted::class,
         'updated' => Events\StoryUpdated::class,
     ];
-
-    protected $dataClass = StoryData::class;
 
     public function allPosts(): HasMany
     {
@@ -82,16 +78,11 @@ class Story extends Model implements HasMedia, Sortable
             ->ordered();
     }
 
-    public function recursivePosts()
+    public function recursivePosts(): HasManyOfDescendants
     {
         return $this->hasManyOfDescendantsAndSelf(Post::class)
             ->published()
             ->ordered();
-    }
-
-    public function stories(): HasMany
-    {
-        return $this->hasMany(self::class, 'parent_id');
     }
 
     public function recursiveStories(): HasMany
@@ -99,17 +90,22 @@ class Story extends Model implements HasMedia, Sortable
         return $this->stories()->with('recursiveStories');
     }
 
-    public function hasSummary(): Attribute
+    public function stories(): HasMany
     {
-        return new Attribute(
-            get: fn (): bool => $this->summary && filled(strip_tags($this->summary))
-        );
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     public function canPost(): Attribute
     {
         return new Attribute(
             get: fn (): bool => $this->status->equals(StoryStatus\Current::class)
+        );
+    }
+
+    public function hasSummary(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->summary && filled(strip_tags($this->summary))
         );
     }
 
@@ -190,7 +186,7 @@ class Story extends Model implements HasMedia, Sortable
         return $this->getSibling('previous');
     }
 
-    protected function getSibling($direction)
+    protected function getSibling($direction): self
     {
         $query = self::query()->parent($this->parent_id);
 
@@ -203,7 +199,7 @@ class Story extends Model implements HasMedia, Sortable
 
     public static function getMediaPath(): string
     {
-        return '{model_id}/{media_id}/';
+        return '{model_id}/';
     }
 
     public static function getStatuses(): Collection
@@ -218,10 +214,10 @@ class Story extends Model implements HasMedia, Sortable
     public function toSearchableArray(): array
     {
         return [
+            'description' => $this->description,
             'id' => $this->id,
             'prefixed_id' => $this->prefixed_id,
             'title' => $this->title,
-            'description' => $this->description,
         ];
     }
 }
