@@ -36,6 +36,11 @@ class AdminLayout extends Component
         return once(fn () => Auth::user()->unread_messages_count);
     }
 
+    public function unreadNotificationsCount(): int
+    {
+        return once(fn () => Auth::user()->unreadNotifications()->count());
+    }
+
     public function render()
     {
         return view('layouts.admin');

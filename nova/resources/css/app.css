@@ -1,6 +1,7 @@
 @import "../../../vendor/filament/forms/dist/index.css";
 @import "../../../vendor/awcodes/scribble/resources/css/editor.css";
 @import "../../../vendor/awcodes/scribble/resources/css/entry.css";
+@import "../../../vendor/wire-elements/pro/resources/css/tailwind/overlay-component.css";
 
 @import "tailwindcss/base";
 
@@ -8,6 +9,7 @@
 
 @import "components/form.css";
 @import "components/icon.css";
+@import "components/modal.css";
 
 @import "plugins/tagify.css";
 @import "plugins/tippy.css";

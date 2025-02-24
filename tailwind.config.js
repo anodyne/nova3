@@ -42,6 +42,8 @@ module.exports = {
         './vendor/livewire/flux/stubs/**/*.blade.php',
         './vendor/ralphjsmit/laravel-filament-activitylog/resources/**/*.blade.php',
         './storage/framework/views/*.php',
+        './vendor/wire-elements/pro/config/wire-elements-pro.php',
+        './vendor/wire-elements/pro/**/*.blade.php',
     ],
     safelist: [
         'max-w-none',

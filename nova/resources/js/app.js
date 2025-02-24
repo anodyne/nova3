@@ -1,4 +1,5 @@
 import axios from 'axios';
+import '../../../vendor/wire-elements/pro/resources/js/overlay-component';
 
 import Clipboard from '@ryangjchandler/alpine-clipboard';
 import ColorPicker from './components/color-picker';
