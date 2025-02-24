@@ -41,6 +41,8 @@ class DatabaseSeeder extends Seeder
             DiscussionSeeder::class,
 
             AnnouncementSeeder::class,
+
+            ChangelogSeeder::class,
         ]);
 
         activity()->enableLogging();
