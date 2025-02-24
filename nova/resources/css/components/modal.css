@@ -3,7 +3,7 @@
 }
 
 .wep-slide-over-container-inner-content {
-    @apply rounded-xl py-0 shadow-xl ring-1 ring-gray-950/5;
+    @apply rounded-xl bg-white py-0 shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-950;
 }
 
 .wep-modal-content {
