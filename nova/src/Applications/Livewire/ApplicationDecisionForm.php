@@ -58,6 +58,7 @@ class ApplicationDecisionForm extends Form
     {
         $this->application = $application;
 
+        $this->rankId = $application->character->rank_id;
         $this->positions = $application->character->positions()->pluck('positions.id')->toArray();
     }
 }
