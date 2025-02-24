@@ -134,17 +134,19 @@
                     @endif
                 </div>
 
-                <x-panel variant="well">
-                    <x-panel.header title="Debug"></x-panel.header>
+                @env('local')
+                    <x-panel variant="well">
+                        <x-panel.header title="Debug"></x-panel.header>
 
-                    <x-panel>
-                        <x-spacing size="md">
-                            <pre
-                                class="rounded-lg bg-gray-100 p-4 font-mono text-sm"
-                            >@json($this, JSON_PRETTY_PRINT)</pre>
-                        </x-spacing>
+                        <x-panel>
+                            <x-spacing size="md">
+                                <pre
+                                    class="rounded-lg bg-gray-100 p-4 font-mono text-sm"
+                                >@json($this, JSON_PRETTY_PRINT)</pre>
+                            </x-spacing>
+                        </x-panel>
                     </x-panel>
-                </x-panel>
+                @endenv
             </div>
 
             <div>
