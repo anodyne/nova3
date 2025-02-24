@@ -1,3 +1,5 @@
+@use('Nova\Foundation\Enums\ReleaseSeverity')
+
 <ul role="list" class="space-y-6" x-data>
     @forelse ($versionHistory as $version)
         <li class="relative flex gap-x-4">
@@ -9,32 +11,44 @@
             >
                 <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
             </div>
-            <div class="relative flex h-6 w-14 flex-none items-center justify-center bg-white dark:bg-gray-800">
-                @if (str($version->version)->endsWith('.0'))
-                    <div
-                        class="rounded-full bg-gray-950 px-2.5 text-xs/6 font-medium text-white dark:bg-white dark:text-gray-950"
-                    >
-                        {{ $version->series }}
-                    </div>
-                @else
-                    @if ($loop->first || $loop->last)
+
+            <flux:tooltip
+                :content="($loop->first || $loop->last || str($version->version)->endsWith('.0')) ? null : $version->version"
+                position="top"
+            >
+                <div class="relative flex h-6 w-14 flex-none items-center justify-center bg-white dark:bg-gray-800">
+                    @if (str($version->version)->endsWith('.0'))
                         <div
-                            class="rounded-full bg-gray-100 px-2.5 text-xs/6 font-medium text-gray-600 ring-1 ring-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:ring-gray-500"
+                            class="rounded-lg bg-gray-950 px-2.5 text-xs/6 font-medium text-white dark:bg-white dark:text-gray-950"
                         >
-                            {{ $version->version }}
+                            {{ $version->series }}
                         </div>
                     @else
-                        <div
-                            class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-gray-700 dark:ring-gray-500"
-                            x-tooltip.raw="{{ $version->version }}"
-                        ></div>
+                        @if ($loop->first || $loop->last)
+                            <div
+                                class="rounded-lg bg-gray-100 px-2.5 text-xs/6 font-medium text-gray-600 ring-1 ring-gray-300 dark:bg-gray-700 dark:text-gray-400 dark:ring-gray-500"
+                            >
+                                {{ $version->version }}
+                            </div>
+                        @else
+                            <div
+                                class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-gray-700 dark:ring-gray-500"
+                            ></div>
+                        @endif
                     @endif
-                @endif
-            </div>
-            <div class="flex-auto space-y-2 py-0.5">
-                <div class="prose prose-sm dark:prose-invert">
-                    {!! str($version->description)->markdown() !!}
                 </div>
+            </flux:tooltip>
+
+            <div class="flex-auto space-y-2 py-0.5">
+                @if ($version->severity !== ReleaseSeverity::Dependency)
+                    <div class="prose prose-sm dark:prose-invert">
+                        {!! str($version->description)->markdown() !!}
+                    </div>
+                @else
+                    <div class="text-sm/6 italic text-gray-500">
+                        This is a external dependency update that does not include any code changes.
+                    </div>
+                @endif
 
                 <div class="flex gap-2">
                     @if (version_compare($version->version, $filesVersion, '==') && version_compare($version->version, $databaseVersion, '=='))
