@@ -30,23 +30,23 @@
     </div>
     <div class="flex items-center justify-end">
         @if ($isRunning)
-            <x-icon name="tabler-rotate-dot" class="animate-reverse-spin text-gray-600" size="xl"></x-icon>
+            <x-icon name="update" class="animate-reverse-spin text-gray-600" size="xl"></x-icon>
         @else
             @if ($shouldMigrate)
                 @if ($isFinished)
                     @if ($wasSuccessfullyMigrated)
-                        <x-icon name="tabler-circle-check" class="text-primary-500" size="xl"></x-icon>
+                        <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
                     @else
-                        <x-icon name="tabler-circle-x" class="text-danger-500" size="xl"></x-icon>
+                        <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
                     @endif
                 @else
-                    <x-icon name="tabler-circle-dashed" class="text-gray-400" size="xl"></x-icon>
+                    <x-icon name="circle-dashed" class="text-gray-400" size="xl"></x-icon>
                 @endif
             @else
                 @if ($wasSuccessfullyMigrated)
-                    <x-icon name="tabler-circle-check" class="text-primary-500" size="xl"></x-icon>
+                    <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
                 @else
-                    <x-icon name="tabler-forbid-2" class="text-gray-400" size="xl"></x-icon>
+                    <x-icon name="forbid" class="text-gray-400" size="xl"></x-icon>
                 @endif
             @endif
         @endif

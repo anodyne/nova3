@@ -3,15 +3,15 @@
         <div class="flex justify-between gap-6">
             <div class="flex items-center gap-4">
                 <div class="shrink-0">
-                    <x-icon name="tabler-puzzle" class="text-gray-500" size="xl"></x-icon>
+                    <x-icon name="puzzle" class="text-gray-500" size="xl"></x-icon>
                 </div>
                 <x-h3 class="flex-1">Required PHP extensions</x-h3>
             </div>
             <div class="flex justify-end">
                 @if ($e->extensions->passes())
-                    <x-icon name="tabler-circle-check" class="text-primary-500" size="xl"></x-icon>
+                    <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
                 @else
-                    <x-icon name="tabler-circle-x" class="text-danger-500" size="xl"></x-icon>
+                    <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
                 @endif
             </div>
         </div>
@@ -48,7 +48,7 @@
                         </dt>
                         <dd class="ml-6 flex shrink-0 items-center">
                             <x-icon
-                                :name="in_array($extension['key'], $e->extensions->loaded) ? 'tabler-circle-check' : 'tabler-circle-x'"
+                                :name="in_array($extension['key'], $e->extensions->loaded) ? 'check-circle' : 'x-circle'"
                                 @class([
                                     'text-success-500' => in_array($extension['key'], $e->extensions->loaded),
                                     'text-danger-500' => ! in_array($extension['key'], $e->extensions->loaded),

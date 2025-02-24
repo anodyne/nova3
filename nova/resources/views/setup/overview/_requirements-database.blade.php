@@ -10,7 +10,7 @@
     <div class="flex justify-between gap-6">
         <div class="flex items-center gap-4">
             <div class="shrink-0">
-                <x-icon name="tabler-database" class="text-gray-500" size="xl"></x-icon>
+                <x-icon name="database" class="text-gray-500" size="xl"></x-icon>
             </div>
             <x-h3 class="flex-1">MySQL 8.0+ or MariaDB 10.0+</x-h3>
         </div>
@@ -18,9 +18,9 @@
         @if ($canVerifyDatabase)
             <div class="flex justify-end">
                 @if ($e->database->passes())
-                    <x-icon name="tabler-circle-check" class="text-primary-500" size="xl"></x-icon>
+                    <x-icon name="circle-check" class="text-primary-500" size="xl"></x-icon>
                 @else
-                    <x-icon name="tabler-circle-x" class="text-danger-500" size="xl"></x-icon>
+                    <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
                 @endif
             </div>
         @endif

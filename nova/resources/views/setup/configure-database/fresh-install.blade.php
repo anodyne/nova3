@@ -30,7 +30,7 @@
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
-                <x-panel.danger title="Error connecting to your database" icon="tabler-alert-circle">
+                <x-panel.danger title="Error connecting to your database" icon="alert-circle">
                     {{ $errorMessage }}
                 </x-panel.danger>
             @endif
@@ -83,7 +83,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="tabler-database-cog"></x-icon>
+                    <x-icon name="database-settings"></x-icon>
                     <x-fieldset.legend>Advanced settings</x-fieldset.legend>
                     <x-fieldset.description>
                         In most cases you won’t need to change these values unless your web host has provided you
@@ -154,7 +154,7 @@
 
     @if ($status === DatabaseConfigStatus::Success || $status === DatabaseConfigStatus::AlreadyConfigured)
         <div class="flex items-center justify-center">
-            <x-button.setup :href="url('setup/install')" leading="tabler-sparkles">Install Nova</x-button.setup>
+            <x-button.setup :href="url('setup/install')" leading="sparkles">Install Nova</x-button.setup>
         </div>
     @endif
 

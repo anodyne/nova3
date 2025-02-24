@@ -14,7 +14,7 @@
         </header>
 
         <div class="flex items-center justify-center">
-            <x-button.setup :href="url('setup/update')" leading="tabler-refresh">Update Nova</x-button.setup>
+            <x-button.setup :href="url('setup/update')" leading="update">Update Nova</x-button.setup>
         </div>
 
         <div class="mx-auto max-w-2xl space-y-8">

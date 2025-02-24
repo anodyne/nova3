@@ -9,12 +9,12 @@
     <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
             <div class="shrink-0">
-                <x-icon name="tabler-broadcast" size="xl" class="text-gray-500"></x-icon>
+                <x-icon name="broadcast" size="xl" class="text-gray-500"></x-icon>
             </div>
             <x-h4 class="flex-1">Send telemetry data</x-h4>
         </div>
         <div class="flex justify-end">
-            <x-icon name="tabler-circle-check" class="text-primary-500" size="xl"></x-icon>
+            <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
         </div>
     </div>
 
