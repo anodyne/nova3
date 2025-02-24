@@ -33,6 +33,7 @@ class Database
         } catch (Throwable $th) {
             report($th);
 
+            $this->driver = 'unknown';
             $this->hasMysql = in_array('mysql', PDO::getAvailableDrivers());
         }
     }
@@ -69,6 +70,7 @@ class Database
         return match ($this->driver) {
             'mysql' => version_compare($this->version, '8.0', '>='),
             'mariadb' => version_compare($this->version, '10.0', '>='),
+            'unknown' => true,
             default => false,
         };
     }
