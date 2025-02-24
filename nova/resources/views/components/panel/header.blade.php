@@ -51,6 +51,7 @@
                 <div class="flex items-center gap-x-3">
                     <h3
                         @class([
+                            'font-[family-name:--font-header]',
                             match ($size) {
                                 'sm' => 'text-sm/6 font-semibold',
                                 default => 'text-base/6 font-semibold',
