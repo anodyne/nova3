@@ -60,7 +60,7 @@
         "teamtnt/laravel-scout-tntsearch-driver": "^14.0",
         "timokoerber/laravel-one-time-operations": "^1.4",
         "vlucas/phpdotenv": "^5.6",
-        "wire-elements/modal": "^2.0",
+        "wire-elements/pro": "^4.0",
         "wire-elements/spotlight": "^2.0"
     },
     "require-dev": {
@@ -181,6 +181,10 @@
         "activity-log-pro": {
             "type": "composer",
             "url": "https://satis.ralphjsmit.com"
+        },
+        "wire-elements-pro": {
+            "type": "composer",
+            "url": "https://wire-elements-pro.composer.sh"
         }
     }
 }
