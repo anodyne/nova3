@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('status')->index();
             $table->json('pronouns');
             $table->rememberToken();
-            $table->boolean('force_password_reset');
+            $table->boolean('force_password_reset')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->json('preferences')->nullable();
             $table->timestamps();
