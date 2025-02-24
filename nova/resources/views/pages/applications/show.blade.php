@@ -222,7 +222,7 @@
 
                                                 <x-fieldset.field label="IP address" id="app_ip" name="app_ip">
                                                     <x-text class="tabular-nums">
-                                                        {{ $application->ip_address }}
+                                                        {{ $application->ip_address ?? 'None available' }}
                                                     </x-text>
                                                 </x-fieldset.field>
 
