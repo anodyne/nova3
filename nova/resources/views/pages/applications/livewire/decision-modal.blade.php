@@ -84,8 +84,9 @@
                     description="This is the message that will be emailed to the applicant notifying them of your decision."
                     id="message"
                     name="message"
+                    :error="$errors->first('form.message')"
                 >
-                    <x-input.textarea rows="5" wire:model.live.debounce.500ms="form.message"></x-input.textarea>
+                    <x-input.textarea rows="5" wire:model.blur="form.message"></x-input.textarea>
                 </x-fieldset.field>
             </x-fieldset.field-group>
         </x-fieldset>
