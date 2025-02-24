@@ -10,13 +10,13 @@ use Livewire\Attributes\Locked;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Notifications\ApplicationReadyForReview;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Livewire\ModalComponent;
+use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 
-class ApplicationReviewersModal extends ModalComponent
+class ApplicationReviewersModal extends Modal
 {
     #[Locked]
-    public Application $application;
+    public int|Application $application;
 
     public array $selectedReviewers = [];
 
@@ -54,7 +54,7 @@ class ApplicationReviewersModal extends ModalComponent
 
         $this->dispatch('reviewers-updated');
 
-        $this->dismiss();
+        $this->close();
 
         if (count($changes['attached']) > 0 || count($changes['detached']) > 0) {
             Notification::make()->success()
@@ -69,9 +69,11 @@ class ApplicationReviewersModal extends ModalComponent
         return User::query()->active()->get();
     }
 
-    public function mount()
+    public function mount(Application $application)
     {
-        $this->authorize('decide', $this->application);
+        $this->authorize('decide', $application);
+
+        $this->application = $application;
 
         $this->selectedReviewers = $this->application->reviews
             ->flatMap(fn (User $user) => [(string) $user->id])
@@ -83,10 +85,5 @@ class ApplicationReviewersModal extends ModalComponent
         return view('pages.applications.livewire.reviewers-modal', [
             'users' => $this->users,
         ]);
-    }
-
-    public static function modalMaxWidth(): string
-    {
-        return 'lg';
     }
 }

@@ -37,6 +37,7 @@ class StoriesList extends TableComponent
                 Story::query()
                     ->with('parentStory')
                     ->select([
+                        'description',
                         'ended_at',
                         'id',
                         'order_column',

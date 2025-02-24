@@ -5,21 +5,13 @@ declare(strict_types=1);
 namespace Nova\Stories\Livewire;
 
 use Livewire\Attributes\Locked;
-use LivewireUI\Modal\ModalComponent;
+use Nova\Foundation\Livewire\Modal;
 use Nova\Stories\Models\Post;
 
-class ReadPostModal extends ModalComponent
+class ReadPostModal extends Modal
 {
     #[Locked]
-    public Post $post;
-
-    /**
-     * Dismiss the modal.
-     */
-    public function dismiss(): void
-    {
-        $this->forceClose()->closeModal();
-    }
+    public int|Post $post;
 
     public function mount(Post $post)
     {
@@ -31,7 +23,7 @@ class ReadPostModal extends ModalComponent
         return view('pages.posts.livewire.read-post-modal');
     }
 
-    public static function modalMaxWidth(): string
+    public static function size(): string
     {
         return '4xl';
     }

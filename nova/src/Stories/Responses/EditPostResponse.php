@@ -10,5 +10,6 @@ class EditPostResponse extends Responsable
 {
     public ?string $subnav = 'writing';
 
-    public string $view = 'posts.edit';
+    // public string $view = 'posts.edit';
+    public string $view = 'posts.edit-new';
 }

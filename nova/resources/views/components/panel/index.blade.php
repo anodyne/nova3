@@ -9,8 +9,10 @@
     data-slot="{{ $variant }}"
     {{
         $attributes->class([
+            'flex flex-col',
+
             // Panel
-            'data-[slot=panel]:rounded-xl data-[slot=panel]:bg-white data-[slot=panel]:ring-1 dark:data-[slot=panel]:bg-white/[.03]',
+            'data-[slot=panel]:flex-1 data-[slot=panel]:rounded-xl data-[slot=panel]:bg-white data-[slot=panel]:ring-1 dark:data-[slot=panel]:bg-white/[.03]',
             match ($color) {
                 'danger' => 'data-[slot=panel]:ring-danger-200 dark:data-[slot=panel]:ring-danger-800',
                 'info' => 'data-[slot=panel]:ring-info-200 dark:data-[slot=panel]:ring-info-800',

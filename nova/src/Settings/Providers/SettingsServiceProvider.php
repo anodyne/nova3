@@ -7,6 +7,7 @@ namespace Nova\Settings\Providers;
 use Nova\DomainServiceProvider;
 use Nova\Settings\Livewire\ContentRatingsSettings;
 use Nova\Settings\Livewire\EmailSettings;
+use Nova\Settings\Livewire\EnvironmentSettings;
 use Nova\Settings\Livewire\FontSelector;
 use Nova\Settings\Livewire\ManageGlobalReviewers;
 use Nova\Settings\Livewire\NotificationTypesList;
@@ -21,6 +22,7 @@ class SettingsServiceProvider extends DomainServiceProvider
         return [
             'settings-content-ratings' => ContentRatingsSettings::class,
             'settings-email' => EmailSettings::class,
+            'settings-environment' => EnvironmentSettings::class,
             'settings-font-selector' => FontSelector::class,
             'settings-notification-types-list' => NotificationTypesList::class,
             'settings-manage-global-reviewers' => ManageGlobalReviewers::class,
@@ -45,7 +47,6 @@ class SettingsServiceProvider extends DomainServiceProvider
             Spotlight\ViewPostingActivitySettings::class,
             Spotlight\ViewRatingsSettings::class,
             Spotlight\ViewApplicationsSettings::class,
-            Spotlight\ViewEnvironmentSettings::class,
         ];
     }
 }

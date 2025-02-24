@@ -6,6 +6,7 @@ namespace Nova\Stories\Livewire;
 
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Nova\Stories\Enums\ContentRatingValue;
 use Nova\Stories\Models\Post;
 
 class PostForm extends Form
@@ -27,11 +28,11 @@ class PostForm extends Form
     #[Validate]
     public ?string $time = null;
 
-    public int $rating_language = 0;
+    public ContentRatingValue $rating_language;
 
-    public int $rating_sex = 0;
+    public ContentRatingValue $rating_sex;
 
-    public int $rating_violence = 0;
+    public ContentRatingValue $rating_violence;
 
     #[Validate]
     public ?string $summary = null;

@@ -10,7 +10,7 @@
                 <x-button
                     type="button"
                     color="primary"
-                    wire:click="$dispatch('openModal', { component: 'discussions-compose-message-modal', arguments: { mode: 'new' }})"
+                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'mode': 'new'}})"
                 >
                     <x-icon name="write" size="sm"></x-icon>
                     <span class="block lg:hidden">New message</span>
@@ -54,7 +54,6 @@
         >
             @forelse ($discussions as $discussion)
                 @php
-                    $participant = $discussion->participants->first();
                     $hasSeen = $discussion->notifications->first()?->is_seen ?? true;
                 @endphp
 

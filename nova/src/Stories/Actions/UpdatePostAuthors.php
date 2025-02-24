@@ -8,14 +8,15 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Data\PostAuthorsData;
 use Nova\Stories\Models\Post;
 
-class SetPostAuthors
+class UpdatePostAuthors
 {
     use AsAction;
 
     public function handle(Post $post, PostAuthorsData $data): Post
     {
-        $post->characterAuthors()->sync($data->characters->map(fn ($character) => $character->id));
-        $post->userAuthors()->sync($data->users->map(fn ($user) => $user->id));
+        $post->characterAuthors()->sync($data->characters);
+
+        $post->userAuthors()->sync($data->users);
 
         return $post->refresh();
     }

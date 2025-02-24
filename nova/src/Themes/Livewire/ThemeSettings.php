@@ -7,12 +7,12 @@ namespace Nova\Themes\Livewire;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Livewire\SlideOver;
 use Nova\Themes\Data\ThemeSettings as ThemeSettingsData;
 use Nova\Themes\Models\Theme;
 
-class ThemeSettings extends Component implements HasForms
+class ThemeSettings extends SlideOver implements HasForms
 {
     use InteractsWithForms;
 
@@ -20,9 +20,7 @@ class ThemeSettings extends Component implements HasForms
 
     public ?array $data = [];
 
-    public ?Theme $theme = null;
-
-    public bool $iconTrigger = true;
+    public string|Theme $theme;
 
     public function form(Form $form): Form
     {
@@ -49,17 +47,19 @@ class ThemeSettings extends Component implements HasForms
 
         $this->theme->update(['settings' => $settings]);
 
-        $this->dispatch('theme-settings-close');
+        $this->close();
 
         Notification::make()->success()
             ->title('Theme settings have been updated')
             ->send();
     }
 
-    public function mount(Theme $theme): void
+    public function mount(string $theme): void
     {
-        $this->fonts = $theme->settings->fonts->toArray();
-        $this->form->fill($theme->settings->settings);
+        $this->theme = Theme::location($theme)->first();
+
+        $this->fonts = $this->theme->settings->fonts->toArray();
+        $this->form->fill($this->theme->settings->settings);
     }
 
     public function render()

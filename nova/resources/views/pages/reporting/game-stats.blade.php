@@ -149,7 +149,7 @@
                                     @if (filled($category->hint))
                                         <div x-tooltip.raw="{{ $category->hint }}">
                                             <x-icon.micro.question-mark-circle
-                                                class="size-4 text-gray-400 dark:text-gray-500"
+                                                class="text-gray-400 dark:text-gray-500"
                                             ></x-icon.micro.question-mark-circle>
                                         </div>
                                     @endif

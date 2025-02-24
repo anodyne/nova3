@@ -30,10 +30,12 @@
 --}}
     x-on:dropdown-toggle="toggle"
     x-on:dropdown-close="close"
-    @class([
-        'relative inline-block text-left leading-0',
-        'w-full' => filled($selectTrigger),
-    ])
+    {{
+        $attributes->class([
+            'relative inline-block text-left leading-0',
+            'w-full' => filled($selectTrigger),
+        ])
+    }}
     data-slot="control"
 >
     <div>

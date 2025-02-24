@@ -29,15 +29,15 @@
                 </x-fieldset.field>
             </x-fieldset.field-group>
         </x-fieldset>
-
-        <x-fieldset.controls>
-            @if ($isReplying)
-                <x-button type="button" wire:click="reply" color="primary">Reply</x-button>
-            @else
-                <x-button type="button" wire:click="submit" color="primary">Submit</x-button>
-            @endif
-
-            <x-button type="button" wire:click="dismiss">Cancel</x-button>
-        </x-fieldset.controls>
     </x-form>
+
+    <x-slot name="footer">
+        @if ($isReplying)
+            <x-button type="button" wire:click="reply" color="primary">Reply</x-button>
+        @else
+            <x-button type="button" wire:click="submit" color="primary">Submit</x-button>
+        @endif
+
+        <x-button type="button" wire:click="close" plain>Cancel</x-button>
+    </x-slot>
 </x-modal>

@@ -19,7 +19,7 @@
 
     @if ($post->isLocked())
         <div class="shrink-0 text-gray-500 dark:text-gray-400">
-            <x-icon.micro.lock-closed class="size-3.5"></x-icon.micro.lock-closed>
+            <x-icon.micro.lock-closed></x-icon.micro.lock-closed>
         </div>
     @endif
 </div>

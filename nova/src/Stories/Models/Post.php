@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,12 +22,14 @@ use Nova\Stories\Enums\ContentRatingValue;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\States\PostStatus;
+use Nova\Stories\Observers\PostObserver;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[ObservedBy([PostObserver::class])]
 class Post extends Model implements Sortable
 {
     use Concerns\HasContentRatings;
@@ -80,7 +83,7 @@ class Post extends Model implements Sortable
     {
         return $this->belongsToMany(User::class, 'post_author')
             // ->withPivot(['post_id', 'user_id', 'word_count'])
-            ->withPivot(['post_id', 'user_id', 'updated_at']);
+            ->withPivot(['post_id', 'user_id', 'updated_at', 'word_count']);
         // ->groupBy('pivot_user_id', 'pivot_post_id')
     }
 
@@ -128,6 +131,13 @@ class Post extends Model implements Sortable
     {
         return Attribute::make(
             get: fn (): bool => $this->status->equals(PostStatus\Published::class)
+        );
+    }
+
+    public function isSetup(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => filled($this->post_type_id) && filled($this->story_id)
         );
     }
 
@@ -187,6 +197,13 @@ class Post extends Model implements Sortable
                     $this->userAuthors->map(fn ($user) => filled($user->pivot->as) ? "{$user->name} as {$user->pivot->as}" : $user->name)->all(),
                 ))->join(', ', ', and ');
             }
+        );
+    }
+
+    public function locationDayTime(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => collect([$this->location, $this->day, $this->time])->filter()->join(', ')
         );
     }
 

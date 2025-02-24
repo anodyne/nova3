@@ -1,7 +1,9 @@
+@use('Nova\Settings\Enums\ServerEnvironment')
+
 <x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
-            <livewire:nova-update-panel />
+            <livewire:nova-update-panel-trigger />
         </x-slot>
     </x-page-header>
 
@@ -13,9 +15,9 @@
                 that may be useful.
             </x-text>
             <x-text class="mt-4">
-                If you’re having issues with Nova, you can use the button below to copy the diagnostic information and
-                paste it into a Discord thread in the support channel. This can potentially help the support staff with
-                resolving issues you may be having.
+                If you’re having issues with Nova, you can use the button below to copy diagnostic information to your
+                clipboard so you can paste it into a Discord thread in the support channel. This can potentially help
+                the support staff with resolving issues you may be having.
             </x-text>
             <div class="mt-6 flex items-center gap-x-4">
                 <livewire:copy-diagnostic-data-button />
@@ -24,105 +26,84 @@
 
         <div class="grid gap-8 lg:grid-cols-2">
             <x-panel variant="well">
-                <x-panel.header
-                    title="Environment"
-                    description="Get an overview of the environment Nova is running in."
-                ></x-panel.header>
+                <x-panel.header title="Environment" icon="leaf">
+                    <x-slot name="actions">
+                        <x-button
+                            x-on:click="Livewire.dispatch('slide-over.open', {component: 'settings-environment'})"
+                            color="primary"
+                            text
+                        >
+                            Edit
+                        </x-button>
+                    </x-slot>
+                </x-panel.header>
 
                 <x-panel>
                     <x-spacing size="md">
-                        <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                            <div
-                                class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 lg:col-span-2 dark:bg-white/[.04]"
-                            >
-                                <div class="flex justify-between">
-                                    <div class="flex flex-col gap-y-2">
-                                        <x-icon name="tabler-world" size="lg"></x-icon>
-                                        <x-fieldset.label>URL</x-fieldset.label>
+                        <div class="grid grid-cols-4 gap-8 px-3 py-1.5 text-sm/6">
+                            <div class="col-span-3 font-medium">
+                                <p>URL</p>
+
+                                @if (! str(config('app.url'))->startsWith('https'))
+                                    <div class="flex gap-x-1">
+                                        <x-icon.micro.warning
+                                            class="mt-1 shrink-0 text-danger-500"
+                                        ></x-icon.micro.warning>
+
+                                        <p class="text-danger-500">
+                                            Your site is missing an SSL certificate. If you have added an SSL
+                                            certificate, please update your URL.
+                                        </p>
                                     </div>
-                                    @if (! str(config('app.url'))->startsWith('https'))
-                                        <div
-                                            class="relative text-danger-600 dark:text-danger-500"
-                                            x-tooltip.raw="Your site is missing an SSL certificate. If you have added an SSL certificate, please update your ENV file."
-                                        >
-                                            <x-icon name="lock-open" size="sm"></x-icon>
-                                        </div>
-                                    @endif
-                                </div>
+                                @endif
+                            </div>
+                            <div class="flex justify-end">
+                                {{ str(config('app.url'))->replace('https://', '') }}
+                            </div>
+                        </div>
 
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ str(config('app.url'))->replace('https://', '') }}
-                                </p>
-                            </div>
+                        <div class="grid grid-cols-4 gap-8 px-3 py-1.5 text-sm/6">
+                            <div class="col-span-3 font-medium">
+                                <p>Environment</p>
 
-                            <a
-                                href="{{ route('admin.settings.environment.edit') }}"
-                                @class([
-                                    'group relative flex flex-col gap-y-2 rounded-md p-3',
-                                    'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
-                                    'hover:bg-gradient-to-b hover:from-white hover:to-primary-50 hover:text-primary-600 hover:shadow-md hover:shadow-primary-600/10 hover:ring-primary-600/20 dark:hover:from-gray-900 dark:hover:to-primary-950',
-                                    'dark:bg-white/[.04]',
-                                ])
-                            >
-                                <div
-                                    class="absolute right-3 top-3 text-gray-400 group-hover:text-primary-400 dark:text-gray-600 dark:group-hover:text-primary-600"
-                                >
-                                    <x-icon name="settings" size="xs"></x-icon>
-                                </div>
-                                <x-icon name="tabler-code" size="lg"></x-icon>
-                                <x-fieldset.label>Debug mode</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ config('app.debug') ? 'Enabled' : 'Off' }}
-                                </p>
-                            </a>
-                            <a
-                                href="{{ route('admin.settings.environment.edit') }}"
-                                @class([
-                                    'group relative flex flex-col gap-y-2 rounded-md p-3',
-                                    'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
-                                    'hover:bg-gradient-to-b hover:from-white hover:to-primary-50 hover:text-primary-600 hover:shadow-md hover:shadow-primary-600/10 hover:ring-primary-600/20 dark:hover:from-gray-900 dark:hover:to-primary-950',
-                                    'dark:bg-white/[.04]',
-                                ])
-                            >
-                                <div
-                                    class="absolute right-3 top-3 text-gray-400 group-hover:text-primary-400 dark:text-gray-600 dark:group-hover:text-primary-600"
-                                >
-                                    <x-icon name="settings" size="xs"></x-icon>
-                                </div>
-                                <x-icon name="tabler-leaf" size="lg"></x-icon>
-                                <x-fieldset.label>Environment</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ config('app.env') }}
-                                </p>
-                            </a>
+                                @if (config('app.env') !== 'production')
+                                    <div class="flex gap-x-1">
+                                        <x-icon.micro.warning
+                                            class="mt-1 shrink-0 text-danger-500"
+                                        ></x-icon.micro.warning>
 
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-brand-php" size="lg"></x-icon>
-                                <x-fieldset.label>PHP version</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ PHP_VERSION }}
-                                </p>
+                                        <p class="text-danger-500">
+                                            Your site’s environment is not set to production. For the optimal
+                                            experience, please update your environment.
+                                        </p>
+                                    </div>
+                                @endif
                             </div>
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-brand-laravel" size="lg"></x-icon>
-                                <x-fieldset.label>Laravel version</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ app()->version() }}
-                                </p>
+                            <div class="flex justify-end">
+                                {{ config('app.env') }}
                             </div>
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-brand-livewire" size="lg"></x-icon>
-                                <x-fieldset.label>Livewire version</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ app()->livewireVersion() }}
-                                </p>
+                        </div>
+
+                        <div class="grid grid-cols-4 gap-8 px-3 py-1.5 text-sm/6">
+                            <div class="col-span-3 font-medium">
+                                <p>Debug mode</p>
+
+                                @if (config('app.debug') && config('app.env') === 'production')
+                                    <div class="flex gap-x-1">
+                                        <x-icon.micro.warning
+                                            class="mt-1 shrink-0 text-danger-500"
+                                        ></x-icon.micro.warning>
+
+                                        <p class="text-danger-500">
+                                            In a production environment, debug mode should always be off. If debug mode
+                                            is on in production, you risk exposing sensitive configuration values to
+                                            your end users.
+                                        </p>
+                                    </div>
+                                @endif
                             </div>
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-table" size="lg"></x-icon>
-                                <x-fieldset.label>Filament version</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ app()->filamentVersion() }}
-                                </p>
+                            <div class="flex justify-end">
+                                {{ config('app.debug') ? 'On' : 'Off' }}
                             </div>
                         </div>
                     </x-spacing>
@@ -130,138 +111,60 @@
             </x-panel>
 
             <x-panel variant="well">
-                <x-panel.header
-                    title="Drivers"
-                    description="Get an overview of the drivers for different systems that Nova uses."
-                ></x-panel.header>
+                <x-panel.header title="Drivers" icon="server-settings"></x-panel.header>
 
                 <x-panel>
                     <x-spacing size="md">
-                        <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                            <div
-                                class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 lg:col-span-2 dark:bg-white/[.04]"
-                            >
-                                <x-icon name="tabler-database" size="lg"></x-icon>
-                                <x-fieldset.label>Database</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ app('nova.environment')->database->platform() }}
-                                </p>
-                            </div>
-
-                            <a
-                                href="{{ route('admin.settings.email.edit') }}"
-                                @class([
-                                    'group relative flex flex-col gap-y-2 rounded-md p-3',
-                                    'bg-gray-950/[.04] ring-1 ring-inset ring-transparent transition',
-                                    'hover:bg-gradient-to-b hover:from-white hover:to-primary-50 hover:text-primary-600 hover:shadow-md hover:shadow-primary-600/10 hover:ring-primary-600/20 dark:hover:from-gray-900 dark:hover:to-primary-950',
-                                    'dark:bg-white/[.04]',
-                                ])
-                            >
-                                <div
-                                    class="absolute right-3 top-3 text-gray-400 group-hover:text-primary-400 dark:text-gray-600 dark:group-hover:text-primary-600"
-                                >
-                                    <x-icon name="settings" size="xs"></x-icon>
-                                </div>
-                                <x-icon name="tabler-send" size="lg"></x-icon>
-                                <x-fieldset.label>Email</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ config('mail.default') }}
-                                </p>
-                            </a>
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-bug" size="lg"></x-icon>
-                                <x-fieldset.label>Logging</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ config('logging.default') }}
-                                </p>
-                            </div>
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-rocket" size="lg"></x-icon>
-                                <x-fieldset.label>Cache</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ config('cache.default') }}
-                                </p>
-                            </div>
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-box" size="lg"></x-icon>
-                                <x-fieldset.label>Session</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ config('session.driver') }}
-                                </p>
-                            </div>
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-list-details" size="lg"></x-icon>
-                                <x-fieldset.label>Queue</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ config('queue.default') }}
-                                </p>
-                            </div>
-                            <div class="flex flex-col gap-y-2 rounded-md bg-gray-950/[.04] p-3 dark:bg-white/[.04]">
-                                <x-icon name="tabler-speakerphone" size="lg"></x-icon>
-                                <x-fieldset.label>Broadcasting</x-fieldset.label>
-                                <p class="text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    {{ config('broadcasting.default') }}
-                                </p>
-                            </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Email</div>
+                            <div class="tabular-nums">{{ config('mail.default') }}</div>
+                        </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Logging</div>
+                            <div class="tabular-nums">{{ config('logging.default') }}</div>
+                        </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Cache</div>
+                            <div class="tabular-nums">{{ config('cache.default') }}</div>
+                        </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Session</div>
+                            <div class="tabular-nums">{{ config('session.driver') }}</div>
+                        </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Queue</div>
+                            <div class="tabular-nums">{{ config('queue.default') }}</div>
                         </div>
                     </x-spacing>
                 </x-panel>
             </x-panel>
-        </div>
 
-        <div class="w-full max-w-2xl">
-            <x-h2>Advanced</x-h2>
-            <x-text class="mt-2">
-                The following are advanced actions that can be taken with Nova. It’s important that you only take these
-                actions if you know what you’re doing and the consequences of running them.
-            </x-text>
-
-            <x-panel class="mt-8" variant="well">
-                <x-panel.header title="Advanced"></x-panel.header>
+            <x-panel variant="well">
+                <x-panel.header title="Versions" icon="versions"></x-panel.header>
 
                 <x-panel>
-                    <div class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        <x-spacing size="md" class="grid lg:grid-cols-4">
-                            <div class="lg:col-span-3">
-                                <x-text><x-text.strong>Clear Nova version check cache</x-text.strong></x-text>
-                                <x-text>
-                                    This will clear the cached data of the last version check with Anodyne’s servers.
-                                </x-text>
-                            </div>
-                            <div class="flex shrink-0 justify-end">
-                                <div>
-                                    <livewire:clear-version-check-cache-button />
-                                </div>
-                            </div>
-                        </x-spacing>
-
-                        <x-spacing size="md" class="grid lg:grid-cols-4">
-                            <div class="lg:col-span-3">
-                                <x-text><x-text.strong>Clear Nova’s cache</x-text.strong></x-text>
-                                <x-text>
-                                    This will clear all of Nova’s cached data. You may notice degraded performance for
-                                    the first few page loads after clearing the cache.
-                                </x-text>
-                            </div>
-                            <div class="flex shrink-0 justify-end">
-                                <div>
-                                    <livewire:clear-nova-cache-button />
-                                </div>
-                            </div>
-                        </x-spacing>
-
-                        <x-spacing size="md" class="grid lg:grid-cols-4">
-                            <div class="lg:col-span-3">
-                                <x-text><x-text.strong>Re-build search index</x-text.strong></x-text>
-                                <x-text>This will destroy and re-build Nova’s complete search index.</x-text>
-                            </div>
-                            <div class="flex shrink-0 justify-end">
-                                <div>
-                                    <livewire:rebuild-search-index-button />
-                                </div>
-                            </div>
-                        </x-spacing>
-                    </div>
+                    <x-spacing size="md">
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">PHP</div>
+                            <div class="tabular-nums">{{ PHP_VERSION }}</div>
+                        </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Database</div>
+                            <div class="tabular-nums">{{ app('nova.environment')->database->platform() }}</div>
+                        </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Laravel</div>
+                            <div class="tabular-nums">{{ app()->version() }}</div>
+                        </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Livewire</div>
+                            <div class="tabular-nums">{{ app()->livewireVersion() }}</div>
+                        </div>
+                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
+                            <div class="font-medium">Filament</div>
+                            <div class="tabular-nums">{{ app()->filamentVersion() }}</div>
+                        </div>
+                    </x-spacing>
                 </x-panel>
             </x-panel>
         </div>

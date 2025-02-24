@@ -4,7 +4,7 @@
 <x-form action="" wire:submit="save">
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="tabler-gavel"></x-icon>
+            <x-icon name="gavel"></x-icon>
             <x-fieldset.legend>Activity requirements</x-fieldset.legend>
             <x-fieldset.description>Set the game’s activity requirements for players.</x-fieldset.description>
         </x-fieldset.heading>

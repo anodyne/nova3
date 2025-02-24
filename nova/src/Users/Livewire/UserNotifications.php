@@ -4,22 +4,24 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
+use Nova\Foundation\Livewire\SlideOver;
+use Nova\Users\Models\User;
 use Nova\Users\Resources\NotificationResource;
 
-class UserNotifications extends Component
+class UserNotifications extends SlideOver
 {
     public function clearAllNotifications(): void
     {
-        auth()->user()->notifications()->delete();
+        $this->user->notifications()->delete();
     }
 
     #[Computed]
     public function notifications(): array
     {
         return NotificationResource::collection(
-            auth()->user()->notifications
+            $this->user->notifications
         )->toArray(request());
     }
 
@@ -29,20 +31,14 @@ class UserNotifications extends Component
         return count($this->notifications) > 0;
     }
 
-    #[Computed]
-    public function unreadNotificationsCount(): int
-    {
-        return once(fn () => auth()->user()->unreadNotifications)->count();
-    }
-
     public function markAllNotificationsAsRead(): void
     {
-        auth()->user()->unreadNotifications->markAsRead();
+        $this->user->unreadNotifications->markAsRead();
     }
 
     public function clearNotification($notificationId)
     {
-        auth()->user()
+        $this->user
             ->notifications()
             ->where(['id' => $notificationId])
             ->delete();
@@ -50,10 +46,16 @@ class UserNotifications extends Component
 
     public function markNotificationAsRead($notificationId)
     {
-        auth()->user()
+        $this->user
             ->notifications()
             ->where(['id' => $notificationId])
             ->update(['read_at' => now()]);
+    }
+
+    #[Computed]
+    public function user(): User
+    {
+        return Auth::user();
     }
 
     public function render()
@@ -61,7 +63,11 @@ class UserNotifications extends Component
         return view('pages.users.livewire.notifications', [
             'hasNotifications' => $this->hasNotifications,
             'notifications' => $this->notifications,
-            'unreadNotificationsCount' => $this->unreadNotificationsCount,
         ]);
+    }
+
+    public static function size(): string
+    {
+        return 'xl';
     }
 }

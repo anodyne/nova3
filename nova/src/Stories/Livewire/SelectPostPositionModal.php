@@ -6,14 +6,15 @@ namespace Nova\Stories\Livewire;
 
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Locked;
-use LivewireUI\Modal\ModalComponent;
+use Nova\Foundation\Livewire\Modal;
 use Nova\Stories\Livewire\Steps\PublishPostStep;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\Story;
 
-class SelectPostPositionModal extends ModalComponent
+class SelectPostPositionModal extends Modal
 {
     #[Locked]
-    public int $story = 0;
+    public int|Story $story;
 
     public string $search = '';
 
@@ -23,17 +24,11 @@ class SelectPostPositionModal extends ModalComponent
 
     public function apply(): void
     {
-        $this->closeModalWithEvents([
-            PublishPostStep::class => ['selectedNewPostPosition', [$this->selected, $this->direction]],
-        ]);
-    }
-
-    /**
-     * Dismiss the modal.
-     */
-    public function dismiss(): void
-    {
-        $this->forceClose()->closeModal();
+        $this->close(
+            andDispatch: [
+                PublishPostStep::class => ['selectedNewPostPosition', [$this->selected, $this->direction]],
+            ]
+        );
     }
 
     public function afterPost(): void
@@ -61,7 +56,7 @@ class SelectPostPositionModal extends ModalComponent
             ->get();
     }
 
-    public function mount($story)
+    public function mount(Story $story)
     {
         $this->story = $story;
     }

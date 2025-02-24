@@ -86,7 +86,20 @@
                                     </x-sidebar.item>
                                 @endif
 
-                                <livewire:users-notifications />
+                                <x-sidebar.item
+                                    x-on:click="Livewire.dispatch('slide-over.open', {component: 'users-notifications'})"
+                                >
+                                    <x-icon name="bell"></x-icon>
+                                    <x-sidebar.label>Notifications</x-sidebar.label>
+
+                                    @if ($unreadNotificationsCount() > 0)
+                                        <x-slot name="trailing">
+                                            <x-badge color="primary" class="tabular-nums">
+                                                {{ $unreadNotificationsCount() }}
+                                            </x-badge>
+                                        </x-slot>
+                                    @endif
+                                </x-sidebar.item>
 
                                 @if (Nova::userCount() > 1)
                                     <x-sidebar.item
@@ -592,7 +605,17 @@
                                 </x-navbar.item>
                             @endif
 
-                            <livewire:users-notifications />
+                            <x-navbar.item
+                                type="button"
+                                x-on:click="Livewire.dispatch('slide-over.open', {component: 'users-notifications'})"
+                                aria-label="Notifications"
+                            >
+                                @if ($unreadNotificationsCount() > 0)
+                                    <div class="absolute right-1 top-2 size-2 rounded-full bg-danger-500"></div>
+                                @endif
+
+                                <x-icon name="bell"></x-icon>
+                            </x-navbar.item>
 
                             @if (Nova::userCount() > 1)
                                 <x-navbar.item :href="route('admin.announcements.index')">
@@ -683,8 +706,9 @@
         </div>
 
         @stack('modal')
+        @livewire('modal-pro')
+        @livewire('slide-over-pro')
         @livewire('livewire-ui-spotlight')
-        @livewire('wire-elements-modal')
         @livewire('notifications')
         @livewire('scribble.renderer')
         @livewire('scribble.modals')

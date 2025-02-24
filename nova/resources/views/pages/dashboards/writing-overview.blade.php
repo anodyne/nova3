@@ -95,7 +95,7 @@
 
                                 @if ($currentActivityTimeframe->hasMetPostsRequirements())
                                     <x-icon.micro.check-circle
-                                        class="size-4 text-success-500"
+                                        class="text-success-500"
                                         x-tooltip.raw="Posting requirement met"
                                     ></x-icon.micro.check-circle>
                                 @endif
@@ -112,7 +112,7 @@
 
                                 @if ($currentActivityTimeframe->hasMetWordsRequirements())
                                     <x-icon.micro.check-circle
-                                        class="size-4 text-success-500"
+                                        class="text-success-500"
                                         x-tooltip.raw="Posting requirement met"
                                     ></x-icon.micro.check-circle>
                                 @endif
@@ -229,18 +229,14 @@
                                     <div class="flex items-center gap-x-2">
                                         @if ($draft->isLocked() && ! $draft->lockIsOwnedBy(auth()->user()))
                                             <x-badge color="warning">
-                                                <x-icon.micro.lock-closed
-                                                    class="size-3.5 shrink-0"
-                                                ></x-icon.micro.lock-closed>
+                                                <x-icon.micro.lock-closed class="shrink-0"></x-icon.micro.lock-closed>
                                                 <p>Locked for editing</p>
                                             </x-badge>
                                         @endif
 
                                         @if ($draft->isLocked() && $draft->lockIsOwnedBy(auth()->user()))
                                             <x-badge color="primary">
-                                                <x-icon.micro.lock-closed
-                                                    class="size-3.5 shrink-0"
-                                                ></x-icon.micro.lock-closed>
+                                                <x-icon.micro.lock-closed class="shrink-0"></x-icon.micro.lock-closed>
                                                 <p>Locked by you</p>
                                             </x-badge>
                                         @endif

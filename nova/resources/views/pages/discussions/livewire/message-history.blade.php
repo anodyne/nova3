@@ -131,7 +131,7 @@
 
             <x-panel.footer class="flex items-center justify-between">
                 <x-button
-                    wire:click="$dispatch('openModal', { component: 'discussions-compose-message-modal', arguments: { discussionId: {{ $discussion->id }}, mode: 'reply' }})"
+                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'discussionId': {{ $discussion->id }}, 'mode': 'reply'}})"
                     text
                 >
                     <x-icon name="message-reply" size="sm"></x-icon>
@@ -244,7 +244,7 @@
                 <x-button
                     type="button"
                     color="primary"
-                    wire:click="$dispatch('openModal', { component: 'discussions-compose-message-modal', arguments: { mode: 'new' }})"
+                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'mode': 'new'}})"
                 >
                     Start a conversation
                 </x-button>

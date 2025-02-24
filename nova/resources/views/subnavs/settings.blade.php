@@ -37,12 +37,6 @@
             Email
         </x-sidebar.subnav.item>
         <x-sidebar.subnav.item
-            :href="route('admin.settings.environment.edit')"
-            :active="request()->routeIs('admin.settings.environment.edit')"
-        >
-            Environment
-        </x-sidebar.subnav.item>
-        <x-sidebar.subnav.item
             :href="route('admin.settings.notifications.edit')"
             :active="request()->routeIs('admin.settings.notifications.edit')"
         >

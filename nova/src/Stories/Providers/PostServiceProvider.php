@@ -11,8 +11,11 @@ use Nova\Stories\Events\PostCreating;
 use Nova\Stories\Events\PostPublished;
 use Nova\Stories\Listeners\SendPostPublishedNotificationToDiscord;
 use Nova\Stories\Listeners\SetDefaultContentRatings;
+use Nova\Stories\Livewire\ManagePostAuthors;
+use Nova\Stories\Livewire\PostComposer;
 use Nova\Stories\Livewire\PostsList;
 use Nova\Stories\Livewire\PostsTimeline;
+use Nova\Stories\Livewire\PublishPost;
 use Nova\Stories\Livewire\ReadPostModal;
 use Nova\Stories\Livewire\RecentPublishedPostsList;
 use Nova\Stories\Livewire\SelectPostPositionModal;
@@ -62,15 +65,18 @@ class PostServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
+            'posts-composer' => PostComposer::class,
+            'posts-publish' => PublishPost::class,
+            'posts-manage-authors' => ManagePostAuthors::class,
             'posts-recent-published-posts-list' => RecentPublishedPostsList::class,
             'posts-list' => PostsList::class,
             'posts-timeline' => PostsTimeline::class,
-            'posts-read-post-modal' => ReadPostModal::class,
-            'posts-select-post-position-modal' => SelectPostPositionModal::class,
-            'posts-write' => WritePostWizard::class,
-            'posts-wizard-step-setup' => SetupPostStep::class,
-            'posts-wizard-step-compose' => ComposePostStep::class,
-            'posts-wizard-step-publish' => PublishPostStep::class,
+            // 'posts-read-post-modal' => ReadPostModal::class,
+            // 'posts-select-post-position-modal' => SelectPostPositionModal::class,
+            // 'posts-write' => WritePostWizard::class,
+            // 'posts-wizard-step-setup' => SetupPostStep::class,
+            // 'posts-wizard-step-compose' => ComposePostStep::class,
+            // 'posts-wizard-step-publish' => PublishPostStep::class,
         ];
     }
 

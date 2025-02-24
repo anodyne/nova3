@@ -11,6 +11,7 @@ use Nova\Dashboards\Livewire\CopyDiagnosticDataButton;
 use Nova\Dashboards\Livewire\CopyStacktraceButton;
 use Nova\Dashboards\Livewire\ErrorLogViewer;
 use Nova\Dashboards\Livewire\NovaUpdatePanel;
+use Nova\Dashboards\Livewire\NovaUpdatePanelTrigger;
 use Nova\Dashboards\Livewire\NovaVersionHistory;
 use Nova\Dashboards\Livewire\PostingLeaderboard;
 use Nova\Dashboards\Livewire\RebuildSearchIndexButton;
@@ -32,6 +33,7 @@ class DashboardsServiceProvider extends DomainServiceProvider
             'copy-stacktrace-button' => CopyStacktraceButton::class,
             'error-log-viewer' => ErrorLogViewer::class,
             'nova-update-panel' => NovaUpdatePanel::class,
+            'nova-update-panel-trigger' => NovaUpdatePanelTrigger::class,
             'nova-version-history' => NovaVersionHistory::class,
             'posting-leaderboard' => PostingLeaderboard::class,
             'rebuild-search-index-button' => RebuildSearchIndexButton::class,

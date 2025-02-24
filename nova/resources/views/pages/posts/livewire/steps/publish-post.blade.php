@@ -1,3 +1,5 @@
+@use('Illuminate\Support\Number')
+
 <x-write-post-wizard-layout
     :steps="$steps"
     message="Set your post’s content rating, summary, and position within the story before publishing"
@@ -102,37 +104,45 @@
                                         </div>
                                     </div>
 
-                                    <x-dropdown placement="bottom-end">
-                                        <x-slot name="trigger" color="neutral-danger">
-                                            <x-icon name="remove" size="md"></x-icon>
-                                        </x-slot>
+                                    <div class="flex items-center gap-x-4">
+                                        <div class="text-sm/6 tabular-nums">
+                                            {{ Number::format($participatingUser->pivot->word_count) }}
+                                            {{ str('word')->plural($participatingUser->pivot->word_count) }}
+                                        </div>
 
-                                        <x-dropdown.group>
-                                            <x-dropdown.text>
-                                                Are you sure you want to remove
-                                                <strong class="font-semibold text-gray-700 dark:text-gray-950/5">
-                                                    {{ $participatingUser->name }}
-                                                </strong>
-                                                and any characters they’re marked as writing as authors of this post?
-                                            </x-dropdown.text>
-                                        </x-dropdown.group>
-                                        <x-dropdown.group>
-                                            <x-dropdown.item-danger
-                                                type="button"
-                                                icon="remove"
-                                                wire:click="removeParticipant({{ $participatingUser }})"
-                                            >
-                                                Remove
-                                            </x-dropdown.item-danger>
-                                            <x-dropdown.item
-                                                type="button"
-                                                icon="prohibited"
-                                                x-on:click.prevent="$dispatch('dropdown-close')"
-                                            >
-                                                Cancel
-                                            </x-dropdown.item>
-                                        </x-dropdown.group>
-                                    </x-dropdown>
+                                        <x-dropdown placement="bottom-end">
+                                            <x-slot name="trigger" color="neutral-danger">
+                                                <x-icon name="remove" size="md"></x-icon>
+                                            </x-slot>
+
+                                            <x-dropdown.group>
+                                                <x-dropdown.text>
+                                                    Are you sure you want to remove
+                                                    <strong class="font-semibold text-gray-700 dark:text-gray-950/5">
+                                                        {{ $participatingUser->name }}
+                                                    </strong>
+                                                    and any characters they’re marked as writing as authors of this
+                                                    post?
+                                                </x-dropdown.text>
+                                            </x-dropdown.group>
+                                            <x-dropdown.group>
+                                                <x-dropdown.item-danger
+                                                    type="button"
+                                                    icon="remove"
+                                                    wire:click="removeParticipant({{ $participatingUser }})"
+                                                >
+                                                    Remove
+                                                </x-dropdown.item-danger>
+                                                <x-dropdown.item
+                                                    type="button"
+                                                    icon="prohibited"
+                                                    x-on:click.prevent="$dispatch('dropdown-close')"
+                                                >
+                                                    Cancel
+                                                </x-dropdown.item>
+                                            </x-dropdown.group>
+                                        </x-dropdown>
+                                    </div>
                                 </x-spacing>
                             @endforeach
                         </div>
@@ -213,7 +223,7 @@
 
                                             <x-button
                                                 type="button"
-                                                wire:click="$dispatch('openModal', { component: 'posts-read-post-modal', arguments: { post: {{ $previousPost->id }}}})"
+                                                wire:click="$dispatch('modal.open', {component: 'posts-read-post-modal', arguments: {'post': {{ $previousPost->id }}}})"
                                                 color="neutral"
                                                 class="mt-5"
                                             >
@@ -243,7 +253,7 @@
 
                                         <x-button
                                             type="button"
-                                            wire:click="$dispatch('openModal', { component: 'posts-select-post-position-modal', arguments: { story: {{ $post->story_id }}}})"
+                                            wire:click="$dispatch('modal.open', {component: 'posts-select-post-position-modal', arguments: {'story': {{ $post->story_id }}}})"
                                             color="neutral"
                                             class="mt-5"
                                         >
@@ -279,7 +289,7 @@
 
                                             <x-button
                                                 type="button"
-                                                wire:click="$dispatch('openModal', { component: 'posts-read-post-modal', arguments: { post: {{ $nextPost->id }}}})"
+                                                wire:click="$dispatch('modal.open', {component: 'posts-read-post-modal', arguments: {'post': {{ $nextPost->id }}}})"
                                                 color="neutral"
                                                 class="mt-5"
                                             >

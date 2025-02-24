@@ -8,15 +8,17 @@
     'right' => null,
     'constrained' => false,
     'constrainedLg' => false,
+    'as' => 'div',
 ])
 
-<div
+<{{ $as }}
     data-slot="container"
     {{
         $attributes->class([
             'relative w-full',
             match ($size) {
                 'none' => 'p-0',
+                '3xs' => 'p-1',
                 '2xs' => 'p-1.5',
                 'xs' => 'p-3',
                 'sm' => 'p-4',
@@ -28,6 +30,7 @@
             } => filled($size),
             match ($height) {
                 'none' => 'py-0',
+                '3xs' => 'py-1',
                 '2xs' => 'py-1.5',
                 'xs' => 'py-3',
                 'sm' => 'py-4',
@@ -38,6 +41,7 @@
             } => filled($height) && blank($size),
             match ($width) {
                 'none' => 'px-0',
+                '3xs' => 'px-1',
                 '2xs' => 'px-1.5',
                 'xs' => 'px-3',
                 'sm' => 'px-4',
@@ -48,6 +52,7 @@
             } => filled($width) && blank($size),
             match ($top) {
                 'none' => 'pt-0',
+                '3xs' => 'pt-1',
                 '2xs' => 'pt-1.5',
                 'xs' => 'pt-3',
                 'sm' => 'pt-4',
@@ -58,6 +63,7 @@
             } => filled($top) && blank($height) && blank($size),
             match ($bottom) {
                 'none' => 'pb-0',
+                '3xs' => 'pb-1',
                 '2xs' => 'pb-1.5',
                 'xs' => 'pb-3',
                 'sm' => 'pb-4',
@@ -68,6 +74,7 @@
             } => filled($bottom) && blank($height) && blank($size),
             match ($left) {
                 'none' => 'pl-0',
+                '3xs' => 'pl-1',
                 '2xs' => 'pl-1.5',
                 'xs' => 'pl-3',
                 'sm' => 'pl-4',
@@ -78,6 +85,7 @@
             } => filled($left) && blank($width) && blank($size),
             match ($right) {
                 'none' => 'pr-0',
+                '3xs' => 'pr-1',
                 '2xs' => 'pr-1.5',
                 'xs' => 'pr-3',
                 'sm' => 'pr-4',
@@ -92,4 +100,4 @@
     }}
 >
     {{ $slot }}
-</div>
+</{{ $as }}>

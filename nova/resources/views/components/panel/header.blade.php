@@ -5,13 +5,14 @@
     'iconSize' => 'md',
     'badge' => null,
     'actions' => null,
+    'size' => null,
 ])
 
 @aware(['color'])
 
 <x-spacing
     @class([
-        'flex justify-between',
+        'flex justify-between gap-x-8',
         'items-center' => blank($description),
         $attributes->get('class') => $attributes->has('class'),
     ])
@@ -50,13 +51,17 @@
                 <div class="flex items-center gap-x-3">
                     <h3
                         @class([
-                            'text-base/6 font-semibold',
+                            match ($size) {
+                                'sm' => 'text-sm/6 font-semibold',
+                                default => 'text-base/6 font-semibold',
+                            },
                             match ($color) {
                                 'danger' => 'text-danger-700 dark:text-danger-300',
                                 'info' => 'text-info-700 dark:text-info-300',
                                 'primary' => 'text-primary-700 dark:text-primary-300',
                                 'success' => 'text-success-700 dark:text-success-300',
                                 'warning' => 'text-warning-700 dark:text-warning-300',
+                                'gray' => 'text-gray-600 dark:text-gray-400',
                                 default => 'text-gray-950 dark:text-white',
                             },
                         ])

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Settings\Actions;
 
 use Exception;
-use Illuminate\Http\Request;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Foundation\EnvWriter;
 use Nova\Settings\Data\EnvironmentConfiguration;
@@ -14,13 +13,11 @@ class UpdateEnvironment
 {
     use AsAction;
 
-    public function handle(Request $request): void
+    public function handle(EnvironmentConfiguration $data): void
     {
         $envWriter = app(EnvWriter::class);
 
         if ($envWriter->isEnvWritable()) {
-            $data = EnvironmentConfiguration::from($request);
-
             $path = $envWriter->envFilePath();
 
             if (file_exists($path)) {

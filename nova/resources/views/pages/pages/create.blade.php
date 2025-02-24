@@ -166,7 +166,7 @@
 
             <x-fieldset x-show="verb === 'get'" x-cloak>
                 <x-fieldset.heading>
-                    <x-icon name="tabler-seo"></x-icon>
+                    <x-icon name="seo"></x-icon>
                     <x-fieldset.legend>SEO tools</x-fieldset.legend>
                     <x-fieldset.description>
                         Customize your SEO settings for better placement in search results and more. This is most

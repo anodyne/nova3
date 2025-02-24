@@ -17,11 +17,11 @@ use Nova\Discussions\Enums\ComposeMode;
 use Nova\Discussions\Enums\MessageType;
 use Nova\Discussions\Models\Discussion;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Livewire\ModalComponent;
+use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 use Throwable;
 
-class ComposeMessage extends ModalComponent
+class ComposeMessage extends Modal
 {
     #[Validate('required')]
     public array $recipients = [];
@@ -79,7 +79,7 @@ class ComposeMessage extends ModalComponent
 
             $discussion = StartDiscussion::run($data);
 
-            $this->dismiss();
+            $this->close();
 
             $this->dispatch('discussion-started');
 
@@ -113,7 +113,7 @@ class ComposeMessage extends ModalComponent
             )
         );
 
-        $this->dismiss();
+        $this->close();
 
         $this->dispatch('discussion-updated');
 
@@ -132,7 +132,7 @@ class ComposeMessage extends ModalComponent
             'subject' => $this->subject,
         ]);
 
-        $this->dismiss();
+        $this->close();
 
         $this->dispatch('discussion-updated');
 
@@ -156,5 +156,10 @@ class ComposeMessage extends ModalComponent
             'isReplying' => $this->isReplying,
             'users' => $this->users,
         ]);
+    }
+
+    public static function size(): string
+    {
+        return '2xl';
     }
 }

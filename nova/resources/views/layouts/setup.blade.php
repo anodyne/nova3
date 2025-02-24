@@ -71,7 +71,7 @@
 
                     <div class="px-6">
                         <div class="flex flex-col gap-4">
-                            <x-icon name="tabler-lifebuoy" size="lg" class="text-gray-400"></x-icon>
+                            <x-icon name="support" size="lg" class="text-gray-400"></x-icon>
                             <h4 class="text-sm font-medium text-gray-900">Need help?</h4>
                             <p class="text-sm/6 text-gray-600">
                                 {{ $type->getHelpIntro() }}

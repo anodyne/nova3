@@ -82,7 +82,7 @@ class Discussion extends Model
                     ]);
                 }
 
-                return $participants->implode('name', ', ');
+                return implode(', ', $participants->pluck('name')->toArray());
             }
         );
     }

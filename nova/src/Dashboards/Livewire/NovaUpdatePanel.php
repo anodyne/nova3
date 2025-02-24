@@ -6,15 +6,13 @@ namespace Nova\Dashboards\Livewire;
 
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
 use Nova\Foundation\Enums\ReleaseSeverity;
+use Nova\Foundation\Livewire\SlideOver;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Values\LatestVersion;
 
-class NovaUpdatePanel extends Component
+class NovaUpdatePanel extends SlideOver
 {
-    public bool $sidebarOpen = false;
-
     #[Computed]
     public function databaseVersion(): ?string
     {
@@ -69,11 +67,6 @@ class NovaUpdatePanel extends Component
         return version_compare($this->filesVersion, $this->databaseVersion, '>');
     }
 
-    public function mount()
-    {
-        $this->sidebarOpen = $this->hasCriticalUpdate();
-    }
-
     public function render()
     {
         return view('pages.dashboards.livewire.nova-update-panel', [
@@ -83,8 +76,14 @@ class NovaUpdatePanel extends Component
             'needsDatabaseUpdate' => $this->needsDatabaseUpdate,
             'needsFilesUpdate' => $this->needsFilesUpdate,
             'hasUpdate' => $this->hasUpdate,
+            'hasCriticalUpdate' => $this->hasCriticalUpdate,
             'hasUpcomingUpdate' => $this->hasUpcomingUpdate,
             'upcoming' => $this->upcoming,
         ]);
+    }
+
+    public static function size(): string
+    {
+        return 'xl';
     }
 }

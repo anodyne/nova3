@@ -33,7 +33,7 @@
         @can('decide', $application)
             <div class="flex items-center px-3 py-1">
                 <x-button
-                    wire:click="$dispatch('openModal', { component: 'application-reviewers-modal', arguments: { application: {{ $application->id }} }})"
+                    wire:click="$dispatch('modal.open', {component: 'application-reviewers-modal', arguments: {'application': {{ $application->id }}}})"
                     color="primary"
                     text
                 >
@@ -69,7 +69,7 @@
         <div>
             @can('vote', $application)
                 <x-button
-                    wire:click="$dispatch('openModal', { component: 'application-review-modal', arguments: { application: {{ $application->id }}, user: {{ auth()->user() }} }})"
+                    wire:click="$dispatch('modal.open', {component: 'application-review-modal', arguments: {'application': {{ $application->id }}, 'user': {{ auth()->id() }}}})"
                     class="w-full"
                 >
                     <x-icon name="progress" size="sm"></x-icon>
@@ -88,7 +88,7 @@
     @can('decide', $application)
         <div>
             <x-button
-                wire:click="$dispatch('openModal', { component: 'application-decision-modal', arguments: { application: {{ $application->id }} }})"
+                wire:click="$dispatch('modal.open', {component: 'application-decision-modal', arguments: {'application': {{ $application->id }}}})"
                 color="primary"
                 class="w-full"
             >

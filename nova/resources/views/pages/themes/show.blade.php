@@ -49,7 +49,7 @@
                     <x-panel variant="well">
                         <x-panel.header
                             title="Version check info"
-                            icon="tabler-broadcast"
+                            icon="broadcast"
                             description="Basic information about how the theme checks for new versions"
                         ></x-panel.header>
 
