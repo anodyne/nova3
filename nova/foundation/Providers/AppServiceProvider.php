@@ -322,7 +322,7 @@ class AppServiceProvider extends ServiceProvider
                     Theme::class,
                 ])
                 ->causerName(null, 'System')
-                ->itemDateTimeTimezone(fn () => Auth::user()->preferences->timezone)
+                ->itemDateTimeTimezone(fn () => Auth::user()?->preferences?->timezone ?? 'UTC')
                 ->itemIcons([
                     'created' => iconName('add'),
                     'duplicated' => iconName('copy'),
