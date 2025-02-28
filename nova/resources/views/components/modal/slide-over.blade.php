@@ -1,11 +1,12 @@
 @props([
     'footer' => null,
     'icon' => null,
+    'description' => null,
     'title',
 ])
 
 <x-panel variant="well" class="flex h-full flex-col">
-    <x-panel.header :title="$title" :icon="$icon" icon-size="md">
+    <x-panel.header :$title :$icon :$description icon-size="md">
         <x-slot name="actions">
             <button
                 x-on:click="Livewire.dispatch('slide-over.close')"
