@@ -78,3 +78,13 @@ select:not(.choices) {
 [data-flux-modal] > dialog[data-flux-flyout] {
     @apply inset-y-4 right-4 h-full max-h-[revert-layer] min-h-0 rounded-xl !border-none shadow-xl ring-1 ring-gray-950/5 dark:ring-white/5;
 }
+
+[data-flux-tabs-segmented],
+[data-flux-radio-group-segmented] {
+    @apply rounded-[10px] p-[5px] shadow-[inset_0_0_1.5px_.5px_#0000001F];
+}
+
+[data-flux-tabs-segmented] > [data-selected],
+[data-flux-radio-group-segmented] > [data-checked] {
+    @apply rounded-md shadow ring-1 ring-gray-950/5;
+}
