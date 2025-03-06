@@ -19,6 +19,8 @@ class TablerIconSet extends IconSet
             'arrow-left' => 'tabler-square-rounded-arrow-left',
             'arrow-right' => 'tabler-square-rounded-arrow-right',
             'arrow-right-circle' => 'tabler-circle-arrow-right',
+            'arrow-vertical-end' => 'tabler-arrow-bar-to-down',
+            'arrow-vertical-start' => 'tabler-arrow-bar-to-up',
             'arrow-up' => 'tabler-square-rounded-arrow-up',
             'arrows-sort' => 'tabler-arrows-sort',
             'arrows-sync' => 'tabler-refresh',

@@ -64,6 +64,7 @@
         "wire-elements/spotlight": "^2.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.15",
         "brianium/paratest": "^7.0",
         "fakerphp/faker": "^1.14",
         "itsgoingd/clockwork": "^5.0",

@@ -1,18 +1,20 @@
 <x-panel>
-    <x-panel.manage.search :$search placeholder="Find a permission to assign (type * to see all permissions)">
-        @if ($searchResults->count() === 0)
-            <x-empty-state.small icon="key" title="No permission(s) found"></x-empty-state.small>
-        @else
-            <x-dropdown.group>
-                @foreach ($searchResults as $permission)
-                    <x-panel.manage.result-item
-                        :value="$permission->id"
-                        :text="$permission->display_name"
-                    ></x-panel.manage.result-item>
-                @endforeach
-            </x-dropdown.group>
-        @endif
-    </x-panel.manage.search>
+    <x-spacing size="2xs">
+        <x-panel.manage.search :$search placeholder="Find a permission to assign (type * to see all permissions)">
+            @if ($searchResults->count() === 0)
+                <x-empty-state.small icon="key" title="No permission(s) found"></x-empty-state.small>
+            @else
+                <x-dropdown.group>
+                    @foreach ($searchResults as $permission)
+                        <x-panel.manage.result-item
+                            :value="$permission->id"
+                            :text="$permission->display_name"
+                        ></x-panel.manage.result-item>
+                    @endforeach
+                </x-dropdown.group>
+            @endif
+        </x-panel.manage.search>
+    </x-spacing>
 
     @if ($permissions->count() > 0)
         <div class="divide-y divide-gray-950/5 dark:divide-white/5">

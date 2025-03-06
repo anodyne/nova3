@@ -25,10 +25,7 @@
                 <div class="nv-hero-content-ctn @xl:max-w-lg">
                     @if (filled($calloutText))
                         <div class="nv-callout-ctn @xs:mt-24 @md:mt-32 @xl:mt-16">
-                            <x-public::callout
-                                href="{{ $calloutUrl ?? '#' }}"
-                                :callout-color="$calloutColor ?? 'Gray'"
-                            >
+                            <x-public::callout :href="$calloutUrl ?? '#'" :callout-color="$calloutColor ?? 'Gray'">
                                 {{ $calloutText }}
                             </x-public::callout>
                         </div>
@@ -91,7 +88,7 @@
                 >
                     @if (isset($image) && filled($image))
                         <img
-                            src="{{ asset('media/'.$image) }}"
+                            src="{{ Storage::disk('media-pages')->url($image) }}"
                             alt=""
                             width="2432"
                             height="1442"

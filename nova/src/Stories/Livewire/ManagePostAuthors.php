@@ -6,6 +6,7 @@ namespace Nova\Stories\Livewire;
 
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
+use Nova\Characters\Models\Character;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Stories\Livewire\Concerns\HandlesCharacterAuthors;
 use Nova\Stories\Livewire\Concerns\HandlesUserAuthors;
@@ -58,32 +59,43 @@ class ManagePostAuthors extends SlideOver
         return $this->post->postType;
     }
 
-    public function updated($property, $value)
-    {
-        $propertyStr = str($property);
+    // public function updated($property, $value)
+    // {
+    //     $propertyStr = str($property);
 
-        if ($propertyStr->startsWith('selectedCharacters')) {
-            [, $characterId] = explode('.', $property);
+    //     if ($propertyStr->startsWith('selectedCharacters')) {
+    //         [, $characterId] = explode('.', $property);
 
-            if (filled($value)) {
-                unset($this->validateSelectedCharacters[$characterId]);
-            } else {
-                $this->validateSelectedCharacters[$characterId] = $characterId;
-            }
-        }
-    }
+    //         if (filled($value)) {
+    //             unset($this->validateSelectedCharacters[$characterId]);
+    //         } else {
+    //             $this->validateSelectedCharacters[$characterId] = $characterId;
+    //         }
+    //     }
+    // }
 
     public function save(): void
     {
-        $this->dispatch('');
+        $this->close(
+            andDispatch: [
+                'characterAuthorsChanged' => [$this->characterAuthorPivotData],
+                'userAuthorsUpdated' => [$this->selectedUsers],
+            ]
+        );
     }
 
-    public function mount(Post $post)
+    public function mount(int $postId, $incomingCharacters, $incomingUsers)
     {
-        $this->post = $post->loadMissing(['characterAuthors.activeUsers', 'userAuthors']);
+        $this->post = Post::findOrFail($postId);
 
-        $this->characters = $this->post->characterAuthors;
-        $this->users = $this->post->userAuthors;
+        dd($incomingCharacters);
+
+        $this->characterAuthors = Character::whereIn('id', collect($incomingCharacters)->pluck('id'))->get();
+        $this->characterAuthorPivotData = collect($incomingCharacters)->toArray();
+
+        $this->syncCharacterAuthorPivotData($postId);
+
+        $this->handleUserAuthorsUpdated($incomingUsers);
     }
 
     public function render()

@@ -163,38 +163,46 @@
 
                     <x-panel>
                         @if ($canAddAuthors)
-                            <x-panel.manage.search :search="$search" :placeholder="$authorSearchPlaceholder">
-                                @if ($filteredCharacters->count() > 0)
-                                    <x-dropdown.group>
-                                        <x-dropdown.header>Characters</x-dropdown.header>
+                            <x-spacing size="2xs">
+                                <x-panel.manage.search :search="$search" :placeholder="$authorSearchPlaceholder">
+                                    @if ($filteredCharacters->count() > 0)
+                                        <x-dropdown.group>
+                                            <x-dropdown.header>Characters</x-dropdown.header>
 
-                                        @foreach ($filteredCharacters as $character)
-                                            <x-dropdown.item
-                                                type="button"
-                                                wire:click="addCharacterAuthor({{ $character->id }})"
-                                            >
-                                                {{ $character->display_name }}
-                                            </x-dropdown.item>
-                                        @endforeach
-                                    </x-dropdown.group>
-                                @endif
+                                            @foreach ($filteredCharacters as $character)
+                                                <x-dropdown.item
+                                                    type="button"
+                                                    wire:click="addCharacterAuthor({{ $character->id }})"
+                                                >
+                                                    {{ $character->display_name }}
+                                                </x-dropdown.item>
+                                            @endforeach
+                                        </x-dropdown.group>
+                                    @endif
 
-                                @if ($filteredUsers->count() > 0)
-                                    <x-dropdown.group>
-                                        <x-dropdown.header>Users</x-dropdown.header>
+                                    @if ($filteredUsers->count() > 0)
+                                        <x-dropdown.group>
+                                            <x-dropdown.header>Users</x-dropdown.header>
 
-                                        @foreach ($filteredUsers as $user)
-                                            <x-dropdown.item type="button" wire:click="addUserAuthor({{ $user->id }})">
-                                                {{ $user->name }}
-                                            </x-dropdown.item>
-                                        @endforeach
-                                    </x-dropdown.group>
-                                @endif
+                                            @foreach ($filteredUsers as $user)
+                                                <x-dropdown.item
+                                                    type="button"
+                                                    wire:click="addUserAuthor({{ $user->id }})"
+                                                >
+                                                    {{ $user->name }}
+                                                </x-dropdown.item>
+                                            @endforeach
+                                        </x-dropdown.group>
+                                    @endif
 
-                                @if ($filteredCharacters->isEmpty() && $filteredUsers->isEmpty())
-                                    <x-empty-state.small icon="alert" title="No author(s) found"></x-empty-state.small>
-                                @endif
-                            </x-panel.manage.search>
+                                    @if ($filteredCharacters->isEmpty() && $filteredUsers->isEmpty())
+                                        <x-empty-state.small
+                                            icon="alert"
+                                            title="No author(s) found"
+                                        ></x-empty-state.small>
+                                    @endif
+                                </x-panel.manage.search>
+                            </x-spacing>
                         @endif
 
                         @if ($characters->count() > 0 || $users->count() > 0)

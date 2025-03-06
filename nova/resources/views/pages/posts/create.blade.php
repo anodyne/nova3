@@ -1,3 +1,3 @@
 <x-admin-layout>
-    <livewire:posts-write />
+    <livewire:posts-setup :$post />
 </x-admin-layout>

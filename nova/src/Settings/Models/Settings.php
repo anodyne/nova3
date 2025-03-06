@@ -25,7 +25,7 @@ class Settings extends Model implements HasMedia
         'posting_activity' => Data\PostingActivity::class,
         'ratings' => Data\ContentRatings::class,
         'applications' => Data\Applications::class,
-        'writing_dashboard' => Data\WritingDashboard::class,
+        'dashboard' => Data\Dashboard::class,
     ];
 
     protected $fillable = [
@@ -39,7 +39,7 @@ class Settings extends Model implements HasMedia
         'posting_activity',
         'ratings',
         'applications',
-        'writing_dashboard',
+        'dashboard',
     ];
 
     public function newEloquentBuilder($query): SettingsBuilder

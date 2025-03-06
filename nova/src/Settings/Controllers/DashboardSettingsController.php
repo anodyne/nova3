@@ -7,10 +7,10 @@ namespace Nova\Settings\Controllers;
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Settings\Actions\UpdateSettings;
-use Nova\Settings\Data\WritingDashboard;
-use Nova\Settings\Responses\WritingDashboardSettingsResponse;
+use Nova\Settings\Data\Dashboard;
+use Nova\Settings\Responses\DashboardSettingsResponse;
 
-class WritingDashboardSettingsController extends Controller
+class DashboardSettingsController extends Controller
 {
     public function __construct()
     {
@@ -23,8 +23,8 @@ class WritingDashboardSettingsController extends Controller
     {
         $this->authorize('update', $settings = settings());
 
-        return WritingDashboardSettingsResponse::sendWith([
-            'settings' => $settings->writing_dashboard,
+        return DashboardSettingsResponse::sendWith([
+            'settings' => $settings->dashboard,
         ]);
     }
 
@@ -32,8 +32,8 @@ class WritingDashboardSettingsController extends Controller
     {
         $this->authorize('update', settings());
 
-        UpdateSettings::run('writing_dashboard', WritingDashboard::from($request));
+        UpdateSettings::run('dashboard', Dashboard::from($request));
 
-        return back()->notify('Writing dashboard settings have been updated');
+        return back()->notify('Dashboard settings have been updated');
     }
 }

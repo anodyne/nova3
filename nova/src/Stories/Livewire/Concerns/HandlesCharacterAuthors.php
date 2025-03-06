@@ -4,89 +4,146 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire\Concerns;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Nova\Characters\Models\Character;
-use Nova\Users\Models\User;
 
 trait HandlesCharacterAuthors
 {
-    public Collection $characters;
+    public Collection $characterAuthors;
 
-    public array $selectedCharacters = [];
+    public array $characterAuthorPivotData = [];
 
-    public array $validateSelectedCharacters = [];
+    public array $characterAuthorValidationErrors = [];
 
-    public function mountHandlesCharacterAuthors()
+    // public function mountHandlesCharacterAuthors(): void
+    // {
+    //     $this->characterAuthors = $this->characterAuthors ?? new Collection;
+
+    //     $this->reloadCharacterAuthorRelationships();
+
+    //     $this->syncCharacterAuthorPivotData($this->post?->id);
+    // }
+
+    // public function hydrateHandlesCharacterAuthors(): void
+    // {
+    //     $this->characterAuthors = Character::whereIn('id', collect($this->characterAuthors)->pluck('id'))
+    //         ->with(['activeUsers', 'postAuthors' => fn (Builder $query) => $query->where('post_id', $this->post->id)])
+    //         ->get();
+
+    //     $this->syncCharacterAuthorPivotData($this->post?->id);
+    // }
+
+    public function addCharacterAuthor(int $characterId): void
     {
-        $this->setCharacterPivotData();
-    }
+        if (! $this->characterAuthors->contains('id', $characterId)) {
+            $character = Character::query()
+                ->with([
+                    'activeUsers',
+                    'postAuthors' => fn (Builder $query) => $query->select(['id', 'user_id', 'authorable_id', 'authorable_type']),
+                ])
+                ->find($characterId);
 
-    public function hydrateHandlesCharacterAuthors()
-    {
-        $this->characters->loadMissing('activeUsers');
-    }
+            if ($character) {
+                $userId = $character->relationLoaded('activeUsers') && $character->activeUsers->count() === 1
+                    ? $character->activeUsers->first()->id
+                    : null;
 
-    public function addCharacterAuthor(Character $character): void
-    {
-        $this->search = '';
+                $this->characterAuthors->push($character);
 
-        $this->characters->push($character);
+                $this->setAuthorUserId($characterId, $userId);
+            }
 
-        $numberOfActiveUsers = $character->activeUsers()->count();
-
-        $this->selectedCharacters[$character->id] = [
-            'user_id' => $numberOfActiveUsers === 1 ? $character->activeUsers->first()->id : null,
-        ];
-
-        if ($numberOfActiveUsers > 1) {
-            $this->validateSelectedCharacters[$character->id] = $character->id;
+            $this->syncCharacterAuthorPivotData($this->post?->id);
         }
     }
 
-    public function removeCharacterAuthor(Character $character): void
+    public function removeCharacterAuthor(int $characterId): void
     {
-        $this->dispatch('dropdown-close');
+        $this->characterAuthors = $this->characterAuthors->reject(fn (Character $characterAuthor) => $characterAuthor->id === $characterId);
 
-        $this->characters = $this->characters->reject(
-            fn (Character $collectionCharacter) => $collectionCharacter->id === $character->id
-        );
-
-        unset($this->selectedCharacters[$character->id]);
-        unset($this->validateSelectedCharacters[$character->id]);
+        unset($this->characterAuthorPivotData[$characterId], $this->characterAuthorValidationErrors[$characterId]);
     }
 
-    public function setCharacterPivotData(): void
+    public function setAuthorUserId(int $characterId, ?int $userId): void
     {
-        $this->selectedCharacters = $this->post?->characterAuthors
-            ->mapWithKeys(
-                fn (Character $character) => [
+        $character = $this->characterAuthors->firstWhere('id', $characterId);
+
+        if ($character) {
+            $this->characterAuthorPivotData[$characterId] = ['user_id' => $userId];
+        }
+
+        $this->syncCharacterAuthorPivotData($this->post?->id);
+    }
+
+    public function validateCharacterAuthors(): void
+    {
+        $this->characterAuthorValidationErrors = [];
+
+        foreach ($this->characterAuthors->loadMissing('activeUsers') as $character) {
+            $activeUsers = $character->activeUsers->pluck('id')->toArray();
+            $userId = $this->characterAuthorPivotData[$character->id]['user_id'] ?? null;
+
+            if (count($activeUsers) > 1 && ! $userId) {
+                $this->characterAuthorValidationErrors[$character->id] = 'Character with multiple active users must have a user selected.';
+            } elseif (count($activeUsers) === 0 && ! $userId) {
+                $this->characterAuthorValidationErrors[$character->id] = 'Character without active users must have a user selected from available users.';
+            }
+        }
+    }
+
+    public function syncCharacterAuthorPivotData(int $postId): void
+    {
+        if ($this->characterAuthors->isNotEmpty()) {
+            $this->characterAuthorPivotData = $this->characterAuthors->mapWithKeys(function (Character $character) use ($postId) {
+                $postAuthor = $character->postAuthors->where('post_id', $postId)->first();
+
+                return [
                     $character->id => [
-                        'user_id' => $character->pivot->user_id,
+                        'user_id' => $postAuthor?->pivot['user_id'] ?? null,
+                        'authorable_type' => $postAuthor?->pivot['authorable_type'] ?? null,
                     ],
-                ]
-            )
-            ->all() ?? [];
+                ];
+            })->toArray();
+        }
+
+        $this->validateCharacterAuthors();
     }
 
-    #[Computed]
-    public function allUsers(): Collection
+    #[On('characterAuthorsChanged')]
+    public function handleCharacterAuthorsChanged($newAuthors): void
     {
-        return User::active()->get();
+        $this->characterAuthors = new Collection($newAuthors);
+
+        $this->reloadCharacterAuthorRelationships();
+
+        $this->syncCharacterAuthorPivotData($this->post?->id);
     }
 
-    #[Computed]
-    public function filteredCharacters(): Collection
+    private function reloadCharacterAuthorRelationships(): void
     {
-        if ($this->postType?->options?->allowsCharacterAuthors) {
-            return Character::query()
-                ->active()
-                ->whereNotIn('id', array_keys($this->selectedCharacters))
-                ->when(filled($this->search), fn (Builder $query): Builder => $query->searchForBasic($this->search))
+        if ($this->characterAuthors->isNotEmpty()) {
+            $postId = $this->post->id;
+
+            $this->characterAuthors = Character::query()
+                ->whereIn('id', $this->characterAuthors->pluck('id'))
+                ->with([
+                    'activeUsers',
+                    'postAuthors' => function (Builder $query) use ($postId) {
+                        $query->where('post_id', $postId) // ✅ Ensure only one post is loaded
+                            ->select([
+                                'posts.id as post_id',
+                                'posts.title',
+                                'posts.post_type_id',
+                                'posts.story_id',
+                                'post_author.user_id',
+                                'post_author.authorable_id',
+                                'post_author.authorable_type',
+                            ]);
+                    },
+                ])
                 ->get();
         }
-
-        return Collection::make();
     }
 }

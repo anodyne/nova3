@@ -1,21 +1,23 @@
 <x-panel>
-    <x-panel.manage.search :search="$search" placeholder="Find a position to assign (type * to see all positions)">
-        <x-dropdown.group>
-            @forelse ($searchResults as $position)
-                <x-panel.manage.result-item :value="$position->id">
-                    <x-slot name="text">
-                        <div class="flex w-full items-center justify-between">
-                            {{ $position->name }}
+    <x-spacing size="2xs">
+        <x-panel.manage.search :search="$search" placeholder="Find a position to assign (type * to see all positions)">
+            <x-dropdown.group>
+                @forelse ($searchResults as $position)
+                    <x-panel.manage.result-item :value="$position->id">
+                        <x-slot name="text">
+                            <div class="flex w-full items-center justify-between">
+                                {{ $position->name }}
 
-                            <x-text class="ml-4">{{ $position->available }} available</x-text>
-                        </div>
-                    </x-slot>
-                </x-panel.manage.result-item>
-            @empty
-                <x-empty-state.small icon="list" title="No position(s) found"></x-empty-state.small>
-            @endforelse
-        </x-dropdown.group>
-    </x-panel.manage.search>
+                                <x-text class="ml-4">{{ $position->available }} available</x-text>
+                            </div>
+                        </x-slot>
+                    </x-panel.manage.result-item>
+                @empty
+                    <x-empty-state.small icon="list" title="No position(s) found"></x-empty-state.small>
+                @endforelse
+            </x-dropdown.group>
+        </x-panel.manage.search>
+    </x-spacing>
 
     @if ($positions->count() > 0)
         <div class="divide-y divide-gray-950/5 dark:divide-white/5">

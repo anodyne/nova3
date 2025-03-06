@@ -25,11 +25,11 @@ class ConfigureDatabase extends Component
 
     public string $port = '3306';
 
-    public string $database = 'nova3';
+    public string $database = '';
 
     public string $prefix = '';
 
-    public string $username = 'root';
+    public string $username = '';
 
     public string $password = '';
 

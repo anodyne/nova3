@@ -14,11 +14,11 @@
             </x-slot>
         </x-page-header>
 
-        <x-form :action="route('admin.settings.writing-dashboard.update')" method="PUT">
+        <x-form :action="route('admin.settings.dashboard.update')" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group constrained>
                     <div>
-                        <x-button :href="route('admin.writing-overview')">Go to dashboard &rarr;</x-button>
+                        <x-button :href="route('admin.dashboard')">Go to dashboard &rarr;</x-button>
                     </div>
 
                     <x-fieldset.field

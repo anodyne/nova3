@@ -59,7 +59,7 @@ trait HasContentRatings
         $preferences = $user?->preferences;
 
         if (! $preferences?->hasContentRatingPreferences()) {
-            return $globalThreshold;
+            return $globalThreshold->value;
         }
 
         $property = "{$category}ContentRatingWarningThreshold";

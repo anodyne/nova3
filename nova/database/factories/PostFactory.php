@@ -59,6 +59,26 @@ class PostFactory extends Factory
             'rating_sex' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
 
             'rating_violence' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
+
+            'published_at' => fn (array $attributes) => $attributes['status'] === Published::class ? now() : null,
+
+            'location' => fake()->randomElement([
+                'Main Bridge',
+                'Main Engineering',
+                'Mess Hall',
+                'Crew Quarters',
+                'Armory',
+                'Shuttlebay',
+                'Earth',
+                'Jupiter Station',
+                'Sickbay',
+                'Science Lab 2',
+                'Jeffries Tubes',
+            ]),
+
+            'day' => str('Day ')->append((string) fake()->numberBetween(1, 5)),
+
+            'time' => str(' hours')->prepend((string) fake()->time('Hi')),
         ];
     }
 
@@ -110,7 +130,7 @@ class PostFactory extends Factory
         return $this->state([
             'post_type_id' => PostType::where('key', 'post')->first()->id,
             'day' => 'Day {fake()->numberBetween(1, 5)}',
-            'time' => fake()->time('Hi').' hours',
+            'time' => fake()->time('Hi') . ' hours',
             'location' => ucfirst(fake()->words(3, true)),
         ]);
     }
@@ -120,7 +140,7 @@ class PostFactory extends Factory
         return $this->state([
             'post_type_id' => PostType::where('key', 'personal')->first()->id,
             'day' => 'Day {fake()->numberBetween(1, 5)}',
-            'time' => fake()->time('Hi').' hours',
+            'time' => fake()->time('Hi') . ' hours',
             'location' => ucfirst(fake()->words(3, true)),
         ]);
     }

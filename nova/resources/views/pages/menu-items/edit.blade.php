@@ -1,6 +1,7 @@
 @use('Nova\Menus\Enums\LinkTarget')
 @use('Nova\Menus\Enums\LinkType')
 @use('Nova\Menus\Models\MenuItem')
+@use('Illuminate\Support\Js')
 
 <x-admin-layout>
     <x-spacing constrained>
@@ -15,7 +16,7 @@
         <x-form :action="route('admin.menu-items.update', $menuItem)" method="PUT">
             <x-fieldset>
                 <x-fieldset.field-group
-                    x-data="{ linkType: '{{ old('link_type', $menuItem->link_type->value) }}' }"
+                    x-data="{ linkType: {{ Js::from(old('link_type', $menuItem->link_type->value)) }} }"
                     constrained
                 >
                     <x-radio.group>

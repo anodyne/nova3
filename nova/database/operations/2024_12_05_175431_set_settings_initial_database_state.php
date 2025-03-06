@@ -7,13 +7,13 @@ use Nova\Settings\Data\Applications;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Data\ContentRating;
 use Nova\Settings\Data\ContentRatings;
+use Nova\Settings\Data\Dashboard;
 use Nova\Settings\Data\Discord;
 use Nova\Settings\Data\Email;
 use Nova\Settings\Data\FontFamilies;
 use Nova\Settings\Data\General;
 use Nova\Settings\Data\Leaderboard;
 use Nova\Settings\Data\PostingActivity;
-use Nova\Settings\Data\WritingDashboard;
 use Nova\Settings\Enums\LeaderboardTimeframe;
 use Nova\Settings\Enums\PostingTarget;
 use Nova\Settings\Enums\PostingTimeframe;
@@ -120,14 +120,14 @@ return new class extends OneTimeOperation
                 allowVoteChanging: false,
                 showDecisionMessage: true
             ),
-            'writing_dashboard' => WritingDashboard::from(
+            'dashboard' => Dashboard::from(
                 leaderboard: Leaderboard::from(
-                    title: 'Posting Contributors',
+                    title: 'Top Contributors',
                     icon: 'tabler-award',
                     target: PostingTarget::Words,
                     userSelectableTimeframe: false,
                     timeframe: LeaderboardTimeframe::Days30,
-                    numberOfSpotsToShow: 10,
+                    numberOfSpotsToShow: 5,
                     showRankNumbers: false,
                     hideUsersWithZero: true,
                     onlyActiveUsers: true,

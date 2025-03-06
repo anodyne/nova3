@@ -42,6 +42,11 @@ class Post extends Model implements Sortable
     use Searchable;
     use SortableTrait;
 
+    public $sortable = [
+        'order_column_name' => 'order_column',
+        'sort_when_creating' => false,
+    ];
+
     protected $table = 'posts';
 
     protected $fillable = [
@@ -72,11 +77,6 @@ class Post extends Model implements Sortable
         'saved' => Events\PostSaved::class,
         'saving' => Events\PostSaving::class,
         'updated' => Events\PostUpdated::class,
-    ];
-
-    public $sortable = [
-        'order_column_name' => 'order_column',
-        'sort_when_creating' => false,
     ];
 
     public function participatingUsers(): BelongsToMany
@@ -111,6 +111,11 @@ class Post extends Model implements Sortable
     public function postType(): BelongsTo
     {
         return $this->belongsTo(PostType::class)->withTrashed();
+    }
+
+    public function lockOwner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'locked_by');
     }
 
     public function isDraft(): Attribute
@@ -260,31 +265,14 @@ class Post extends Model implements Sortable
         return true;
     }
 
-    public function nextSibling($status = null, array $types = []): ?self
+    public function nextSibling($status = null, array $types = [], int $skip = 0): ?self
     {
-        return $this->getSibling('next', $status, $types);
+        return $this->getSibling('next', $status, $types, $skip);
     }
 
-    public function previousSibling($status = null, array $types = []): ?self
+    public function previousSibling($status = null, array $types = [], int $skip = 0): ?self
     {
-        return $this->getSibling('previous', $status, $types);
-    }
-
-    protected function getSibling($direction, $status, array $types = [])
-    {
-        $query = self::query()
-            ->story($this->story_id)
-            ->when($status, fn (Builder $query) => $query->whereState('status', $status))
-            ->when(
-                count($types) > 0,
-                fn (Builder $query) => $query->whereHas('postType', fn (Builder $query) => $query->whereIn('key', $types))
-            );
-
-        return match ($direction) {
-            'previous' => $query->where('order_column', '<', $this->order_column)->orderByDesc('order_column')->first(),
-            'next' => $query->where('order_column', '>', $this->order_column)->orderBy('order_column')->first(),
-            default => $query->first(),
-        };
+        return $this->getSibling('previous', $status, $types, $skip);
     }
 
     public function isLocked(): bool
@@ -352,5 +340,22 @@ class Post extends Model implements Sortable
     public function shouldBeSearchable(): bool
     {
         return $this->is_published;
+    }
+
+    protected function getSibling($direction, $status, array $types = [], int $skip = 0)
+    {
+        $query = self::query()
+            ->story($this->story_id)
+            ->when($status, fn (Builder $query) => $query->whereState('status', $status))
+            ->when(
+                count($types) > 0,
+                fn (Builder $query) => $query->whereHas('postType', fn (Builder $query) => $query->whereIn('key', $types))
+            );
+
+        return match ($direction) {
+            'previous' => $query->where('order_column', '<', $this->order_column)->orderByDesc('order_column')->skip($skip)->first(),
+            'next' => $query->where('order_column', '>', $this->order_column)->orderBy('order_column')->skip($skip)->first(),
+            default => $query->first(),
+        };
     }
 }

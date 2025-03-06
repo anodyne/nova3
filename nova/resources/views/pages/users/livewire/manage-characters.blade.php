@@ -1,29 +1,31 @@
 @use('Nova\Characters\Models\Character')
 
 <x-panel>
-    <x-panel.manage.search :$search placeholder="Find a character to assign (type * to see all characters)">
-        @if ($searchResults->count() === 0)
-            <x-empty-state.small icon="characters" title="No character(s) found"></x-empty-state.small>
-        @else
-            <x-dropdown.group>
-                @foreach ($searchResults as $character)
-                    <x-panel.manage.result-item
-                        :value="$character->id"
-                        :text="$character->name"
-                    ></x-panel.manage.result-item>
-                @endforeach
-            </x-dropdown.group>
-
-            @can('viewAny', Character::class)
+    <x-spacing size="2xs">
+        <x-panel.manage.search :$search placeholder="Find a character to assign (type * to see all characters)">
+            @if ($searchResults->count() === 0)
+                <x-empty-state.small icon="characters" title="No character(s) found"></x-empty-state.small>
+            @else
                 <x-dropdown.group>
-                    <x-dropdown.text>Don’t see the character you’re looking for?</x-dropdown.text>
-                    <x-dropdown.item :href="route('admin.characters.index')">
-                        Go to character management &rarr;
-                    </x-dropdown.item>
+                    @foreach ($searchResults as $character)
+                        <x-panel.manage.result-item
+                            :value="$character->id"
+                            :text="$character->name"
+                        ></x-panel.manage.result-item>
+                    @endforeach
                 </x-dropdown.group>
-            @endcan
-        @endif
-    </x-panel.manage.search>
+
+                @can('viewAny', Character::class)
+                    <x-dropdown.group>
+                        <x-dropdown.text>Don’t see the character you’re looking for?</x-dropdown.text>
+                        <x-dropdown.item :href="route('admin.characters.index')">
+                            Go to character management &rarr;
+                        </x-dropdown.item>
+                    </x-dropdown.group>
+                @endcan
+            @endif
+        </x-panel.manage.search>
+    </x-spacing>
 
     @if ($characters->count() > 0)
         <div class="divide-y divide-gray-950/5 dark:divide-white/5">

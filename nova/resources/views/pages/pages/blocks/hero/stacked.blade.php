@@ -82,7 +82,7 @@
             >
                 @if (isset($image) && filled($image))
                     <img
-                        src="{{ asset('media/'.$image) }}"
+                        src="{{ Storage::disk('media-pages')->url($image) }}"
                         alt=""
                         width="2432"
                         height="1442"

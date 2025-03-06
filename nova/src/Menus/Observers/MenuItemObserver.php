@@ -10,6 +10,18 @@ use Nova\Menus\Models\MenuItem;
 
 class MenuItemObserver
 {
+    public function created(MenuItem $menuItem): void
+    {
+        BustMenusCache::run();
+        RecacheMenus::run();
+    }
+
+    public function deleted(MenuItem $menuItem): void
+    {
+        BustMenusCache::run();
+        RecacheMenus::run();
+    }
+
     public function updated(MenuItem $menuItem): void
     {
         BustMenusCache::run();

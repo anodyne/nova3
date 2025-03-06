@@ -92,17 +92,17 @@ class AppServiceProvider extends ServiceProvider
         $this->configureNovaSingleton();
         $this->configureTipTapBlocks();
 
-        // $this->app->extend('blade.compiler', function ($compiler, $app) {
-        //     return tap(new BladeCompiler(
-        //         $app['files'],
-        //         $app['config']['view.compiled'],
-        //         $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
-        //         $app['config']->get('view.cache', true),
-        //         $app['config']->get('view.compiled_extension', 'php'),
-        //     ), function ($blade) {
-        //         $blade->component('dynamic-component', DynamicComponent::class);
-        //     });
-        // });
+        $this->app->extend('blade.compiler', function ($compiler, $app) {
+            return tap(new BladeCompiler(
+                $app['files'],
+                $app['config']['view.compiled'],
+                $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
+                $app['config']->get('view.cache', true),
+                $app['config']->get('view.compiled_extension', 'php'),
+            ), function ($blade) {
+                $blade->component('dynamic-component', DynamicComponent::class);
+            });
+        });
     }
 
     public function boot(): void

@@ -7,6 +7,7 @@ namespace Nova\Foundation\Responses;
 use BadMethodCallException;
 use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
 use Illuminate\Contracts\View\View as ViewContract;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
@@ -39,29 +40,24 @@ abstract class Responsable implements LaravelResponsable
 
     protected $theme;
 
-    public static function send(?Page $page = null, array $seo = []): self
-    {
-        $instance = new static($page);
-
-        $instance->seoData = $seo;
-
-        return $instance;
-    }
-
-    public static function sendWith(array $data, ?Page $page = null, array $seo = []): self
-    {
-        $instance = new static($page);
-
-        $instance->seoData = $seo;
-
-        return $instance->with($data);
-    }
-
     public function __construct(?Page $page)
     {
         $this->app = app();
         $this->page = $page ?? request()->route()?->findPageFromRoute();
         $this->theme = app('nova.theme');
+    }
+
+    public function __call($method, $parameters): self
+    {
+        if (! Str::startsWith($method, 'with')) {
+            throw new BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.',
+                static::class,
+                $method
+            ));
+        }
+
+        return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
     }
 
     public function prepareData(): array
@@ -120,7 +116,7 @@ abstract class Responsable implements LaravelResponsable
         ]));
     }
 
-    public function toResponse($request): Response
+    public function toResponse($request): Response|JsonResponse
     {
         if ($request->expectsJson()) {
             return response()->json($this->data, Response::HTTP_OK);
@@ -140,17 +136,22 @@ abstract class Responsable implements LaravelResponsable
         return $this;
     }
 
-    public function __call($method, $parameters): self
+    public static function send(?Page $page = null, array $seo = []): self
     {
-        if (! Str::startsWith($method, 'with')) {
-            throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.',
-                static::class,
-                $method
-            ));
-        }
+        $instance = new static($page);
 
-        return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
+        $instance->seoData = $seo;
+
+        return $instance;
+    }
+
+    public static function sendWith(array $data, ?Page $page = null, array $seo = []): self
+    {
+        $instance = new static($page);
+
+        $instance->seoData = $seo;
+
+        return $instance->with($data);
     }
 
     protected function getPublicMenuItems(): Menu

@@ -82,7 +82,7 @@
                     @endif
                 </div>
                 <img
-                    src="{{ asset('media/'.$image) }}"
+                    src="{{ Storage::disk('media-pages')->url($image) }}"
                     alt=""
                     class="row-span-2 row-end-2 mt-36 aspect-[6/5] w-full max-w-none rounded-2xl object-cover"
                 />

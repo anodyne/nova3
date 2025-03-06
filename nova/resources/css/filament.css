@@ -31,6 +31,23 @@
     @apply rounded-t-xl bg-gray-950/[.04] px-1.5 pb-px has-[.fi-ta-empty-state]:rounded-b-xl dark:bg-white/[.04];
 }
 
+.fi-ta-content > :first-child:not(table):not(.fi-ta-empty-state) {
+    @apply !bg-transparent pt-1.5;
+}
+.fi-ta-content > :first-child:not(table):not(.fi-ta-empty-state) .fi-ta-record {
+    @apply border-x;
+}
+.fi-ta-content
+    > :first-child:not(table):not(.fi-ta-empty-state)
+    .fi-ta-record:first-of-type {
+    @apply rounded-t-[calc(theme(borderRadius.xl)-theme(spacing.[1.5]))] border-t;
+}
+.fi-ta-content
+    > :first-child:not(table):not(.fi-ta-empty-state)
+    .fi-ta-record:last-of-type {
+    @apply rounded-b-[calc(theme(borderRadius.xl)-theme(spacing.[1.5]))] border-b;
+}
+
 .fi-ta-reorder-indicator + .fi-ta-content {
     @apply rounded-b-xl pb-1.5;
 }

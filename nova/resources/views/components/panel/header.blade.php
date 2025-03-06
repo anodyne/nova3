@@ -79,7 +79,7 @@
             @if (filled($description))
                 <div
                     @class([
-                        'text-sm/6',
+                        'text-pretty text-sm/6',
                         match ($color) {
                             'danger' => 'text-danger-600 dark:text-danger-400',
                             'info' => 'text-info-600 dark:text-info-400',

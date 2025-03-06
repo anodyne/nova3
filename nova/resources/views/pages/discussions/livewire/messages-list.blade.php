@@ -19,10 +19,10 @@
         </x-page-header>
 
         <div class="mb-6 space-y-4">
-            <flux:tabs class="w-full" wire:model.live="filter" variant="segmented">
-                <flux:tab name="all">All</flux:tab>
-                <flux:tab name="unread">Unread</flux:tab>
-            </flux:tabs>
+            <flux:radio.group class="w-full" wire:model.live="filter" variant="segmented">
+                <flux:radio value="all" label="All" />
+                <flux:radio value="unread" label="Unread" />
+            </flux:radio.group>
 
             <div
                 class="group relative flex w-full items-center gap-x-2 rounded-lg bg-gray-950/[.02] px-3 py-2 ring-1 ring-inset ring-gray-950/5 dark:bg-white/[.04] dark:ring-white/5"

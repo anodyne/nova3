@@ -1,13 +1,15 @@
 <x-panel>
-    <x-panel.manage.search :$search placeholder="Find a user to add as a reviewer (type * to see all users)">
-        <x-dropdown.group>
-            @forelse ($searchResults as $user)
-                <x-panel.manage.result-item :value="$user->id" :text="$user->name"></x-panel.manage.result-item>
-            @empty
-                <x-empty-state.small icon="users" title="No reviewer(s) found"></x-empty-state.small>
-            @endforelse
-        </x-dropdown.group>
-    </x-panel.manage.search>
+    <x-spacing size="2xs">
+        <x-panel.manage.search :$search placeholder="Find a user to add as a reviewer (type * to see all users)">
+            <x-dropdown.group>
+                @forelse ($searchResults as $user)
+                    <x-panel.manage.result-item :value="$user->id" :text="$user->name"></x-panel.manage.result-item>
+                @empty
+                    <x-empty-state.small icon="users" title="No reviewer(s) found"></x-empty-state.small>
+                @endforelse
+            </x-dropdown.group>
+        </x-panel.manage.search>
+    </x-spacing>
 
     @if ($reviewers->count() > 0)
         <div class="divide-y divide-gray-950/5 dark:divide-white/5">

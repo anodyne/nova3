@@ -1,18 +1,20 @@
 <x-panel>
-    <x-panel.manage.search :$search placeholder="Find a role to assign (type * to see all roles)">
-        @if ($searchResults->count() === 0)
-            <x-empty-state.small icon="users" title="No role(s) found"></x-empty-state.small>
-        @else
-            <x-dropdown.group>
-                @foreach ($searchResults as $role)
-                    <x-panel.manage.result-item
-                        :value="$role->id"
-                        :text="$role->display_name"
-                    ></x-panel.manage.result-item>
-                @endforeach
-            </x-dropdown.group>
-        @endif
-    </x-panel.manage.search>
+    <x-spacing size="2xs">
+        <x-panel.manage.search :$search placeholder="Find a role to assign (type * to see all roles)">
+            @if ($searchResults->count() === 0)
+                <x-empty-state.small icon="users" title="No role(s) found"></x-empty-state.small>
+            @else
+                <x-dropdown.group>
+                    @foreach ($searchResults as $role)
+                        <x-panel.manage.result-item
+                            :value="$role->id"
+                            :text="$role->display_name"
+                        ></x-panel.manage.result-item>
+                    @endforeach
+                </x-dropdown.group>
+            @endif
+        </x-panel.manage.search>
+    </x-spacing>
 
     @if ($assigned->count() > 0)
         <div class="divide-y divide-gray-950/5 dark:divide-white/5">

@@ -100,7 +100,7 @@
                     >
                         <div class="relative">
                             <img
-                                src="{{ asset('media/'.$images[0]->image) }}"
+                                src="{{ Storage::disk('media-pages')->url($images[0]->image) }}"
                                 alt=""
                                 class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                             />
@@ -112,7 +112,7 @@
                     <div class="@xs:mr-auto @xl:mr-0 @xl:pt-52 w-44 flex-none space-y-8 @4xl:pt-36">
                         <div class="relative">
                             <img
-                                src="{{ asset('media/'.$images[1]->image) }}"
+                                src="{{ Storage::disk('media-pages')->url($images[1]->image) }}"
                                 alt=""
                                 class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                             />
@@ -122,7 +122,7 @@
                         </div>
                         <div class="relative">
                             <img
-                                src="{{ asset('media/'.$images[2]->image) }}"
+                                src="{{ Storage::disk('media-pages')->url($images[2]->image) }}"
                                 alt=""
                                 class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                             />
@@ -140,7 +140,7 @@
                     >
                         <div class="relative">
                             <img
-                                src="{{ asset('media/'.$images[3]->image) }}"
+                                src="{{ Storage::disk('media-pages')->url($images[3]->image) }}"
                                 alt=""
                                 class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                             />
@@ -150,7 +150,7 @@
                         </div>
                         <div class="relative">
                             <img
-                                src="{{ asset('media/'.$images[4]->image) }}"
+                                src="{{ Storage::disk('media-pages')->url($images[4]->image) }}"
                                 alt=""
                                 class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
                             />

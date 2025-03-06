@@ -18,7 +18,7 @@
         @if ($canVerifyDatabase)
             <div class="flex justify-end">
                 @if ($e->database->passes())
-                    <x-icon name="circle-check" class="text-primary-500" size="xl"></x-icon>
+                    <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
                 @else
                     <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
                 @endif

@@ -8,7 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class ListPostsResponse extends Responsable
 {
-    public ?string $subnav = 'writing';
+    public ?string $subnav = 'storytelling';
 
     public string $view = 'posts.index';
 }

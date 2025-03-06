@@ -63,4 +63,15 @@ trait CanManageResources
             }
         );
     }
+
+    public function canManageStorytelling(): Attribute
+    {
+        return new Attribute(
+            get: function (): bool {
+                return $this->isAbleTo('post.*')
+                    || $this->isAbleTo('story.*')
+                    || $this->isAbleTo('post-type.*');
+            }
+        );
+    }
 }

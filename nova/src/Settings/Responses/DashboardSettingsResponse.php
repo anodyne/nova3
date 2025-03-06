@@ -6,9 +6,9 @@ namespace Nova\Settings\Responses;
 
 use Nova\Foundation\Responses\Responsable;
 
-class WritingDashboardSettingsResponse extends Responsable
+class DashboardSettingsResponse extends Responsable
 {
     public ?string $subnav = 'settings';
 
-    public string $view = 'settings.writing-dashboard';
+    public string $view = 'settings.dashboard';
 }

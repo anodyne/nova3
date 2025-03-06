@@ -8,17 +8,19 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Data\PostPositionData;
 use Nova\Stories\Models\Post;
 
-class SetPostPosition
+class UpdatePostPosition
 {
     use AsAction;
 
     public function handle(Post $post, PostPositionData $data): Post
     {
         if ($data->hasPositionChange) {
-            if ($data->direction && $data->neighbor) {
-                $method = 'move'.ucfirst($data->direction);
+            $method = $data->moveMethodName();
 
+            if ($data->direction && $data->neighbor) {
                 $post->$method($data->neighbor);
+            } else {
+                $post->$method();
             }
         }
 

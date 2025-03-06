@@ -1,6 +1,7 @@
 @use('Nova\Applications\Models\Application')
 @use('Nova\Foundation\Enums\ReleaseSeverity')
 @use('Nova\Pages\Models\Page')
+@use('Nova\Stories\Models\Post')
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
@@ -29,7 +30,8 @@
         {{ NovaView::renderHook('admin::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-900 dark:text-gray-400 dark:xl:bg-gray-900"
+        {{-- class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-900 dark:text-gray-400 dark:xl:bg-gray-900" --}}
+        class="h-svh min-w-[1024px] bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-900 dark:text-gray-400 dark:xl:bg-gray-900"
         @if (settings('appearance.panda')) data-panda @endif
     >
         {{ NovaView::renderHook('admin::body.start') }}
@@ -41,6 +43,93 @@
                 class="relative flex min-h-svh w-full bg-white max-lg:flex-col lg:bg-gray-100 dark:bg-gray-900 dark:lg:bg-gray-900"
                 x-data="{ open: false }"
             >
+                @if (app('impersonate')->isImpersonating())
+                    <div
+                        class="pointer-events-none absolute inset-x-0 top-[var(--banner-height)] z-[49] h-9 overflow-hidden drop-shadow-md"
+                    >
+                        <div class="absolute inset-x-0 top-0 h-1">
+                            <div class="absolute -inset-x-2 top-0 flex h-1 w-[calc(100%+2rem)] justify-center">
+                                <div
+                                    class="h-1 w-full rounded-full bg-[#151718]"
+                                    style="opacity: 1; transform: none"
+                                ></div>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute inset-x-0 top-0 flex origin-top justify-center"
+                            style="opacity: 1; transform: none"
+                        >
+                            <div
+                                class="group pointer-events-auto relative mx-auto flex h-9 w-auto cursor-default items-center rounded-b-2xl bg-[#151718] pt-1 text-white"
+                            >
+                                <svg
+                                    class="absolute -left-4 top-1 size-4 text-[#151718]"
+                                    viewBox="0 0 6 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M6 0V6C6 2.68652 3.31445 0 0 0H6Z" fill="currentColor"></path>
+                                </svg>
+
+                                <svg
+                                    class="absolute -right-4 top-1 size-4 text-[#151718]"
+                                    viewBox="0 0 6 6"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path d="M0 0V6C0 2.68652 2.68555 0 6 0H0Z" fill="currentColor"></path>
+                                </svg>
+
+                                <div
+                                    class="absolute inset-x-1/2 bottom-0 h-16 w-[150%] -translate-x-1/2 overflow-hidden rounded-b-full transition-all duration-500 ease-in-out group-hover:w-[115%]"
+                                >
+                                    <div
+                                        class="bg-gradient-radial absolute inset-x-1/2 bottom-0 h-24 w-[125%] -translate-x-1/2 opacity-50 mix-blend-hard-light"
+                                        style="
+                                            --tw-gradient-start: rgb(var(--primary-500));
+                                            --tw-gradient-end: rgba(var(--primary-500), 0);
+                                            background-image: radial-gradient(
+                                                47.64% 47.64% at 50% 50%,
+                                                var(--tw-gradient-start) 0%,
+                                                var(--tw-gradient-end) 100%
+                                            );
+                                        "
+                                    ></div>
+                                </div>
+
+                                <div
+                                    class="relative flex h-6 items-center overflow-hidden pl-1 pr-1 text-white transition-all duration-500 ease-in-out group-hover:pl-3 group-hover:pr-4"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="size-6"
+                                    >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M3 11h18" />
+                                        <path d="M5 11v-4a3 3 0 0 1 3 -3h8a3 3 0 0 1 3 3v4" />
+                                        <path d="M7 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                        <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                        <path d="M10 17h4" />
+                                    </svg>
+
+                                    <a
+                                        href="{{ route('impersonate.leave') }}"
+                                        class="max-w-0 overflow-hidden whitespace-nowrap text-sm/6 font-medium text-white transition-all duration-700 ease-in-out group-hover:ml-2 group-hover:max-w-sm"
+                                    >
+                                        Impersonating {{ auth()->user()->name }}. Click to exit.
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 {{-- Sidebar on desktop --}}
                 <div class="fixed inset-y-0 left-0 w-64 max-lg:hidden">
                     <x-sidebar>
@@ -122,6 +211,17 @@
                         </x-sidebar.header>
 
                         <x-sidebar.body>
+                            {{--
+                                @can('create', Post::class)
+                                <x-sidebar.section>
+                                <x-sidebar.button :href="route('admin.posts.create')">
+                                <x-icon name="write" size="sm"></x-icon>
+                                <x-sidebar.label>Write a post</x-sidebar.label>
+                                </x-sidebar.button>
+                                </x-sidebar.section>
+                                @endcan
+                            --}}
+
                             <x-sidebar.section>
                                 <x-sidebar.item
                                     :href="route('admin.dashboard')"
@@ -131,13 +231,23 @@
                                     <x-sidebar.label>Dashboard</x-sidebar.label>
                                 </x-sidebar.item>
 
-                                @if (auth()->user()->canWrite)
+                                @if (auth()->user()->can_write)
                                     <x-sidebar.item
                                         :href="route('admin.writing-overview')"
                                         :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                                     >
                                         <x-icon name="write" size="sm"></x-icon>
-                                        <x-sidebar.label>Writing</x-sidebar.label>
+                                        <x-sidebar.label>Write</x-sidebar.label>
+                                    </x-sidebar.item>
+                                @endif
+
+                                @if (auth()->user()->can_manage_storytelling)
+                                    <x-sidebar.item
+                                        :href="route('admin.stories.index')"
+                                        :active="$meta->subnavSection === 'storytelling'"
+                                    >
+                                        <x-icon name="books" size="sm"></x-icon>
+                                        <x-sidebar.label>Storytelling</x-sidebar.label>
                                     </x-sidebar.item>
                                 @endif
 
@@ -163,7 +273,7 @@
                                     <x-sidebar.label>Characters</x-sidebar.label>
                                 </x-sidebar.item>
 
-                                @if (auth()->user()->canManageUsers)
+                                @if (auth()->user()->can_manage_users)
                                     <x-sidebar.item
                                         :href="route('admin.users.index')"
                                         :active="$meta->subnavSection === 'users'"
@@ -201,7 +311,7 @@
                                     </x-sidebar.item>
                                 @endcan
 
-                                @if (auth()->user()->canManageForms)
+                                @if (auth()->user()->can_manage_forms)
                                     <x-sidebar.item
                                         :href="route('admin.forms.index')"
                                         :active="$meta->subnavSection === 'forms'"
@@ -239,7 +349,7 @@
                                     </x-sidebar.item>
                                 @endcan
 
-                                @if (auth()->user()->canManageSystem)
+                                @if (auth()->user()->can_manage_system)
                                     <x-sidebar.item
                                         :href="route('admin.system-overview')"
                                         :active="$meta->subnavSection === 'system'"
@@ -408,6 +518,23 @@
                                         </x-sidebar.header>
 
                                         <x-sidebar.body>
+                                            {{--
+                                                @can('create', Post::class)
+                                                <x-sidebar.section>
+                                                <div class="px-2">
+                                                <x-button
+                                                :href="route('admin.posts.create')"
+                                                color="primary"
+                                                class="w-full"
+                                                >
+                                                <x-icon name="write" size="sm"></x-icon>
+                                                Write a post
+                                                </x-button>
+                                                </div>
+                                                </x-sidebar.section>
+                                                @endcan
+                                            --}}
+
                                             <x-sidebar.section>
                                                 <x-sidebar.item
                                                     :href="route('admin.dashboard')"
@@ -417,13 +544,23 @@
                                                     <x-sidebar.label>Dashboard</x-sidebar.label>
                                                 </x-sidebar.item>
 
-                                                @if (auth()->user()->canWrite)
+                                                @if (auth()->user()->can_write)
                                                     <x-sidebar.item
                                                         :href="route('admin.writing-overview')"
                                                         :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                                                     >
                                                         <x-icon name="write" size="sm"></x-icon>
-                                                        <x-sidebar.label>Writing</x-sidebar.label>
+                                                        <x-sidebar.label>Write</x-sidebar.label>
+                                                    </x-sidebar.item>
+                                                @endif
+
+                                                @if (auth()->user()->can_manage_storytelling)
+                                                    <x-sidebar.item
+                                                        :href="route('admin.stories.index')"
+                                                        :active="$meta->subnavSection === 'storytelling'"
+                                                    >
+                                                        <x-icon name="books" size="sm"></x-icon>
+                                                        <x-sidebar.label>Storytelling</x-sidebar.label>
                                                     </x-sidebar.item>
                                                 @endif
 
@@ -449,7 +586,7 @@
                                                     <x-sidebar.label>Characters</x-sidebar.label>
                                                 </x-sidebar.item>
 
-                                                @if (auth()->user()->canManageUsers)
+                                                @if (auth()->user()->can_manage_users)
                                                     <x-sidebar.item
                                                         :href="route('admin.users.index')"
                                                         :active="$meta->subnavSection === 'users'"
@@ -487,7 +624,7 @@
                                                     </x-sidebar.item>
                                                 @endcan
 
-                                                @if (auth()->user()->canManageForms)
+                                                @if (auth()->user()->can_manage_forms)
                                                     <x-sidebar.item
                                                         :href="route('admin.forms.index')"
                                                         :active="$meta->subnavSection === 'forms'"
@@ -525,7 +662,7 @@
                                                     </x-sidebar.item>
                                                 @endcan
 
-                                                @if (auth()->user()->canManageSystem)
+                                                @if (auth()->user()->can_manage_system)
                                                     <x-sidebar.item
                                                         :href="route('admin.system-overview')"
                                                         :active="$meta->subnavSection === 'system'"
@@ -677,24 +814,26 @@
                         class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-950 dark:lg:ring-white/10"
                     >
                         <div class="relative z-[2] mx-auto max-w-6xl">
-                            @if (app('impersonate')->isImpersonating())
+                            {{--
+                                @if (app('impersonate')->isImpersonating())
                                 <div
-                                    class="relative -mx-6 -mt-6 mb-6 bg-[repeating-linear-gradient(-45deg,white,white_6px,theme(colors.warning.400/40%)_6px,theme(colors.warning.400/40%)_12px)] lg:-mx-10 lg:-mt-10 lg:rounded-t-lg"
+                                class="relative -mx-6 -mt-6 mb-6 bg-[repeating-linear-gradient(-45deg,white,white_6px,theme(colors.warning.400/40%)_6px,theme(colors.warning.400/40%)_12px)] lg:-mx-10 lg:-mt-10 lg:rounded-t-lg"
                                 >
-                                    <div class="absolute h-full w-full bg-gradient-to-t from-white from-10%"></div>
-
-                                    <div class="relative flex items-center gap-x-6 p-4">
-                                        <div class="flex-1 font-medium text-warning-800">
-                                            You are impersonating {{ auth()->user()->name }}.
-                                        </div>
-                                        <div>
-                                            <x-button :href="route('impersonate.leave')" size="sm">
-                                                End impersonation
-                                            </x-button>
-                                        </div>
-                                    </div>
+                                <div class="absolute h-full w-full bg-gradient-to-t from-white from-10%"></div>
+                                
+                                <div class="relative flex items-center gap-x-6 p-4">
+                                <div class="flex-1 font-medium text-warning-800">
+                                You are impersonating {{ auth()->user()->name }}.
                                 </div>
-                            @endif
+                                <div>
+                                <x-button :href="route('impersonate.leave')" size="sm">
+                                End impersonation
+                                </x-button>
+                                </div>
+                                </div>
+                                </div>
+                                @endif
+                            --}}
 
                             {{ $slot }}
                         </div>

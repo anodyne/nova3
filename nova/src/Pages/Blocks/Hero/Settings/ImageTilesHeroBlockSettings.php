@@ -80,7 +80,7 @@ class ImageTilesHeroBlockSettings extends HeroBlockSettings
                     ->schema([
                         FileUpload::make('image')
                             ->disk('media-pages')
-                            ->directory($page)
+                            ->directory((string) $page)
                             ->image(),
                     ]),
                 Radio::make('orientation')

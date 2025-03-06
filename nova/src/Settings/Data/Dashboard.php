@@ -13,7 +13,7 @@ use Nova\Settings\Enums\PostingTarget;
 /**
  * @method static static from(Leaderboard $leaderboard, PostingTarget $milestonesTarget)
  */
-readonly class WritingDashboard extends Bag
+readonly class Dashboard extends Bag
 {
     public function __construct(
         public Leaderboard $leaderboard,

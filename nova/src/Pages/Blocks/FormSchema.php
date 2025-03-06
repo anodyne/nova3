@@ -123,7 +123,7 @@ class FormSchema
                 FileUpload::make('bgImage')
                     ->label('Background image')
                     ->disk('media-pages')
-                    ->directory("pages/{$page}")
+                    ->directory((string) $page)
                     ->visible(fn (Get $get) => $get('bgOption') === 'custom'),
                 Select::make('bgImageIntensity')
                     ->label('Background image intensity')
@@ -218,7 +218,7 @@ class FormSchema
                     ->hidden(fn (Get $get) => $get('mediaType') === 'none'),
                 FileUpload::make('image')
                     ->disk('media-pages')
-                    ->directory("pages/{$page}")
+                    ->directory((string) $page)
                     ->maxFiles(1)
                     ->visible(fn (Get $get) => $get('mediaType') === 'image'),
                 TextInput::make('video')
@@ -252,7 +252,7 @@ class FormSchema
                     ->hidden(fn (Get $get) => $get('mediaType') === 'none'),
                 FileUpload::make('image')
                     ->disk('media-pages')
-                    ->directory("pages/{$page}")
+                    ->directory((string) $page)
                     ->visible(fn (Get $get) => $get('mediaType') === 'image'),
                 TextInput::make('video')
                     ->label('Video URL')

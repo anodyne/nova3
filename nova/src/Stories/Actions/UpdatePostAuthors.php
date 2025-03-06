@@ -18,6 +18,20 @@ class UpdatePostAuthors
 
         $post->userAuthors()->sync($data->users);
 
+        $this->updatePostParticipants($post, $data);
+
         return $post->refresh();
+    }
+
+    private function updatePostParticipants(Post $post, PostAuthorsData $data): void
+    {
+        $participants = collect($post->participants)
+            ->merge($data->getUserIds())
+            ->filter()
+            ->unique()
+            ->values()
+            ->toArray();
+
+        $post->update(['participants' => $participants]);
     }
 }

@@ -14,11 +14,12 @@
 @endphp
 
 <div
-    @class([
-        'nv-wrapper relative isolate overflow-hidden p-0.5 font-[family-name:--font-body]',
-        'bg-[--bgColor]' => ! $noBackground,
-        $attributes->get('class') => $attributes->has('class'),
-    ])
+    {{
+        $attributes->class([
+            'nv-wrapper relative isolate overflow-hidden p-0.5 font-[family-name:--font-body]',
+            'bg-[--bgColor]' => ! $noBackground,
+        ])
+    }}
 >
     @if ($hasBackgroundImage)
         <div class="nv-overlay-ctn absolute inset-0">

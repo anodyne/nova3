@@ -1,6 +1,7 @@
 @use('Nova\Menus\Enums\LinkTarget')
 @use('Nova\Menus\Enums\LinkType')
 @use('Nova\Menus\Models\MenuItem')
+@use('Illuminate\Support\Js')
 
 <x-admin-layout>
     <x-spacing constrained>
@@ -13,7 +14,7 @@
         </x-page-header>
 
         <x-form :action="route('admin.menu-items.store')">
-            <x-fieldset x-data="{ linkType: null }">
+            <x-fieldset x-data="{ linkType: {{ Js::from(old('link_type')) }} }">
                 <x-fieldset.field-group constrained>
                     <x-radio.group>
                         <x-radio.field>
@@ -48,9 +49,9 @@
                     <x-fieldset.field
                         label="Page"
                         description="You can only choose pages intended for the public site to link to"
-                        id="page"
-                        name="page"
-                        :error="$errors->first('page')"
+                        id="page_id"
+                        name="page_id"
+                        :error="$errors->first('page_id')"
                         x-show="linkType === 'page'"
                         x-cloak
                     >

@@ -1,24 +1,31 @@
 @use('Nova\Users\Models\User')
 
 <x-panel>
-    <x-panel.manage.search :$search placeholder="Find a user to assign (type * to see all users)">
-        @if ($searchResults->count() === 0)
-            <x-empty-state.small icon="users" title="No user(s) found"></x-empty-state.small>
-        @else
-            <x-dropdown.group>
-                @foreach ($searchResults as $user)
-                    <x-panel.manage.result-item :value="$user->id" :text="$user->name"></x-panel.manage.result-item>
-                @endforeach
-            </x-dropdown.group>
-
-            @can('viewAny', User::class)
+    <x-spacing size="2xs">
+        <x-panel.manage.search :$search placeholder="Find a user to assign (type * to see all users)">
+            @if ($searchResults->count() === 0)
+                <x-empty-state.small icon="users" title="No user(s) found"></x-empty-state.small>
+            @else
                 <x-dropdown.group>
-                    <x-dropdown.text>Don’t see the user you're looking for?</x-dropdown.text>
-                    <x-dropdown.item :href="route('admin.users.index')">Go to user management &rarr;</x-dropdown.item>
+                    @foreach ($searchResults as $user)
+                        <x-panel.manage.result-item
+                            :value="$user->id"
+                            :text="$user->name"
+                        ></x-panel.manage.result-item>
+                    @endforeach
                 </x-dropdown.group>
-            @endcan
-        @endif
-    </x-panel.manage.search>
+
+                @can('viewAny', User::class)
+                    <x-dropdown.group>
+                        <x-dropdown.text>Don’t see the user you're looking for?</x-dropdown.text>
+                        <x-dropdown.item :href="route('admin.users.index')">
+                            Go to user management &rarr;
+                        </x-dropdown.item>
+                    </x-dropdown.group>
+                @endcan
+            @endif
+        </x-panel.manage.search>
+    </x-spacing>
 
     @if ($users->count() > 0)
         <div class="divide-y divide-gray-950/5 dark:divide-white/5">

@@ -46,7 +46,7 @@
 
                             @if ($image = data_get($column, 'image'))
                                 <img
-                                    src="{{ asset('media/'.$image) }}"
+                                    src="{{ Storage::disk('media-pages')->url($image) }}"
                                     alt=""
                                     @class([
                                         'mx-auto mb-px block h-56 w-[calc(100%-2px)] rounded-b-lg object-cover',

@@ -73,6 +73,22 @@ class Character extends Model implements HasMedia
         return $this->morphToMany(Post::class, 'authorable', 'post_author');
     }
 
+    public function postAuthors(): MorphToMany
+    {
+        return $this->morphToMany(
+            Post::class,
+            'authorable',
+            'post_author',
+        )->withPivot(['user_id', 'authorable_type'])
+            ->select([
+                'posts.id as post_id', // ✅ Explicitly selecting "id" from posts
+                'posts.title', // Select only necessary columns
+                'post_author.user_id', // ✅ Ensure pivot data is included
+                'post_author.authorable_id',
+                'post_author.authorable_type',
+            ]);
+    }
+
     public function rank()
     {
         return $this->hasOne(RankItem::class, 'id', 'rank_id');
@@ -176,11 +192,6 @@ class Character extends Model implements HasMedia
             ->singleFile();
     }
 
-    public static function getMediaPath(): string
-    {
-        return '{model_id}/{media_id}/';
-    }
-
     public function toSearchableArray(): array
     {
         return [
@@ -193,5 +204,10 @@ class Character extends Model implements HasMedia
     public function shouldBeSearchable(): bool
     {
         return ! $this->is_pending;
+    }
+
+    public static function getMediaPath(): string
+    {
+        return '{model_id}/{media_id}/';
     }
 }

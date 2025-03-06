@@ -52,21 +52,21 @@
                             </x-panel.manage.search>
                         @endif
 
-                        @if ($characters->count() > 0 || $users->count() > 0)
+                        @if ($characterAuthors->count() > 0 || $users->count() > 0)
                             <div class="divide-y divide-gray-950/5 dark:divide-white/5">
-                                @foreach ($characters as $character)
+                                @foreach ($characterAuthors as $characterAuthor)
                                     <x-spacing size="row" class="flex items-center justify-between gap-6">
                                         <x-avatar.character
-                                            :character="$character"
+                                            :character="$characterAuthor"
                                             size="xs"
                                             :primary-rank="false"
                                             :secondary-positions="false"
                                         ></x-avatar.character>
 
                                         <div class="flex items-center gap-4">
-                                            @if ($character->type->value === 'support')
+                                            @if ($characterAuthor->type->value === 'support')
                                                 <x-select
-                                                    wire:model.live="selectedCharacters.{{ $character->id }}.user_id"
+                                                    wire:model.live="selectedCharacters.{{ $characterAuthor->id }}.user_id"
                                                 >
                                                     <option value="">Select a user (optional)</option>
                                                     @foreach ($allUsers as $user)
@@ -76,25 +76,25 @@
                                                     @endforeach
                                                 </x-select>
                                             @else
-                                                @if ($character->activeUsers()->count() === 1)
-                                                    <span>{{ $character->activeUsers()->first()->name }}</span>
+                                                @if ($characterAuthor->activeUsers()->count() === 1)
+                                                    <span>{{ $characterAuthor->activeUsers()->first()->name }}</span>
                                                 @else
                                                     <div>
                                                         <x-select
-                                                            wire:model.live="selectedCharacters.{{ $character->id }}.user_id"
+                                                            wire:model.live="selectedCharacters.{{ $characterAuthor->id }}.user_id"
                                                         >
                                                             <option value="">Select an assigned user</option>
-                                                            @foreach ($character->activeUsers as $user)
+                                                            @foreach ($characterAuthor->activeUsers as $user)
                                                                 <option
                                                                     value="{{ $user->id }}"
-                                                                    wire:key="c-{{ $character->id }}-u-{{ $user->id }}"
+                                                                    wire:key="c-{{ $characterAuthor->id }}-u-{{ $user->id }}"
                                                                 >
                                                                     {{ $user->name }}
                                                                 </option>
                                                             @endforeach
                                                         </x-select>
 
-                                                        @if (in_array($character->id, $validateSelectedCharacters))
+                                                        @if (in_array($characterAuthor->id, $validateSelectedCharacters))
                                                             <p class="ml-0.5 mt-1 text-sm font-medium text-danger-500">
                                                                 Select a user to continue
                                                             </p>
@@ -112,7 +112,7 @@
                                                     <x-dropdown.text>
                                                         Are you sure you want to remove
                                                         <strong class="font-semibold text-gray-700 dark:text-gray-200">
-                                                            {{ $character->name }}
+                                                            {{ $characterAuthor->name }}
                                                         </strong>
                                                         as an author of this post?
                                                     </x-dropdown.text>
@@ -121,7 +121,7 @@
                                                     <x-dropdown.item-danger
                                                         type="button"
                                                         icon="trash"
-                                                        wire:click="removeCharacterAuthor({{ $character->id }})"
+                                                        wire:click="removeCharacterAuthor({{ $characterAuthor->id }})"
                                                     >
                                                         Remove
                                                     </x-dropdown.item-danger>

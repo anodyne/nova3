@@ -7,6 +7,9 @@ namespace Nova\Stories\Livewire\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Nova\Stories\Livewire\PostComposer;
+use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 
 trait HandlesUserAuthors
@@ -55,6 +58,34 @@ trait HandlesUserAuthors
                 ]
             )
             ->all() ?? [];
+    }
+
+    #[On('userAuthorsUpdated')]
+    public function handleUserAuthorsUpdated($selectedUsers): void
+    {
+        $this->selectedUsers = $selectedUsers;
+
+        // Extract user IDs
+        $userIds = array_keys($selectedUsers);
+
+        // Retrieve users and their PostAuthor pivot data
+        $this->users = User::whereIn('id', $userIds)
+            ->with('postAuthors')
+            ->get();
+
+        // Attach pivot relations dynamically (without saving to DB)
+        foreach ($this->users as $user) {
+            $pivot = new PostAuthor([
+                'user_id' => $user->id,
+                'as' => $selectedUsers[$user->id]['as'] ?? null, // Store alias if available
+            ]);
+
+            $user->setRelation('pivot', $pivot);
+        }
+
+        if ($this instanceof PostComposer) {
+            $this->updated('users');
+        }
     }
 
     #[Computed]

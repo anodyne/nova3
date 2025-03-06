@@ -11,8 +11,17 @@ use Nova\Stories\Events\PostCreating;
 use Nova\Stories\Events\PostPublished;
 use Nova\Stories\Listeners\SendPostPublishedNotificationToDiscord;
 use Nova\Stories\Listeners\SetDefaultContentRatings;
+use Nova\Stories\Livewire\DraftPostsList;
 use Nova\Stories\Livewire\ManagePostAuthors;
+use Nova\Stories\Livewire\PostAuthors;
+use Nova\Stories\Livewire\PostAuthorsEditor;
 use Nova\Stories\Livewire\PostComposer;
+use Nova\Stories\Livewire\PostDetails;
+use Nova\Stories\Livewire\PostPosition;
+use Nova\Stories\Livewire\PostPositionEditor;
+use Nova\Stories\Livewire\PostRatings;
+use Nova\Stories\Livewire\PostRatingsEditor;
+use Nova\Stories\Livewire\PostSetup;
 use Nova\Stories\Livewire\PostsList;
 use Nova\Stories\Livewire\PostsTimeline;
 use Nova\Stories\Livewire\PublishPost;
@@ -66,6 +75,17 @@ class PostServiceProvider extends DomainServiceProvider
     {
         return [
             'posts-composer' => PostComposer::class,
+            'posts-details' => PostDetails::class,
+            'posts-ratings' => PostRatings::class,
+            'posts-ratings-editor' => PostRatingsEditor::class,
+            'posts-authors' => PostAuthors::class,
+            'posts-authors-editor' => PostAuthorsEditor::class,
+            'posts-position' => PostPosition::class,
+            'posts-position-editor' => PostPositionEditor::class,
+
+            'posts-setup' => PostSetup::class,
+
+            'posts-draft-posts-list' => DraftPostsList::class,
             'posts-publish' => PublishPost::class,
             'posts-manage-authors' => ManagePostAuthors::class,
             'posts-recent-published-posts-list' => RecentPublishedPostsList::class,

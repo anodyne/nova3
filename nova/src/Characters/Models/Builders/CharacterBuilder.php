@@ -27,12 +27,15 @@ class CharacterBuilder extends Builder
 
     public function searchFor($search): Builder
     {
+        /** @var User */
+        $user = Auth::user();
+
         return $this->where(fn (Builder $query): Builder => $query->where('name', 'like', "%{$search}%"))
             ->orWhereRelation('positions', Position::column('name'), 'like', "%{$search}%")
             ->orWhereRelation('positions.department', Department::column('name'), 'like', "%{$search}%")
             ->orWhereRelation('users', User::column('name'), 'like', "%{$search}%")
             ->when(
-                Auth::user()->isAbleTo('character.*'),
+                $user->isAbleTo('character.*'),
                 fn (Builder $query): Builder => $query->orWhereRelation('users', User::column('email'), 'like', "%{$search}%")
             );
     }
