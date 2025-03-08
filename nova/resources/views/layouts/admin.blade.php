@@ -211,17 +211,6 @@
                         </x-sidebar.header>
 
                         <x-sidebar.body>
-                            {{--
-                                @can('create', Post::class)
-                                <x-sidebar.section>
-                                <x-sidebar.button :href="route('admin.posts.create')">
-                                <x-icon name="write" size="sm"></x-icon>
-                                <x-sidebar.label>Write a post</x-sidebar.label>
-                                </x-sidebar.button>
-                                </x-sidebar.section>
-                                @endcan
-                            --}}
-
                             <x-sidebar.section>
                                 <x-sidebar.item
                                     :href="route('admin.dashboard')"
@@ -238,16 +227,6 @@
                                     >
                                         <x-icon name="write" size="sm"></x-icon>
                                         <x-sidebar.label>Write</x-sidebar.label>
-                                    </x-sidebar.item>
-                                @endif
-
-                                @if (auth()->user()->can_manage_storytelling)
-                                    <x-sidebar.item
-                                        :href="route('admin.stories.index')"
-                                        :active="$meta->subnavSection === 'storytelling'"
-                                    >
-                                        <x-icon name="books" size="sm"></x-icon>
-                                        <x-sidebar.label>Storytelling</x-sidebar.label>
                                     </x-sidebar.item>
                                 @endif
 
@@ -518,23 +497,6 @@
                                         </x-sidebar.header>
 
                                         <x-sidebar.body>
-                                            {{--
-                                                @can('create', Post::class)
-                                                <x-sidebar.section>
-                                                <div class="px-2">
-                                                <x-button
-                                                :href="route('admin.posts.create')"
-                                                color="primary"
-                                                class="w-full"
-                                                >
-                                                <x-icon name="write" size="sm"></x-icon>
-                                                Write a post
-                                                </x-button>
-                                                </div>
-                                                </x-sidebar.section>
-                                                @endcan
-                                            --}}
-
                                             <x-sidebar.section>
                                                 <x-sidebar.item
                                                     :href="route('admin.dashboard')"
@@ -551,16 +513,6 @@
                                                     >
                                                         <x-icon name="write" size="sm"></x-icon>
                                                         <x-sidebar.label>Write</x-sidebar.label>
-                                                    </x-sidebar.item>
-                                                @endif
-
-                                                @if (auth()->user()->can_manage_storytelling)
-                                                    <x-sidebar.item
-                                                        :href="route('admin.stories.index')"
-                                                        :active="$meta->subnavSection === 'storytelling'"
-                                                    >
-                                                        <x-icon name="books" size="sm"></x-icon>
-                                                        <x-sidebar.label>Storytelling</x-sidebar.label>
                                                     </x-sidebar.item>
                                                 @endif
 

@@ -96,6 +96,12 @@ class PostPosition extends Component
         $this->time = $time;
     }
 
+    #[On('post-story-updated')]
+    public function handlePostStoryUpdate(int $storyId): void
+    {
+        //
+    }
+
     #[On('save-post')]
     #[Renderless]
     public function save(): void

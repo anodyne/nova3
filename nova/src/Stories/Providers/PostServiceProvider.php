@@ -19,11 +19,14 @@ use Nova\Stories\Livewire\PostComposer;
 use Nova\Stories\Livewire\PostDetails;
 use Nova\Stories\Livewire\PostPosition;
 use Nova\Stories\Livewire\PostPositionEditor;
+use Nova\Stories\Livewire\PostPublish;
 use Nova\Stories\Livewire\PostRatings;
 use Nova\Stories\Livewire\PostRatingsEditor;
 use Nova\Stories\Livewire\PostSetup;
 use Nova\Stories\Livewire\PostsList;
 use Nova\Stories\Livewire\PostsTimeline;
+use Nova\Stories\Livewire\PostSummary;
+use Nova\Stories\Livewire\PostSummaryEditor;
 use Nova\Stories\Livewire\PublishPost;
 use Nova\Stories\Livewire\ReadPostModal;
 use Nova\Stories\Livewire\RecentPublishedPostsList;
@@ -74,19 +77,22 @@ class PostServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'posts-composer' => PostComposer::class,
-            'posts-details' => PostDetails::class,
-            'posts-ratings' => PostRatings::class,
-            'posts-ratings-editor' => PostRatingsEditor::class,
             'posts-authors' => PostAuthors::class,
             'posts-authors-editor' => PostAuthorsEditor::class,
+            'posts-composer' => PostComposer::class,
+            'posts-details' => PostDetails::class,
             'posts-position' => PostPosition::class,
             'posts-position-editor' => PostPositionEditor::class,
+            'posts-publish' => PostPublish::class,
+            'posts-ratings' => PostRatings::class,
+            'posts-ratings-editor' => PostRatingsEditor::class,
+            'posts-summary' => PostSummary::class,
+            'posts-summary-editor' => PostSummaryEditor::class,
 
             'posts-setup' => PostSetup::class,
 
             'posts-draft-posts-list' => DraftPostsList::class,
-            'posts-publish' => PublishPost::class,
+            // 'posts-publish' => PublishPost::class,
             'posts-manage-authors' => ManagePostAuthors::class,
             'posts-recent-published-posts-list' => RecentPublishedPostsList::class,
             'posts-list' => PostsList::class,

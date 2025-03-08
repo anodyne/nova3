@@ -49,18 +49,15 @@ class RecentPublishedPostsList extends TableComponent
                             ->grow(false),
                     ]),
                     Split::make([
+                        TextColumn::make('story.title')
+                            ->color('gray')
+                            ->weight(FontWeight::Medium)
+                            ->grow(false),
                         TextColumn::make('locationDayTime')
                             ->size(TextColumnSize::Small)
                             ->color('gray')
                             ->extraAttributes(['class' => 'italic'])
                             ->grow(false),
-                        TextColumn::make('divider')
-                            ->getStateUsing(fn () => ' - ')
-                            ->color('gray')
-                            ->grow(false),
-                        TextColumn::make('story.title')
-                            ->color('gray')
-                            ->weight(FontWeight::Medium),
                     ]),
                 ]),
             ])

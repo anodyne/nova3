@@ -37,15 +37,22 @@ class PostPolicy
             : $this->deny();
     }
 
+    public function unlock(User $user, Post $post): Response
+    {
+        return $user->isAbleTo('post.update') && $post->isLocked()
+            ? $this->allow()
+            : $this->deny();
+    }
+
     public function update(User $user, Post $post): Response
     {
         if ($user->isAbleTo('post.update')) {
             return $this->allow();
         }
 
-        if ($post->isLocked() && ! $post->lockIsOwnedBy($user)) {
-            return $this->deny();
-        }
+        // if ($post->isLocked() && ! $post->lockIsOwnedBy($user)) {
+        //     return $this->deny();
+        // }
 
         $post->loadMissing('participatingUsers');
 
@@ -72,20 +79,9 @@ class PostPolicy
             : $this->deny();
     }
 
-    public function discardDraft(User $user, Post $post): Response
+    public function discard(User $user, Post $post): Response
     {
-        if (! $post->exists) {
-            return $this->deny();
-        }
-
-        if (
-            $post?->is_draft &&
-            ($post?->participatingUsers->contains('id', $user->id) || $user->isAbleTo('post.delete'))
-        ) {
-            return $this->allow();
-        }
-
-        return $this->deny();
+        return $this->canTakeActionOnDraftPost($user, $post, 'post.delete');
     }
 
     public function duplicate(User $user, Post $post): Response
@@ -109,6 +105,27 @@ class PostPolicy
     {
         if ($postType === null || (isset($postType) && Gate::forUser($user)->allows('write', $postType))) {
             return $this->create($user, $post);
+        }
+
+        return $this->deny();
+    }
+
+    public function publish(User $user, Post $post): Response
+    {
+        return $this->canTakeActionOnDraftPost($user, $post, 'post.update');
+    }
+
+    private function canTakeActionOnDraftPost(User $user, Post $post, string $permission): Response
+    {
+        if (! $post->exists) {
+            return $this->deny();
+        }
+
+        if (
+            $post?->is_draft &&
+            ($post?->participatingUsers->contains('id', $user->id) || $user->isAbleTo($permission))
+        ) {
+            return $this->allow();
         }
 
         return $this->deny();

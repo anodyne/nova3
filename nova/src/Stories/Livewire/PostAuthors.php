@@ -67,7 +67,9 @@ class PostAuthors extends Component
 
             UpdatePostAuthors::run($post, PostAuthorsData::from(
                 characters: $this->characterAuthorsPivotData,
+                originalCharacters: $post->characterAuthors,
                 users: $this->userAuthorsPivotData,
+                originalUsers: $post->userAuthors
             ));
 
             $this->dispatch('save-post-completed')->to(PostComposer::class);

@@ -28,8 +28,7 @@ readonly class Fields extends Bag
     {
         return collect(get_object_vars($this))
             ->filter(fn ($var) => $var instanceof Field)
-            ->filter(fn (Field $field) => $field->enabled)
-            ->filter(fn (Field $field, $key) => $key !== 'rating');
+            ->filter(fn (Field $field) => $field->enabled);
     }
 
     public function requiredFields(): Collection

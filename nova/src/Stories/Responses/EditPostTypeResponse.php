@@ -8,7 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class EditPostTypeResponse extends Responsable
 {
-    public ?string $subnav = 'storytelling';
+    public ?string $subnav = 'writing';
 
     public string $view = 'post-types.edit';
 }

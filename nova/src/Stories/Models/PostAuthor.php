@@ -6,6 +6,7 @@ namespace Nova\Stories\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Stories\Models\Builders\PostAuthorBuilder;
@@ -15,13 +16,15 @@ class PostAuthor extends MorphPivot
 {
     use HasTableHelpers;
 
+    public function authorable(): MorphTo
+    {
+        return $this->morphTo();
+    }
+
     public function character(): BelongsTo
     {
-        if ($this->authorable_type === 'character') {
-            return $this->belongsTo(Character::class, 'authorable_id');
-        }
-
-        return null;
+        return $this->belongsTo(Character::class, 'authorable_id')
+            ->where(PostAuthor::column('authorable_type'), 'character');
     }
 
     public function post(): BelongsTo

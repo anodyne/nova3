@@ -52,18 +52,15 @@ class DraftPostsList extends TableComponent
                         ViewColumn::make('title')
                             ->view('filament.tables.columns.post-title', ['tight' => true, 'locked' => false]),
                         Split::make([
+                            TextColumn::make('story.title')
+                                ->color('gray')
+                                ->weight(FontWeight::Medium)
+                                ->grow(false),
                             TextColumn::make('locationDayTime')
                                 ->size(TextColumnSize::Small)
                                 ->color('gray')
                                 ->extraAttributes(['class' => 'italic'])
                                 ->grow(false),
-                            TextColumn::make('divider')
-                                ->getStateUsing(fn () => ' - ')
-                                ->color('gray')
-                                ->grow(false),
-                            TextColumn::make('story.title')
-                                ->color('gray')
-                                ->weight(FontWeight::Medium),
                         ]),
                     ]),
                     Stack::make([

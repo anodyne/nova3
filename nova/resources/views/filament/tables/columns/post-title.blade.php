@@ -20,7 +20,7 @@
     </div>
 
     <div class="whitespace-normal text-base font-medium sm:text-sm">
-        {{ $post->title }}
+        {{ $post->title ?? '(No title)' }}
     </div>
 
     @if ($locked && $post->isLocked())

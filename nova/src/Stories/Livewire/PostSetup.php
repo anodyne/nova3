@@ -77,13 +77,14 @@ class PostSetup extends Component
         $this->post->save();
 
         UpdatePostAuthors::run(
-            $this->post,
-            PostAuthorsData::from(
+            post: $this->post,
+            data: PostAuthorsData::from(
                 characters: [
                     $this->characterId => ['user_id' => Auth::id()],
                 ],
-                users: []
-            )
+                users: [],
+            ),
+            sendNotifications: false
         );
 
         UpdatePostStatus::run($this->post, PostStatusData::from('draft'));

@@ -8,7 +8,7 @@ use Nova\Foundation\Responses\Responsable;
 
 class EditStoryResponse extends Responsable
 {
-    public ?string $subnav = 'storytelling';
+    public ?string $subnav = 'writing';
 
     public string $view = 'stories.edit';
 }

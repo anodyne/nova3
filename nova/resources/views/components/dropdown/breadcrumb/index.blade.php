@@ -3,7 +3,7 @@
     'placeholder' => null,
 ])
 
-<div class="relative" x-data="{ open: false }" x-on:click.away="open = false">
+<div class="relative isolate" x-data="{ open: false }" x-on:click.away="open = false">
     @if ($trigger?->isNotEmpty())
         <button
             type="button"
@@ -25,7 +25,7 @@
     @endif
 
     <div
-        class="absolute isolate mt-1.5 w-screen max-w-[14rem] origin-top-left transform rounded-lg bg-white px-1 py-1 shadow-lg ring-1 ring-gray-950/5 transition dark:bg-gray-800 dark:ring-white/20"
+        class="absolute z-50 mt-1.5 w-screen max-w-[14rem] origin-top-left transform rounded-lg bg-white px-1 py-1 shadow-lg ring-1 ring-gray-950/5 transition dark:bg-gray-800 dark:ring-white/20"
         x-show="open"
         x-transition:enter-start="opacity-0"
         x-transition:leave-end="opacity-0"

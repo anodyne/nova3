@@ -12,6 +12,6 @@ trait InteractsWithPost
 
     public function getPost(): ?Post
     {
-        return Post::findOrFail($this->postId);
+        return once(fn () => Post::findOrFail($this->postId));
     }
 }

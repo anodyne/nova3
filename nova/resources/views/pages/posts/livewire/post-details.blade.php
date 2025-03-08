@@ -9,40 +9,48 @@
             />
         </div>
 
-        <div class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
-            <div class="flex flex-1 items-center gap-2">
-                <x-icon name="location" size="sm" class="text-gray-500"></x-icon>
-                <input
-                    type="text"
-                    wire:model.blur="location"
-                    class="block w-full flex-1 appearance-none border-none bg-transparent p-0.5 font-medium text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-0 dark:text-gray-300"
-                    placeholder="Add a location"
-                />
-            </div>
+        @if ($postType->fields->location->enabled || $postType->fields->day->enabled || $postType->fields->time->enabled)
+            <div class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0">
+                @if ($postType->fields->location->enabled)
+                    <div class="flex flex-1 items-center gap-2">
+                        <x-icon name="location" size="sm" class="text-gray-500"></x-icon>
+                        <input
+                            type="text"
+                            wire:model.blur="location"
+                            class="block w-full flex-1 appearance-none border-none bg-transparent p-0.5 font-medium text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-0 dark:text-gray-300"
+                            placeholder="Add a location"
+                        />
+                    </div>
+                @endif
 
-            <div class="flex flex-1 items-center gap-2">
-                <x-icon name="calendar" size="sm" class="text-gray-500"></x-icon>
-                <input
-                    type="text"
-                    wire:model.blur="day"
-                    class="block w-full flex-1 appearance-none border-none bg-transparent p-0.5 font-medium text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-0 dark:text-gray-300"
-                    placeholder="Add a day"
-                />
-            </div>
+                @if ($postType->fields->day->enabled)
+                    <div class="flex flex-1 items-center gap-2">
+                        <x-icon name="calendar" size="sm" class="text-gray-500"></x-icon>
+                        <input
+                            type="text"
+                            wire:model.blur="day"
+                            class="block w-full flex-1 appearance-none border-none bg-transparent p-0.5 font-medium text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-0 dark:text-gray-300"
+                            placeholder="Add a day"
+                        />
+                    </div>
+                @endif
 
-            <div class="flex flex-1 items-center gap-2">
-                <x-icon name="clock" size="sm" class="text-gray-500"></x-icon>
-                <input
-                    type="text"
-                    wire:model.blur="time"
-                    class="block w-full flex-1 appearance-none border-none bg-transparent p-0.5 font-medium text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-0 dark:text-gray-300"
-                    placeholder="Add a time"
-                />
+                @if ($postType->fields->time->enabled)
+                    <div class="flex flex-1 items-center gap-2">
+                        <x-icon name="clock" size="sm" class="text-gray-500"></x-icon>
+                        <input
+                            type="text"
+                            wire:model.blur="time"
+                            class="block w-full flex-1 appearance-none border-none bg-transparent p-0.5 font-medium text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-0 dark:text-gray-300"
+                            placeholder="Add a time"
+                        />
+                    </div>
+                @endif
             </div>
-        </div>
+        @endif
     </div>
 
-    <div x-cloak>
+    <div class="relative isolate" x-cloak>
         <x-editor wire:model.blur="content"></x-editor>
     </div>
 </div>

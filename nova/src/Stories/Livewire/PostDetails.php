@@ -16,6 +16,7 @@ use Nova\Stories\Models\Post;
 class PostDetails extends Component
 {
     use Concerns\InteractsWithPost;
+    use Concerns\InteractsWithPostType;
 
     public ?string $title = null;
 
@@ -47,6 +48,7 @@ class PostDetails extends Component
     public function mount(Post $post): void
     {
         $this->postId = $post->id;
+        $this->postTypeId = $post->post_type_id;
         $this->title = $post->title;
         $this->location = $post->location;
         $this->day = $post->day;
@@ -56,7 +58,9 @@ class PostDetails extends Component
 
     public function render(): View
     {
-        return view('pages.posts.livewire.post-details');
+        return view('pages.posts.livewire.post-details', [
+            'postType' => $this->getPostType(),
+        ]);
     }
 
     #[On('save-post')]

@@ -139,7 +139,7 @@ class PostsList extends TableComponent
                             ->successNotificationTitle(fn (Post $record): string => $record->title.' post has been unlocked')
                             ->action(fn (Post $record): mixed => ForceUnlockPost::run($record))
                             ->visible(fn (Post $record): bool => $record->isLocked()),
-                    ])->authorize('update')->divided(),
+                    ])->authorize('unlock')->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
