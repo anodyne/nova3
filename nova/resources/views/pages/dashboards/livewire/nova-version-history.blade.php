@@ -46,7 +46,7 @@
                     </div>
                 @else
                     <div class="text-sm/6 italic text-gray-500">
-                        This is a external dependency update that does not include any code changes.
+                        This is a external dependency update that does not include any changes to Nova.
                     </div>
                 @endif
 
