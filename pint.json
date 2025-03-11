@@ -1,5 +1,8 @@
 {
   "preset": "laravel",
+  "exclude": [
+    "tests/Fixtures"
+  ],
   "rules": {
     "declare_strict_types": true,
     "ordered_class_elements": {
@@ -27,7 +30,9 @@
       ],
       "sort_algorithm": "none"
     },
-    "ordered_interfaces": true,
-    "ordered_traits": true
+    "ordered_interfaces": {
+      "direction": "ascend",
+      "order": "alpha"
+    }
   }
 }
