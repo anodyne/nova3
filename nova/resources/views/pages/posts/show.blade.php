@@ -1,155 +1,61 @@
+@use('Illuminate\Support\Js')
 @use('Illuminate\Support\Number')
 @use('Nova\Foundation\Helpers\DateHelper')
 
 <x-admin-layout>
-    <div x-data="{ showContentWarning: @js($post->show_content_warning_for_admin_site) }">
-        <x-spacing class="space-y-8">
-            <div>
-                <div class="flex justify-between gap-x-8">
-                    <div>
-                        <div class="flex items-baseline gap-x-4">
-                            <x-h1>{{ $post->title }}</x-h1>
-                            <p class="font-medium text-gray-400 dark:text-gray-600">{{ $story->title }}</p>
-                        </div>
-                    </div>
+    <div
+        class="grid gap-8 lg:grid-cols-3"
+        x-data="{
+            showContentWarning:
+                {{ Js::from($post->show_content_warning_for_admin_site) }},
+        }"
+    >
+        <div class="lg:col-span-2">
+            <div class="space-y-2">
+                <p class="text-sm/6">
+                    <a
+                        href="{{ route('admin.stories.show', $story) }}"
+                        class="text-gray-500 underline hover:text-gray-600 dark:hover:text-gray-400"
+                    >
+                        {{ $story->title }}
+                    </a>
+                </p>
+                <x-h1>{{ $post->title }}</x-h1>
+            </div>
 
-                    <div class="flex items-center gap-x-4">
-                        @if ($previousPost)
-                            <x-button :href="route('admin.posts.show', [$story, $previousPost])" color="neutral" text>
-                                <x-icon name="arrow-left" size="lg"></x-icon>
-                            </x-button>
-                        @endif
+            <div class="mt-4 flex items-center gap-x-8 text-sm/6">
+                <x-metadata label="Post type" :value="$post->postType->name"></x-metadata>
 
-                        @if ($nextPost)
-                            <x-button :href="route('admin.posts.show', [$story, $nextPost])" color="neutral" text>
-                                <x-icon name="arrow-right" size="lg"></x-icon>
-                            </x-button>
-                        @endif
+                @if ($post->is_published)
+                    <x-metadata label="Published" :value="DateHelper::formatDate($post->published_at)"></x-metadata>
+                @endif
 
-                        @can('update', $post)
-                            <x-button href="{{ route('admin.posts.edit', $post) }}" color="primary">
-                                <x-icon name="edit" size="sm"></x-icon>
-                                Edit
-                            </x-button>
-                        @endcan
-                    </div>
-                </div>
+                <x-metadata label="Reading time" :value="$post->reading_time"></x-metadata>
 
-                <div class="mt-3 flex items-center gap-x-8 text-sm">
-                    <div class="flex items-center gap-x-1">
-                        <div style="color: {{ $post->postType->color }}">
-                            <x-icon :name="$post->postType->icon" size="sm"></x-icon>
-                        </div>
-                        <span class="font-semibold text-gray-600 dark:text-gray-400">
-                            {{ $post->postType->name }}
-                        </span>
-                    </div>
+                <x-metadata label="Words" :value="Number::format($post->word_count ?? 0)"></x-metadata>
+            </div>
 
-                    @if ($post->is_published)
-                        <x-metadata
-                            label="Published"
-                            :value="DateHelper::formatDate($post->published_at)"
-                        ></x-metadata>
+            @if ($post->postType->fields->showMetaFields())
+                <div class="mt-8 flex items-center gap-x-8">
+                    @if ($post->postType->fields->location->enabled && filled($post->location))
+                        <x-metadata icon="location" :value="$post->location"></x-metadata>
                     @endif
 
-                    <x-metadata label="Reading time" :value="$post->reading_time"></x-metadata>
+                    @if ($post->postType->fields->day->enabled && filled($post->day))
+                        <x-metadata icon="calendar" :value="$post->day"></x-metadata>
+                    @endif
 
-                    <x-metadata label="Words" :value="Number::format($post->word_count)"></x-metadata>
+                    @if ($post->postType->fields->time->enabled && filled($post->time))
+                        <x-metadata icon="clock" :value="$post->time"></x-metadata>
+                    @endif
                 </div>
+            @endif
+
+            <div class="prose mt-8 max-w-none dark:prose-invert" x-cloak x-show="!showContentWarning">
+                {!! $post->content !!}
             </div>
 
-            <div class="space-y-8" x-cloak x-show="!showContentWarning">
-                @if ($post->postType->fields->showMetaFields())
-                    <div
-                        class="relative flex flex-col space-y-3 text-lg md:flex-row md:items-center md:space-x-8 md:space-y-0"
-                    >
-                        @if ($post->postType->fields->location->enabled && filled($post->location))
-                            <x-metadata icon="location" :value="$post->location"></x-metadata>
-                        @endif
-
-                        @if ($post->postType->fields->day->enabled && filled($post->day))
-                            <x-metadata icon="calendar" :value="$post->day"></x-metadata>
-                        @endif
-
-                        @if ($post->postType->fields->time->enabled && filled($post->time))
-                            <x-metadata icon="clock" :value="$post->time"></x-metadata>
-                        @endif
-                    </div>
-                @endif
-
-                @if ($post->postType->fields->rating->enabled)
-                    <div class="flex items-center gap-x-8">
-                        <x-rating.display
-                            type="language"
-                            :rating="$post->rating_language"
-                            size="lg"
-                            show-details
-                        ></x-rating.display>
-                        <x-rating.display
-                            type="sex"
-                            :rating="$post->rating_sex"
-                            size="lg"
-                            show-details
-                        ></x-rating.display>
-                        <x-rating.display
-                            type="violence"
-                            :rating="$post->rating_violence"
-                            size="lg"
-                            show-details
-                        ></x-rating.display>
-                    </div>
-                @endif
-
-                <div class="prose prose-lg max-w-none dark:prose-invert">
-                    {!! $post->content !!}
-                </div>
-
-                <x-panel variant="well">
-                    <x-panel.header title="Authors"></x-panel.header>
-
-                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        @if ($post->characterAuthors->count() > 0)
-                            <x-spacing size="md">
-                                <x-h5>
-                                    {{ str('character')->plural($post->characterAuthors->count())->title() }}
-                                </x-h5>
-
-                                <div class="mt-4 grid grid-cols-2 gap-4">
-                                    @foreach ($post->characterAuthors as $character)
-                                        <div>
-                                            <x-avatar.character :$character>
-                                                <x-slot name="secondary">
-                                                    by {{ $character->pivot->user?->name }}
-                                                </x-slot>
-                                            </x-avatar.character>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </x-spacing>
-                        @endif
-
-                        @if ($post->userAuthors->count() > 0)
-                            <x-spacing size="md">
-                                <x-h5>
-                                    {{ str('author')->plural($post->userAuthors->count())->prepend('Additional ') }}
-                                </x-h5>
-
-                                <div class="mt-4 grid grid-cols-3 gap-6">
-                                    @foreach ($post->userAuthors as $user)
-                                        <div>
-                                            <x-avatar.user :$user>
-                                                <x-slot name="secondary">as {{ $user->pivot->as }}</x-slot>
-                                            </x-avatar.user>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </x-spacing>
-                        @endif
-                    </x-panel>
-                </x-panel>
-            </div>
-
-            <div class="pb-16" x-show="showContentWarning" x-cloak>
+            <div x-show="showContentWarning" x-cloak>
                 <div class="flex items-center gap-x-3">
                     <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
                     <h1 class="block text-4xl font-extrabold leading-loose tracking-tight text-danger-600">Warning</h1>
@@ -195,6 +101,136 @@
                     </div>
                 @endif
             </div>
-        </x-spacing>
+
+            @if (filled($previousPost) || filled($nextPost))
+                <div class="mt-16 flex">
+                    @if (filled($previousPost))
+                        <div class="flex flex-col items-start gap-3">
+                            <a
+                                class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-ml-1"
+                                aria-label="Previous post: {{ $previousPost->title }}"
+                                href="{{ route('admin.posts.show', [$story, $previousPost]) }}"
+                            >
+                                <x-icon.micro.chevron-left class="text-gray-500" />
+                                <span>Previous</span>
+                            </a>
+                            <a
+                                tabindex="-1"
+                                aria-hidden="true"
+                                class="text-base font-semibold text-gray-900 transition hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
+                                href="{{ route('admin.posts.show', [$story, $previousPost]) }}"
+                            >
+                                {{ $previousPost->title }}
+                            </a>
+                        </div>
+                    @endif
+
+                    @if (filled($nextPost))
+                        <div class="ml-auto flex flex-col items-end gap-3">
+                            <a
+                                class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-mr-1"
+                                aria-label="Next post: {{ $nextPost->title }}"
+                                href="{{ route('admin.posts.show', [$story, $nextPost]) }}"
+                            >
+                                <span>Next</span>
+                                <x-icon.micro.chevron-right class="text-gray-500" />
+                            </a>
+                            <a
+                                tabindex="-1"
+                                aria-hidden="true"
+                                class="text-base font-semibold text-gray-900 transition hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
+                                href="{{ route('admin.posts.show', [$story, $nextPost]) }}"
+                            >
+                                {{ $nextPost->title }}
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            @endif
+        </div>
+
+        <div class="space-y-8 pt-9">
+            @if ($post->postType->fields->rating->enabled)
+                <div class="flex flex-col gap-y-4">
+                    <x-rating.display
+                        type="language"
+                        :rating="$post->rating_language"
+                        size="md"
+                        show-details
+                    ></x-rating.display>
+                    <x-rating.display type="sex" :rating="$post->rating_sex" size="md" show-details></x-rating.display>
+                    <x-rating.display
+                        type="violence"
+                        :rating="$post->rating_violence"
+                        size="md"
+                        show-details
+                    ></x-rating.display>
+                </div>
+            @endif
+
+            <div class="space-y-4">
+                <x-h5>Authors</x-h5>
+
+                <div class="space-y-2">
+                    @foreach ($post->characterAuthors as $characterAuthor)
+                        <div class="flex items-center gap-x-2 text-sm/4 font-semibold text-gray-700">
+                            <x-avatar :src="$characterAuthor->avatar_url" size="sm"></x-avatar>
+                            <div>{{ $characterAuthor->name }}</div>
+                        </div>
+                    @endforeach
+
+                    @foreach ($post->userAuthors as $userAuthor)
+                        @if (filled($userAuthor->pivot->as))
+                            <div class="flex items-center gap-x-2 text-sm/4 font-semibold text-gray-700">
+                                <x-avatar :src="$userAuthor->avatar_url" size="sm"></x-avatar>
+                                <div>{{ $userAuthor->pivot->as }}</div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+
+            @if (filled($previousPost))
+                <div class="flex flex-col items-start gap-1.5">
+                    <a
+                        class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-ml-1"
+                        aria-label="Previous post: {{ $previousPost->title }}"
+                        href="{{ route('admin.posts.show', [$story, $previousPost]) }}"
+                    >
+                        <x-icon.micro.chevron-left class="text-gray-500" />
+                        <span>Previous</span>
+                    </a>
+                    <a
+                        tabindex="-1"
+                        aria-hidden="true"
+                        class="text-sm/6 font-semibold text-gray-900 transition hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
+                        href="{{ route('admin.posts.show', [$story, $previousPost]) }}"
+                    >
+                        {{ $previousPost->title }}
+                    </a>
+                </div>
+            @endif
+
+            @if (filled($nextPost))
+                <div class="flex flex-col items-start gap-1.5">
+                    <a
+                        class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-mr-1"
+                        aria-label="Next post: {{ $nextPost->title }}"
+                        href="{{ route('admin.posts.show', [$story, $nextPost]) }}"
+                    >
+                        <span>Next</span>
+                        <x-icon.micro.chevron-right class="text-gray-500" />
+                    </a>
+                    <a
+                        tabindex="-1"
+                        aria-hidden="true"
+                        class="text-sm/6 font-semibold text-gray-900 transition hover:text-gray-600 dark:text-white dark:hover:text-gray-300"
+                        href="{{ route('admin.posts.show', [$story, $nextPost]) }}"
+                    >
+                        {{ $nextPost->title }}
+                    </a>
+                </div>
+            @endif
+        </div>
     </div>
 </x-admin-layout>
