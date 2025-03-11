@@ -32,7 +32,7 @@ readonly class StoryPositionData extends Bag
     protected static function fromRequest(Request $request): array
     {
         return [
-            'direction' => PositionDirection::tryFrom($request->input('display_direction')) ?? PositionDirection::After,
+            'direction' => PositionDirection::tryFrom($request->input('display_direction') ?? '') ?? PositionDirection::After,
             'neighbor' => Story::find($request->input('display_neighbor')),
             'hasPositionChange' => $request->boolean('has_position_change', false),
         ];
