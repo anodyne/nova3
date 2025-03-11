@@ -28,19 +28,31 @@ use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Events\RoleDuplicated;
 use Nova\Roles\Models\Role;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class RolesList extends TableComponent
 {
     public function table(Table $table): Table
     {
         return $table
-            ->query(Role::with('user', 'permissions'))
+            ->query(
+                Role::query()
+                    ->with('user', 'permissions')
+                    ->select([
+                        'display_name',
+                        'id',
+                        'is_default',
+                        'is_locked',
+                        'order_column',
+                    ])
+            )
+            ->defaultSort('order_column')
             ->reorderable('order_column')
             ->columns([
                 TextColumn::make('display_name')
                     ->titleColumn()
                     ->label('Name')
-                    ->icon(fn (Model $record): ?string => $record->is_locked ? iconName('lock-closed') : null)
+                    ->icon(fn (Role $record): ?string => $record->is_locked ? iconName('lock-closed') : null)
                     ->iconPosition('after')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('user_count')
@@ -66,11 +78,15 @@ class RolesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.roles.show', $record)),
+                            ->url(fn (Role $record): string => route('admin.roles.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.roles.edit', $record)),
+                            ->url(fn (Role $record): string => route('admin.roles.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
@@ -79,14 +95,14 @@ class RolesList extends TableComponent
                             ->form([
                                 TextInput::make('display_name')->label('New role name'),
                             ])
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (Role $record, array $data): void {
                                 $replica = DuplicateRole::run(
                                     $record,
-                                    RoleData::from([
-                                        'display_name' => $displayName = data_get($data, 'display_name'),
-                                        'name' => str($displayName)->slug(),
-                                        'is_default' => false,
-                                    ])
+                                    RoleData::from(
+                                        displayName: $displayName = data_get($data, 'display_name'),
+                                        name: str($displayName)->slug(),
+                                        isDefault: false
+                                    )
                                 );
 
                                 RoleDuplicated::dispatch($replica, $record);
@@ -102,8 +118,8 @@ class RolesList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.roles.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->display_name.' role was deleted')
-                            ->using(fn (Model $record): Model => DeleteRole::run($record)),
+                            ->successNotificationTitle(fn (Role $record): string => $record->display_name.' role was deleted')
+                            ->using(fn (Role $record): Model => DeleteRole::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -115,7 +131,7 @@ class RolesList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Role $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -124,7 +140,7 @@ class RolesList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeleteRole::run($record));
+                            ->each(fn (Role $record): Model => DeleteRole::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('role was|roles were', count($records)).' deleted')

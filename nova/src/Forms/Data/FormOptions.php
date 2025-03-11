@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Arr;
-use Nova\Foundation\Rules\Boolean;
-use Spatie\LaravelData\Data;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Illuminate\Http\Request;
 
-class FormOptions extends Data implements Arrayable
+/**
+ * @method static static from(bool $onlyAuthenticatedUsers, bool $collectResponses, bool $singleSubmission, ?string $submissionTitleField, bool $emailResponses, ?string $emailRecipients)
+ */
+readonly class FormOptions extends Bag
 {
     public function __construct(
         public bool $onlyAuthenticatedUsers,
@@ -20,27 +22,16 @@ class FormOptions extends Data implements Arrayable
         public ?string $emailRecipients = null
     ) {}
 
-    public static function fromArray(array $data): static
-    {
-        return new self(
-            onlyAuthenticatedUsers: Arr::boolean($data, 'onlyAuthenticatedUsers'),
-            collectResponses: Arr::boolean($data, 'collectResponses'),
-            singleSubmission: Arr::boolean($data, 'singleSubmission'),
-            submissionTitleField: data_get($data, 'submissionTitleField'),
-            emailResponses: Arr::boolean($data, 'emailResponses'),
-            emailRecipients: data_get($data, 'emailRecipients'),
-        );
-    }
-
-    public static function rules(): array
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
         return [
-            'onlyAuthenticatedUsers' => [new Boolean],
-            'collectResponses' => [new Boolean],
-            'singleSubmission' => [new Boolean],
-            'submissionTitleField' => ['nullable'],
-            'emailResponses' => [new Boolean],
-            'emailRecipients' => ['nullable'],
+            'onlyAuthenticatedUsers' => $request->boolean('options.onlyAuthenticatedUsers'),
+            'collectResponses' => $request->boolean('options.collectResponses'),
+            'singleSubmission' => $request->boolean('options.singleSubmission'),
+            'submissionTitleField' => $request->input('options.submissionTitleField'),
+            'emailResponses' => $request->boolean('options.emailResponses'),
+            'emailRecipients' => $request->input('options.emailRecipients'),
         ];
     }
 
@@ -50,6 +41,6 @@ class FormOptions extends Data implements Arrayable
             return [];
         }
 
-        return array_map('trim', explode(',', $this->emailRecipients));
+        return array_map('trim', explode(',', $this->emailRecipients ?? ''));
     }
 }

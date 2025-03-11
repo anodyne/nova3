@@ -14,127 +14,130 @@
     </div>
 
     @if (filled($discussionId))
-        <x-panel>
-            <x-spacing height="sm" width="md" class="flex items-center justify-between">
-                <div class="flex items-center gap-x-2">
-                    <x-avatar :src="$latestMessage->user->avatar_url" size="sm"></x-avatar>
-                    <div class="flex flex-col gap-y-0.5">
-                        <x-text>
-                            <x-text.strong>{{ $latestMessage->user->name }}</x-text.strong>
-                        </x-text>
-                        <x-text size="sm">
-                            {{ DateHelper::formatShortDateWithTime($latestMessage->created_at) }}
-                        </x-text>
+        <x-panel variant="well">
+            <x-panel.header :title="$discussion->subject ?? '(No subject)'">
+                <x-slot name="description">
+                    <div class="mt-1 flex items-center gap-x-6">
+                        @foreach ($discussion->allParticipants as $user)
+                            <x-avatar.user :$user size="2xs"></x-avatar.user>
+                        @endforeach
                     </div>
-                </div>
-                <div class="flex items-center gap-x-4">
-                    @can('leave', $discussion)
-                        <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger" color="neutral-danger">
-                                <x-icon name="exit" size="sm"></x-icon>
-                            </x-slot>
+                </x-slot>
+            </x-panel.header>
 
-                            <x-dropdown.group>
-                                <x-dropdown.text>Are you sure you want to leave this group message?</x-dropdown.text>
-                            </x-dropdown.group>
-                            <x-dropdown.group>
-                                <x-dropdown.item-danger type="button" icon="exit" wire:click="leaveDiscussion">
-                                    Leave
-                                </x-dropdown.item-danger>
-                                <x-dropdown.item
-                                    type="button"
-                                    icon="prohibited"
-                                    x-on:click.prevent="$dispatch('dropdown-close')"
-                                >
-                                    Cancel
-                                </x-dropdown.item>
-                            </x-dropdown.group>
-                        </x-dropdown>
-                    @endcan
+            <x-panel>
+                <x-spacing size="row" class="flex items-center justify-between">
+                    <div class="flex items-center gap-x-2">
+                        <x-avatar :src="$latestMessage->user?->avatar_url" size="sm"></x-avatar>
+                        <div class="flex flex-col gap-y-0.5">
+                            <x-text>
+                                From:
+                                <x-text.strong>{{ $latestMessage->user?->name }}</x-text.strong>
+                            </x-text>
+                            <x-text size="sm">
+                                {{ DateHelper::formatShortDateWithTime($latestMessage->created_at) }}
+                            </x-text>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-4">
+                        @can('leave', $discussion)
+                            <x-dropdown placement="bottom-end">
+                                <x-slot name="trigger" color="neutral-danger">
+                                    <x-icon name="exit" size="sm"></x-icon>
+                                </x-slot>
 
-                    @can('delete', $discussion)
-                        <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger" color="neutral-danger">
-                                <x-icon name="message-off" size="sm"></x-icon>
-                            </x-slot>
+                                <x-dropdown.group>
+                                    <x-dropdown.text>
+                                        Are you sure you want to leave this group message?
+                                    </x-dropdown.text>
+                                </x-dropdown.group>
+                                <x-dropdown.group>
+                                    <x-dropdown.item-danger type="button" icon="exit" wire:click="leaveDiscussion">
+                                        Leave
+                                    </x-dropdown.item-danger>
+                                    <x-dropdown.item
+                                        type="button"
+                                        icon="prohibited"
+                                        x-on:click.prevent="$dispatch('dropdown-close')"
+                                    >
+                                        Cancel
+                                    </x-dropdown.item>
+                                </x-dropdown.group>
+                            </x-dropdown>
+                        @endcan
 
-                            <x-dropdown.group>
-                                <x-dropdown.text>
-                                    Are you sure you want to remove this message from the conversation?
-                                </x-dropdown.text>
-                            </x-dropdown.group>
-                            <x-dropdown.group>
-                                <x-dropdown.item-danger
-                                    type="button"
-                                    icon="message-off"
-                                    wire:click="deleteMessage({{ $latestMessage }})"
-                                >
-                                    Remove
-                                </x-dropdown.item-danger>
-                                <x-dropdown.item
-                                    type="button"
-                                    icon="prohibited"
-                                    x-on:click.prevent="$dispatch('dropdown-close')"
-                                >
-                                    Cancel
-                                </x-dropdown.item>
-                            </x-dropdown.group>
-                        </x-dropdown>
+                        @can('delete', $discussion)
+                            <x-dropdown placement="bottom-end">
+                                <x-slot name="trigger" color="neutral-danger">
+                                    <x-icon name="message-off" size="sm"></x-icon>
+                                </x-slot>
 
-                        <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger" color="neutral-danger">
-                                <x-icon name="trash" size="sm"></x-icon>
-                            </x-slot>
+                                <x-dropdown.group>
+                                    <x-dropdown.text>
+                                        Are you sure you want to remove this message from the conversation?
+                                    </x-dropdown.text>
+                                </x-dropdown.group>
+                                <x-dropdown.group>
+                                    <x-dropdown.item-danger
+                                        type="button"
+                                        icon="message-off"
+                                        wire:click="deleteMessage({{ $latestMessage }})"
+                                    >
+                                        Remove
+                                    </x-dropdown.item-danger>
+                                    <x-dropdown.item
+                                        type="button"
+                                        icon="prohibited"
+                                        x-on:click.prevent="$dispatch('dropdown-close')"
+                                    >
+                                        Cancel
+                                    </x-dropdown.item>
+                                </x-dropdown.group>
+                            </x-dropdown>
 
-                            <x-dropdown.group>
-                                <x-dropdown.text>
-                                    Are you sure you want to delete this entire conversation?
-                                </x-dropdown.text>
-                            </x-dropdown.group>
-                            <x-dropdown.group>
-                                <x-dropdown.item-danger type="button" icon="trash" wire:click="deleteDiscussion">
-                                    Delete
-                                </x-dropdown.item-danger>
-                                <x-dropdown.item
-                                    type="button"
-                                    icon="prohibited"
-                                    x-on:click.prevent="$dispatch('dropdown-close')"
-                                >
-                                    Cancel
-                                </x-dropdown.item>
-                            </x-dropdown.group>
-                        </x-dropdown>
-                    @endcan
-                </div>
-            </x-spacing>
-            <x-spacing size="md">
-                <div class="prose max-w-none space-y-6 dark:prose-invert">
-                    {!! str($latestMessage->content)->markdown() !!}
-                </div>
-            </x-spacing>
-            <x-spacing
-                height="sm"
-                width="sm"
-                class="dark:white/5 flex items-center justify-between rounded-b-lg border-t border-gray-950/5 bg-gray-950/[.03] dark:border-white/10"
-            >
+                            <x-dropdown placement="bottom-end">
+                                <x-slot name="trigger" color="neutral-danger">
+                                    <x-icon name="trash" size="sm"></x-icon>
+                                </x-slot>
+
+                                <x-dropdown.group>
+                                    <x-dropdown.text>
+                                        Are you sure you want to delete this entire conversation?
+                                    </x-dropdown.text>
+                                </x-dropdown.group>
+                                <x-dropdown.group>
+                                    <x-dropdown.item-danger type="button" icon="trash" wire:click="deleteDiscussion">
+                                        Delete
+                                    </x-dropdown.item-danger>
+                                    <x-dropdown.item
+                                        type="button"
+                                        icon="prohibited"
+                                        x-on:click.prevent="$dispatch('dropdown-close')"
+                                    >
+                                        Cancel
+                                    </x-dropdown.item>
+                                </x-dropdown.group>
+                            </x-dropdown>
+                        @endcan
+                    </div>
+                </x-spacing>
+
+                <x-spacing width="md" top="xs" bottom="md">
+                    <div class="prose max-w-none space-y-6 dark:prose-invert">
+                        {!! str($latestMessage->content)->markdown() !!}
+                    </div>
+                </x-spacing>
+            </x-panel>
+
+            <x-panel.footer class="flex items-center justify-between">
                 <x-button
-                    wire:click="$dispatch('openModal', { component: 'discussions-compose-message-modal', arguments: { discussionId: {{ $discussion->id }}, mode: 'reply' }})"
+                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'discussionId': {{ $discussion->id }}, 'mode': 'reply'}})"
                     text
                 >
                     <x-icon name="message-reply" size="sm"></x-icon>
                     Reply
                 </x-button>
-
-                @if ($discussion->is_group_message)
-                    <x-button
-                        wire:click="$dispatch('openModal', { component: 'discussions-compose-message-modal', arguments: { discussionId: {{ $discussion->id }}, mode: 'change-group-name' }})"
-                        text
-                    >
-                        <x-icon name="form" size="sm"></x-icon>
-                        Update group name
-                    </x-button>
-                @endif
-            </x-spacing>
+            </x-panel.footer>
         </x-panel>
 
         @if ($remainingMessages->count() > 0)
@@ -175,8 +178,8 @@
             @if ($remainingMessagesLoaded)
                 <div class="space-y-6">
                     @foreach ($remainingMessages as $message)
-                        <x-panel wire:key="{{ $message->id }}">
-                            <x-spacing height="sm" width="md" class="flex items-center justify-between">
+                        <x-panel variant="card" wire:key="{{ $message->id }}">
+                            <x-spacing size="row" class="flex items-center justify-between">
                                 <div class="flex items-center gap-x-2">
                                     <x-avatar :src="$message->user->avatar_url" size="sm"></x-avatar>
                                     <div class="flex flex-col gap-y-0.5">
@@ -221,7 +224,8 @@
                                     </div>
                                 @endcan
                             </x-spacing>
-                            <x-spacing size="md">
+
+                            <x-spacing width="md" top="xs" bottom="md">
                                 <div class="prose max-w-none space-y-6 dark:prose-invert">
                                     {!! str($message->content)->markdown() !!}
                                 </div>
@@ -240,7 +244,7 @@
                 <x-button
                     type="button"
                     color="primary"
-                    wire:click="$dispatch('openModal', { component: 'discussions-compose-message-modal', arguments: { mode: 'new' }})"
+                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'mode': 'new'}})"
                 >
                     Start a conversation
                 </x-button>

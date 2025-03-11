@@ -14,22 +14,23 @@
         </header>
 
         <div class="flex items-center justify-center">
-            <x-button.setup :href="url('setup/update')" leading="tabler-refresh">Update Nova</x-button.setup>
+            <x-button.setup :href="url('setup/update')" leading="update">Update Nova</x-button.setup>
         </div>
 
         <div class="mx-auto max-w-2xl space-y-8">
-            <x-panel well>
-                <x-panel.well.header
+            <x-setup::panel well>
+                <x-panel.header
+                    size="sm"
                     title="Summary of changes"
                     description="Here is a summary of the changes that will be applied with this update."
-                ></x-panel.well.header>
+                ></x-panel.header>
 
-                <x-panel>
+                <x-setup::panel>
                     <x-spacing size="sm">
                         <livewire:nova-version-history :start="$versionComingFrom" :end="$versionGoingTo" />
                     </x-spacing>
-                </x-panel>
-            </x-panel>
+                </x-setup::panel>
+            </x-setup::panel>
         </div>
     </div>
 </x-setup-layout>

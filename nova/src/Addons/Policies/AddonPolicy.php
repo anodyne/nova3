@@ -36,7 +36,7 @@ class AddonPolicy
 
     public function update(User $user, Addon $addon): Response
     {
-        return $user->isAbleTo('addon.update')
+        return $user->isAbleTo('addon.update') && blank($addon->repository?->id)
             ? $this->allow()
             : $this->deny();
     }
@@ -67,12 +67,12 @@ class AddonPolicy
 
     public function runActions(User $user, Addon $addon): Response
     {
-        $addonClass = $addon->getAddonClass();
-
-        if (is_null($addonClass)) {
+        if (! $addon->has_addon_class) {
             return $this->deny();
         }
 
-        return $this->update($user, $addon);
+        return $user->isAbleTo('addon.update')
+            ? $this->allow()
+            : $this->deny();
     }
 }

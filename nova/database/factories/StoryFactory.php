@@ -11,27 +11,46 @@ use Nova\Stories\Models\States\StoryStatus\Ongoing;
 use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Nova\Stories\Models\Story;
 
+/**
+ * @extends Factory<Model>
+ */
 class StoryFactory extends Factory
 {
+    use Concerns\CanAddMedia;
+
     protected $model = Story::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
-            'title' => ucfirst($this->faker->words($this->faker->numberBetween(1, 5), asText: true)),
-            'status' => $this->faker->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
-            'description' => $this->faker->sentences($this->faker->numberBetween(1, 5), asText: true),
+            'title' => ucfirst(fake()->words(mt_rand(1, 8), asText: true)),
+
+            'description' => fake()->sentences(mt_rand(1, 5), asText: true),
+
+            'status' => fake()->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
         ];
     }
 
-    public function upcoming()
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Story $story) {
+            $this->addRandomMedia(
+                model: $story,
+                source: 'media/samples/stories',
+                destination: 'media/samples',
+                mediaCollection: 'story-image'
+            );
+        });
+    }
+
+    public function upcoming(): static
     {
         return $this->state([
             'status' => Upcoming::$name,
         ]);
     }
 
-    public function current()
+    public function current(): static
     {
         return $this->state([
             'status' => Current::$name,
@@ -39,7 +58,7 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function completed()
+    public function completed(): static
     {
         return $this->state([
             'status' => Completed::$name,
@@ -48,7 +67,7 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function ongoing()
+    public function ongoing(): static
     {
         return $this->state([
             'status' => Ongoing::$name,
@@ -56,21 +75,21 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function withStartDate()
+    public function withStartDate(): static
     {
         return $this->state([
-            'started_at' => $this->faker->date(),
+            'started_at' => fake()->date(),
         ]);
     }
 
-    public function withEndDate()
+    public function withEndDate(): static
     {
         return $this->state([
-            'ended_at' => $this->faker->date(),
+            'ended_at' => fake()->date(),
         ]);
     }
 
-    public function withParent(?Story $parent = null)
+    public function withParent(?Story $parent = null): static
     {
         return $this->state([
             'parent_id' => $parent?->id ?? Story::factory(),

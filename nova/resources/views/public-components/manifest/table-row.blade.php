@@ -75,13 +75,15 @@
 
             @if ($column->column === 'character-type')
                 @if (filled($character))
-                    <x-badge :color="$character->type->color()">{{ $character->type->getLabel() }}</x-badge>
+                    <x-badge :color="$character->type->getColor()">{{ $character->type->getLabel() }}</x-badge>
                 @endif
             @endif
 
             @if ($column->column === 'character-status')
                 @if (filled($character))
-                    <x-badge :color="$character->status->color()">{{ $character->status->getLabel() }}</x-badge>
+                    <x-badge :color="$character->status->getColor()">
+                        {{ $character->status->getLabel() }}
+                    </x-badge>
                 @endif
             @endif
         </div>

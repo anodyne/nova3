@@ -15,8 +15,10 @@
         <x-form :action="route('admin.themes.update', $theme)" method="PUT">
             @if (settings('appearance.theme') === $theme->location)
                 <x-panel.primary icon="star" title="Current theme">
-                    {{ $theme->name }} is currently set as the theme for your public-facing site. Be careful when
-                    making any updates to this theme as it could impact your public-facing site.
+                    <x-slot name="description">
+                        {{ $theme->name }} is currently set as the theme for your public-facing site. Be careful when
+                        making any updates to this theme as it could impact your public-facing site.
+                    </x-slot>
                 </x-panel.primary>
             @endif
 

@@ -15,12 +15,12 @@ class ActivateCharacter
     public function handle(Character $character): Character
     {
         if ($character->status->canTransitionTo(Active::class)) {
-            $character->status->transitionTo(Active::class);
+            activity()->withoutLogs(fn () => $character->status->transitionTo(Active::class));
 
             activity()
-                ->causedBy(auth()->user())
                 ->performedOn($character)
-                ->log(':subject.name was activated');
+                ->event('activated')
+                ->log('activated');
         }
 
         return $character->refresh();

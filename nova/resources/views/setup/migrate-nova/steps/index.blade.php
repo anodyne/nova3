@@ -27,9 +27,7 @@
 
     <div class="flex items-center justify-center">
         @if (! $isRunning)
-            <x-button.setup type="button" leading="tabler-player-play" wire:click="startMigration">
-                Start migration
-            </x-button.setup>
+            <x-button.setup type="button" leading="play" wire:click="startMigration">Start migration</x-button.setup>
         @else
             <x-button.setup type="button">
                 <div class="flex items-center gap-3">
@@ -42,7 +40,7 @@
 
     @if ($isFinished)
         <div class="flex items-center justify-center">
-            <x-button.setup type="button" leading="tabler-player-play">Finish migration</x-button.setup>
+            <x-button.setup type="button" leading="play">Finish migration</x-button.setup>
         </div>
     @endif
 </div>

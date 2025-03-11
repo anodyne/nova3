@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Actions\UpdateCharacter;
 use Nova\Characters\Data\CharacterData;
@@ -16,17 +17,17 @@ class DeleteRankItemManager
 
     public function handle(RankItem $item): RankItem
     {
-        $item->loadMissing('characters');
+        return DB::transaction(function () use ($item) {
+            $item->loadMissing('characters');
 
-        $item->characters->each(function (Character $character) {
-            UpdateCharacter::run($character, new CharacterData(
-                name: $character->name,
-                rank_id: null
-            ));
+            $item->characters->each(function (Character $character) {
+                UpdateCharacter::run($character, CharacterData::from(
+                    name: $character->name,
+                    rank_id: null
+                ));
+            });
+
+            return DeleteRankItem::run($item);
         });
-
-        $item = DeleteRankItem::run($item);
-
-        return $item;
     }
 }

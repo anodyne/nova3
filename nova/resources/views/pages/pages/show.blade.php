@@ -52,14 +52,14 @@
                     <x-fieldset.field>
                         <x-fieldset.label>HTTP Verb</x-fieldset.label>
                         <div data-slot="description">
-                            <x-badge :color="$page->verb->color()">{{ $page->verb->getLabel() }}</x-badge>
+                            <x-badge :color="$page->verb->getColor()">{{ $page->verb->getLabel() }}</x-badge>
                         </div>
                     </x-fieldset.field>
 
                     <x-fieldset.field>
                         <x-fieldset.label>Status</x-fieldset.label>
                         <div data-slot="text">
-                            <x-badge :color="$page->status->color()">
+                            <x-badge :color="$page->status->getColor()">
                                 {{ $page->status->getLabel() }}
                             </x-badge>
                         </div>

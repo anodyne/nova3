@@ -13,7 +13,7 @@ class Inactive extends UserStatus
         return 'Previous user';
     }
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'gray';
     }

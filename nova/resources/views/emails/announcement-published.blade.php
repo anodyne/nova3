@@ -4,6 +4,8 @@
 
 {!! $announcement->content !!}
 
+*Posted in {{ $announcement->category }}*
+
 <x-mail::button :url="route('admin.announcements.show', $announcement)">
 Read now &rarr;
 </x-mail::button>

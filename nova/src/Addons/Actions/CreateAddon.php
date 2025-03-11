@@ -14,6 +14,6 @@ class CreateAddon
 
     public function handle(AddonData $data): Addon
     {
-        return Addon::create($data->all());
+        return Addon::create($data->toArray());
     }
 }

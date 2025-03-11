@@ -1,10 +1,10 @@
-<x-panel well>
-    <x-panel.well.header title="Participation">
+<x-panel variant="well">
+    <x-panel.header title="Participation">
         <x-slot name="description">
             This provides insight into player participation for
             {{ settings('posting_activity')->timeframe->getStatsDescription() }}
         </x-slot>
-    </x-panel.well.header>
+    </x-panel.header>
 
     <x-panel>
         <x-spacing size="md" class="flex items-center justify-center gap-x-8">
@@ -22,10 +22,10 @@
     </x-panel>
 
     @if ($showLink)
-        <x-panel.well.footer>
+        <x-panel.footer>
             <x-button :href="route('admin.reporting.player-participation')" text>
                 View the participation report &rarr;
             </x-button>
-        </x-panel.well.footer>
+        </x-panel.footer>
     @endif
 </x-panel>

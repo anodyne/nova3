@@ -32,7 +32,7 @@ class PostTypeReporter
             end: $this->postingActivitySettings->timeframe->endDate()
         );
 
-        return new PostTypeReport(
+        return PostTypeReport::from(
             results: $result
         );
     }
@@ -44,7 +44,7 @@ class PostTypeReporter
             end: $this->postingActivitySettings->timeframe->previousEndDate()
         );
 
-        return new PostTypeReport(
+        return PostTypeReport::from(
             results: $result
         );
     }

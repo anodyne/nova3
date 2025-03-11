@@ -8,7 +8,5 @@ use Nova\Foundation\Responses\Responsable;
 
 class ListApplicationsResponse extends Responsable
 {
-    // public ?string $subnav = 'applications';
-
     public string $view = 'applications.index';
 }

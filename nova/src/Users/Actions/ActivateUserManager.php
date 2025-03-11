@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class ActivateUserManager
 {
@@ -13,10 +15,16 @@ class ActivateUserManager
 
     public function handle(User $user, bool $activatePreviousCharacter = false): User
     {
-        $user = ActivateUser::run($user);
+        return DB::transaction(function () use ($user, $activatePreviousCharacter) {
+            LogBatch::startBatch();
 
-        ActivateUserPreviousCharacter::runIf($activatePreviousCharacter, $user);
+            $user = ActivateUser::run($user);
 
-        return $user->refresh();
+            ActivateUserPreviousCharacter::runIf($activatePreviousCharacter, $user);
+
+            LogBatch::endBatch();
+
+            return $user->refresh();
+        });
     }
 }

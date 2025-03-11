@@ -14,7 +14,10 @@ class AddParticipantsToDiscussion
 
     public function handle(Discussion $discussion, DiscussionParticipantsData $data): Discussion
     {
-        $discussion->participants()->attach(array_merge([$data->sender], $data->recipients));
+        $discussion->participants()->attach([
+            ...[$data->sender],
+            ...$data->recipients,
+        ]);
 
         return $discussion->refresh();
     }

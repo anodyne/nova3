@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models\States\StoryStatus;
 
+use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasDescription;
+use Filament\Support\Contracts\HasLabel;
 use Spatie\ModelStates\State;
 use Spatie\ModelStates\StateConfig;
 
-abstract class StoryStatus extends State
+abstract class StoryStatus extends State implements HasColor, HasDescription, HasLabel
 {
-    abstract public function color(): string;
+    abstract public function getColor(): string;
 
-    abstract public function description(): string;
+    abstract public function getDescription(): string;
 
     abstract public function textColor(): string;
 
@@ -21,7 +24,7 @@ abstract class StoryStatus extends State
 
     abstract public function order(): int;
 
-    public function displayName(): string
+    public function getLabel(): string
     {
         return ucfirst($this->name());
     }

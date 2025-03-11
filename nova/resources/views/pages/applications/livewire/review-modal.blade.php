@@ -64,11 +64,12 @@
                 </x-form.dynamic>
             </x-fieldset.field-group>
         </x-fieldset>
-
-        @if (filled($form->result))
-            <x-fieldset.controls>
-                <x-button type="button" wire:click="save" color="primary">Submit</x-button>
-            </x-fieldset.controls>
-        @endif
     </x-form>
+
+    @if (filled($form->result))
+        <x-slot name="footer">
+            <x-button type="button" wire:click="save" color="primary">Submit</x-button>
+            <x-button type="button" wire:click="close" plain>Cancel</x-button>
+        </x-slot>
+    @endif
 </x-modal>

@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Nova\Forms\Actions\DeleteFormManager;
-use Nova\Forms\Enums\FormStatus;
 use Nova\Forms\Enums\FormType;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -21,14 +21,28 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class FormsList extends TableComponent
 {
     public function table(Table $table): Table
     {
         return $table
-            ->query(Form::query())
+            ->query(
+                Form::query()
+                    ->select([
+                        'id',
+                        'is_locked',
+                        'name',
+                        'published_at',
+                        'status',
+                        'type',
+                    ])
+            )
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
@@ -39,15 +53,14 @@ class FormsList extends TableComponent
                     ->sortable(),
                 TextColumn::make('type')
                     ->badge()
-                    ->color(fn (Form $record): string => $record->type->color())
                     ->toggleable(),
                 TextColumn::make('published_at')
                     ->label('Last published')
-                    ->dateTime(settings('general')->phpDateFormat())
+                    ->dateTime()
+                    ->formatStateUsing(fn (Form $record): ?string => filled($record->published_at) ? DateHelper::formatDate($record->published_at) : null)
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Form $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -57,6 +70,26 @@ class FormsList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Form $record): string => route('admin.forms.edit', $record)),
                     ])->authorize('update')->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->attributeLabels([
+                                        'is_locked' => 'locked',
+                                    ])
+                                    ->eventDescriptions([
+                                        'duplicated' => fn (Activity $activity) => __('activity.forms.duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'replica' => Form::find($activity->getExtraProperty('replica'))?->name,
+                                        ]),
+                                    ])
+                                    ->itemIconColors([
+                                        'published' => 'success',
+                                        'unpublished' => 'warning',
+                                    ]);
+                            }),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('design')
@@ -72,7 +105,7 @@ class FormsList extends TableComponent
                     ActionGroup::make([
                         Action::make('submissions')
                             ->icon(iconName('clipboard'))
-                            ->url(fn (Form $record): string => route('admin.form-submissions.index'))
+                            ->url(route('admin.form-submissions.index'))
                             ->visible(fn (Form $record): bool => $record->options?->collectResponses ?? false),
                     ])->divided(),
 
@@ -121,7 +154,7 @@ class FormsList extends TableComponent
             ])
             ->filters([
                 SelectFilter::make('type')->options(FormType::class),
-                SelectFilter::make('status')->options(FormStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->emptyStateIcon(iconName('list'))
             ->emptyStateHeading('No forms found')

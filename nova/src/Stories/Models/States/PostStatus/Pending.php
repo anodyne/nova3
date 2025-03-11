@@ -8,7 +8,7 @@ class Pending extends PostStatus
 {
     public static $name = 'pending';
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'warning';
     }

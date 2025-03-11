@@ -1,9 +1,16 @@
 @use('Illuminate\Support\Number')
+@use('Nova\Foundation\Helpers\DateHelper')
+@use('Nova\Foundation\Helpers\TimeHelper')
 
 <x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page story-post">
-        <div class="story-post-container">
+        <div
+            class="story-post-container"
+            x-data="{ showContentWarning: @js($post->show_content_warning_for_public_site) }"
+        >
             <div class="main-column">
+                {{ NovaView::renderHook('public::story-post.main-column.before') }}
+
                 <div class="pretitle">{{ $story->title }}</div>
 
                 <x-public::h2>{{ $post->title }}</x-public::h2>
@@ -18,12 +25,12 @@
                     <div class="metadata-item metadata-item-sm">
                         <div class="metadata-item-leading">Published</div>
                         <div class="metadata-item-label">
-                            {{ format_date($post->published_at) }}
+                            {{ DateHelper::formatDate($post->published_at) }}
                         </div>
                     </div>
                     <div class="metadata-item metadata-item-sm">
                         <div class="metadata-item-leading">Reading time</div>
-                        <div class="metadata-item-label">{{ Number::format(ceil($post->word_count / 200)) }}m</div>
+                        <div class="metadata-item-label">{{ $post->reading_time }}</div>
                     </div>
                     <div class="metadata-item metadata-item-sm">
                         <div class="metadata-item-leading">Words</div>
@@ -64,9 +71,58 @@
                     </div>
                 @endif
 
-                <div class="post-content">
+                <div class="post-content" x-show="!showContentWarning" x-cloak>
                     {!! $post->content !!}
                 </div>
+
+                <div class="post-content-warning" x-show="showContentWarning" x-cloak>
+                    <div class="heading">
+                        <x-icon name="warning" size="xl"></x-icon>
+                        <x-public::h2>Warning</x-public::h2>
+                    </div>
+
+                    <div class="post-content">
+                        <p>
+                            This post includes mature content that may not be suitable for all audiences and could be
+                            sensitive or triggering for some readers.
+                        </p>
+
+                        <ul>
+                            @if ($post->rating_language->value >= settings('ratings.language.warningThreshold'))
+                                <li>{{ settings('ratings.language.warningThresholdMessage') }}</li>
+                            @endif
+
+                            @if ($post->rating_sex->value >= settings('ratings.sex.warningThreshold'))
+                                <li>{{ settings('ratings.sex.warningThresholdMessage') }}</li>
+                            @endif
+
+                            @if ($post->rating_violence->value >= settings('ratings.violence.warningThreshold'))
+                                <li>{{ settings('ratings.violence.warningThresholdMessage') }}</li>
+                            @endif
+                        </ul>
+
+                        <p>By proceeding, you acknowledge the nature of this content.</p>
+                    </div>
+
+                    <x-public::button type="button" x-on:click="showContentWarning = false">Continue</x-public::button>
+
+                    @if (filled($post->summary))
+                        <div class="summary">
+                            <hr />
+
+                            <div class="post-content">
+                                <h4>
+                                    The following summary has been provided for this
+                                    {{ str($post->postType->name)->lower() }}:
+                                </h4>
+
+                                {!! $post->summary !!}
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+                {{ NovaView::renderHook('public::story-post.main-column.after') }}
 
                 @if (filled($previousPost) || filled($nextPost))
                     <div class="post-navigation-container">
@@ -131,6 +187,8 @@
 
             <div class="secondary-column">
                 <dl class="secondary-column-container">
+                    {{ NovaView::renderHook('public::story-post.secondary-column.before') }}
+
                     @if ($post->postType->fields->rating->enabled)
                         <div class="ratings-container">
                             <x-rating.display
@@ -171,6 +229,8 @@
                             @endif
                         @endforeach
                     </div>
+
+                    {{ NovaView::renderHook('public::story-post.secondary-column.after') }}
                 </dl>
             </div>
         </div>

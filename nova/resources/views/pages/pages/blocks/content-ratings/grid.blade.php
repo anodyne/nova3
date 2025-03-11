@@ -1,3 +1,5 @@
+@use('Nova\Stories\Enums\ContentRatingValue')
+
 <div
     @class([
         '@container',
@@ -57,15 +59,15 @@
                             @class([
                                 'nv-ratings-grid-item flex h-12 w-12 items-center justify-center rounded-xl font-[family-name:--font-header] text-4xl font-bold ring-1 ring-inset',
                                 match ($rating->rating) {
-                                    1 => match ($dark) {
+                                    ContentRatingValue::Level1 => match ($dark) {
                                         true => 'nv-ratings-grid-item-1-dark bg-yellow-500 text-white ring-white/20',
                                         default => 'nv-ratings-grid-item-1-light bg-yellow-500 text-white ring-gray-950/15'
                                     },
-                                    2 => match ($dark) {
+                                    ContentRatingValue::Level2 => match ($dark) {
                                         true => 'nv-ratings-grid-item-2-dark bg-orange-500 text-white ring-white/20',
                                         default => 'nv-ratings-grid-item-2-light bg-orange-500 text-white ring-gray-950/15'
                                     },
-                                    3 => match ($dark) {
+                                    ContentRatingValue::Level3 => match ($dark) {
                                         true => 'nv-ratings-grid-item-3-dark bg-red-500 text-white ring-white/20',
                                         default => 'nv-ratings-grid-item-3-light bg-red-500 text-white ring-gray-950/15'
                                     },
@@ -76,7 +78,7 @@
                                 },
                             ])
                         >
-                            {{ $rating->rating }}
+                            {{ $rating->rating->value }}
                         </div>
 
                         <div class="nv-ratings-grid-item-content text-sm/5">

@@ -30,6 +30,11 @@ class ApplicationDiscussion extends Component
             'user_id' => Auth::id(),
         ]);
 
+        activity()
+            ->performedOn($this->application)
+            ->event('message-added')
+            ->log('message-added');
+
         $this->reset('content');
     }
 

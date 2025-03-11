@@ -22,35 +22,6 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="calendar"></x-icon>
-                    <x-fieldset.legend>Date format</x-fieldset.legend>
-                    <x-fieldset.description>
-                        Set the format for all dates display throughout Nova.
-
-                        <x-fieldset.description class="mt-2">
-                            <x-text.strong>Example:</x-text.strong>
-                            {{ format_date(now()) }}
-                        </x-fieldset.description>
-                    </x-fieldset.description>
-                </x-fieldset.heading>
-
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field
-                        label="Date format"
-                        description="To see a list of available date and time format tokens, type # followed by the token you’d like to find (e.g. month or day). You can also insert other characters into the string (such as at symbols or colons) and it will be formatted with those values."
-                        id="date_format_tags"
-                        name="dateFormatTags"
-                    >
-                        <x-input.date-format
-                            :value="$settings->dateFormatTags"
-                            placeholder="Set date format"
-                        ></x-input.date-format>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
-            </x-fieldset>
-
-            <x-fieldset>
-                <x-fieldset.heading>
                     <x-icon name="send"></x-icon>
                     <x-fieldset.legend>Contact form</x-fieldset.legend>
                     <x-fieldset.description>

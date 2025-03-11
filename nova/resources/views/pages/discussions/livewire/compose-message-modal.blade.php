@@ -1,23 +1,8 @@
-<x-modal
-    :icon="
-        match (true) {
-            $isReplying => 'message-reply',
-            $isChangingName => 'form',
-            default => 'message'
-        }
-    "
-    :title="
-        match (true) {
-            $isReplying => 'Reply',
-            $isChangingName => 'Update group name',
-            default => 'New message'
-        }
-    "
->
+<x-modal :icon="$isReplying ? 'message-reply' : 'message'" :title="$isReplying ? 'Reply' : 'New message'">
     <x-form action="">
         <x-fieldset>
             <x-fieldset.field-group>
-                @if (! $isReplying && ! $isChangingName)
+                @if (! $isReplying)
                     <x-fieldset.field label="To" id="to" name="to">
                         <x-select wire:model.live="recipients" multiple>
                             @foreach ($users as $user)
@@ -31,39 +16,28 @@
                     </x-fieldset.field>
                 @endif
 
-                @if (count($recipients) > 1 || $isChangingName)
-                    <x-fieldset.field
-                        label="Group message name"
-                        description="Group messages have more than 2 participants. You can optionally choose to name group messages to better identify them."
-                        id="name"
-                        name="name"
-                    >
-                        <x-input.text wire:model.live.debounce.500ms="name"></x-input.text>
-                    </x-fieldset.field>
-                @endif
+                <x-fieldset.field label="Subject" id="subject" name="subject">
+                    @if ($isReplying)
+                        <x-text>{{ $subject }}</x-text>
+                    @else
+                        <x-input.text wire:model.live.debounce.500ms="subject"></x-input.text>
+                    @endif
+                </x-fieldset.field>
 
-                @if (! $isChangingName)
-                    <x-fieldset.field label="Message" id="message" name="message">
-                        <x-input.textarea rows="7" wire:model.live.debounce.500ms="content"></x-input.textarea>
-                    </x-fieldset.field>
-                @endif
+                <x-fieldset.field label="Message" id="message" name="message">
+                    <x-input.textarea rows="7" wire:model.live.debounce.500ms="content"></x-input.textarea>
+                </x-fieldset.field>
             </x-fieldset.field-group>
         </x-fieldset>
-
-        <x-fieldset.controls>
-            @if ($isReplying)
-                <x-button type="button" wire:click="reply" color="primary">Reply</x-button>
-            @endif
-
-            @if ($isChangingName)
-                <x-button type="button" wire:click="updateName" color="primary">Update</x-button>
-            @endif
-
-            @if (! $isReplying && ! $isChangingName)
-                <x-button type="button" wire:click="submit" color="primary">Submit</x-button>
-            @endif
-
-            <x-button type="button" wire:click="dismiss">Cancel</x-button>
-        </x-fieldset.controls>
     </x-form>
+
+    <x-slot name="footer">
+        @if ($isReplying)
+            <x-button type="button" wire:click="reply" color="primary">Reply</x-button>
+        @else
+            <x-button type="button" wire:click="submit" color="primary">Submit</x-button>
+        @endif
+
+        <x-button type="button" wire:click="close" plain>Cancel</x-button>
+    </x-slot>
 </x-modal>

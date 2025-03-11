@@ -34,7 +34,6 @@ class CharacterSettingsController extends Controller
 
         UpdateSettings::run('characters', Characters::from($request));
 
-        return to_route('admin.settings.characters.edit')
-            ->notify('Character settings have been updated');
+        return back()->notify('Character settings have been updated');
     }
 }

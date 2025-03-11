@@ -4,38 +4,48 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
-use Nova\Stories\Data\PostData;
+use Nova\Foundation\Helpers\TimeHelper;
+use Nova\Foundation\Models\Model;
+use Nova\Stories\Enums\ContentRatingValue;
 use Nova\Stories\Events;
 use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\States\PostStatus;
+use Nova\Stories\Observers\PostObserver;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
-use Spatie\LaravelData\WithData;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[ObservedBy([PostObserver::class])]
 class Post extends Model implements Sortable
 {
+    use Concerns\HasContentRatings;
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
     use Searchable;
     use SortableTrait;
-    use WithData;
+
+    public $sortable = [
+        'order_column_name' => 'order_column',
+        'sort_when_creating' => false,
+    ];
 
     protected $table = 'posts';
 
@@ -43,7 +53,7 @@ class Post extends Model implements Sortable
         'id', 'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
         'day', 'time', 'location', 'rating_language', 'rating_sex',
         'rating_violence', 'summary', 'participants', 'neighbor', 'direction',
-        'order_column', 'locked_at', 'locked_by',
+        'order_column', 'locked_at', 'locked_by', 'last_update_by',
     ];
 
     protected $with = ['postType', 'story'];
@@ -53,9 +63,9 @@ class Post extends Model implements Sortable
         'locked_by' => 'integer',
         'participants' => 'array',
         'published_at' => 'datetime',
-        'rating_language' => 'integer',
-        'rating_sex' => 'integer',
-        'rating_violence' => 'integer',
+        'rating_language' => ContentRatingValue::class,
+        'rating_sex' => ContentRatingValue::class,
+        'rating_violence' => ContentRatingValue::class,
         'status' => PostStatus\PostStatus::class,
         'word_count' => 'integer',
     ];
@@ -69,18 +79,11 @@ class Post extends Model implements Sortable
         'updated' => Events\PostUpdated::class,
     ];
 
-    protected $dataClass = PostData::class;
-
-    public $sortable = [
-        'order_column_name' => 'order_column',
-        'sort_when_creating' => false,
-    ];
-
     public function participatingUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'post_author')
             // ->withPivot(['post_id', 'user_id', 'word_count'])
-            ->withPivot(['post_id', 'user_id', 'updated_at']);
+            ->withPivot(['post_id', 'user_id', 'updated_at', 'word_count']);
         // ->groupBy('pivot_user_id', 'pivot_post_id')
     }
 
@@ -110,6 +113,11 @@ class Post extends Model implements Sortable
         return $this->belongsTo(PostType::class)->withTrashed();
     }
 
+    public function lockOwner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'locked_by');
+    }
+
     public function isDraft(): Attribute
     {
         return Attribute::make(
@@ -131,6 +139,13 @@ class Post extends Model implements Sortable
         );
     }
 
+    public function isSetup(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => filled($this->post_type_id) && filled($this->story_id)
+        );
+    }
+
     public function isStarted(): Attribute
     {
         return Attribute::make(
@@ -148,27 +163,15 @@ class Post extends Model implements Sortable
     public function needsAttention(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->participatingUsers()->latest('pivot_updated_at')->first()?->pivot?->user_id !== Auth::id()
+            // get: fn (): bool => $this->participatingUsers()->latest('pivot_updated_at')->first()?->pivot?->user_id !== Auth::id()
+            get: fn (): bool => $this->last_update_by !== Auth::id()
         );
     }
 
     public function readingTime(): Attribute
     {
         return Attribute::make(
-            get: fn (): string => ceil($this->word_count / 200).'m'
-        );
-    }
-
-    public function showContentWarning(): Attribute
-    {
-        return Attribute::make(
-            get: function (): bool {
-                $settings = settings('ratings');
-
-                return (filled($settings->sex->warning_threshold) && $this->rating_sex >= settings('ratings.sex.warning_threshold')) ||
-                    (filled($settings->language->warning_threshold) && $this->rating_language >= settings('ratings.language.warning_threshold')) ||
-                    (filled($settings->violence->warning_threshold) && $this->rating_violence >= settings('ratings.violence.warning_threshold'));
-            }
+            get: fn (): string => TimeHelper::readingTime($this->word_count)
         );
     }
 
@@ -203,6 +206,13 @@ class Post extends Model implements Sortable
         );
     }
 
+    public function locationDayTime(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => collect([$this->location, $this->day, $this->time])->filter()->join(', ')
+        );
+    }
+
     public function newEloquentBuilder($query): PostBuilder
     {
         return new PostBuilder($query);
@@ -214,22 +224,25 @@ class Post extends Model implements Sortable
             ->filter()
             ->push($user->id)
             ->unique()
+            ->values()
             ->all();
 
         $this->fill(['participants' => $participants])->save();
     }
 
-    public function removeParticipant(User $user): void
+    public function removeParticipant(int $userId): void
     {
-        $this->characterAuthors()->wherePivot('user_id', $user->id)->detach();
+        $this->characterAuthors()->wherePivot('user_id', $userId)->detach();
 
-        $this->userAuthors()->wherePivot('user_id', $user->id)->detach();
+        $this->userAuthors()->wherePivot('user_id', $userId)->detach();
 
         $participants = collect($this->participants)
             ->filter()
-            ->filter(fn ($participant) => $participant !== $user->id)
+            ->filter(fn ($participant) => $participant !== $userId)
             ->unique()
-            ->all();
+            ->values()
+            ->map(fn ($value): int => (int) $value)
+            ->toArray();
 
         $this->fill(['participants' => $participants])->save();
     }
@@ -243,13 +256,6 @@ class Post extends Model implements Sortable
             ->delete();
     }
 
-    public function shouldShowContentWarning(): bool
-    {
-        return $this->rating_language >= 2
-            || $this->rating_sex >= 2
-            || $this->rating_violence >= 2;
-    }
-
     public function buildSortQuery(): Builder
     {
         return static::query()
@@ -257,31 +263,19 @@ class Post extends Model implements Sortable
             ->whereNotState('status', PostStatus\Started::class);
     }
 
-    public function nextSibling($status = null, array $types = []): ?self
+    public function shouldSortWhenCreating(): bool
     {
-        return $this->getSibling('next', $status, $types);
+        return true;
     }
 
-    public function previousSibling($status = null, array $types = []): ?self
+    public function nextSibling($status = null, array $types = [], int $skip = 0): ?self
     {
-        return $this->getSibling('previous', $status, $types);
+        return $this->getSibling('next', $status, $types, $skip);
     }
 
-    protected function getSibling($direction, $status, array $types = [])
+    public function previousSibling($status = null, array $types = [], int $skip = 0): ?self
     {
-        $query = self::query()
-            ->story($this->story_id)
-            ->when($status, fn (Builder $query) => $query->whereState('status', $status))
-            ->when(
-                count($types) > 0,
-                fn (Builder $query) => $query->whereHas('postType', fn (Builder $query) => $query->whereIn('key', $types))
-            );
-
-        return match ($direction) {
-            'previous' => $query->where('order_column', '<', $this->order_column)->orderByDesc('order_column')->first(),
-            'next' => $query->where('order_column', '>', $this->order_column)->orderBy('order_column')->first(),
-            default => $query->first(),
-        };
+        return $this->getSibling('previous', $status, $types, $skip);
     }
 
     public function isLocked(): bool
@@ -296,35 +290,44 @@ class Post extends Model implements Sortable
 
     public function lock(User $user)
     {
-        $this->update([
-            'locked_by' => $user->id,
-            'locked_at' => now(),
-        ]);
+        activity()
+            ->causedBy($user)
+            ->performedOn($this)
+            ->event('locked')
+            ->log('locked');
+
+        activity()->withoutLogs(function () use ($user) {
+            $this->update([
+                'locked_by' => $user->id,
+                'locked_at' => now(),
+            ]);
+        });
     }
 
     public function unlock()
     {
-        $this->update([
-            'locked_by' => null,
-            'locked_at' => null,
-        ]);
+        activity()
+            ->performedOn($this)
+            ->event('unlocked')
+            ->log('unlocked');
+
+        activity()->withoutLogs(function () {
+            $this->update([
+                'locked_by' => null,
+                'locked_at' => null,
+            ]);
+        });
     }
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.title post was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.title post was {$eventName}"
-            );
+        return $this->baseActivitylogOptions()->logExcept([
+            'content',
+            'direction',
+            'neighbor',
+            'participants',
+            'word_count',
+        ]);
     }
 
     public function toSearchableArray(): array
@@ -340,5 +343,22 @@ class Post extends Model implements Sortable
     public function shouldBeSearchable(): bool
     {
         return $this->is_published;
+    }
+
+    protected function getSibling($direction, $status, array $types = [], int $skip = 0)
+    {
+        $query = self::query()
+            ->story($this->story_id)
+            ->when($status, fn (Builder $query) => $query->whereState('status', $status))
+            ->when(
+                count($types) > 0,
+                fn (Builder $query) => $query->whereHas('postType', fn (Builder $query) => $query->whereIn('key', $types))
+            );
+
+        return match ($direction) {
+            'previous' => $query->where('order_column', '<', $this->order_column)->orderByDesc('order_column')->skip($skip)->first(),
+            'next' => $query->where('order_column', '>', $this->order_column)->orderBy('order_column')->skip($skip)->first(),
+            default => $query->first(),
+        };
     }
 }

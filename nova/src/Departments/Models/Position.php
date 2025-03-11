@@ -5,18 +5,20 @@ declare(strict_types=1);
 namespace Nova\Departments\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Nova\Characters\Models\Character;
-use Nova\Departments\Enums\PositionStatus;
+use Nova\Characters\Models\CharacterPosition;
+use Nova\Characters\Models\CharacterUser;
 use Nova\Departments\Events;
 use Nova\Departments\Models\Builders\PositionBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Models\Model;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
@@ -34,12 +36,14 @@ class Position extends Model implements Sortable
     protected $table = 'positions';
 
     protected $fillable = [
-        'name', 'description', 'order_column', 'available', 'department_id', 'status',
+        'name', 'description', 'order_column', 'available', 'department_id', 'status', 'tags',
     ];
 
     protected $casts = [
+        'available' => 'integer',
         'order_column' => 'integer',
-        'status' => PositionStatus::class,
+        'status' => BasicStatus::class,
+        'tags' => 'array',
     ];
 
     protected $dispatchesEvents = [
@@ -55,19 +59,21 @@ class Position extends Model implements Sortable
 
     public function activeUsers(): HasManyDeep
     {
-        return $this->users()->whereState('users.status', Active::class);
+        return $this->users()
+            ->whereState(User::column('status'), Active::class);
     }
 
     public function characters(): BelongsToMany
     {
-        return $this->belongsToMany(Character::class);
+        return $this->belongsToMany(Character::class)
+            ->using(CharacterPosition::class);
     }
 
     public function users(): HasManyDeep
     {
         return $this->hasManyDeep(
             User::class,
-            ['character_position', Character::class, 'character_user']
+            [CharacterPosition::table(), Character::class, CharacterUser::table()]
         )->distinct();
     }
 
@@ -76,26 +82,16 @@ class Position extends Model implements Sortable
         return $this->belongsTo(Department::class);
     }
 
+    public function tagsAsString(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => implode(', ', $this->tags ?? [])
+        );
+    }
+
     public function buildSortQuery(): Builder
     {
         return static::query()->where('department_id', $this->department_id);
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()->logFillable();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name position was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name position was {$eventName}"
-            );
     }
 
     public function newEloquentBuilder($query): PositionBuilder

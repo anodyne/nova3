@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -23,8 +24,11 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankItemManager;
-use Nova\Ranks\Enums\RankItemStatus;
+use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
+use Nova\Ranks\Models\RankName;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class RankItemsList extends TableComponent
 {
@@ -52,7 +56,6 @@ class RankItemsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -60,18 +63,33 @@ class RankItemsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.ranks.items.show', $record)),
+                            ->url(fn (RankItem $record): string => route('admin.ranks.items.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.ranks.items.edit', $record)),
+                            ->url(fn (RankItem $record): string => route('admin.ranks.items.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->attributeLabels([
+                                        'group_id' => 'rank group',
+                                        'name_id' => 'rank name',
+                                    ])
+                                    ->attributeValues([
+                                        'group_id' => fn ($value) => RankGroup::find($value)?->name,
+                                        'name_id' => fn ($value) => RankName::find($value)?->name,
+                                    ]);
+                            }),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.ranks.items.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->name->name.' rank item was deleted')
-                            ->using(fn (Model $record): Model => DeleteRankItemManager::run($record)),
+                            ->successNotificationTitle(fn (RankItem $record): string => $record->name->name.' rank item was deleted')
+                            ->using(fn (RankItem $record): Model => DeleteRankItemManager::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -83,7 +101,7 @@ class RankItemsList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (RankItem $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -92,7 +110,7 @@ class RankItemsList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeleteRankItemManager::run($record));
+                            ->each(fn (RankItem $record): Model => DeleteRankItemManager::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('rank item was|rank items were', count($records)).' deleted')
@@ -115,7 +133,7 @@ class RankItemsList extends TableComponent
                     ->relationship('name', 'name')
                     ->multiple()
                     ->label('Rank name'),
-                SelectFilter::make('status')->options(RankItemStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('rank'))

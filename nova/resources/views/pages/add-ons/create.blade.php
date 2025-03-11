@@ -56,8 +56,8 @@
                     <x-fieldset.field label="Type" id="type" name="type" :error="$errors->first('type')">
                         <x-select class="w-full md:w-2/3">
                             <option value="">Choose a type</option>
-                            @foreach (AddonType::toOptions() as $value => $text)
-                                <option value="{{ $value }}">{{ $text }}</option>
+                            @foreach (AddonType::cases() as $addonType)
+                                <option value="{{ $addonType->value }}">{{ $addonType->getLabel() }}</option>
                             @endforeach
                         </x-select>
                     </x-fieldset.field>

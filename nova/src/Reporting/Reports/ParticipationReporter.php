@@ -8,8 +8,13 @@ use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+use Nova\Foundation\Models\StatusHistory;
 use Nova\Reporting\Data\ParticipationReport;
 use Nova\Settings\Data\PostingActivity;
+use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostAuthor;
+use Nova\Stories\Models\PostType;
+use Nova\Users\Models\User;
 
 class ParticipationReporter
 {
@@ -34,7 +39,7 @@ class ParticipationReporter
             );
         });
 
-        return new ParticipationReport(
+        return ParticipationReport::from(
             active: $result->where('total_word_count', '>', 0)->count(),
             total: $result->count(),
             results: $result
@@ -50,7 +55,7 @@ class ParticipationReporter
             );
         });
 
-        return new ParticipationReport(
+        return ParticipationReport::from(
             active: $result->where('total_word_count', '>', 0)->count(),
             total: $result->count(),
             results: null
@@ -88,36 +93,34 @@ class ParticipationReporter
 
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection
     {
-        $tablePrefix = DB::getTablePrefix();
-
         return DB::table('users')
             ->join('status_history', function ($join) {
-                $join->on('users.id', '=', 'status_history.statusable_id')
-                    ->where('status_history.statusable_type', '=', 'user');
+                $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
+                    ->where(StatusHistory::column('statusable_type'), '=', 'user');
             })
-            ->leftJoin('post_author', 'users.id', '=', 'post_author.user_id')
-            ->leftJoin('posts', 'post_author.post_id', '=', 'posts.id')
-            ->leftJoin('post_types', 'posts.post_type_id', '=', 'post_types.id')
+            ->leftJoin('post_author', User::column('id'), '=', PostAuthor::column('user_id'))
+            ->leftJoin('posts', PostAuthor::column('post_id'), '=', Post::column('id'))
+            ->leftJoin('post_types', Post::column('post_type_id'), '=', PostType::column('id'))
             ->where(function ($query) use ($start, $end) {
-                $query->where('status_history.started_at', '<=', $end)
+                $query->where(StatusHistory::column('started_at'), '<=', $end)
                     ->where(function ($query) use ($start) {
-                        $query->whereNull('status_history.ended_at')
-                            ->orWhere('status_history.ended_at', '>=', $start);
+                        $query->whereNull(StatusHistory::column('ended_at'))
+                            ->orWhere(StatusHistory::column('ended_at'), '>=', $start);
                     });
             })
             ->selectRaw('
-                '.$tablePrefix.'users.id,
-                '.$tablePrefix.'users.name,
+                '.User::prefixedColumn('id').',
+                '.User::prefixedColumn('name').',
                 SUM(CASE
-                    WHEN JSON_EXTRACT('.$tablePrefix.'post_types.options, "$.includedInPostTracking") = true
-                        AND '.$tablePrefix.'post_author.updated_at BETWEEN ? AND ?
-                    THEN '.$tablePrefix.'post_author.word_count
+                    WHEN JSON_EXTRACT('.PostType::prefixedColumn('options').', "$.includedInPostTracking") = true
+                        AND '.PostAuthor::prefixedColumn('updated_at').' BETWEEN ? AND ?
+                    THEN '.PostAuthor::prefixedColumn('word_count').'
                     ELSE 0
                 END) as total_word_count
             ', [
                 $start, $end,  // For post_author.updated_at (word count)
             ])
-            ->groupBy('users.id', 'users.name') // Group by individual users
+            ->groupBy(User::column('id'), User::column('name')) // Group by individual users
             ->get();
     }
 }

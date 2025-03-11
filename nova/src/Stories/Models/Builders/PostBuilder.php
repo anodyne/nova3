@@ -65,7 +65,7 @@ class PostBuilder extends Builder
 
     public function whereHasUser(User $user): self
     {
-        return $this->whereRelation('userAuthors', 'users.id', '=', $user->id);
+        return $this->whereRelation('userAuthors', User::column('id'), '=', $user->id);
     }
 
     public function whereNotPost(Post $post): self

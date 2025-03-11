@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\StoreStoryRequest;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class CreateStoryManager
 {
@@ -14,14 +16,20 @@ class CreateStoryManager
 
     public function handle(StoreStoryRequest $request): Story
     {
-        $story = CreateStory::run($request->getStoryData());
+        return DB::transaction(function () use ($request) {
+            LogBatch::startBatch();
 
-        SetStoryPosition::run($story, $request->getStoryPositionData());
+            $story = CreateStory::run($request->getStoryData());
 
-        UpdateStoryStatus::run($story, $request->status);
+            SetStoryPosition::run($story, $request->getStoryPositionData());
 
-        UploadStoryImages::run($story, $request->image_path);
+            UpdateStoryStatus::run($story, $request->status);
 
-        return $story->refresh();
+            UploadStoryImages::run($story, $request->image_path);
+
+            LogBatch::endBatch();
+
+            return $story->refresh();
+        });
     }
 }

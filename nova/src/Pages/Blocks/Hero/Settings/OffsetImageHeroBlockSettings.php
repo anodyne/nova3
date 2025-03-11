@@ -90,7 +90,7 @@ class OffsetImageHeroBlockSettings extends HeroBlockSettings
                 ]),
             FileUpload::make('image')
                 ->disk('media-pages')
-                ->directory($page)
+                ->directory((string) $page)
                 ->image(),
         ];
     }

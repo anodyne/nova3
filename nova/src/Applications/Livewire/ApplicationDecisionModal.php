@@ -5,22 +5,17 @@ declare(strict_types=1);
 namespace Nova\Applications\Livewire;
 
 use Livewire\Attributes\Locked;
-use LivewireUI\Modal\ModalComponent;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Livewire\Modal;
 
-class ApplicationDecisionModal extends ModalComponent
+class ApplicationDecisionModal extends Modal
 {
     #[Locked]
-    public Application $application;
+    public int|Application $application;
 
     public ApplicationDecisionForm $form;
-
-    public function dismiss(): void
-    {
-        $this->forceClose()->closeModal();
-    }
 
     public function save(): void
     {
@@ -37,12 +32,14 @@ class ApplicationDecisionModal extends ModalComponent
             ->body('The applicant has been notified of the decision.')
             ->send();
 
-        $this->dismiss();
+        $this->close();
     }
 
-    public function mount()
+    public function mount(Application $application)
     {
-        $this->authorize('decide', $this->application);
+        $this->authorize('decide', $application);
+
+        $this->application = $application;
 
         $this->form->setApplication($this->application);
     }

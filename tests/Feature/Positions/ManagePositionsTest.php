@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Nova\Characters\Models\Character;
-use Nova\Departments\Enums\PositionStatus;
 use Nova\Departments\Livewire\PositionsList;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -20,8 +20,8 @@ beforeEach(function () {
     $this->positions = Position::factory()
         ->count(5)
         ->sequence(
-            ['status' => PositionStatus::Active, 'available' => 1],
-            ['status' => PositionStatus::Inactive, 'available' => 0],
+            ['status' => BasicStatus::Active, 'available' => 1],
+            ['status' => BasicStatus::Inactive, 'available' => 0],
         )
         ->create();
 });
@@ -40,13 +40,13 @@ describe('authorized user', function () {
 
     test('can filter positions by status', function () {
         livewire(PositionsList::class)
-            ->filterTable('status', PositionStatus::Active->value)
-            ->assertCanSeeTableRecords($this->positions->where('status', PositionStatus::Active))
-            ->assertCanNotSeeTableRecords($this->positions->where('status', '!=', PositionStatus::Active))
+            ->filterTable('status', BasicStatus::Active->value)
+            ->assertCanSeeTableRecords($this->positions->where('status', BasicStatus::Active))
+            ->assertCanNotSeeTableRecords($this->positions->where('status', '!=', BasicStatus::Active))
             ->resetTableFilters()
-            ->filterTable('status', PositionStatus::Inactive->value)
-            ->assertCanSeeTableRecords($this->positions->where('status', PositionStatus::Inactive))
-            ->assertCanNotSeeTableRecords($this->positions->where('status', '!=', PositionStatus::Inactive));
+            ->filterTable('status', BasicStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->positions->where('status', BasicStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->positions->where('status', '!=', BasicStatus::Inactive));
     });
 
     test('can filter positions by department', function () {

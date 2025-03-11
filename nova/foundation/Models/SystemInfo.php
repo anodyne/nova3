@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 class SystemInfo extends Model
 {
     protected $table = 'system_info';

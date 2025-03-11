@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Characters\Models\States\Status;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\SendPendingCharacterNotification;
 use Nova\Characters\Actions\SetCharacterType;
@@ -39,7 +40,8 @@ class PendingToActive extends Transition
         User::whereHas('primaryCharacter', fn (Builder $query): Builder => $query->where('characters.id', $this->character->id))
             ->get()
             ->each(function (User $user) {
-                $currentUser = auth()->user();
+                /** @var User */
+                $currentUser = Auth::user();
 
                 // If the user has more than 1 primary character...
                 if ($user->primaryCharacter()->count() > 1) {

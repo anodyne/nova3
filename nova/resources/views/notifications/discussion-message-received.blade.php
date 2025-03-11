@@ -2,7 +2,7 @@
 
 <x-notification :notification="$notification">
     <x-slot name="leading" class="text-primary-500">
-        <x-icon name="thumbs-up" size="xl"></x-icon>
+        <x-icon name="inbox" size="xl"></x-icon>
     </x-slot>
 
     You have received a new message as part of one of your conversations from {{ $sender }}.

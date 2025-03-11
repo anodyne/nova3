@@ -15,8 +15,8 @@
 
         <x-form action="">
             @if (filled($addon->preview))
-                <x-panel well>
-                    <x-panel>
+                <x-panel variant="well">
+                    <x-panel variant="inset">
                         <img
                             src="{{ asset('addons/'.$addon->location.'/'.$addon->preview) }}"
                             alt=""
@@ -36,7 +36,9 @@
 
                     <x-fieldset.field label="Type">
                         <div data-slot="text">
-                            <x-badge :color="$addon->type->getColor()">{{ $addon->type->getLabel() }}</x-badge>
+                            <x-badge :color="$addon->type->getColor()">
+                                {{ $addon->type->getLabel() }}
+                            </x-badge>
                         </div>
                     </x-fieldset.field>
 
@@ -56,27 +58,31 @@
                 </x-fieldset.field-group>
             </x-fieldset>
 
-            @if (filled($addon->repository))
+            @if (filled($addon->repository?->id))
                 <x-fieldset>
-                    <x-panel well>
-                        <x-panel.well.header title="Latest version"></x-panel.well.header>
+                    <x-panel variant="well">
+                        <x-panel.header
+                            title="Version check info"
+                            icon="broadcast"
+                            description="Basic information about how the add-on checks for new versions"
+                        ></x-panel.header>
 
                         <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                            <x-spacing size="sm" class="group flex items-center justify-between">
-                                <div>
+                            <x-spacing size="row" class="group flex items-center justify-between">
+                                <div class="flex items-center gap-x-3">
                                     <x-text>
                                         <x-text.strong>Latest version</x-text.strong>
                                     </x-text>
 
                                     @if ($addon->has_update)
-                                        <x-fieldset.warning-message>Update available</x-fieldset.warning-message>
+                                        <x-badge color="warning">Update available</x-badge>
                                     @endif
                                 </div>
                                 <div>
                                     <x-text class="tabular-nums">{{ $addon->latest_version }}</x-text>
                                 </div>
                             </x-spacing>
-                            <x-spacing size="sm" class="group flex items-center justify-between">
+                            <x-spacing size="row" class="group flex items-center justify-between">
                                 <div>
                                     <x-text>
                                         <x-text.strong>Checking version from</x-text.strong>
@@ -84,22 +90,25 @@
                                 </div>
                                 <div>
                                     <x-text>
-                                        {{ $addon->repository->type->getLabel() }}
+                                        {{ $addon->repository?->type?->getLabel() }}
                                     </x-text>
                                 </div>
                             </x-spacing>
-                            <x-spacing size="sm" class="group flex items-center justify-between">
-                                <div>
-                                    <x-text>
-                                        <x-text.strong>URL</x-text.strong>
-                                    </x-text>
-                                </div>
-                                <div>
-                                    <x-button :href="$addon->update_url" color="heavy-neutral" text>
-                                        Go to theme repository &rarr;
-                                    </x-button>
-                                </div>
-                            </x-spacing>
+
+                            @if (filled($addon->update_url))
+                                <x-spacing size="row" class="group flex items-center justify-between">
+                                    <div>
+                                        <x-text>
+                                            <x-text.strong>URL</x-text.strong>
+                                        </x-text>
+                                    </div>
+                                    <div>
+                                        <x-button :href="$addon->update_url" color="heavy-neutral" text>
+                                            Go to add-on repository &rarr;
+                                        </x-button>
+                                    </div>
+                                </x-spacing>
+                            @endif
                         </x-panel>
                     </x-panel>
                 </x-fieldset>

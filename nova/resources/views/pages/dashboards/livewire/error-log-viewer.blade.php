@@ -30,7 +30,7 @@
     </div>
 
     @if (filled($selectedLogFile))
-        <div class="flex items-center gap-x-8">
+        <div class="flex items-center gap-x-8 text-sm/6">
             <div class="flex items-center gap-x-4">
                 @foreach ($logFile->logs()->getLevelCounts() as $count)
                     @php
@@ -49,22 +49,17 @@
                 @endforeach
             </div>
 
-            <x-text>
-                <span class="font-mono text-xs/6 uppercase tracking-tight text-gray-500 dark:text-gray-400">
-                    Log size
-                </span>
-                <x-text.strong class="tabular-nums">{{ $logFile->sizeFormatted() }}</x-text.strong>
-            </x-text>
+            <x-metadata label="Log size" :value="$logFile->sizeFormatted()"></x-metadata>
         </div>
 
-        <div class="space-y-1">
+        <div class="space-y-2">
             @foreach ($logs as $logLine)
                 <x-panel
                     wire:key="panel-{{ $logLine->index.$logLine->filePosition }}"
                     x-data="{ expanded: false }"
-                    well
+                    variant="well"
                 >
-                    <x-panel.well.content class="cursor-pointer" x-on:click="expanded = ! expanded">
+                    <x-spacing size="row" class="cursor-pointer" x-on:click="expanded = ! expanded">
                         <div class="flex justify-between gap-x-8">
                             <div class="flex flex-col">
                                 <div class="flex items-center gap-x-4">
@@ -169,7 +164,7 @@
                                 </button>
                             </div>
                         </div>
-                    </x-panel.well.content>
+                    </x-spacing>
 
                     <x-panel
                         class="divide-y divide-gray-950/5 dark:divide-white/5"
@@ -177,7 +172,7 @@
                         x-collapse
                         x-cloak
                     >
-                        <x-spacing size="sm">
+                        <x-spacing size="row">
                             <x-h5>Context</x-h5>
 
                             <div class="mt-4 grid grid-cols-4 gap-4 text-sm/6">
@@ -198,7 +193,7 @@
                         </x-spacing>
 
                         @if ($this->getStacktrace($logLine) !== null)
-                            <x-spacing size="sm" x-data="{ showStacktrace: false }">
+                            <x-spacing size="row" x-data="{ showStacktrace: false }">
                                 <x-h5>Stacktrace</x-h5>
 
                                 <div class="mt-2 flex items-center gap-x-2">

@@ -7,11 +7,11 @@ namespace Nova\Roles\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laratrust\Models\Role as LaratrustRole;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Roles\Events;
 use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Users\Models\States\Status\Active;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
@@ -20,6 +20,7 @@ class Role extends LaratrustRole implements Sortable
 {
     use HasFactory;
     use HasPrefixedId;
+    use HasTableHelpers;
     use LogsActivity;
     use SortableTrait;
 
@@ -38,23 +39,6 @@ class Role extends LaratrustRole implements Sortable
         'deleted' => Events\RoleDeleted::class,
         'updated' => Events\RoleUpdated::class,
     ];
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()->logFillable();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.display_name role was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.display_name role was {$eventName}"
-            );
-    }
 
     /**
      * Morph by Many relationship between the role and the one of the possible

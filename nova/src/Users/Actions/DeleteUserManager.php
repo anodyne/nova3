@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class DeleteUserManager
 {
@@ -13,10 +15,16 @@ class DeleteUserManager
 
     public function handle(User $user): User
     {
-        DeleteUserCharacters::run($user);
+        return DB::transaction(function () use ($user) {
+            LogBatch::startBatch();
 
-        DeleteUser::run($user);
+            DeleteUser::run($user);
 
-        return $user;
+            DeleteUserCharacters::run($user);
+
+            LogBatch::endBatch();
+
+            return $user;
+        });
     }
 }

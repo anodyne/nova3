@@ -41,13 +41,21 @@ class PostController extends Controller
 
     public function create($neighbor = null, $direction = 'after')
     {
-        return CreatePostResponse::send();
+        return CreatePostResponse::sendWith([
+            'post' => new Post(['neighbor' => $neighbor, 'direction' => $direction]),
+        ]);
     }
 
     public function edit(Post $post)
     {
         return EditPostResponse::sendWith([
-            'post' => $post,
+            'post' => $post->loadMissing([
+                'characterAuthors.activeUsers',
+                'participatingUsers',
+                'postType',
+                'story',
+                'userAuthors',
+            ]),
         ]);
     }
 }

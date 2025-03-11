@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
@@ -14,10 +15,12 @@ class DeleteDepartment
 
     public function handle(Department $department): Department
     {
-        $department->positions->each(
-            fn (Position $position) => DeletePosition::run($position)
-        );
+        return DB::transaction(function () use ($department) {
+            $department->positions->each(
+                fn (Position $position) => DeletePosition::run($position)
+            );
 
-        return tap($department)->delete();
+            return tap($department)->delete();
+        });
     }
 }

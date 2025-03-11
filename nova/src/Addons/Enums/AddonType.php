@@ -6,12 +6,9 @@ namespace Nova\Addons\Enums;
 
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
-use Nova\Foundation\Concerns\HasSelectOptions;
 
 enum AddonType: string implements HasColor, HasLabel
 {
-    use HasSelectOptions;
-
     case Extension = 'extension';
 
     case Genre = 'genre';
@@ -36,13 +33,12 @@ enum AddonType: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::Extension => 'Extension',
             self::Genre => 'Genre',
             self::Rank => 'Rank set',
-            default => null,
         };
     }
 }

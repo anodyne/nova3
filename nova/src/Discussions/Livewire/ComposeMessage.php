@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Validate;
-use LivewireUI\Modal\ModalComponent;
 use Nova\Discussions\Actions\SendMessage;
 use Nova\Discussions\Actions\StartDiscussion;
 use Nova\Discussions\Data\DiscussionData;
@@ -18,10 +17,11 @@ use Nova\Discussions\Enums\ComposeMode;
 use Nova\Discussions\Enums\MessageType;
 use Nova\Discussions\Models\Discussion;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 use Throwable;
 
-class ComposeMessage extends ModalComponent
+class ComposeMessage extends Modal
 {
     #[Validate('required')]
     public array $recipients = [];
@@ -29,7 +29,7 @@ class ComposeMessage extends ModalComponent
     #[Validate('required')]
     public string $content;
 
-    public ?string $name = null;
+    public ?string $subject = null;
 
     public ?int $discussionId = null;
 
@@ -59,24 +59,19 @@ class ComposeMessage extends ModalComponent
         return User::active()->where('id', '!=', Auth::id())->get();
     }
 
-    public function dismiss(): void
-    {
-        $this->forceClose()->closeModal();
-    }
-
     public function submit(): void
     {
         try {
             $this->validate();
 
-            $data = new DiscussionData(
-                name: $this->name,
-                message: new DiscussionMessageData(
+            $data = DiscussionData::from(
+                subject: $this->subject,
+                message: DiscussionMessageData::from(
                     userId: Auth::id(),
                     content: $this->content,
                     type: MessageType::Text,
                 ),
-                participants: new DiscussionParticipantsData(
+                participants: DiscussionParticipantsData::from(
                     sender: Auth::id(),
                     recipients: $this->recipients
                 )
@@ -84,7 +79,7 @@ class ComposeMessage extends ModalComponent
 
             $discussion = StartDiscussion::run($data);
 
-            $this->dismiss();
+            $this->close();
 
             $this->dispatch('discussion-started');
 
@@ -105,20 +100,20 @@ class ComposeMessage extends ModalComponent
     {
         $this->validateOnly('content');
 
-        $data = new DiscussionData(
-            name: $this->name,
-            message: new DiscussionMessageData(
+        $data = DiscussionData::from(
+            subject: $this->subject,
+            message: DiscussionMessageData::from(
                 userId: Auth::id(),
                 content: $this->content,
                 type: MessageType::Text,
             ),
-            participants: new DiscussionParticipantsData(
+            participants: DiscussionParticipantsData::from(
                 sender: Auth::id(),
                 recipients: $this->discussion->participants->pluck('id')->all()
             )
         );
 
-        $this->dismiss();
+        $this->close();
 
         $this->dispatch('discussion-updated');
 
@@ -129,27 +124,27 @@ class ComposeMessage extends ModalComponent
             ->send();
     }
 
-    public function updateName(): void
+    public function updateSubject(): void
     {
-        $this->validateOnly('name');
+        $this->validateOnly('subject');
 
         $this->discussion->update([
-            'name' => $this->name,
+            'subject' => $this->subject,
         ]);
 
-        $this->dismiss();
+        $this->close();
 
         $this->dispatch('discussion-updated');
 
         Notification::make()->success()
-            ->title('Group name was updated')
+            ->title('Subject was updated')
             ->send();
     }
 
     public function mount(): void
     {
         if (filled($this->discussionId)) {
-            $this->name = $this->discussion->name;
+            $this->subject = $this->discussion->subject;
         }
     }
 
@@ -161,5 +156,10 @@ class ComposeMessage extends ModalComponent
             'isReplying' => $this->isReplying,
             'users' => $this->users,
         ]);
+    }
+
+    public static function size(): string
+    {
+        return '2xl';
     }
 }

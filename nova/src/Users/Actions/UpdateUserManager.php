@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Actions\UpdateFormSubmission;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\UpdateUserRequest;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class UpdateUserManager
 {
@@ -16,23 +18,29 @@ class UpdateUserManager
 
     public function handle(User $user, UpdateUserRequest $request): User
     {
-        $user = UpdateUser::run($user, $request->getUserData());
+        return DB::transaction(function () use ($user, $request) {
+            LogBatch::startBatch();
 
-        if (filled($request->assigned_characters)) {
-            $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
-        }
+            $user = UpdateUser::run($user, $request->getUserData());
 
-        if (filled($request->assigned_roles)) {
-            $user = SyncUserRoles::run($user, $request->getUserRolesData());
-        }
+            if (filled($request->assigned_characters)) {
+                $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
+            }
 
-        UploadUserAvatar::run($user, $request->image_path);
+            if (filled($request->assigned_roles)) {
+                $user = SyncUserRoles::run($user, $request->getUserRolesData());
+            }
 
-        RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
+            UploadUserAvatar::run($user, $request->image_path);
 
-        $this->updateFormSubmission($user, $request->input('userBio', []));
+            RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
 
-        return $user->refresh();
+            $this->updateFormSubmission($user, $request->input('userBio', []));
+
+            LogBatch::endBatch();
+
+            return $user->refresh();
+        });
     }
 
     protected function updateFormSubmission(User $user, ?array $data = []): void

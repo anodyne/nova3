@@ -6,9 +6,11 @@
     </x-slot>
 
     <strong class="font-semibold text-gray-900 dark:text-white">{{ $announcement_title }}</strong>
-    announcement has been published.
+    announcement has been published in the
+    <em>{{ $announcement_category }}</em>
+    category.
 
     <x-slot name="actions">
-        <x-button :href="route('admin.announcements.show', $announcement_id)" color="neutral">Read &rarr;</x-button>
+        <x-button :href="route('admin.announcements.show', $announcement_id)">Read &rarr;</x-button>
     </x-slot>
 </x-notification>

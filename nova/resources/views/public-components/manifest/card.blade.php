@@ -49,11 +49,11 @@
         <div class="mt-1">
             @if (filled($character))
                 @if (in_array('type', $options))
-                    <x-badge :color="$character->type->color()">{{ $character->type->getLabel() }}</x-badge>
+                    <x-badge :color="$character->type->getColor()">{{ $character->type->getLabel() }}</x-badge>
                 @endif
 
                 @if (in_array('status', $options))
-                    <x-badge :color="$character->status->color()">
+                    <x-badge :color="$character->status->getColor()">
                         {{ $character->status->getLabel() }}
                     </x-badge>
                 @endif

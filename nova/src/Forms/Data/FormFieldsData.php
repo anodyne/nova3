@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Data;
 
-use Spatie\LaravelData\Data;
+use Bag\Bag;
 
-class FormFieldsData extends Data
+/**
+ * @method static static from(array $fields)
+ */
+readonly class FormFieldsData extends Bag
 {
     public function __construct(
         public array $fields

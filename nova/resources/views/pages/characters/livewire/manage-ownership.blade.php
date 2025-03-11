@@ -2,18 +2,18 @@
 
 <x-panel class="overflow-hidden">
     <div class="divide-y divide-gray-950/5 dark:divide-white/5">
-        <x-spacing height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
+        <x-spacing size="row" class="grid grid-cols-4 gap-4">
             <div class="col-span-3">
                 <x-fieldset.field>
                     <x-fieldset.label>Character type</x-fieldset.label>
                 </x-fieldset.field>
             </div>
             <div class="flex items-start justify-end">
-                <x-badge :color="$characterType->color()">{{ $characterType->getLabel() }}</x-badge>
+                <x-badge :color="$characterType->getColor()">{{ $characterType->getLabel() }}</x-badge>
             </div>
         </x-spacing>
 
-        <x-spacing height="sm" class="grid grid-cols-4 gap-4 bg-white dark:bg-gray-900">
+        <x-spacing size="row" class="grid grid-cols-4 gap-4">
             <div class="col-span-3">
                 <x-fieldset.field>
                     <x-fieldset.label>Character status</x-fieldset.label>
@@ -36,7 +36,7 @@
             </div>
         </x-spacing>
 
-        <x-spacing height="sm" class="bg-white dark:bg-gray-900">
+        <x-spacing size="row">
             <x-switch.group>
                 <x-switch.field>
                     <x-fieldset.label for="link_to_user">Link this character to me</x-fieldset.label>

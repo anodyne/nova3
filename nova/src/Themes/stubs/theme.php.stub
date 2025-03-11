@@ -7,7 +7,7 @@ use Nova\Themes\BaseTheme;
 
 class Theme extends BaseTheme
 {
-    public $location = 'DummyLocation';
+    public string $location = 'DummyLocation';
 
     public function settingsForm(): array
     {

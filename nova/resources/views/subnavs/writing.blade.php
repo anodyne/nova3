@@ -1,3 +1,7 @@
+@use('Nova\Stories\Models\Post')
+@use('Nova\Stories\Models\PostType')
+@use('Nova\Stories\Models\Story')
+
 <x-sidebar.subnav>
     <x-sidebar.subnav.group>
         <x-sidebar.subnav.item
@@ -7,7 +11,7 @@
             Overview
         </x-sidebar.subnav.item>
 
-        @can('create', Nova\Stories\Models\Post::class)
+        @can('create', Post::class)
             <x-sidebar.subnav.item
                 :href="route('admin.posts.create')"
                 :active="request()->routeIs(['admin.posts.create', 'admin.posts.edit'])"
@@ -16,13 +20,13 @@
             </x-sidebar.subnav.item>
         @endcan
 
-        @can('viewAny', Nova\Stories\Models\Story::class)
+        @can('viewAny', Story::class)
             <x-sidebar.subnav.item :href="route('admin.stories.index')" :active="request()->is('admin/stories*')">
                 Stories
             </x-sidebar.subnav.item>
         @endcan
 
-        @can('viewAny', Nova\Stories\Models\PostType::class)
+        @can('viewAny', PostType::class)
             <x-sidebar.subnav.item
                 :href="route('admin.post-types.index')"
                 :active="request()->routeIs('admin.post-types.*')"
@@ -31,7 +35,7 @@
             </x-sidebar.subnav.item>
         @endcan
 
-        @can('viewAny', Nova\Stories\Models\Post::class)
+        @can('viewAny', Post::class)
             <x-sidebar.subnav.item
                 :href="route('admin.posts.index')"
                 :active="request()->routeIs('admin.posts.index')"

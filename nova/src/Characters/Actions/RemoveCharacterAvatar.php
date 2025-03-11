@@ -15,6 +15,11 @@ class RemoveCharacterAvatar
     {
         if ($removeAvatar) {
             $character->clearMediaCollection('avatar');
+
+            activity()
+                ->performedOn($character)
+                ->event('removed-avatar')
+                ->log('removed-avatar');
         }
 
         return $character->refresh();

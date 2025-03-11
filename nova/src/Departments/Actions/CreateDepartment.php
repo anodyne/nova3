@@ -14,6 +14,6 @@ class CreateDepartment
 
     public function handle(DepartmentData $data): Department
     {
-        return Department::create($data->all());
+        return Department::create($data->toArray());
     }
 }

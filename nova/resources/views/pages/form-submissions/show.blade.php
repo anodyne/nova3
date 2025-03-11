@@ -1,3 +1,5 @@
+@use('Nova\Foundation\Helpers\DateHelper')
+
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
@@ -6,39 +8,22 @@
                     <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
                 </x-slot>
             @endcan
+
+            <x-slot name="description">
+                <div class="flex items-center gap-x-8">
+                    <x-metadata label="Form" :value="$submission->form->name"></x-metadata>
+                    <x-metadata label="Submitted by" :value="$submission->owner->name"></x-metadata>
+                    <x-metadata
+                        label="Submitted on"
+                        :value="DateHelper::formatDate($submission->created_at)"
+                    ></x-metadata>
+                </div>
+            </x-slot>
         </x-page-header>
 
         <x-form action="">
             <x-fieldset>
                 <x-fieldset.field-group>
-                    <x-fieldset.field>
-                        <x-fieldset.label>Submitted by</x-fieldset.label>
-                        <x-text>{{ $submission->owner->name }}</x-text>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field>
-                        <x-fieldset.label>Submitted on</x-fieldset.label>
-                        <x-text>
-                            {{ $submission->created_at->format(settings('general')->phpDateFormat()) }}
-                        </x-text>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field>
-                        <x-fieldset.label>Form</x-fieldset.label>
-                        <x-text>
-                            {{ $submission->form->name }}
-                        </x-text>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
-            </x-fieldset>
-
-            <x-fieldset>
-                <x-fieldset.heading>
-                    <x-icon name="file-text"></x-icon>
-                    <x-fieldset.legend>Responses</x-fieldset.legend>
-                </x-fieldset.heading>
-
-                <x-fieldset.field-group constrained>
                     <livewire:dynamic-form
                         :form="$submission->form"
                         :submission="$submission"

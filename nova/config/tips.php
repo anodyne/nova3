@@ -3,8 +3,11 @@
 declare(strict_types=1);
 
 return [
+    'announcements' => [
+        'You can create a new category at any time by simply typing it in the text box. It will then be available in the suggestions for future announcements.',
+    ],
+
     'dashboard' => [
-        // 'On mobile devices, you can add this page to your home screen and get a standalone app that will behave like a native mobile app rather than a normal browser tab.',
         'You can bring up the command palette to quickly move around Nova by using Cmd + K or Cmd + / on Mac. On Windows you can use Ctrl + K or Ctrl + /.',
     ],
 

@@ -20,10 +20,15 @@ return [
             'home' => 'https://anodyne-productions.com',
             'nova' => 'https://anodyne-productions.com/nova',
             'exchange' => 'https://anodyne-productions.com/exchange',
+            'discord' => 'https://discord.gg/7WmKUks',
+            'install-guide' => 'https://anodyne-productions.com/docs/3.0/installation',
+            'migrate-guide' => 'https://anodyne-productions.com/docs/3.0/migrate-from-nova2',
+            'update-guide' => 'https://anodyne-productions.com/docs/3.0/update',
         ],
         'api' => [
             'addon-version-check' => 'https://anodyne-productions.com.test/api/addon/{id}/latest-version',
             'latest-version' => 'https://anodyne-productions.com.test/api/nova/latest-version',
+            'next-version' => 'https://anodyne-productions.com.test/api/nova/next-version',
             'register' => 'https://anodyne-productions.com.test/api/games',
         ],
         'external' => [
@@ -50,7 +55,7 @@ return [
     ],
 
     'resend' => [
-        'key' => env('RESEND_KEY'),
+        'key' => env('RESEND_API_KEY'),
     ],
 
     'slack' => [

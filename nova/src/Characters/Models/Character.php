@@ -7,7 +7,6 @@ namespace Nova\Characters\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -15,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Nova\Applications\Models\Application;
-use Nova\Characters\Data\CharacterData;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events;
 use Nova\Characters\Models\Builders\CharacterBuilder;
@@ -25,22 +23,20 @@ use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
 use Nova\Foundation\Models\StatusHistory;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
-use Nova\Users\Models\States\Status\Active as ActiveUser;
-use Nova\Users\Models\User;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\LaravelData\WithData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Character extends Model implements HasMedia
 {
+    use Concerns\HasUsers;
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
@@ -48,7 +44,6 @@ class Character extends Model implements HasMedia
     use LogsActivity;
     use Searchable;
     use SoftDeletes;
-    use WithData;
 
     protected $casts = [
         'status' => CharacterStatus::class,
@@ -67,16 +62,10 @@ class Character extends Model implements HasMedia
         'name', 'status', 'rank_id', 'type',
     ];
 
-    protected $dataClass = CharacterData::class;
-
-    public function activeUsers()
-    {
-        return $this->users()->whereState('status', ActiveUser::class);
-    }
-
     public function positions()
     {
-        return $this->belongsToMany(Position::class);
+        return $this->belongsToMany(Position::class)
+            ->using(CharacterPosition::class);
     }
 
     public function posts(): MorphToMany
@@ -84,26 +73,25 @@ class Character extends Model implements HasMedia
         return $this->morphToMany(Post::class, 'authorable', 'post_author');
     }
 
-    public function activePrimaryUsers()
+    public function postAuthors(): MorphToMany
     {
-        return $this->activeUsers()->wherePivot('primary', true);
-    }
-
-    public function primaryUsers()
-    {
-        return $this->users()->wherePivot('primary', true);
+        return $this->morphToMany(
+            Post::class,
+            'authorable',
+            'post_author',
+        )->withPivot(['user_id', 'authorable_type'])
+            ->select([
+                'posts.id as post_id', // ✅ Explicitly selecting "id" from posts
+                'posts.title', // Select only necessary columns
+                'post_author.user_id', // ✅ Ensure pivot data is included
+                'post_author.authorable_id',
+                'post_author.authorable_type',
+            ]);
     }
 
     public function rank()
     {
         return $this->hasOne(RankItem::class, 'id', 'rank_id');
-    }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class)
-            ->withPivot('primary')
-            ->withTimestamps();
     }
 
     public function formSubmissions(): MorphMany
@@ -125,23 +113,6 @@ class Character extends Model implements HasMedia
     public function statusHistories(): MorphMany
     {
         return $this->morphMany(StatusHistory::class, 'statusable');
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()->logFillable();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name was {$eventName}"
-            );
     }
 
     public function avatarUrl(): Attribute
@@ -221,11 +192,6 @@ class Character extends Model implements HasMedia
             ->singleFile();
     }
 
-    public static function getMediaPath(): string
-    {
-        return '{model_id}/{media_id}/';
-    }
-
     public function toSearchableArray(): array
     {
         return [
@@ -238,5 +204,10 @@ class Character extends Model implements HasMedia
     public function shouldBeSearchable(): bool
     {
         return ! $this->is_pending;
+    }
+
+    public static function getMediaPath(): string
+    {
+        return '{model_id}/{media_id}/';
     }
 }

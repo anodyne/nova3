@@ -15,7 +15,7 @@ class UpdateCharacter
     public function handle(Character $character, CharacterData $data): Character
     {
         return tap($character)
-            ->update($data->all())
+            ->update($data->toArray())
             ->refresh();
     }
 }

@@ -23,7 +23,7 @@ class DiscussionMessageReceived extends PreferenceBasedNotification
     {
         return [
             'discussion_id' => $this->discussion->id,
-            'discussion_name' => $this->discussion->name,
+            'discussion_subject' => $this->discussion->subject,
             'is_direct_message' => $this->discussion->is_direct_message,
             'message' => $this->message->content,
             'sender' => $this->message->user->name,

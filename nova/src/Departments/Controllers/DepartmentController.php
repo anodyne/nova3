@@ -60,8 +60,7 @@ class DepartmentController extends Controller
     {
         $department = CreateDepartmentManager::run($request);
 
-        return redirect()
-            ->route('admin.departments.index')
+        return to_route('admin.departments.index')
             ->notify("{$department->name} department was created");
     }
 

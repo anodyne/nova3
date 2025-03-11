@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Data;
 
+use Bag\Attributes\MapInputName;
+use Bag\Attributes\MapOutputName;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Bag\Mappers\SnakeCase;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Nova\Foundation\Rules\Boolean;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
-use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-#[MapName(SnakeCaseMapper::class)]
-class RoleData extends Data
+/**
+ * @method static static from(string $name, string $displayName, ?string $description, bool $isDefault)
+ */
+#[MapInputName(SnakeCase::class)]
+#[MapOutputName(SnakeCase::class)]
+readonly class RoleData extends Bag
 {
     public function __construct(
         public string $name,
@@ -22,21 +25,14 @@ class RoleData extends Data
         public bool $isDefault = false,
     ) {}
 
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            name: $request->input('name'),
-            displayName: $request->input('display_name'),
-            description: $request->input('description'),
-            isDefault: $request->boolean('is_default', false)
-        );
-    }
-
-    public static function rules(ValidationContext $context): array
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
         return [
-            'name' => Rule::unique('roles')->ignore(request()->role),
-            'is_default' => new Boolean,
+            'name' => $request->input('name'),
+            'displayName' => $request->input('display_name'),
+            'description' => $request->input('description'),
+            'isDefault' => $request->boolean('is_default', false),
         ];
     }
 }

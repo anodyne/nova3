@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="trash" title="Force delete post type?">
+<x-filament.modal-content :$action title="Force delete post type?">
     <p>
         Are you sure you want to force delete the
         <strong class="font-semibold">{{ $record->name }}</strong>

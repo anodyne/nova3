@@ -5,6 +5,8 @@
     'variant' => null,
 ])
 
+@use('Nova\Foundation\Helpers\DateHelper')
+
 <div class="relative">
     <div class="absolute inset-0 flex items-center" aria-hidden="true">
         <div
@@ -44,7 +46,7 @@
                     },
                 ])
             >
-                {{ format_date($date) }}
+                {{ DateHelper::formatShortDateWithTime($date) }}
             </span>
         @endif
     </div>

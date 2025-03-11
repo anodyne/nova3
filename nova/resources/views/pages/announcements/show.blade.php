@@ -1,3 +1,5 @@
+@use('Nova\Foundation\Helpers\DateHelper')
+
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-header :heading="$announcement->title">
@@ -14,31 +16,16 @@
         </x-page-header>
 
         <div class="my-4 flex items-center gap-x-8 text-sm">
-            <div class="flex items-center gap-x-1.5 text-gray-500">
-                <span>Author</span>
-                <span class="font-medium text-gray-600 dark:text-gray-400">
-                    {{ $announcement->user->name }}
-                </span>
-            </div>
+            <x-metadata label="Author" :value="$announcement->user->name"></x-metadata>
 
             @if (filled($announcement->category))
-                <div class="flex items-center gap-x-1.5 text-gray-500">
-                    <span>Category</span>
-                    <span class="font-medium text-gray-600 dark:text-gray-400">
-                        {{ $announcement->category }}
-                    </span>
-                </div>
+                <x-metadata label="Category" :value="$announcement->category"></x-metadata>
             @endif
 
-            <div class="flex items-center gap-x-1.5 text-gray-500">
-                <span>Published</span>
-                <span class="font-medium text-gray-600 dark:text-gray-400">
-                    {{ format_date($announcement->published_at) }}
-                </span>
-            </div>
+            <x-metadata label="Published" :value="DateHelper::formatDate($announcement->published_at)"></x-metadata>
         </div>
 
-        <div class="prose max-w-none">
+        <div class="prose max-w-none dark:prose-invert">
             {!! $announcement->content !!}
         </div>
     </x-spacing>

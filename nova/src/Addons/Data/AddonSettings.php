@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Illuminate\Http\Request;
 
-#[MapInputName(SnakeCaseMapper::class)]
-class AddonSettings extends Data implements Arrayable
+/**
+ * @method static static from(array $settings)
+ */
+readonly class AddonSettings extends Bag
 {
     public function __construct(
         public array $settings = []
@@ -19,5 +20,13 @@ class AddonSettings extends Data implements Arrayable
     public function hasSettings(): bool
     {
         return count($this->settings) > 0;
+    }
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'settings' => $request->input('settings'),
+        ];
     }
 }

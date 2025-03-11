@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Spatie\LaravelData\Data;
 
-class Fields extends Data implements Arrayable
+/**
+ * @method static static from(Field $title, Field $day, Field $time, Field $location, Field $content, Field $rating, Field $summary)
+ */
+readonly class Fields extends Bag
 {
     public function __construct(
         public Field $title,
@@ -24,8 +28,7 @@ class Fields extends Data implements Arrayable
     {
         return collect(get_object_vars($this))
             ->filter(fn ($var) => $var instanceof Field)
-            ->filter(fn (Field $field) => $field->enabled)
-            ->filter(fn (Field $field, $key) => $key !== 'rating');
+            ->filter(fn (Field $field) => $field->enabled);
     }
 
     public function requiredFields(): Collection
@@ -39,5 +42,19 @@ class Fields extends Data implements Arrayable
     public function showMetaFields(): bool
     {
         return $this->location->enabled || $this->day->enabled || $this->time->enabled;
+    }
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'title' => Field::from($request),
+            'day' => Field::from($request),
+            'time' => Field::from($request),
+            'location' => Field::from($request),
+            'content' => Field::from($request),
+            'rating' => Field::from($request),
+            'summary' => Field::from($request),
+        ];
     }
 }

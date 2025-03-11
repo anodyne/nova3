@@ -99,6 +99,21 @@
                             ></x-radio>
                         </x-radio.field>
                     </x-radio.group>
+
+                    <x-switch.field>
+                        <x-switch
+                            name="status"
+                            :value="old('status', $page->status->value ?? 'active')"
+                            on-value="active"
+                            off-value="inactive"
+                            id="status"
+                        ></x-switch>
+                        <x-fieldset.label for="status">Active</x-fieldset.label>
+                        <x-fieldset.warning-message>
+                            Use caution when disabling pages, especially advanced pages, as doing so could cause your
+                            site to break.
+                        </x-fieldset.warning-message>
+                    </x-switch.field>
                 </x-fieldset.field-group>
             </x-fieldset>
 
@@ -179,7 +194,7 @@
 
             <x-fieldset x-show="verb === 'get'" x-cloak>
                 <x-fieldset.heading>
-                    <x-icon name="tabler-seo"></x-icon>
+                    <x-icon name="seo"></x-icon>
                     <x-fieldset.legend>SEO tools</x-fieldset.legend>
                     <x-fieldset.description>
                         Customize your SEO settings for better placement in search results and more. This is most

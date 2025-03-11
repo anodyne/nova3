@@ -33,15 +33,17 @@ class DatabaseSeeder extends Seeder
             CharacterSeeder::class,
 
             StorySeeder::class,
-            // NimitzStorySeeder::class,
-            PostSeeder::class,
+            CurrentStoriesPostSeeder::class,
+            CompletedStoriesPostSeeder::class,
             FormSeeder::class,
 
             ApplicationSeeder::class,
 
             DiscussionSeeder::class,
 
-            // AddonSeeder::class,
+            AnnouncementSeeder::class,
+
+            ChangelogSeeder::class,
         ]);
 
         activity()->enableLogging();

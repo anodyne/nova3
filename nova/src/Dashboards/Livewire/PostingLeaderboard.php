@@ -18,6 +18,12 @@ class PostingLeaderboard extends Component
     public string $timeframe;
 
     #[Computed]
+    public function selectedTimeframe(): LeaderboardTimeframe
+    {
+        return LeaderboardTimeframe::tryFrom($this->timeframe);
+    }
+
+    #[Computed]
     public function leaderboard(): ?Collection
     {
         if (! $this->settings->enabled) {
@@ -96,7 +102,7 @@ class PostingLeaderboard extends Component
     #[Computed]
     public function settings(): Leaderboard
     {
-        return settings('writing_dashboard.leaderboard');
+        return settings('dashboard.leaderboard');
     }
 
     public function mount()
@@ -109,6 +115,7 @@ class PostingLeaderboard extends Component
         return view('pages.dashboards.livewire.posting-leaderboard', [
             'leaderboard' => $this->leaderboard,
             'settings' => $this->settings,
+            'selectedTimeframe' => $this->selectedTimeframe,
         ]);
     }
 }

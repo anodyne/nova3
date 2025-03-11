@@ -11,6 +11,8 @@ use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\Hidden;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Nova\Foundation\Models\Builders\Concerns\ActiveBetween;
 use Nova\Users\Models\User;
 
@@ -20,18 +22,21 @@ class CharacterBuilder extends Builder
 
     public function isAssignedTo(User $user): self
     {
-        return $this->whereRelation('users', 'users.id', '=', $user->id);
+        return $this->whereRelation('users', User::column('id'), '=', $user->id);
     }
 
     public function searchFor($search): Builder
     {
+        /** @var User */
+        $user = Auth::user();
+
         return $this->where(fn (Builder $query): Builder => $query->where('name', 'like', "%{$search}%"))
-            ->orWhereRelation('positions', 'positions.name', 'like', "%{$search}%")
-            ->orWhereRelation('positions.department', 'departments.name', 'like', "%{$search}%")
-            ->orWhereRelation('users', 'users.name', 'like', "%{$search}%")
+            ->orWhereRelation('positions', Position::column('name'), 'like', "%{$search}%")
+            ->orWhereRelation('positions.department', Department::column('name'), 'like', "%{$search}%")
+            ->orWhereRelation('users', User::column('name'), 'like', "%{$search}%")
             ->when(
-                Auth::user()->isAbleTo('character.*'),
-                fn (Builder $query): Builder => $query->orWhereRelation('users', 'users.email', 'like', "%{$search}%")
+                $user->isAbleTo('character.*'),
+                fn (Builder $query): Builder => $query->orWhereRelation('users', User::column('email'), 'like', "%{$search}%")
             );
     }
 
@@ -43,8 +48,8 @@ class CharacterBuilder extends Builder
     public function searchForWithoutUsers($search): Builder
     {
         return $this->where(fn (Builder $query): Builder => $query->where('name', 'like', "%{$search}%"))
-            ->orWhereRelation('positions', 'positions.name', 'like', "%{$search}%")
-            ->orWhereRelation('positions.department', 'departments.name', 'like', "%{$search}%");
+            ->orWhereRelation('positions', Position::column('name'), 'like', "%{$search}%")
+            ->orWhereRelation('positions.department', Department::column('name'), 'like', "%{$search}%");
     }
 
     public function active(): Builder

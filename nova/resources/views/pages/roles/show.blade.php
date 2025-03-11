@@ -41,63 +41,55 @@
             </x-fieldset>
 
             <x-fieldset>
-                <x-panel well>
-                    <x-spacing size="sm">
-                        <x-fieldset.legend>Permissions for this role</x-fieldset.legend>
-                    </x-spacing>
+                <x-panel variant="well">
+                    <x-panel.header title="Permissions for this role"></x-panel.header>
 
-                    <x-spacing size="2xs">
-                        <x-panel>
-                            <x-spacing size="md">
-                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                                    @forelse ($role->permissions as $permission)
-                                        <div>
-                                            <x-fieldset.legend>{{ $permission->display_name }}</x-fieldset.legend>
-                                            <x-fieldset.description>
-                                                {{ $permission->description }}
-                                            </x-fieldset.description>
-                                        </div>
-                                    @empty
-                                        <div class="lg:col-span-2">
-                                            <x-empty-state.small
-                                                icon="key"
-                                                title="No permissions assigned"
-                                                message="There are no permissions assigned this role"
-                                            ></x-empty-state.small>
-                                        </div>
-                                    @endforelse
-                                </div>
-                            </x-spacing>
-                        </x-panel>
-                    </x-spacing>
+                    <x-panel>
+                        <x-spacing size="md">
+                            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                @forelse ($role->permissions as $permission)
+                                    <div>
+                                        <x-fieldset.legend>{{ $permission->display_name }}</x-fieldset.legend>
+                                        <x-fieldset.description>
+                                            {{ $permission->description }}
+                                        </x-fieldset.description>
+                                    </div>
+                                @empty
+                                    <div class="lg:col-span-2">
+                                        <x-empty-state.small
+                                            icon="key"
+                                            title="No permissions assigned"
+                                            message="There are no permissions assigned this role"
+                                        ></x-empty-state.small>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </x-spacing>
+                    </x-panel>
                 </x-panel>
             </x-fieldset>
 
             <x-fieldset>
-                <x-panel well>
-                    <x-spacing size="sm">
-                        <x-fieldset.legend>Users with this role</x-fieldset.legend>
-                    </x-spacing>
+                <x-panel variant="well">
+                    <x-panel.header title="Users with this role"></x-panel.header>
 
-                    <x-spacing size="2xs">
-                        <x-panel>
-                            <x-spacing size="md">
-                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                                    @forelse ($role->user as $user)
-                                        <x-avatar.user :user="$user"></x-avatar.user>
-                                    @empty
-                                        <div class="lg:col-span-2">
-                                            <x-empty-state.small
-                                                icon="users"
-                                                title="No users assigned"
-                                                message="There are no users assigned this role"
-                                            ></x-empty-state.small>
-                                        </div>
-                                    @endforelse
-                                </div>
-                            </x-spacing>
-                        </x-panel>
-                    </x-spacing>
+                    <x-panel>
+                        <x-spacing size="md">
+                            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                @forelse ($role->user as $user)
+                                    <x-avatar.user :user="$user"></x-avatar.user>
+                                @empty
+                                    <div class="lg:col-span-2">
+                                        <x-empty-state.small
+                                            icon="users"
+                                            title="No users assigned"
+                                            message="There are no users assigned this role"
+                                        ></x-empty-state.small>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </x-spacing>
+                    </x-panel>
                 </x-panel>
             </x-fieldset>
         </x-form>

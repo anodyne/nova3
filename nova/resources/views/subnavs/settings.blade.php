@@ -37,12 +37,6 @@
             Email
         </x-sidebar.subnav.item>
         <x-sidebar.subnav.item
-            :href="route('admin.settings.environment.edit')"
-            :active="request()->routeIs('admin.settings.environment.edit')"
-        >
-            Environment
-        </x-sidebar.subnav.item>
-        <x-sidebar.subnav.item
             :href="route('admin.settings.notifications.edit')"
             :active="request()->routeIs('admin.settings.notifications.edit')"
         >
@@ -55,10 +49,10 @@
             Posting activity
         </x-sidebar.subnav.item>
         <x-sidebar.subnav.item
-            :href="route('admin.settings.writing-dashboard.edit')"
-            :active="request()->routeIs('admin.settings.writing-dashboard.edit')"
+            :href="route('admin.settings.dashboard.edit')"
+            :active="request()->routeIs('admin.settings.dashboard.edit')"
         >
-            Writing dashboard
+            Dashboard
         </x-sidebar.subnav.item>
     </x-sidebar.subnav.group>
 </x-sidebar.subnav>

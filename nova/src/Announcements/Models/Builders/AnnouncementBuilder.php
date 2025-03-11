@@ -5,21 +5,43 @@ declare(strict_types=1);
 namespace Nova\Announcements\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Users\Models\User;
 
 class AnnouncementBuilder extends Builder
 {
-    public function published(): self
-    {
-        return $this->where('published', true);
-    }
-
     public function notPublished(): self
     {
         return $this->where('published', false);
     }
 
+    public function published(): self
+    {
+        return $this->where('published', true);
+    }
+
     public function searchFor($search): self
     {
-        return $this->where('title', 'like', "%{$search}%");
+        return $this->whereFullText('title', $search.'*', ['mode' => 'boolean']);
+    }
+
+    public function uniqueCategories(): self
+    {
+        return $this->select('category')->distinct();
+    }
+
+    public function withReadNotificationsForUser(User $user): self
+    {
+        return $this->whereHas(
+            'notifications',
+            fn (Builder $query): Builder => $query->whereUser($user->id)->read()
+        );
+    }
+
+    public function withUnreadNotificationsForUser(User $user): self
+    {
+        return $this->whereHas(
+            'notifications',
+            fn (Builder $query): Builder => $query->whereUser($user->id)->unread()
+        );
     }
 }

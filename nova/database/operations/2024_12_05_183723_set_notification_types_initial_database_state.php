@@ -42,9 +42,12 @@ return new class extends OneTimeOperation
             ['name' => 'Draft post discarded', 'key' => 'draft-post-discarded'],
             ['name' => 'Post saved', 'key' => 'post-saved'],
             ['name' => 'Application ready for review', 'key' => 'application-ready-for-review'],
+            ['name' => 'Application reviewer voted to accept', 'key' => 'application-reviewer-voted-to-accept'],
+            ['name' => 'Application reviewer voted to deny', 'key' => 'application-reviewer-voted-to-deny'],
             ['name' => 'Application accepted', 'key' => 'application-accepted', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
             ['name' => 'Application denied', 'key' => 'application-denied', 'mail' => true, 'mail_default' => true, 'database' => false, 'database_default' => false],
             ['name' => 'Discussion message received', 'key' => 'discussion-message-received', 'database' => false, 'database_default' => false],
+            ['name' => 'Discussion participant exited', 'key' => 'discussion-participant-exited'],
         ]);
 
         NotificationType::unguarded(function () use ($admin, $group, $personal) {
@@ -66,9 +69,18 @@ return new class extends OneTimeOperation
 
     protected function createNotificationType(array $data, NotificationAudience $audience): void
     {
-        NotificationType::create(array_merge(
-            $data,
-            ['audience' => $audience]
-        ));
+        $defaults = [
+            'database' => true,
+            'database_default' => true,
+            'mail' => false,
+            'mail_default' => false,
+            'discord' => false,
+        ];
+
+        NotificationType::create([
+            ...$defaults,
+            ...$data,
+            ...['audience' => $audience],
+        ]);
     }
 };

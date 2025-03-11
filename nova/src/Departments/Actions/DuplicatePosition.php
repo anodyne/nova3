@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Position;
@@ -14,14 +15,22 @@ class DuplicatePosition
 
     public function handle(Position $original, PositionData $data): Position
     {
-        $replica = $original->replicate([
-            'active_characters_count',
-            'active_users_count',
-            'prefixed_id',
-        ]);
-        $replica->forceFill(collect($data->all())->filter()->toArray());
-        $replica->save();
+        return DB::transaction(function () use ($original, $data) {
+            $replica = $original->replicate([
+                'active_characters_count',
+                'active_users_count',
+                'prefixed_id',
+            ]);
+            $replica->forceFill(collect($data->toArray())->filter()->toArray());
+            $replica->save();
 
-        return $replica->refresh();
+            activity()
+                ->performedOn($original)
+                ->withProperty('replica', $replica->id)
+                ->event('duplicated')
+                ->log('duplicated');
+
+            return $replica->refresh();
+        });
     }
 }

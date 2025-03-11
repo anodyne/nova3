@@ -21,9 +21,19 @@ abstract class Step
     public function icon(): Htmlable
     {
         if ($this->isComplete()) {
-            $classes = 'size-6 fill-white text-success-500';
+            if (method_exists($this, 'completeClasses')) {
+                /** @disregard P1013 Undefined method */
+                $classes = $this->completeClasses();
+            } else {
+                $classes = 'size-6 fill-white text-success-500';
+            }
 
-            $svgPaths = '<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" />';
+            if (method_exists($this, 'completeIcon')) {
+                /** @disregard P1013 Undefined method */
+                $svgPaths = $this->completeIcon();
+            } else {
+                $svgPaths = '<path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" />';
+            }
         } else {
             if (method_exists($this, 'incompleteClasses')) {
                 /** @disregard P1013 Undefined method */

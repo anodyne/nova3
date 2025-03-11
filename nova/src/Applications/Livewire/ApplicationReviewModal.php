@@ -7,7 +7,6 @@ namespace Nova\Applications\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
-use LivewireUI\Modal\ModalComponent;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview;
 use Nova\Forms\Actions\CreateFormSubmission;
@@ -15,15 +14,16 @@ use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Forms\Models\FormSubmissionResponse;
+use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 
-class ApplicationReviewModal extends ModalComponent
+class ApplicationReviewModal extends Modal
 {
     #[Locked]
-    public Application $application;
+    public int|Application $application;
 
     #[Locked]
-    public ?User $user = null;
+    public int|User $user;
 
     #[Locked]
     public ?ApplicationReview $review;
@@ -31,11 +31,6 @@ class ApplicationReviewModal extends ModalComponent
     public ApplicationReviewForm $form;
 
     public array $values = [];
-
-    public function dismiss(): void
-    {
-        $this->forceClose()->closeModal();
-    }
 
     public function save(): void
     {
@@ -55,7 +50,7 @@ class ApplicationReviewModal extends ModalComponent
 
         $this->dispatch('review-submitted');
 
-        $this->dismiss();
+        $this->close();
     }
 
     #[Computed]
@@ -70,11 +65,14 @@ class ApplicationReviewModal extends ModalComponent
         return $this->user ?? Auth::user();
     }
 
-    public function mount()
+    public function mount(Application $application, User $user)
     {
-        $this->authorize('vote', $this->application);
+        $this->authorize('vote', $application);
 
-        $this->review = $this->application->reviews()
+        $this->application = $application;
+        $this->user = $user;
+
+        $this->review = $application->reviews()
             ->wherePivot('user_id', $this->owner->id)
             ->first()->pivot;
 

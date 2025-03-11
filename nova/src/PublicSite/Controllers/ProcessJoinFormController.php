@@ -6,7 +6,7 @@ namespace Nova\PublicSite\Controllers;
 
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Facades\RateLimiter;
-use Nova\Applications\Actions\CreateApplicationManager;
+use Nova\Applications\Actions\CreateApplicationFromJoinFormManager;
 use Nova\Foundation\Controllers\Controller;
 use Nova\PublicSite\Requests\StoreApplicationRequest;
 
@@ -18,7 +18,7 @@ class ProcessJoinFormController extends Controller
             $executed = RateLimiter::attempt(
                 key: 'process-join:'.$request->input('userInfo.email'),
                 maxAttempts: 1,
-                callback: fn () => CreateApplicationManager::run($request),
+                callback: fn () => CreateApplicationFromJoinFormManager::run($request),
                 decaySeconds: 15 * 60
             );
 

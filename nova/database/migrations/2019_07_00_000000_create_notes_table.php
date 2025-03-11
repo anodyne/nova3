@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Users\Models\User;
 
 class CreateNotesTable extends Migration
 {
@@ -14,7 +13,7 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('title')->index();
             $table->longText('content')->nullable();
             $table->timestamps();

@@ -11,7 +11,6 @@ use Nova\Characters\Models\Character;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Models\UserNotificationPreference;
 use Nova\Media\Livewire\UploadAvatar;
 use Nova\Roles\Models\Role;
 use Nova\Users\Events\UserCreated;
@@ -20,6 +19,7 @@ use Nova\Users\Livewire\ManageCharacters;
 use Nova\Users\Livewire\ManageRoles;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
+use Nova\Users\Models\UserNotificationPreference;
 use Nova\Users\Notifications\AccountCreated;
 
 use function Pest\Laravel\assertDatabaseHas;

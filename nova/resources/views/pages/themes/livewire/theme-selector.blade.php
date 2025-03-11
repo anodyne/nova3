@@ -9,7 +9,14 @@
         </x-select>
 
         <div class="flex shrink-0 items-center">
-            <livewire:theme-settings :theme="$selectedTheme" :key="$selectedTheme->location" />
+            <x-button
+                wire:click="$dispatch('slide-over.open', {component: 'theme-settings', arguments: {'theme': '{{ $selectedTheme->location }}'}})"
+                text
+            >
+                <span class="shrink-0">
+                    <x-icon name="settings" size="md"></x-icon>
+                </span>
+            </x-button>
         </div>
     </div>
 </x-fieldset.field>

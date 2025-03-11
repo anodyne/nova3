@@ -23,13 +23,25 @@ use Nova\Notes\Actions\DeleteNote;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
 use Nova\Notes\Models\Note;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class NotesList extends TableComponent
 {
     public function table(Table $table): Table
     {
         return $table
-            ->query(Note::query()->currentUser())
+            ->query(
+                Note::query()
+                    ->select([
+                        'id',
+                        'title',
+                        'updated_at',
+                        'user_id',
+                    ])
+                    ->currentUser()
+            )
             ->defaultSort('updated_at', 'desc')
             ->columns([
                 TextColumn::make('title')
@@ -46,16 +58,30 @@ class NotesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.notes.show', $record)),
+                            ->url(fn (Note $record): string => route('admin.notes.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.notes.edit', $record)),
+                            ->url(fn (Note $record): string => route('admin.notes.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->eventDescriptions([
+                                        'duplicated' => fn (Activity $activity) => __('activity.notes.duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'replica' => Note::find($activity->getExtraProperty('replica'))?->title,
+                                        ]),
+                                    ]);
+                            }),
+                    ])->divided(),
+
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->modalContentView('pages.notes.duplicate')
-                            ->action(function (Model $record): void {
+                            ->action(function (Note $record): void {
                                 $replica = DuplicateNote::run($record);
 
                                 NoteDuplicated::dispatch($replica, $record);
@@ -65,12 +91,13 @@ class NotesList extends TableComponent
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
+
                     ActionGroup::make([
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.notes.delete')
                             ->successNotificationTitle('Note was deleted')
-                            ->using(fn (Model $record): Model => DeleteNote::run($record)),
+                            ->using(fn (Note $record): Model => DeleteNote::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -82,7 +109,7 @@ class NotesList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Note $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -91,7 +118,7 @@ class NotesList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeleteNote::run($record));
+                            ->each(fn (Note $record): Model => DeleteNote::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('note was|notes were', count($records)).' deleted')

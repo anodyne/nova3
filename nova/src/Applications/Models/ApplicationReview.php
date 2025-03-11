@@ -10,13 +10,23 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Users\Models\User;
 
 class ApplicationReview extends Pivot
 {
+    use HasTableHelpers;
+    use LogsActivity;
+
     protected $casts = [
         'result' => ApplicationResult::class,
     ];
+
+    public function application(): BelongsTo
+    {
+        return $this->belongsTo(Application::class);
+    }
 
     public function user(): BelongsTo
     {
@@ -39,10 +49,10 @@ class ApplicationReview extends Pivot
         );
     }
 
-    public function isRejected(): Attribute
+    public function isDenied(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->result === ApplicationResult::Reject
+            get: fn (): bool => $this->result === ApplicationResult::Deny
         );
     }
 }

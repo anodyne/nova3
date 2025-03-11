@@ -1,3 +1,7 @@
+@use('Illuminate\Support\Js')
+@use('Nova\Stories\Enums\PostTypeField')
+@use('Nova\Stories\Enums\PostTypeVisibility')
+
 <x-admin-layout>
     <x-spacing x-data="tabsList('details')" constrained>
         <x-page-header>
@@ -32,22 +36,20 @@
                             </x-input.textarea>
                         </x-fieldset.field>
 
-                        <x-panel well>
-                            <x-panel.well-heading
-                                heading="Accent color"
+                        <x-panel variant="well">
+                            <x-panel.header
+                                title="Accent color"
                                 description="When setting the accent color for your post type icon, keep in mind that it could be displayed on either a light or dark background."
-                            ></x-panel.well-heading>
+                            ></x-panel.header>
 
-                            <x-spacing size="2xs">
-                                <x-panel>
-                                    <x-spacing size="sm">
-                                        <livewire:advanced-color-picker
-                                            field="color"
-                                            :state="old('color', $postType->color)"
-                                        />
-                                    </x-spacing>
-                                </x-panel>
-                            </x-spacing>
+                            <x-panel>
+                                <x-spacing size="md">
+                                    <livewire:advanced-color-picker
+                                        field="color"
+                                        :state="old('color', $postType->color)"
+                                    />
+                                </x-spacing>
+                            </x-panel>
                         </x-panel>
 
                         <x-fieldset.field label="Icon" id="icon" name="icon">
@@ -67,25 +69,19 @@
                     </x-fieldset.heading>
 
                     <x-radio.group>
-                        <x-radio.field>
-                            <x-fieldset.label for="in_character">In character</x-fieldset.label>
-                            <x-radio
-                                id="in_character"
-                                name="visibility"
-                                value="in-character"
-                                :checked="old('visibility', $postType->visibility === 'in-character')"
-                            ></x-radio>
-                        </x-radio.field>
-
-                        <x-radio.field>
-                            <x-fieldset.label for="out_of_character">Out of character</x-fieldset.label>
-                            <x-radio
-                                id="out_of_character"
-                                name="visibility"
-                                value="out-of-character"
-                                :checked="old('visibility', $postType->visibility === 'out-of-character')"
-                            ></x-radio>
-                        </x-radio.field>
+                        @foreach (PostTypeVisibility::cases() as $visibility)
+                            <x-radio.field>
+                                <x-fieldset.label for="{{ $visibility->htmlId() }}">
+                                    {{ $visibility->getLabel() }}
+                                </x-fieldset.label>
+                                <x-radio
+                                    id="{{ $visibility->htmlId() }}"
+                                    name="visibility"
+                                    value="{{ $visibility->value }}"
+                                    :checked="old('visibility', $postType->visibility->value === $visibility->value)"
+                                ></x-radio>
+                            </x-radio.field>
+                        @endforeach
                     </x-radio.group>
                 </x-fieldset>
 
@@ -113,90 +109,97 @@
                     </x-fieldset.heading>
 
                     <x-fieldset.field-group constrained>
-                        @foreach ($fieldTypes as $fieldType)
-                            <div
+                        @foreach (PostTypeField::cases() as $field)
+                            <x-panel
+                                variant="well"
                                 x-data="{
                                     expanded: false,
-                                    enabled: @js($postType->fields->{$fieldType}->enabled),
-                                    required: @js($postType->fields->{$fieldType}->required),
+                                    enabled: {{ Js::from($postType->fields->{$field->value}->enabled) }},
+                                    required: {{ Js::from($postType->fields->{$field->value}->required) }},
                                 }"
                             >
-                                <x-panel well>
-                                    <x-spacing size="sm">
-                                        <button
-                                            type="button"
-                                            class="flex w-full appearance-none items-center justify-between"
-                                            x-on:click="expanded = !expanded"
-                                        >
-                                            <div class="flex items-center space-x-1">
-                                                <x-fieldset.legend>
-                                                    {{ str($fieldType)->ucfirst() }} field
-                                                </x-fieldset.legend>
-                                                <p class="font-medium text-danger-500" x-show="required">*</p>
-                                            </div>
-                                            <div class="ml-8 flex shrink-0 items-center space-x-3">
-                                                <x-badge color="success" x-show="enabled">Enabled</x-badge>
-                                                <x-badge color="gray" x-show="!enabled">Disabled</x-badge>
+                                <x-panel.header class="cursor-pointer" x-on:click="expanded = !expanded">
+                                    <x-slot name="title">
+                                        <div class="flex items-center gap-x-1">
+                                            <p>{{ $field->getLabel() }} field</p>
+                                            <p class="font-medium text-danger-500" x-show="required">*</p>
+                                        </div>
+                                    </x-slot>
 
-                                                <div x-show="!expanded">
-                                                    <x-icon
-                                                        name="add"
-                                                        size="md"
-                                                        class="text-gray-400 dark:text-gray-500"
-                                                    ></x-icon>
-                                                </div>
-                                                <div x-show="expanded">
-                                                    <x-icon
-                                                        name="remove"
-                                                        size="md"
-                                                        class="text-gray-400 dark:text-gray-500"
-                                                    ></x-icon>
-                                                </div>
-                                            </div>
-                                        </button>
+                                    <x-slot name="badge">
+                                        <x-badge color="success" x-show="enabled">Enabled</x-badge>
+                                        <x-badge color="gray" x-show="!enabled">Disabled</x-badge>
+                                    </x-slot>
+
+                                    <x-slot name="actions">
+                                        <div
+                                            class="shrink-0 text-gray-400 transition-transform duration-200 dark:text-gray-500"
+                                            x-bind:class="{
+                                                'rotate-90': expanded,
+                                            }"
+                                        >
+                                            <x-icon name="chevron-right" size="md"></x-icon>
+                                        </div>
+                                    </x-slot>
+                                </x-panel.header>
+
+                                <x-panel
+                                    class="divide-y divide-gray-950/5 dark:divide-white/5"
+                                    x-show="expanded"
+                                    x-collapse
+                                    x-cloak
+                                >
+                                    <x-spacing size="row">
+                                        @php($enabledId = "field_enabled_{$field->value}")
+
+                                        <x-switch.field x-on:toggle-switch-changed="enabled = !enabled">
+                                            <x-fieldset.label :for="$enabledId">Enabled</x-fieldset.label>
+
+                                            @if ($field->canBeDisabled())
+                                                <x-fieldset.description>
+                                                    Use the {{ $field->value }} field for this post type
+                                                </x-fieldset.description>
+                                            @else
+                                                <x-fieldset.warning-message>
+                                                    This field cannot be disabled
+                                                </x-fieldset.warning-message>
+                                            @endif
+
+                                            <x-switch
+                                                name="fields[{{ $field->value }}][enabled]"
+                                                :id="$enabledId"
+                                                :value="old('fields[{{ $field->value }}][enabled]', $postType->fields->{$field->value}->enabled)"
+                                                :disabled="! $field->canBeDisabled()"
+                                            ></x-switch>
+                                        </x-switch.field>
                                     </x-spacing>
 
-                                    <div x-show="expanded" x-collapse x-cloak>
-                                        <x-spacing size="2xs">
-                                            <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                                                <x-spacing size="sm">
-                                                    @php($enabledId = "field_enabled_{$fieldType}")
+                                    <x-spacing size="row">
+                                        @php($requiredId = "field_required_{$field->value}")
 
-                                                    <x-switch.field x-on:toggle-switch-changed="enabled = !enabled">
-                                                        <x-fieldset.label :for="$enabledId">Enabled</x-fieldset.label>
-                                                        <x-fieldset.description>
-                                                            Use the {{ $fieldType }} field for this post type
-                                                        </x-fieldset.description>
-                                                        <x-switch
-                                                            name="fields[{{ $fieldType }}][enabled]"
-                                                            :id="$enabledId"
-                                                            :value="old('fields[{{ $fieldType }}][enabled]', $postType->fields->{$fieldType}->enabled)"
-                                                        ></x-switch>
-                                                    </x-switch.field>
-                                                </x-spacing>
+                                        <x-switch.field x-on:toggle-switch-changed="required = !required">
+                                            <x-fieldset.label :for="$requiredId">Required</x-fieldset.label>
 
-                                                <x-spacing size="sm">
-                                                    @php($requiredId = "field_required_{$fieldType}")
+                                            @if ($field->canBeRequired())
+                                                <x-fieldset.description>
+                                                    The field must have a value
+                                                </x-fieldset.description>
+                                            @else
+                                                <x-fieldset.warning-message>
+                                                    The field cannot be required
+                                                </x-fieldset.warning-message>
+                                            @endif
 
-                                                    <x-switch.field x-on:toggle-switch-changed="required = !required">
-                                                        <x-fieldset.label :for="$requiredId">
-                                                            Required
-                                                        </x-fieldset.label>
-                                                        <x-fieldset.description>
-                                                            The field must have a value
-                                                        </x-fieldset.description>
-                                                        <x-switch
-                                                            name="fields[{{ $fieldType }}][required]"
-                                                            :id="$requiredId"
-                                                            :value="old('fields[{{ $fieldType }}][required]', $postType->fields->{$fieldType}->required)"
-                                                        ></x-switch>
-                                                    </x-switch.field>
-                                                </x-spacing>
-                                            </x-panel>
-                                        </x-spacing>
-                                    </div>
+                                            <x-switch
+                                                name="fields[{{ $field->value }}][required]"
+                                                :id="$requiredId"
+                                                :value="old('fields[{{ $field->value }}][required]', $postType->fields->{$field->value}->required)"
+                                                :disabled="! $field->canBeRequired()"
+                                            ></x-switch>
+                                        </x-switch.field>
+                                    </x-spacing>
                                 </x-panel>
-                            </div>
+                            </x-panel>
                         @endforeach
                     </x-fieldset.field-group>
                 </x-fieldset>

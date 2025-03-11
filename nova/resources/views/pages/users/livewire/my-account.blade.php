@@ -1,3 +1,5 @@
+@use('Nova\Stories\Enums\ContentRatingValue')
+
 <div class="space-y-12" wire:key="account-info">
     <x-fieldset>
         <x-fieldset.field-group constrained>
@@ -126,7 +128,7 @@
             <flux:field>
                 <flux:label>Timezone</flux:label>
 
-                <flux:select variant="listbox" searchable placeholder="Choose timezone" wire:model.live="form.timezone">
+                <flux:select variant="listbox" placeholder="Choose timezone" wire:model.live="form.timezone" searchable>
                     @foreach ($timezones as $tz)
                         <flux:option value="{{ $tz->id }}">{{ $tz->name }}</flux:option>
                     @endforeach
@@ -136,8 +138,98 @@
             <x-switch.field>
                 <x-fieldset.label>Dark mode</x-fieldset.label>
                 <x-fieldset.description>Show the admin panel in dark mode</x-fieldset.description>
-                <livewire:users-admin-theme-toggle />
+                <flux:switch x-data x-model="$flux.dark" />
             </x-switch.field>
+        </x-fieldset.field-group>
+    </x-fieldset>
+
+    <x-fieldset>
+        <x-fieldset.heading>
+            <x-icon name="warning"></x-icon>
+            <x-fieldset.legend>Content rating warning thresholds</x-fieldset.legend>
+            <x-fieldset.description>
+                You can choose to be warned about potentially offensive content in a story post if that post meets
+                certain thresholds.
+                <x-text.strong>Note:</x-text.strong>
+                this only applies when viewing story posts from the admin panel.
+            </x-fieldset.description>
+        </x-fieldset.heading>
+
+        <x-fieldset.field-group constrained>
+            <x-fieldset.field
+                label="Warn me when the language rating for a post is at or above"
+                id="languageContentRatingWarningThreshold"
+                name="languageContentRatingWarningThreshold"
+            >
+                @if ($form->languageContentRatingWarningThreshold->value < settings('ratings.language.rating')->value)
+                    <x-fieldset.warning-message>
+                        You have chosen to be warned about profane content in posts, but your threshold is set below the
+                        default rating for this category. This means that you will have to manually agree to a warning
+                        before being allowed to read every story post unless an author specifically sets the category
+                        rating lower for their post.
+                    </x-fieldset.warning-message>
+                @endif
+
+                <flux:radio.group
+                    wire:model.live="form.languageContentRatingWarningThreshold"
+                    variant="segmented"
+                    data-slot="control"
+                >
+                    @foreach (ContentRatingValue::casesForUserThreshold() as $rating)
+                        <flux:radio :value="$rating->value" :label="$rating->getLabelForThreshold()" />
+                    @endforeach
+                </flux:radio.group>
+            </x-fieldset.field>
+
+            <x-fieldset.field
+                label="Warn me when the sex rating for a post is at or above"
+                id="sexContentRatingWarningThreshold-"
+                name="sexContentRatingWarningThreshold-"
+            >
+                @if ($form->sexContentRatingWarningThreshold->value < settings('ratings.sex.rating')->value)
+                    <x-fieldset.warning-message>
+                        You have chosen to be warned about sexual content in posts, but your threshold is set below the
+                        default rating for this category. This means that you will have to manually agree to a warning
+                        before being allowed to read every story post unless an author specifically sets the category
+                        rating lower for their post.
+                    </x-fieldset.warning-message>
+                @endif
+
+                <flux:radio.group
+                    wire:model.live="form.sexContentRatingWarningThreshold"
+                    variant="segmented"
+                    data-slot="control"
+                >
+                    @foreach (ContentRatingValue::casesForUserThreshold() as $rating)
+                        <flux:radio :value="$rating->value" :label="$rating->getLabelForThreshold()" />
+                    @endforeach
+                </flux:radio.group>
+            </x-fieldset.field>
+
+            <x-fieldset.field
+                label="Warn me when the violence rating for a post is at or above"
+                id="violenceContentRatingWarningThreshold"
+                name="violenceContentRatingWarningThreshold"
+            >
+                @if ($form->violenceContentRatingWarningThreshold->value < settings('ratings.violence.rating')->value)
+                    <x-fieldset.warning-message>
+                        You have chosen to be warned about violent content in posts, but your threshold is set below the
+                        default rating for this category. This means that you will have to manually agree to a warning
+                        before being allowed to read every story post unless an author specifically sets the category
+                        rating lower for their post.
+                    </x-fieldset.warning-message>
+                @endif
+
+                <flux:radio.group
+                    wire:model.live="form.violenceContentRatingWarningThreshold"
+                    variant="segmented"
+                    data-slot="control"
+                >
+                    @foreach (ContentRatingValue::casesForUserThreshold() as $rating)
+                        <flux:radio :value="$rating->value" :label="$rating->getLabelForThreshold()" />
+                    @endforeach
+                </flux:radio.group>
+            </x-fieldset.field>
         </x-fieldset.field-group>
     </x-fieldset>
 
@@ -152,7 +244,7 @@
         </x-fieldset.heading>
 
         <x-fieldset.field-group constrained>
-            <x-button :href="route('admin.account.delete')">Delete my account</x-button>
+            <x-button :href="route('admin.account.delete')">Delete my account &rarr;</x-button>
         </x-fieldset.field-group>
     </x-fieldset>
 

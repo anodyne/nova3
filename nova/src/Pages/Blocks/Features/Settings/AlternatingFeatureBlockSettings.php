@@ -49,7 +49,7 @@ class AlternatingFeatureBlockSettings extends FeatureBlockSettings
                         ->renderToolbar(),
                     FileUpload::make('image')
                         ->disk('media-pages')
-                        ->directory($page),
+                        ->directory((string) $page),
                 ]),
             ]),
         ];

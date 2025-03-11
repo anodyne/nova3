@@ -9,8 +9,9 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Livewire\TableComponent;
-use Nova\Foundation\Models\UserNotificationPreference;
+use Nova\Users\Models\UserNotificationPreference;
 
 class UserNotificationPreferencesList extends TableComponent
 {
@@ -19,7 +20,7 @@ class UserNotificationPreferencesList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(UserNotificationPreference::with('notificationType')->where('user_id', auth()->id()))
+            ->query(UserNotificationPreference::with('notificationType')->where('user_id', Auth::id()))
             ->groups([
                 Group::make('notificationType.audience')
                     ->label('Audience')

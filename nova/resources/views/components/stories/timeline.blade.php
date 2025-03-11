@@ -41,8 +41,8 @@
                         <div class="flex items-center gap-x-6">
                             <x-h2>{{ $story->title }}</x-h2>
 
-                            <x-badge :color="$story->status->color()">
-                                {{ $story->status->displayName() }}
+                            <x-badge :color="$story->status->getColor()">
+                                {{ $story->status->getLabel() }}
                             </x-badge>
                         </div>
 

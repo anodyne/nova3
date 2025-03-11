@@ -13,9 +13,16 @@ class PublishPage
 
     public function handle(Page $page): Page
     {
-        $page->published_blocks = $page->blocks;
-        $page->published_at = now();
-        $page->save();
+        activity()->withoutLogs(function () use ($page) {
+            $page->published_blocks = $page->blocks;
+            $page->published_at = now();
+            $page->save();
+        });
+
+        activity()
+            ->performedOn($page)
+            ->event('published')
+            ->log('published');
 
         return $page->refresh();
     }

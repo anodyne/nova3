@@ -4,13 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Data;
 
+use Bag\Attributes\MapInputName;
+use Bag\Attributes\MapOutputName;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Bag\Mappers\SnakeCase;
+use Illuminate\Http\Request;
 use Nova\Stories\Models\Story;
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
-#[MapName(SnakeCaseMapper::class)]
-class StoryData extends Data
+/**
+ * @method static static from(string $title, ?string $description, ?string $startedAt, ?string $endedAt, ?int $parentId, ?string $summary)
+ */
+#[MapInputName(SnakeCase::class)]
+#[MapOutputName(SnakeCase::class)]
+readonly class StoryData extends Bag
 {
     public function __construct(
         public string $title,
@@ -21,8 +28,21 @@ class StoryData extends Data
         public ?string $summary = null
     ) {}
 
-    public function parentStory(): Story
+    public function parentStory(): ?Story
     {
-        return Story::findOrFail($this->parentId);
+        return Story::find($this->parentId);
+    }
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'started_at' => $request->input('started_at'),
+            'ended_at' => $request->input('ended_at'),
+            'parent_id' => $request->input('parent_id'),
+            'summary' => $request->input('summary'),
+        ];
     }
 }

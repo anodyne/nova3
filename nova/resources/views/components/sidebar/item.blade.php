@@ -51,7 +51,7 @@
             ])
         }}
         {{ $active ? 'data-current' : false }}
-        {{ $attributes->has('href') ? 'wire:navigate' : false }}
+        {{ $attributes->has('href') ? 'wire:navigate' : null }}
     >
         {{ $slot }}
 

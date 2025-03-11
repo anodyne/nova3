@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Addons\Providers;
 
 use Nova\Addons\Actions\SetupAddonDirectory;
-use Nova\Addons\Livewire\AddonSettings;
 use Nova\Addons\Livewire\AddonsList;
 use Nova\Addons\Models\Addon;
 use Nova\Addons\Spotlight\AddAddon;
@@ -26,7 +25,6 @@ class AddonServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'addon-settings' => AddonSettings::class,
             'addons-list' => AddonsList::class,
         ];
     }

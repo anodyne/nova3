@@ -13,9 +13,16 @@ class PublishForm
 
     public function handle(Form $form): Form
     {
-        $form->published_fields = $form->fields;
-        $form->published_at = now();
-        $form->save();
+        activity()->withoutLogs(function () use ($form) {
+            $form->published_fields = $form->fields;
+            $form->published_at = now();
+            $form->save();
+        });
+
+        activity()
+            ->performedOn($form)
+            ->event('published')
+            ->log('published');
 
         return $form->refresh();
     }

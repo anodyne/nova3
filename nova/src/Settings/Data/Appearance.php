@@ -4,20 +4,25 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
+use Bag\Attributes\MapInputName;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Bag\Mappers\SnakeCase;
+use Illuminate\Http\Request;
 use Nova\Foundation\Colors\Color;
 use Nova\Settings\Enums\AvatarShape;
 use Nova\Settings\Enums\AvatarStyle;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 
-#[MapInputName(SnakeCaseMapper::class)]
-class Appearance extends Data
+/**
+ * @method static static from(string $theme, AvatarShape $avatarShape, AvatarStyle $avatarStyle, ?string $imagePath, string $colorsGray, string $colorsPrimary, string $colorsDanger, string $colorsWarning, string $colorsSuccess, string $colorsInfo, FontFamilies $adminFonts, bool $panda)
+ */
+#[MapInputName(SnakeCase::class)]
+readonly class Appearance extends Bag
 {
     public function __construct(
         public string $theme,
         public AvatarShape $avatarShape,
-        public ?AvatarStyle $avatarStyle,
+        public AvatarStyle $avatarStyle,
         public ?string $imagePath,
         public string $colorsGray,
         public string $colorsPrimary,
@@ -28,6 +33,25 @@ class Appearance extends Data
         public FontFamilies $adminFonts,
         public bool $panda,
     ) {}
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'theme' => $request->input('theme'),
+            'avatarShape' => AvatarShape::tryFrom($request->input('avatar_shape')) ?? AvatarShape::None,
+            'avatarStyle' => AvatarStyle::tryFrom($request->input('avatar_style')) ?? AvatarStyle::BigEarsNeutral,
+            'imagePath' => $request->input('image_path'),
+            'colorsGray' => $request->input('colors_gray'),
+            'colorsPrimary' => $request->input('colors_primary'),
+            'colorsDanger' => $request->input('colors_danger'),
+            'colorsWarning' => $request->input('colors_warning'),
+            'colorsSuccess' => $request->input('colors_success'),
+            'colorsInfo' => $request->input('colors_info'),
+            'adminFonts' => FontFamilies::from($request),
+            'panda' => $request->boolean('panda', false),
+        ];
+    }
 
     public function getColors(): array
     {

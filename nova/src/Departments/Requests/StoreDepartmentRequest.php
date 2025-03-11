@@ -17,6 +17,7 @@ class StoreDepartmentRequest extends FormRequest
             'description' => ['nullable'],
             'image' => ['nullable', 'mimes:jpg,jpeg,png,gif,webp,svg', new MaxFileSize],
             'status' => ['required'],
+            'tags' => ['nullable'],
         ];
     }
 

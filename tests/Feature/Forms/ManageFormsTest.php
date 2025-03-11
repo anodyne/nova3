@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Nova\Departments\Enums\DepartmentStatus;
 use Nova\Departments\Livewire\DepartmentsList;
 use Nova\Departments\Models\Department;
 use Nova\Forms\Livewire\FormsList;
@@ -33,13 +32,13 @@ describe('authorized user', function () {
 
     // test('can filter departments by status', function () {
     //     livewire(DepartmentsList::class)
-    //         ->filterTable('status', DepartmentStatus::active->value)
-    //         ->assertCanSeeTableRecords($this->departments->where('status', DepartmentStatus::active))
-    //         ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', DepartmentStatus::active))
+    //         ->filterTable('status', BasicStatus::active->value)
+    //         ->assertCanSeeTableRecords($this->departments->where('status', BasicStatus::active))
+    //         ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', BasicStatus::active))
     //         ->resetTableFilters()
-    //         ->filterTable('status', DepartmentStatus::inactive->value)
-    //         ->assertCanSeeTableRecords($this->departments->where('status', DepartmentStatus::inactive))
-    //         ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', DepartmentStatus::inactive));
+    //         ->filterTable('status', BasicStatus::inactive->value)
+    //         ->assertCanSeeTableRecords($this->departments->where('status', BasicStatus::inactive))
+    //         ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', BasicStatus::inactive));
     // });
 
     // test('can filter departments by the presence of positions', function () {

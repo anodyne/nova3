@@ -23,7 +23,6 @@ class StoreUserRequest extends FormRequest
                 'pronouns.value' => ['required', 'in:none,male,female,neutral,neo,other'],
                 'pronouns.subject' => ['required_if:pronouns.value,other'],
                 'pronouns.object' => ['required_if:pronouns.value,other'],
-                'pronouns.possessive' => ['required_if:pronouns.value,other'],
             ],
             Form::key('userBio')->first()->validation_rules,
         );
@@ -37,7 +36,6 @@ class StoreUserRequest extends FormRequest
                 'pronouns.value.in' => 'Pronouns must be one of the provided options',
                 'pronouns.subject.required_if' => 'Please enter the subject pronoun the user uses',
                 'pronouns.object.required_if' => 'Please enter the object pronoun the user uses',
-                'pronouns.possessive.required_if' => 'Please enter the possessive pronoun the user uses',
             ],
             Form::key('userBio')->first()->validation_messages,
         );

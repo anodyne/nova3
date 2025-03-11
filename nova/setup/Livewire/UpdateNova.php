@@ -10,10 +10,15 @@ use Illuminate\Support\Facades\Date;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Nova\Foundation\Actions\OptimizeOrRepairDatabase;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Models\ExternalContent;
 use Nova\Foundation\Models\SystemInfo;
 use Nova\Foundation\Nova;
+use Nova\Menus\Actions\BustMenusCache;
+use Nova\Menus\Actions\RecacheMenus;
+use Nova\Pages\Actions\BustPagesCache;
+use Nova\Pages\Actions\RecachePages;
 use Nova\Setup\Enums\NovaInstallStatus;
 use Nova\Setup\Enums\SetupType;
 use Nova\Setup\Telemetry;
@@ -31,11 +36,15 @@ class UpdateNova extends Component
         try {
             $this->runUpdater();
 
+            $this->runCacheCommands();
+
             $this->syncExternalContentFromAnodyne();
 
             // (new Telemetry)->sendFullHeartbeat();
 
             $this->updateSystemInfo();
+
+            $this->runDatabaseMaintenance();
 
             $this->status = NovaInstallStatus::Success;
         } catch (Throwable $th) {
@@ -90,8 +99,19 @@ class UpdateNova extends Component
         Artisan::call('icons:cache');
         Artisan::call('view:cache');
         Artisan::call('storage:link');
+    }
 
+    protected function runCacheCommands(): void
+    {
         Cache::forget('nova-update-available');
+        Cache::forget('nova-update-upcoming');
+        Cache::forget('nova-next-version');
+
+        BustPagesCache::run();
+        BustMenusCache::run();
+
+        RecachePages::run();
+        RecacheMenus::run();
     }
 
     protected function syncExternalContentFromAnodyne(): void
@@ -107,5 +127,10 @@ class UpdateNova extends Component
             'version' => Nova::filesVersion(),
             'last_update' => Date::now(),
         ]);
+    }
+
+    protected function runDatabaseMaintenance(): void
+    {
+        OptimizeOrRepairDatabase::run();
     }
 }

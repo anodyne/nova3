@@ -14,7 +14,7 @@
             ])
         >
             <div class="shrink-0">
-                <x-icon name="tabler-database-cog" size="xl" class="text-gray-500"></x-icon>
+                <x-icon name="database-settings" size="xl" class="text-gray-500"></x-icon>
             </div>
             <div class="flex-1">
                 @if ($status === DatabaseConfigStatus::IncompatibleVersion)
@@ -40,9 +40,9 @@
     <div class="flex justify-end">
         @if ($status === DatabaseConfigStatus::IncompatibleVersion ||
              $status === DatabaseConfigStatus::IncompatibleDriver)
-            <x-icon name="tabler-circle-x" class="text-danger-500" size="xl"></x-icon>
+            <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
         @else
-            <x-icon name="tabler-circle-check" class="text-primary-500" size="xl"></x-icon>
+            <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
         @endif
     </div>
 </x-spacing>

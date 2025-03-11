@@ -1,4 +1,5 @@
 @use('Illuminate\Support\Number')
+@use('Nova\Foundation\Helpers\DateHelper')
 
 <x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page story-details">
@@ -10,8 +11,8 @@
             <div class="story-title">
                 <x-public::h2>{{ $story->title }}</x-public::h2>
 
-                <x-badge :color="$story->status->color()" size="md">
-                    {{ $story->status->displayName() }}
+                <x-badge :color="$story->status->getColor()" size="md">
+                    {{ $story->status->getLabel() }}
                 </x-badge>
             </div>
 
@@ -29,17 +30,18 @@
                 <x-public::tabs.pane class="details-columns" x-show="isTab('info')" x-cloak>
                     <div class="main-column">
                         <div class="metadata">
-                            @if ($story->started_at)
+                            @if (filled($story->started_at))
                                 <div class="metadata-item">
                                     @if (blank($story->ended_at))
                                         <div class="metadata-item-leading">Started on</div>
                                     @endif
 
                                     <div class="metadata-item-label">
-                                        {{ format_date($story->started_at, false) }}
-                                        @if ($story->ended_at)
+                                        {{ DateHelper::formatDate($story->started_at) }}
+
+                                        @if (filled($story->ended_at))
                                             &ndash;
-                                            {{ format_date($story->ended_at) }}
+                                            {{ DateHelper::formatDate($story->ended_at) }}
                                         @endif
                                     </div>
                                 </div>

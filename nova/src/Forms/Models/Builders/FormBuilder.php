@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Nova\Forms\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Forms\Enums\FormStatus;
+use Illuminate\Support\Facades\Auth;
 use Nova\Forms\Enums\FormType;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class FormBuilder extends Builder
 {
-    public function active(): Builder
-    {
-        return $this->where('status', FormStatus::Active);
-    }
+    use QueriesStatus;
 
     public function basic(): Builder
     {
@@ -40,7 +38,7 @@ class FormBuilder extends Builder
             ->where('options->singleSubmission', false)
             ->orWhere(function (Builder $query): Builder {
                 return $query->where('options->singleSubmission', true)
-                    ->whereDoesntHave('submissions', fn ($q) => $q->where('owner_type', 'user')->where('owner_id', auth()->id()));
+                    ->whereDoesntHave('submissions', fn ($q) => $q->where('owner_type', 'user')->where('owner_id', Auth::id()));
             });
     }
 }

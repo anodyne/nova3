@@ -4,44 +4,49 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Models\Model;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
-use Nova\Menus\Enums\MenuStatus;
 use Nova\Menus\Events;
 use Nova\Menus\Models\Builders\MenuItemBuilder;
+use Nova\Menus\Observers\MenuItemObserver;
 use Nova\Pages\Models\Page;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
+#[ObservedBy([MenuItemObserver::class])]
 class MenuItem extends Model implements Sortable
 {
     use HasFactory;
+    use LogsActivity;
     use SortableTrait;
 
     protected $fillable = [
-        'label',
         'icon',
-        'url',
-        'page_id',
+        'label',
         'link_type',
         'order_column',
-        'status',
+        'page_id',
         'parent_id',
+        'status',
         'target',
+        'url',
     ];
 
     protected $casts = [
         'link_type' => LinkType::class,
-        'status' => MenuStatus::class,
+        'order_column' => 'integer',
         'page_id' => 'integer',
         'parent_id' => 'integer',
-        'order_column' => 'integer',
+        'status' => BasicStatus::class,
         'target' => LinkTarget::class,
     ];
 

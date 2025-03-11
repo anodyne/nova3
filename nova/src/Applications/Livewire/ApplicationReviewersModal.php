@@ -7,23 +7,18 @@ namespace Nova\Applications\Livewire;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
-use LivewireUI\Modal\ModalComponent;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Notifications\ApplicationReadyForReview;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 
-class ApplicationReviewersModal extends ModalComponent
+class ApplicationReviewersModal extends Modal
 {
     #[Locked]
-    public Application $application;
+    public int|Application $application;
 
     public array $selectedReviewers = [];
-
-    public function dismiss(): void
-    {
-        $this->forceClose()->closeModal();
-    }
 
     public function save(): void
     {
@@ -31,14 +26,35 @@ class ApplicationReviewersModal extends ModalComponent
 
         $changes = $this->application->reviews()->sync($this->selectedReviewers);
 
-        User::query()
-            ->whereIn('id', $changes['attached'])
-            ->get()
-            ->each->notify(new ApplicationReadyForReview($this->application));
+        if (count($changes['attached']) > 0) {
+            $attachedUsers = User::query()
+                ->whereIn('id', $changes['attached'])
+                ->get();
+
+            $attachedUsers->each->notify(new ApplicationReadyForReview($this->application));
+
+            activity()
+                ->performedOn($this->application)
+                ->withProperty('addedReviewers', $attachedUsers->pluck('id'))
+                ->event('reviewers-added')
+                ->log('reviewers-added');
+        }
+
+        if (count($changes['detached']) > 0) {
+            $detachedUsers = User::query()
+                ->whereIn('id', $changes['detached'])
+                ->get();
+
+            activity()
+                ->performedOn($this->application)
+                ->withProperty('removedReviewers', $detachedUsers->pluck('id'))
+                ->event('reviewers-removed')
+                ->log('reviewers-removed');
+        }
 
         $this->dispatch('reviewers-updated');
 
-        $this->dismiss();
+        $this->close();
 
         if (count($changes['attached']) > 0 || count($changes['detached']) > 0) {
             Notification::make()->success()
@@ -53,9 +69,11 @@ class ApplicationReviewersModal extends ModalComponent
         return User::query()->active()->get();
     }
 
-    public function mount()
+    public function mount(Application $application)
     {
-        $this->authorize('decide', $this->application);
+        $this->authorize('decide', $application);
+
+        $this->application = $application;
 
         $this->selectedReviewers = $this->application->reviews
             ->flatMap(fn (User $user) => [(string) $user->id])
@@ -67,10 +85,5 @@ class ApplicationReviewersModal extends ModalComponent
         return view('pages.applications.livewire.reviewers-modal', [
             'users' => $this->users,
         ]);
-    }
-
-    public static function modalMaxWidth(): string
-    {
-        return 'lg';
     }
 }

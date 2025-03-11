@@ -5,19 +5,11 @@ declare(strict_types=1);
 namespace Nova\Menus\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
-use Nova\Menus\Enums\MenuStatus;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class MenuItemBuilder extends Builder
 {
-    public function active(): self
-    {
-        return $this->where('status', MenuStatus::Active);
-    }
-
-    public function inactive(): self
-    {
-        return $this->where('status', MenuStatus::Inactive);
-    }
+    use QueriesStatus;
 
     public function public(): self
     {

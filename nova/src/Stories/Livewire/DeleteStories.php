@@ -4,27 +4,25 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Stories\Models\Story;
 
 class DeleteStories extends Component
 {
-    public $actions;
+    public array $actions = [];
 
-    public $stories;
+    public Collection $stories;
 
     #[On('deleteStoryToggle')]
     public function deleteStoryToggle($value, $storyId): void
     {
-        if ($value) {
-            $this->trackStoryAction($storyId, 'delete');
-        } else {
-            $this->trackStoryAction($storyId, 'move');
-        }
+        $this->trackStoryAction($storyId, $value ? 'delete' : 'move');
     }
 
-    public function getStoriesForMovingPosts(int $storyId)
+    public function getStoriesForMovingPosts(int $storyId): Collection
     {
         $storiesBeingDeleted = collect($this->actions)
             ->where('story.action', 'delete')
@@ -37,7 +35,7 @@ class DeleteStories extends Component
         ))->get();
     }
 
-    public function getStoriesForMovingStories(int $storyId)
+    public function getStoriesForMovingStories(int $storyId): Collection
     {
         $storiesBeingDeleted = collect($this->actions)
             ->where('story.action', 'delete')
@@ -50,7 +48,7 @@ class DeleteStories extends Component
         ))->get();
     }
 
-    public function trackPostsAction($id, $action, $actionId = null)
+    public function trackPostsAction($id, $action, $actionId = null): void
     {
         $this->actions[$id]['posts'] = [
             'action' => $action,
@@ -58,23 +56,21 @@ class DeleteStories extends Component
         ];
     }
 
-    public function trackStoryAction($id, $action, $actionId = null)
+    public function trackStoryAction($id, $action, $actionId = null): void
     {
         $this->actions[$id]['story'] = [
             'action' => $action,
             'actionId' => $actionId,
         ];
 
-        if ($action === 'move') {
-            $this->trackPostsAction($id, 'none');
-        }
-
-        if ($action === 'delete') {
-            $this->trackPostsAction($id, 'delete');
-        }
+        match ($action) {
+            'move' => $this->trackPostsAction($id, 'none'),
+            'delete' => $this->trackPostsAction($id, 'delete'),
+            default => null,
+        };
     }
 
-    public function mount($stories)
+    public function mount(Collection $stories): void
     {
         $this->stories = $stories->loadMissing('parent');
 
@@ -92,7 +88,7 @@ class DeleteStories extends Component
         })->toArray();
     }
 
-    public function render()
+    public function render(): View
     {
         return view('pages.stories.livewire.delete');
     }

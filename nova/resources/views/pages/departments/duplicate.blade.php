@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="copy" title="Duplicate department?">
+<x-filament.modal-content :$action title="Duplicate department?">
     <p>
         Are you sure you want to duplicate the
         <strong class="font-semibold">{{ $record->name }}</strong>

@@ -17,6 +17,6 @@ class CreateMenuItem
     {
         $menu = Menu::public()->first();
 
-        return $menu->items()->create($data->all());
+        return $menu->items()->create($data->toArray());
     }
 }

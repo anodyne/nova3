@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Data;
 
+use Bag\Attributes\MapOutputName;
+use Bag\Bag;
+use Bag\Mappers\SnakeCase;
 use Nova\Discussions\Enums\MessageType;
-use Spatie\LaravelData\Attributes\MapOutputName;
-use Spatie\LaravelData\Data;
 
-class DiscussionMessageData extends Data
+/**
+ * @method static static from(?int $userId, string $content, MessageType $type)
+ */
+readonly class DiscussionMessageData extends Bag
 {
     public function __construct(
-        #[MapOutputName('user_id')]
+        #[MapOutputName(SnakeCase::class)]
         public ?int $userId,
 
         public string $content,

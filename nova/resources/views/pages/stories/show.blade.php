@@ -1,8 +1,10 @@
+@use('Nova\Foundation\Helpers\DateHelper')
+
 <x-admin-layout>
     <x-spacing class="relative" x-data="tabsList('details')">
         @if ($story->hasMedia('story-image'))
-            <x-panel well>
-                <x-panel>
+            <x-panel variant="well">
+                <x-panel variant="inset">
                     <img
                         src="{{ $story->getFirstMediaUrl('story-image') }}"
                         alt=""
@@ -14,8 +16,8 @@
 
         <x-page-header class="mt-6" :heading="$story->title">
             <x-slot name="description">
-                <x-badge :color="$story->status->color()" size="md">
-                    {{ $story->status->displayName() }}
+                <x-badge :color="$story->status->getColor()" size="md">
+                    {{ $story->status->getLabel() }}
                 </x-badge>
             </x-slot>
 
@@ -52,48 +54,36 @@
                     {!! $story->description !!}
                 </div>
 
-                <div class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-8 md:space-y-0">
+                <div class="flex flex-col space-y-4 text-sm/6 md:flex-row md:items-center md:space-x-8 md:space-y-0">
                     @if ($story->started_at)
-                        <div
-                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
-                        >
-                            <x-icon name="calendar" size="md" class="text-gray-500"></x-icon>
-                            <span>
-                                @if (blank($story->ended_at))
-                                    Started on
-                                @endif
+                        <x-metadata icon="calendar">
+                            @if (blank($story->ended_at))
+                                Started on
+                            @endif
 
-                                {{ format_date($story->started_at, false) }}
-                                @if ($story->ended_at)
-                                    &ndash;
-                                    {{ format_date($story->ended_at) }}
-                                @endif
-                            </span>
-                        </div>
+                            {{ DateHelper::formatDate($story->started_at) }}
+                            @if ($story->ended_at)
+                                &ndash;
+                                {{ DateHelper::formatDate($story->ended_at) }}
+                            @endif
+                        </x-metadata>
 
-                        <div
-                            class="flex items-center space-x-2 font-medium text-gray-600 dark:text-gray-400 md:text-sm"
-                        >
-                            <x-icon name="clock" size="md" class="text-gray-500"></x-icon>
-                            <span>
-                                @php($daysRunning = $story->started_at->diffInDays($story->ended_at ?? now()))
-                                {{ trans_choice('Running for|Ran for', blank($story->ended_at)) }}
-                                {{ number_format($daysRunning) }} {{ str('day')->plural($daysRunning) }}
-                            </span>
-                        </div>
+                        <x-metadata icon="clock">
+                            @php($daysRunning = $story->started_at->diffInDays($story->ended_at ?? now()))
+                            {{ trans_choice('Running for|Ran for', blank($story->ended_at)) }}
+                            {{ number_format($daysRunning) }} {{ str('day')->plural($daysRunning) }}
+                        </x-metadata>
                     @endif
 
                     @if ($ancestors->count() > 0)
-                        <div class="flex items-center">
-                            <x-button
-                                :href="route('admin.stories.show', $ancestors->last())"
-                                color="neutral-primary"
-                                text
+                        <x-metadata icon="book">
+                            <a
+                                href="{{ route('admin.stories.show', $ancestors->last()) }}"
+                                class="hover:text-primary-500"
                             >
-                                <x-icon name="book" size="md"></x-icon>
-                                <span>Part of {{ $ancestors->last()->title }}</span>
-                            </x-button>
-                        </div>
+                                Part of {{ $ancestors->last()->title }}
+                            </a>
+                        </x-metadata>
                     @endif
                 </div>
             </div>

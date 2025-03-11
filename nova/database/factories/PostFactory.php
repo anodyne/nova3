@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
+use Nova\Characters\Models\Character;
+use Nova\Stories\Enums\ContentRatingValue;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\States\PostStatus\Draft;
 use Nova\Stories\Models\States\PostStatus\Pending;
 use Nova\Stories\Models\States\PostStatus\Published;
 use Nova\Stories\Models\Story;
+use Nova\Users\Models\User;
 
 class PostFactory extends Factory
 {
@@ -18,20 +22,91 @@ class PostFactory extends Factory
 
     public function definition()
     {
-        $word = $this->faker->word;
-
-        $content = collect($this->faker->paragraphs($this->faker->numberBetween(10, 25)))
-            ->map(fn ($line) => "<p>{$line}</p>")
-            ->implode('');
-
         return [
-            'title' => ucwords($this->faker->words(3, asText: true)),
-            'post_type_id' => $this->faker->numberBetween(1, PostType::count()),
+            'title' => ucwords(fake()->words(mt_rand(2, 8), asText: true)),
+
+            'post_type_id' => fn () => Arr::randomWeightedElement([
+                1 => 50,
+                2 => 30,
+                3 => 5,
+                4 => 15,
+            ]),
+
             'story_id' => fn () => Story::factory(),
-            'content' => $content,
-            'status' => Draft::class,
-            'word_count' => str_word_count($content),
+
+            'status' => fn () => Arr::randomWeightedElement([
+                Draft::class => 25,
+                Published::class => 75,
+            ]),
+
+            'content' => function (array $attributes) {
+                $paragraphCount = match ($attributes['post_type_id'] ?? '') {
+                    1 => mt_rand(100, 200),
+                    2 => mt_rand(50, 100),
+                    4 => mt_rand(3, 6),
+                    default => mt_rand(1, 3),
+                };
+
+                return collect(fake()->paragraphs($paragraphCount))
+                    ->map(fn ($line) => "<p>{$line}</p>")
+                    ->implode('');
+            },
+
+            'word_count' => fn (array $attributes) => str_word_count(strip_tags($attributes['content'])),
+
+            'rating_language' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
+
+            'rating_sex' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
+
+            'rating_violence' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
+
+            'published_at' => fn (array $attributes) => $attributes['status'] === Published::class ? now() : null,
+
+            'location' => fake()->randomElement([
+                'Main Bridge',
+                'Main Engineering',
+                'Mess Hall',
+                'Crew Quarters',
+                'Armory',
+                'Shuttlebay',
+                'Earth',
+                'Jupiter Station',
+                'Sickbay',
+                'Science Lab 2',
+                'Jeffries Tubes',
+            ]),
+
+            'day' => str('Day ')->append((string) fake()->numberBetween(1, 5)),
+
+            'time' => str(' hours')->prepend((string) fake()->time('Hi')),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Post $post) {
+            $numberOfAuthors = mt_rand(1, 5);
+
+            $distributedWords = $this->distributeWordsRandomly($post->word_count, $numberOfAuthors);
+
+            $users = [];
+
+            for ($i = 0; $i < $numberOfAuthors; $i++) {
+                $character = Character::with('users')->inRandomOrder()->first();
+
+                $user = $character->users->first() ?? User::active()->inRandomOrder()->first();
+
+                $users[] = $user->id;
+
+                $post->characterAuthors()->attach($character->id, [
+                    'user_id' => $user->id,
+                    'word_count' => $distributedWords[$i],
+                ]);
+            }
+
+            $post->participants = collect($users)->filter()->unique()->values()->all();
+            $post->save();
+        });
     }
 
     public function pending()
@@ -54,9 +129,9 @@ class PostFactory extends Factory
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'post')->first()->id,
-            'day' => "Day {$this->faker->numberBetween(1, 5)}",
-            'time' => $this->faker->time('Hi').' hours',
-            'location' => ucfirst($this->faker->words(3, true)),
+            'day' => 'Day {fake()->numberBetween(1, 5)}',
+            'time' => fake()->time('Hi') . ' hours',
+            'location' => ucfirst(fake()->words(3, true)),
         ]);
     }
 
@@ -64,9 +139,9 @@ class PostFactory extends Factory
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'personal')->first()->id,
-            'day' => "Day {$this->faker->numberBetween(1, 5)}",
-            'time' => $this->faker->time('Hi').' hours',
-            'location' => ucfirst($this->faker->words(3, true)),
+            'day' => 'Day {fake()->numberBetween(1, 5)}',
+            'time' => fake()->time('Hi') . ' hours',
+            'location' => ucfirst(fake()->words(3, true)),
         ]);
     }
 
@@ -89,5 +164,32 @@ class PostFactory extends Factory
         return $this->state([
             'story_id' => $story?->id ?? Story::factory(),
         ]);
+    }
+
+    protected function distributeWordsRandomly(int $words, int $count): array
+    {
+        if ($count === 1) {
+            return [$words];
+        }
+
+        // Generate random split points between 0 and total words
+        $splitPoints = array_map(fn () => rand(1, $words - 1), range(1, $count - 1));
+
+        // Sort the points to create segments
+        sort($splitPoints);
+
+        // Compute segment sizes
+        $distributedWords = [];
+        $previous = 0;
+
+        foreach ($splitPoints as $point) {
+            $distributedWords[] = $point - $previous;
+            $previous = $point;
+        }
+
+        // Add the last segment
+        $distributedWords[] = $words - $previous;
+
+        return $distributedWords;
     }
 }

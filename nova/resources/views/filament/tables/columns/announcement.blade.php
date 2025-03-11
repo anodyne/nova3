@@ -1,15 +1,14 @@
 @php
-    declare(strict_types=1);
-
     $announcement = $getRecord();
+    $currentUserHasSeen = $announcement->notifications->first()?->is_seen ?? true;
 @endphp
 
 <div class="flex items-center space-x-2 px-3">
-    @if ($announcement->unreadFor(auth()->user()))
+    @unless ($currentUserHasSeen)
         <div class="size-2 rounded-full bg-primary-500"></div>
-    @endif
+    @endunless
 
-    <div class="whitespace-normal text-base font-medium text-gray-950 dark:text-white sm:text-sm">
+    <div class="whitespace-normal text-base font-medium text-gray-950 sm:text-sm dark:text-white">
         {{ $announcement->title }}
     </div>
 </div>

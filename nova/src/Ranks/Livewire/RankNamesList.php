@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -26,9 +27,11 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankNameManager;
 use Nova\Ranks\Actions\DuplicateRankName;
 use Nova\Ranks\Data\RankNameData;
-use Nova\Ranks\Enums\RankNameStatus;
 use Nova\Ranks\Events\RankNameDuplicated;
 use Nova\Ranks\Models\RankName;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class RankNamesList extends TableComponent
 {
@@ -51,7 +54,6 @@ class RankNamesList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->status->color())
                     ->toggleable(),
             ])
             ->actions([
@@ -59,11 +61,24 @@ class RankNamesList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.ranks.names.show', $record)),
+                            ->url(fn (RankName $record): string => route('admin.ranks.names.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.ranks.names.edit', $record)),
+                            ->url(fn (RankName $record): string => route('admin.ranks.names.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->eventDescriptions([
+                                        'duplicated' => fn (Activity $activity) => __('activity.ranks.name-duplicated', [
+                                            'name' => $activity->causer->name,
+                                            'rankName' => RankName::find($activity->getExtraProperty('replica'))?->name,
+                                        ]),
+                                    ]);
+                            }),
+                    ])->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
@@ -72,10 +87,13 @@ class RankNamesList extends TableComponent
                                 TextInput::make('name')->label('New rank name'),
                             ])
                             ->modalContentView('pages.ranks.names.duplicate')
-                            ->action(function (Model $record, array $data): void {
+                            ->action(function (RankName $record, array $data): void {
                                 $replica = DuplicateRankName::run(
                                     $record,
-                                    RankNameData::from(array_merge($record->toArray(), $data))
+                                    RankNameData::from(
+                                        name: data_get($data, 'name'),
+                                        status: $record->status
+                                    )
                                 );
 
                                 RankNameDuplicated::dispatch($replica, $record);
@@ -90,8 +108,8 @@ class RankNamesList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.ranks.names.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->name.' rank name was deleted')
-                            ->using(fn (Model $record): Model => DeleteRankNameManager::run($record)),
+                            ->successNotificationTitle(fn (RankName $record): string => $record->name.' rank name was deleted')
+                            ->using(fn (RankName $record): Model => DeleteRankNameManager::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
@@ -103,7 +121,7 @@ class RankNamesList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (RankName $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -112,7 +130,7 @@ class RankNamesList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => DeleteRankNameManager::run($record));
+                            ->each(fn (RankName $record): Model => DeleteRankNameManager::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('rank name was|rank names were', count($records)).' deleted')
@@ -133,7 +151,7 @@ class RankNamesList extends TableComponent
                         true: fn (Builder $query): Builder => $query->whereHas('ranks'),
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('ranks')
                     ),
-                SelectFilter::make('status')->options(RankNameStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(iconName('info'))

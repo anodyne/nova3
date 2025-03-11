@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Http\Request;
 use Illuminate\Support\HtmlString;
 use Nova\Foundation\Fonts\BunnyFontProvider;
 use Nova\Foundation\Fonts\Contracts\FontProvider;
 use Nova\Foundation\Fonts\GoogleFontProvider;
 use Nova\Foundation\Fonts\LocalFontProvider;
-use Spatie\LaravelData\Data;
 
-class FontFamilies extends Data
+/**
+ * @method static static from(string $headerProvider, string $headerFamily, string $bodyProvider, string $bodyFamily)
+ */
+readonly class FontFamilies extends Bag
 {
     public function __construct(
         public string $headerProvider,
@@ -20,6 +25,17 @@ class FontFamilies extends Data
         public string $bodyProvider,
         public string $bodyFamily
     ) {}
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'headerProvider' => $request->input('admin_fonts.headerProvider'),
+            'headerFamily' => $request->input('admin_fonts.headerFamily'),
+            'bodyProvider' => $request->input('admin_fonts.bodyProvider'),
+            'bodyFamily' => $request->input('admin_fonts.bodyFamily'),
+        ];
+    }
 
     public function getFontHtml(): Htmlable
     {

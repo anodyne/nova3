@@ -17,6 +17,7 @@ use Nova\Characters\Actions\UpdateCharacter;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Data\CharacterData;
 use Nova\Users\Actions\ActivateUser;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class AcceptApplicationManager
 {
@@ -24,14 +25,14 @@ class AcceptApplicationManager
 
     public function handle(Application $application, ApplicationDecisionData $data): void
     {
-        DB::beginTransaction();
+        DB::transaction(function () use ($application, $data) {
+            LogBatch::startBatch();
 
-        try {
             ActivateUser::run($user = $application->user);
 
             UpdateCharacter::run(
                 $character = $application->character,
-                new CharacterData(
+                CharacterData::from(
                     name: $character->name,
                     rank_id: $data->rank_id
                 )
@@ -54,11 +55,12 @@ class AcceptApplicationManager
 
             ApplicationAcceptedEvent::dispatch($application);
 
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
+            LogBatch::endBatch();
 
-            dd($th->getMessage());
-        }
+            activity()
+                ->performedOn($application)
+                ->event('accepted')
+                ->log('accepted');
+        });
     }
 }

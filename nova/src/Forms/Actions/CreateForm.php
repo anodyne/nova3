@@ -14,6 +14,6 @@ class CreateForm
 
     public function handle(FormData $data): Form
     {
-        return Form::create($data->all());
+        return Form::create($data->toArray());
     }
 }

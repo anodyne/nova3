@@ -23,7 +23,7 @@
         {{ NovaView::renderHook('auth::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
+        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-50 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
         @if (settings('appearance.panda')) data-panda @endif
     >
         {{ NovaView::renderHook('auth::body.start') }}
@@ -60,7 +60,6 @@
 
         @stack('modal')
         @livewire('livewire-ui-spotlight')
-        @livewire('wire-elements-modal')
         @livewire('notifications')
         @livewire('scribble.renderer')
         @livewire('scribble.modals')

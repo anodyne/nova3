@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Requests\UpdateRoleRequest;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class UpdateRoleManager
 {
@@ -14,12 +16,18 @@ class UpdateRoleManager
 
     public function handle(Role $role, UpdateRoleRequest $request): Role
     {
-        $role = UpdateRole::run($role, $request->getRoleData());
+        return DB::transaction(function () use ($role, $request) {
+            LogBatch::startBatch();
 
-        $role = AssignRolePermissions::run($role, $request->getRolePermissionsData());
+            $role = UpdateRole::run($role, $request->getRoleData());
 
-        $role = AssignRoleUsers::run($role, $request->getRoleUsersData());
+            $role = AssignRolePermissions::run($role, $request->getRolePermissionsData());
 
-        return $role;
+            $role = AssignRoleUsers::run($role, $request->getRoleUsersData());
+
+            LogBatch::endBatch();
+
+            return $role;
+        });
     }
 }

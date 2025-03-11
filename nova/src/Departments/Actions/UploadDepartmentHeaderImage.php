@@ -15,6 +15,11 @@ class UploadDepartmentHeaderImage
     {
         if ($imagePath !== null) {
             $department->addMedia($imagePath)->toMediaCollection('header');
+
+            activity()
+                ->performedOn($department)
+                ->event('uploaded')
+                ->log('uploaded');
         }
 
         return $department->refresh();

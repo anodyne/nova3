@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Reporting\Reports;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Number;
+use Nova\Characters\Models\Character;
+use Nova\Foundation\Models\StatusHistory;
 use Nova\Reporting\Data\GameStatCategory;
 use Nova\Reporting\Data\GameStatLine;
 use Nova\Reporting\Data\GameStats;
@@ -36,19 +37,19 @@ class GameStatsReporter
         $stories = $this->storyQuery();
         $posts = $this->postQuery();
 
-        return new GameStats(
-            users: new GameStatCategory(
+        return GameStats::from(
+            users: GameStatCategory::from(
                 label: 'Users',
                 hint: null,
                 stats: [
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Total',
                         currentTimeframe: Number::format($usersTimeframe = (int) $users->timeframe_count),
                         lastMonth: Number::format($usersLastMonth = (int) $users->last_month_count),
                         thisMonth: Number::format($usersThisMonth = (int) $users->this_month_count),
                         lifetime: Number::format($usersLifetime = (int) $users->lifetime_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Applications',
                         currentTimeframe: Number::format((int) $applications->timeframe_count),
                         lastMonth: Number::format((int) $applications->last_month_count),
@@ -57,32 +58,32 @@ class GameStatsReporter
                     ),
                 ]
             ),
-            characters: new GameStatCategory(
+            characters: GameStatCategory::from(
                 label: 'Characters',
                 hint: null,
                 stats: [
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Total',
                         currentTimeframe: Number::format((int) $characters->timeframe_count),
                         lastMonth: Number::format((int) $characters->last_month_count),
                         thisMonth: Number::format((int) $characters->this_month_count),
                         lifetime: Number::format((int) $characters->lifetime_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Primary characters',
                         currentTimeframe: Number::format((int) $characters->timeframe_primary_count),
                         lastMonth: Number::format((int) $characters->last_month_primary_count),
                         thisMonth: Number::format((int) $characters->this_month_primary_count),
                         lifetime: Number::format((int) $characters->lifetime_primary_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Secondary characters',
                         currentTimeframe: Number::format((int) $characters->timeframe_secondary_count),
                         lastMonth: Number::format((int) $characters->last_month_secondary_count),
                         thisMonth: Number::format((int) $characters->this_month_secondary_count),
                         lifetime: Number::format((int) $characters->lifetime_secondary_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Support characters',
                         currentTimeframe: Number::format((int) $characters->timeframe_support_count),
                         lastMonth: Number::format((int) $characters->last_month_support_count),
@@ -91,39 +92,39 @@ class GameStatsReporter
                     ),
                 ]
             ),
-            stories: new GameStatCategory(
+            stories: GameStatCategory::from(
                 label: 'Stories',
                 hint: 'Due to story status data being mutable, we’re unable to provide accurate historical stats around stories',
                 stats: [
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Total',
                         currentTimeframe: null,
                         lastMonth: null,
                         thisMonth: null,
                         lifetime: Number::format((int) $stories->lifetime_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Completed',
                         currentTimeframe: null,
                         lastMonth: null,
                         thisMonth: null,
                         lifetime: Number::format((int) $stories->lifetime_completed_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Current',
                         currentTimeframe: null,
                         lastMonth: null,
                         thisMonth: null,
                         lifetime: Number::format((int) $stories->lifetime_current_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Ongoing',
                         currentTimeframe: null,
                         lastMonth: null,
                         thisMonth: null,
                         lifetime: Number::format((int) $stories->lifetime_ongoing_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Upcoming',
                         currentTimeframe: null,
                         lastMonth: null,
@@ -132,25 +133,25 @@ class GameStatsReporter
                     ),
                 ]
             ),
-            posts: new GameStatCategory(
+            posts: GameStatCategory::from(
                 label: 'Posts',
                 hint: 'Due to draft status data being mutable, we’re unable to provide accurate historical stats around draft posts',
                 stats: [
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Published',
                         currentTimeframe: Number::format($postsPublishedTimeframe = (int) $posts->timeframe_published_count),
                         lastMonth: Number::format($postsPublishedLastMonth = (int) $posts->last_month_published_count),
                         thisMonth: Number::format($postsPublishedThisMonth = (int) $posts->this_month_published_count),
                         lifetime: Number::format($postsPublishedLifetime = (int) $posts->lifetime_published_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Draft',
                         currentTimeframe: Number::format((int) $posts->lifetime_draft_count),
                         lastMonth: null,
                         thisMonth: Number::format((int) $posts->lifetime_draft_count),
                         lifetime: Number::format((int) $posts->lifetime_draft_count)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Words',
                         currentTimeframe: Number::format($wordsPublishedTimeframe = (int) $posts->timeframe_published_words_count),
                         lastMonth: Number::format($wordsPublishedLastMonth = (int) $posts->last_month_published_words_count),
@@ -159,25 +160,25 @@ class GameStatsReporter
                     ),
                 ]
             ),
-            averages: new GameStatCategory(
+            averages: GameStatCategory::from(
                 label: 'Averages',
                 hint: null,
                 stats: [
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Posts / user',
                         currentTimeframe: $this->average($postsPublishedTimeframe, $usersTimeframe),
                         lastMonth: $this->average($postsPublishedLastMonth, $usersLastMonth),
                         thisMonth: $this->average($postsPublishedThisMonth, $usersThisMonth),
                         lifetime: $this->average($postsPublishedLifetime, $usersLifetime)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Words / user',
                         currentTimeframe: $this->average($wordsPublishedTimeframe, $usersTimeframe),
                         lastMonth: $this->average($wordsPublishedLastMonth, $usersLastMonth),
                         thisMonth: $this->average($wordsPublishedThisMonth, $usersThisMonth),
                         lifetime: $this->average($wordsPublishedLifetime, $usersLifetime)
                     ),
-                    new GameStatLine(
+                    GameStatLine::from(
                         label: 'Words / post',
                         currentTimeframe: $this->average($wordsPublishedTimeframe, $postsPublishedTimeframe),
                         lastMonth: $this->average($wordsPublishedLastMonth, $postsPublishedLastMonth),
@@ -217,38 +218,10 @@ class GameStatsReporter
                 $this->postingActivitySettings->timeframe->endDate(), $this->postingActivitySettings->timeframe->startDate(), // Timeframe
             ])
             ->first();
-
-        return User::query()
-            // ->selectRaw('count(*) lifetime_count')
-            ->withCount([
-                'statusHistories as last_month_count' => function ($query) {
-                    $start = now()->subMonth()->startOfMonth();
-                    $end = now()->subMonth()->endOfMonth();
-
-                    $query->where('started_at', '<=', $end)
-                        ->where(function (Builder $query) use ($start) {
-                            $query->whereNull('ended_at')
-                                ->orWhere('ended_at', '>=', $start->copy()->endOfDay());
-                        });
-                },
-                'statusHistories as this_month_count' => function ($query) {
-                    $start = now()->startOfMonth();
-                    $end = now()->endOfMonth();
-
-                    $query->where('started_at', '<=', $end)
-                        ->where(function (Builder $query) use ($start) {
-                            $query->whereNull('ended_at')
-                                ->orWhere('ended_at', '>=', $start->copy()->endOfDay());
-                        });
-                },
-            ])
-            ->first();
     }
 
     protected function characterQuery()
     {
-        $tablePrefix = DB::getTablePrefix();
-
         $settings = $this->postingActivitySettings;
 
         $startOfLastMonth = Date::now()->subMonth()->startOfMonth();
@@ -258,91 +231,91 @@ class GameStatsReporter
 
         return DB::table('characters')
             ->join('status_history', function ($join) {
-                $join->on('characters.id', '=', 'status_history.statusable_id')
-                    ->where('status_history.statusable_type', '=', 'character');
+                $join->on(Character::column('id'), '=', StatusHistory::column('statusable_id'))
+                    ->where(StatusHistory::column('statusable_type'), '=', 'character');
             })
             ->selectRaw('
                 COUNT(*) as lifetime_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'characters.type = "primary"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.Character::prefixedColumn('type').' = "primary"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as lifetime_primary_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'characters.type = "secondary"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.Character::prefixedColumn('type').' = "secondary"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as lifetime_secondary_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'characters.type = "support"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.Character::prefixedColumn('type').' = "support"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as lifetime_support_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?)
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as last_month_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "primary"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "primary"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as last_month_primary_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "secondary"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "secondary"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as last_month_secondary_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "support"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "support"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as last_month_support_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?)
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as this_month_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "primary"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "primary"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as this_month_primary_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "secondary"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "secondary"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as this_month_secondary_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "support"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "support"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as this_month_support_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?)
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as timeframe_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "primary"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "primary"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as timeframe_primary_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "secondary"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "secondary"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as timeframe_secondary_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?) AND
-                        '.$tablePrefix.'characters.type = "support"
-                    THEN '.$tablePrefix.'characters.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
+                        '.Character::prefixedColumn('type').' = "support"
+                    THEN '.Character::prefixedColumn('id').' END
                 ) as timeframe_support_count
             ', [
                 $endOfLastMonth, $startOfLastMonth, // Last month
@@ -492,8 +465,6 @@ class GameStatsReporter
 
     protected function userQuery()
     {
-        $tablePrefix = DB::getTablePrefix();
-
         $startOfLastMonth = Date::now()->subMonth()->startOfMonth();
         $endOfLastMonth = Date::now()->subMonth()->endOfMonth();
         $startOfThisMonth = Date::now()->startOfMonth();
@@ -501,25 +472,25 @@ class GameStatsReporter
 
         return DB::table('users')
             ->join('status_history', function ($join) {
-                $join->on('users.id', '=', 'status_history.statusable_id')
-                    ->where('status_history.statusable_type', '=', 'user');
+                $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
+                    ->where(StatusHistory::column('statusable_type'), '=', 'user');
             })
             ->selectRaw('
                 COUNT(*) as lifetime_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?)
-                    THEN '.$tablePrefix.'users.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
+                    THEN '.User::prefixedColumn('id').' END
                 ) as last_month_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?)
-                    THEN '.$tablePrefix.'users.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
+                    THEN '.User::prefixedColumn('id').' END
                 ) as this_month_count,
                 COUNT(DISTINCT CASE
-                    WHEN '.$tablePrefix.'status_history.started_at <= ? AND
-                        ('.$tablePrefix.'status_history.ended_at IS NULL OR '.$tablePrefix.'status_history.ended_at >= ?)
-                    THEN '.$tablePrefix.'users.id END
+                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
+                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
+                    THEN '.User::prefixedColumn('id').' END
                 ) as timeframe_count
             ', [
                 $endOfLastMonth, $startOfLastMonth, // Last month

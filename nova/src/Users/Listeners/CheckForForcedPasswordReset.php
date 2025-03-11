@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Users\Listeners;
 
-use Nova\Users\Exceptions\UserException;
+use Illuminate\Support\Facades\Auth;
+use Nova\Users\Exceptions\AdminForcedPasswordResetException;
 
 class CheckForForcedPasswordReset
 {
     public function handle($event)
     {
         if ($event->user->force_password_reset) {
-            UserException::adminForcedPasswordReset();
+            Auth::logout();
+
+            throw new AdminForcedPasswordResetException;
         }
     }
 }

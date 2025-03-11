@@ -46,7 +46,7 @@
                             active === 'characters',
                     }"
                 >
-                    <x-icon name="tabler-masks-theater" size="md" class="mr-2.5 opacity-70"></x-icon>
+                    <x-icon name="characters" size="md" class="mr-2.5 opacity-70"></x-icon>
                     <span>Characters</span>
                 </button>
                 <button
@@ -60,7 +60,7 @@
                             active === 'users',
                     }"
                 >
-                    <x-icon name="tabler-users" size="md" class="mr-2.5 opacity-70"></x-icon>
+                    <x-icon name="users" size="md" class="mr-2.5 opacity-70"></x-icon>
                     <span>Users</span>
                 </button>
                 <button
@@ -74,7 +74,7 @@
                             active === 'stories',
                     }"
                 >
-                    <x-icon name="tabler-books" size="md" class="mr-2.5 opacity-70"></x-icon>
+                    <x-icon name="books" size="md" class="mr-2.5 opacity-70"></x-icon>
                     <span>Storytelling</span>
                 </button>
                 <button
@@ -88,7 +88,7 @@
                             active === 'ranks',
                     }"
                 >
-                    <x-icon name="tabler-military-rank" size="md" class="mr-2.5 opacity-70"></x-icon>
+                    <x-icon name="rank" size="md" class="mr-2.5 opacity-70"></x-icon>
                     <span>Ranks</span>
                 </button>
                 <button
@@ -102,7 +102,7 @@
                             active === 'mobile',
                     }"
                 >
-                    <x-icon name="tabler-devices" size="md" class="mr-2.5 opacity-70"></x-icon>
+                    <x-icon name="devices" size="md" class="mr-2.5 opacity-70"></x-icon>
                     <span>Mobile</span>
                 </button>
                 <button
@@ -115,7 +115,7 @@
                             active === 'more',
                     }"
                 >
-                    <x-icon name="tabler-adjustments" size="md" class="mr-2.5 opacity-70"></x-icon>
+                    <x-icon name="preferences" size="md" class="mr-2.5 opacity-70"></x-icon>
                     <span>And much more...</span>
                 </button>
             </div>

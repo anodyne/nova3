@@ -1,6 +1,6 @@
 @php($count = $records->count())
 
-<x-filament.modal-content icon="trash">
+<x-filament.modal-content :$action>
     <x-slot name="title">Delete {{ $count }} selected {{ str('page')->plural($count) }}?</x-slot>
 
     <p>Are you sure you want to delete the following pages?</p>

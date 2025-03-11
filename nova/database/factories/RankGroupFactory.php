@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Nova\Ranks\Enums\RankGroupStatus;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Ranks\Models\RankGroup;
 
 class RankGroupFactory extends Factory
@@ -16,14 +16,14 @@ class RankGroupFactory extends Factory
     {
         return [
             'name' => ucfirst($this->faker->words(3, asText: true)),
-            'status' => RankGroupStatus::Active,
+            'status' => BasicStatus::Active,
         ];
     }
 
     public function inactive()
     {
         return $this->state([
-            'status' => RankGroupStatus::Inactive,
+            'status' => BasicStatus::Inactive,
         ]);
     }
 }

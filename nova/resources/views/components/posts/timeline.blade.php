@@ -18,7 +18,7 @@
                         {{--
                             @if ($post->is_current)
                             <!-- Ring -->
-                            <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2" class="text-{{ $post->status->color() }}-9"></circle>
+                            <circle cx="6" cy="6" r="11" fill="none" stroke="currentColor" stroke-width="2" class="text-{{ $post->status->getColor() }}-9"></circle>
                             @endif
                         --}}
 

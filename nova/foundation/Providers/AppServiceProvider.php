@@ -27,6 +27,7 @@ use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Routing\Redirector;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
@@ -38,8 +39,13 @@ use Illuminate\View\ComponentAttributeBag;
 use Illuminate\View\DynamicComponent;
 use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
+use Nova\Addons\Models\Addon;
+use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Nova\Forms\Fields;
+use Nova\Forms\Models\Form;
 use Nova\Foundation\Blocks\BlockManager;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\IconSets;
@@ -64,10 +70,20 @@ use Nova\Foundation\View\Layouts\AdminLayout;
 use Nova\Foundation\View\Layouts\AuthLayout;
 use Nova\Foundation\View\Layouts\EmailLayout;
 use Nova\Foundation\View\Layouts\PublicLayout;
+use Nova\Menus\Models\MenuItem;
 use Nova\Navigation\Models\Navigation;
 use Nova\Pages\Blocks;
 use Nova\Pages\Models\Page;
+use Nova\Ranks\Models\RankGroup;
+use Nova\Ranks\Models\RankItem;
+use Nova\Ranks\Models\RankName;
 use Nova\Settings\Models\Settings;
+use Nova\Stories\Models\PostType;
+use Nova\Themes\Models\Theme;
+use Nova\Users\Models\User;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -76,17 +92,17 @@ class AppServiceProvider extends ServiceProvider
         $this->configureNovaSingleton();
         $this->configureTipTapBlocks();
 
-        // $this->app->extend('blade.compiler', function ($compiler, $app) {
-        //     return tap(new BladeCompiler(
-        //         $app['files'],
-        //         $app['config']['view.compiled'],
-        //         $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
-        //         $app['config']->get('view.cache', true),
-        //         $app['config']->get('view.compiled_extension', 'php'),
-        //     ), function ($blade) {
-        //         $blade->component('dynamic-component', DynamicComponent::class);
-        //     });
-        // });
+        $this->app->extend('blade.compiler', function ($compiler, $app) {
+            return tap(new BladeCompiler(
+                $app['files'],
+                $app['config']['view.compiled'],
+                $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
+                $app['config']->get('view.cache', true),
+                $app['config']->get('view.compiled_extension', 'php'),
+            ), function ($blade) {
+                $blade->component('dynamic-component', DynamicComponent::class);
+            });
+        });
     }
 
     public function boot(): void
@@ -194,6 +210,7 @@ class AppServiceProvider extends ServiceProvider
     protected function configureBlade(): void
     {
         Blade::anonymousComponentPath(resource_path('views/public-components'), 'public');
+        Blade::anonymousComponentPath(resource_path('views/setup-components'), 'setup');
 
         Blade::component('admin-layout', AdminLayout::class);
         Blade::component('auth-layout', AuthLayout::class);
@@ -283,6 +300,54 @@ class AppServiceProvider extends ServiceProvider
         TiptapEditor::configureUsing(function (TiptapEditor $component) {
             return $component->blocks($this->app[BlockManager::class]->blocks());
         });
+
+        Timeline::configureUsing(function (Timeline $timeline) {
+            $timeline
+                ->attributeLabels([
+                    'order_column' => 'sort order',
+                ])
+                ->attributeValues([
+                    'status' => fn (?BasicStatus $value) => strtolower($value?->value ?? ''),
+                ], [
+                    Addon::class,
+                    Department::class,
+                    Form::class,
+                    MenuItem::class,
+                    Page::class,
+                    Position::class,
+                    PostType::class,
+                    RankGroup::class,
+                    RankItem::class,
+                    RankName::class,
+                    Theme::class,
+                ])
+                ->causerName(null, 'System')
+                ->itemDateTimeTimezone(fn () => Auth::user()?->preferences?->timezone ?? 'UTC')
+                ->itemIcons([
+                    'created' => iconName('add'),
+                    'duplicated' => iconName('copy'),
+                ])
+                ->itemIconColors([
+                    'created' => 'success',
+                    'duplicated' => 'success',
+                ])
+                ->modifyEventDescriptionUsing(function (string $eventDescription, Activity $activity, string $recordTitle, ?string $causerName, ?string $changesSummary) {
+                    if ($activity->log_name === 'impersonation') {
+                        return __('activity.impersonated', [
+                            'user' => User::find($activity->getExtraProperty('impersonated_by'))?->name,
+                            'description' => $eventDescription,
+                        ]);
+                    }
+
+                    return $eventDescription;
+                });
+        });
+
+        TimelineAction::configureUsing(function (TimelineAction $action) {
+            $action
+                ->icon(iconName('history'))
+                ->label('Activity history');
+        }, isImportant: true);
 
         $this->app->bind(FilamentNotification::class, Notification::class);
     }

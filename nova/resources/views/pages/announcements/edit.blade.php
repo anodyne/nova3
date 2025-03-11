@@ -24,17 +24,13 @@
                         name="category"
                         :error="$errors->first('category')"
                     >
-                        <x-input.text
-                            :value="old('category', $announcement->category)"
-                            list="categories"
-                            data-cy="category"
-                        />
-
-                        <datalist id="categories">
-                            @foreach ($categories as $category)
-                                <option value="{{ $category }}"></option>
-                            @endforeach
-                        </datalist>
+                        <div data-slot="control">
+                            <flux:autocomplete name="category" value="{{ old('category', $announcement->category) }}">
+                                @foreach ($categories as $category)
+                                    <flux:autocomplete.item>{{ $category }}</flux:autocomplete.item>
+                                @endforeach
+                            </flux:autocomplete>
+                        </div>
                     </x-fieldset.field>
 
                     <x-switch.group>

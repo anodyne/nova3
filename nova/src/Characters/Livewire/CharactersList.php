@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
-use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Livewire\Attributes\Url;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Actions\DeactivateCharacter;
 use Nova\Characters\Actions\DeleteCharacter;
@@ -42,25 +40,34 @@ use Nova\Foundation\Filament\Actions\RestoreBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class CharactersList extends TableComponent
 {
-    #[Url]
-    public ?array $tableFilters = [
-        'only_my_characters',
-    ];
-
     public function table(Table $table): Table
     {
+        /** @var User */
+        $user = Auth::user();
+
         return $table
             ->query(
                 Character::with('media', 'positions', 'rank.name', 'users', 'activeUsers', 'application.reviews')
                     ->withTrashed()
                     ->notHidden()
                     ->unless(
-                        Auth::user()->can('manage', new Character),
-                        fn (Builder $query): Builder => $query->isAssignedTo(Auth::user())
+                        $user->can('manage', new Character),
+                        fn (Builder $query): Builder => $query->isAssignedTo($user)
                     )
+                    ->select([
+                        'deleted_at',
+                        'id',
+                        'name',
+                        'rank_id',
+                        'status',
+                        'type',
+                    ])
             )
             ->groups([
                 Group::make('status')->collapsible(),
@@ -71,18 +78,17 @@ class CharactersList extends TableComponent
                     ->view('filament.tables.columns.character-avatar')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('activeUsers.name')
-                    ->visible(Auth::user()->can('viewAny', Character::class))
+                    ->visible($user->can('viewAny', Character::class))
                     ->label('Played by')
                     ->listWithLineBreaks()
                     ->toggleable(),
                 TextColumn::make('type')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->type->color())
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->trashed() ? 'danger' : $record->status->color())
-                    ->formatStateUsing(fn (Model $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
+                    ->color(fn (Character $record): string => $record->trashed() ? 'danger' : $record->status->getColor())
+                    ->formatStateUsing(fn (Character $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
                     ->toggleable(),
             ])
             ->actions([
@@ -90,11 +96,34 @@ class CharactersList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.characters.show', $record)),
+                            ->url(fn (Character $record): string => route('admin.characters.show', $record)),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.characters.edit', $record)),
+                            ->url(fn (Character $record): string => route('admin.characters.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->eventDescriptions([
+                                        'removed-avatar' => fn (Activity $activity) => __('activity.characters.removed-avatar', [
+                                            'name' => $activity->causer->name,
+                                        ]),
+                                        'uploaded-avatar' => fn (Activity $activity) => __('activity.characters.uploaded-avatar', [
+                                            'name' => $activity->causer->name,
+                                        ]),
+                                    ])
+                                    ->itemIcons([
+                                        'activated' => iconName('check'),
+                                        'deactivated' => iconName('remove'),
+                                    ])
+                                    ->itemIconColors([
+                                        'activated' => 'success',
+                                        'deactivated' => 'warning',
+                                    ]);
+                            }),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('activateCharacter')
@@ -103,7 +132,7 @@ class CharactersList extends TableComponent
                             ->color('gray')
                             ->modalContentView('pages.characters.activate')
                             ->modalSubmitActionLabel('Activate')
-                            ->action(function (Model $record): void {
+                            ->action(function (Character $record): void {
                                 $character = ActivateCharacter::run($record);
 
                                 CharacterActivated::dispatch($character);
@@ -118,7 +147,7 @@ class CharactersList extends TableComponent
                             ->color('gray')
                             ->modalContentView('pages.characters.deactivate')
                             ->modalSubmitActionLabel('Deactivate')
-                            ->action(function (Model $record): void {
+                            ->action(function (Character $record): void {
                                 $character = DeactivateCharacter::run($record);
 
                                 CharacterDeactivated::dispatch($character);
@@ -142,7 +171,7 @@ class CharactersList extends TableComponent
                         RestoreAction::make()
                             ->authorize('restore')
                             ->modalContentView('pages.characters.restore')
-                            ->action(function (Model $record): void {
+                            ->action(function (Character $record): void {
                                 RestoreCharacter::run($record);
 
                                 Notification::make()->success()
@@ -152,7 +181,7 @@ class CharactersList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.characters.delete')
-                            ->action(function (Model $record): void {
+                            ->action(function (Character $record): void {
                                 $character = DeleteCharacter::run($record);
 
                                 CharacterDeletedByAdmin::dispatch($character);
@@ -164,7 +193,7 @@ class CharactersList extends TableComponent
                         ForceDeleteAction::make()
                             ->authorize('forceDelete')
                             ->modalContentView('pages.characters.force-delete')
-                            ->action(function (Model $record): void {
+                            ->action(function (Character $record): void {
                                 ForceDeleteCharacter::run($record);
 
                                 Notification::make()->success()
@@ -187,7 +216,7 @@ class CharactersList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Character $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('activate', $record)) {
                                     return true;
                                 }
@@ -196,7 +225,7 @@ class CharactersList extends TableComponent
 
                                 return false;
                             })
-                            ->each(function (Model $record): void {
+                            ->each(function (Character $record): void {
                                 $character = ActivateCharacter::run($record);
 
                                 CharacterActivated::dispatch($character);
@@ -225,7 +254,7 @@ class CharactersList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Character $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('deactivate', $record)) {
                                     return true;
                                 }
@@ -234,7 +263,7 @@ class CharactersList extends TableComponent
 
                                 return false;
                             })
-                            ->each(function (Model $record): void {
+                            ->each(function (Character $record): void {
                                 $character = DeactivateCharacter::run($record);
 
                                 CharacterDeactivated::dispatch($character);
@@ -258,7 +287,7 @@ class CharactersList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Character $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('restore', $record)) {
                                     return true;
                                 }
@@ -267,7 +296,7 @@ class CharactersList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => RestoreCharacter::run($record));
+                            ->each(fn (Character $record): Model => RestoreCharacter::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' restored')
@@ -287,7 +316,7 @@ class CharactersList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Character $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
                                 }
@@ -296,7 +325,7 @@ class CharactersList extends TableComponent
 
                                 return false;
                             })
-                            ->each(function (Model $record): void {
+                            ->each(function (Character $record): void {
                                 $character = DeleteCharacter::run($record);
 
                                 CharacterDeletedByAdmin::dispatch($character);
@@ -320,7 +349,7 @@ class CharactersList extends TableComponent
                         $ignoredRecords = 0;
 
                         $records = $records
-                            ->filter(function (Model $record) use (&$ignoredRecords): bool {
+                            ->filter(function (Character $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('forceDelete', $record)) {
                                     return true;
                                 }
@@ -329,7 +358,7 @@ class CharactersList extends TableComponent
 
                                 return false;
                             })
-                            ->each(fn (Model $record): Model => ForceDeleteCharacter::run($record));
+                            ->each(fn (Character $record): Model => ForceDeleteCharacter::run($record));
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' force deleted')
@@ -346,24 +375,19 @@ class CharactersList extends TableComponent
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn (): array => Character::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all()),
+                    ->options(fn (): array => Character::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
+                    ->default(fn () => request()->query('status', ['active'])),
                 SelectFilter::make('type')
                     ->multiple()
                     ->options(CharacterType::class),
-                Filter::make('only_my_characters')
-                    ->form([
-                        Toggle::make('my_characters')
-                            ->label('Only my characters')
-                            ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
-                            ->extraAttributes(['data-panda' => settings('appearance.panda')]),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query->when(
-                            $data['my_characters'],
-                            fn (Builder $query): Builder => $query->whereRelation('users', 'users.id', '=', Auth::id())
-                        );
-                    })
-                    ->visible(Auth::user()->can('manage', new Character)),
+                TernaryFilter::make('only_my_characters')
+                    ->queries(
+                        true: fn (Builder $query): Builder => $query->whereRelation('users', 'users.id', '=', Auth::id()),
+                        false: fn (Builder $query): Builder => $query,
+                        blank: fn (Builder $query): Builder => $query
+                    )
+                    ->default(fn () => request()->query('only_my_characters', false))
+                    ->visible($user->can('manage', new Character)),
                 TrashedFilter::make()->label('Deleted characters'),
             ])
             ->emptyStateIcon(iconName('characters'))

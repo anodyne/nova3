@@ -19,6 +19,7 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
 
 class StoryPostsList extends TableComponent
 {
@@ -31,7 +32,27 @@ class StoryPostsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Post::with('characterAuthors', 'userAuthors')->story($this->story)->published())
+            ->deferLoading()
+            ->query(
+                Post::query()
+                    ->with('characterAuthors', 'userAuthors')
+                    ->select([
+                        'day',
+                        'id',
+                        'location',
+                        'order_column',
+                        'post_type_id',
+                        'story_id',
+                        'time',
+                        'title',
+                        'updated_at',
+                        'locked_by',
+                        'locked_at',
+                        'status',
+                    ])
+                    ->story($this->story)
+                    ->published()
+            )
             ->defaultSort('order_column', 'desc')
             ->paginationPageOptions([10, 25, 50])
             ->defaultPaginationPageOption(25)
@@ -81,42 +102,48 @@ class StoryPostsList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Model $record): string => route('admin.posts.show', [$record->story, $record])),
+                            ->url(fn (Post $record): string => route('admin.posts.show', [$record->story, $record])),
                         EditAction::make()
                             ->authorize('update')
-                            ->url(fn (Model $record): string => route('admin.posts.edit', $record)),
+                            ->url(fn (Post $record): string => route('admin.posts.edit', $record)),
                     ])->authorizeAny(['view', 'update'])->divided(),
+
+                    ActionGroup::make([
+                        TimelineAction::make(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('create-before')
                             ->icon(iconName('move-up'))
                             ->color('gray')
                             ->label('Before this post')
-                            ->url(fn (Model $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'before'])),
+                            ->url(fn (Post $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'before'])),
                         Action::make('create-after')
                             ->icon(iconName('move-down'))
                             ->color('gray')
                             ->label('After this post')
-                            ->url(fn (Model $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'after'])),
+                            ->url(fn (Post $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'after'])),
                     ])
                         ->divided()
-                        ->visible(fn (Model $record): bool => $record->story->can_post),
+                        ->visible(fn (Post $record): bool => $record->story->can_post),
 
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalContentView('pages.posts.delete')
-                            ->successNotificationTitle(fn (Model $record): string => $record->title.' post was deleted')
-                            ->using(fn (Model $record): Model => DeletePost::run($record)),
+                            ->successNotificationTitle(fn (Post $record): string => $record->title.' post was deleted')
+                            ->using(fn (Post $record): Model => DeletePost::run($record)),
                     ])->authorize('delete')->divided(),
                 ]),
             ])
             ->filters([
                 SelectFilter::make('postType')
                     ->relationship('postType', 'name')
-                    ->multiple(),
+                    ->multiple()
+                    ->preload(),
                 SelectFilter::make('story')
                     ->relationship('story', 'title')
                     ->multiple()
+                    ->preload()
                     ->visible(request()->route('story') === null),
             ])
             ->emptyStateIcon(iconName('write'))

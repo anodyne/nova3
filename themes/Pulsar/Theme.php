@@ -9,7 +9,7 @@ use Nova\Themes\BaseTheme;
 
 class Theme extends BaseTheme
 {
-    public $location = 'Pulsar';
+    public string $location = 'Pulsar';
 
     public function settingsForm(): array
     {

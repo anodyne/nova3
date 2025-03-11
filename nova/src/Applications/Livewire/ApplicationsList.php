@@ -24,7 +24,18 @@ class ApplicationsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Application::with('character.positions', 'user'))
+            ->query(
+                Application::with('character.positions', 'user')
+                    ->select([
+                        'character_id',
+                        'created_at',
+                        'decision_date',
+                        'id',
+                        'ip_address',
+                        'result',
+                        'user_id',
+                    ])
+            )
             ->groups([
                 Group::make('result')->collapsible(),
             ])
@@ -43,7 +54,6 @@ class ApplicationsList extends TableComponent
                     ->sortable(),
                 TextColumn::make('result')
                     ->badge()
-                    ->color(fn (Application $record): string => $record->result->color())
                     ->toggleable(),
                 TextColumn::make('ip_address')
                     ->label('IP address')

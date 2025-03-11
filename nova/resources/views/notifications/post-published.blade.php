@@ -11,7 +11,9 @@
     story.
 
     <x-slot name="actions">
-        <x-button :href="route('admin.posts.show', $post_id)" color="primary">Read &rarr;</x-button>
+        <x-button :href="route('admin.posts.show', ['story' => $story_id, 'post' => $post_id])" color="primary">
+            Read &rarr;
+        </x-button>
         <x-button :href="route('admin.stories.show', $story_id)" color="neutral">Go to story</x-button>
     </x-slot>
 </x-notification>

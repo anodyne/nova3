@@ -14,12 +14,12 @@ class RestoreCharacter
     public function handle(Character $character): Character
     {
         if ($character->trashed()) {
-            $character->restore();
+            activity()->withoutLogs(fn () => $character->restore());
 
             activity()
-                ->causedBy(auth()->user())
                 ->performedOn($character)
-                ->log(':subject.name was restored');
+                ->event('restored')
+                ->log('restored');
         }
 
         return $character->refresh();

@@ -19,11 +19,11 @@ class PageServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'pages-designer' => PageDesigner::class,
-            'pages-list' => PagesList::class,
             'pages-alternating-stories' => AlternatingStories::class,
             'pages-characters-manifest' => CharactersManifest::class,
+            'pages-designer' => PageDesigner::class,
             'pages-dynamic-form' => DynamicForm::class,
+            'pages-list' => PagesList::class,
             'pages-stat-widget' => StatWidget::class,
         ];
     }

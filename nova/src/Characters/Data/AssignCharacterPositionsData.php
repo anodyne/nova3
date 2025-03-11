@@ -4,26 +4,24 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
 use Illuminate\Http\Request;
-use Spatie\LaravelData\Data;
 
-class AssignCharacterPositionsData extends Data
+/**
+ * @method static static from(?array $positions)
+ */
+readonly class AssignCharacterPositionsData extends Bag
 {
     public function __construct(
         public ?array $positions
     ) {}
 
-    public static function fromArray(array $data): static
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        return new self(
-            positions: explode(',', data_get($data, 'position', '') ?? '')
-        );
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            positions: explode(',', $request->input('assigned_positions', '') ?? '')
-        );
+        return [
+            'positions' => array_map('trim', explode(',', $request->input('assigned_positions') ?? '')),
+        ];
     }
 }

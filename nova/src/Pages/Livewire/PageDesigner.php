@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Pages\Livewire;
 
 use Awcodes\Scribble\ScribbleEditor;
-use Awcodes\Typist\TypistEditor;
 use Filament\Forms\Form;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Locked;
@@ -33,12 +32,6 @@ class PageDesigner extends FormComponent
                     ->hiddenLabel()
                     ->helperText("Type '/' to show a list of available blocks to add to your page")
                     ->profile(PageBuilderProfile::class),
-                // TypistEditor::make('blocks')
-                //     ->helperText("Type '/' to show a list of available blocks to add to your page")
-                //     ->mergeTags([
-                //         'game_name',
-                //         'system_name',
-                //     ]),
             ])
             ->statePath('data')
             ->model($this->page);

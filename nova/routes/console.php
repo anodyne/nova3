@@ -55,10 +55,3 @@ Artisan::command('nova:sync-external-content', function () {
 
     $this->info('External content and changelog has been synced.');
 });
-
-Artisan::command('nova:refresh-external-content', function () {
-    ExternalChangelog::refreshCache();
-    ExternalContent::refreshCache();
-
-    $this->info('External content and changelog cache has been refreshed.');
-});

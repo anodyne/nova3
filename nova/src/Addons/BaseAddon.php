@@ -23,6 +23,8 @@ abstract class BaseAddon
         $this->setAddonProperties();
     }
 
+    abstract public function runScript(string $name): void;
+
     public function isExtension(): bool
     {
         return $this->model->type === AddonType::Extension;

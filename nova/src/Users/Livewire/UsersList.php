@@ -13,10 +13,10 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
+use Nova\Characters\Models\Character;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\BulkAction;
@@ -30,9 +30,13 @@ use Nova\Users\Actions\ActivateUserManager;
 use Nova\Users\Actions\DeactivateUser;
 use Nova\Users\Actions\DeleteUserManager;
 use Nova\Users\Actions\ForcePasswordReset;
+use Nova\Users\Data\PronounsData;
 use Nova\Users\Events\UserActivated;
 use Nova\Users\Events\UserDeactivated;
 use Nova\Users\Models\User;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Models\Activity;
 
 class UsersList extends TableComponent
 {
@@ -81,8 +85,6 @@ class UsersList extends TableComponent
                     ->weight(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'semibold' : null),
                 TextColumn::make('status')
                     ->badge()
-                    ->color(fn (User $record): string => $record->status->color())
-                    ->formatStateUsing(fn (User $record): string => $record->status->getLabel())
                     ->toggleable(),
             ])
             ->actions([
@@ -105,13 +107,47 @@ class UsersList extends TableComponent
                     ])->visible(fn (User $record): bool => filled($record->application))->divided(),
 
                     ActionGroup::make([
+                        TimelineAction::make()
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->withRelations(['characters'])
+                                    ->itemIcon('activated', iconName('check'))
+                                    ->itemIconColor('activated', 'success')
+                                    ->itemIcon('deactivated', iconName('remove'))
+                                    ->itemIconColor('deactivated', 'warning')
+                                    ->eventDescription('assigned', function (Activity $activity) {
+                                        $characterIds = $activity->getExtraProperty('characterIds');
+
+                                        $characterNames = Character::whereIn('id', $characterIds)
+                                            ->get()
+                                            ->implode('name', ', ');
+
+                                        return str("**{$activity->causer->name}** assigned {$characterNames} to the user.")->inlineMarkdown()->toHtmlString();
+                                    })
+                                    ->eventDescription('unassigned', function (Activity $activity) {
+                                        $characterIds = $activity->getExtraProperty('characterIds');
+
+                                        $characterNames = Character::whereIn('id', $characterIds)
+                                            ->get()
+                                            ->implode('name', ', ');
+
+                                        return str("**{$activity->causer->name}** unassigned {$characterNames} from the user.")->inlineMarkdown()->toHtmlString();
+                                    })
+                                    ->attributeValue(
+                                        'pronouns',
+                                        fn (?PronounsData $value): ?string => (string) $value
+                                    );
+                            }),
+                    ])->divided(),
+
+                    ActionGroup::make([
                         Action::make('impersonate')
                             ->authorize('impersonate')
                             ->modalContentView('pages.users.impersonate-warning')
                             ->modalSubmitActionLabel('Impersonate')
                             ->color('gray')
                             ->icon(iconName('spy'))
-                            ->action(fn (User $record): RedirectResponse => to_route('impersonate', $record->id)),
+                            ->action(fn (User $record) => to_route('impersonate', $record->id)),
                     ])->authorize('impersonate')->divided(),
 
                     ActionGroup::make([

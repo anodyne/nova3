@@ -4,30 +4,37 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Data;
 
+use Bag\Attributes\MapInputName;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Bag\Mappers\Alias;
 use Illuminate\Http\Request;
+use Nova\Stories\Enums\PositionDirection;
 use Nova\Stories\Models\Story;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
 
-class StoryPositionData extends Data
+/**
+ * @method static static from(PositionDirection $direction, ?Story $neighbor, bool $hasPositionChange)
+ */
+readonly class StoryPositionData extends Bag
 {
     public function __construct(
-        #[MapInputName('display_direction')]
-        public ?string $direction,
+        #[MapInputName(Alias::class, 'display_direction')]
+        public PositionDirection $direction,
 
-        #[MapInputName('display_neighbor')]
+        #[MapInputName(Alias::class, 'display_neighbor')]
         public ?Story $neighbor,
 
-        #[MapInputName('has_position_change')]
+        #[MapInputName(Alias::class, 'has_position_change')]
         public bool $hasPositionChange = false
     ) {}
 
-    public static function fromRequest(Request $request): self
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        return new self(
-            direction: $request->input('display_direction', 'before'),
-            neighbor: Story::find($request->input('display_neighbor')),
-            hasPositionChange: $request->boolean('has_position_change', false)
-        );
+        return [
+            'direction' => PositionDirection::tryFrom($request->input('display_direction')) ?? PositionDirection::After,
+            'neighbor' => Story::find($request->input('display_neighbor')),
+            'hasPositionChange' => $request->boolean('has_position_change', false),
+        ];
     }
 }

@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\States\StoryStatus\Completed;
+use Nova\Stories\Models\States\StoryStatus\Current;
 use Nova\Stories\Models\Story;
 
 class PostSeeder extends Seeder
@@ -14,65 +16,20 @@ class PostSeeder extends Seeder
     {
         activity()->disableLogging();
 
-        Story::get()
-            ->each(function ($story) {
-                $post = Post::factory()->published()->storyPost()->create([
-                    'story_id' => $story->id,
-                    'day' => 'Day 1',
-                    'order_column' => 0,
-                ]);
-                $post->characterAuthors()->attach(1, ['user_id' => 1, 'word_count' => fake()->numberBetween(100, 1_000)]);
-                $post->characterAuthors()->attach(2, ['user_id' => 2, 'word_count' => fake()->numberBetween(100, 1_000)]);
+        Story::query()
+            ->whereState('status', [Current::class, Completed::class])
+            ->get()
+            ->each(function (Story $story): void {
+                $factory = Post::factory()
+                    ->count(mt_rand(10, 100))
+                    ->withStory($story);
 
-                $post = Post::factory()->published()->markerPost()->create([
-                    'story_id' => $story->id,
-                    'title' => 'Start of Day 2',
-                    'day' => 'Day 2',
-                    'time' => '0000 hours',
-                    'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla laudantium voluptatem, ad nam necessitatibus, doloremque ipsam sunt fugit earum eum debitis molestias inventore accusantium explicabo veritatis quas aliquid consectetur modi!',
-                    'order_column' => 1,
-                ]);
-                $post->characterAuthors()->attach(1, ['user_id' => 1, 'word_count' => fake()->numberBetween(100, 1_000)]);
+                $factory = match (true) {
+                    $story->status->equals(Completed::class) => $factory->published(),
+                    default => $factory,
+                };
 
-                $post = Post::factory()->personalPost()->create([
-                    'story_id' => $story->id,
-                    'day' => 'Day 2',
-                    'order_column' => 2,
-                ]);
-                $post->characterAuthors()->attach(1, ['user_id' => 1, 'word_count' => fake()->numberBetween(100, 1_000)]);
-
-                $post = Post::factory()->published()->notePost()->create([
-                    'story_id' => $story->id,
-                    'title' => 'Story Note',
-                    'content' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, incidunt laboriosam ea vero natus porro veniam consectetur officiis, doloribus temporibus aperiam autem voluptatibus ad recusandae quia! Ratione dicta eaque at!',
-                    'order_column' => 3,
-                ]);
-                $post->characterAuthors()->attach(1, ['user_id' => 1, 'word_count' => fake()->numberBetween(100, 1_000)]);
-
-                $post = Post::factory()->published()->storyPost()->create([
-                    'story_id' => $story->id,
-                    'day' => 'Day 2',
-                    'order_column' => 4,
-                ]);
-                $post->characterAuthors()->attach(1, ['user_id' => 1, 'word_count' => fake()->numberBetween(100, 1_000)]);
-                $post->characterAuthors()->attach(2, ['user_id' => 2, 'word_count' => fake()->numberBetween(100, 1_000)]);
-                $post->characterAuthors()->attach(4, ['user_id' => 4, 'word_count' => fake()->numberBetween(100, 1_000)]);
-
-                $post = Post::factory()->storyPost()->create([
-                    'story_id' => $story->id,
-                    'day' => 'Day 2',
-                    'order_column' => 5,
-                ]);
-                $post->characterAuthors()->attach(1, ['user_id' => 1, 'word_count' => fake()->numberBetween(100, 1_000)]);
-                $post->characterAuthors()->attach(3, ['user_id' => 3, 'word_count' => fake()->numberBetween(100, 1_000)]);
-
-                $post = Post::factory()->published()->storyPost()->create([
-                    'story_id' => $story->id,
-                    'day' => 'Day 2',
-                    'order_column' => 6,
-                ]);
-                $post->characterAuthors()->attach(1, ['user_id' => 1, 'word_count' => fake()->numberBetween(100, 1_000)]);
-                $post->characterAuthors()->attach(2, ['user_id' => 2, 'word_count' => fake()->numberBetween(100, 1_000)]);
+                $factory->create();
             });
 
         activity()->enableLogging();

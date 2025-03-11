@@ -14,10 +14,10 @@
                 @endforeach
             </x-checkbox.group>
         </x-fieldset>
-
-        <x-fieldset.controls>
-            <x-button type="button" wire:click="save" color="primary">Update</x-button>
-            <x-button type="button" wire:click="dismiss">Cancel</x-button>
-        </x-fieldset.controls>
     </x-form>
+
+    <x-slot name="footer">
+        <x-button type="button" wire:click="save" color="primary">Update</x-button>
+        <x-button type="button" wire:click="close" plain>Cancel</x-button>
+    </x-slot>
 </x-modal>

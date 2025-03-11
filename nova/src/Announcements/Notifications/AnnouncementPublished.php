@@ -22,6 +22,7 @@ class AnnouncementPublished extends PreferenceBasedNotification
         return [
             'announcement_id' => $this->announcement->id,
             'announcement_title' => $this->announcement->title,
+            'announcement_category' => $this->announcement->category,
         ];
     }
 

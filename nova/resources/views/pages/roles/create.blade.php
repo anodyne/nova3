@@ -57,33 +57,27 @@
                 </x-fieldset>
 
                 <x-fieldset>
-                    <x-panel well>
-                        <x-spacing size="sm">
-                            <x-fieldset.legend>Permissions for this role</x-fieldset.legend>
-                            <x-fieldset.description>
+                    <x-panel variant="well">
+                        <x-panel.header title="Permissions for this role">
+                            <x-slot name="description">
                                 These permissions will be added to the role when it’s created.
-                            </x-fieldset.description>
-                        </x-spacing>
+                            </x-slot>
+                        </x-panel.header>
 
-                        <x-spacing size="2xs">
-                            <livewire:roles-manage-permissions />
-                        </x-spacing>
+                        <livewire:roles-manage-permissions />
                     </x-panel>
                 </x-fieldset>
 
                 <x-fieldset>
-                    <x-panel well>
-                        <x-spacing size="sm">
-                            <x-fieldset.legend>Users with this role</x-fieldset.legend>
-                            <x-fieldset.description>
+                    <x-panel variant="well">
+                        <x-panel.header title="Users with this role">
+                            <x-slot name="description">
                                 These users will be assigned this role and have all of the permissions listed below when
                                 it’s created.
-                            </x-fieldset.description>
-                        </x-spacing>
+                            </x-slot>
+                        </x-panel.header>
 
-                        <x-spacing size="2xs">
-                            <livewire:roles-manage-users />
-                        </x-spacing>
+                        <livewire:roles-manage-users />
                     </x-panel>
                 </x-fieldset>
 

@@ -6,22 +6,24 @@ namespace Nova\Forms\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Forms\Data\FormOptions;
-use Nova\Forms\Enums\FormStatus;
 use Nova\Forms\Enums\FormType;
 use Nova\Forms\Events;
 use Nova\Forms\Models\Builders\FormBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Models\Model;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Form extends Model
 {
     use HasFactory;
     use HasPrefixedId;
-    use LogsActivity;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
 
     protected $fillable = [
         'name',
@@ -40,7 +42,7 @@ class Form extends Model
         'fields' => 'array',
         'published_at' => 'datetime',
         'published_fields' => 'array',
-        'status' => FormStatus::class,
+        'status' => BasicStatus::class,
         'type' => FormType::class,
         'options' => FormOptions::class,
     ];
@@ -120,19 +122,11 @@ class Form extends Model
 
     public function getActivitylogOptions(): LogOptions
     {
-        $logOptions = LogOptions::defaults()->logFillable();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name form was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name form was {$eventName}"
-            );
+        return $this->baseActivitylogOptions()
+            ->logExcept([
+                'fields',
+                'published_fields',
+            ]);
     }
 
     public function newEloquentBuilder($query): FormBuilder

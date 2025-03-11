@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Providers;
 
-use Nova\Discussions\Livewire\ComposeDirectMessage;
-use Nova\Discussions\Livewire\ComposeGroupMessage;
 use Nova\Discussions\Livewire\ComposeMessage;
 use Nova\Discussions\Livewire\MessageHistory;
 use Nova\Discussions\Livewire\MessagesList;
 use Nova\Discussions\Models\Discussion;
+use Nova\Discussions\Models\DiscussionMessage;
 use Nova\DomainServiceProvider;
 
 class DiscussionServiceProvider extends DomainServiceProvider
@@ -20,8 +19,14 @@ class DiscussionServiceProvider extends DomainServiceProvider
             'discussions-message-history' => MessageHistory::class,
             'discussions-messages-list' => MessagesList::class,
             'discussions-compose-message-modal' => ComposeMessage::class,
-            'discussions-compose-direct-message-modal' => ComposeDirectMessage::class,
-            'discussions-compose-group-message-modal' => ComposeGroupMessage::class,
+        ];
+    }
+
+    public function morphMaps(): array
+    {
+        return [
+            'discussion' => Discussion::class,
+            'discussion-message' => DiscussionMessage::class,
         ];
     }
 

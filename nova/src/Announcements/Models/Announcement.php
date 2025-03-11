@@ -4,26 +4,33 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Scout\Searchable;
 use Nova\Announcements\Events;
 use Nova\Announcements\Models\Builders\AnnouncementBuilder;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Announcement extends Model
 {
+    use HasFactory;
     use HasPrefixedId;
+    use LogsActivity {
+        LogsActivity::getActivitylogOptions as baseActivitylogOptions;
+    }
     use Searchable;
 
     protected $fillable = [
-        'title',
-        'content',
         'category',
-        'published',
+        'content',
         'published_at',
+        'published',
+        'title',
         'user_id',
     ];
 
@@ -51,6 +58,11 @@ class Announcement extends Model
     public function unreadFor(User $user): bool
     {
         return $this->notifications()->user($user->id)->unread()->count() > 0;
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return $this->baseActivitylogOptions()->logExcept(['content']);
     }
 
     public function newEloquentBuilder($query): AnnouncementBuilder

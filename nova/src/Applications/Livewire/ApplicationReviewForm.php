@@ -7,6 +7,8 @@ namespace Nova\Applications\Livewire;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Nova\Applications\Actions\UpdateApplicationReview;
+use Nova\Applications\Data\ApplicationReviewData;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview;
@@ -28,10 +30,18 @@ class ApplicationReviewForm extends Form
     {
         $this->validate();
 
-        $this->review->update([
-            'result' => $this->result,
-            'comments' => $this->comments,
-        ]);
+        UpdateApplicationReview::run(
+            review: $this->review,
+            data: ApplicationReviewData::from(
+                result: $this->result,
+                comments: $this->comments
+            )
+        );
+
+        activity()
+            ->performedOn($this->application)
+            ->event('vote-'.$this->result->value)
+            ->log('vote-'.$this->result->value);
     }
 
     public function setReview(Application $application, ApplicationReview $review, User $user): void

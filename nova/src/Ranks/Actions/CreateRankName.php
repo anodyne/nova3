@@ -14,6 +14,6 @@ class CreateRankName
 
     public function handle(RankNameData $data): RankName
     {
-        return RankName::create($data->all());
+        return RankName::create($data->toArray());
     }
 }

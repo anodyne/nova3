@@ -47,8 +47,12 @@ class ManagePositions extends Component
     #[Computed]
     public function searchResults(): Collection
     {
+        /** @var User */
+        $user = Auth::user();
+
         return Position::query()
-            ->unless(Auth::user()?->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
+            ->select(['id', 'department_id', 'available', 'name'])
+            ->unless($user?->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
             ->when(filled($this->search) && $this->search === '*', fn (Builder $query) => $query)
             ->get();

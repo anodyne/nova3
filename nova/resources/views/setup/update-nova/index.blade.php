@@ -10,13 +10,13 @@
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
-                <x-panel.danger title="Error updating Nova" icon="tabler-alert-circle">
+                <x-panel.danger title="Error updating Nova" icon="alert-circle">
                     {{ $errorMessage }}
                 </x-panel.danger>
             @endif
 
             <div class="flex items-center justify-center">
-                <x-button.setup type="button" wire:click="update" leading="tabler-refresh">
+                <x-button.setup type="button" wire:click="update" leading="update">
                     <div class="flex items-center gap-3">
                         <div>Run update</div>
                         <x-icon.loader
@@ -32,17 +32,18 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel well>
-                <x-panel class="divide-y divide-gray-950/5">
+            <x-setup::panel well>
+                <x-setup::panel class="divide-y divide-gray-950/5">
                     @include('setup.update-nova._check-updated')
                     @include('setup.update-nova._check-update-settings')
                     @include('setup.update-nova._send-telemetry')
-                </x-panel>
-            </x-panel>
+                    @include('setup.update-nova._database-maintenance')
+                </x-setup::panel>
+            </x-setup::panel>
         </div>
 
         <div class="flex items-center justify-center gap-8">
-            <x-button.setup href="{{ route('admin.dashboard') }}" leading="tabler-circle-arrow-right">
+            <x-button.setup href="{{ route('admin.dashboard') }}" leading="arrow-right-circle">
                 Back to the site
             </x-button.setup>
         </div>

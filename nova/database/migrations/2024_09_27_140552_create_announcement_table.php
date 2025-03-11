@@ -5,8 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Announcements\Models\Announcement;
-use Nova\Users\Models\User;
 
 return new class extends Migration
 {
@@ -15,28 +13,36 @@ return new class extends Migration
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(User::class)->constrained();
-            $table->string('title')->index();
-            $table->string('category')->nullable()->index();
+            $table->foreignId('user_id')->constrained();
+            $table->string('title');
+            $table->string('category')->nullable();
             $table->longText('content');
-            $table->boolean('published')->default(false)->index();
+            $table->boolean('published')->default(false);
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
+
+            $table->index(['published', 'category']);
+            $table->index(['published', 'published_at']);
+            $table->index('category');
+            $table->index('published');
+            $table->fullText('title');
         });
 
         Schema::create('announcement_notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Announcement::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(User::class)->constrained();
-            $table->boolean('is_seen')->default(false)->index();
+            $table->foreignId('announcement_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
+            $table->boolean('is_seen')->default(false);
             $table->timestamps();
 
-            $table->index(['user_id', 'announcement_id'], 'user_announcement_index');
+            $table->index(['announcement_id', 'user_id']);
+            $table->index(['user_id', 'is_seen']);
         });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('announcement_notifications');
         Schema::dropIfExists('announcements');
     }
 };

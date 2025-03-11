@@ -50,6 +50,7 @@ class ManageUsers extends Component
     public function searchResults(): Collection
     {
         return User::query()
+            ->select(['id', 'name', 'status'])
             ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
             ->when(filled($this->search) && $this->search === '*', fn (Builder $query) => $query)
             ->get();

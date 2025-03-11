@@ -8,7 +8,7 @@ class Published extends PostStatus
 {
     public static $name = 'published';
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'primary';
     }

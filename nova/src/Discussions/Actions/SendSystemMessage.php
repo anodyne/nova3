@@ -14,6 +14,6 @@ class SendSystemMessage
 
     public function handle(Discussion $discussion, DiscussionMessageData $data): void
     {
-        $discussion->messages()->create($data->all());
+        $discussion->messages()->create($data->toArray());
     }
 }

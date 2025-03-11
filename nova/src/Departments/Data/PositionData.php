@@ -4,45 +4,35 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
 use Illuminate\Http\Request;
-use Nova\Departments\Enums\PositionStatus;
-use Spatie\LaravelData\Attributes\Validation\Enum;
-use Spatie\LaravelData\Data;
+use Nova\Foundation\Enums\BasicStatus;
 
-class PositionData extends Data
+/**
+ * @method static static from(string $name, ?string $description, int $available, array $tags, BasicStatus $status, int $department_id)
+ */
+readonly class PositionData extends Bag
 {
     public function __construct(
         public string $name,
-
         public ?string $description,
-
-        public ?int $available,
-
-        #[Enum(PositionStatus::class)]
-        public ?PositionStatus $status,
-
+        public int $available,
+        public array $tags,
+        public BasicStatus $status,
         public int $department_id = 0
     ) {}
 
-    public static function fromArray(array $data): static
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        return new self(
-            name: data_get($data, 'name'),
-            description: data_get($data, 'description'),
-            available: data_get($data, 'available'),
-            status: PositionStatus::tryFrom(data_get($data, 'status', PositionStatus::Active->value)),
-            department_id: data_get($data, 'department_id', 0),
-        );
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            name: $request->input('name'),
-            description: $request->input('description'),
-            available: $request->integer('available'),
-            status: PositionStatus::tryFrom($request->input('status', PositionStatus::Active->value)),
-            department_id: $request->integer('department_id'),
-        );
+        return [
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'available' => $request->integer('available'),
+            'tags' => array_map('trim', explode(',', $request->input('tags', ''))),
+            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'department_id' => $request->integer('department_id'),
+        ];
     }
 }

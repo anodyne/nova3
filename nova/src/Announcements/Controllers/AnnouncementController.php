@@ -45,7 +45,7 @@ class AnnouncementController extends Controller
     public function create()
     {
         return CreateAnnouncementResponse::sendWith([
-            'categories' => Announcement::select('category')->distinct()->pluck('category'),
+            'categories' => Announcement::uniqueCategories()->pluck('category'),
         ]);
     }
 
@@ -61,15 +61,17 @@ class AnnouncementController extends Controller
     {
         return EditAnnouncementResponse::sendWith([
             'announcement' => $announcement,
-            'categories' => Announcement::select('category')->distinct()->pluck('category'),
+            'categories' => Announcement::uniqueCategories()->pluck('category'),
         ]);
     }
 
     public function update(UpdateAnnouncementRequest $request, Announcement $announcement)
     {
-        $announcement = UpdateAnnouncement::run($announcement, $request->getAnnouncementData());
+        $announcement = UpdateAnnouncement::run(
+            $announcement,
+            $request->getAnnouncementData()
+        );
 
-        return back()
-            ->notify("{$announcement->title} has been updated");
+        return back()->notify("{$announcement->title} has been updated");
     }
 }

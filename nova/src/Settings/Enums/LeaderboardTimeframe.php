@@ -7,6 +7,7 @@ namespace Nova\Settings\Enums;
 use Filament\Support\Contracts\HasLabel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
+use Nova\Stories\Models\Post;
 
 enum LeaderboardTimeframe: string implements HasLabel
 {
@@ -44,19 +45,19 @@ enum LeaderboardTimeframe: string implements HasLabel
     public function query(Builder $query): Builder
     {
         return match ($this) {
-            self::ThisYear => $query->where('posts.updated_at', '>=', Date::now()->startOfYear()),
+            self::ThisYear => $query->where(Post::column('updated_at'), '>=', Date::now()->startOfYear()),
             self::LastYear => $query->where(function (Builder $q): Builder {
-                return $q->where('posts.updated_at', '>=', Date::now()->subYear()->startOfYear())
-                    ->where('posts.updated_at', '<=', Date::now()->subYear()->endOfYear());
+                return $q->where(Post::column('updated_at'), '>=', Date::now()->subYear()->startOfYear())
+                    ->where(Post::column('updated_at'), '<=', Date::now()->subYear()->endOfYear());
             }),
-            self::ThisMonth => $query->where('posts.updated_at', '>=', Date::now()->startOfMonth()),
+            self::ThisMonth => $query->where(Post::column('updated_at'), '>=', Date::now()->startOfMonth()),
             self::LastMonth => $query->where(function (Builder $q): Builder {
-                return $q->where('posts.updated_at', '>=', Date::now()->subMonth()->startOfMonth())
-                    ->where('posts.updated_at', '<=', Date::now()->subMonth()->endOfMonth());
+                return $q->where(Post::column('updated_at'), '>=', Date::now()->subMonth()->startOfMonth())
+                    ->where(Post::column('updated_at'), '<=', Date::now()->subMonth()->endOfMonth());
             }),
-            self::Days7 => $query->where('posts.updated_at', '>=', Date::now()->subDays(7)->startOfDay()),
-            self::Days14 => $query->where('posts.updated_at', '>=', Date::now()->subDays(14)->startOfDay()),
-            self::Days30 => $query->where('posts.updated_at', '>=', Date::now()->subDays(30)->startOfDay()),
+            self::Days7 => $query->where(Post::column('updated_at'), '>=', Date::now()->subDays(7)->startOfDay()),
+            self::Days14 => $query->where(Post::column('updated_at'), '>=', Date::now()->subDays(14)->startOfDay()),
+            self::Days30 => $query->where(Post::column('updated_at'), '>=', Date::now()->subDays(30)->startOfDay()),
             default => $query,
         };
     }

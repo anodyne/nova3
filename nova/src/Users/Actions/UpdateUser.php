@@ -15,7 +15,7 @@ class UpdateUser
     public function handle(User $user, UserData $data): User
     {
         return tap($user)
-            ->update($data->all())
+            ->update($data->toArray())
             ->refresh();
     }
 }

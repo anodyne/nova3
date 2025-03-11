@@ -4,47 +4,24 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Providers;
 
-use Livewire\Livewire;
 use Nova\DomainServiceProvider;
 use Nova\Stories\Actions\PruneAbandonedPosts;
 use Nova\Stories\Events\PostCreating;
 use Nova\Stories\Events\PostPublished;
 use Nova\Stories\Listeners\SendPostPublishedNotificationToDiscord;
 use Nova\Stories\Listeners\SetDefaultContentRatings;
-use Nova\Stories\Livewire\PostsList;
-use Nova\Stories\Livewire\PostsTimeline;
-use Nova\Stories\Livewire\ReadPostModal;
-use Nova\Stories\Livewire\RecentPublishedPostsList;
-use Nova\Stories\Livewire\SelectPostPositionModal;
-use Nova\Stories\Livewire\Steps\ComposePostStep;
-use Nova\Stories\Livewire\Steps\PublishPostStep;
-use Nova\Stories\Livewire\Steps\SetupPostStep;
-use Nova\Stories\Livewire\WritePostWizard;
+use Nova\Stories\Livewire;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Spotlight\ViewWritingDashboard;
 use Nova\Stories\Spotlight\WritePost;
-use Nova\Stories\View\Components\WritePostWizardLayout;
-use Nova\Stories\Wizard\StepSynth;
 
 class PostServiceProvider extends DomainServiceProvider
 {
-    public function bladeComponents(): array
-    {
-        return [
-            'write-post-wizard-layout' => WritePostWizardLayout::class,
-        ];
-    }
-
     public function consoleCommands(): array
     {
         return [
             PruneAbandonedPosts::class,
         ];
-    }
-
-    public function domainBooted(): void
-    {
-        Livewire::propertySynthesizer(StepSynth::class);
     }
 
     public function eventListeners(): array
@@ -62,15 +39,22 @@ class PostServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
-            'posts-recent-published-posts-list' => RecentPublishedPostsList::class,
-            'posts-list' => PostsList::class,
-            'posts-timeline' => PostsTimeline::class,
-            'posts-read-post-modal' => ReadPostModal::class,
-            'posts-select-post-position-modal' => SelectPostPositionModal::class,
-            'posts-write' => WritePostWizard::class,
-            'posts-wizard-step-setup' => SetupPostStep::class,
-            'posts-wizard-step-compose' => ComposePostStep::class,
-            'posts-wizard-step-publish' => PublishPostStep::class,
+            'posts-authors' => Livewire\PostAuthors::class,
+            'posts-authors-editor' => Livewire\PostAuthorsEditor::class,
+            'posts-composer' => Livewire\PostComposer::class,
+            'posts-details' => Livewire\PostDetails::class,
+            'posts-position' => Livewire\PostPosition::class,
+            'posts-position-editor' => Livewire\PostPositionEditor::class,
+            'posts-publish' => Livewire\PostPublish::class,
+            'posts-ratings' => Livewire\PostRatings::class,
+            'posts-ratings-editor' => Livewire\PostRatingsEditor::class,
+            'posts-summary' => Livewire\PostSummary::class,
+            'posts-summary-editor' => Livewire\PostSummaryEditor::class,
+            'posts-setup' => Livewire\PostSetup::class,
+            'posts-draft-posts-list' => Livewire\DraftPostsList::class,
+            'posts-recent-published-posts-list' => Livewire\RecentPublishedPostsList::class,
+            'posts-list' => Livewire\PostsList::class,
+            'posts-timeline' => Livewire\PostsTimeline::class,
         ];
     }
 

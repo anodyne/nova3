@@ -39,7 +39,7 @@
                         name="tags"
                     >
                         <x-input.textarea rows="2">
-                            {{ old('tags', $department->tags) }}
+                            {{ old('tags', $department->tags_as_string) }}
                         </x-input.textarea>
                     </x-fieldset.field>
                 </x-fieldset.field-group>

@@ -8,12 +8,12 @@ class Upcoming extends StoryStatus
 {
     public static $name = 'upcoming';
 
-    public function color(): string
+    public function getColor(): string
     {
         return 'info';
     }
 
-    public function description(): string
+    public function getDescription(): string
     {
         return 'Story or story arc that will happen in the future';
     }

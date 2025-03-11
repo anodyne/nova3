@@ -1,6 +1,9 @@
+@use('Illuminate\Support\Number')
+@use('Nova\Foundation\Helpers\DateHelper')
+
 <x-admin-layout>
-    <div x-data="{ showContentWarning: @js($post->show_content_warning) }">
-        <x-spacing class="space-y-8" constrained-lg>
+    <div x-data="{ showContentWarning: @js($post->show_content_warning_for_admin_site) }">
+        <x-spacing class="space-y-8">
             <div>
                 <div class="flex justify-between gap-x-8">
                     <div>
@@ -42,24 +45,16 @@
                         </span>
                     </div>
 
-                    <div class="flex items-center gap-x-1.5 text-gray-500">
-                        <span>Published</span>
-                        <span class="font-medium text-gray-600 dark:text-gray-400">
-                            {{ format_date($post->published_at) }}
-                        </span>
-                    </div>
+                    @if ($post->is_published)
+                        <x-metadata
+                            label="Published"
+                            :value="DateHelper::formatDate($post->published_at)"
+                        ></x-metadata>
+                    @endif
 
-                    <div class="flex items-center gap-x-1.5 text-gray-500">
-                        <span>Reading time</span>
-                        <span class="font-medium text-gray-600 dark:text-gray-400">{{ $post->reading_time }}</span>
-                    </div>
+                    <x-metadata label="Reading time" :value="$post->reading_time"></x-metadata>
 
-                    <div class="flex items-center gap-x-1.5 text-gray-500">
-                        <span>Words</span>
-                        <span class="font-medium text-gray-600 dark:text-gray-400">
-                            {{ number_format($post->word_count) }}
-                        </span>
-                    </div>
+                    <x-metadata label="Words" :value="Number::format($post->word_count)"></x-metadata>
                 </div>
             </div>
 
@@ -69,30 +64,15 @@
                         class="relative flex flex-col space-y-3 text-lg md:flex-row md:items-center md:space-x-8 md:space-y-0"
                     >
                         @if ($post->postType->fields->location->enabled && filled($post->location))
-                            <div class="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-400">
-                                <div class="text-gray-400 dark:text-gray-500">
-                                    <x-icon name="location" size="lg"></x-icon>
-                                </div>
-                                <div>{{ $post->location }}</div>
-                            </div>
+                            <x-metadata icon="location" :value="$post->location"></x-metadata>
                         @endif
 
                         @if ($post->postType->fields->day->enabled && filled($post->day))
-                            <div class="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-400">
-                                <div class="text-gray-400 dark:text-gray-500">
-                                    <x-icon name="calendar" size="lg"></x-icon>
-                                </div>
-                                <div>{{ $post->day }}</div>
-                            </div>
+                            <x-metadata icon="calendar" :value="$post->day"></x-metadata>
                         @endif
 
                         @if ($post->postType->fields->time->enabled && filled($post->time))
-                            <div class="flex items-center gap-2 font-medium text-gray-600 dark:text-gray-400">
-                                <div class="text-gray-400 dark:text-gray-500">
-                                    <x-icon name="clock" size="lg"></x-icon>
-                                </div>
-                                <div>{{ $post->time }}</div>
-                            </div>
+                            <x-metadata icon="clock" :value="$post->time"></x-metadata>
                         @endif
                     </div>
                 @endif
@@ -124,8 +104,8 @@
                     {!! $post->content !!}
                 </div>
 
-                <x-panel well>
-                    <x-panel.well.header title="Authors"></x-panel.well.header>
+                <x-panel variant="well">
+                    <x-panel.header title="Authors"></x-panel.header>
 
                     <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
                         @if ($post->characterAuthors->count() > 0)
@@ -169,46 +149,49 @@
                 </x-panel>
             </div>
 
-            <div class="p-16 text-center" x-show="showContentWarning" x-cloak>
-                <div class="flex items-center justify-center space-x-4">
+            <div class="pb-16" x-show="showContentWarning" x-cloak>
+                <div class="flex items-center gap-x-3">
                     <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
                     <h1 class="block text-4xl font-extrabold leading-loose tracking-tight text-danger-600">Warning</h1>
-                    <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
                 </div>
 
-                <p class="mb-4 text-lg font-medium text-gray-900 dark:text-gray-100">
-                    This post contains mature content that may not be suitable for all audiences.
-                </p>
+                <div class="prose mb-8 dark:prose-invert">
+                    <p>
+                        This post includes mature content that may not be suitable for all audiences and could be
+                        sensitive or triggering for some readers.
+                    </p>
 
-                <ul class="mb-4 space-y-2 font-medium text-gray-600 dark:text-gray-400">
-                    @if ($post->rating_language >= settings('ratings.language.warning_threshold'))
-                        <li>{{ settings('ratings.language.warning_threshold_message') }}</li>
-                    @endif
+                    <ul>
+                        @if ($post->rating_language->value >= $post->contentRatingThreshold('language', forUser: true))
+                            <li>{{ settings('ratings.language.warningThresholdMessage') }}</li>
+                        @endif
 
-                    @if ($post->rating_sex >= settings('ratings.sex.warning_threshold'))
-                        <li>{{ settings('ratings.sex.warning_threshold_message') }}</li>
-                    @endif
+                        @if ($post->rating_sex->value >= $post->contentRatingThreshold('sex', forUser: true))
+                            <li>{{ settings('ratings.sex.warningThresholdMessage') }}</li>
+                        @endif
 
-                    @if ($post->rating_violence >= settings('ratings.violence.warning_threshold'))
-                        <li>{{ settings('ratings.violence.warning_threshold_message') }}</li>
-                    @endif
-                </ul>
+                        @if ($post->rating_violence->value >= $post->contentRatingThreshold('violence', forUser: true))
+                            <li>{{ settings('ratings.violence.warningThresholdMessage') }}</li>
+                        @endif
+                    </ul>
 
-                <p class="mb-8 text-sm font-medium text-gray-600 dark:text-gray-400">
-                    By continuing, you agree that you are of suitable age for this content.
-                </p>
+                    <p>By proceeding, you acknowledge the nature of this content.</p>
+                </div>
 
                 <x-button type="button" color="neutral" x-on:click="showContentWarning = false">Continue</x-button>
 
                 @if (filled($post->summary))
-                    <div class="mx-auto mt-12 max-w-2xl">
-                        <hr class="mx-auto mb-12 max-w-lg border-gray-200 dark:border-gray-800" />
+                    <div class="mt-12 max-w-2xl">
+                        <hr class="mb-12 max-w-lg border-gray-200 dark:border-gray-800" />
 
-                        <x-h3 class="text-left">
-                            The following summary has been provided for this {{ str($post->postType->name)->lower() }}:
-                        </x-h3>
+                        <div class="prose dark:prose-invert">
+                            <h4>
+                                The following summary has been provided for this
+                                {{ str($post->postType->name)->lower() }}:
+                            </h4>
 
-                        <p class="mt-4 text-left text-base/8">{{ $post->summary }}</p>
+                            <p>{!! $post->summary !!}</p>
+                        </div>
                     </div>
                 @endif
             </div>

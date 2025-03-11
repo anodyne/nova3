@@ -13,37 +13,56 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 use Nova\Addons\Actions\BustActiveAddonsCache;
 use Nova\Addons\Actions\DeleteAddon;
 use Nova\Addons\Actions\InstallAddon;
-use Nova\Addons\Enums\AddonStatus;
+use Nova\Addons\Actions\UpdateAddonSettings;
+use Nova\Addons\Data\AddonSettings;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Actions\TextAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use Spatie\Activitylog\Facades\LogBatch;
+use Spatie\Activitylog\Models\Activity;
 
 class AddonsList extends TableComponent
 {
     public function table(Table $table): Table
     {
         return $table
-            ->query(Addon::query())
+            ->query(
+                Addon::query()
+                    ->select([
+                        'id',
+                        'name',
+                        'version',
+                        'location',
+                        'type',
+                        'status',
+                        'repository',
+                    ])
+            )
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
                     ->description(fn (Addon $record): ?Htmlable => $record->has_update ? new HtmlString('<strong class="text-warning-600 dark:text-warning-500 font-medium text-xs">Version <span class="tabular-nums">'.$record->latest_version.'</span> is available</strong>') : null)
-                    ->searchable(),
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor('name', $search)),
                 TextColumn::make('version')
                     ->toggleable(),
                 TextColumn::make('location')
                     ->prefix('addons/')
-                    ->searchable()
+                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor('location', $search))
                     ->toggleable(),
                 TextColumn::make('type')
                     ->badge()
@@ -65,10 +84,92 @@ class AddonsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Addon $record): string => route('admin.addons.edit', $record)),
+                        TextAction::make('textNotice')
+                            ->icon(iconName('edit-off'))
+                            ->label('This add-on was installed from a QuickInstall file and cannot be edited')
+                            ->visible(fn (Addon $record): bool => filled($record->repository?->id)),
                     ])->authorizeAny(['view', 'update'])->divided(),
 
                     ActionGroup::make([
+                        TimelineAction::make()
+                            ->authorize('view')
+                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                                $timeline
+                                    ->itemIcons([
+                                        'installed' => icon('add'),
+                                        'ran-append' => iconName('image-add'),
+                                        'ran-install' => iconName('bolt'),
+                                        'ran-migrations' => iconName('database'),
+                                        'ran-migrations-rollback' => iconName('database-off'),
+                                        'ran-replace' => iconName('image-alert'),
+                                        'ran-uninstall' => iconName('bolt-off'),
+                                    ])
+                                    ->itemIconColors([
+                                        'installed' => 'success',
+                                        'ran-install' => 'primary',
+                                        'ran-migrations' => 'success',
+                                        'ran-migrations-rollback' => 'warning',
+                                        'ran-uninstall' => 'danger',
+                                    ])
+                                    ->attributeValues([
+                                        'status' => fn ($value) => strtolower($value->getLabel() ?? ''),
+                                    ])
+                                    ->eventDescriptions([
+                                        'ran-append' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'rank image append',
+                                        ]),
+                                        'ran-install' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'install',
+                                        ]),
+                                        'ran-migrations' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'database migrations',
+                                        ]),
+                                        'ran-migrations-rollback' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'database migrations rollback',
+                                        ]),
+                                        'ran-replace' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'rank image replacement',
+                                        ]),
+                                        'ran-uninstall' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'uninstall',
+                                        ]),
+                                        'ran-update' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                            'name' => $activity->causer->name,
+                                            'script' => 'update',
+                                        ]),
+                                    ])
+                                    ->modelLabel(Addon::class, 'add-on');
+                            }),
+                    ])->authorize('view')->divided(),
+
+                    ActionGroup::make([
+                        Action::make('addonSettings')
+                            ->authorize('update')
+                            ->slideOver()
+                            ->icon(iconName('settings'))
+                            ->modalWidth('lg')
+                            ->modalIcon(null)
+                            ->modalHeading(fn (Addon $record): string => $record->name.' add-on settings')
+                            ->modalDescription(null)
+                            ->fillForm(fn (Addon $record): ?array => $record->settings?->settings ?? [])
+                            ->form(fn (Addon $record): ?array => $record->getAddonClass()->settingsForm())
+                            ->action(function (Addon $record, array $data) {
+                                $settingsData = new AddonSettings(settings: $data);
+
+                                UpdateAddonSettings::run($record, $settingsData);
+
+                                Notification::make()->success()
+                                    ->title('Add-on settings have been updated')
+                                    ->send();
+                            }),
                         Action::make('openActionsPanel')
+                            ->authorize('runActions')
                             ->slideOver()
                             ->icon(iconName('automation'))
                             ->modalWidth('xl')
@@ -82,7 +183,7 @@ class AddonsList extends TableComponent
                                 'action' => $action,
                             ]))
                             ->registerModalActions($this->actionPanelActions()),
-                    ])->authorize('runActions')->divided(),
+                    ])->authorizeAny(['runActions', 'updateSettings'])->divided(),
 
                     ActionGroup::make([
                         Action::make('goToUpdate')
@@ -101,7 +202,7 @@ class AddonsList extends TableComponent
             ])
             ->filters([
                 SelectFilter::make('type')->options(AddonType::class),
-                SelectFilter::make('status')->options(AddonStatus::class),
+                SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->headerActions([
                 Action::make('install')
@@ -115,7 +216,9 @@ class AddonsList extends TableComponent
                     ->modalHeading('')
                     ->modalDescription(null)
                     ->modalSubmitActionLabel('Install')
-                    ->modalContent(fn (): View => view('pages.add-ons.pending-addons'))
+                    ->modalContent(fn (Action $action): View => view('pages.add-ons.pending-addons', [
+                        'action' => $action,
+                    ]))
                     ->form([
                         CheckboxList::make('addons')
                             ->options(Addon::getInstallableAddons())
@@ -163,7 +266,7 @@ class AddonsList extends TableComponent
                     }),
             ])
             ->emptyStateIcon(iconName('puzzle'))
-            ->emptyStateHeading('No add-on found')
+            ->emptyStateHeading('No add-ons found')
             ->emptyStateDescription('Add-ons allow you to personalize and extend Nova to work and behave the way you want.')
             ->emptyStateActions([
                 CreateAction::make()
@@ -184,11 +287,15 @@ class AddonsList extends TableComponent
                 ->size(ActionSize::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
+                    LogBatch::startBatch();
+
                     $record->runScript('install');
 
-                    $record->update(['status' => AddonStatus::Active]);
+                    $record->update(['status' => BasicStatus::Active]);
 
                     BustActiveAddonsCache::run();
+
+                    LogBatch::endBatch();
 
                     Notification::make()->success()
                         ->title('Extension has been installed')
@@ -199,11 +306,15 @@ class AddonsList extends TableComponent
                 ->size(ActionSize::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record) {
+                    LogBatch::startBatch();
+
                     $record->runScript('uninstall');
 
-                    $record->update(['status' => AddonStatus::Inactive]);
+                    $record->update(['status' => BasicStatus::Inactive]);
 
                     BustActiveAddonsCache::run();
+
+                    LogBatch::endBatch();
 
                     Notification::make()->success()
                         ->title('Extension has been uninstalled')

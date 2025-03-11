@@ -60,4 +60,19 @@ class ArrMacros
     //            return $enumClass::tryFrom($this->input($key));
     //        };
     //    }
+
+    public static function randomWeightedElement()
+    {
+        return function (array $array) {
+            $rand = mt_rand(1, (int) array_sum($array));
+
+            foreach ($array as $key => $value) {
+                $rand -= $value;
+
+                if ($rand <= 0) {
+                    return $key;
+                }
+            }
+        };
+    }
 }

@@ -15,6 +15,11 @@ class RemoveUserAvatar
     {
         if ($remove) {
             $user->clearMediaCollection('avatar');
+
+            activity()
+                ->performedOn($user)
+                ->event('removed avatar')
+                ->log('removed avatar');
         }
 
         return $user->refresh();

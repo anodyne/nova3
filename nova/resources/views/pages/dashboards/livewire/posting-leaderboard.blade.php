@@ -7,13 +7,15 @@
             <x-h2>{{ $settings->title }}</x-h2>
         </div>
 
-        <div class="flex items-center gap-x-2">
+        <div class="flex items-center gap-x-2 text-sm">
             @if ($settings->userSelectableTimeframe)
-                <x-select wire:model.live="timeframe">
-                    @foreach (LeaderboardTimeframe::cases() as $timeframe)
-                        <option value="{{ $timeframe->value }}">{{ $timeframe->getLabel() }}</option>
+                <x-select.subtle wire:model.live="timeframe">
+                    @foreach (LeaderboardTimeframe::cases() as $t)
+                        <option value="{{ $t->value }}">
+                            {{ $t->getLabel() }}
+                        </option>
                     @endforeach
-                </x-select>
+                </x-select.subtle>
             @endif
         </div>
     </div>

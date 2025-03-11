@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Nova\Addons\BaseAddon;
 use Nova\Addons\Data\AddonRepository;
 use Nova\Addons\Data\AddonSettings;
-use Nova\Addons\Enums\AddonStatus;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Events;
 use Nova\Addons\Models\Builders\AddonBuilder;
 use Nova\Foundation\Concerns\ChecksAddonVersion;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Models\Model;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class Addon extends Model
@@ -28,14 +28,22 @@ class Addon extends Model
     use LogsActivity;
 
     protected $fillable = [
-        'name', 'location', 'version', 'credits', 'status', 'preview', 'settings', 'type', 'repository',
+        'credits',
+        'location',
+        'name',
+        'preview',
+        'repository',
+        'settings',
+        'status',
+        'type',
+        'version',
     ];
 
     protected $casts = [
-        'status' => AddonStatus::class,
-        'settings' => AddonSettings::class,
-        'type' => AddonType::class,
         'repository' => AddonRepository::class,
+        'settings' => AddonSettings::class,
+        'status' => BasicStatus::class,
+        'type' => AddonType::class,
     ];
 
     protected $dispatchesEvents = [
@@ -44,32 +52,22 @@ class Addon extends Model
         'updated' => Events\AddonUpdated::class,
     ];
 
+    public function hasAddonClass(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => class_exists('Addons\\'.$this->location.'\\Addon')
+        );
+    }
+
     public function getAddonClass(): ?BaseAddon
     {
-        $addonClass = 'Addons\\'.$this->location.'\\Addon';
-
-        if (! class_exists($addonClass)) {
+        if (! $this->has_addon_class) {
             return null;
         }
 
+        $addonClass = 'Addons\\'.$this->location.'\\Addon';
+
         return new $addonClass;
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        $logOptions = LogOptions::defaults()->logFillable();
-
-        if (app('impersonate')->isImpersonating()) {
-            return $logOptions->useLogName('impersonation')
-                ->setDescriptionForEvent(
-                    fn (string $eventName): string => ":subject.name add-on was {$eventName} during impersonation by ".app('impersonate')->getImpersonator()->name
-                );
-        }
-
-        return $logOptions
-            ->setDescriptionForEvent(
-                fn (string $eventName): string => ":subject.name add-on was {$eventName}"
-            );
     }
 
     public function newEloquentBuilder($query): AddonBuilder
@@ -101,9 +99,7 @@ class Addon extends Model
     {
         $addonClass = $this->getAddonClass();
 
-        if (method_exists($addonClass, $name)) {
-            $addonClass->{$name}();
-        }
+        $addonClass->runScript($name);
     }
 
     public function addonVersionCacheKey(): string

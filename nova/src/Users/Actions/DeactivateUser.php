@@ -18,9 +18,9 @@ class DeactivateUser
             $user->status->transitionTo(Inactive::class);
 
             activity()
-                ->causedBy(auth()->user())
                 ->performedOn($user)
-                ->log(':subject.name was deactivated');
+                ->event('deactivated')
+                ->log('deactivated');
         }
 
         return $user->refresh();

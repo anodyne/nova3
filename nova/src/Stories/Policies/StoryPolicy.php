@@ -34,11 +34,16 @@ class StoryPolicy
             : $this->deny();
     }
 
-    public function update(User $user, Story $story): Response
+    public function updateAny(User $user): Response
     {
         return $user->isAbleTo('story.update')
             ? $this->allow()
             : $this->deny();
+    }
+
+    public function update(User $user, Story $story): Response
+    {
+        return $this->updateAny($user);
     }
 
     public function updateDates(User $user, Story $story): Response
@@ -48,11 +53,16 @@ class StoryPolicy
             : $this->deny();
     }
 
-    public function delete(User $user, Story $story): Response
+    public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('story.delete')
             ? $this->allow()
             : $this->deny();
+    }
+
+    public function delete(User $user, Story $story): Response
+    {
+        return $this->deleteAny($user);
     }
 
     public function duplicate(User $user, Story $story): Response
@@ -70,5 +80,12 @@ class StoryPolicy
     public function forceDelete(User $user, Story $story): Response
     {
         return $this->denyWithStatus(418);
+    }
+
+    public function manage(User $user): Response
+    {
+        return $this->create($user)->allowed() || $this->updateAny($user)->allowed() || $this->deleteAny($user)->allowed()
+            ? $this->allow()
+            : $this->deny();
     }
 }

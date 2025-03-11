@@ -20,17 +20,19 @@
     <livewire:themes-list />
 
     <div class="mx-auto mt-16 w-full max-w-2xl">
-        <x-panel.primary icon="paint-brush">
-            <div class="flex-1 md:flex md:justify-between">
-                <p class="text-base md:text-sm">
-                    Looking for more themes for your game? Check out the Nova Add-on Exchange!
-                </p>
-                <p class="mt-3 shrink-0 text-base md:ml-6 md:mt-0 md:text-sm">
-                    <x-button :href="external_content('exchange-link')" target="_blank" color="primary" text>
-                        Go &rarr;
-                    </x-button>
-                </p>
-            </div>
+        <x-panel.primary icon="paint-brush" icon-size="xl">
+            <x-slot name="description">
+                <div class="flex-1 md:flex md:justify-between">
+                    <p class="text-base md:text-sm">
+                        Looking for more themes for your game? Check out the Nova Add-on Exchange!
+                    </p>
+                    <p class="mt-3 shrink-0 text-base md:ml-6 md:mt-0 md:text-sm">
+                        <x-button :href="external_content('exchange-link')" target="_blank" color="primary" text>
+                            Go &rarr;
+                        </x-button>
+                    </p>
+                </div>
+            </x-slot>
         </x-panel.primary>
     </div>
 </x-admin-layout>

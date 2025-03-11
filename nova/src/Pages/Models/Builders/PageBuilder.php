@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Nova\Pages\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Pages\Enums\PageVerb;
 
 class PageBuilder extends Builder
 {
+    use QueriesStatus;
+
     public function advanced(): self
     {
         return $this->whereNotNull('resource');

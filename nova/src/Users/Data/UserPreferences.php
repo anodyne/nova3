@@ -4,11 +4,36 @@ declare(strict_types=1);
 
 namespace Nova\Users\Data;
 
-use Spatie\LaravelData\Data;
+use Bag\Bag;
+use Nova\Stories\Enums\ContentRatingValue;
 
-class UserPreferences extends Data
+/**
+ * @method static static from(?string $appearance, ?string $timezone, ?int $languageContentRatingWarningThreshold, ?int $sexContentRatingWarningThreshold, ?int $violenceContentRatingWarningThreshold)
+ */
+readonly class UserPreferences extends Bag
 {
     public function __construct(
-        public ?string $timezone
+        public ?string $appearance,
+        public ?string $timezone,
+        public ContentRatingValue $languageContentRatingWarningThreshold,
+        public ContentRatingValue $sexContentRatingWarningThreshold,
+        public ContentRatingValue $violenceContentRatingWarningThreshold,
     ) {}
+
+    public function hasContentRatingPreferences(): bool
+    {
+        $truthyValues = [
+            ContentRatingValue::Level0,
+            ContentRatingValue::Level1,
+            ContentRatingValue::Level2,
+            ContentRatingValue::Level3,
+        ];
+
+        return match (true) {
+            in_array($this->languageContentRatingWarningThreshold, $truthyValues) => true,
+            in_array($this->sexContentRatingWarningThreshold, $truthyValues) => true,
+            in_array($this->violenceContentRatingWarningThreshold, $truthyValues) => true,
+            default => false,
+        };
+    }
 }

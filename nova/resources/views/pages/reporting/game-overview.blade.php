@@ -23,7 +23,7 @@
             />
         </div>
 
-        <x-panel>
+        <x-panel variant="card">
             <x-spacing size="md">
                 <x-h5>{{ $settings->timeframe->getStatsLabel() }}</x-h5>
 
@@ -76,7 +76,7 @@
             </x-spacing>
         </x-panel>
 
-        <x-spacing width="md">
+        <x-spacing>
             <div class="grid gap-8 lg:grid-cols-3">
                 <div class="flex gap-x-3">
                     <div class="shrink-0">

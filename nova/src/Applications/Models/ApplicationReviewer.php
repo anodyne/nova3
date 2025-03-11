@@ -6,22 +6,24 @@ namespace Nova\Applications\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Applications\Enums\ReviewerType;
 use Nova\Applications\Models\Builders\ApplicationReviewerBuilder;
-use Nova\Applications\Models\Scopes\ActiveUsers;
+use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Models\Model;
+use Nova\Users\Models\Scopes\ActiveUsers;
 use Nova\Users\Models\User;
 
 #[ScopedBy(ActiveUsers::class)]
 class ApplicationReviewer extends Model
 {
     use HasFactory;
+    use LogsActivity;
 
     protected $fillable = [
-        'user_id',
-        'type',
         'conditions',
+        'type',
+        'user_id',
     ];
 
     protected $casts = [

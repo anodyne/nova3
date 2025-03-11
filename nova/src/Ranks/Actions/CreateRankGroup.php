@@ -15,6 +15,8 @@ class CreateRankGroup
 
     public function handle(RankGroupData $data): RankGroup
     {
-        return RankGroup::create(Arr::except($data->toArray(), 'base_image'));
+        return RankGroup::create(
+            Arr::except($data->toArray(), 'base_image')
+        );
     }
 }

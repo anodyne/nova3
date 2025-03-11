@@ -6,7 +6,7 @@
     $count = $records->count();
 @endphp
 
-<x-filament.modal-content icon="trash">
+<x-filament.modal-content :$action>
     <x-slot name="title">Delete {{ $count }} selected {{ str('post type')->plural($count) }}?</x-slot>
 
     <p>Are you sure you want to delete the following post types?</p>
@@ -27,9 +27,11 @@
 
     @if ($originalCount !== $count)
         <x-panel.warning>
-            You selected {{ $originalCount }} {{ str('post type')->plural($originalCount) }}, but only {{ $count }}
-            {{ trans_choice('post type is|post types are', $count) }} eligible for deletion. We will only delete the
-            {{ $count }} {{ str('post type')->plural($count) }} and ignore the others.
+            <x-slot name="description">
+                You selected {{ $originalCount }} {{ str('post type')->plural($originalCount) }}, but only
+                {{ $count }} {{ trans_choice('post type is|post types are', $count) }} eligible for deletion. We will
+                only delete the {{ $count }} {{ str('post type')->plural($count) }} and ignore the others.
+            </x-slot>
         </x-panel.warning>
     @endif
 </x-filament.modal-content>

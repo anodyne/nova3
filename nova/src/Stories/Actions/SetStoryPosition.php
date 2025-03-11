@@ -16,7 +16,7 @@ class SetStoryPosition
     {
         if ($data->hasPositionChange) {
             if ($data->direction && $data->neighbor) {
-                $method = 'move'.ucfirst($data->direction);
+                $method = 'move'.ucfirst($data->direction->value);
 
                 $story->$method($data->neighbor);
             }

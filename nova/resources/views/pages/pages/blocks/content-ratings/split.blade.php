@@ -1,3 +1,5 @@
+@use('Nova\Stories\Enums\ContentRatingValue')
+
 <div
     @class([
         '@container',
@@ -42,7 +44,7 @@
                                         <dd
                                             class="w-12 text-center font-[family-name:--font-header] text-5xl font-semibold tracking-tight text-gray-900 dark:text-white"
                                         >
-                                            {{ $rating->rating }}
+                                            {{ $rating->rating->value }}
                                         </dd>
                                         <dt class="text-sm/6 text-gray-600 dark:text-white/60">
                                             <p class="font-semibold dark:text-white">{{ ucfirst($ratingType) }}</p>

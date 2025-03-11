@@ -45,9 +45,9 @@
                     @foreach (Story::getStatuses() as $status)
                         <x-radio.field id="status" name="status">
                             <x-fieldset.label :for="$status->name()">
-                                {{ $status->displayName() }}
+                                {{ $status->getLabel() }}
                             </x-fieldset.label>
-                            <x-fieldset.description>{{ $status->description() }}</x-fieldset.description>
+                            <x-fieldset.description>{{ $status->getDescription() }}</x-fieldset.description>
 
                             <x-radio
                                 name="status"

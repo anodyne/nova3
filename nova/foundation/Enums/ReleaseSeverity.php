@@ -19,6 +19,8 @@ enum ReleaseSeverity: string implements HasColor, HasLabel
 
     case Security = 'security';
 
+    case Dependency = 'dependency';
+
     public function getColor(): string|array|null
     {
         return match ($this) {

@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Bag\Attributes\MapInputName;
+use Bag\Attributes\StripExtraParameters;
+use Bag\Bag;
+use Bag\Mappers\SnakeCase;
 
-#[MapInputName(SnakeCaseMapper::class)]
-class Email extends Data implements Arrayable
+/**
+ * @method static static from(?string $subjectPrefix, ?string $replyTo, ?string $imagePath)
+ */
+#[MapInputName(SnakeCase::class)]
+#[StripExtraParameters]
+readonly class Email extends Bag
 {
     public function __construct(
         public ?string $subjectPrefix,

@@ -1,3 +1,5 @@
+@use('Nova\Stories\Enums\ContentRatingValue')
+
 <div
     @class([
         '@container',
@@ -56,15 +58,15 @@
                         @class([
                             'nv-ratings-card rounded-xl ring-1 ring-inset',
                             match ($rating->rating) {
-                                1 => match ($dark) {
+                                ContentRatingValue::Level1 => match ($dark) {
                                     true => 'nv-ratings-card-1-dark bg-yellow-950 text-yellow-300 ring-yellow-800',
                                     default => 'nv-ratings-card-1-light bg-yellow-50 text-yellow-700 ring-yellow-200'
                                 },
-                                2 => match ($dark) {
+                                ContentRatingValue::Level2 => match ($dark) {
                                     true => 'nv-ratings-card-2-dark bg-orange-950 text-orange-300 ring-orange-800',
                                     default => 'nv-ratings-card-2-light bg-orange-50 text-orange-700 ring-orange-200'
                                 },
-                                3 => match ($dark) {
+                                ContentRatingValue::Level3 => match ($dark) {
                                     true => 'nv-ratings-card-3-dark bg-red-950 text-red-300 ring-red-800',
                                     default => 'nv-ratings-card-3-light bg-red-50 text-red-700 ring-red-200'
                                 },
@@ -77,7 +79,7 @@
                     >
                         <x-spacing size="md" class="nv-ratings-card-rating-wrapper flex items-center gap-x-4">
                             <h3 class="nv-ratings-card-rating font-[family-name:--font-header] text-5xl font-bold">
-                                {{ $rating->rating }}
+                                {{ $rating->rating->value }}
                             </h3>
 
                             <div class="nv-ratings-card-content text-sm/6">

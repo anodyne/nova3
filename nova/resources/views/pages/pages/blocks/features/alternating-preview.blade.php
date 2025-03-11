@@ -44,7 +44,7 @@
                     >
                         @if (isset($feature['image']) && filled($feature['image']))
                             <img
-                                src="{{ asset('media/'.$feature['image']) }}"
+                                src="{{ Storage::disk('media-pages')->url($feature['image']) }}"
                                 alt=""
                                 width="2432"
                                 height="1442"

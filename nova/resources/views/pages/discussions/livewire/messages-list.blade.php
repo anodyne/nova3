@@ -10,7 +10,7 @@
                 <x-button
                     type="button"
                     color="primary"
-                    wire:click="$dispatch('openModal', { component: 'discussions-compose-message-modal', arguments: { mode: 'new' }})"
+                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'mode': 'new'}})"
                 >
                     <x-icon name="write" size="sm"></x-icon>
                     <span class="block lg:hidden">New message</span>
@@ -18,43 +18,34 @@
             </x-slot>
         </x-page-header>
 
-        <div
-            class="mb-8 flex items-center gap-x-1.5 overflow-x-scroll rounded-full bg-gray-950/[.08] px-[5px] py-1 text-sm/6 dark:bg-white/5"
-            data-slot="tabs"
-        >
-            <button
-                type="button"
-                wire:click="changeFilter('all')"
-                @class([
-                    'flex flex-1 shrink-0 items-center justify-center gap-x-2 rounded-full px-3.5 py-1',
-                    'bg-white font-semibold text-gray-950 shadow-sm ring-1 ring-gray-950/5 [--tab-icon:theme(colors.gray.500)] dark:bg-white/15 dark:text-white dark:shadow-none dark:[--tab-icon:theme(colors.gray.400)]' => $filter === 'all',
-                    'font-medium text-gray-600 [--tab-icon:theme(colors.gray.500)] hover:bg-gray-900/10 hover:text-gray-950 dark:text-gray-400 dark:[--tab-icon:theme(colors.gray.400)] dark:hover:bg-white/[.08] dark:hover:text-white' => $filter !== 'all',
-                ])
+        <div class="mb-6 space-y-4">
+            <flux:radio.group class="w-full" wire:model.live="filter" variant="segmented">
+                <flux:radio value="all" label="All" />
+                <flux:radio value="unread" label="Unread" />
+            </flux:radio.group>
+
+            <div
+                class="group relative flex w-full items-center gap-x-2 rounded-lg bg-gray-950/[.02] px-3 py-2 ring-1 ring-inset ring-gray-950/5 dark:bg-white/[.04] dark:ring-white/5"
             >
-                All
-            </button>
-            <button
-                type="button"
-                wire:click="changeFilter('private')"
-                @class([
-                    'flex flex-1 shrink-0 items-center justify-center gap-x-2 rounded-full px-3.5 py-1',
-                    'bg-white font-semibold text-gray-950 shadow-sm ring-1 ring-gray-950/5 [--tab-icon:theme(colors.gray.500)] dark:bg-white/15 dark:text-white dark:shadow-none dark:[--tab-icon:theme(colors.gray.400)]' => $filter === 'private',
-                    'font-medium text-gray-600 [--tab-icon:theme(colors.gray.500)] hover:bg-gray-900/10 hover:text-gray-950 dark:text-gray-400 dark:[--tab-icon:theme(colors.gray.400)] dark:hover:bg-white/[.08] dark:hover:text-white' => $filter !== 'private',
-                ])
-            >
-                Private
-            </button>
-            <button
-                type="button"
-                wire:click="changeFilter('group')"
-                @class([
-                    'flex flex-1 shrink-0 items-center justify-center gap-x-2 rounded-full px-3.5 py-1',
-                    'bg-white font-semibold text-gray-950 shadow-sm ring-1 ring-gray-950/5 [--tab-icon:theme(colors.gray.500)] dark:bg-white/15 dark:text-white dark:shadow-none dark:[--tab-icon:theme(colors.gray.400)]' => $filter === 'group',
-                    'font-medium text-gray-600 [--tab-icon:theme(colors.gray.500)] hover:bg-gray-900/10 hover:text-gray-950 dark:text-gray-400 dark:[--tab-icon:theme(colors.gray.400)] dark:hover:bg-white/[.08] dark:hover:text-white' => $filter !== 'group',
-                ])
-            >
-                Group
-            </button>
+                <div
+                    class="shrink-0 text-gray-400 group-focus-within:text-gray-600 dark:text-gray-600 dark:group-focus-within:text-gray-400"
+                >
+                    <x-icon name="search" size="sm"></x-icon>
+                </div>
+
+                <input
+                    type="text"
+                    wire:model.live.debounce.500ms="search"
+                    class="w-full appearance-none border-none bg-transparent p-0 text-sm/6 placeholder-gray-500 focus:outline-none focus:ring-0"
+                    placeholder="Find messages..."
+                />
+
+                @if ($search)
+                    <x-button tag="button" color="neutral" wire:click="$set('search', '')" text class="leading-none">
+                        <x-icon name="x" size="sm"></x-icon>
+                    </x-button>
+                @endif
+            </div>
         </div>
 
         <ul
@@ -62,59 +53,36 @@
             role="list"
         >
             @forelse ($discussions as $discussion)
-                @php($participant = $discussion->participants->first())
+                @php
+                    $hasSeen = $discussion->notifications->first()?->is_seen ?? true;
+                @endphp
 
                 <li
                     @class([
-                        'cursor-pointer rounded-lg px-2.5 py-4',
-                        'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-center supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
+                        'cursor-pointer rounded-lg px-2.5 py-3',
+                        'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-baseline supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
                         'bg-gray-100 dark:bg-gray-900' => $selected === $discussion->id,
                     ])
                     wire:click="selectDiscussion({{ $discussion->id }})"
                 >
-                    @if ($discussion->has_unread_messages)
-                        <div class="col-start-1 row-start-1 -ml-0.5 mr-3.5 sm:mr-3">
+                    @if (! $hasSeen)
+                        <div class="col-start-1 row-start-1 -ml-0.5 mr-3.5 mt-1 sm:mr-3">
                             <div class="size-2.5 rounded-full bg-primary-500"></div>
                         </div>
                     @endif
 
                     <div class="col-start-2 row-start-1">
-                        <div class="flex items-center gap-x-2.5">
-                            @if (! $discussion->is_direct_message)
-                                <x-icon name="users-group" size="size-10"></x-icon>
-                            @else
-                                @if (filled($participant))
-                                    <x-avatar
-                                        :src="$participant->avatar_url"
-                                        :tooltip="$participant->name"
-                                        size="sm"
-                                    ></x-avatar>
+                        <div class="flex flex-col">
+                            <div class="text-sm/6 font-semibold text-gray-950 dark:text-white">
+                                @if (! $hasSeen)
+                                    {{ $discussion->lastMessage->user->name }}
                                 @else
-                                    <x-icon name="user" size="xl"></x-icon>
+                                    {{ $discussion->truncated_participants_string }}
                                 @endif
-                            @endif
-
-                            @if (filled($discussion->name))
-                                <x-h4>{{ $discussion->name }}</x-h4>
-                            @else
-                                @if (filled($participant))
-                                    <div class="flex items-center gap-x-4">
-                                        <x-h4>{{ $participant?->name }}</x-h4>
-
-                                        @if ($participant->trashed())
-                                            <x-badge color="danger">Deleted user</x-badge>
-                                        @else
-                                            @if ($participant?->status->name() !== 'active')
-                                                <x-badge :color="$participant?->status?->color()">
-                                                    {{ ucfirst($participant?->status?->name()) }}
-                                                </x-badge>
-                                            @endif
-                                        @endif
-                                    </div>
-                                @else
-                                    <x-text size="lg">New message</x-text>
-                                @endif
-                            @endif
+                            </div>
+                            <div class="text-sm/6 text-gray-500 dark:text-gray-400">
+                                {{ $discussion->subject }}
+                            </div>
                         </div>
                     </div>
 
@@ -125,7 +93,7 @@
                     </div>
                 </li>
             @empty
-                <li>
+                <li class="col-span-full">
                     <x-empty-state>
                         <x-icon name="messages"></x-icon>
                         <x-h3>No messages</x-h3>

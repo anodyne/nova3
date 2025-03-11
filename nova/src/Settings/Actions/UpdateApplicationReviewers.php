@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Enums\ReviewerType;
 use Nova\Applications\Models\ApplicationReviewer;
@@ -15,7 +16,9 @@ class UpdateApplicationReviewers
 
     public function handle(ApplicationReviewers $data): void
     {
-        $this->updateGlobalReviewers($data);
+        DB::transaction(function () use ($data) {
+            $this->updateGlobalReviewers($data);
+        });
     }
 
     protected function updateGlobalReviewers(ApplicationReviewers $data): void

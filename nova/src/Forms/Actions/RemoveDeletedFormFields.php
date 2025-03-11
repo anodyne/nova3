@@ -17,7 +17,7 @@ class RemoveDeletedFormFields
         $fieldUids = collect(data_get($form->published_fields, 'content') ?? [])
             ->reject(fn ($item) => $item['type'] !== 'scribbleBlock')
             ->flatMap(fn ($item) => [data_get($item, 'attrs.values.uid')])
-            ->all();
+            ->toArray();
 
         FormField::query()->form($form)->whereNotIn('uid', $fieldUids)->delete();
 

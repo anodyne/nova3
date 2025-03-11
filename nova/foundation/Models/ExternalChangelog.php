@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -36,16 +35,7 @@ class ExternalChangelog extends Model
                 );
             }
 
-            static::refreshCache();
+            Cache::forget('external-changelog');
         }
-    }
-
-    public static function refreshCache(): void
-    {
-        Cache::forget('external-changelog');
-
-        Cache::rememberForever('external-changelog', function () {
-            return ExternalChangelog::get();
-        });
     }
 }

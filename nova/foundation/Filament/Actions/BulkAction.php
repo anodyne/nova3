@@ -22,6 +22,7 @@ class BulkAction extends FilamentBulkAction
         $this->modalDescription(null);
         $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
             'records' => $records,
+            'action' => $this,
         ]));
     }
 }

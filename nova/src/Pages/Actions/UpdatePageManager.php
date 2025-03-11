@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Actions;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Pages\Models\Page;
 use Nova\Pages\Requests\UpdatePageRequest;
@@ -15,12 +15,15 @@ class UpdatePageManager
 
     public function handle(Page $page, UpdatePageRequest $request): Page
     {
-        $page = UpdatePage::run($page, $request->getPageData());
+        return DB::transaction(function () use ($page, $request) {
+            $page = UpdatePage::run($page, $request->getPageData());
 
-        $page = UploadSeoImage::run($page, $request->image_path);
+            $page = UploadSeoImage::run($page, $request->image_path);
 
-        Cache::forget('nova.pages');
+            BustPagesCache::run();
+            RecachePages::run();
 
-        return $page;
+            return $page;
+        });
     }
 }

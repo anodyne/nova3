@@ -14,7 +14,7 @@ class SendMessage
 
     public function handle(Discussion $discussion, DiscussionData $data): void
     {
-        $message = $discussion->messages()->create($data->message->all());
+        $message = $discussion->messages()->create($data->message->toArray());
 
         // Broadcast
 

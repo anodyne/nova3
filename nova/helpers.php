@@ -2,60 +2,11 @@
 
 declare(strict_types=1);
 
-use Carbon\CarbonInterface;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Mistralys\VersionParser\VersionParser;
 use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Nova;
-use Nova\Foundation\Toast;
-
-if (! function_exists('blank')) {
-    function blank($value)
-    {
-        if (is_null($value)) {
-            return true;
-        }
-
-        if (is_string($value)) {
-            return trim($value) === '';
-        }
-
-        if (is_numeric($value) || is_bool($value)) {
-            return false;
-        }
-
-        if ($value instanceof Countable) {
-            return count($value) === 0;
-        }
-
-        return empty($value);
-    }
-}
-
-if (! function_exists('format_date')) {
-    function format_date(?CarbonInterface $date, bool $tooltip = true, bool $raw = false)
-    {
-        if (blank($date)) {
-            return $date;
-        }
-
-        if ($raw) {
-            return $date?->format(settings('general')->phpDateFormat());
-        }
-
-        $html = html()
-            ->element('time')
-            ->text($date?->format(settings('general')->phpDateFormat()))
-            ->attribute('datetime', $date);
-
-        if ($tooltip) {
-            return $html->attribute('x-tooltip.delay.1000-100.raw', $date);
-        }
-
-        return $html;
-    }
-}
 
 if (! function_exists('gate')) {
     function gate()
@@ -100,13 +51,6 @@ if (! function_exists('settings')) {
         }
 
         return $settings;
-    }
-}
-
-if (! function_exists('toast')) {
-    function toast()
-    {
-        return app(Toast::class);
     }
 }
 

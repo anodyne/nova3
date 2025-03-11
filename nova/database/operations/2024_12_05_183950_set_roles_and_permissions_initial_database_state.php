@@ -44,6 +44,7 @@ return new class extends OneTimeOperation
                 'character.create', 'character.delete', 'character.update', 'character.view', 'character.activate', 'character.deactivate', 'character.restore',
                 'post-type.create', 'post-type.delete', 'post-type.update', 'post-type.view', 'post-type.restore',
                 'form.create', 'form.delete', 'form.update',
+                'form-submission.view-all', 'form-submission.delete',
                 'page.create', 'page.delete', 'page.update', 'page.view',
                 'application.approve',
                 'system.activity', 'system.error-logs',
@@ -56,7 +57,7 @@ return new class extends OneTimeOperation
                 'post.delete', 'post.update',
             ],
             'active' => [
-                'form.view', 'announcement.view',
+                'announcement.view',
             ],
             'writer' => [
                 'story.view',
@@ -148,6 +149,9 @@ return new class extends OneTimeOperation
                 ['name' => 'form.update', 'display_name' => 'Update forms', 'description' => 'Allows a user to edit forms'],
                 ['name' => 'form.view', 'display_name' => 'View forms', 'description' => 'Allows a user to view any forms'],
 
+                ['name' => 'form-submission.view-all', 'display_name' => 'View all form submissions', 'description' => 'Allows a user to view any form submission'],
+                ['name' => 'form-submission.delete', 'display_name' => 'Delete form submissions', 'description' => 'Allows a user to remove any form submission'],
+
                 ['name' => 'page.create', 'display_name' => 'Create pages', 'description' => 'Allows a user to add new pages'],
                 ['name' => 'page.delete', 'display_name' => 'Delete pages', 'description' => 'Allows a user to remove pages'],
                 ['name' => 'page.update', 'display_name' => 'Update pages', 'description' => 'Allows a user to edit pages'],
@@ -184,20 +188,72 @@ return new class extends OneTimeOperation
     {
         Role::unguarded(function () {
             $roles = [
-                ['name' => 'owner', 'display_name' => 'Site Owner', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_locked' => true, 'order_column' => 0],
-                ['name' => 'admin', 'display_name' => 'Site Admin', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_locked' => true, 'order_column' => 1],
-                ['name' => 'active', 'display_name' => 'Active User', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => true, 'order_column' => 2],
-                ['name' => 'story-manager', 'display_name' => 'Story Manager', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 3],
-                ['name' => 'writer', 'display_name' => 'Writer', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => true, 'order_column' => 4],
-                ['name' => 'create-primary-characters', 'display_name' => 'Create Primary Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 5],
-                ['name' => 'create-secondary-characters', 'display_name' => 'Create Secondary Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 6],
-                ['name' => 'create-support-characters', 'display_name' => 'Create Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 7],
-                ['name' => 'update-support-characters', 'display_name' => 'Update Support Characters', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 8],
-                ['name' => 'webmaster', 'display_name' => 'Webmaster', 'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'is_default' => false, 'order_column' => 9],
+                [
+                    'name' => 'owner',
+                    'display_name' => 'Site Owner',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    'is_locked' => true,
+                ],
+                [
+                    'name' => 'admin',
+                    'display_name' => 'Site Admin',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    'is_locked' => true,
+                ],
+                [
+                    'name' => 'active',
+                    'display_name' => 'Active User',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    'is_default' => true,
+                ],
+                [
+                    'name' => 'story-manager',
+                    'display_name' => 'Story Manager',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                ],
+                [
+                    'name' => 'writer',
+                    'display_name' => 'Writer',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    'is_default' => true,
+                ],
+                [
+                    'name' => 'create-primary-characters',
+                    'display_name' => 'Create Primary Characters',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                ],
+                [
+                    'name' => 'create-secondary-characters',
+                    'display_name' => 'Create Secondary Characters',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                ],
+                [
+                    'name' => 'create-support-characters',
+                    'display_name' => 'Create Support Characters',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                ],
+                [
+                    'name' => 'update-support-characters',
+                    'display_name' => 'Update Support Characters',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                ],
+                [
+                    'name' => 'webmaster',
+                    'display_name' => 'Webmaster',
+                    'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                ],
             ];
 
             collect($roles)->each(function ($role) {
-                Role::firstOrCreate($role);
+                $defaults = [
+                    'is_default' => false,
+                    'is_locked' => false,
+                ];
+
+                Role::firstOrCreate([
+                    ...$defaults,
+                    ...$role,
+                ]);
             });
         });
     }

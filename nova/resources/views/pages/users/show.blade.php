@@ -53,7 +53,7 @@
 
                     <x-fieldset.field label="Status">
                         <div data-slot="text">
-                            <x-badge :color="$user->status->color()">
+                            <x-badge :color="$user->status->getColor()">
                                 {{ $user->status->getLabel() }}
                             </x-badge>
                         </div>
@@ -63,11 +63,11 @@
         </div>
 
         <div class="space-y-12" x-show="isTab('stats')" x-cloak>
-            <x-panel well>
-                <x-panel.well.header title="Characters"></x-panel.well.header>
+            <x-panel variant="well">
+                <x-panel.header title="Characters"></x-panel.header>
 
                 <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                    <x-spacing size="sm" class="grid lg:grid-cols-2">
+                    <x-spacing size="md" class="grid lg:grid-cols-2">
                         <x-panel.stat label="Active characters" :value="$user->active_characters_count"></x-panel.stat>
                         <x-panel.stat label="Total characters" :value="$user->characters_count"></x-panel.stat>
                     </x-spacing>
@@ -97,54 +97,46 @@
                 </x-panel>
             </x-panel>
 
-            <x-panel well>
-                <x-spacing size="xs">
-                    <x-fieldset.legend>Posting</x-fieldset.legend>
-                </x-spacing>
+            <x-panel variant="well">
+                <x-panel.header title="Posting"></x-panel.header>
 
-                <x-spacing size="2xs">
-                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        <x-spacing size="sm" class="grid lg:grid-cols-2">
-                            <x-panel.stat label="Published posts" :value="$user->published_posts_count"></x-panel.stat>
-                            <x-panel.stat label="Last posted">
-                                {{ $user->latestPost->first()?->published_at?->diffForHumans() ?? '-' }}
-                            </x-panel.stat>
-                        </x-spacing>
+                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                    <x-spacing size="md" class="grid lg:grid-cols-2">
+                        <x-panel.stat label="Published posts" :value="$user->published_posts_count"></x-panel.stat>
+                        <x-panel.stat label="Last posted">
+                            {{ $user->latestPost->first()?->published_at?->diffForHumans() ?? '-' }}
+                        </x-panel.stat>
+                    </x-spacing>
 
-                        <x-spacing size="md" class="grid gap-4 lg:grid-cols-2">
-                            @forelse ($publishedPosts as $post)
-                                {{ $post->title }}
-                            @empty
-                                <div class="lg:col-span-2">
-                                    <x-empty-state>
-                                        <x-icon name="books"></x-icon>
-                                        <x-h3>No published posts</x-h3>
-                                        <x-text>There aren’t any published posts by this user</x-text>
-                                    </x-empty-state>
-                                </div>
-                            @endforelse
-                        </x-spacing>
-                    </x-panel>
-                </x-spacing>
+                    <x-spacing size="md" class="grid gap-4 lg:grid-cols-2">
+                        @forelse ($publishedPosts as $post)
+                            {{ $post->title }}
+                        @empty
+                            <div class="lg:col-span-2">
+                                <x-empty-state>
+                                    <x-icon name="books"></x-icon>
+                                    <x-h3>No published posts</x-h3>
+                                    <x-text>There aren’t any published posts by this user</x-text>
+                                </x-empty-state>
+                            </div>
+                        @endforelse
+                    </x-spacing>
+                </x-panel>
             </x-panel>
 
-            <x-panel class="lg:col-span-3" well>
-                <x-spacing size="xs">
-                    <x-fieldset.legend>History / activity</x-fieldset.legend>
-                </x-spacing>
+            <x-panel class="lg:col-span-3" variant="well">
+                <x-panel.header title="History / activity"></x-panel.header>
 
-                <x-spacing size="2xs">
-                    <x-panel>
-                        <x-spacing size="sm" class="grid lg:grid-cols-2">
-                            <x-panel.stat label="Joined">
-                                {{ $user->created_at->diffForHumans() }}
-                            </x-panel.stat>
-                            <x-panel.stat label="Last signed in">
-                                {{ $user->latestLogin?->created_at->diffForHumans() ?? '-' }}
-                            </x-panel.stat>
-                        </x-spacing>
-                    </x-panel>
-                </x-spacing>
+                <x-panel>
+                    <x-spacing size="md" class="grid lg:grid-cols-2">
+                        <x-panel.stat label="Joined">
+                            {{ $user->created_at->diffForHumans() }}
+                        </x-panel.stat>
+                        <x-panel.stat label="Last signed in">
+                            {{ $user->latestLogin?->created_at->diffForHumans() ?? '-' }}
+                        </x-panel.stat>
+                    </x-spacing>
+                </x-panel>
             </x-panel>
         </div>
 

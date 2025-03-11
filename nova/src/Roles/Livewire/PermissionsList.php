@@ -16,7 +16,15 @@ class PermissionsList extends TableComponent
     public function table(Table $table): Table
     {
         return $table
-            ->query(Permission::query())
+            ->query(
+                Permission::query()
+                    ->select([
+                        'description',
+                        'display_name',
+                        'id',
+                        'name',
+                    ])
+            )
             ->columns([
                 TextColumn::make('display_name')
                     ->titleColumn()

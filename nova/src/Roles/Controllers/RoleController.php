@@ -64,7 +64,6 @@ class RoleController extends Controller
     {
         $role = UpdateRoleManager::run($role, $request);
 
-        return to_route('admin.roles.index')
-            ->notify($role->display_name.' role was updated');
+        return back()->notify($role->display_name.' role was updated');
     }
 }

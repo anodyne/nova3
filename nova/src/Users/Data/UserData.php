@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Users\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
 use Illuminate\Http\Request;
-use Spatie\LaravelData\Data;
 
-class UserData extends Data
+/**
+ * @method static static from(string $name, string $email, PronounsData $pronouns)
+ */
+readonly class UserData extends Bag
 {
     public function __construct(
         public string $name,
@@ -15,12 +19,13 @@ class UserData extends Data
         public PronounsData $pronouns,
     ) {}
 
-    public static function fromRequest(Request $request): static
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        return new self(
-            name: $request->input('name'),
-            email: $request->input('email'),
-            pronouns: PronounsData::from($request->input('pronouns', [])),
-        );
+        return [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'pronouns' => PronounsData::from($request),
+        ];
     }
 }

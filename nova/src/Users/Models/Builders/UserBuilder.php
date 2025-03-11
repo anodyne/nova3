@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Nova\Users\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Characters\Models\Character;
 use Nova\Foundation\Models\Builders\Concerns\ActiveBetween;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\States\Status\Hidden;
 use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\States\Status\Pending;
+use Nova\Users\Models\User;
 
 class UserBuilder extends Builder
 {
@@ -17,14 +19,14 @@ class UserBuilder extends Builder
 
     public function countDistinct(): self
     {
-        return $this->selectRaw('count(distinct(users.id))');
+        return $this->selectRaw('count(distinct('.User::column('id').'))');
     }
 
     public function searchFor(string $search): self
     {
         return $this
-            ->where(fn (Builder $query): Builder => $query->whereAny(['users.name', 'users.email'], 'like', "%{$search}%"))
-            ->orWhereRelation('characters', 'characters.name', 'like', "%{$search}%");
+            ->where(fn (Builder $query): Builder => $query->whereAny([User::column('name'), User::column('email')], 'like', "%{$search}%"))
+            ->orWhereRelation('characters', Character::column('name'), 'like', "%{$search}%");
     }
 
     public function searchForBasic($search): self
@@ -44,10 +46,10 @@ class UserBuilder extends Builder
 
     public function activeOrInactive(): self
     {
-        return $this->where(function (Builder $query): Builder {
-            return $query->whereState('status', Active::class)
-                ->orWhereState('status', Inactive::class);
-        });
+        return $this->whereAny('status', [
+            Active::class,
+            Inactive::class,
+        ]);
     }
 
     public function hidden(): Builder

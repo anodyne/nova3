@@ -47,6 +47,11 @@ class UploadImage extends Component
         return $this->image?->getRealPath();
     }
 
+    public function updatedImage($value)
+    {
+        $this->dispatch('mediaUploaded', path: $this->path);
+    }
+
     public function removeImage(): void
     {
         if (filled($this->image)) {

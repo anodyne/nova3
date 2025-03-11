@@ -15,6 +15,11 @@ class UploadCharacterAvatar
     {
         if ($imagePath !== null) {
             $character->addMedia($imagePath)->toMediaCollection('avatar');
+
+            activity()
+                ->performedOn($character)
+                ->event('uploaded-avatar')
+                ->log('uploaded-avatar');
         }
 
         return $character->refresh();

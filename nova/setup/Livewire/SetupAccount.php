@@ -36,7 +36,7 @@ class SetupAccount extends Component
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
-            'pronouns' => PronounsData::from(['value' => 'none']),
+            'pronouns' => PronounsData::from('none'),
         ]);
 
         $user->status->transitionTo(Active::class);
@@ -45,7 +45,7 @@ class SetupAccount extends Component
 
         $user = PopulateNotificationPreferences::run($user);
 
-        UpdateApplicationReviewers::run(new ApplicationReviewers(
+        UpdateApplicationReviewers::run(ApplicationReviewers::from(
             globalReviewers: [$user->id]
         ));
 

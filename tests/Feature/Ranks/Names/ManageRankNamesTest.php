@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Ranks\Enums\RankNameStatus;
 use Nova\Ranks\Livewire\RankNamesList;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
@@ -19,8 +19,8 @@ beforeEach(function () {
     $this->rankNames = RankName::factory()
         ->count(2)
         ->sequence(
-            ['status' => RankNameStatus::Active, 'name' => 'Captain'],
-            ['status' => RankNameStatus::Inactive, 'name' => 'Commander'],
+            ['status' => BasicStatus::Active, 'name' => 'Captain'],
+            ['status' => BasicStatus::Inactive, 'name' => 'Commander'],
         )
         ->create();
 });
@@ -39,12 +39,12 @@ describe('authorized user', function () {
 
     test('can filter rank names by status', function () {
         livewire(RankNamesList::class)
-            ->filterTable('status', RankNameStatus::Active->value)
-            ->assertCanSeeTableRecords($this->rankNames->where('status', RankNameStatus::Active))
-            ->assertCanNotSeeTableRecords($this->rankNames->where('status', RankNameStatus::Inactive))
-            ->filterTable('status', RankNameStatus::Inactive->value)
-            ->assertCanSeeTableRecords($this->rankNames->where('status', RankNameStatus::Inactive))
-            ->assertCanNotSeeTableRecords($this->rankNames->where('status', RankNameStatus::Active));
+            ->filterTable('status', BasicStatus::Active->value)
+            ->assertCanSeeTableRecords($this->rankNames->where('status', BasicStatus::Active))
+            ->assertCanNotSeeTableRecords($this->rankNames->where('status', BasicStatus::Inactive))
+            ->filterTable('status', BasicStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->rankNames->where('status', BasicStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->rankNames->where('status', BasicStatus::Active));
     });
 
     test('can filter rank names by presence of assigned ranks', function () {

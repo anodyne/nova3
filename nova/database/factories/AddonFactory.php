@@ -6,10 +6,9 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Nova\Addons\Enums\AddonStatus;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Models\Addon;
-use Nova\Themes\Enums\ThemeStatus;
+use Nova\Foundation\Enums\BasicStatus;
 
 class AddonFactory extends Factory
 {
@@ -23,7 +22,7 @@ class AddonFactory extends Factory
             'name' => ucfirst($name),
             'location' => Str::studly($name),
             'version' => '1.0',
-            'status' => AddonStatus::Active,
+            'status' => BasicStatus::Active,
             'type' => $this->faker->randomElement(AddonType::cases()),
             'preview' => 'preview.jpg',
         ];
@@ -32,7 +31,7 @@ class AddonFactory extends Factory
     public function inactive()
     {
         return $this->state([
-            'status' => ThemeStatus::Inactive,
+            'status' => BasicStatus::Inactive,
         ]);
     }
 }

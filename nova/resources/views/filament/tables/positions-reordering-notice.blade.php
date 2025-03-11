@@ -17,21 +17,24 @@
 @endphp
 
 <x-spacing size="none">
-    <x-panel.primary icon="arrows-sort" title="Change sorting order">
-        <div class="space-y-4">
-            <p>
-                We recommend filtering {{ $pluralModelLabel }} by their department before attempting to reorder them.
-            </p>
+    <x-panel.primary icon="arrows-sort" icon-size="xl" title="Change sorting order">
+        <x-slot name="description">
+            <div class="space-y-4">
+                <p>
+                    We recommend filtering {{ $pluralModelLabel }} by their department before attempting to reorder
+                    them.
+                </p>
 
-            <p>
-                {{ str($pluralModelLabel)->ucfirst() }} will appear in the order below whenever they're shown
-                throughout Nova. To change the sorting of {{ $pluralModelLabel }}, drag them to the desired order.
-                Click Finish to return to the management view.
-            </p>
+                <p>
+                    {{ str($pluralModelLabel)->ucfirst() }} will appear in the order below whenever they're shown
+                    throughout Nova. To change the sorting of {{ $pluralModelLabel }}, drag them to the desired order.
+                    Click Finish to return to the management view.
+                </p>
 
-            <div>
-                <x-button wire:click="toggleTableReordering" color="primary">Finish</x-button>
+                <div>
+                    <x-button wire:click="toggleTableReordering" color="primary">Finish</x-button>
+                </div>
             </div>
-        </div>
+        </x-slot>
     </x-panel.primary>
 </x-spacing>

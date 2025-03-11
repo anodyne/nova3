@@ -37,7 +37,7 @@
                     <a href="{{ $logo->url ?? '#' }}" target="_blank" rel="nofollow">
                         <img
                             class="max-h-12 w-full object-contain @2xl:object-left"
-                            src="{{ asset('media/pages/'.$logo->image) }}"
+                            src="{{ Storage::disk('media-pages')->url($logo->image) }}"
                             alt=""
                             width="105"
                             height="48"

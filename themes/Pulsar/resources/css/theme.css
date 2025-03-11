@@ -169,6 +169,24 @@ body {
 .story-post .post-content {
     @apply prose prose-lg mt-12 max-w-none pb-12 dark:prose-invert;
 }
+.story-post .post-content-warning {
+    @apply mt-12 max-w-none pb-12;
+}
+.story-post .post-content-warning .heading {
+    @apply flex items-center gap-x-3;
+}
+.story-post .post-content-warning .heading > [data-slot="icon"] {
+    @apply text-danger-500;
+}
+.story-post .post-content-warning .heading > h2 {
+    @apply mt-0 text-danger-600 dark:text-danger-400;
+}
+.story-post .post-content-warning .summary {
+    @apply mt-12 max-w-2xl;
+}
+.story-post .post-content-warning .summary hr {
+    @apply mb-12 max-w-lg border-gray-200 dark:border-gray-800;
+}
 .story-post .post-navigation-container {
     @apply flex;
 }

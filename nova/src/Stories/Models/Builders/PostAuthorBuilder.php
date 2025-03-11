@@ -30,12 +30,12 @@ class PostAuthorBuilder extends Builder
 
     public function published(): self
     {
-        return $this->whereRelation('post', 'status', '=', 'published');
+        return $this->whereRelation('post', Post::column('status'), '=', 'published');
     }
 
     public function draft(): self
     {
-        return $this->whereRelation('post', 'status', '=', 'draft');
+        return $this->whereRelation('post', Post::column('status'), '=', 'draft');
     }
 
     public function wherePost(int|Post|null $post): self

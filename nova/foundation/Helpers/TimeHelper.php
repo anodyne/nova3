@@ -6,23 +6,20 @@ namespace Nova\Foundation\Helpers;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Illuminate\Support\Facades\Auth;
 
 class TimeHelper
 {
     public static function formatShortTime(Carbon $date, ?string $timezone = null): string
     {
-        if ($timezone) {
-            $date->setTimezone($timezone);
-        }
+        $date->setTimezone($timezone ?? static::getUserTimezone());
 
         return $date->isoFormat(trans('format.short_time'));
     }
 
     public static function formatLongTime(Carbon $date, ?string $timezone = null): string
     {
-        if ($timezone) {
-            $date->setTimezone($timezone);
-        }
+        $date->setTimezone($timezone ?? static::getUserTimezone());
 
         return $date->isoFormat(trans('format.long_time'));
     }
@@ -37,5 +34,10 @@ class TimeHelper
                 syntax: ['parts' => 2],
                 short: true
             );
+    }
+
+    public static function getUserTimezone(): string
+    {
+        return Auth::user()?->preferences?->timezone ?? 'UTC';
     }
 }

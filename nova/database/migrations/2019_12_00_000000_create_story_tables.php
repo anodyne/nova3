@@ -5,8 +5,10 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Roles\Models\Role;
-use Nova\Stories\Enums\PostTypeStatus;
+use Nova\Stories\Enums\ContentRatingValue;
+use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
@@ -19,7 +21,7 @@ class CreateStoryTables extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
-            $table->foreignIdFor(Story::class, 'parent_id')->nullable();
+            $table->foreignId('parent_id')->nullable();
             $table->unsignedBigInteger('order_column')->nullable();
             $table->string('status')->index();
             $table->string('title')->index();
@@ -53,8 +55,8 @@ class CreateStoryTables extends Migration
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
             $table->foreignIdFor(Role::class)->nullable()->constrained();
-            $table->string('status')->default(PostTypeStatus::Active->value)->index();
-            $table->string('visibility')->default('in-character')->index();
+            $table->string('status')->default(BasicStatus::Active->value)->index();
+            $table->string('visibility')->default(PostTypeVisibility::InCharacter->value)->index();
             $table->json('fields')->nullable();
             $table->json('options')->nullable();
             $table->unsignedBigInteger('order_column')->nullable();
@@ -75,9 +77,9 @@ class CreateStoryTables extends Migration
             $table->string('time')->nullable();
             $table->string('location')->nullable();
             $table->unsignedInteger('word_count')->default(0);
-            $table->unsignedSmallInteger('rating_language')->nullable()->default(0);
-            $table->unsignedSmallInteger('rating_sex')->nullable()->default(0);
-            $table->unsignedSmallInteger('rating_violence')->nullable()->default(0);
+            $table->string('rating_language')->nullable()->default(ContentRatingValue::Level0->value);
+            $table->string('rating_sex')->nullable()->default(ContentRatingValue::Level0->value);
+            $table->string('rating_violence')->nullable()->default(ContentRatingValue::Level0->value);
             $table->longText('summary')->nullable();
             $table->text('participants')->nullable();
             $table->integer('neighbor')->nullable();
@@ -85,6 +87,7 @@ class CreateStoryTables extends Migration
             $table->timestamp('published_at')->nullable()->index();
             $table->timestamp('locked_at')->nullable();
             $table->unsignedBigInteger('locked_by')->nullable();
+            $table->unsignedBigInteger('last_update_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

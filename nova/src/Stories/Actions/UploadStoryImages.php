@@ -15,6 +15,11 @@ class UploadStoryImages
     {
         if ($imagePath !== null) {
             $story->addMedia($imagePath)->toMediaCollection('story-image');
+
+            activity()
+                ->performedOn($story)
+                ->event('uploaded-image')
+                ->log('uploaded-image');
         }
 
         return $story->refresh();

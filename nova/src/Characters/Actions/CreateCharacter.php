@@ -14,6 +14,6 @@ class CreateCharacter
 
     public function handle(CharacterData $data): Character
     {
-        return Character::create($data->all());
+        return Character::create($data->toArray());
     }
 }

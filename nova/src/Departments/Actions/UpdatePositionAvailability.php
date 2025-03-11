@@ -15,43 +15,43 @@ class UpdatePositionAvailability
     public function handle(CharacterPositionsData $data): void
     {
         $decrementData = match (true) {
-            $data->previousType === null &&
-            $data->currentType !== null &&
-            $data->canAutoManageCurrentType() => $data->getCurrentActionableIds(),
+            $data->oldType === null &&
+            $data->newType !== null &&
+            $data->canAutoManageNewType() => $data->getNewActionableIds(),
 
-            $data->previousType === $data->currentType &&
+            $data->oldType === $data->newType &&
             $data->hasPositionChanges() &&
-            $data->canAutoManageCurrentType() => $data->getCurrentActionableIds(),
+            $data->canAutoManageNewType() => $data->getNewActionableIds(),
 
-            $data->previousType !== null &&
-            $data->previousType !== $data->currentType &&
+            $data->oldType !== null &&
+            $data->oldType !== $data->newType &&
             $data->hasPositionChanges() &&
-            $data->canAutoManageCurrentType() => $data->getCurrentActionableIds(),
+            $data->canAutoManageNewType() => $data->getNewActionableIds(),
 
-            $data->previousType !== null &&
-            $data->previousType !== $data->currentType &&
+            $data->oldType !== null &&
+            $data->oldType !== $data->newType &&
             ! $data->hasPositionChanges() &&
-            ! $data->canAutoManagePreviousType() &&
-            $data->canAutoManageCurrentType() => $data->currentPositions->pluck('id')->all(),
+            ! $data->canAutoManageOldType() &&
+            $data->canAutoManageNewType() => $data->newPositions->pluck('id')->all(),
 
             default => [],
         };
 
         $incrementData = match (true) {
-            $data->previousType === $data->currentType &&
+            $data->oldType === $data->newType &&
             $data->hasPositionChanges() &&
-            $data->canAutoManageCurrentType() => $data->getPreviousActionableIds(),
+            $data->canAutoManageNewType() => $data->getOldActionableIds(),
 
-            $data->previousType !== null &&
-            $data->previousType !== $data->currentType &&
+            $data->oldType !== null &&
+            $data->oldType !== $data->newType &&
             $data->hasPositionChanges() &&
-            $data->canAutoManagePreviousType() => $data->getPreviousActionableIds(),
+            $data->canAutoManageOldType() => $data->getOldActionableIds(),
 
-            $data->previousType !== null &&
-            $data->previousType !== $data->currentType &&
+            $data->oldType !== null &&
+            $data->oldType !== $data->newType &&
             ! $data->hasPositionChanges() &&
-            $data->canAutoManagePreviousType() &&
-            ! $data->canAutoManageCurrentType() => $data->previousPositions->pluck('id')->all(),
+            $data->canAutoManageOldType() &&
+            ! $data->canAutoManageNewType() => $data->oldPositions->pluck('id')->all(),
 
             default => [],
         };

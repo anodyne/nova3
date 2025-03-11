@@ -39,10 +39,26 @@
                 <div class="mt-4 grid grid-cols-2 gap-4">
                     <div class="flex items-center gap-x-2">
                         <div class="shrink-0">
+                            <x-icon name="progress" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>Application(s)</x-h4>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
                             <x-icon name="characters" size="md"></x-icon>
                         </div>
                         <div>
                             <x-h4>Characters</x-h4>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-x-2">
+                        <div class="shrink-0">
+                            <x-icon name="form" size="md"></x-icon>
+                        </div>
+                        <div>
+                            <x-h4>Form responses</x-h4>
                         </div>
                     </div>
                     <div class="flex items-center gap-x-2">
@@ -63,10 +79,10 @@
                     </div>
                     <div class="flex items-center gap-x-2">
                         <div class="shrink-0">
-                            <x-icon name="messages" size="md"></x-icon>
+                            <x-icon name="inbox" size="md"></x-icon>
                         </div>
                         <div>
-                            <x-h4>Direct messages</x-h4>
+                            <x-h4>Messages</x-h4>
                         </div>
                     </div>
                 </div>

@@ -10,8 +10,6 @@ use Nova\Forms\Models\Form;
 use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
-use Nova\Users\Actions\PopulateAccountPreferences;
-use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Models\User;
 
 class UserSeeder extends Seeder
@@ -32,26 +30,19 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
         ]);
         $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
-        PopulateAccountPreferences::run($admin);
-        PopulateNotificationPreferences::run($admin);
-        UpdateApplicationReviewers::run(new ApplicationReviewers(
+        UpdateApplicationReviewers::run(ApplicationReviewers::from(
             globalReviewers: [$admin->id],
         ));
         CreateFormSubmission::run($form, $admin);
-        TrackStatusUpdate::run($admin);
 
         for ($i = 1; $i <= 15; $i++) {
             $activeUser = User::factory()
                 ->active()
                 ->create([
-                    'name' => 'user'.$i,
                     'email' => "user{$i}@user.com",
                 ]);
             $activeUser->addRoles(['active', 'writer']);
-            PopulateAccountPreferences::run($activeUser);
-            PopulateNotificationPreferences::run($activeUser);
             CreateFormSubmission::run($form, $activeUser);
-            TrackStatusUpdate::run($activeUser);
         }
 
         $inactiveUser = User::factory()
@@ -60,34 +51,27 @@ class UserSeeder extends Seeder
                 'name' => 'inactive',
                 'email' => 'inactive@inactive.com',
             ]);
-        PopulateAccountPreferences::run($inactiveUser);
-        PopulateNotificationPreferences::run($inactiveUser);
         CreateFormSubmission::run($form, $inactiveUser);
-
-        TrackStatusUpdate::run($inactiveUser);
         sleep(2);
         TrackStatusUpdate::run($inactiveUser);
 
-        foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
-            $user = User::factory()->active()->create([
-                'name' => "user_{$item}",
-                'email' => "user_{$item}@user.com",
-            ]);
+        // foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
+        //     $user = User::factory()->active()->create([
+        //         'name' => "user_{$item}",
+        //         'email' => "user_{$item}@user.com",
+        //     ]);
 
-            $str = str($item);
+        //     $str = str($item);
 
-            match (true) {
-                $str->contains('p') => $user->addRole('create-primary-characters'),
-                $str->contains('s') => $user->addRole('create-secondary-characters'),
-                $str->contains('u') => $user->addRole('create-support-characters'),
-                default => $user,
-            };
+        //     match (true) {
+        //         $str->contains('p') => $user->addRole('create-primary-characters'),
+        //         $str->contains('s') => $user->addRole('create-secondary-characters'),
+        //         $str->contains('u') => $user->addRole('create-support-characters'),
+        //         default => $user,
+        //     };
 
-            PopulateAccountPreferences::run($user);
-            PopulateNotificationPreferences::run($user);
-            CreateFormSubmission::run($form, $user);
-            TrackStatusUpdate::run($user);
-        }
+        //     CreateFormSubmission::run($form, $user);
+        // }
 
         activity()->enableLogging();
     }

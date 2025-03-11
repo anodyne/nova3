@@ -4,22 +4,25 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Data;
 
-use Illuminate\Http\Client\Request;
+use Bag\Attributes\MapInputName;
+use Bag\Attributes\Transforms;
+use Bag\Bag;
+use Bag\Mappers\Alias;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Nova\Foundation\Rules\Boolean;
 use Nova\Users\Models\User;
-use Spatie\LaravelData\Attributes\MapInputName;
-use Spatie\LaravelData\Data;
-use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-class AnnouncementData extends Data
+/**
+ * @method static static from(string $title, ?string $category, bool $published, ?string $content)
+ */
+readonly class AnnouncementData extends Bag
 {
     public function __construct(
         public string $title,
         public ?string $category,
         public bool $published,
 
-        #[MapInputName('editor-content')]
+        #[MapInputName(Alias::class, 'editor-content')]
         public ?string $content
     ) {}
 
@@ -28,20 +31,14 @@ class AnnouncementData extends Data
         return Auth::user();
     }
 
-    public static function rules(ValidationContext $context): array
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
         return [
-            'published' => new Boolean,
+            'title' => $request->input('title'),
+            'category' => $request->input('category'),
+            'published' => $request->boolean('published'),
+            'content' => $request->input('editor-content'),
         ];
-    }
-
-    public static function fromRequest(Request $request): static
-    {
-        return new self(
-            title: $request->input('title'),
-            category: $request->input('category'),
-            published: $request->boolean('published', true),
-            content: $request->input('editor-content')
-        );
     }
 }

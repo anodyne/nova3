@@ -15,7 +15,9 @@ class DiscussionSeeder extends Seeder
      */
     public function run(): void
     {
-        $groupChat = Discussion::factory()->create(['name' => 'Group message']);
+        activity()->disableLogging();
+
+        $groupChat = Discussion::factory()->create(['subject' => 'Group message']);
 
         $groupChat->allParticipants()->sync([1, 2, 3]);
 
@@ -45,5 +47,6 @@ class DiscussionSeeder extends Seeder
                 ]);
         }
 
+        activity()->enableLogging();
     }
 }

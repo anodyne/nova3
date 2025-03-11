@@ -14,6 +14,6 @@ class CreatePage
 
     public function handle(PageData $data): Page
     {
-        return Page::create($data->all());
+        return Page::create($data->toArray());
     }
 }

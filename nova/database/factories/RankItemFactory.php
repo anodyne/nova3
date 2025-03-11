@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Nova\Ranks\Enums\RankItemStatus;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
@@ -21,14 +21,14 @@ class RankItemFactory extends Factory
             'name_id' => fn () => RankName::factory(),
             'base_image' => 'base.png',
             'overlay_image' => 'overlay.png',
-            'status' => RankItemStatus::Active,
+            'status' => BasicStatus::Active,
         ];
     }
 
     public function inactive()
     {
         return $this->state([
-            'status' => RankItemStatus::Inactive,
+            'status' => BasicStatus::Inactive,
         ]);
     }
 }

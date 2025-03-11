@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Settings\Data;
 use Nova\Settings\Models\Builders\SettingsBuilder;
@@ -21,12 +21,11 @@ class Settings extends Model implements HasMedia
         'email' => Data\Email::class,
         'appearance' => Data\Appearance::class,
         'characters' => Data\Characters::class,
-        'meta_tags' => Data\MetaTags::class,
         'discord' => Data\Discord::class,
         'posting_activity' => Data\PostingActivity::class,
         'ratings' => Data\ContentRatings::class,
         'applications' => Data\Applications::class,
-        'writing_dashboard' => Data\WritingDashboard::class,
+        'dashboard' => Data\Dashboard::class,
     ];
 
     protected $fillable = [
@@ -40,7 +39,7 @@ class Settings extends Model implements HasMedia
         'posting_activity',
         'ratings',
         'applications',
-        'writing_dashboard',
+        'dashboard',
     ];
 
     public function newEloquentBuilder($query): SettingsBuilder

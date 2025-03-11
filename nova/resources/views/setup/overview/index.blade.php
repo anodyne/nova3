@@ -25,11 +25,11 @@
         @if ($e->passes())
             <div class="flex items-center justify-center">
                 @if ($component->type === SetupType::Update)
-                    <x-button.setup :href="url('setup/update/whats-new')" leading="tabler-speakerphone">
+                    <x-button.setup :href="url('setup/update/whats-new')" leading="megaphone">
                         Learn about what’s new in this update
                     </x-button.setup>
                 @else
-                    <x-button.setup :href="url('setup/configure-database')" leading="tabler-database-cog">
+                    <x-button.setup :href="url('setup/configure-database')" leading="database-settings">
                         Connect to your database
                     </x-button.setup>
                 @endif
@@ -37,15 +37,15 @@
         @endif
 
         <div class="mx-auto max-w-2xl space-y-8">
-            <x-panel well>
+            <x-setup::panel well>
                 <x-spacing size="2xs">
-                    <x-panel class="divide-y divide-gray-950/5">
+                    <x-setup::panel class="divide-y divide-gray-950/5">
                         @include('setup.overview._requirements-php')
                         @include('setup.overview._requirements-database')
                         @include('setup.overview._requirements-php-extensions')
-                    </x-panel>
+                    </x-setup::panel>
                 </x-spacing>
-            </x-panel>
+            </x-setup::panel>
         </div>
     </div>
 </x-setup-layout>

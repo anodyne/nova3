@@ -43,10 +43,10 @@
                 <section aria-labelledby="profile-overview-title">
                     <h2 class="sr-only" id="profile-overview-title">Profile Overview</h2>
 
-                    <x-panel well>
+                    <x-panel variant="well">
                         <x-panel>
                             <x-spacing size="md">
-                                <div class="flex flex-col items-center md:flex-row md:justify-between">
+                                <div class="flex flex-col items-center gap-8 md:flex-row md:justify-between">
                                     <div class="flex items-center space-x-5">
                                         <div class="shrink-0">
                                             <x-avatar
@@ -60,22 +60,46 @@
                                             <x-h1>{{ auth()->user()->name }}</x-h1>
                                         </div>
                                     </div>
-                                    <div class="mt-5 flex justify-center gap-2 md:mt-0">
-                                        <x-button :href="route('admin.account.edit')">Go to my account</x-button>
+
+                                    <div class="mt-5 md:mt-0">
+                                        <div
+                                            @class([
+                                                'flex items-center gap-x-2 rounded-full bg-gradient-to-b from-white py-1 pl-3.5 pr-1 shadow ring-1 ring-inset',
+                                                'to-success-50 text-success-600 shadow-success-600/10 ring-success-600/20' => $activityPercentage >= 100,
+                                                'to-warning-50 text-warning-600 shadow-warning-600/10 ring-warning-600/20' => $activityPercentage > 25 && $activityPercentage < 100,
+                                                'to-danger-50 text-danger-600 shadow-danger-600/10 ring-danger-600/20' => $activityPercentage <= 25,
+                                            ])
+                                        >
+                                            <div class="flex items-center gap-x-4 text-sm/6 font-medium">
+                                                {{ $activityStatement }}
+                                            </div>
+
+                                            <div class="shrink-0">
+                                                @if ($activityPercentage >= 100)
+                                                    <x-icon.filled.check-circle
+                                                        class="size-7"
+                                                    ></x-icon.filled.check-circle>
+                                                @else
+                                                    <x-icon.filled.exclamation-circle
+                                                        class="size-7"
+                                                    ></x-icon.filled.exclamation-circle>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </x-spacing>
                         </x-panel>
 
-                        <x-panel.well.footer>
+                        <x-panel.footer>
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
                                 <x-button :href="route('admin.account.edit')" color="heavy-neutral" text>
-                                    <x-icon name="preferences" size="sm"></x-icon>
-                                    My preferences
+                                    <x-icon name="user-profile" size="sm"></x-icon>
+                                    My account
                                 </x-button>
 
                                 <x-button
-                                    :href="route('admin.characters.index', ['tableFilters' => ['only_my_characters' => ['isActive' => true]]])"
+                                    :href="route('admin.characters.index', ['only_my_characters' => true])"
                                     color="heavy-neutral"
                                     text
                                 >
@@ -93,235 +117,156 @@
                                     @endif
                                 </x-button>
                             </div>
-                        </x-panel.well.footer>
+                        </x-panel.footer>
                     </x-panel>
                 </section>
 
-                <section class="hidden" aria-labelledby="dashboard-stats-title">
-                    <x-panel well>
-                        <x-spacing size="sm">
-                            <x-fieldset.legend id="dashboard-stats-title">Stats</x-fieldset.legend>
-                        </x-spacing>
+                <div class="space-y-4">
+                    <div>
+                        <x-h2>Recently published posts</x-h2>
+                        <x-text>Posts that have been published in the last 30 days</x-text>
+                    </div>
 
-                        <x-spacing size="2xs">
-                            <x-panel>
-                                <x-spacing size="sm">
-                                    <div class="grid grid-cols-1 lg:grid-cols-3">
-                                        <x-panel.stat label="Active users" :value="14"></x-panel.stat>
-                                        <x-panel.stat label="Active characters" :value="26"></x-panel.stat>
-                                        <x-panel.stat label="Total posts" :value="715"></x-panel.stat>
-                                    </div>
-                                </x-spacing>
-                            </x-panel>
-                        </x-spacing>
-                    </x-panel>
-                </section>
-
-                <section aria-labelledby="dashboard-stories-title">
-                    <x-panel well>
-                        <x-spacing size="2xs">
-                            <x-panel class="overflow-hidden">
-                                <div class="relative">
-                                    <img
-                                        src="{{ asset('dist/test6.jpg') }}"
-                                        alt=""
-                                        class="h-auto w-full object-cover"
-                                    />
-
-                                    <div
-                                        class="absolute bottom-0 left-0 h-1/2 w-full rounded-b-lg backdrop-blur-2xl [mask-image:linear-gradient(to_bottom,transparent,black_70%)]"
-                                    ></div>
-
-                                    <div class="absolute bottom-0 left-0">
-                                        <x-spacing width="sm" height="md">
-                                            <x-h3 class="text-white">The Best of Both Worlds</x-h3>
-                                        </x-spacing>
-                                    </div>
-                                </div>
-                            </x-panel>
-
-                            <x-spacing size="sm">
-                                <x-text>
-                                    The Borg advance their plans to assimilate the human race by kidnapping Picard and
-                                    making him into their spokesman.
-                                </x-text>
-
-                                <div class="mt-2 flex items-center justify-between">
-                                    <div class="flex items-center gap-x-8">
-                                        <div class="flex items-baseline gap-x-1">
-                                            <div class="text-2xl font-bold text-gray-900 dark:text-white">81</div>
-                                            <div class="text-base text-gray-500 sm:text-sm/6">posts</div>
-                                        </div>
-                                        <div class="flex items-baseline gap-x-1">
-                                            <div class="text-2xl font-bold text-gray-900 dark:text-white">11,410</div>
-                                            <div class="text-base text-gray-500 sm:text-sm/6">words</div>
-                                        </div>
-                                    </div>
-
-                                    <x-button plain>Go to story &rarr;</x-button>
-                                </div>
-                            </x-spacing>
-                        </x-spacing>
-                    </x-panel>
-                </section>
+                    <livewire:posts-recent-published-posts-list />
+                </div>
             </div>
 
             <!-- Right column -->
-            <div class="grid grid-cols-1 gap-4">
-                <section aria-labelledby="timeline-title">
-                    <ul role="list" class="space-y-6">
-                        <li class="relative flex gap-x-4">
-                            <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
-                                <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
-                            </div>
+            <div class="grid grid-cols-1 gap-12">
+                <x-spacing width="2xs">
+                    <div class="flex flex-col items-center gap-y-2">
+                        <div class="relative">
+                            <x-icon.gradient.laurel-wreath class="size-16"></x-icon.gradient.laurel-wreath>
+
                             <div
-                                class="relative flex h-6 w-6 flex-none items-center justify-center bg-white dark:bg-gray-900"
+                                @class([
+                                    'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-mono font-semibold tracking-tighter text-gray-950 dark:text-white',
+                                    match (true) {
+                                        $currentPostingMilestone >= 1000 => 'text-base',
+                                        $currentPostingMilestone >= 100 => 'text-lg',
+                                        $currentPostingMilestone < 10 => 'text-xl',
+                                        default => 'text-sm',
+                                    },
+                                ])
                             >
-                                <div
-                                    class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-gray-800 dark:ring-gray-700"
-                                ></div>
+                                {{ $currentPostingMilestone }}
                             </div>
-                            <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                                <span class="font-medium text-gray-900 dark:text-white">Chelsea Hagon</span>
-                                published the story post
-                                <em>Encounter at Farpoint.</em>
-                            </p>
-                            <time datetime="2023-01-23T10:32" class="flex-none py-0.5 text-xs leading-5 text-gray-500">
-                                7m ago
-                            </time>
-                        </li>
-                        <li class="relative flex gap-x-4">
-                            <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
-                                <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
-                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <div class="relative h-3 overflow-hidden rounded-full bg-gray-950/10 dark:bg-white/10">
                             <div
-                                class="relative flex h-6 w-6 flex-none items-center justify-center bg-white dark:bg-gray-900"
-                            >
-                                <div
-                                    class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-gray-800 dark:ring-gray-700"
-                                ></div>
-                            </div>
-                            <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                                <span class="font-medium text-gray-900 dark:text-white">Chelsea Hagon</span>
-                                updated a character bio.
-                            </p>
-                            <time datetime="2023-01-23T11:03" class="flex-none py-0.5 text-xs leading-5 text-gray-500">
-                                15m ago
-                            </time>
-                        </li>
-                        <li class="relative flex gap-x-4">
-                            <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
-                                <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
-                            </div>
-                            <div
-                                class="relative flex h-6 w-6 flex-none items-center justify-center bg-white dark:bg-gray-900"
-                            >
-                                <div
-                                    class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-gray-800 dark:ring-gray-700"
-                                ></div>
-                            </div>
-                            <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                                <span class="font-medium text-gray-900 dark:text-white">Chelsea Hagon</span>
-                                started writing a new personal post.
-                            </p>
-                            <time datetime="2023-01-23T11:24" class="flex-none py-0.5 text-xs leading-5 text-gray-500">
-                                2h ago
-                            </time>
-                        </li>
-                        <li class="relative flex gap-x-4">
-                            <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
-                                <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
-                            </div>
-                            <div
-                                class="relative flex h-6 w-6 flex-none items-center justify-center bg-white dark:bg-gray-900"
-                            >
-                                <div
-                                    class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-gray-800 dark:ring-gray-700"
-                                ></div>
-                            </div>
-                            <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                                <span class="font-medium text-gray-900 dark:text-white">Tom Cook</span>
-                                started the story
-                                <em>The Best of Both Worlds.</em>
-                            </p>
-                            <time datetime="2023-01-23T11:24" class="flex-none py-0.5 text-xs leading-5 text-gray-500">
-                                12h ago
-                            </time>
-                        </li>
-                        <li class="relative flex gap-x-4">
-                            <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
-                                <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
-                            </div>
-                            <img
-                                src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                alt=""
-                                class="relative mt-3 h-6 w-6 flex-none rounded-full bg-gray-50"
-                            />
-                            <div class="flex-auto rounded-md p-3 ring-1 ring-inset ring-gray-200 dark:ring-gray-700">
-                                <div class="flex justify-between gap-x-4">
-                                    <div class="py-0.5 text-xs leading-5 text-gray-500">
-                                        <span class="font-medium text-gray-900 dark:text-white">Leslie Alexander</span>
-                                        commented
-                                    </div>
-                                    <time
-                                        datetime="2023-01-23T15:56"
-                                        class="flex-none py-0.5 text-xs leading-5 text-gray-500"
+                                @class([
+                                    'absolute h-3 rounded-full bg-primary-500 ring-2 ring-white dark:ring-gray-800',
+                                    'w-3' => $postingLevelPercentage === 0,
+                                ])
+                                @style([
+                                    "width:{$postingLevelPercentage}%" => $postingLevelPercentage > 0,
+                                ])
+                            ></div>
+                        </div>
+                        <div class="mt-1 flex justify-between px-0.5">
+                            <x-text color="primary" class="font-medium">
+                                {{ Number::format($currentPostingMilestoneValue) }} {{ $postingMilestoneLabel }}
+                            </x-text>
+                            <x-text>{{ Number::format($nextPostingMilestone) }}</x-text>
+                        </div>
+                    </div>
+                </x-spacing>
+
+                <div class="space-y-8">
+                    <div class="flex items-center gap-x-2">
+                        <x-icon name="chart-infographic" size="md" class="text-gray-500"></x-icon>
+                        <x-h2>My Contributions</x-h2>
+                    </div>
+
+                    <x-spacing width="2xs">
+                        <x-h5>
+                            {{ settings('posting_activity.timeframe')->getStatsLabel() }}
+                        </x-h5>
+
+                        <div class="mt-2 flex flex-1 items-center">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-x-2">
+                                    <p
+                                        class="text-base font-semibold tabular-nums tracking-tight text-gray-900 dark:text-white"
                                     >
-                                        1d ago
-                                    </time>
+                                        {{ $currentActivityTimeframe->formattedPosts() }}
+                                    </p>
+
+                                    @if ($currentActivityTimeframe->hasMetPostsRequirements())
+                                        <x-icon.micro.check-circle
+                                            class="text-success-500"
+                                            x-tooltip.raw="Posting requirement met"
+                                        ></x-icon.micro.check-circle>
+                                    @endif
                                 </div>
-                                <x-text>Loved the twist at the end!</x-text>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Posts</p>
                             </div>
-                        </li>
-                        <li class="relative flex gap-x-4">
-                            <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
-                                <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-x-2">
+                                    <p
+                                        class="text-base font-semibold tabular-nums tracking-tight text-gray-900 dark:text-white"
+                                    >
+                                        {{ $currentActivityTimeframe->formattedWords() }}
+                                    </p>
+
+                                    @if ($currentActivityTimeframe->hasMetWordsRequirements())
+                                        <x-icon.micro.check-circle
+                                            class="text-success-500"
+                                            x-tooltip.raw="Posting requirement met"
+                                        ></x-icon.micro.check-circle>
+                                    @endif
+                                </div>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Words</p>
                             </div>
-                            <div
-                                class="relative flex h-6 w-6 flex-none items-center justify-center bg-white dark:bg-gray-900"
-                            >
-                                <div
-                                    class="h-1.5 w-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-gray-800 dark:ring-gray-700"
-                                ></div>
-                            </div>
-                            <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                                <span class="font-medium text-gray-900 dark:text-white">Alex Curren</span>
-                                created a new support character.
-                            </p>
-                            <time datetime="2023-01-24T09:12" class="flex-none py-0.5 text-xs leading-5 text-gray-500">
-                                2d ago
-                            </time>
-                        </li>
-                        <li class="relative flex gap-x-4">
-                            <div class="absolute left-0 top-0 flex h-6 w-6 justify-center">
-                                <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
-                            </div>
-                            <div
-                                class="relative flex h-6 w-6 flex-none items-center justify-center bg-white dark:bg-gray-900"
-                            >
-                                <svg
-                                    class="h-6 w-6 text-primary-500"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    aria-hidden="true"
+                            <div class="flex-1">
+                                <p
+                                    class="text-base font-semibold tabular-nums tracking-tight text-gray-900 dark:text-white"
                                 >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
+                                    {{ $currentActivityTimeframe->readingTime() }}
+                                </p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Reading time</p>
                             </div>
-                            <p class="flex-auto py-0.5 text-xs leading-5 text-gray-500">
-                                <span class="font-medium text-gray-900 dark:text-white">Alex Curren</span>
-                                joined the game.
-                            </p>
-                            <time datetime="2023-01-24T09:20" class="flex-none py-0.5 text-xs leading-5 text-gray-500">
-                                2w ago
-                            </time>
-                        </li>
-                    </ul>
-                </section>
+                        </div>
+                    </x-spacing>
+
+                    <x-spacing width="2xs">
+                        <x-h5>Lifetime</x-h5>
+
+                        <div class="mt-2 flex flex-1 items-center">
+                            <div class="flex-1">
+                                <p
+                                    class="text-base font-semibold tabular-nums tracking-tight text-gray-900 dark:text-white"
+                                >
+                                    {{ $lifetime->formattedPosts() }}
+                                </p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Posts</p>
+                            </div>
+                            <div class="flex-1">
+                                <p
+                                    class="text-base font-semibold tabular-nums tracking-tight text-gray-900 dark:text-white"
+                                >
+                                    {{ $lifetime->formattedWords() }}
+                                </p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Words</p>
+                            </div>
+                            <div class="flex-1">
+                                <p
+                                    class="text-base font-semibold tabular-nums tracking-tight text-gray-900 dark:text-white"
+                                >
+                                    {{ $lifetime->readingTime() }}
+                                </p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Reading time</p>
+                            </div>
+                        </div>
+                    </x-spacing>
+                </div>
+
+                @if (settings('dashboard.leaderboard.enabled'))
+                    <livewire:posting-leaderboard />
+                @endif
             </div>
         </div>
     </div>

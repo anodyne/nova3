@@ -7,10 +7,6 @@
                 @can('viewAny', $addon::class)
                     <x-button :href="route('admin.addons.index')" color="neutral" plain>&larr; Back</x-button>
                 @endcan
-
-                @can('updateSettings', $addon)
-                    <livewire:addon-settings :addon="$addon" :iconTrigger="false" />
-                @endcan
             </x-slot>
         </x-page-header>
 
@@ -58,9 +54,12 @@
                     <x-fieldset.field label="Type" id="type" name="type" :error="$errors->first('type')">
                         <x-select class="w-full md:w-2/3">
                             <option value="">Choose a type</option>
-                            @foreach (AddonType::toOptions() as $value => $text)
-                                <option value="{{ $value }}" @selected($addon->type->value === $value)>
-                                    {{ $text }}
+                            @foreach (AddonType::cases() as $addonType)
+                                <option
+                                    value="{{ $addonType->value }}"
+                                    @selected($addon->type->value === $addonType->value)
+                                >
+                                    {{ $addonType->getLabel() }}
                                 </option>
                             @endforeach
                         </x-select>

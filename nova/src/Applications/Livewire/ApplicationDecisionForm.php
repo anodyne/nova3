@@ -32,29 +32,33 @@ class ApplicationDecisionForm extends Form
     {
         $this->validate();
 
-        AcceptApplicationManager::runIf(
-            $this->result === ApplicationResult::Accept,
-            application: $this->application,
-            data: new ApplicationDecisionData(
-                message: $this->message,
-                rank_id: $this->rankId,
-                positions: $this->positions
-            )
-        );
+        if ($this->result === ApplicationResult::Accept) {
+            AcceptApplicationManager::run(
+                application: $this->application,
+                data: ApplicationDecisionData::from(
+                    message: $this->message,
+                    rank_id: $this->rankId,
+                    positions: $this->positions
+                )
+            );
+        }
 
-        DenyApplicationManager::runIf(
-            $this->result === ApplicationResult::Deny,
-            application: $this->application,
-            data: new ApplicationDecisionData(
-                message: $this->message
-            )
-        );
+        if ($this->result === ApplicationResult::Deny) {
+            DenyApplicationManager::run(
+                application: $this->application,
+                data: ApplicationDecisionData::from(
+                    message: $this->message
+                )
+            );
+        }
+
     }
 
     public function setApplication(Application $application): void
     {
         $this->application = $application;
 
-        $this->positions = $application->character->positions()->pluck('positions.id')->all();
+        $this->rankId = $application->character->rank_id;
+        $this->positions = $application->character->positions()->pluck('positions.id')->toArray();
     }
 }

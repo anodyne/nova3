@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="trash" title="Delete menu item?">
+<x-filament.modal-content :$action title="Delete menu item?">
     <p>
         Are you sure you want to delete the
         <strong class="font-semibold">{{ $record->label }}</strong>

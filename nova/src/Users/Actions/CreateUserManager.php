@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\StoreUserRequest;
+use Spatie\Activitylog\Facades\LogBatch;
 
 class CreateUserManager
 {
@@ -17,25 +19,31 @@ class CreateUserManager
 
     public function handle(StoreUserRequest $request): User
     {
-        $user = CreateUser::run($request->getUserData());
+        return DB::transaction(function () use ($request) {
+            LogBatch::startBatch();
 
-        $user = ActivateUser::run($user);
+            $user = CreateUser::run($request->getUserData());
 
-        if (filled($request->assigned_characters)) {
-            $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
-        }
+            $user = ActivateUser::run($user);
 
-        if (filled($request->assigned_roles)) {
-            $user = SyncUserRoles::run($user, $request->getUserRolesData());
-        }
+            if (filled($request->assigned_characters)) {
+                $user = SyncUserCharacters::run($user, $request->getUserCharactersData());
+            }
 
-        $user = PopulateNotificationPreferences::run($user);
+            if (filled($request->assigned_roles)) {
+                $user = SyncUserRoles::run($user, $request->getUserRolesData());
+            }
 
-        UploadUserAvatar::run($user, $request->image_path);
+            $user = PopulateNotificationPreferences::run($user);
 
-        $this->createFormSubmission($user, $request->input('userBio', []));
+            UploadUserAvatar::run($user, $request->image_path);
 
-        return $user->fresh();
+            $this->createFormSubmission($user, $request->input('userBio', []));
+
+            LogBatch::endBatch();
+
+            return $user->fresh();
+        });
     }
 
     protected function createFormSubmission(User $user, ?array $data = []): void

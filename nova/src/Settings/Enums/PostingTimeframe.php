@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Nova\Settings\Enums;
 
 use Carbon\CarbonInterface;
+use Filament\Support\Contracts\HasDescription;
 use Filament\Support\Contracts\HasLabel;
 use Illuminate\Support\Facades\Date;
 use Nova\Foundation\Concerns\HasSelectOptions;
 
-enum PostingTimeframe: string implements HasLabel
+enum PostingTimeframe: string implements HasDescription, HasLabel
 {
     use HasSelectOptions;
 

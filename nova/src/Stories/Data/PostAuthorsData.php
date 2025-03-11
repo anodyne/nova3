@@ -4,23 +4,30 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Data;
 
-use Illuminate\Support\Collection;
-use Nova\Characters\Models\Character;
-use Nova\Users\Models\User;
-use Spatie\LaravelData\Data;
+use Bag\Attributes\StripExtraParameters;
+use Bag\Bag;
+use Illuminate\Database\Eloquent\Collection;
 
-class PostAuthorsData extends Data
+/**
+ * @method static static from(array $characters, ?Collection $originalCharacters, array $users, ?Collection $originalUsers)
+ */
+#[StripExtraParameters]
+readonly class PostAuthorsData extends Bag
 {
     public function __construct(
-        public ?Collection $characters,
-        public ?Collection $users,
+        public array $characters = [],
+        public ?Collection $originalCharacters = null,
+        public array $users = [],
+        public ?Collection $originalUsers = null
     ) {}
 
-    public static function fromArray(array $data): static
+    public function getUserIds(): array
     {
-        return new self(
-            characters: Character::query()->whereIn('id', data_get($data, 'characters'))->get(),
-            users: User::query()->whereIn('id', data_get($data, 'users'))->get(),
-        );
+        return collect(array_keys($this->users))
+            ->merge(array_column($this->characters, 'user_id'))
+            ->filter()
+            ->unique()
+            ->values()
+            ->toArray();
     }
 }

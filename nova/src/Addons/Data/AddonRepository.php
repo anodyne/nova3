@@ -4,27 +4,26 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Data;
 
-use Illuminate\Contracts\Support\Arrayable;
+use Bag\Bag;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Nova\Addons\Enums\AddonRepositoryType;
-use Spatie\LaravelData\Attributes\Validation\Enum;
-use Spatie\LaravelData\Data;
 
-class AddonRepository extends Data implements Arrayable
+/**
+ * @method static static from(?AddonRepositoryType $type, ?string $id)
+ */
+readonly class AddonRepository extends Bag
 {
     public function __construct(
-        #[Enum(AddonRepositoryType::class)]
         public ?AddonRepositoryType $type,
-
         public ?string $id
     ) {}
 
     public function endpoint(): ?Response
     {
         if ($this->type === AddonRepositoryType::Anodyne) {
-            $url = Str::replaceArray('?', [$this->id], config('services.anodyne.api.addon-version-check'));
+            $url = Str::replaceArray('{id}', [$this->id], config('services.anodyne.api.addon-version-check'));
 
             return Http::get($url);
         }

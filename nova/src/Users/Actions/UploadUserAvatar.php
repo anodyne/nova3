@@ -15,6 +15,11 @@ class UploadUserAvatar
     {
         if (filled($path)) {
             $user->addMedia($path)->toMediaCollection('avatar');
+
+            activity()
+                ->performedOn($user)
+                ->event('uploaded avatar')
+                ->log('uploaded avatar');
         }
 
         return $user->refresh();

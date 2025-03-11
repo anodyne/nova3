@@ -36,58 +36,54 @@
 
                     <x-fieldset.field label="Status">
                         <div data-slot="text">
-                            <x-badge :color="$item->status->color()">{{ $item->status->getLabel() }}</x-badge>
+                            <x-badge :color="$item->status->getColor()">{{ $item->status->getLabel() }}</x-badge>
                         </div>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>
 
             <x-fieldset>
-                <x-panel well>
-                    <x-spacing size="sm">
-                        <x-fieldset.legend>Characters assigned this rank</x-fieldset.legend>
-                    </x-spacing>
+                <x-panel variant="well">
+                    <x-panel.header title="Characters assigned this rank"></x-panel.header>
 
-                    <x-spacing size="2xs">
-                        <x-panel>
-                            <x-spacing size="md">
-                                <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                                    @forelse ($item->characters as $character)
-                                        <div class="group flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <x-avatar.character
-                                                    :character="$character"
-                                                    :primary-status="true"
-                                                    :primary-rank="false"
-                                                    :secondary-positions="false"
-                                                    :secondary-type="true"
-                                                ></x-avatar.character>
-                                            </div>
+                    <x-panel>
+                        <x-spacing size="md">
+                            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                                @forelse ($item->characters as $character)
+                                    <div class="group flex items-center justify-between">
+                                        <div class="flex items-center">
+                                            <x-avatar.character
+                                                :character="$character"
+                                                :primary-status="true"
+                                                :primary-rank="false"
+                                                :secondary-positions="false"
+                                                :secondary-type="true"
+                                            ></x-avatar.character>
+                                        </div>
 
-                                            @can('update', $character)
-                                                <x-button
-                                                    :href="route('admin.characters.edit', $character)"
-                                                    color="neutral"
-                                                    class="group-hover:visible sm:invisible"
-                                                    text
-                                                >
-                                                    <x-icon name="edit" size="sm"></x-icon>
-                                                </x-button>
-                                            @endcan
-                                        </div>
-                                    @empty
-                                        <div class="col-span-2">
-                                            <x-empty-state.small
-                                                icon="characters"
-                                                title="No characters assigned"
-                                                message="There aren’t any characters assigned to this rank item. Assign some characters to this rank item to populate this list."
-                                            ></x-empty-state.small>
-                                        </div>
-                                    @endforelse
-                                </div>
-                            </x-spacing>
-                        </x-panel>
-                    </x-spacing>
+                                        @can('update', $character)
+                                            <x-button
+                                                :href="route('admin.characters.edit', $character)"
+                                                color="neutral"
+                                                class="group-hover:visible sm:invisible"
+                                                text
+                                            >
+                                                <x-icon name="edit" size="sm"></x-icon>
+                                            </x-button>
+                                        @endcan
+                                    </div>
+                                @empty
+                                    <div class="col-span-2">
+                                        <x-empty-state.small
+                                            icon="characters"
+                                            title="No characters assigned"
+                                            message="There aren’t any characters assigned to this rank item. Assign some characters to this rank item to populate this list."
+                                        ></x-empty-state.small>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </x-spacing>
+                    </x-panel>
                 </x-panel>
             </x-fieldset>
         </x-form>

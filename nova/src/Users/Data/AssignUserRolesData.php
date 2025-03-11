@@ -4,19 +4,24 @@ declare(strict_types=1);
 
 namespace Nova\Users\Data;
 
+use Bag\Attributes\Transforms;
+use Bag\Bag;
 use Illuminate\Http\Request;
-use Spatie\LaravelData\Data;
 
-class AssignUserRolesData extends Data
+/**
+ * @method static static from(?array $roles)
+ */
+readonly class AssignUserRolesData extends Bag
 {
     public function __construct(
         public ?array $roles
     ) {}
 
-    public static function fromRequest(Request $request): static
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        return new self(
-            roles: explode(',', $request->input('assigned_roles', '') ?? ''),
-        );
+        return [
+            'roles' => explode(',', $request->input('assigned_roles', '') ?? ''),
+        ];
     }
 }

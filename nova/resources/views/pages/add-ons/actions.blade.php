@@ -2,7 +2,7 @@
     $addonClass = $record->getAddonClass();
 @endphp
 
-<x-filament.modal-content icon="automation" title="Add-on actions">
+<x-filament.modal-content :$action color="gray" title="Add-on actions">
     @includeWhen($addonClass->isRankSet(), 'pages.add-ons.actions-rank-set', [
         'action' => $action,
         'addonClass' => $addonClass,

@@ -18,6 +18,7 @@
         "aws/aws-sdk-php": "^3.293",
         "bensampo/laravel-embed": "^2.4",
         "blade-ui-kit/blade-icons": "^1.0",
+        "dshafik/bag": "^2.0",
         "filament/forms": "^3.0-stable",
         "filament/notifications": "^3.0-stable",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
@@ -36,14 +37,15 @@
         "livewire/flux-pro": "^1.1",
         "livewire/livewire": "^3.4",
         "lorisleiva/laravel-actions": "^2.1",
-        "mailersend/laravel-driver": "^2.3",
+        "mailersend/laravel-driver": "^2.7",
         "mistralys/version-parser": "^2.1",
         "opcodesio/log-viewer": "^3.11",
+        "ralphjsmit/laravel-filament-activitylog": "^1.8",
+        "resend/resend-laravel": "^0.16.0",
         "santigarcor/laratrust": "^8.0",
         "spatie/eloquent-sortable": "^4.0",
         "spatie/laravel-activitylog": "^4.0",
         "spatie/laravel-collection-macros": "^7.1",
-        "spatie/laravel-data": "^4.2",
         "spatie/laravel-honeypot": "^4.5",
         "spatie/laravel-html": "^3.0",
         "spatie/laravel-medialibrary": "^11.0",
@@ -58,22 +60,24 @@
         "teamtnt/laravel-scout-tntsearch-driver": "^14.0",
         "timokoerber/laravel-one-time-operations": "^1.4",
         "vlucas/phpdotenv": "^5.6",
-        "wire-elements/modal": "^2.0",
+        "wire-elements/pro": "^4.0",
         "wire-elements/spotlight": "^2.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.15",
         "brianium/paratest": "^7.0",
         "fakerphp/faker": "^1.14",
         "itsgoingd/clockwork": "^5.0",
         "laravel/pint": "^1.8",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^2.9",
-        "pestphp/pest-plugin-arch": "^2.7",
-        "pestphp/pest-plugin-laravel": "^2.1",
-        "pestphp/pest-plugin-livewire": "^2.1",
-        "pestphp/pest-plugin-type-coverage": "^2.8",
-        "phpunit/phpunit": "^10.0"
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-arch": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "pestphp/pest-plugin-livewire": "^3.0",
+        "pestphp/pest-plugin-stressless": "^3.1",
+        "pestphp/pest-plugin-type-coverage": "^3.0",
+        "rector/rector": "^2.0"
     },
     "extra": {
         "laravel": {
@@ -111,14 +115,23 @@
         "lint": [
             "pint"
         ],
+        "refactor": [
+            "rector"
+        ],
         "test:lint": [
             "pint --test"
+        ],
+        "test:refactor": [
+            "rector --dry-run"
         ],
         "test:types": [
             "phpstan analyse"
         ],
         "test:type-coverage": [
             "pest --type-coverage --min=100"
+        ],
+        "test:arch": [
+            "pest --filter=arch"
         ],
         "test:unit": [
             "pest --parallel --ci --coverage --min=100.0"
@@ -128,6 +141,7 @@
         ],
         "test": [
             "@test:lint",
+            "@test:refactor",
             "@test:types",
             "@test:type-coverage",
             "@test:unit"
@@ -154,7 +168,8 @@
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "ralphjsmit/packages": true
         }
     },
     "minimum-stability": "dev",
@@ -163,6 +178,14 @@
         "flux-pro": {
             "type": "composer",
             "url": "https://composer.fluxui.dev"
+        },
+        "activity-log-pro": {
+            "type": "composer",
+            "url": "https://satis.ralphjsmit.com"
+        },
+        "wire-elements-pro": {
+            "type": "composer",
+            "url": "https://wire-elements-pro.composer.sh"
         }
     }
 }

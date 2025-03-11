@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace Nova\Addons\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Nova\Addons\Data\AddonData;
+use Nova\Addons\Enums\AddonType;
 
 class StoreAddonRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'active' => ['nullable'],
-            'credits' => ['nullable'],
-            'location' => ['required', 'unique:addons,location'],
             'name' => ['required'],
-            'settings' => ['nullable'],
+            'location' => ['required', 'unique:addons,location'],
+            'version' => ['nullable'],
+            'credits' => ['nullable'],
+            'type' => [Rule::enum(AddonType::class)],
+            'preview' => ['nullable'],
+            'status' => ['nullable'],
         ];
     }
 

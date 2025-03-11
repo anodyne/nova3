@@ -14,17 +14,12 @@ class DiscussionFactory extends Factory
 {
     protected $model = Discussion::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
             'discussable_type' => null,
             'discussable_id' => null,
-            'name' => null,
+            'subject' => null,
         ];
     }
 }

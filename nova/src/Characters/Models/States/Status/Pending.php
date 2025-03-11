@@ -8,14 +8,14 @@ class Pending extends CharacterStatus
 {
     public static $name = 'pending';
 
-    public function color(): string
-    {
-        return 'warning';
-    }
-
     public function bgColor(): string
     {
         return 'bg-warning-500';
+    }
+
+    public function getColor(): string
+    {
+        return 'warning';
     }
 
     public function name(): string

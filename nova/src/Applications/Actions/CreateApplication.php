@@ -14,6 +14,6 @@ class CreateApplication
 
     public function handle(ApplicationData $data): Application
     {
-        return Application::create($data->all());
+        return Application::create($data->toArray());
     }
 }

@@ -8,7 +8,7 @@
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
-                <x-panel.danger title="Error installing Nova" icon="tabler-alert-circle">
+                <x-panel.danger title="Error installing Nova" icon="alert-circle">
                     {{ $errorMessage }}
                 </x-panel.danger>
             @endif
@@ -62,29 +62,27 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel well>
-                <x-spacing size="2xs">
-                    <x-panel class="divide-y divide-gray-950/5">
-                        @include('setup.install-nova._check-installed')
-                        @include('setup.install-nova._check-installed-themes')
-                        @includeWhen(filled($this->genre), 'setup.install-nova._check-genre')
-                        {{-- @include('setup.install-nova._check-app-url') --}}
-                        @include('setup.install-nova._check-update-settings')
-                    </x-panel>
-                </x-spacing>
-            </x-panel>
+            <x-setup::panel well>
+                <x-setup::panel class="divide-y divide-gray-950/5">
+                    @include('setup.install-nova._check-installed')
+                    @include('setup.install-nova._check-installed-themes')
+                    @includeWhen(filled($this->genre), 'setup.install-nova._check-genre')
+                    {{-- @include('setup.install-nova._check-app-url') --}}
+                    @include('setup.install-nova._check-update-settings')
+                </x-setup::panel>
+            </x-setup::panel>
         </div>
 
         <div class="flex items-center justify-center gap-8">
             {{--
-                <x-button.setup href="{{ url('setup/migrate') }}" leading="tabler-arrow-forward-up-double">
+                <x-button.setup href="{{ url('setup/migrate') }}" leading="forward-all">
                 Migrate your Nova 2 data
                 </x-button.setup>
                 
                 <span class="text-sm font-semibold uppercase text-gray-500">or</span>
             --}}
 
-            <x-button.setup href="{{ url('setup/setup-account') }}" leading="tabler-circle-arrow-right">
+            <x-button.setup href="{{ url('setup/setup-account') }}" leading="arrow-right-circle">
                 Continue as a fresh install
             </x-button.setup>
         </div>

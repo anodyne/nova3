@@ -4,10 +4,11 @@
 ]) style="--bgColor: {{ $bgColor ?? 'transparent' }}">
     <div class="mx-auto max-w-7xl bg-[--bgColor] px-8 py-8 font-[family-name:Flow_Circular]">
         <div class="mb-8 font-[family-name:--font-body]">
-            <x-panel.primary title="Character manifest settings" icon="characters">
-                If you’d like to update the settings for this instance of the manifest, you can do so by editing the
-                block’s settings. These changes will only impact this manifest block.
-            </x-panel.primary>
+            <x-panel.primary
+                title="Character manifest settings"
+                icon="characters"
+                description="If you’d like to update the settings for this instance of the manifest, you can do so by editing the block’s settings. These changes will only impact this manifest block."
+            ></x-panel.primary>
         </div>
 
         <x-public::preview.block.header

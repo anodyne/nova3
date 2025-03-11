@@ -26,7 +26,7 @@ class DraftToPublished extends Transition
         activity()
             ->performedOn($this->post)
             ->event('published')
-            ->log(':subject.title post was published from a draft state');
+            ->log('published');
 
         User::active()->get()->each->notify(new PostPublished($this->post));
 
