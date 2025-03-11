@@ -17,7 +17,7 @@ trait InteractsWithPostType
 
     public function startPostTypeChange(int $newPostTypeId): void
     {
-        $oldPostType = $this->getPostType();
+        $oldPostType = $this->postType;
         $newPostType = PostType::find($newPostTypeId);
 
         $this->askForConfirmation(

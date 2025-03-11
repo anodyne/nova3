@@ -22,7 +22,7 @@
             '[&>[data-slot=illustration]]:h-auto [&>[data-slot=illustration]]:w-2/3',
 
             // Text styles
-            '[&>[data-slot=text]]:text-center [&>[data-slot=text]]:text-gray-500',
+            '[&>[data-slot=text]]:text-pretty [&>[data-slot=text]]:text-center [&>[data-slot=text]]:text-gray-500',
 
             // Spacing styles
             '[&>[data-slot=icon]+[data-slot=heading]]:mt-4',

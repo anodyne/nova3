@@ -6,14 +6,20 @@ namespace Nova\Stories\Livewire;
 
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Actions\DeletePost;
+use Nova\Stories\Actions\UnlockPost;
+use Nova\Stories\Data\Field;
+use Nova\Stories\Enums\PostTypeField;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Notifications\PostSaved;
+use Nova\Users\Models\User;
 use WireElements\Pro\Concerns\InteractsWithConfirmationModal;
 
 class PostComposer extends Component
@@ -29,6 +35,10 @@ class PostComposer extends Component
     public ?CarbonInterface $lastUpdate = null;
 
     public int $savedChildrenCount = 0;
+
+    public bool $saveSilently = false;
+
+    public ?string $validationErrors = null;
 
     public function delete(): void
     {
@@ -89,20 +99,21 @@ class PostComposer extends Component
 
     public function openForPublishing(): void
     {
-        // $this->save();
+        $this->save(silently: true);
 
         $this->dispatch(
             'slide-over.open',
             component: 'posts-publish',
             arguments: [
                 'postId' => $this->post->id,
-                'postTypeId' => $this->post->post_type_id,
             ]
         );
     }
 
-    public function save(): void
+    public function save(bool $silently = false): void
     {
+        $this->saveSilently = $silently;
+
         $this->savedChildrenCount = 0;
 
         foreach ($this->childrenComponents() as $component) {
@@ -110,6 +121,20 @@ class PostComposer extends Component
         }
 
         $this->lastUpdate = null;
+    }
+
+    public function saveAndFinish(bool $silently = false): void
+    {
+        $this->save($silently);
+
+        UnlockPost::run($this->post, Auth::user());
+
+        Notification::make()->success()
+            ->title('Post unlocked')
+            ->body('Your post has been saved and unlocked for editing by other authors.')
+            ->send();
+
+        $this->redirectRoute('admin.writing-overview');
     }
 
     public function mount(?Post $post = null): void
@@ -125,6 +150,8 @@ class PostComposer extends Component
         $this->postTypeId = $post->post_type_id;
         $this->storyId = $post->story_id;
 
+        $this->authorize('write', [$this->post, $this->postType]);
+
         $this->lockPost();
     }
 
@@ -136,11 +163,51 @@ class PostComposer extends Component
 
         return view('pages.posts.livewire.post-composer', [
             'availablePostTypes' => $this->availablePostTypes,
+            'canPublish' => $this->canPublish,
             'currentStories' => $this->currentStories,
             'postIsDirty' => $this->isDirty,
-            'postType' => $this->getPostType(),
-            'story' => $this->getStory(),
+            'postType' => $this->postType,
+            'story' => $this->story,
+            'shouldUsePostLock' => $this->shouldUsePostLock,
         ]);
+    }
+
+    public function rules()
+    {
+        return $this->postType->fields
+            ->enabledFields()
+            ->mapWithKeys(function (Field $field, string $key): array {
+                $fieldInfo = PostTypeField::tryFrom($key);
+
+                return ["post.$key" => $field->required ? $fieldInfo->requiredValidationRule() : 'nullable'];
+            })
+            ->toArray();
+    }
+
+    #[Computed]
+    public function canPublish(): bool
+    {
+        try {
+            $this->validate();
+
+            $this->validationErrors = null;
+
+            return true;
+        } catch (ValidationException $th) {
+            $fields = collect($th->errors())
+                ->keys()
+                ->flatMap(fn (string $key) => [str($key)->after('post.')->toString()])
+                ->join(', ', ' and ');
+
+            $message = __('messages.post-validation-errors', [
+                'type' => str($this->postType->name)->lower()->toString(),
+                'fields' => $fields,
+            ]);
+
+            $this->validationErrors = str($message)->inlineMarkdown()->toString();
+
+            return false;
+        }
     }
 
     #[Computed]
@@ -150,7 +217,6 @@ class PostComposer extends Component
     }
 
     #[On('save-post-completed')]
-    #[Renderless]
     public function checkAllSaved(): void
     {
         $this->savedChildrenCount++;
@@ -158,9 +224,15 @@ class PostComposer extends Component
         $totalChildren = count($this->childrenComponents());
 
         if ($this->savedChildrenCount === $totalChildren) {
-            Notification::make()->success()
-                ->title('Post saved')
-                ->send();
+            if (! $this->saveSilently) {
+                $this->post->participatingUsers
+                    ->filter(fn (User $user): bool => $user->id !== Auth::id())
+                    ->each->notify(new PostSaved($this->post, Auth::user()));
+
+                Notification::make()->success()
+                    ->title('Post saved')
+                    ->send();
+            }
 
             $this->savedChildrenCount = 0;
         }

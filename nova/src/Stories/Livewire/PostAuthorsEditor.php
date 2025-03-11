@@ -11,7 +11,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Livewire\SlideOver;
-use Nova\Stories\Models\PostType;
 use Nova\Users\Models\User;
 
 #[On('post-authors-modified')]
@@ -21,8 +20,6 @@ class PostAuthorsEditor extends SlideOver
     use Concerns\InteractsWithPost;
     use Concerns\InteractsWithPostType;
     use Concerns\InteractsWithUserAuthors;
-
-    public ?PostType $postType;
 
     public string $search = '';
 
@@ -47,8 +44,6 @@ class PostAuthorsEditor extends SlideOver
 
     public function mount(array $characterAuthors, array $userAuthors): void
     {
-        $this->postType = $this->getPostType();
-
         $this->setCharacterAuthors($characterAuthors);
         $this->setUserAuthors($userAuthors);
     }
@@ -63,6 +58,7 @@ class PostAuthorsEditor extends SlideOver
             'filteredCharacters' => $this->filteredCharacters,
             'filteredUsers' => $this->filteredUsers,
             'characterAuthors' => $this->characterAuthors(),
+            'postType' => $this->postType,
             'userAuthors' => $this->userAuthors(),
         ]);
     }

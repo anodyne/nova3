@@ -28,6 +28,7 @@ class DraftPostsList extends TableComponent
                     ->select([
                         'day',
                         'id',
+                        'last_update_by',
                         'location',
                         'locked_at',
                         'locked_by',

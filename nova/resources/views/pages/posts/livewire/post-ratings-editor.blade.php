@@ -21,6 +21,6 @@
 
     <x-slot name="footer">
         <x-button wire:click="save" color="primary">Save</x-button>
-        <x-button wire:click="close" plain>Cancel</x-button>
+        <x-button wire:click="$dispatch('slide-over.close')" plain>Cancel</x-button>
     </x-slot>
 </x-modal.slide-over>

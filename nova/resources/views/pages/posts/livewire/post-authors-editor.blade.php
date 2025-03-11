@@ -216,6 +216,6 @@
 
     <x-slot name="footer">
         <x-button type="button" wire:click="save" color="primary" :disabled="! $canSave">Update</x-button>
-        <x-button type="button" wire:click="close" plain>Cancel</x-button>
+        <x-button type="button" wire:click="$dispatch('slide-over.close')" plain>Cancel</x-button>
     </x-slot>
 </x-modal.slide-over>

@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder
             CharacterSeeder::class,
 
             StorySeeder::class,
-            PostSeeder::class,
+            CurrentStoriesPostSeeder::class,
+            CompletedStoriesPostSeeder::class,
             FormSeeder::class,
 
             ApplicationSeeder::class,

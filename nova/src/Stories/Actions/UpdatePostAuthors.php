@@ -23,8 +23,6 @@ class UpdatePostAuthors
 
         $this->updateUserAuthors($post, $data->users);
 
-        $this->updatePostParticipants($post, $data);
-
         $post = $post->refresh();
 
         if ($sendNotifications) {
@@ -44,18 +42,6 @@ class UpdatePostAuthors
     private function updateUserAuthors(Post $post, array $authors): void
     {
         $post->userAuthors()->sync($authors);
-    }
-
-    private function updatePostParticipants(Post $post, PostAuthorsData $data): void
-    {
-        $participants = collect($post->participants)
-            ->merge($data->getUserIds())
-            ->filter()
-            ->unique()
-            ->values()
-            ->toArray();
-
-        $post->update(['participants' => $participants]);
     }
 
     private function sendNotificationsToAddedAuthors(Post $post, PostAuthorsData $data): void

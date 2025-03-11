@@ -1,3 +1,5 @@
+@use('Nova\Stories\Enums\PostTypeField')
+
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
@@ -81,16 +83,16 @@
                 <x-panel.header title="Fields"></x-panel.header>
 
                 <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                    @foreach ($fieldTypes as $fieldType)
-                        @if ($postType->fields->{$fieldType}->enabled)
+                    @foreach (PostTypeField::cases() as $field)
+                        @if ($postType->fields->{$field->value}->enabled)
                             <x-spacing size="row" class="flex items-center gap-x-3 font-medium">
                                 <div class="flex items-center">
                                     <div class="h-2 w-2 rounded-full bg-success-500"></div>
                                 </div>
 
-                                <span>{{ str($fieldType)->title() }} field</span>
+                                <span>{{ $field->getLabel() }} field</span>
 
-                                @if ($postType->fields->{$fieldType}->required)
+                                @if ($postType->fields->{$field->value}->required)
                                     <x-badge>Required</x-badge>
                                 @endif
                             </x-spacing>

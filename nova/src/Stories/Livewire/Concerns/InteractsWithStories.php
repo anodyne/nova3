@@ -29,11 +29,6 @@ trait InteractsWithStories
         $this->redirectRoute('admin.posts.edit', $this->post);
     }
 
-    public function getStory(): ?Story
-    {
-        return once(fn () => Story::find($this->storyId));
-    }
-
     #[Computed]
     public function currentStories(): Collection
     {

@@ -10,4 +10,6 @@ return [
 
     'delete-post' => 'Are you sure you want to delete this post? This action is permanent and you will not be able to recover it.',
 
+    'post-validation-errors' => 'To save your :type, please add a **:fields**',
+
 ];

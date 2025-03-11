@@ -72,7 +72,7 @@
             </div>
 
             @if ($post->is_draft)
-                <div class="flex items-center gap-x-2">
+                <div class="flex items-center justify-between gap-x-4">
                     @if ($postIsDirty)
                         <x-panel variant="well" color="warning">
                             <x-spacing height="3xs" left="3xs" right="sm" class="flex items-center gap-x-3">
@@ -87,6 +87,12 @@
                             <x-button wire:click="save">Save</x-button>
                         </x-spacing>
                     @endif
+
+                    @if ($shouldUsePostLock)
+                        <div class="shrink-0">
+                            <x-button wire:click="saveAndFinish(true)" plain>I’m done editing</x-button>
+                        </div>
+                    @endif
                 </div>
             @endif
         </section>
@@ -95,8 +101,23 @@
             <div class="space-y-4">
                 @can('publish', $post)
                     <div>
-                        <x-button wire:click="openForPublishing" class="w-full" color="primary">Publish</x-button>
+                        <x-button
+                            wire:click="openForPublishing"
+                            class="w-full"
+                            color="primary"
+                            :disabled="! $canPublish"
+                        >
+                            Publish
+                        </x-button>
                     </div>
+
+                    @if (! $canPublish)
+                        <div
+                            class="rounded-lg bg-danger-50 px-3 py-1.5 text-sm/6 text-danger-600 ring-1 ring-danger-200 dark:bg-danger-950 dark:text-danger-400 dark:ring-danger-800"
+                        >
+                            {!! $validationErrors !!}
+                        </div>
+                    @endif
                 @endcan
 
                 @if ($post->is_published)

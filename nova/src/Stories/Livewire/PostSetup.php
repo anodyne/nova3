@@ -17,6 +17,7 @@ use Nova\Stories\Data\PostStatusData;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Nova\Stories\Livewire\Concerns\InteractsWithStories;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\States\StoryStatus\Current;
 
 class PostSetup extends Component
 {
@@ -34,11 +35,11 @@ class PostSetup extends Component
             'storyId' => [
                 'required',
                 'exists:stories,id',
-                // function ($attribute, $value, $fail) {
-                //     if ($this->getStory()->status !== 'current') {
-                //         $fail('Please choose a current :attribute to post in.');
-                //     }
-                // },
+                function ($attribute, $value, $fail) {
+                    if (! $this->story?->status->equals(Current::class)) {
+                        $fail('Please choose a current :attribute to post in.');
+                    }
+                },
             ],
             'postTypeId' => [
                 'required',
@@ -47,10 +48,7 @@ class PostSetup extends Component
                     /** @var User */
                     $user = Auth::user();
 
-                    /** @var PostType */
-                    $postType = $this->getPostType();
-
-                    if ($postType->role && ! $user->hasRole($postType->role?->name)) {
+                    if ($this->postType?->role && ! $user->hasRole($this->postType?->role?->name)) {
                         $fail('Please choose a :attribute that you are authorized to use.');
                     }
                 },
@@ -67,8 +65,10 @@ class PostSetup extends Component
         ];
     }
 
-    public function save(): void
+    public function saveAndContinueWriting(): void
     {
+        $this->authorize('write', [$this->post, $this->postType]);
+
         $this->validate();
 
         $this->post->post_type_id = $this->postTypeId;
@@ -131,7 +131,7 @@ class PostSetup extends Component
         return Auth::user()->activeCharacters;
     }
 
-    protected function validationAttributes()
+    protected function validationAttributes(): array
     {
         return [
             'storyId' => 'story',

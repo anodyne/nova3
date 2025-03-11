@@ -87,6 +87,7 @@ class CreateStoryTables extends Migration
             $table->timestamp('published_at')->nullable()->index();
             $table->timestamp('locked_at')->nullable();
             $table->unsignedBigInteger('locked_by')->nullable();
+            $table->unsignedBigInteger('last_update_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

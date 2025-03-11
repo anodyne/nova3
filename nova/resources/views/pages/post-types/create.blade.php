@@ -1,3 +1,4 @@
+@use('Nova\Stories\Enums\PostTypeField')
 @use('Nova\Stories\Enums\PostTypeVisibility')
 @use('Nova\Stories\Models\PostType')
 
@@ -113,7 +114,7 @@
                     </x-fieldset.heading>
 
                     <x-fieldset.field-group constrained>
-                        @foreach ($fieldTypes as $fieldType)
+                        @foreach (PostTypeField::cases() as $field)
                             <x-panel
                                 variant="well"
                                 x-data="{
@@ -125,7 +126,7 @@
                                 <x-panel.header class="cursor-pointer" x-on:click="expanded = !expanded">
                                     <x-slot name="title">
                                         <div class="flex items-center gap-x-1">
-                                            <p>{{ str($fieldType)->ucfirst() }} field</p>
+                                            <p>{{ $field->getLabel() }} field</p>
                                             <p class="font-medium text-danger-500" x-show="required">*</p>
                                         </div>
                                     </x-slot>
@@ -154,31 +155,51 @@
                                     x-cloak
                                 >
                                     <x-spacing size="row">
-                                        @php($enabledId = "field_enabled_{$fieldType}")
+                                        @php($enabledId = "field_enabled_{$field->value}")
 
                                         <x-switch.field x-on:toggle-switch-changed="enabled = !enabled">
                                             <x-fieldset.label :for="$enabledId">Enabled</x-fieldset.label>
-                                            <x-fieldset.description>
-                                                Use the {{ $fieldType }} field for this post type
-                                            </x-fieldset.description>
+
+                                            @if ($field->canBeDisabled())
+                                                <x-fieldset.description>
+                                                    Use the {{ $field->value }} field for this post type
+                                                </x-fieldset.description>
+                                            @else
+                                                <x-fieldset.warning-message>
+                                                    This field cannot be disabled
+                                                </x-fieldset.warning-message>
+                                            @endif
+
                                             <x-switch
-                                                name="fields[{{ $fieldType }}][enabled]"
+                                                name="fields[{{ $field->value }}][enabled]"
                                                 :id="$enabledId"
-                                                :value="old('fields[{{ $fieldType }}][enabled]', true)"
+                                                :value="old('fields[{{ $field->value }}][enabled]', true)"
+                                                :disabled="! $field->canBeDisabled()"
                                             ></x-switch>
                                         </x-switch.field>
                                     </x-spacing>
 
                                     <x-spacing size="row">
-                                        @php($requiredId = "field_required_{$fieldType}")
+                                        @php($requiredId = "field_required_{$field->value}")
 
                                         <x-switch.field x-on:toggle-switch-changed="required = !required">
                                             <x-fieldset.label :for="$requiredId">Required</x-fieldset.label>
-                                            <x-fieldset.description>The field must have a value</x-fieldset.description>
+
+                                            @if ($field->canBeRequired())
+                                                <x-fieldset.description>
+                                                    The field must have a value
+                                                </x-fieldset.description>
+                                            @else
+                                                <x-fieldset.warning-message>
+                                                    The field cannot be required
+                                                </x-fieldset.warning-message>
+                                            @endif
+
                                             <x-switch
-                                                name="fields[{{ $fieldType }}][required]"
+                                                name="fields[{{ $field->value }}][required]"
                                                 :id="$requiredId"
-                                                :value="old('fields[{{ $fieldType }}][required]', false)"
+                                                :value="old('fields[{{ $field->value }}][required]', false)"
+                                                :disabled="! $field->canBeRequired()"
                                             ></x-switch>
                                         </x-switch.field>
                                     </x-spacing>

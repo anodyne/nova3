@@ -29,8 +29,8 @@
                     @if ($currentStories->count() === 0)
                         <x-empty-state>
                             <x-icon name="books"></x-icon>
-                            <x-h2>No stories available</x-h2>
-                            <x-text class="text-pretty">
+                            <x-h3>No stories available</x-h3>
+                            <x-text>
                                 There are no actively running stories right now. Update a story to a status of current
                                 to allow posting.
                             </x-text>
@@ -63,7 +63,7 @@
         <x-panel variant="well">
             <x-panel.header
                 title="Post type"
-                description="Post types allow you to control the type of content that can create inside of stories."
+                description="Post types allow you to control the type of content that can be created inside of stories."
                 icon="edit-settings"
                 icon-size="lg"
             >
@@ -81,8 +81,8 @@
                     @if ($availablePostTypes->count() === 0)
                         <x-empty-state>
                             <x-icon name="edit-settings"></x-icon>
-                            <x-h2>No post types available</x-h2>
-                            <x-text class="text-pretty">
+                            <x-h3>No post types available</x-h3>
+                            <x-text>
                                 You do not have any post types available to you. Please contact a Game Master to add a
                                 post type or update an existing post type for you to use.
                             </x-text>
@@ -133,8 +133,8 @@
                     @if ($characters->count() === 0)
                         <x-empty-state>
                             <x-icon name="characters"></x-icon>
-                            <x-h2>No active characters</x-h2>
-                            <x-text class="text-pretty">
+                            <x-h3>No active characters</x-h3>
+                            <x-text>
                                 You do not have any active characters to choose from.
 
                                 @can('createAny', Character::class)
@@ -174,7 +174,7 @@
 
     @if ($canContinueWriting)
         <div>
-            <x-button wire:click="save" color="primary">Start writing &rarr;</x-button>
+            <x-button wire:click="saveAndContinueWriting" color="primary">Start writing &rarr;</x-button>
         </div>
     @endif
 </x-spacing>

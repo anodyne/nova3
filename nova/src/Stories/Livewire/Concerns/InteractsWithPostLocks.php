@@ -13,17 +13,19 @@ trait InteractsWithPostLocks
 {
     public function checkLock(): void
     {
-        if ($this->post->isLocked() && $this->lastUpdate->gte($this->post->locked_at)) {
-            LockPost::run($this->post, Auth::user());
-        } else {
-            UnlockPost::run($this->post, Auth::user());
+        if ($this->shouldUsePostLock) {
+            if ($this->post->isLocked() && $this->lastUpdate->gte($this->post->locked_at)) {
+                LockPost::run($this->post, Auth::user());
+            } else {
+                UnlockPost::run($this->post, Auth::user());
 
-            $this->redirectRoute('admin.writing-overview');
+                $this->redirectRoute('admin.writing-overview');
+            }
         }
     }
 
     #[Computed]
-    public function editableByCurrentUser(): bool
+    public function canBeEditedByCurrentUser(): bool
     {
         return ! $this->post->isLocked() || ($this->post->isLocked() && $this->post->lockIsOwnedBy(Auth::user()));
     }
@@ -34,10 +36,16 @@ trait InteractsWithPostLocks
         return $this->post->isLocked() && ! $this->post->lockIsOwnedBy(Auth::user());
     }
 
+    #[Computed]
+    public function shouldUsePostLock(): bool
+    {
+        return $this->post->participatingUsers->count() > 1;
+    }
+
     private function lockPost(): void
     {
         // Only lock a post if there's more than 1 user participating.
-        if ($this->editableByCurrentUser && $this->post->participatingUsers->count() > 1) {
+        if ($this->canBeEditedByCurrentUser && $this->shouldUsePostLock) {
             LockPost::run($this->post, Auth::user());
         }
     }

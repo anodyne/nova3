@@ -19,16 +19,6 @@ use Nova\Stories\Responses\ShowPostTypeResponse;
 
 class PostTypeController extends Controller
 {
-    protected $fieldTypes = [
-        'title',
-        'location',
-        'day',
-        'time',
-        'content',
-        'rating',
-        'summary',
-    ];
-
     public function __construct()
     {
         parent::__construct();
@@ -46,7 +36,6 @@ class PostTypeController extends Controller
     public function show(PostType $postType)
     {
         return ShowPostTypeResponse::sendWith([
-            'fieldTypes' => $this->fieldTypes,
             'postType' => $postType->load('role')->loadCount('publishedPosts'),
         ]);
     }
@@ -55,7 +44,6 @@ class PostTypeController extends Controller
     {
         return CreatePostTypeResponse::sendWith([
             'editTimeframes' => PostEditTimeframe::toOptions(),
-            'fieldTypes' => $this->fieldTypes,
             'roles' => Role::ordered()->get(),
         ]);
     }
@@ -72,7 +60,6 @@ class PostTypeController extends Controller
     {
         return EditPostTypeResponse::sendWith([
             'editTimeframes' => PostEditTimeframe::toOptions(),
-            'fieldTypes' => $this->fieldTypes,
             'postType' => $postType,
             'roles' => Role::ordered()->get(),
         ]);

@@ -1,4 +1,4 @@
-.fi-ta-ctn {
+/* .fi-ta-ctn {
     @apply divide-y-0 rounded-none shadow-none ring-0 dark:!bg-transparent;
 }
 
@@ -117,6 +117,42 @@
 }
 body[data-panda] .fi-ta-empty-state-content .fi-btn {
     @apply text-white [--btn-bg:theme(colors.gray.900)] [--btn-border:theme(colors.gray.950/90%)] [--btn-hover-overlay:theme(colors.white/10%)] [--btn-icon:theme(colors.gray.400)] data-[active]:[--btn-icon:theme(colors.gray.300)] data-[hover]:[--btn-icon:theme(colors.gray.300)] dark:text-white dark:[--btn-bg:theme(colors.gray.600)] dark:[--btn-hover-overlay:theme(colors.white/5%)];
+} */
+
+.fi-ta-ctn {
+    @apply divide-gray-950/5 rounded-none shadow-none ring-0 dark:divide-white/5;
+}
+.fi-ta-table {
+    @apply divide-gray-950/10 dark:divide-white/10;
+}
+.fi-ta-table > thead > tr {
+    @apply bg-transparent;
+}
+.fi-ta-table > tbody {
+    @apply divide-gray-950/5 dark:divide-white/5;
+}
+.fi-ta-content > div:not(.fi-ta-empty-state) {
+    @apply bg-gray-950/5 dark:bg-white/5;
+}
+
+.fi-ta-cell .fi-ta-title-column .fi-ta-text-item {
+    @apply text-gray-950 dark:text-white;
+}
+.fi-ta-cell .fi-ta-text-item {
+    @apply text-gray-600 dark:text-gray-400;
+}
+
+.fi-ta-empty-state-icon {
+    @apply h-16 w-16;
+}
+.fi-ta-empty-state-content {
+    @apply space-y-3;
+}
+.fi-ta-empty-state-heading {
+    @apply font-semibold;
+}
+.fi-ta-empty-state-description {
+    @apply text-base leading-relaxed text-gray-600 dark:text-gray-300;
 }
 
 .fi-btn {

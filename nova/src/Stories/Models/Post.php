@@ -53,7 +53,7 @@ class Post extends Model implements Sortable
         'id', 'story_id', 'post_type_id', 'title', 'content', 'status', 'word_count',
         'day', 'time', 'location', 'rating_language', 'rating_sex',
         'rating_violence', 'summary', 'participants', 'neighbor', 'direction',
-        'order_column', 'locked_at', 'locked_by',
+        'order_column', 'locked_at', 'locked_by', 'last_update_by',
     ];
 
     protected $with = ['postType', 'story'];
@@ -163,7 +163,8 @@ class Post extends Model implements Sortable
     public function needsAttention(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->participatingUsers()->latest('pivot_updated_at')->first()?->pivot?->user_id !== Auth::id()
+            // get: fn (): bool => $this->participatingUsers()->latest('pivot_updated_at')->first()?->pivot?->user_id !== Auth::id()
+            get: fn (): bool => $this->last_update_by !== Auth::id()
         );
     }
 
@@ -229,17 +230,19 @@ class Post extends Model implements Sortable
         $this->fill(['participants' => $participants])->save();
     }
 
-    public function removeParticipant(User $user): void
+    public function removeParticipant(int $userId): void
     {
-        $this->characterAuthors()->wherePivot('user_id', $user->id)->detach();
+        $this->characterAuthors()->wherePivot('user_id', $userId)->detach();
 
-        $this->userAuthors()->wherePivot('user_id', $user->id)->detach();
+        $this->userAuthors()->wherePivot('user_id', $userId)->detach();
 
         $participants = collect($this->participants)
             ->filter()
-            ->filter(fn ($participant) => $participant !== $user->id)
+            ->filter(fn ($participant) => $participant !== $userId)
             ->unique()
-            ->all();
+            ->values()
+            ->map(fn ($value): int => (int) $value)
+            ->toArray();
 
         $this->fill(['participants' => $participants])->save();
     }

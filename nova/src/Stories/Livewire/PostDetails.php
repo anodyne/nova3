@@ -6,9 +6,11 @@ namespace Nova\Stories\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Stories\Actions\UpdateContributorWordCount;
 use Nova\Stories\Actions\UpdatePost;
 use Nova\Stories\Data\PostDetailsData;
 use Nova\Stories\Models\Post;
@@ -30,7 +32,7 @@ class PostDetails extends Component
 
     public function updated($property, $value): void
     {
-        if ($property === 'content') {
+        if ($property === 'content' && blank(str($value)->pipe('strip_tags'))) {
             return;
         }
 
@@ -59,7 +61,7 @@ class PostDetails extends Component
     public function render(): View
     {
         return view('pages.posts.livewire.post-details', [
-            'postType' => $this->getPostType(),
+            'postType' => $this->postType,
         ]);
     }
 
@@ -69,13 +71,21 @@ class PostDetails extends Component
         try {
             $post = $this->getPost();
 
+            $oldPostWordCount = $post->word_count;
+
             UpdatePost::run($post, PostDetailsData::from(
-                content: $this->content,
+                content: filled(str($this->content)->pipe('strip_tags')) ? $this->content : null,
                 day: $this->day,
                 location: $this->location,
                 time: $this->time,
                 title: $this->title
             ));
+
+            UpdateContributorWordCount::run(
+                post: $post,
+                user: Auth::user(),
+                oldWordCount: $oldPostWordCount,
+            );
 
             $this->dispatch('save-post-completed')->to(PostComposer::class);
         } catch (ModelNotFoundException $th) {
