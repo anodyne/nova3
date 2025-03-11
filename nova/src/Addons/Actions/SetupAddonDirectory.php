@@ -19,14 +19,14 @@ class SetupAddonDirectory
 {
     use AsAction;
 
-    protected FilesystemAdapter $files;
-
     public string $commandSignature = 'nova:make-addon
                                        {name : The name of the add-on}
                                        {--location= : Set a custom location for the add-on}
                                        {--preview= : Set a custom preview image name for the add-on}';
 
     public string $commandDescription = 'Scaffold a new add-on.';
+
+    protected FilesystemAdapter $files;
 
     protected AddonData $data;
 

@@ -16,8 +16,6 @@ class SetupThemeDirectory
 {
     use AsAction;
 
-    protected FilesystemAdapter $files;
-
     public string $commandSignature = 'nova:make-theme
                                        {name : The name of the theme}
                                        {--location= : Set a custom location for the theme}
@@ -25,6 +23,8 @@ class SetupThemeDirectory
                                        {--variants=* : Set the variants for the theme}';
 
     public string $commandDescription = 'Scaffold a new theme.';
+
+    protected FilesystemAdapter $files;
 
     protected ThemeData $data;
 

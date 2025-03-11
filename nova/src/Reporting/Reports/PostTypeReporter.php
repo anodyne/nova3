@@ -20,11 +20,6 @@ class PostTypeReporter
         $this->postingActivitySettings = settings('posting_activity');
     }
 
-    public static function make(): static
-    {
-        return new self;
-    }
-
     public function currentActivityTimeframe(): PostTypeReport
     {
         $result = $this->query(
@@ -47,6 +42,11 @@ class PostTypeReporter
         return PostTypeReport::from(
             results: $result
         );
+    }
+
+    public static function make(): static
+    {
+        return new self;
     }
 
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection

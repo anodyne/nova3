@@ -25,11 +25,6 @@ class ParticipationReporter
         $this->postingActivitySettings = settings('posting_activity');
     }
 
-    public static function make(): static
-    {
-        return new self;
-    }
-
     public function currentActivityTimeframe(): ParticipationReport
     {
         $result = once(function () {
@@ -89,6 +84,11 @@ class ParticipationReporter
             $change < 0 => Blade::render('<x-badge color="danger">&darr; '.abs($change).'%</x-badge>'),
             default => '',
         };
+    }
+
+    public static function make(): static
+    {
+        return new self;
     }
 
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection

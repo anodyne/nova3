@@ -20,6 +20,10 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
 
     protected ?NotificationType $notificationType = null;
 
+    abstract public function toArray(object $notifiable): array;
+
+    abstract public function mailable(): Mailable;
+
     public function via(object $notifiable): array
     {
         $this->getNotificationType();
@@ -29,10 +33,6 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
             default => $this->setNonAdminAudienceChannels($notifiable),
         };
     }
-
-    abstract public function toArray(object $notifiable): array;
-
-    abstract public function mailable(): Mailable;
 
     public function toMail(object $notifiable): Mailable
     {

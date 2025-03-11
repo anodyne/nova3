@@ -32,6 +32,11 @@ class DiscordAlert
         }
     }
 
+    public static function make(?string $notificationKey = null): static
+    {
+        return app(static::class, ['notificationKey' => $notificationKey]);
+    }
+
     protected function buildJsonPayload(DiscordMessage $message)
     {
         $optionalFields = array_filter([
@@ -73,10 +78,5 @@ class DiscordAlert
 
             return ['name' => $key, 'value' => $value, 'inline' => true];
         })->values()->all();
-    }
-
-    public static function make(?string $notificationKey = null): static
-    {
-        return app(static::class, ['notificationKey' => $notificationKey]);
     }
 }

@@ -19,26 +19,16 @@ readonly class PronounsData extends Bag
         public ?string $object,
     ) {}
 
-    #[Transforms(Request::class)]
-    protected static function fromRequest(Request $request): array
+    public function __toString()
     {
-        $value = $request->input('pronouns.value');
+        if ($this->value === 'none') {
+            return '';
+        }
 
-        return [
-            'value' => $value,
-            'subject' => static::getSubjectPronouns($value, $request->input('pronouns.subject')),
-            'object' => static::getObjectPronouns($value, $request->input('pronouns.object')),
-        ];
-    }
-
-    #[Transforms('string')]
-    protected static function fromJsonString(string $json): mixed
-    {
-        return [
-            'value' => $json,
-            'subject' => static::getSubjectPronouns($json, null),
-            'object' => static::getObjectPronouns($json, null),
-        ];
+        return implode('/', [
+            $this->subject,
+            $this->object,
+        ]);
     }
 
     public static function getSubjectPronouns(string $pronoun, ?string $alternate): ?string
@@ -65,15 +55,25 @@ readonly class PronounsData extends Bag
         };
     }
 
-    public function __toString()
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
     {
-        if ($this->value === 'none') {
-            return '';
-        }
+        $value = $request->input('pronouns.value');
 
-        return implode('/', [
-            $this->subject,
-            $this->object,
-        ]);
+        return [
+            'value' => $value,
+            'subject' => static::getSubjectPronouns($value, $request->input('pronouns.subject')),
+            'object' => static::getObjectPronouns($value, $request->input('pronouns.object')),
+        ];
+    }
+
+    #[Transforms('string')]
+    protected static function fromJsonString(string $json): mixed
+    {
+        return [
+            'value' => $json,
+            'subject' => static::getSubjectPronouns($json, null),
+            'object' => static::getObjectPronouns($json, null),
+        ];
     }
 }

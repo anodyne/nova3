@@ -11,16 +11,6 @@ use Nova\Pages\Blocks\FormSchema;
 
 abstract class ContentRatingsBlockSettings extends ScribbleModal
 {
-    public static function getSlideDirection(): SlideDirection
-    {
-        return SlideDirection::Right;
-    }
-
-    public static function getMaxWidth(): MaxWidth
-    {
-        return MaxWidth::ExtraLarge;
-    }
-
     public function mount(): void
     {
         $this->form->fill([
@@ -44,5 +34,15 @@ abstract class ContentRatingsBlockSettings extends ScribbleModal
             ...FormSchema::heading(withOrientation: true),
             ...FormSchema::backgroundColor(),
         ];
+    }
+
+    public static function getSlideDirection(): SlideDirection
+    {
+        return SlideDirection::Right;
+    }
+
+    public static function getMaxWidth(): MaxWidth
+    {
+        return MaxWidth::ExtraLarge;
     }
 }

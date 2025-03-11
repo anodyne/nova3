@@ -17,16 +17,6 @@ abstract class LogosBlockSettings extends ScribbleModal
 {
     protected bool $useOrientation = true;
 
-    public static function getSlideDirection(): SlideDirection
-    {
-        return SlideDirection::Right;
-    }
-
-    public static function getMaxWidth(): MaxWidth
-    {
-        return MaxWidth::ExtraLarge;
-    }
-
     public function getFormFields(): array
     {
         return [
@@ -42,5 +32,15 @@ abstract class LogosBlockSettings extends ScribbleModal
                     ]),
             ]),
         ];
+    }
+
+    public static function getSlideDirection(): SlideDirection
+    {
+        return SlideDirection::Right;
+    }
+
+    public static function getMaxWidth(): MaxWidth
+    {
+        return MaxWidth::ExtraLarge;
     }
 }

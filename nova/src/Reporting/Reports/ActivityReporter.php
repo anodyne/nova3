@@ -28,11 +28,6 @@ class ActivityReporter
         $this->postingActivitySettings = settings('posting_activity');
     }
 
-    public static function make(): static
-    {
-        return new self;
-    }
-
     public function currentActivityTimeframe(): ActivityReport
     {
         $result = once(function () {
@@ -92,6 +87,11 @@ class ActivityReporter
             $change < 0 => Blade::render('<x-badge color="danger">&darr; '.abs($change).'%</x-badge>'),
             default => '',
         };
+    }
+
+    public static function make(): static
+    {
+        return new self;
     }
 
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection

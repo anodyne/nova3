@@ -34,25 +34,6 @@ readonly class Appearance extends Bag
         public bool $panda,
     ) {}
 
-    #[Transforms(Request::class)]
-    protected static function fromRequest(Request $request): array
-    {
-        return [
-            'theme' => $request->input('theme'),
-            'avatarShape' => AvatarShape::tryFrom($request->input('avatar_shape')) ?? AvatarShape::None,
-            'avatarStyle' => AvatarStyle::tryFrom($request->input('avatar_style')) ?? AvatarStyle::BigEarsNeutral,
-            'imagePath' => $request->input('image_path'),
-            'colorsGray' => $request->input('colors_gray'),
-            'colorsPrimary' => $request->input('colors_primary'),
-            'colorsDanger' => $request->input('colors_danger'),
-            'colorsWarning' => $request->input('colors_warning'),
-            'colorsSuccess' => $request->input('colors_success'),
-            'colorsInfo' => $request->input('colors_info'),
-            'adminFonts' => FontFamilies::from($request),
-            'panda' => $request->boolean('panda', false),
-        ];
-    }
-
     public function getColors(): array
     {
         return [
@@ -76,5 +57,24 @@ readonly class Appearance extends Bag
         }
 
         return constant('Nova\Foundation\Colors\Color::'.$color);
+    }
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'theme' => $request->input('theme'),
+            'avatarShape' => AvatarShape::tryFrom($request->input('avatar_shape')) ?? AvatarShape::None,
+            'avatarStyle' => AvatarStyle::tryFrom($request->input('avatar_style')) ?? AvatarStyle::BigEarsNeutral,
+            'imagePath' => $request->input('image_path'),
+            'colorsGray' => $request->input('colors_gray'),
+            'colorsPrimary' => $request->input('colors_primary'),
+            'colorsDanger' => $request->input('colors_danger'),
+            'colorsWarning' => $request->input('colors_warning'),
+            'colorsSuccess' => $request->input('colors_success'),
+            'colorsInfo' => $request->input('colors_info'),
+            'adminFonts' => FontFamilies::from($request),
+            'panda' => $request->boolean('panda', false),
+        ];
     }
 }

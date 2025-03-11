@@ -130,7 +130,7 @@ class PostFactory extends Factory
         return $this->state([
             'post_type_id' => PostType::where('key', 'post')->first()->id,
             'day' => 'Day {fake()->numberBetween(1, 5)}',
-            'time' => fake()->time('Hi') . ' hours',
+            'time' => fake()->time('Hi').' hours',
             'location' => ucfirst(fake()->words(3, true)),
         ]);
     }
@@ -140,7 +140,7 @@ class PostFactory extends Factory
         return $this->state([
             'post_type_id' => PostType::where('key', 'personal')->first()->id,
             'day' => 'Day {fake()->numberBetween(1, 5)}',
-            'time' => fake()->time('Hi') . ' hours',
+            'time' => fake()->time('Hi').' hours',
             'location' => ucfirst(fake()->words(3, true)),
         ]);
     }

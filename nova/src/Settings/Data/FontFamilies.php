@@ -26,17 +26,6 @@ readonly class FontFamilies extends Bag
         public string $bodyFamily
     ) {}
 
-    #[Transforms(Request::class)]
-    protected static function fromRequest(Request $request): array
-    {
-        return [
-            'headerProvider' => $request->input('admin_fonts.headerProvider'),
-            'headerFamily' => $request->input('admin_fonts.headerFamily'),
-            'bodyProvider' => $request->input('admin_fonts.bodyProvider'),
-            'bodyFamily' => $request->input('admin_fonts.bodyFamily'),
-        ];
-    }
-
     public function getFontHtml(): Htmlable
     {
         // x Fonts are the same and from the same provider
@@ -78,5 +67,16 @@ readonly class FontFamilies extends Bag
             'google' => new GoogleFontProvider,
             default => new LocalFontProvider,
         };
+    }
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'headerProvider' => $request->input('admin_fonts.headerProvider'),
+            'headerFamily' => $request->input('admin_fonts.headerFamily'),
+            'bodyProvider' => $request->input('admin_fonts.bodyProvider'),
+            'bodyFamily' => $request->input('admin_fonts.bodyFamily'),
+        ];
     }
 }

@@ -10,6 +10,15 @@ trait RendersTheme
 {
     public $structure;
 
+    public function __toString()
+    {
+        try {
+            return $this->structure->render();
+        } catch (\Exception $exception) {
+            dd($exception);
+        }
+    }
+
     public function structure(array $data = []): array
     {
         return [
@@ -69,14 +78,5 @@ trait RendersTheme
     public function prepareData(): array
     {
         return [];
-    }
-
-    public function __toString()
-    {
-        try {
-            return $this->structure->render();
-        } catch (\Exception $exception) {
-            dd($exception);
-        }
     }
 }

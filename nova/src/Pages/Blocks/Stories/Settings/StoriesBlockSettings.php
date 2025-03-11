@@ -16,16 +16,6 @@ use Nova\Stories\Models\Story;
 
 abstract class StoriesBlockSettings extends ScribbleModal
 {
-    public static function getSlideDirection(): SlideDirection
-    {
-        return SlideDirection::Right;
-    }
-
-    public static function getMaxWidth(): MaxWidth
-    {
-        return MaxWidth::ExtraLarge;
-    }
-
     public function mount(): void
     {
         $this->form->fill([
@@ -74,5 +64,15 @@ abstract class StoriesBlockSettings extends ScribbleModal
                 Toggle::make('showStoryStats')->label('Show story stats'),
             ]),
         ];
+    }
+
+    public static function getSlideDirection(): SlideDirection
+    {
+        return SlideDirection::Right;
+    }
+
+    public static function getMaxWidth(): MaxWidth
+    {
+        return MaxWidth::ExtraLarge;
     }
 }

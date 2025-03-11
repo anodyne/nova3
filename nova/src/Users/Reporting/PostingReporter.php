@@ -21,11 +21,6 @@ class PostingReporter
         $this->postingActivitySettings = settings('posting_activity');
     }
 
-    public static function make(User $user): static
-    {
-        return new self($user);
-    }
-
     public function lifetime(): UserPostingReport
     {
         $result = $this->query();
@@ -47,6 +42,11 @@ class PostingReporter
             posts: (int) $result->total_posts,
             words: (int) $result->total_words
         );
+    }
+
+    public static function make(User $user): static
+    {
+        return new self($user);
     }
 
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): PostAuthor

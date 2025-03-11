@@ -17,16 +17,6 @@ class FreeformContentBlockSettings extends ScribbleModal
 
     public ?string $identifier = 'content';
 
-    public static function getSlideDirection(): SlideDirection
-    {
-        return SlideDirection::Right;
-    }
-
-    public static function getMaxWidth(): MaxWidth
-    {
-        return MaxWidth::FourExtraLarge;
-    }
-
     public function mount(): void
     {
         $this->form->fill([
@@ -50,5 +40,15 @@ class FreeformContentBlockSettings extends ScribbleModal
                 ->renderToolbar(),
             ...FormSchema::backgroundColor(),
         ];
+    }
+
+    public static function getSlideDirection(): SlideDirection
+    {
+        return SlideDirection::Right;
+    }
+
+    public static function getMaxWidth(): MaxWidth
+    {
+        return MaxWidth::FourExtraLarge;
     }
 }

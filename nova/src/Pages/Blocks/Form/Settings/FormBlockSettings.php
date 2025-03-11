@@ -18,16 +18,6 @@ class FormBlockSettings extends ScribbleModal
 
     public ?string $identifier = 'form';
 
-    public static function getSlideDirection(): SlideDirection
-    {
-        return SlideDirection::Right;
-    }
-
-    public static function getMaxWidth(): MaxWidth
-    {
-        return MaxWidth::ExtraLarge;
-    }
-
     public function mount(): void
     {
         $this->form->fill([
@@ -71,5 +61,15 @@ class FormBlockSettings extends ScribbleModal
                 ]),
             ]),
         ];
+    }
+
+    public static function getSlideDirection(): SlideDirection
+    {
+        return SlideDirection::Right;
+    }
+
+    public static function getMaxWidth(): MaxWidth
+    {
+        return MaxWidth::ExtraLarge;
     }
 }

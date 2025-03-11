@@ -186,15 +186,14 @@ class Story extends Model implements HasMedia, Sortable
         return $this->getSibling('previous');
     }
 
-    protected function getSibling($direction): self
+    public function toSearchableArray(): array
     {
-        $query = self::query()->parent($this->parent_id);
-
-        return match ($direction) {
-            'previous' => $query->where('order_column', $this->order_column - 1)->first(),
-            'next' => $query->where('order_column', $this->order_column + 1)->first(),
-            default => $query->first(),
-        };
+        return [
+            'description' => $this->description,
+            'id' => $this->id,
+            'prefixed_id' => $this->prefixed_id,
+            'title' => $this->title,
+        ];
     }
 
     public static function getMediaPath(): string
@@ -211,13 +210,14 @@ class Story extends Model implements HasMedia, Sortable
             ->sortBy(fn (StoryStatus\StoryStatus $status) => $status->order());
     }
 
-    public function toSearchableArray(): array
+    protected function getSibling($direction): self
     {
-        return [
-            'description' => $this->description,
-            'id' => $this->id,
-            'prefixed_id' => $this->prefixed_id,
-            'title' => $this->title,
-        ];
+        $query = self::query()->parent($this->parent_id);
+
+        return match ($direction) {
+            'previous' => $query->where('order_column', $this->order_column - 1)->first(),
+            'next' => $query->where('order_column', $this->order_column + 1)->first(),
+            default => $query->first(),
+        };
     }
 }

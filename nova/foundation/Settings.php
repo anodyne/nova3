@@ -34,14 +34,58 @@ class Settings implements Arrayable, ArrayAccess, Jsonable, JsonSerializable
     }
 
     /**
-     * create a new settings instance from a json string
+     * Dynamically retrieve settings on the object.
      *
-     * @param  string  $json
-     * @return self
+     * @param  string  $key
+     * @return mixed
      */
-    public static function fromJson($json)
+    public function __get($key)
     {
-        return new self(json_decode($json, true));
+        return $this->get($key);
+    }
+
+    /**
+     * Dynamically set settings on the object.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set($key, $value)
+    {
+        $this->set($key, $value);
+    }
+
+    /**
+     * Determine if a setting exists on the object.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return $this->offsetExists($key);
+    }
+
+    /**
+     * Unset a setting on the object.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function __unset($key)
+    {
+        $this->offsetUnset($key);
+    }
+
+    /**
+     * Convert the model to its string representation.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
     }
 
     /**
@@ -241,51 +285,6 @@ class Settings implements Arrayable, ArrayAccess, Jsonable, JsonSerializable
     }
 
     /**
-     * Dynamically retrieve settings on the object.
-     *
-     * @param  string  $key
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        return $this->get($key);
-    }
-
-    /**
-     * Dynamically set settings on the object.
-     *
-     * @param  string  $key
-     * @param  mixed  $value
-     * @return void
-     */
-    public function __set($key, $value)
-    {
-        $this->set($key, $value);
-    }
-
-    /**
-     * Determine if a setting exists on the object.
-     *
-     * @param  string  $key
-     * @return bool
-     */
-    public function __isset($key)
-    {
-        return $this->offsetExists($key);
-    }
-
-    /**
-     * Unset a setting on the object.
-     *
-     * @param  string  $key
-     * @return void
-     */
-    public function __unset($key)
-    {
-        $this->offsetUnset($key);
-    }
-
-    /**
      * Determine if the given setting exists.
      *
      * @param  mixed  $offset
@@ -352,12 +351,13 @@ class Settings implements Arrayable, ArrayAccess, Jsonable, JsonSerializable
     }
 
     /**
-     * Convert the model to its string representation.
+     * create a new settings instance from a json string
      *
-     * @return string
+     * @param  string  $json
+     * @return self
      */
-    public function __toString()
+    public static function fromJson($json)
     {
-        return $this->toJson();
+        return new self(json_decode($json, true));
     }
 }

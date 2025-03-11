@@ -11,6 +11,14 @@ use Nova\Pages\Blocks\FormSchema;
 
 abstract class FeatureBlockSettings extends ScribbleModal
 {
+    public function getFormFields(): array
+    {
+        return [
+            ...FormSchema::heading(withOrientation: true),
+            ...FormSchema::backgroundColor(),
+        ];
+    }
+
     public static function getSlideDirection(): SlideDirection
     {
         return SlideDirection::Right;
@@ -19,13 +27,5 @@ abstract class FeatureBlockSettings extends ScribbleModal
     public static function getMaxWidth(): MaxWidth
     {
         return MaxWidth::ExtraLarge;
-    }
-
-    public function getFormFields(): array
-    {
-        return [
-            ...FormSchema::heading(withOrientation: true),
-            ...FormSchema::backgroundColor(),
-        ];
     }
 }

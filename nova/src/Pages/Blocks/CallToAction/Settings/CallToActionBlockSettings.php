@@ -20,16 +20,6 @@ abstract class CallToActionBlockSettings extends ScribbleModal
 {
     protected bool $useHeaderOrientation = false;
 
-    public static function getSlideDirection(): SlideDirection
-    {
-        return SlideDirection::Right;
-    }
-
-    public static function getMaxWidth(): MaxWidth
-    {
-        return MaxWidth::ExtraLarge;
-    }
-
     public function getFormFields(): array
     {
         return [
@@ -69,5 +59,15 @@ abstract class CallToActionBlockSettings extends ScribbleModal
                         ->visible(fn (Get $get): bool => $get('card') === true),
                 ]),
         ];
+    }
+
+    public static function getSlideDirection(): SlideDirection
+    {
+        return SlideDirection::Right;
+    }
+
+    public static function getMaxWidth(): MaxWidth
+    {
+        return MaxWidth::ExtraLarge;
     }
 }

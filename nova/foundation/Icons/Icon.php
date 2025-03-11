@@ -20,6 +20,11 @@ class Icon implements Htmlable
         $this->set = app(IconSets::class)->getCurrentSet();
     }
 
+    public function __toString()
+    {
+        return $this->name();
+    }
+
     public function toHtml(): string
     {
         return svg(
@@ -51,10 +56,5 @@ class Icon implements Htmlable
             $this->set->prefix(),
             $this->set->getIcon($this->name)
         );
-    }
-
-    public function __toString()
-    {
-        return $this->name();
     }
 }

@@ -16,11 +16,6 @@ use Nova\Foundation\View\ViewManager;
  */
 class NovaView extends Facade
 {
-    protected static function getFacadeAccessor(): string
-    {
-        return ViewManager::class;
-    }
-
     /**
      * @param  string | array<string> | null  $scopes
      */
@@ -29,5 +24,10 @@ class NovaView extends Facade
         static::resolved(function (ViewManager $viewManager) use ($name, $hook, $scopes) {
             $viewManager->registerRenderHook($name, $hook, $scopes);
         });
+    }
+
+    protected static function getFacadeAccessor(): string
+    {
+        return ViewManager::class;
     }
 }

@@ -24,11 +24,6 @@ class GameStatsReporter
         $this->postingActivitySettings = settings('posting_activity');
     }
 
-    public static function make(): static
-    {
-        return new self;
-    }
-
     public function stats(): GameStats
     {
         $users = $this->userQuery();
@@ -188,6 +183,11 @@ class GameStatsReporter
                 ]
             ),
         );
+    }
+
+    public static function make(): static
+    {
+        return new self;
     }
 
     protected function applicationQuery()

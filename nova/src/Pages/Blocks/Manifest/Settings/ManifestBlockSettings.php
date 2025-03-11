@@ -23,16 +23,6 @@ class ManifestBlockSettings extends ScribbleModal
 
     public ?string $identifier = 'manifest';
 
-    public static function getSlideDirection(): SlideDirection
-    {
-        return SlideDirection::Right;
-    }
-
-    public static function getMaxWidth(): MaxWidth
-    {
-        return MaxWidth::ExtraLarge;
-    }
-
     public function getFormFields(): array
     {
         return [
@@ -259,5 +249,15 @@ class ManifestBlockSettings extends ScribbleModal
             'characterStatus' => $this->data['characterStatus'] ?? null,
             'characterType' => $this->data['characterType'] ?? null,
         ]);
+    }
+
+    public static function getSlideDirection(): SlideDirection
+    {
+        return SlideDirection::Right;
+    }
+
+    public static function getMaxWidth(): MaxWidth
+    {
+        return MaxWidth::ExtraLarge;
     }
 }

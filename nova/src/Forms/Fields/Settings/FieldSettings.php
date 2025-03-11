@@ -18,16 +18,6 @@ use Nova\Roles\Models\Role;
 
 abstract class FieldSettings extends ScribbleModal
 {
-    public static function getSlideDirection(): SlideDirection
-    {
-        return SlideDirection::Right;
-    }
-
-    public static function getMaxWidth(): MaxWidth
-    {
-        return MaxWidth::ExtraLarge;
-    }
-
     public function getFormData(): array
     {
         return [
@@ -74,5 +64,15 @@ abstract class FieldSettings extends ScribbleModal
                 //     ->options(Role::all()->pluck('display_name', 'name')),
             ]),
         ];
+    }
+
+    public static function getSlideDirection(): SlideDirection
+    {
+        return SlideDirection::Right;
+    }
+
+    public static function getMaxWidth(): MaxWidth
+    {
+        return MaxWidth::ExtraLarge;
     }
 }

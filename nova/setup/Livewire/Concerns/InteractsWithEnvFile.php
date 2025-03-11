@@ -10,6 +10,23 @@ use Nova\Setup\Enums\DatabaseConfigStatus;
 
 trait InteractsWithEnvFile
 {
+    #[Computed]
+    public function codeForEnv(): string
+    {
+        $keyPrefix = $this->isMigrating ? 'DB_NOVA2_' : 'DB_';
+
+        return <<<EOT
+        {$keyPrefix}CONNECTION=mysql
+        {$keyPrefix}HOST={$this->host}
+        {$keyPrefix}PORT={$this->port}
+        {$keyPrefix}DATABASE={$this->database}
+        {$keyPrefix}USERNAME={$this->username}
+        {$keyPrefix}PASSWORD={$this->password}
+        {$keyPrefix}PREFIX={$this->prefix}
+        {$keyPrefix}SOCKET={$this->socket}
+        EOT;
+    }
+
     protected function writeEnvironmentFile(): void
     {
         $envWriter = app(EnvWriter::class);
@@ -50,22 +67,5 @@ trait InteractsWithEnvFile
         } else {
             $this->status = DatabaseConfigStatus::FailedToWriteEnv;
         }
-    }
-
-    #[Computed]
-    public function codeForEnv(): string
-    {
-        $keyPrefix = $this->isMigrating ? 'DB_NOVA2_' : 'DB_';
-
-        return <<<EOT
-        {$keyPrefix}CONNECTION=mysql
-        {$keyPrefix}HOST={$this->host}
-        {$keyPrefix}PORT={$this->port}
-        {$keyPrefix}DATABASE={$this->database}
-        {$keyPrefix}USERNAME={$this->username}
-        {$keyPrefix}PASSWORD={$this->password}
-        {$keyPrefix}PREFIX={$this->prefix}
-        {$keyPrefix}SOCKET={$this->socket}
-        EOT;
     }
 }

@@ -21,6 +21,19 @@ class LatestVersion implements Wireable
         public readonly ?string $downloadLink
     ) {}
 
+    public function toLivewire()
+    {
+        return [
+            'version' => $this->version,
+            'date' => $this->date,
+            'severity' => $this->severity,
+            'notes' => $this->notes,
+            'details' => $this->details,
+            'tags' => $this->tags,
+            'downloadLink' => $this->downloadLink,
+        ];
+    }
+
     public static function fromAnodyne(array $data): static
     {
         $releaseDate = data_get($data, 'date');
@@ -47,19 +60,6 @@ class LatestVersion implements Wireable
             tags: [],
             downloadLink: data_get($data, 'html_url')
         );
-    }
-
-    public function toLivewire()
-    {
-        return [
-            'version' => $this->version,
-            'date' => $this->date,
-            'severity' => $this->severity,
-            'notes' => $this->notes,
-            'details' => $this->details,
-            'tags' => $this->tags,
-            'downloadLink' => $this->downloadLink,
-        ];
     }
 
     public static function fromLivewire($value)

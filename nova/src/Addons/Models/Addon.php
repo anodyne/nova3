@@ -75,6 +75,18 @@ class Addon extends Model
         return new AddonBuilder($query);
     }
 
+    public function runScript(string $name): void
+    {
+        $addonClass = $this->getAddonClass();
+
+        $addonClass->runScript($name);
+    }
+
+    public function addonVersionCacheKey(): string
+    {
+        return 'nova-addons-latest-versions';
+    }
+
     public static function getInstallableAddons(): Collection
     {
         return collect(Storage::disk('addons')->directories())
@@ -93,17 +105,5 @@ class Addon extends Model
     public static function hasInstallableAddons(): bool
     {
         return static::getInstallableAddons()->count() > 0;
-    }
-
-    public function runScript(string $name): void
-    {
-        $addonClass = $this->getAddonClass();
-
-        $addonClass->runScript($name);
-    }
-
-    public function addonVersionCacheKey(): string
-    {
-        return 'nova-addons-latest-versions';
     }
 }
