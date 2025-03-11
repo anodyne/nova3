@@ -358,6 +358,65 @@
                             <x-sidebar.spacer></x-sidebar.spacer>
 
                             <x-sidebar.section>
+                                <x-panel class="mb-4 hidden text-sm">
+                                    <x-spacing size="xs">
+                                        <div class="flex items-center justify-between text-gray-950 dark:text-white">
+                                            <p class="font-semibold">Setup your account</p>
+                                            <span class="text-base font-medium leading-none" aria-hidden="true">
+                                                &rarr;
+                                            </span>
+                                        </div>
+
+                                        <div
+                                            class="relative mt-3 h-2 w-full overflow-hidden rounded-full bg-gray-950/10 dark:bg-white/25"
+                                        >
+                                            <div
+                                                @class([
+                                                    'absolute h-2 rounded-full bg-primary-500 ring-2 ring-white dark:ring-gray-950',
+                                                    'w-3' => false,
+                                                ])
+                                                @style([
+                                                    'width:25%',
+                                                ])
+                                            ></div>
+                                        </div>
+                                    </x-spacing>
+                                </x-panel>
+
+                                <x-panel class="mb-4 hidden text-sm">
+                                    <x-spacing size="xs" class="space-y-3">
+                                        <div class="flex items-center justify-between text-gray-950 dark:text-white">
+                                            <p class="font-semibold">Almost there</p>
+                                            <span
+                                                class="flex w-fit rounded-md bg-primary-500 px-1.5 py-0.5 text-xs font-medium text-white"
+                                            >
+                                                25%
+                                            </span>
+                                        </div>
+
+                                        <div class="leading-5 text-gray-500">
+                                            Anim velit deserunt dolore est nulla veniam consequat voluptate voluptate in
+                                            et.
+                                        </div>
+                                    </x-spacing>
+                                </x-panel>
+
+                                <x-panel class="mb-4 hidden text-sm">
+                                    <x-spacing size="xs">
+                                        <div class="flex items-center justify-between text-gray-950 dark:text-white">
+                                            <p class="font-semibold">Setup your account</p>
+
+                                            <div class="shrink-0">
+                                                <x-progress.circular
+                                                    class="size-6"
+                                                    color="primary"
+                                                    :percentage="25"
+                                                ></x-progress.circular>
+                                            </div>
+                                        </div>
+                                    </x-spacing>
+                                </x-panel>
+
                                 <x-sidebar.item :href="external_content('discord')" target="_blank">
                                     <x-icon name="help" size="sm"></x-icon>
                                     <x-sidebar.label>Get help</x-sidebar.label>

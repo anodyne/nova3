@@ -4,10 +4,48 @@
     <div>
         <section class="mb-8 hidden">
             <div
-                class="rounded-xl bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-primary-900 to-gray-900 text-white"
+                @class([
+                    'rounded-2xl',
+                    'bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-primary-900 to-gray-900 text-white' => false,
+
+                    'bg-gray-950 text-white',
+
+                    'dark:bg-white dark:text-gray-950',
+                ])
             >
-                <x-spacing size="md">
-                    <div class="grid grid-cols-1 gap-x-16 gap-y-8 xl:grid-cols-3">
+                <x-spacing width="md" height="sm">
+                    <div class="flex items-center justify-between gap-8">
+                        <div class="flex-1">
+                            <h2 class="text-2xl font-extrabold text-white dark:text-gray-950">
+                                Welcome to {{ settings('general.gameName') }}
+                            </h2>
+
+                            <p class="text-sm/5 text-gray-400 dark:text-gray-600">
+                                Let’s work on getting your account setup.
+                            </p>
+                        </div>
+                        <div class="flex w-full max-w-xs items-center gap-4">
+                            <div
+                                class="relative h-3 w-full overflow-hidden rounded-full bg-white/25 dark:bg-gray-950/10"
+                            >
+                                <div
+                                    @class([
+                                        'absolute h-3 rounded-full bg-primary-500 ring-[3px] ring-gray-950 dark:ring-white',
+                                        'w-3' => false,
+                                    ])
+                                    @style([
+                                        'width:25%',
+                                    ])
+                                ></div>
+                            </div>
+
+                            <div class="flex items-center text-gray-500">
+                                <x-icon.chevron-right class="size-6"></x-icon.chevron-right>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid hidden grid-cols-1 gap-x-16 gap-y-8 xl:grid-cols-3">
                         <div class="flex flex-col justify-between">
                             <div>
                                 <div
