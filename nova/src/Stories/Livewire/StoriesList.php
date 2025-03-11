@@ -281,7 +281,7 @@ class StoriesList extends TableComponent
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')
-                    ->label('Add your first story')
+                    ->label('Add a story')
                     ->url(route('admin.stories.create')),
             ]);
     }
