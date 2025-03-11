@@ -40,7 +40,7 @@ class NovaManager
     {
         return sprintf(
             'https://api.dicebear.com/9.x/%s/svg?seed=%s',
-            settings('appearance.avatarStyle')->value,
+            settings('appearance.avatarStyle')?->value ?? 'big-ears-neutral',
             str_replace(' ', '', $seed ?? 'nova3')
         );
     }
