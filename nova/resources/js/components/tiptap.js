@@ -45,13 +45,15 @@ export default (content) => ({
             },
             onUpdate: debounce(({ editor }) => {
                 this.updatedAt = Date.now();
-                this.content = pretty(editor.getHTML(), { ocd: true });
                 this.wordCount = this.getWordCount();
             }, 500),
             onCreate: ({ editor }) => {
                 this.updatedAt = Date.now();
                 this.content = pretty(editor.getHTML(), { ocd: true });
                 this.wordCount = this.getWordCount();
+            },
+            onBlur: ({ editor }) => {
+                this.content = pretty(editor.getHTML(), { ocd: true });
             },
         });
 
