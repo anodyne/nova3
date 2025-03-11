@@ -39,72 +39,72 @@
                 </x-panel.header>
 
                 <x-panel>
-                    <x-spacing size="md">
-                        <div class="grid grid-cols-4 gap-8 px-3 py-1.5 text-sm/6">
-                            <div class="col-span-3 font-medium">
-                                <p>URL</p>
-
-                                @if (! str(config('app.url'))->startsWith('https'))
-                                    <div class="flex gap-x-1">
-                                        <x-icon.micro.warning
-                                            class="mt-1 shrink-0 text-danger-500"
-                                        ></x-icon.micro.warning>
-
-                                        <p class="text-danger-500">
-                                            Your site is missing an SSL certificate. If you have added an SSL
-                                            certificate, please update your URL.
-                                        </p>
-                                    </div>
-                                @endif
+                    <x-spacing class="text-sm/6" size="md">
+                        <div class="py-1.5">
+                            <div class="flex w-full items-center justify-between gap-4">
+                                <dt class="flex items-center gap-2 font-medium text-gray-500">URL</dt>
+                                <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                    {{ str(config('app.url'))->replace('https://', '') }}
+                                </dd>
                             </div>
-                            <div class="flex justify-end">
-                                {{ str(config('app.url'))->replace('https://', '') }}
-                            </div>
+
+                            @if (! str(config('app.url'))->startsWith('https'))
+                                <div class="flex gap-x-2">
+                                    <x-icon.micro.warning
+                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                    ></x-icon.micro.warning>
+
+                                    <p class="text-danger-500">
+                                        Your site is missing an SSL certificate. If you have added an SSL certificate,
+                                        please update your URL.
+                                    </p>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="grid grid-cols-4 gap-8 px-3 py-1.5 text-sm/6">
-                            <div class="col-span-3 font-medium">
-                                <p>Environment</p>
-
-                                @if (config('app.env') !== 'production')
-                                    <div class="flex gap-x-1">
-                                        <x-icon.micro.warning
-                                            class="mt-1 shrink-0 text-danger-500"
-                                        ></x-icon.micro.warning>
-
-                                        <p class="text-danger-500">
-                                            Your site’s environment is not set to production. For the optimal
-                                            experience, please update your environment.
-                                        </p>
-                                    </div>
-                                @endif
+                        <div class="py-1.5">
+                            <div class="flex w-full items-center justify-between gap-4">
+                                <dt class="flex items-center gap-2 font-medium text-gray-500">Environment</dt>
+                                <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                    {{ config('app.env') }}
+                                </dd>
                             </div>
-                            <div class="flex justify-end">
-                                {{ config('app.env') }}
-                            </div>
+
+                            @if (config('app.env') !== 'production')
+                                <div class="flex gap-x-2">
+                                    <x-icon.micro.warning
+                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                    ></x-icon.micro.warning>
+
+                                    <p class="text-danger-500">
+                                        Your site’s environment is not set to production. For the optimal experience,
+                                        please update your environment.
+                                    </p>
+                                </div>
+                            @endif
                         </div>
 
-                        <div class="grid grid-cols-4 gap-8 px-3 py-1.5 text-sm/6">
-                            <div class="col-span-3 font-medium">
-                                <p>Debug mode</p>
-
-                                @if (config('app.debug') && config('app.env') === 'production')
-                                    <div class="flex gap-x-1">
-                                        <x-icon.micro.warning
-                                            class="mt-1 shrink-0 text-danger-500"
-                                        ></x-icon.micro.warning>
-
-                                        <p class="text-danger-500">
-                                            In a production environment, debug mode should always be off. If debug mode
-                                            is on in production, you risk exposing sensitive configuration values to
-                                            your end users.
-                                        </p>
-                                    </div>
-                                @endif
+                        <div class="py-1.5">
+                            <div class="flex w-full items-center justify-between gap-4">
+                                <dt class="flex items-center gap-2 font-medium text-gray-500">Debug mode</dt>
+                                <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                    {{ config('app.debug') ? 'On' : 'Off' }}
+                                </dd>
                             </div>
-                            <div class="flex justify-end">
-                                {{ config('app.debug') ? 'On' : 'Off' }}
-                            </div>
+
+                            @if (config('app.debug') && config('app.env') === 'production')
+                                <div class="flex gap-x-2">
+                                    <x-icon.micro.warning
+                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                    ></x-icon.micro.warning>
+
+                                    <p class="text-danger-500">
+                                        In a production environment, debug mode should always be off. If debug mode is
+                                        on in production, you risk exposing sensitive configuration values to your end
+                                        users.
+                                    </p>
+                                </div>
+                            @endif
                         </div>
                     </x-spacing>
                 </x-panel>
@@ -114,26 +114,36 @@
                 <x-panel.header title="Drivers" icon="server-settings"></x-panel.header>
 
                 <x-panel>
-                    <x-spacing size="md">
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Email</div>
-                            <div class="tabular-nums">{{ config('mail.default') }}</div>
+                    <x-spacing class="text-sm/6" size="md">
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Email</dt>
+                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                {{ config('mail.default') }}
+                            </dd>
                         </div>
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Logging</div>
-                            <div class="tabular-nums">{{ config('logging.default') }}</div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Logging</dt>
+                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                {{ config('logging.default') }}
+                            </dd>
                         </div>
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Cache</div>
-                            <div class="tabular-nums">{{ config('cache.default') }}</div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Cache</dt>
+                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                {{ config('cache.default') }}
+                            </dd>
                         </div>
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Session</div>
-                            <div class="tabular-nums">{{ config('session.driver') }}</div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Session</dt>
+                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                {{ config('session.driver') }}
+                            </dd>
                         </div>
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Queue</div>
-                            <div class="tabular-nums">{{ config('queue.default') }}</div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Queue</dt>
+                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                {{ config('queue.default') }}
+                            </dd>
                         </div>
                     </x-spacing>
                 </x-panel>
@@ -143,26 +153,46 @@
                 <x-panel.header title="Versions" icon="versions"></x-panel.header>
 
                 <x-panel>
-                    <x-spacing size="md">
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">PHP</div>
-                            <div class="tabular-nums">{{ PHP_VERSION }}</div>
+                    <x-spacing class="text-sm/6" size="md">
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">PHP</dt>
+                            <dd
+                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                            >
+                                {{ PHP_VERSION }}
+                            </dd>
                         </div>
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Database</div>
-                            <div class="tabular-nums">{{ app('nova.environment')->database->platform() }}</div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Database</dt>
+                            <dd
+                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                            >
+                                {{ app('nova.environment')->database->platform() }}
+                            </dd>
                         </div>
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Laravel</div>
-                            <div class="tabular-nums">{{ app()->version() }}</div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Laravel</dt>
+                            <dd
+                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                            >
+                                {{ app()->version() }}
+                            </dd>
                         </div>
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Livewire</div>
-                            <div class="tabular-nums">{{ app()->livewireVersion() }}</div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Livewire</dt>
+                            <dd
+                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                            >
+                                {{ app()->livewireVersion() }}
+                            </dd>
                         </div>
-                        <div class="flex items-center justify-between px-3 py-1.5 text-sm/6">
-                            <div class="font-medium">Filament</div>
-                            <div class="tabular-nums">{{ app()->filamentVersion() }}</div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Filament</dt>
+                            <dd
+                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                            >
+                                {{ app()->filamentVersion() }}
+                            </dd>
                         </div>
                     </x-spacing>
                 </x-panel>
