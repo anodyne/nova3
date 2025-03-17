@@ -21,7 +21,7 @@ class CreateThemeTables extends Migration
             $table->string('status')->default(BasicStatus::Active)->index();
             $table->json('settings');
             $table->json('repository')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

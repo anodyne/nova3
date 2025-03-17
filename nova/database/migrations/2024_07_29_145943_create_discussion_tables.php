@@ -19,7 +19,7 @@ return new class extends Migration
             $table->prefixedId();
             $table->nullableMorphs('discussable');
             $table->string('subject')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('discussion_messages', function (Blueprint $table) {
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained();
             $table->longText('content');
             $table->string('type')->default(MessageType::Text->value);
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('discussion_notifications', function (Blueprint $table) {
@@ -38,8 +38,8 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->boolean('is_seen')->default(false);
             $table->boolean('is_sender')->default(false);
-            $table->timestamps();
-            $table->softDeletes();
+            $table->datetimes();
+            $table->softDeletesDatetime();
 
             $table->index(['user_id', 'discussion_message_id'], 'participant_message_index');
         });
@@ -48,8 +48,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('discussion_id')->onDelete('cascade');
             $table->foreignId('user_id');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->datetimes();
+            $table->softDeletesDatetime();
 
             $table->unique(['discussion_id', 'user_id'], 'discussion_participants_index');
         });

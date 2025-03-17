@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->morphs('statusable');
             $table->string('status');
-            $table->timestamp('started_at');
-            $table->timestamp('ended_at')->nullable();
-            $table->timestamps();
+            $table->dateTime('started_at');
+            $table->dateTime('ended_at')->nullable();
+            $table->datetimes();
 
             $table->index('started_at');
             $table->index('ended_at');

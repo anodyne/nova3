@@ -20,16 +20,16 @@ class CreateUsersTable extends Migration
             $table->json('pronouns');
             $table->rememberToken();
             $table->boolean('force_password_reset')->default(false);
-            $table->timestamp('email_verified_at')->nullable();
+            $table->dateTime('email_verified_at')->nullable();
             $table->json('preferences')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->datetimes();
+            $table->softDeletesDatetime();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email');
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->dateTime('created_at')->nullable();
 
             $table->index('email');
         });
@@ -38,7 +38,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('ip_address', 50);
-            $table->timestamp('created_at');
+            $table->dateTime('created_at');
         });
     }
 

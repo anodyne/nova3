@@ -19,7 +19,7 @@ class CreateLaratrustTables extends Migration
             $table->boolean('is_default')->index();
             $table->boolean('is_locked');
             $table->unsignedInteger('order_column')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('permissions', function (Blueprint $table) {
@@ -27,7 +27,7 @@ class CreateLaratrustTables extends Migration
             $table->string('name')->unique();
             $table->string('display_name')->nullable()->index();
             $table->string('description')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('role_user', function (Blueprint $table) {

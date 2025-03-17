@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('status')->default(BasicStatus::Active->value);
             $table->json('settings')->nullable();
             $table->json('repository')->nullable();
-            $table->timestamps();
+            $table->datetimes();
 
             $table->fullText(['name', 'location']);
             $table->index(['type', 'status']);

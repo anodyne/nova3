@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('key')->unique();
             $table->string('status')->default(BasicStatus::Active->value)->index();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('menu_items', function (Blueprint $table) {
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('target')->default(LinkTarget::Self);
             $table->string('status')->default(BasicStatus::Active->value)->index();
             $table->integer('order_column')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

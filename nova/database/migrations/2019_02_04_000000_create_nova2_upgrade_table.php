@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('type');
             $table->unsignedBigInteger('old_id');
             $table->unsignedBigInteger('new_id');
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 
