@@ -1,3 +1,7 @@
+@php
+    $e = nova()->environment();
+@endphp
+
 <div class="mx-auto max-w-7xl space-y-16">
     <header class="mx-auto max-w-2xl space-y-6 text-center">
         <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Install Nova</h1>
@@ -74,13 +78,13 @@
         </div>
 
         <div class="flex items-center justify-center gap-8">
-            {{--
+            @if ($e->database->driver === 'mysql')
                 <x-button.setup href="{{ url('setup/migrate') }}" leading="forward-all">
-                Migrate your Nova 2 data
+                    Migrate your Nova 2 data
                 </x-button.setup>
-                
+
                 <span class="text-sm font-semibold uppercase text-gray-500">or</span>
-            --}}
+            @endif
 
             <x-button.setup href="{{ url('setup/setup-account') }}" leading="arrow-right-circle">
                 Continue as a fresh install

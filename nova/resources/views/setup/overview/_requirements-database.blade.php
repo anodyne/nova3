@@ -12,7 +12,7 @@
             <div class="shrink-0">
                 <x-icon name="database" class="text-gray-500" size="xl"></x-icon>
             </div>
-            <x-h3 class="flex-1">MySQL 8.0+ or MariaDB 10.0+</x-h3>
+            <x-h3 class="flex-1">MySQL 8.0+ or MariaDB 10.0+ or PostgreSQL 13.0+</x-h3>
         </div>
 
         @if ($canVerifyDatabase)
@@ -27,8 +27,8 @@
     </div>
     <div class="ml-12 mt-2 max-w-lg space-y-4 text-sm/6 font-normal text-gray-500">
         <p>
-            Nova requires a database to store and retrieve your game’s data. Your server has the ability to connect to a
-            MySQL-compatible database.
+            Nova requires a database to store and retrieve your game’s data. Your server must be able to connect to a
+            MySQL-compatible database (such as MySQL or MariaDB) or a PostgreSQL database.
         </p>
 
         @if ($canVerifyDatabase)

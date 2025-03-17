@@ -31,12 +31,25 @@
         <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
                 <x-panel.danger title="Error connecting to your database" icon="alert-circle">
-                    {{ $errorMessage }}
+                    <x-slot name="description">{{ $errorMessage }}</x-slot>
                 </x-panel.danger>
             @endif
 
             <x-fieldset>
                 <x-fieldset.field-group>
+                    <x-fieldset.field label="Driver" id="db_driver" name="db_driver">
+                        <flux:radio.group
+                            wire:model.live="driver"
+                            variant="cards"
+                            :indicator="false"
+                            class="max-sm:flex-col"
+                            data-slot="control"
+                        >
+                            <flux:radio value="mysql" label="MySQL / MariaDB" />
+                            <flux:radio value="pgsql" label="PostgreSQL" />
+                        </flux:radio.group>
+                    </x-fieldset.field>
+
                     <x-fieldset.field
                         label="Username"
                         id="db_username"

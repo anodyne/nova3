@@ -87,7 +87,7 @@ return [
             ]) : [],
         ],
 
-        'test' => [
+        'test-mysql' => [
             'driver' => 'mysql',
             'url' => '',
             'host' => '',
@@ -105,6 +105,21 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+        ],
+
+        'test-pgsql' => [
+            'driver' => 'pgsql',
+            'url' => '',
+            'host' => '',
+            'port' => '',
+            'database' => '',
+            'username' => '',
+            'password' => '',
+            'charset' => '',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
         ],
 
         'mariadb' => [
