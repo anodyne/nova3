@@ -109,6 +109,7 @@ class TablerIconSet extends IconSet
             'image-alert' => 'tabler-photo-exclamation',
             'inbox' => 'tabler-inbox',
             'info' => 'tabler-info-square-rounded',
+            'info-circle' => 'tabler-info-circle',
             'key' => 'tabler-key',
             'layer' => 'tabler-stack-2',
             'leaf' => 'tabler-leaf',
