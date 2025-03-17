@@ -36,9 +36,13 @@
         @else
             <p>
                 Without a connection to the database, we cannot definitively determine if your database meets the
-                platform and version requirements. We will verify platform and version information after connecting to
-                the database.
+                platform and version requirements. We will verify platform and version information after we are able to
+                connect to your database.
             </p>
+
+            @if ($e->passes())
+                <p>Please continue to the next step to setup your database connection.</p>
+            @endif
         @endif
     </div>
 
