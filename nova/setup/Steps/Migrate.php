@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Steps;
 
-class Install extends SetupSteps
+class Migrate extends SetupSteps
 {
     public function steps(): array
     {
@@ -12,6 +12,7 @@ class Install extends SetupSteps
             new VerifyServerRequirements,
             new ConfigureDatabase,
             new InstallNova,
+            new MigrateNovaData,
             new SetupUserAccount,
         ];
     }
