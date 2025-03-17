@@ -6,18 +6,23 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+if (str_contains($_SERVER['REQUEST_URI'], 'public/')) {
+    require_once 'messages/document-root.php';
+    exit();
+}
+
 if (version_compare(PHP_VERSION, '8.3', '<')) {
-    header('Location: message.php?type=php');
+    require_once 'messages/php-version.php';
     exit();
 }
 
 if (! is_dir('../vendor')) {
     if (! function_exists('exec')) {
-        header('Location: message.php?type=vendor-error');
+        require_once 'messages/vendor-error.php.php';
         exit();
     }
 
-    header('Location: message.php?type=vendor-install');
+    require_once 'messages/vendor-install.php';
     exit();
 }
 
