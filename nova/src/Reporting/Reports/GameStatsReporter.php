@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Nova\Reporting\Reports;
 
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Number;
-use Nova\Characters\Models\Character;
-use Nova\Foundation\Models\StatusHistory;
 use Nova\Reporting\Data\GameStatCategory;
 use Nova\Reporting\Data\GameStatLine;
 use Nova\Reporting\Data\GameStats;
+use Nova\Reporting\Repositories\ReportingRepositoryInterface;
 use Nova\Settings\Data\PostingActivity;
-use Nova\Users\Models\User;
 
 class GameStatsReporter
 {
@@ -197,26 +194,15 @@ class GameStatsReporter
         $startOfThisMonth = Date::now()->startOfMonth();
         $endOfThisMonth = Date::now()->endOfMonth();
 
-        return DB::table('applications')
-            ->selectRaw('
-                COUNT(*) as lifetime_count,
-                COUNT(DISTINCT CASE
-                    WHEN created_at <= ? AND created_at >= ?
-                    THEN id END
-                ) as last_month_count,
-                COUNT(DISTINCT CASE
-                    WHEN created_at <= ? AND created_at >= ?
-                    THEN id END
-                ) as this_month_count,
-                COUNT(DISTINCT CASE
-                    WHEN created_at <= ? AND created_at >= ?
-                    THEN id END
-                ) as timeframe_count
-            ', [
-                $endOfLastMonth, $startOfLastMonth, // Last month
-                $endOfThisMonth, $startOfThisMonth, // This month
-                $this->postingActivitySettings->timeframe->endDate(), $this->postingActivitySettings->timeframe->startDate(), // Timeframe
-            ])
+        return app(ReportingRepositoryInterface::class)
+            ->getApplicationStatsQuery(
+                startOfLastMonth: $startOfLastMonth,
+                endOfLastMonth: $endOfLastMonth,
+                startOfThisMonth: $startOfThisMonth,
+                endOfThisMonth: $endOfThisMonth,
+                startOfTimeframe: $this->postingActivitySettings->timeframe->startDate(),
+                endOfTimeframe: $this->postingActivitySettings->timeframe->endDate(),
+            )
             ->first();
     }
 
@@ -229,110 +215,15 @@ class GameStatsReporter
         $startOfThisMonth = Date::now()->startOfMonth();
         $endOfThisMonth = Date::now()->endOfMonth();
 
-        return DB::table('characters')
-            ->join('status_history', function ($join) {
-                $join->on(Character::column('id'), '=', StatusHistory::column('statusable_id'))
-                    ->where(StatusHistory::column('statusable_type'), '=', 'character');
-            })
-            ->selectRaw('
-                COUNT(*) as lifetime_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.Character::prefixedColumn('type').' = "primary"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as lifetime_primary_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.Character::prefixedColumn('type').' = "secondary"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as lifetime_secondary_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.Character::prefixedColumn('type').' = "support"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as lifetime_support_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as last_month_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "primary"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as last_month_primary_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "secondary"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as last_month_secondary_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "support"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as last_month_support_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as this_month_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "primary"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as this_month_primary_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "secondary"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as this_month_secondary_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "support"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as this_month_support_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as timeframe_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "primary"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as timeframe_primary_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "secondary"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as timeframe_secondary_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?) AND
-                        '.Character::prefixedColumn('type').' = "support"
-                    THEN '.Character::prefixedColumn('id').' END
-                ) as timeframe_support_count
-            ', [
-                $endOfLastMonth, $startOfLastMonth, // Last month
-                $endOfLastMonth, $startOfLastMonth, // Last month primary
-                $endOfLastMonth, $startOfLastMonth, // Last month secondary
-                $endOfLastMonth, $startOfLastMonth, // Last month support
-
-                $endOfThisMonth, $startOfThisMonth, // This month
-                $endOfThisMonth, $startOfThisMonth, // This month primary
-                $endOfThisMonth, $startOfThisMonth, // This month secondary
-                $endOfThisMonth, $startOfThisMonth, // This month support
-
-                $settings->timeframe->endDate(), $settings->timeframe->startDate(), // Timeframe
-                $settings->timeframe->endDate(), $settings->timeframe->startDate(), // Timeframe primary
-                $settings->timeframe->endDate(), $settings->timeframe->startDate(), // Timeframe secondary
-                $settings->timeframe->endDate(), $settings->timeframe->startDate(), // Timeframe support
-            ])
+        return app(ReportingRepositoryInterface::class)
+            ->getCharacterStatsQuery(
+                startOfLastMonth: $startOfLastMonth,
+                endOfLastMonth: $endOfLastMonth,
+                startOfThisMonth: $startOfThisMonth,
+                endOfThisMonth: $endOfThisMonth,
+                startOfTimeframe: $settings->timeframe->startDate(),
+                endOfTimeframe: $settings->timeframe->endDate()
+            )
             ->first();
     }
 
@@ -345,53 +236,15 @@ class GameStatsReporter
         $startOfThisMonth = Date::now()->startOfMonth();
         $endOfThisMonth = Date::now()->endOfMonth();
 
-        return DB::table('posts')
-            ->selectRaw('
-                COUNT(DISTINCT CASE
-                    WHEN published_at IS NOT NULL
-                    THEN id END
-                ) as lifetime_published_count,
-                COUNT(DISTINCT CASE
-                    WHEN published_at <= ? AND published_at >= ?
-                    THEN id END
-                ) as last_month_published_count,
-                COUNT(DISTINCT CASE
-                    WHEN published_at <= ? AND published_at >= ?
-                    THEN id END
-                ) as this_month_published_count,
-                COUNT(DISTINCT CASE
-                    WHEN published_at <= ? AND published_at >= ?
-                    THEN id END
-                ) as timeframe_published_count,
-                COUNT(DISTINCT CASE
-                    WHEN published_at IS NULL AND status = "draft"
-                    THEN id END
-                ) as lifetime_draft_count,
-                SUM(CASE
-                    WHEN published_at IS NOT NULL
-                    THEN word_count ELSE 0 END
-                ) as lifetime_published_words_count,
-                SUM(CASE
-                    WHEN published_at <= ? AND published_at >= ?
-                    THEN word_count ELSE 0 END
-                ) as last_month_published_words_count,
-                SUM(CASE
-                    WHEN published_at <= ? AND published_at >= ?
-                    THEN word_count ELSE 0 END
-                ) as this_month_published_words_count,
-                SUM(CASE
-                    WHEN published_at <= ? AND published_at >= ?
-                    THEN word_count ELSE 0 END
-                ) as timeframe_published_words_count
-            ', [
-                $endOfLastMonth, $startOfLastMonth, // Last month published
-                $endOfThisMonth, $startOfThisMonth, // This month published
-                $settings->timeframe->endDate(), $settings->timeframe->startDate(), // Timeframe published
-
-                $endOfLastMonth, $startOfLastMonth, // Last month published words
-                $endOfThisMonth, $startOfThisMonth, // This month published words
-                $settings->timeframe->endDate(), $settings->timeframe->startDate(), // Timeframe published words
-            ])
+        return app(ReportingRepositoryInterface::class)
+            ->getPostStatsQuery(
+                startOfLastMonth: $startOfLastMonth,
+                endOfLastMonth: $endOfLastMonth,
+                startOfThisMonth: $startOfThisMonth,
+                endOfThisMonth: $endOfThisMonth,
+                startOfTimeframe: $settings->timeframe->startDate(),
+                endOfTimeframe: $settings->timeframe->endDate()
+            )
             ->first();
     }
 
@@ -404,62 +257,15 @@ class GameStatsReporter
         $startOfThisMonth = Date::now()->startOfMonth();
         $endOfThisMonth = Date::now()->endOfMonth();
 
-        return DB::table('stories')
-            ->selectRaw('
-                COUNT(*) as lifetime_count,
-                COUNT(DISTINCT CASE
-                    WHEN status = "completed"
-                    THEN id END
-                ) as lifetime_completed_count,
-                COUNT(DISTINCT CASE
-                    WHEN status = "current"
-                    THEN id END
-                ) as lifetime_current_count,
-                COUNT(DISTINCT CASE
-                    WHEN status = "ongoing"
-                    THEN id END
-                ) as lifetime_ongoing_count,
-                COUNT(DISTINCT CASE
-                    WHEN status = "upcoming"
-                    THEN id END
-                ) as lifetime_upcoming_count,
-                COUNT(DISTINCT CASE
-                    WHEN ended_at >= ? AND ended_at <= ? AND status = "completed"
-                    THEN id END
-                ) as last_month_completed_count,
-                COUNT(DISTINCT CASE
-                    WHEN started_at <= ? AND
-                        (ended_at IS NULL OR ended_at >= ?) AND status = "current"
-                    THEN id END
-                ) as last_month_current_count,
-                COUNT(DISTINCT CASE
-                    WHEN ended_at >= ? AND ended_at <= ? AND status = "completed"
-                    THEN id END
-                ) as this_month_completed_count,
-                COUNT(DISTINCT CASE
-                    WHEN started_at <= ? AND
-                        (ended_at IS NULL OR ended_at >= ?) AND status = "current"
-                    THEN id END
-                ) as this_month_current_count,
-                COUNT(DISTINCT CASE
-                    WHEN ended_at >= ? AND ended_at <= ? AND status = "completed"
-                    THEN id END
-                ) as timeframe_completed_count,
-                COUNT(DISTINCT CASE
-                    WHEN started_at <= ? AND
-                        (ended_at IS NULL OR ended_at >= ?) AND status = "current"
-                    THEN id END
-                ) as timeframe_current_count
-            ', [
-                $startOfLastMonth, $endOfLastMonth, // Last month completed
-                $endOfLastMonth, $startOfLastMonth, // Last month current
-
-                $startOfThisMonth, $endOfThisMonth, // This month completed
-                $endOfThisMonth, $startOfThisMonth, // This month current
-
-                $settings->timeframe->startDate(), $settings->timeframe->endDate(), // Timeframe completed
-                $settings->timeframe->endDate(), $settings->timeframe->startDate(), // Timeframe current
-            ])
+        return app(ReportingRepositoryInterface::class)
+            ->getStoryStatsQuery(
+                startOfLastMonth: $startOfLastMonth,
+                endOfLastMonth: $endOfLastMonth,
+                startOfThisMonth: $startOfThisMonth,
+                endOfThisMonth: $endOfThisMonth,
+                startOfTimeframe: $settings->timeframe->startDate(),
+                endOfTimeframe: $settings->timeframe->endDate()
+            )
             ->first();
     }
 
@@ -470,33 +276,15 @@ class GameStatsReporter
         $startOfThisMonth = Date::now()->startOfMonth();
         $endOfThisMonth = Date::now()->endOfMonth();
 
-        return DB::table('users')
-            ->join('status_history', function ($join) {
-                $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
-                    ->where(StatusHistory::column('statusable_type'), '=', 'user');
-            })
-            ->selectRaw('
-                COUNT(*) as lifetime_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
-                    THEN '.User::prefixedColumn('id').' END
-                ) as last_month_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
-                    THEN '.User::prefixedColumn('id').' END
-                ) as this_month_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.StatusHistory::prefixedColumn('started_at').' <= ? AND
-                        ('.StatusHistory::prefixedColumn('ended_at').' IS NULL OR '.StatusHistory::prefixedColumn('ended_at').' >= ?)
-                    THEN '.User::prefixedColumn('id').' END
-                ) as timeframe_count
-            ', [
-                $endOfLastMonth, $startOfLastMonth, // Last month
-                $endOfThisMonth, $startOfThisMonth, // This month
-                $this->postingActivitySettings->timeframe->endDate(), $this->postingActivitySettings->timeframe->startDate(), // Timeframe
-            ])
+        return app(ReportingRepositoryInterface::class)
+            ->getUserStatsQuery(
+                startOfLastMonth: $startOfLastMonth,
+                endOfLastMonth: $endOfLastMonth,
+                startOfThisMonth: $startOfThisMonth,
+                endOfThisMonth: $endOfThisMonth,
+                startOfTimeframe: $this->postingActivitySettings->timeframe->startDate(),
+                endOfTimeframe: $this->postingActivitySettings->timeframe->endDate()
+            )
             ->first();
     }
 

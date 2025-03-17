@@ -77,6 +77,9 @@ use Nova\Pages\Models\Page;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
+use Nova\Reporting\Repositories\MySQLReportingRepository;
+use Nova\Reporting\Repositories\PostgresReportingRepository;
+use Nova\Reporting\Repositories\ReportingRepositoryInterface;
 use Nova\Settings\Models\Settings;
 use Nova\Stories\Models\PostType;
 use Nova\Themes\Models\Theme;
@@ -91,6 +94,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureNovaSingleton();
         $this->configureTipTapBlocks();
+        $this->configureDatabaseRepositories();
 
         $this->app->extend('blade.compiler', function ($compiler, $app) {
             return tap(new BladeCompiler(
@@ -444,5 +448,16 @@ class AppServiceProvider extends ServiceProvider
             ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
             ->flatMap(fn ($addon) => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
             ->each(fn ($addon) => (new $addon($this->app))->boot());
+    }
+
+    protected function configureDatabaseRepositories(): void
+    {
+        $dbDriver = config('database.default');
+
+        if ($dbDriver === 'pgsql') {
+            $this->app->bind(ReportingRepositoryInterface::class, PostgresReportingRepository::class);
+        } else {
+            $this->app->bind(ReportingRepositoryInterface::class, MySQLReportingRepository::class);
+        }
     }
 }
