@@ -9,20 +9,26 @@
     </x-fieldset.field>
 
     @if ($storiesForOrdering->count() > 0)
-        <x-fieldset.field label="Display order" name="display_direction" id="display_direction">
-            <x-select aria-label="Display order" wire:model.live="direction">
-                <option value="before">Before</option>
-                <option value="after">After</option>
-            </x-select>
-        </x-fieldset.field>
+        @if ($storiesForOrdering->count() === 1 && $storiesForOrdering->first()->is($story))
+            <x-fieldset.field id="no_stories" name="no_stories" label="Display order">
+                <x-slot name="description">This is the only story in {{ $parentStory?->title }}.</x-slot>
+            </x-fieldset.field>
+        @else
+            <x-fieldset.field label="Display order" name="display_direction" id="display_direction">
+                <x-select aria-label="Display order" wire:model.live="direction">
+                    <option value="before">Before</option>
+                    <option value="after">After</option>
+                </x-select>
+            </x-fieldset.field>
 
-        <x-fieldset.field label="Display neighbor" name="display_neighbor" id="display_neighbor">
-            <x-select wire:model.live="neighborId">
-                @foreach ($storiesForOrdering as $orderStory)
-                    <option value="{{ $orderStory->id }}">{{ $orderStory->title }}</option>
-                @endforeach
-            </x-select>
-        </x-fieldset.field>
+            <x-fieldset.field label="Display neighbor" name="display_neighbor" id="display_neighbor">
+                <x-select wire:model.live="neighborId">
+                    @foreach ($storiesForOrdering as $orderStory)
+                        <option value="{{ $orderStory->id }}">{{ $orderStory->title }}</option>
+                    @endforeach
+                </x-select>
+            </x-fieldset.field>
+        @endif
     @else
         <x-fieldset.field id="no_stories" name="no_stories" label="Display order">
             <x-slot name="description">This will be the first story nested within {{ $parentStory?->title }}.</x-slot>

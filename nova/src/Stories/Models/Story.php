@@ -210,7 +210,7 @@ class Story extends Model implements HasMedia, Sortable
             ->sortBy(fn (StoryStatus\StoryStatus $status) => $status->order());
     }
 
-    protected function getSibling($direction): self
+    protected function getSibling($direction): ?self
     {
         $query = self::query()->parent($this->parent_id);
 
