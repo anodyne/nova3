@@ -101,6 +101,7 @@ class CharactersManifest extends Component
                         });
                     });
             })
+            ->ordered()
             ->get();
     }
 
@@ -113,6 +114,7 @@ class CharactersManifest extends Component
 
         return Position::available()
             ->when($this->availablePositionsStatus === 'choose', fn ($q) => $q->whereIn('id', $this->selectedAvailablePositions))
+            ->ordered()
             ->get();
     }
 
