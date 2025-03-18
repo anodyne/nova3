@@ -5,29 +5,47 @@ declare(strict_types=1);
 namespace Nova\Setup\Livewire;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Nova\Roles\Models\Role;
+use Nova\Settings\Actions\UpdateApplicationReviewers;
+use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Setup\Enums\SetupType;
+use Nova\Users\Models\User;
 
-#[Layout('layouts.setup', ['type' => SetupType::Install])]
+#[Layout('layouts.setup', ['type' => SetupType::Migrate])]
 class UserAccess extends Component
 {
-    #[Computed]
-    public function roles(): Collection
+    public ?string $userId = null;
+
+    public function setAccess()
     {
-        return Role::query()
-            ->with('user')
-            ->withCount('user')
-            ->ordered()
-            ->get();
+        if (filled($this->userId)) {
+            $user = User::findOrFail($this->userId);
+
+            $user->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
+
+            UpdateApplicationReviewers::run(ApplicationReviewers::from(
+                globalReviewers: [$user->id],
+            ));
+
+            Cache::put('migration_account_setup_complete', true, now()->addHour());
+
+            $this->redirect('/setup/migrate');
+        }
     }
 
     public function render()
     {
         return view('setup.migrate-nova.user-access', [
-            'roles' => $this->roles,
+            'users' => $this->users,
         ]);
+    }
+
+    #[Computed]
+    public function users(): Collection
+    {
+        return User::active()->get();
     }
 }

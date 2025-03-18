@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('result')->default(ApplicationResult::Pending->value);
             $table->longText('decision_message')->nullable();
             $table->dateTime('decision_date')->nullable();
-            $table->timestamps();
+            $table->datetimes();
 
             $table->index('result');
         });
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('result')->nullable();
             $table->longText('comments')->nullable();
-            $table->timestamps();
+            $table->datetimes();
 
             $table->index('application_id');
             $table->index(['application_id', 'user_id']);
@@ -45,7 +45,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('type')->default(ReviewerType::Conditional->value);
             $table->json('conditions')->nullable();
-            $table->timestamps();
+            $table->datetimes();
 
             $table->index('type');
         });

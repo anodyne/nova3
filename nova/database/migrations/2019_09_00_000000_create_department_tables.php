@@ -19,7 +19,7 @@ class CreateDepartmentTables extends Migration
             $table->unsignedInteger('order_column')->nullable();
             $table->string('status')->default(BasicStatus::Active)->index();
             $table->json('tags')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

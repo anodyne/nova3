@@ -33,7 +33,7 @@ class CreatePagesTable extends Migration
             $table->text('heading')->nullable();
             $table->text('subheading')->nullable();
             $table->longText('intro')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

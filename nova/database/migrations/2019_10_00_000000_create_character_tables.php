@@ -18,8 +18,8 @@ class CreateCharacterTables extends Migration
             $table->string('type')->default(CharacterType::Support)->index();
             $table->string('status')->index();
             $table->foreignId('rank_id')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->datetimes();
+            $table->softDeletesDatetime();
         });
 
         Schema::create('character_position', function (Blueprint $table) {
@@ -33,7 +33,7 @@ class CreateCharacterTables extends Migration
             $table->foreignId('character_id');
             $table->foreignId('user_id');
             $table->boolean('primary')->default(false)->index();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

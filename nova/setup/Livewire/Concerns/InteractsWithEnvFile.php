@@ -16,7 +16,7 @@ trait InteractsWithEnvFile
         $keyPrefix = $this->isMigrating ? 'DB_NOVA2_' : 'DB_';
 
         return <<<EOT
-        {$keyPrefix}CONNECTION=mysql
+        {$keyPrefix}CONNECTION={$this->driver}
         {$keyPrefix}HOST={$this->host}
         {$keyPrefix}PORT={$this->port}
         {$keyPrefix}DATABASE={$this->database}
@@ -36,9 +36,10 @@ trait InteractsWithEnvFile
 
             if (file_exists($path)) {
                 $keyPrefix = $this->isMigrating ? 'DB_NOVA2_' : 'DB_';
-                $connection = $this->isMigrating ? 'nova2' : 'mysql';
+                $connection = $this->isMigrating ? 'nova2' : $this->driver;
 
                 $write = $envWriter->set([
+                    $keyPrefix.'CONNECTION' => $this->driver,
                     $keyPrefix.'HOST' => $this->host,
                     $keyPrefix.'PORT' => $this->port,
                     $keyPrefix.'DATABASE' => $this->database,

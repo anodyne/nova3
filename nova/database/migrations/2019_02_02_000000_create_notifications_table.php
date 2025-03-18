@@ -15,8 +15,8 @@ class CreateNotificationsTable extends Migration
             $table->string('type');
             $table->morphs('notifiable');
             $table->text('data');
-            $table->timestamp('read_at')->nullable();
-            $table->timestamps();
+            $table->dateTime('read_at')->nullable();
+            $table->datetimes();
         });
 
         Schema::create('notification_types', function (Blueprint $table) {
@@ -32,7 +32,7 @@ class CreateNotificationsTable extends Migration
             $table->boolean('mail_default');
             $table->boolean('discord');
             $table->json('discord_settings')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('user_notification_preferences', function (Blueprint $table) {

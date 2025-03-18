@@ -8,16 +8,11 @@ use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\DB;
-use Nova\Foundation\Models\StatusHistory;
 use Nova\Reporting\Data\ActivityReport;
+use Nova\Reporting\Repositories\ReportingRepositoryInterface;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Enums\PostingTarget;
-use Nova\Stories\Models\Post;
-use Nova\Stories\Models\PostAuthor;
-use Nova\Stories\Models\PostType;
 use Nova\Users\Models\Login;
-use Nova\Users\Models\User;
 
 class ActivityReporter
 {
@@ -96,57 +91,8 @@ class ActivityReporter
 
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection
     {
-        return DB::table('users')
-            ->join('status_history', function ($join) {
-                $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
-                    ->where(StatusHistory::column('statusable_type'), '=', 'user');
-            })
-            ->leftJoin('logins', User::column('id'), '=', Login::column('user_id'))
-            ->leftJoin('post_author', User::column('id'), '=', PostAuthor::column('user_id'))
-            ->leftJoin('posts', PostAuthor::column('post_id'), '=', Post::column('id'))
-            ->leftJoin('post_types', Post::column('post_type_id'), '=', PostType::column('id')) // Include post_types for JSON filtering
-            ->where(function ($query) use ($start, $end) {
-                $query->where(StatusHistory::column('started_at'), '<=', $end)
-                    ->where(function ($query) use ($start) {
-                        $query->whereNull(StatusHistory::column('ended_at'))
-                            ->orWhere(StatusHistory::column('ended_at'), '>=', $start);
-                    });
-            })
-            ->selectRaw('
-                '.User::prefixedColumn('id').',
-                '.User::prefixedColumn('name').',
-                COUNT(DISTINCT CASE
-                    WHEN '.Login::prefixedColumn('created_at').' BETWEEN ? AND ?
-                    THEN '.Login::prefixedColumn('id').'
-                END) as login_count,
-                MAX('.Login::prefixedColumn('created_at').') as latest_login,
-                COUNT(DISTINCT CASE
-                    WHEN '.Post::prefixedColumn('status').' = "published"
-                        AND JSON_EXTRACT('.PostType::prefixedColumn('options').', "$.includedInPostTracking") = true
-                        AND '.PostAuthor::prefixedColumn('updated_at').' BETWEEN ? AND ?
-                        AND '.Post::prefixedColumn('published_at').' BETWEEN ? AND ?
-                    THEN '.Post::prefixedColumn('id').'
-                END) as published_post_count,
-                COUNT(DISTINCT CASE
-                    WHEN '.Post::prefixedColumn('status').' = "draft"
-                        AND JSON_EXTRACT('.PostType::prefixedColumn('options').', "$.includedInPostTracking") = true
-                        AND '.PostAuthor::prefixedColumn('updated_at').' BETWEEN ? AND ?
-                    THEN '.Post::prefixedColumn('id').'
-                END) as draft_post_count,
-                SUM(CASE
-                    WHEN JSON_EXTRACT('.PostType::prefixedColumn('options').', "$.includedInPostTracking") = true
-                        AND '.PostAuthor::prefixedColumn('updated_at').' BETWEEN ? AND ?
-                    THEN '.PostAuthor::prefixedColumn('word_count').'
-                    ELSE 0
-                END) as total_word_count
-            ', [
-                $start, $end,  // For logins.created_at
-                $start, $end,  // For post_author.updated_at (published posts)
-                $start, $end,  // For posts.published_at
-                $start, $end,  // For post_author.updated_at (draft posts)
-                $start, $end,  // For post_author.updated_at (word count)
-            ])
-            ->groupBy(User::column('id'), User::column('name')) // Group by individual users
+        return app(ReportingRepositoryInterface::class)
+            ->getActivityQuery($start, $end)
             ->get()
             ->map(function ($user) {
                 // Convert `latest_login` to Carbon, handling null values

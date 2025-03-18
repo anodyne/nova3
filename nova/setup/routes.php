@@ -10,7 +10,7 @@ use Nova\Setup\Controllers\UpdateWhatsNewController;
 use Nova\Setup\Livewire\ConfigureDatabase;
 use Nova\Setup\Livewire\InstallNova;
 use Nova\Setup\Livewire\MigrateNova;
-use Nova\Setup\Livewire\MigrateNovaSteps;
+use Nova\Setup\Livewire\MigrateNovaData;
 use Nova\Setup\Livewire\SetupAccount;
 use Nova\Setup\Livewire\UpdateNova;
 use Nova\Setup\Livewire\UserAccess;
@@ -24,7 +24,7 @@ Route::prefix('setup')->group(function () {
     Route::prefix('migrate')->group(function () {
         Route::get('/', MigrateNova::class);
         Route::get('configure-database', ConfigureDatabase::class);
-        Route::get('steps', MigrateNovaSteps::class);
+        Route::get('steps', MigrateNovaData::class);
         Route::get('set-user-access', UserAccess::class);
     });
 

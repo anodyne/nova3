@@ -9,38 +9,38 @@
     </header>
 
     <div class="mx-auto max-w-lg space-y-8">
-        <x-panel well>
-            <x-spacing size="2xs">
-                <x-panel class="divide-y divide-gray-950/5">
-                    <livewire:setup-migrate-users />
-                    <livewire:setup-migrate-departments />
-                    <livewire:setup-migrate-positions />
-                    <livewire:setup-migrate-characters />
-                    <livewire:setup-migrate-missions />
-                    <livewire:setup-migrate-posts />
-                    <livewire:setup-migrate-logs />
-                    <livewire:setup-migrate-news />
-                </x-panel>
-            </x-spacing>
-        </x-panel>
-    </div>
+        <x-panel variant="well">
+            <x-panel.header
+                title="Available migrations"
+                description="Choose which migrations you want to run for your Nova 2 site."
+            ></x-panel.header>
 
-    <div class="flex items-center justify-center">
-        @if (! $isRunning)
-            <x-button.setup type="button" leading="play" wire:click="startMigration">Start migration</x-button.setup>
-        @else
-            <x-button.setup type="button">
-                <div class="flex items-center gap-3">
-                    <x-icon.loader class="size-5 animate-spin text-white"></x-icon.loader>
-                    <div>Running migration</div>
-                </div>
-            </x-button.setup>
-        @endif
+            <x-panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5">
+                @foreach ($migrators as $migrator)
+                    <livewire:is :component="$migrator" wire:key="setup-migrate-{{ str($migrator)->slug() }}" />
+                @endforeach
+            </x-panel>
+        </x-panel>
     </div>
 
     @if ($isFinished)
         <div class="flex items-center justify-center">
-            <x-button.setup type="button" leading="play">Finish migration</x-button.setup>
+            <x-button.setup :href="url('setup/migrate')">Continue migration &rarr;</x-button.setup>
+        </div>
+    @else
+        <div class="flex items-center justify-center">
+            @if (! $isRunning)
+                <x-button.setup type="button" leading="play" wire:click="startMigration">
+                    Start migration
+                </x-button.setup>
+            @else
+                <x-button.setup type="button">
+                    <div class="flex items-center gap-3">
+                        <x-icon.loader class="size-5 animate-spin text-white"></x-icon.loader>
+                        <div>Running migration</div>
+                    </div>
+                </x-button.setup>
+            @endif
         </div>
     @endif
 </div>

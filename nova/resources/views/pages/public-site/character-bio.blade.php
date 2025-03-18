@@ -17,21 +17,25 @@
                 </div>
 
                 <div class="metadata">
-                    <div class="metadata-item">
-                        <div class="metadata-item-leading">Rank</div>
-                        <div class="metadata-item-label">
-                            {{ $character->rank->name->name }}
+                    @if (filled($character->rank))
+                        <div class="metadata-item">
+                            <div class="metadata-item-leading">Rank</div>
+                            <div class="metadata-item-label">
+                                {{ $character->rank?->name?->name }}
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
-                    <div class="metadata-item">
-                        <div class="metadata-item-leading">
-                            {{ str('Position')->plural($character->positions->count()) }}
+                    @if ($character->positions->count() > 0)
+                        <div class="metadata-item">
+                            <div class="metadata-item-leading">
+                                {{ str('Position')->plural($character->positions->count()) }}
+                            </div>
+                            <div class="metadata-item-label">
+                                {{ $character->positions->implode('name', ' & ') }}
+                            </div>
                         </div>
-                        <div class="metadata-item-label">
-                            {{ $character->positions->implode('name', ' & ') }}
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
 

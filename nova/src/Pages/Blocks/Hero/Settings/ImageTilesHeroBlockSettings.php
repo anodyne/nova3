@@ -64,7 +64,7 @@ class ImageTilesHeroBlockSettings extends HeroBlockSettings
                 ->schema([
                     TextInput::make('calloutText')
                         ->label('Text')
-                        ->live(),
+                        ->live(onBlur: true),
                     TextInput::make('calloutUrl')
                         ->label('URL')
                         ->url()

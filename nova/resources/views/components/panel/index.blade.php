@@ -37,7 +37,7 @@
             'data-[slot=card]:rounded-xl data-[slot=card]:bg-white data-[slot=card]:shadow data-[slot=card]:ring-1 data-[slot=card]:ring-gray-950/5 dark:data-[slot=card]:bg-white/5 dark:data-[slot=card]:ring-white/5',
 
             // Inset panel
-            'has-[>[data-slot=inset]]:p-1 data-[slot=inset]:rounded-lg data-[slot=inset]:bg-white data-[slot=inset]:shadow data-[slot=inset]:ring-1 data-[slot=inset]:ring-gray-200 dark:data-[slot=inset]:bg-white/5 dark:data-[slot=inset]:ring-gray-800',
+            'has-[>[data-slot=inset]]:p-1 data-[slot=inset]:rounded-[calc(theme(borderRadius.xl)-theme(spacing.1))] data-[slot=inset]:bg-white data-[slot=inset]:shadow data-[slot=inset]:ring-1 data-[slot=inset]:ring-gray-200 dark:data-[slot=inset]:bg-white/5 dark:data-[slot=inset]:ring-gray-800',
         ])
     }}
 >

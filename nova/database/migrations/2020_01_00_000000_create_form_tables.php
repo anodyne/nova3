@@ -24,7 +24,7 @@ class CreateFormTables extends Migration
             $table->longText('published_fields')->nullable();
             $table->string('status')->default(BasicStatus::Active->value)->index();
             $table->dateTime('published_at')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('form_fields', function (Blueprint $table) {
@@ -35,7 +35,7 @@ class CreateFormTables extends Migration
             $table->string('label');
             $table->string('type');
             $table->unsignedInteger('order_column')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('form_submissions', function (Blueprint $table) {
@@ -43,7 +43,7 @@ class CreateFormTables extends Migration
             $table->foreignId('form_id')->constrained();
             $table->nullableMorphs('owner');
             $table->json('meta')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('form_submission_responses', function (Blueprint $table) {
@@ -52,7 +52,7 @@ class CreateFormTables extends Migration
             $table->string('field_type');
             $table->string('field_uid');
             $table->longText('value')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

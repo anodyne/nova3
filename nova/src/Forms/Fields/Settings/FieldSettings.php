@@ -37,8 +37,7 @@ abstract class FieldSettings extends ScribbleModal
                 ->description('Customize the label and description text for a field')
                 ->schema([
                     TextInput::make('label')
-                        ->live()
-                        ->debounce(750)
+                        ->live(onBlur: true)
                         ->afterStateUpdated(fn ($state, Set $set) => $set('name', str($state)->slug())),
                     Textarea::make('description')
                         ->rows(3)

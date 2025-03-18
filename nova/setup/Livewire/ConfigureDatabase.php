@@ -12,6 +12,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Setup\Enums\DatabaseConfigStatus;
 use Nova\Setup\Enums\SetupType;
+use Nova\Stories\Livewire\Concerns\InteractsWithRoute;
 use PDO;
 use Throwable;
 
@@ -20,6 +21,9 @@ class ConfigureDatabase extends Component
 {
     use Concerns\HandlesMigration;
     use Concerns\InteractsWithEnvFile;
+    use InteractsWithRoute;
+
+    public string $driver = 'mysql';
 
     public string $host = 'localhost';
 
@@ -42,6 +46,7 @@ class ConfigureDatabase extends Component
     public function rules()
     {
         return [
+            'driver' => ['required'],
             'host' => ['required'],
             'port' => ['required'],
             'database' => ['required'],
@@ -57,7 +62,7 @@ class ConfigureDatabase extends Component
         try {
             $this->validate();
 
-            $this->testDatabaseConnection('test');
+            $this->testDatabaseConnection('test-'.$this->driver);
 
             $this->writeEnvironmentFile();
 
@@ -75,7 +80,7 @@ class ConfigureDatabase extends Component
         } catch (Throwable $th) {
             $this->setErrorMessage($th);
 
-            // throw $th;
+            report($th);
         }
     }
 
@@ -90,6 +95,14 @@ class ConfigureDatabase extends Component
 
             // throw $th;
         }
+    }
+
+    public function updatedDriver($value): void
+    {
+        $this->port = match ($value) {
+            'pgsql' => '5432',
+            default => '3306',
+        };
     }
 
     #[Computed]
@@ -170,14 +183,14 @@ class ConfigureDatabase extends Component
 
     protected function testDatabaseConnection(string $connection): void
     {
-        if ($connection === 'test') {
+        if (str($connection)->startsWith('test-')) {
             config([
-                'database.connections.test.host' => $this->host,
-                'database.connections.test.port' => $this->port,
-                'database.connections.test.database' => $this->database,
-                'database.connections.test.prefix' => $this->prefix,
-                'database.connections.test.username' => $this->username,
-                'database.connections.test.password' => $this->password,
+                "database.connections.{$connection}.host" => $this->host,
+                "database.connections.{$connection}.port" => $this->port,
+                "database.connections.{$connection}.database" => $this->database,
+                "database.connections.{$connection}.prefix" => $this->prefix,
+                "database.connections.{$connection}.username" => $this->username,
+                "database.connections.{$connection}.password" => $this->password,
             ]);
         }
 
@@ -187,7 +200,7 @@ class ConfigureDatabase extends Component
     protected function canConnectToDatabase(): bool
     {
         try {
-            $connection = $this->isMigrating ? 'nova2' : 'mysql';
+            $connection = $this->isMigrating ? 'nova2' : $this->driver;
 
             DB::reconnect($connection)->getPdo();
 
@@ -200,7 +213,7 @@ class ConfigureDatabase extends Component
     protected function verifyDatabaseConnection(): void
     {
         try {
-            $connection = $this->isMigrating ? 'nova2' : 'mysql';
+            $connection = $this->isMigrating ? 'nova2' : $this->driver;
 
             DB::reconnect($connection)->getPdo();
         } catch (Throwable $th) {

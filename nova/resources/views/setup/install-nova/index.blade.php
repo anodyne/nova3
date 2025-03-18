@@ -1,3 +1,7 @@
+@php
+    $e = nova()->environment();
+@endphp
+
 <div class="mx-auto max-w-7xl space-y-16">
     <header class="mx-auto max-w-2xl space-y-6 text-center">
         <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Install Nova</h1>
@@ -62,25 +66,25 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-setup::panel well>
-                <x-setup::panel class="divide-y divide-gray-950/5">
+            <x-panel variant="well">
+                <x-panel class="divide-y divide-gray-950/5" variant="inset">
                     @include('setup.install-nova._check-installed')
                     @include('setup.install-nova._check-installed-themes')
                     @includeWhen(filled($this->genre), 'setup.install-nova._check-genre')
                     {{-- @include('setup.install-nova._check-app-url') --}}
                     @include('setup.install-nova._check-update-settings')
-                </x-setup::panel>
-            </x-setup::panel>
+                </x-panel>
+            </x-panel>
         </div>
 
         <div class="flex items-center justify-center gap-8">
-            {{--
+            @if ($e->database->driver === 'mysql')
                 <x-button.setup href="{{ url('setup/migrate') }}" leading="forward-all">
-                Migrate your Nova 2 data
+                    Migrate your Nova 2 data
                 </x-button.setup>
-                
+
                 <span class="text-sm font-semibold uppercase text-gray-500">or</span>
-            --}}
+            @endif
 
             <x-button.setup href="{{ url('setup/setup-account') }}" leading="arrow-right-circle">
                 Continue as a fresh install

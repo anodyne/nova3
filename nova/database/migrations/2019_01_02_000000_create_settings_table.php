@@ -22,7 +22,7 @@ class CreateSettingsTable extends Migration
             $table->json('ratings')->nullable();
             $table->json('applications')->nullable();
             $table->json('dashboard')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

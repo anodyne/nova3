@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText('content');
             $table->boolean('published')->default(false);
             $table->dateTime('published_at')->nullable();
-            $table->timestamps();
+            $table->datetimes();
 
             $table->index(['published', 'category']);
             $table->index(['published', 'published_at']);
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->foreignId('announcement_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained();
             $table->boolean('is_seen')->default(false);
-            $table->timestamps();
+            $table->datetimes();
 
             $table->index(['announcement_id', 'user_id']);
             $table->index(['user_id', 'is_seen']);

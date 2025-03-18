@@ -9,48 +9,30 @@
     </header>
 
     <div class="mx-auto max-w-lg space-y-8">
-        <x-panel class="overflow-hidden">
-            <div class="divide-y divide-gray-950/5">
-                @foreach ($roles as $role)
-                    <x-spacing height="sm">
-                        <div class="space-y-6" x-data="{ expanded: @js($role->name != 'active') }">
-                            <div class="flex items-start justify-between">
-                                <div class="flex flex-1 flex-col gap-2">
-                                    <div class="flex flex-1 items-center gap-3">
-                                        <x-h4>{{ $role->display_name }}</x-h4>
-                                        <x-badge>{{ $role->user_count }}</x-badge>
-                                    </div>
-                                    <div>
-                                        <button
-                                            class="rounded-full bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 transition hover:bg-gray-100"
-                                            x-on:click="expanded = !expanded"
-                                        >
-                                            <span x-show="expanded">Hide the full list of users &uarr;</span>
-                                            <span x-show="!expanded" x-cloak>
-                                                Show the full list of users &darr;
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="flex justify-end">
-                                    <x-button.setup :href="url('setup/migrate/configure-database')" size="xs">
-                                        Go &rarr;
-                                    </x-button.setup>
-                                </div>
-                            </div>
-                            @if ($role->user_count > 0)
-                                <div x-show="expanded" x-collapse x-cloak>
-                                    <div class="flex flex-wrap items-center gap-1">
-                                        @foreach ($role->user as $user)
-                                            <x-badge>{{ $user->name }}</x-badge>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-                    </x-spacing>
-                @endforeach
-            </div>
+        <x-panel variant="well">
+            <x-panel.header
+                title="Choose your user account"
+                description="We will assign the necessary admin roles to your user account to ensure you can manage Nova."
+            ></x-panel.header>
+
+            <x-panel>
+                <x-spacing size="md">
+                    <x-fieldset.field name="user" id="user">
+                        <x-select wire:model.live="userId">
+                            <option value="">Pick a user to continue</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
+                            @endforeach
+                        </x-select>
+                    </x-fieldset.field>
+                </x-spacing>
+            </x-panel>
         </x-panel>
+
+        @if (filled($userId))
+            <div class="flex items-center justify-center">
+                <x-button.setup type="button" wire:click="setAccess">Set access &rarr;</x-button.setup>
+            </div>
+        @endif
     </div>
 </div>

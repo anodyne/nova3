@@ -52,6 +52,7 @@ class AnnouncementsList extends TableComponent
                         fn (Builder $query): Builder => $query->published()
                     )
             )
+            ->defaultSort('published_at', 'desc')
             ->recordUrl(fn (Announcement $record): string => route('admin.announcements.show', $record))
             ->columns([
                 ViewColumn::make('title')

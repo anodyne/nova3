@@ -15,17 +15,11 @@ use Nova\Setup\Actions\SeedRealStories;
 use Nova\Setup\Actions\SetDatabaseInitialState;
 use Nova\Setup\Livewire\ConfigureDatabase;
 use Nova\Setup\Livewire\InstallNova;
-use Nova\Setup\Livewire\MigrateNovaSteps;
-use Nova\Setup\Livewire\Migration\MigrateCharacters;
-use Nova\Setup\Livewire\Migration\MigrateDepartments;
-use Nova\Setup\Livewire\Migration\MigrateMissions;
-use Nova\Setup\Livewire\Migration\MigrateNewsItems;
-use Nova\Setup\Livewire\Migration\MigratePersonalLogs;
-use Nova\Setup\Livewire\Migration\MigratePositions;
-use Nova\Setup\Livewire\Migration\MigratePosts;
-use Nova\Setup\Livewire\Migration\MigrateUsers;
+use Nova\Setup\Livewire\MigrateNovaData;
+use Nova\Setup\Livewire\Migrations;
 use Nova\Setup\Livewire\SetupAccount;
 use Nova\Setup\Livewire\UpdateNova;
+use Nova\Setup\Livewire\UserAccess;
 use Nova\Setup\View\Components\SetupLayout;
 use TimoKoerber\LaravelOneTimeOperations\Commands\OneTimeOperationsProcessCommand;
 
@@ -67,20 +61,26 @@ class SetupServiceProvider extends DomainServiceProvider
     {
         return [
             'setup-install-nova' => InstallNova::class,
-            'setup-migrate-steps' => MigrateNovaSteps::class,
+            'setup-migrate-steps' => MigrateNovaData::class,
             'setup-configure-database' => ConfigureDatabase::class,
             'setup-user-account' => SetupAccount::class,
+            'setup-user-access' => UserAccess::class,
 
             'setup-update-nova' => UpdateNova::class,
 
-            'setup-migrate-users' => MigrateUsers::class,
-            'setup-migrate-characters' => MigrateCharacters::class,
-            'setup-migrate-missions' => MigrateMissions::class,
-            'setup-migrate-posts' => MigratePosts::class,
-            'setup-migrate-logs' => MigratePersonalLogs::class,
-            'setup-migrate-news' => MigrateNewsItems::class,
-            'setup-migrate-departments' => MigrateDepartments::class,
-            'setup-migrate-positions' => MigratePositions::class,
+            'setup-migrate-users' => Migrations\MigrateUsers::class,
+            'setup-migrate-user-form' => Migrations\MigrateUserForm::class,
+            'setup-migrate-departments' => Migrations\MigrateDepartments::class,
+            'setup-migrate-positions' => Migrations\MigratePositions::class,
+            'setup-migrate-characters' => Migrations\MigrateCharacters::class,
+            'setup-migrate-character-form' => Migrations\MigrateCharacterForm::class,
+            'setup-migrate-applications' => Migrations\MigrateApplications::class,
+            'setup-migrate-mission-groups' => Migrations\MigrateMissionGroups::class,
+            'setup-migrate-missions' => Migrations\MigrateMissions::class,
+            'setup-migrate-posts' => Migrations\MigratePosts::class,
+            'setup-migrate-personal-logs' => Migrations\MigratePersonalLogs::class,
+            'setup-migrate-news-items' => Migrations\MigrateNewsItems::class,
+            'setup-migrate-private-messages' => Migrations\MigratePrivateMessages::class,
         ];
     }
 

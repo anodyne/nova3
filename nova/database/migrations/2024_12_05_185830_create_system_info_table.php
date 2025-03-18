@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('anodyne_game_id')->nullable();
             $table->dateTime('install_date')->nullable();
             $table->dateTime('last_update')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

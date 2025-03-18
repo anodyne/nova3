@@ -12,7 +12,6 @@ class Install extends SetupSteps
             new VerifyServerRequirements,
             new ConfigureDatabase,
             new InstallNova,
-            new MigrateNovaData,
             new SetupUserAccount,
         ];
     }

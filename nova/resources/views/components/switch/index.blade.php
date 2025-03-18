@@ -63,7 +63,7 @@
         x-on:click="toggle"
         role="switch"
         x-bind:aria-checked="isChecked()"
-        x-bind:aria-labelledby="{{ $attributes->get('id') }}"
+        {{-- x-bind:aria-labelledby="{{ $attributes->get('id') }}" --}}
         x-bind:data-checked="isChecked()"
         x-bind:data-disabled="disabled"
         @class([

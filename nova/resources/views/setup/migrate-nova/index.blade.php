@@ -1,4 +1,16 @@
-<div class="mx-auto max-w-7xl space-y-16">
+<div
+    class="mx-auto max-w-7xl space-y-16"
+    x-data="{
+        celebrate() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+            })
+        },
+    }"
+    x-on:confetti.window="celebrate()"
+>
     <header class="mx-auto max-w-2xl space-y-6 text-center">
         <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Migrate from Nova 2</h1>
 
@@ -6,13 +18,22 @@
     </header>
 
     <div class="mx-auto max-w-lg space-y-8">
-        <x-setup::panel well>
-            <x-setup::panel class="divide-y divide-gray-950/5">
+        <x-panel variant="well">
+            <x-panel class="divide-y divide-gray-950/5" variant="inset">
                 @include('setup.migrate-nova._configure-database')
                 @include('setup.migrate-nova._migrate-data')
                 @include('setup.migrate-nova._set-user-access')
-                @include('setup.migrate-nova._finalize-migration')
-            </x-setup::panel>
-        </x-setup::panel>
+            </x-panel>
+        </x-panel>
+
+        @if ($status?->isSuccessful())
+            <div class="flex items-center justify-center">
+                <x-button.setup :href="route('login')" leading="arrow-right-circle">Start using Nova</x-button.setup>
+            </div>
+        @endif
     </div>
 </div>
+
+@pushOnce('scripts')
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+@endPushOnce

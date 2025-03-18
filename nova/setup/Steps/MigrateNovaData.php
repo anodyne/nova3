@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Steps;
 
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
-use Nova\Foundation\Nova;
 
 class MigrateNovaData extends Step
 {
@@ -22,16 +21,11 @@ class MigrateNovaData extends Step
 
     public function isComplete(): bool
     {
-        return filled(Config::get('database.connections.mysql.username'));
+        return Cache::has('migration_complete') && Cache::has('migration_account_setup_complete');
     }
 
     public function isCurrent(): bool
     {
-        return Request::is('setup/migrate');
-    }
-
-    public function shouldShow(): bool
-    {
-        return Request::is('setup/migrate*') || Nova::databaseIsConfigured('nova2');
+        return Request::is('setup/migrate*');
     }
 }

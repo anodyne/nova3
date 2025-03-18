@@ -18,19 +18,19 @@
         </div>
 
         <div class="mx-auto max-w-2xl space-y-8">
-            <x-setup::panel well>
+            <x-panel variant="well">
                 <x-panel.header
                     size="sm"
                     title="Summary of changes"
                     description="Here is a summary of the changes that will be applied with this update."
                 ></x-panel.header>
 
-                <x-setup::panel>
+                <x-panel>
                     <x-spacing size="sm">
                         <livewire:nova-version-history :start="$versionComingFrom" :end="$versionGoingTo" />
                     </x-spacing>
-                </x-setup::panel>
-            </x-setup::panel>
+                </x-panel>
+            </x-panel>
         </div>
     </div>
 </x-setup-layout>

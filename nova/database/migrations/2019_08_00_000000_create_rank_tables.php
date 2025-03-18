@@ -16,7 +16,7 @@ class CreateRankTables extends Migration
             $table->string('name')->index();
             $table->string('status')->default(BasicStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('rank_names', function (Blueprint $table) {
@@ -24,7 +24,7 @@ class CreateRankTables extends Migration
             $table->string('name')->index();
             $table->string('status')->default(BasicStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('rank_items', function (Blueprint $table) {
@@ -35,7 +35,7 @@ class CreateRankTables extends Migration
             $table->string('overlay_image')->nullable();
             $table->string('status')->default(BasicStatus::Active)->index();
             $table->unsignedInteger('order_column')->nullable();
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

@@ -22,14 +22,14 @@ return new class extends Migration
             $table->longText('notes')->nullable();
             $table->json('tags')->nullable();
             $table->dateTime('release_date');
-            $table->timestamps();
+            $table->datetimes();
         });
 
         Schema::create('external_content', function (Blueprint $table) {
             $table->id();
             $table->string('key')->index();
             $table->longText('value');
-            $table->timestamps();
+            $table->datetimes();
         });
     }
 

@@ -28,7 +28,7 @@ class Database
                 $this->hasMysql = false;
             } else {
                 $this->driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-                $this->hasMysql = in_array('mysql', PDO::getAvailableDrivers());
+                $this->hasMysql = $this->driver === 'mysql' && in_array('mysql', PDO::getAvailableDrivers());
             }
         } catch (Throwable $th) {
             report($th);
@@ -70,6 +70,7 @@ class Database
         return match ($this->driver) {
             'mysql' => version_compare($this->version, '8.0', '>='),
             'mariadb' => version_compare($this->version, '10.0', '>='),
+            'pgsql' => version_compare($this->version, '13.0', '>='),
             'unknown' => true,
             default => false,
         };

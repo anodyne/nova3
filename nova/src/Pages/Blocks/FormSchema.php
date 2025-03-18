@@ -270,7 +270,7 @@ class FormSchema
                 ->schema([
                     TextInput::make('primaryButtonLabel')
                         ->label('Label')
-                        ->live(),
+                        ->live(onBlur: true),
                     TextInput::make('primaryButtonUrl')
                         ->label('URL')
                         ->url(),
