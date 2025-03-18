@@ -166,7 +166,7 @@ return new class extends OneTimeOperation
             ['name' => 'Store form', 'uri' => 'admin/forms', 'key' => 'admin.forms.store', 'verb' => PageVerb::Post, 'resource' => 'Nova\\Forms\\Controllers\\FormController@store', 'layout' => 'admin'],
             ['name' => 'Edit form', 'uri' => 'admin/forms/{form}/edit', 'key' => 'admin.forms.edit', 'resource' => 'Nova\\Forms\\Controllers\\FormController@edit', 'layout' => 'admin', 'heading' => 'Edit form'],
             ['name' => 'Update form', 'uri' => 'admin/forms/{form}', 'key' => 'admin.forms.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Forms\\Controllers\\FormController@update', 'layout' => 'admin'],
-            ['name' => 'Design form', 'uri' => 'admin/forms/{form}/design', 'key' => 'admin.forms.design', 'resource' => 'Nova\\Forms\\Controllers\\DesignFormController', 'layout' => 'admin', 'heading' => 'Design form'],
+            ['name' => 'Design form', 'uri' => 'admin/forms/{form}/design', 'key' => 'admin.forms.design', 'resource' => 'Nova\\Forms\\Controllers\\DesignFormController', 'layout' => 'admin', 'content_can_be_edited' => false],
             ['name' => 'Preview form', 'uri' => 'admin/forms/{form}/preview/{theme?}', 'key' => 'admin.forms.preview', 'resource' => 'Nova\\Forms\\Controllers\\PreviewFormController', 'layout' => 'admin', 'heading' => 'Preview form'],
 
             ['name' => 'List form submissions', 'uri' => 'admin/form-submissions', 'key' => 'admin.form-submissions.index', 'resource' => 'Nova\\Forms\\Controllers\\FormSubmissionController@index', 'layout' => 'admin', 'heading' => 'Form submissions', 'subheading' => 'Manage all of Nova’s form submissions'],
@@ -175,7 +175,7 @@ return new class extends OneTimeOperation
 
             ['name' => 'List pages', 'uri' => 'admin/pages', 'key' => 'admin.pages.index', 'resource' => 'Nova\\Pages\\Controllers\\PageController@index', 'layout' => 'admin', 'heading' => 'Pages', 'subheading' => 'Manage all of Nova’s pages'],
             ['name' => 'View page', 'uri' => 'admin/pages/{page}/show', 'key' => 'admin.pages.show', 'resource' => 'Nova\\Pages\\Controllers\\PageController@show', 'layout' => 'admin', 'heading' => 'View page'],
-            ['name' => 'Design page', 'uri' => 'admin/pages/{page}/design', 'key' => 'admin.pages.design', 'resource' => 'Nova\\Pages\\Controllers\\DesignPageController', 'layout' => 'admin', 'heading' => 'Design page'],
+            ['name' => 'Design page', 'uri' => 'admin/pages/{page}/design', 'key' => 'admin.pages.design', 'resource' => 'Nova\\Pages\\Controllers\\DesignPageController', 'layout' => 'admin', 'content_can_be_edited' => false],
             ['name' => 'Create page', 'uri' => 'admin/pages/create', 'key' => 'admin.pages.create', 'resource' => 'Nova\\Pages\\Controllers\\PageController@create', 'layout' => 'admin', 'heading' => 'Add a new page'],
             ['name' => 'Store page', 'uri' => 'admin/pages', 'key' => 'admin.pages.store', 'verb' => PageVerb::Post, 'resource' => 'Nova\\Pages\\Controllers\\PageController@store', 'layout' => 'admin'],
             ['name' => 'Edit page', 'uri' => 'admin/pages/{page}/edit', 'key' => 'admin.pages.edit', 'resource' => 'Nova\\Pages\\Controllers\\PageController@edit', 'layout' => 'admin', 'heading' => 'Edit page'],
