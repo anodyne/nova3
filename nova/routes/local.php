@@ -12,6 +12,7 @@ use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Department;
 use Nova\Discussions\Data\DiscussionData;
 use Nova\Discussions\Models\Discussion;
+use Nova\Forms\Models\Form;
 use Nova\Foundation\Models\SystemInfo;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Values\LatestVersion;
@@ -299,4 +300,12 @@ Route::get('version', function () {
     $versionGithub = LatestVersion::fromGithub($githubVersion);
 
     dd($latestVersion, $githubVersion, $versionAnodyne, $versionGithub);
+});
+
+Route::get('migrate', function () {
+    $form = Form::key('characterBio')->first();
+
+    $freshForm = DB::table('forms')->find($form->id);
+
+    dd(json_decode($freshForm->fields, associative: true));
 });
