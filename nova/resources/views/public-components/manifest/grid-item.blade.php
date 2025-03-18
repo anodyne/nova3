@@ -12,7 +12,9 @@
         ])
     >
         @if (filled($character?->avatar_url) && in_array('avatar', $options))
-            <x-avatar :src="$character->avatar_url" size="lg"></x-avatar>
+            <div class="shrink-0">
+                <x-avatar :src="$character->avatar_url" size="lg"></x-avatar>
+            </div>
         @endif
 
         <div class="flex flex-col">
