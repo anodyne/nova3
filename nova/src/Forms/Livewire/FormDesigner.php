@@ -30,7 +30,7 @@ class FormDesigner extends FormComponent
             ->schema([
                 ScribbleEditor::make('fields')
                     ->hiddenLabel()
-                    ->helperText("Type '/' to show a list of available fields to add to your form")
+                    ->helperText("Type '/' to show a list of available fields to add to your form or hover over an existing block to see editing options")
                     ->profile(FormBuilderProfile::class)
                     ->renderToolbar(),
             ])

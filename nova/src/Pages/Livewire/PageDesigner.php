@@ -30,7 +30,7 @@ class PageDesigner extends FormComponent
             ->schema([
                 ScribbleEditor::make('blocks')
                     ->hiddenLabel()
-                    ->helperText("Type '/' to show a list of available blocks to add to your page")
+                    ->helperText("Type '/' to show a list of available blocks to add to your page or hover over an existing block to see editing options")
                     ->profile(PageBuilderProfile::class),
             ])
             ->statePath('data')
