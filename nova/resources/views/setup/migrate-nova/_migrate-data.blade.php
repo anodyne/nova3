@@ -8,9 +8,9 @@
         </div>
     </div>
     <div class="flex justify-end">
-        @if ($status === null)
+        @if ($status === null || ! $status?->isDatabaseConfigured())
             <x-icon name="circle-dashed" class="text-gray-400" size="xl"></x-icon>
-        @elseif ($status->isDataMigrated())
+        @elseif ($status?->isDataMigrated())
             <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
         @else
             <x-button.setup :href="url('setup/migrate/steps')" size="xs">Go &rarr;</x-button.setup>

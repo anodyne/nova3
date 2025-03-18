@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Nova\Setup\Livewire;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Setup\Enums\NovaMigrateStatus;
 use Nova\Setup\Enums\SetupType;
 use Nova\Users\Models\User;
 
-#[Layout('layouts.setup', ['type' => SetupType::Install])]
+#[Layout('layouts.setup', ['type' => SetupType::Migrate])]
 class MigrateNova extends Component
 {
     public ?NovaMigrateStatus $status = null;
@@ -20,6 +21,10 @@ class MigrateNova extends Component
     {
         if (filled(config('database.connections.nova2.database'))) {
             $this->status = NovaMigrateStatus::DatabaseConfigured;
+        }
+
+        if (Cache::has('migration_complete')) {
+            $this->status = NovaMigrateStatus::DataMigrated;
         }
 
         if (User::whereHas('roles', fn (Builder $query) => $query->whereIn('name', ['owner', 'admin']))->count() > 0) {
