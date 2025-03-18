@@ -1,5 +1,9 @@
 @use('Nova\Characters\Models\Character')
 
+@php
+    $errors = $errors->getBag('default');
+@endphp
+
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
@@ -10,17 +14,27 @@
 
         <x-form
             :action="route('admin.characters.store')"
-            x-data="tabsList('{{ $errors->getBag('default')->has('character.*') ? 'bio' : 'info' }}')"
+            x-data="tabsList('{{ $errors->has('characterBio.*') && ! $errors->has('name') ? 'bio' : 'info' }}')"
         >
             @if (filled($form->published_fields))
                 <x-tab.group name="character">
                     <x-tab.heading name="info">
                         <x-icon name="info" size="sm"></x-icon>
                         Basic info
+                        @if ($errors->has('name'))
+                            <span class="shrink-0 text-danger-500">
+                                <x-icon.micro.alert />
+                            </span>
+                        @endif
                     </x-tab.heading>
                     <x-tab.heading name="bio">
                         <x-icon name="user-profile" size="sm"></x-icon>
                         Bio
+                        @if ($errors->has('characterBio.*'))
+                            <span class="shrink-0 text-danger-500">
+                                <x-icon.micro.alert />
+                            </span>
+                        @endif
                     </x-tab.heading>
                 </x-tab.group>
             @endif

@@ -1,3 +1,7 @@
+@php
+    $errors = $errors->getBag('default');
+@endphp
+
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
@@ -12,7 +16,7 @@
                 pronounSubject: '{{ old('pronouns.subject', $user->pronouns->subject) }}',
                 pronounObject: '{{ old('pronouns.object', $user->pronouns->object) }}',
                 ...tabsList(
-                    '{{ $errors->getBag('default')->has('user.*') ? 'bio' : 'info' }}',
+                    '{{ $errors->has('userBio.*') && ! $errors->hasAny(['name', 'email', 'pronouns']) ? 'bio' : 'info' }}',
                 ),
             }"
             x-init="
@@ -30,10 +34,20 @@
                         <x-tab.heading name="info">
                             <x-icon name="info" size="sm"></x-icon>
                             Basic info
+                            @if ($errors->hasAny(['email', 'name', 'pronouns']))
+                                <span class="shrink-0 text-danger-500">
+                                    <x-icon.micro.alert />
+                                </span>
+                            @endif
                         </x-tab.heading>
                         <x-tab.heading name="bio">
                             <x-icon name="user-profile" size="sm"></x-icon>
                             Bio
+                            @if ($errors->has('userBio.*'))
+                                <span class="shrink-0 text-danger-500">
+                                    <x-icon.micro.alert />
+                                </span>
+                            @endif
                         </x-tab.heading>
                     </x-tab.group>
                 @endif

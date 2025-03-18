@@ -27,7 +27,7 @@ class UpdateCharacterRequest extends FormRequest
     {
         return array_merge(
             [
-                'name.required' => ':attribute is required',
+                'name.required' => 'The :attribute is required',
             ],
             Form::key('characterBio')->first()->validation_messages,
         );
