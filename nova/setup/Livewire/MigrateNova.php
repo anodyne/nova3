@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Setup\Enums\NovaMigrateStatus;
 use Nova\Setup\Enums\SetupType;
-use Nova\Users\Models\User;
 
 #[Layout('layouts.setup', ['type' => SetupType::Migrate])]
 class MigrateNova extends Component
@@ -27,8 +25,12 @@ class MigrateNova extends Component
             $this->status = NovaMigrateStatus::DataMigrated;
         }
 
-        if (User::whereHas('roles', fn (Builder $query) => $query->whereIn('name', ['owner', 'admin']))->count() > 0) {
-            $this->status = NovaMigrateStatus::UserAccessUpdated;
+        if (Cache::has('migration_account_setup_complete')) {
+            $this->status = NovaMigrateStatus::Success;
+        }
+
+        if ($this->status === NovaMigrateStatus::Success) {
+            $this->dispatch('confetti');
         }
     }
 

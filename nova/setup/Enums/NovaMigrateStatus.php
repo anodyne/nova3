@@ -39,6 +39,7 @@ enum NovaMigrateStatus: string
             self::AlreadyMigrated => true,
             self::DataMigrated => true,
             self::DataPartiallyMigrated => true,
+            self::UserAccessUpdated => true,
             self::Success => true,
             default => false,
         };
@@ -53,6 +54,14 @@ enum NovaMigrateStatus: string
     }
 
     public function isSettingsUpdated(): bool
+    {
+        return match ($this) {
+            self::Success => true,
+            default => false,
+        };
+    }
+
+    public function isSuccessful(): bool
     {
         return match ($this) {
             self::Success => true,

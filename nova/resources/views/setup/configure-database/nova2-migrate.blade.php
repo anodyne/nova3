@@ -189,13 +189,13 @@
 
         @if ($shouldShowSuccessTable)
             <div class="mx-auto max-w-lg space-y-8">
-                <x-setup::panel well>
-                    <x-setup::panel class="divide-y divide-gray-950/5">
+                <x-panel variant="well">
+                    <x-panel class="divide-y divide-gray-950/5" variant="inset">
                         @include('setup.configure-database._verify-temp-connection')
                         @include('setup.configure-database._verify-write-env')
                         @include('setup.configure-database._verify-connection')
-                    </x-setup::panel>
-                </x-setup::panel>
+                    </x-panel>
+                </x-panel>
             </div>
 
             @if ($status === DatabaseConfigStatus::Success)

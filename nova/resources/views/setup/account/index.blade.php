@@ -60,14 +60,14 @@
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-setup::panel well>
-                <x-setup::panel class="divide-y divide-gray-950/5">
+            <x-panel variant="well">
+                <x-panel class="divide-y divide-gray-950/5" variant="inset">
                     @include('setup.account._user-created')
                     @include('setup.account._roles-assigned')
                     @include('setup.account._send-telemetry')
                     @include('setup.account._signin')
-                </x-setup::panel>
-            </x-setup::panel>
+                </x-panel>
+            </x-panel>
         </div>
 
         <div class="flex items-center justify-center">

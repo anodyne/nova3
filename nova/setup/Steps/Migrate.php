@@ -13,7 +13,6 @@ class Migrate extends SetupSteps
             new ConfigureDatabase,
             new InstallNova,
             new MigrateNovaData,
-            new SetupUserAccount,
         ];
     }
 }

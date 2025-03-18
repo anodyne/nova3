@@ -68,8 +68,6 @@
                 @endif
             @endif
         @endif
-
-        {{-- <x-progress.circular :percentage="$batchProgress" color="primary" class="size-7"></x-progress.circular> --}}
     </div>
 
     @if (! $wasSuccessfullyMigrated && filled($batchId))

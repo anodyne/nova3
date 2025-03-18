@@ -25,7 +25,7 @@
 
     @if ($isFinished)
         <div class="flex items-center justify-center">
-            <x-button.setup :href="url('setup/migrate')">Finish migration &rarr;</x-button.setup>
+            <x-button.setup :href="url('setup/migrate')">Continue migration &rarr;</x-button.setup>
         </div>
     @else
         <div class="flex items-center justify-center">

@@ -22,6 +22,13 @@ trait HandlesBatching
     {
         if ($this->isBatchable()) {
             $this->batchProgress = (int) $this->batch?->progress() ?? 0;
+
+            if ($this->batchProgress >= 100) {
+                $this->isRunning = false;
+                $this->isFinished = true;
+
+                $this->dispatch('migrationStepFinished');
+            }
         }
     }
 

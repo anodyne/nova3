@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="flex justify-end">
-        @if ($status === null)
+        @if ($status === null || ! $status?->isDatabaseConfigured() || ! $status?->isDataMigrated())
             <x-icon name="circle-dashed" class="text-gray-400" size="xl"></x-icon>
         @elseif ($status->isUserAccessUpdated())
             <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>

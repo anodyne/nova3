@@ -21,7 +21,7 @@ class MigrateNovaData extends Step
 
     public function isComplete(): bool
     {
-        return Cache::has('migration_complete');
+        return Cache::has('migration_complete') && Cache::has('migration_account_setup_complete');
     }
 
     public function isCurrent(): bool

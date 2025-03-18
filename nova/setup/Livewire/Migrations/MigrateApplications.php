@@ -50,7 +50,9 @@ class MigrateApplications extends MigrationStep
     {
         return DB::connection('nova2')
             ->table('applications')
-            ->join('users', 'applications.app_user', '=', 'users.userid');
+            ->join('users', 'applications.app_user', '=', 'users.userid')
+            ->join('characters', 'applications.app_character', '=', 'characters.charid')
+            ->whereIn('applications.app_action', ['accepted', 'rejected', 'pending']);
     }
 
     protected function getBatchJobs(): Collection

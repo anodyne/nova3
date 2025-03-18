@@ -37,15 +37,13 @@
         @endif
 
         <div class="mx-auto max-w-2xl space-y-8">
-            <x-setup::panel well>
-                <x-spacing size="2xs">
-                    <x-setup::panel class="divide-y divide-gray-950/5">
-                        @include('setup.overview._requirements-php')
-                        @include('setup.overview._requirements-database')
-                        @include('setup.overview._requirements-php-extensions')
-                    </x-setup::panel>
-                </x-spacing>
-            </x-setup::panel>
+            <x-panel variant="well">
+                <x-panel class="divide-y divide-gray-950/5" variant="inset">
+                    @include('setup.overview._requirements-php')
+                    @include('setup.overview._requirements-database')
+                    @include('setup.overview._requirements-php-extensions')
+                </x-panel>
+            </x-panel>
         </div>
     </div>
 </x-setup-layout>
