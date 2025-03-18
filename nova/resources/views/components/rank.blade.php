@@ -1,4 +1,4 @@
-@props(['rank'])
+@props(['rank' => null])
 
 <div class="nv-rank-ctn grid h-10 w-36 shrink-0 overflow-hidden [grid-template-areas:'rank']">
     @if (filled($rank?->base_image))

@@ -19,11 +19,7 @@
             ])
         >
             @if ($column->column === 'rank-image')
-                @if (filled($character?->rank))
-                    <x-rank :rank="$character?->rank"></x-rank>
-                @else
-                    <div class="rank-base"></div>
-                @endif
+                <x-rank :rank="$character?->rank"></x-rank>
             @endif
 
             @if ($column->column === 'rank-name')
