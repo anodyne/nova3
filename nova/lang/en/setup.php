@@ -12,6 +12,8 @@ return [
 
         'users-cannot-be-disabled' => 'User migration cannot be disabled.',
 
+        'users-form' => 'This will migrate certain Nova 2 user fields that no longer exist on the user record into a user form that you can edit.',
+
     ],
 
 ];
