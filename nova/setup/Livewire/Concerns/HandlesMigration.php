@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire\Concerns;
 
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 
 trait HandlesMigration
@@ -15,6 +16,11 @@ trait HandlesMigration
     public function bootHandlesMigration(): void
     {
         $this->isMigrating = request()->is('setup/migrate*');
+    }
+
+    public function hydrateHandlesMigration(): void
+    {
+        $this->isMigrating = Str::is('setup/migrate*', $this->getCurrentRoute()->uri);
     }
 
     #[Computed]
