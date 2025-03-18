@@ -139,8 +139,7 @@ class PagesList extends TableComponent
                             ->modalContentView('pages.pages.duplicate')
                             ->form([
                                 TextInput::make('name')
-                                    ->live()
-                                    ->debounce(750)
+                                    ->live(onBlur: true)
                                     ->afterStateUpdated(fn (Set $set, string $state) => $set('key', str($state)->slug())),
                                 TextInput::make('uri')->label('URI'),
                                 TextInput::make('key')
