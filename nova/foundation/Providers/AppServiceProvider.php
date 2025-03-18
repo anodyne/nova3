@@ -408,6 +408,7 @@ class AppServiceProvider extends ServiceProvider
             Fields\LongTextField::make(),
             Fields\NumberField::make(),
             Fields\EmailField::make(),
+            Fields\DateField::make(),
             Fields\DropdownField::make(),
             Fields\SelectOneField::make(),
         ]);
