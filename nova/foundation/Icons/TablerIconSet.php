@@ -90,6 +90,7 @@ class TablerIconSet extends IconSet
             'filter' => 'tabler-filter',
             'flag' => 'tabler-flag',
             'folder' => 'tabler-folder',
+            'folder-settings' => 'tabler-folder-cog',
             'forbid' => 'tabler-forbid-2',
             'form' => 'tabler-forms',
             'form-preview' => 'tabler-input-search',

@@ -197,6 +197,60 @@
                     </x-spacing>
                 </x-panel>
             </x-panel>
+
+            @php
+                $folders = [
+                    storage_path(),
+                    storage_path('logs'),
+                    storage_path('framework'),
+                    storage_path('framework/cache'),
+                    storage_path('framework/sessions'),
+                    storage_path('framework/views'),
+                    nova_path('bootstrap/cache'),
+                    public_path(),
+                ];
+            @endphp
+
+            <x-panel variant="well">
+                <x-panel.header title="File permissions" icon="folder-settings"></x-panel.header>
+
+                <x-panel>
+                    <x-spacing class="text-sm/6" size="md">
+                        @foreach ($folders as $path)
+                            <div class="py-1.5">
+                                <div class="flex w-full items-center justify-between gap-4">
+                                    <dt class="flex items-center gap-2 font-medium text-gray-500">
+                                        {{ str($path)->remove(base_path()) }}
+                                    </dt>
+                                    <dd
+                                        class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white"
+                                    >
+                                        @if (is_writable($path))
+                                            <x-icon.filled.check-circle
+                                                class="size-5 text-success-500"
+                                            ></x-icon.filled.check-circle>
+                                        @else
+                                            {{ substr(sprintf('%o', fileperms($path)), -4) }}
+                                        @endif
+                                    </dd>
+                                </div>
+
+                                @if (! is_writable($path))
+                                    <div class="flex gap-x-2">
+                                        <x-icon.micro.warning
+                                            class="h-6 w-4 shrink-0 text-danger-500"
+                                        ></x-icon.micro.warning>
+
+                                        <p class="text-danger-500">
+                                            Please adjust the folder permissions to be writable.
+                                        </p>
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </x-spacing>
+                </x-panel>
+            </x-panel>
         </div>
     </div>
 </x-admin-layout>
