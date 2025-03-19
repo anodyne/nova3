@@ -6,7 +6,10 @@ namespace Nova\Foundation\Providers;
 
 use Awcodes\Scribble\Facades\ScribbleFacade;
 use Carbon\CarbonImmutable;
+use Filament\Notifications\Livewire\Notifications;
 use Filament\Notifications\Notification as FilamentNotification;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\VerticalAlignment;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Columns\TextColumn;
@@ -284,6 +287,10 @@ class AppServiceProvider extends ServiceProvider
             'tables::reorder.handle' => iconName('drag-handle'),
             'tables::search-field' => iconName('search'),
             'modal.close-button' => iconName('x'),
+            'notifications::notification.danger' => 'notis-danger',
+            'notifications::notification.info' => 'notis-info',
+            'notifications::notification.success' => 'notis-success',
+            'notifications::notification.warning' => 'notis-warning',
         ]);
 
         Table::configureUsing(function (Table $table) {
@@ -354,6 +361,9 @@ class AppServiceProvider extends ServiceProvider
         }, isImportant: true);
 
         $this->app->bind(FilamentNotification::class, Notification::class);
+
+        Notifications::alignment(Alignment::Right);
+        Notifications::verticalAlignment(VerticalAlignment::End);
     }
 
     protected function configureAboutCommand(): void

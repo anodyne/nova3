@@ -372,3 +372,28 @@ body[data-panda] .fi-radio-input {
 .fi-modal-slide-over-window .fi-modal-header .fi-modal-heading {
     @apply block font-[family-name:--font-header] text-xl font-bold tracking-tight text-gray-900 dark:text-white;
 }
+
+.fi-no {
+    @apply inset-8;
+}
+.fi-no-notification {
+    @apply bg-gray-950 shadow-[0px_2px_5px_0px_#00000026,0px_9px_9px_0px_#00000021,0px_20px_12px_0px_#00000014,0px_36px_14px_0px_#00000005,0px_56px_16px_0px_#0000];
+}
+.fi-no-notification-icon.fi-color-danger {
+    @apply fill-danger-950 text-danger-400;
+}
+.fi-no-notification-icon.fi-color-info {
+    @apply fill-info-950 text-info-400;
+}
+.fi-no-notification-icon.fi-color-success {
+    @apply fill-success-950 text-success-400;
+}
+.fi-no-notification-icon.fi-color-warning {
+    @apply fill-warning-950 text-warning-400;
+}
+.fi-no-notification-title {
+    @apply text-white;
+}
+.fi-no-notification-body {
+    @apply text-gray-400;
+}
