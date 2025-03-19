@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3f6b6ab702ef771cc94f2fe815d9ebd",
+    "content-hash": "ee383f35e72a07977be1aa6c0d733fad",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1232,16 +1232,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.342.9",
+            "version": "3.342.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e6c89c32bfb4e4444b05edd05ef9852ae952dc45"
+                "reference": "93dc5f0852d9e67f237060814b8abc748c0e4be5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e6c89c32bfb4e4444b05edd05ef9852ae952dc45",
-                "reference": "e6c89c32bfb4e4444b05edd05ef9852ae952dc45",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/93dc5f0852d9e67f237060814b8abc748c0e4be5",
+                "reference": "93dc5f0852d9e67f237060814b8abc748c0e4be5",
                 "shasum": ""
             },
             "require": {
@@ -1323,9 +1323,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.342.9"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.342.10"
             },
-            "time": "2025-03-19T18:50:34+00:00"
+            "time": "2025-03-20T18:27:12+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -6233,6 +6233,74 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.9.0"
             },
             "time": "2024-03-31T07:05:07+00:00"
+        },
+        {
+            "name": "mchev/banhammer",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mchev/banhammer.git",
+                "reference": "a57318822959036639bc1b7929be7d24ba376457"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mchev/banhammer/zipball/a57318822959036639bc1b7929be7d24ba376457",
+                "reference": "a57318822959036639bc1b7929be7d24ba376457",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^9.6|^10.5|^11.5.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mchev\\Banhammer\\BanhammerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mchev\\Banhammer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "mchev",
+                    "email": "martin@pegase.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Banhammer for Laravel allows you to ban any Model by key and by IP.",
+            "homepage": "https://github.com/mchev/banhammer",
+            "keywords": [
+                "IP",
+                "ban",
+                "bannable",
+                "bans-for-laravel",
+                "country",
+                "laravel",
+                "mchev"
+            ],
+            "support": {
+                "issues": "https://github.com/mchev/banhammer/issues",
+                "source": "https://github.com/mchev/banhammer/tree/v2.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/mchev",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-03-17T13:49:24+00:00"
         },
         {
             "name": "mistralys/version-parser",
