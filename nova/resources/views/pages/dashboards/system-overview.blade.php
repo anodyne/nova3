@@ -171,6 +171,22 @@
                             </dd>
                         </div>
                         <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Nova files</dt>
+                            <dd
+                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                            >
+                                {{ nova()->filesVersion() }}
+                            </dd>
+                        </div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
+                            <dt class="flex items-center gap-2 font-medium text-gray-500">Nova database</dt>
+                            <dd
+                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                            >
+                                {{ nova()->databaseVersion() }}
+                            </dd>
+                        </div>
+                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
                             <dt class="flex items-center gap-2 font-medium text-gray-500">Laravel</dt>
                             <dd
                                 class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
