@@ -4,11 +4,11 @@
     'options' => [],
 ])
 
-<a class="flex items-center rounded-lg px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-900" {{ $attributes }}>
+<a class="flex rounded-lg px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-900" {{ $attributes }}>
     <div
         @class([
             'inline-flex gap-x-3',
-            'items-center' => ! in_array('position', $options) && ! in_array('type', $options) && ! in_array('status', $options) && ! in_array('rank-image', $options),
+            // 'items-center' => ! in_array('position', $options) && ! in_array('type', $options) && ! in_array('status', $options) && ! in_array('rank-image', $options),
         ])
     >
         @if (filled($character?->avatar_url) && in_array('avatar', $options))
@@ -17,7 +17,7 @@
             </div>
         @endif
 
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-1">
             <div class="flex items-center text-lg/7 font-medium text-gray-900 dark:text-white">
                 @if (filled($character))
                     {{ in_array('rank-name', $options) ? $character->display_name : $character->name }}
