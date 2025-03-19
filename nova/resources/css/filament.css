@@ -391,6 +391,9 @@ body[data-panda] .fi-radio-input {
 .fi-no-notification-icon.fi-color-warning {
     @apply fill-warning-950 text-warning-400;
 }
+.fi-no-notification-icon .icon-path {
+    @apply stroke-white;
+}
 .fi-no-notification-title {
     @apply text-white;
 }
