@@ -6,7 +6,8 @@
             <x-panel variant="well" color="primary">
                 <x-panel.header
                     title="Nova is up-to-date"
-                    icon="check"
+                    icon="check-circle"
+                    icon-size="lg"
                     description="You are running the latest available release of Nova."
                 ></x-panel.header>
             </x-panel>

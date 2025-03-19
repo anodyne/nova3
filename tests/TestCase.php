@@ -11,12 +11,9 @@ use Illuminate\Support\Facades\Http;
 
 abstract class TestCase extends BaseTestCase
 {
-    use LazilyRefreshDatabase;
-
-    // TODO: this can be uncommented after upgrading to Laravel 12
-    // use LazilyRefreshDatabase {
-    //     migrateDatabases as baseMigrateDatabases;
-    // }
+    use LazilyRefreshDatabase {
+        migrateDatabases as baseMigrateDatabases;
+    }
 
     protected function setUp(): void
     {
@@ -25,7 +22,7 @@ abstract class TestCase extends BaseTestCase
         Http::fake([
             'nova3.test/api/version' => Http::response([
                 'severity' => 'patch',
-                'version' => '3.0.0-alpha13',
+                'version' => '3.0.0-alpha19',
                 'notes' => 'Sint eiusmod esse sint elit anim aliqua non ex consectetur.',
             ]),
         ]);
@@ -40,11 +37,10 @@ abstract class TestCase extends BaseTestCase
         return $app;
     }
 
-    // TODO: this can be uncommented after upgrading to Laravel 12
-    // protected function migrateDatabases()
-    // {
-    //     $this->baseMigrateDatabases();
+    protected function migrateDatabases()
+    {
+        $this->baseMigrateDatabases();
 
-    //     $this->artisan('operations:process');
-    // }
+        $this->artisan('operations:process');
+    }
 }

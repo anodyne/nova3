@@ -45,7 +45,7 @@ class ThemesList extends TableComponent
                     ->toggleable(),
                 IconColumn::make('is_current_public_theme')
                     ->label('Current theme')
-                    ->icon(fn (bool $state): ?string => $state ? iconName('check') : null)
+                    ->icon(fn (bool $state): ?string => $state ? iconName('check-circle') : null)
                     ->color(fn (bool $state): ?string => $state ? 'success' : null)
                     ->toggleable(),
                 TextColumn::make('repository.type')

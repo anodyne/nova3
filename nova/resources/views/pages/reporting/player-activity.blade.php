@@ -42,9 +42,9 @@
                             <div>
                                 <div class="flex gap-x-2">
                                     @if ($meetsRequirements($user))
-                                        <x-icon name="check" size="md" class="text-success-500"></x-icon>
+                                        <x-icon name="check-circle" size="md" class="text-success-500"></x-icon>
                                     @else
-                                        <x-icon name="x-alt" size="md" class="text-danger-500"></x-icon>
+                                        <x-icon name="x-circle" size="md" class="text-danger-500"></x-icon>
                                     @endif
 
                                     <div>
@@ -62,15 +62,15 @@
 
                             <div class="grid shrink-0 grid-cols-3 gap-4 text-sm/6">
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon name="check-circle" size="sm" class="text-primary-500"></x-icon>
+                                    <x-icon name="check-circle" size="md" class="text-primary-500"></x-icon>
                                     {{ $user->published_post_count }}
                                 </div>
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon name="circle-dashed" size="sm" class="text-gray-500"></x-icon>
+                                    <x-icon name="circle-dashed" size="md" class="text-gray-500"></x-icon>
                                     {{ $user->draft_post_count }}
                                 </div>
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon name="abc" size="sm" class="text-gray-500"></x-icon>
+                                    <x-icon name="abc" size="md" class="text-gray-500"></x-icon>
                                     {{ Number::format($user->total_word_count ?? 0) }}
                                 </div>
                             </div>

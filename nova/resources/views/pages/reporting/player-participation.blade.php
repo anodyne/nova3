@@ -21,9 +21,9 @@
                             <div>
                                 <div class="flex gap-x-2">
                                     @if ($user->total_word_count > 0)
-                                        <x-icon name="check" size="md" class="text-success-500"></x-icon>
+                                        <x-icon name="check-circle" size="md" class="text-success-500"></x-icon>
                                     @else
-                                        <x-icon name="x-alt" size="md" class="text-danger-500"></x-icon>
+                                        <x-icon name="x-circle" size="md" class="text-danger-500"></x-icon>
                                     @endif
 
                                     <div class="font-semibold">{{ $user->name }}</div>

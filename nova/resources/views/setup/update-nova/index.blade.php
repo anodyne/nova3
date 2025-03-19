@@ -43,7 +43,7 @@
         </div>
 
         <div class="flex items-center justify-center gap-8">
-            <x-button.setup href="{{ route('admin.dashboard') }}" leading="arrow-right-circle">
+            <x-button.setup href="{{ route('admin.dashboard') }}" leading="arrow-right">
                 Back to the site
             </x-button.setup>
         </div>

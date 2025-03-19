@@ -18,6 +18,7 @@
             'relative w-full',
             match ($size) {
                 'none' => 'p-0',
+                'px' => 'p-px',
                 '3xs' => 'p-1',
                 '2xs' => 'p-1.5',
                 'xs' => 'p-3',
@@ -30,6 +31,7 @@
             } => filled($size),
             match ($height) {
                 'none' => 'py-0',
+                'px' => 'py-px',
                 '3xs' => 'py-1',
                 '2xs' => 'py-1.5',
                 'xs' => 'py-3',
@@ -41,6 +43,7 @@
             } => filled($height) && blank($size),
             match ($width) {
                 'none' => 'px-0',
+                'px' => 'px-px',
                 '3xs' => 'px-1',
                 '2xs' => 'px-1.5',
                 'xs' => 'px-3',
@@ -52,6 +55,7 @@
             } => filled($width) && blank($size),
             match ($top) {
                 'none' => 'pt-0',
+                'px' => 'pt-px',
                 '3xs' => 'pt-1',
                 '2xs' => 'pt-1.5',
                 'xs' => 'pt-3',
@@ -63,6 +67,7 @@
             } => filled($top) && blank($height) && blank($size),
             match ($bottom) {
                 'none' => 'pb-0',
+                'px' => 'pb-px',
                 '3xs' => 'pb-1',
                 '2xs' => 'pb-1.5',
                 'xs' => 'pb-3',
@@ -74,6 +79,7 @@
             } => filled($bottom) && blank($height) && blank($size),
             match ($left) {
                 'none' => 'pl-0',
+                'px' => 'pl-px',
                 '3xs' => 'pl-1',
                 '2xs' => 'pl-1.5',
                 'xs' => 'pl-3',
@@ -85,6 +91,7 @@
             } => filled($left) && blank($width) && blank($size),
             match ($right) {
                 'none' => 'pr-0',
+                'px' => 'pr-px',
                 '3xs' => 'pr-1',
                 '2xs' => 'pr-1.5',
                 'xs' => 'pr-3',

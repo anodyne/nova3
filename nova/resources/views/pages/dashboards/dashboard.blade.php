@@ -114,13 +114,9 @@
 
                                             <div class="shrink-0">
                                                 @if ($activityPercentage >= 100)
-                                                    <x-icon.filled.check-circle
-                                                        class="size-7"
-                                                    ></x-icon.filled.check-circle>
+                                                    <x-icon name="check-circle-filled" size="size-7"></x-icon>
                                                 @else
-                                                    <x-icon.filled.exclamation-circle
-                                                        class="size-7"
-                                                    ></x-icon.filled.exclamation-circle>
+                                                    <x-icon name="alert-filled" size="size-7"></x-icon>
                                                 @endif
                                             </div>
                                         </div>

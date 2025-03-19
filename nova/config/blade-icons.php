@@ -20,6 +20,11 @@ return [
             'prefix' => 'empty',
             'class' => '',
         ],
+        'notifications' => [
+            'path' => 'nova/resources/svg/notifications',
+            'prefix' => 'notis',
+            'class' => '',
+        ],
     ],
 
     /*

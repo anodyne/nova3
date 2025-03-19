@@ -86,7 +86,7 @@
                 <span class="text-sm font-semibold uppercase text-gray-500">or</span>
             @endif
 
-            <x-button.setup href="{{ url('setup/setup-account') }}" leading="arrow-right-circle">
+            <x-button.setup href="{{ url('setup/setup-account') }}" leading="arrow-right">
                 Continue as a fresh install
             </x-button.setup>
         </div>
