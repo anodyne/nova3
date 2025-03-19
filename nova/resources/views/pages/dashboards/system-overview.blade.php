@@ -49,7 +49,7 @@
                             </div>
 
                             @if (! str(config('app.url'))->startsWith('https'))
-                                <div class="flex gap-x-2">
+                                <div class="flex gap-x-1.5">
                                     <x-icon.micro.warning
                                         class="h-6 w-4 shrink-0 text-danger-500"
                                     ></x-icon.micro.warning>
@@ -71,7 +71,7 @@
                             </div>
 
                             @if (config('app.env') !== 'production')
-                                <div class="flex gap-x-2">
+                                <div class="flex gap-x-1.5">
                                     <x-icon.micro.warning
                                         class="h-6 w-4 shrink-0 text-danger-500"
                                     ></x-icon.micro.warning>
@@ -93,7 +93,7 @@
                             </div>
 
                             @if (config('app.debug') && config('app.env') === 'production')
-                                <div class="flex gap-x-2">
+                                <div class="flex gap-x-1.5">
                                     <x-icon.micro.warning
                                         class="h-6 w-4 shrink-0 text-danger-500"
                                     ></x-icon.micro.warning>
@@ -226,9 +226,11 @@
                                         class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white"
                                     >
                                         @if (is_writable($path))
-                                            <x-icon.filled.check-circle
-                                                class="size-5 text-success-500"
-                                            ></x-icon.filled.check-circle>
+                                            <x-icon
+                                                name="check-circle-filled"
+                                                size="sm"
+                                                class="text-success-500"
+                                            ></x-icon>
                                         @else
                                             {{ substr(sprintf('%o', fileperms($path)), -4) }}
                                         @endif
@@ -236,7 +238,7 @@
                                 </div>
 
                                 @if (! is_writable($path))
-                                    <div class="flex gap-x-2">
+                                    <div class="flex gap-x-1.5">
                                         <x-icon.micro.warning
                                             class="h-6 w-4 shrink-0 text-danger-500"
                                         ></x-icon.micro.warning>

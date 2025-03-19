@@ -22,7 +22,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="check"></x-icon>
+                    <x-icon name="check-circle"></x-icon>
                     <x-fieldset.legend>Character creation approvals</x-fieldset.legend>
                     <x-fieldset.description>
                         Set whether characters of certain types require approval before being activated.

@@ -16,8 +16,8 @@
     $pluralModelLabel = $table->getPluralModelLabel();
 @endphp
 
-<x-spacing size="none">
-    <x-panel.primary icon="arrows-sort" icon-size="xl" title="Change sorting order">
+<x-spacing class="[&+.fi-ta-header-toolbar]:!border-t-0" size="px">
+    <x-panel.primary icon="arrows-sort" icon-size="lg" title="Change sorting order">
         <x-slot name="description">
             <div class="space-y-4">
                 <p>

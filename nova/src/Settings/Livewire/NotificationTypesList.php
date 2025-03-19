@@ -114,7 +114,7 @@ class NotificationTypesList extends TableComponent
 
                         Action::make('discordSettings')
                             ->label('Discord settings')
-                            ->icon(iconName('discord'))
+                            ->icon(iconName('brand-discord'))
                             ->size('lg')
                             ->modalWidth('xl')
                             ->color('gray')
@@ -165,7 +165,7 @@ class NotificationTypesList extends TableComponent
             ->headerActions([
                 Action::make('globalDiscordSettings')
                     ->label('Global Discord settings')
-                    ->icon(iconName('discord'))
+                    ->icon(iconName('brand-discord'))
                     ->color('gray')
                     ->modalWidth('xl')
                     ->modalSubmitActionLabel('Update')

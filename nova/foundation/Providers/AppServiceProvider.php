@@ -291,6 +291,8 @@ class AppServiceProvider extends ServiceProvider
             'notifications::notification.info' => 'notis-info',
             'notifications::notification.success' => 'notis-success',
             'notifications::notification.warning' => 'notis-warning',
+            'pagination.previous-button' => iconName('chevron-left'),
+            'pagination.next-button' => iconName('chevron-right'),
         ]);
 
         Table::configureUsing(function (Table $table) {
