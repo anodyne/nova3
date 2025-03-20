@@ -78,7 +78,7 @@
         </div>
 
         <div class="flex items-center justify-center gap-8">
-            @if ($e->database->driver === 'mysql')
+            @if ($e->database->driver !== 'pgsql')
                 <x-button.setup href="{{ url('setup/migrate') }}" leading="forward-all">
                     Migrate your Nova 2 data
                 </x-button.setup>
