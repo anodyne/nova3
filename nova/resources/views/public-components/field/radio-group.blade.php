@@ -3,6 +3,7 @@
     'description' => null,
     'id' => null,
     'error' => null,
+    'required' => null,
 ])
 
 @aware(['form' => null])
@@ -14,7 +15,7 @@
     }
 @endphp
 
-<x-public::field :$label :$description :$error>
+<x-public::field :$label :$description :$error :$required>
     <fieldset class="mt-4">
         <div class="space-y-4">
             {{ $slot }}

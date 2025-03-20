@@ -27,7 +27,7 @@
             </x-fieldset.field>
         @endif
     @else
-        <x-fieldset.field :label="$label" :description="$description">
+        <x-fieldset.field :label="$label" :description="$description" :required="$required">
             <x-radio.group :error="$error">
                 @foreach ((array) $options as $option)
                     @php
@@ -69,7 +69,7 @@
             </x-public::field>
         @endif
     @else
-        <x-public::field.radio-group :label="$label" :description="$description">
+        <x-public::field.radio-group :label="$label" :description="$description" :required="$required">
             @foreach ((array) $options as $option)
                 @php
                     $attributesBag = new ComponentAttributeBag((array) data_get($option, 'attributes'));

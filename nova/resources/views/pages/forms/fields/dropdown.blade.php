@@ -35,6 +35,7 @@
             :id="$uid"
             :name="$inputName"
             :error="$error"
+            :required="$required"
         >
             <x-select :attributes="$attributesBag" wire:model.live.debounce="values.{{ $uid }}">
                 @if ($attributesBag->has('placeholder'))
@@ -64,6 +65,7 @@
             :description="$description"
             :id="$uid"
             :name="$inputName"
+            :required="$required"
             :attributes="$attributesBag"
             wire:model.live.debounce="values.{{ $uid }}"
         >

@@ -4,6 +4,7 @@
     'id' => null,
     'name' => null,
     'error' => null,
+    'required' => null,
 ])
 
 @aware(['form' => null])
@@ -15,7 +16,7 @@
     }
 @endphp
 
-<x-public::field :$label :$description :$id :$error>
+<x-public::field :$label :$description :$id :$error :$required>
     <input
         type="text"
         data-slot="control"

@@ -1,7 +1,7 @@
 @use('Illuminate\View\ComponentAttributeBag')
 
 <div class="w-full max-w-2xl p-2">
-    <x-public::field.radio-group :$label :$description>
+    <x-public::field.radio-group :$label :$description :$required>
         @foreach ((array) $options as $option)
             @php
                 $attributesBag = new ComponentAttributeBag((array) $option['attributes']);

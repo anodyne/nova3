@@ -10,6 +10,7 @@
         :description="$description"
         :id="$uid"
         :name="$name"
+        :required="$required"
         :attributes="$attributesBag"
     ></x-public::field.number>
 </div>

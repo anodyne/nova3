@@ -35,6 +35,7 @@
             :id="$uid"
             :name="$inputName"
             :error="$error"
+            :required="$required"
         >
             <x-input.number :attributes="$attributesBag" wire:model.live.debounce="values.{{ $uid }}"></x-input.number>
         </x-fieldset.field>
@@ -54,6 +55,7 @@
             :description="$description"
             :id="$uid"
             :name="$inputName"
+            :required="$required"
             :attributes="$attributesBag"
             wire:model.live.debounce="values.{{ $uid }}"
         ></x-public::field.number>

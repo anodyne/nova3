@@ -11,6 +11,7 @@
         :id="$uid"
         :name="$name"
         :rows="$rows"
+        :required="$required"
         :attributes="$attributesBag"
     ></x-public::field.textarea>
 </div>

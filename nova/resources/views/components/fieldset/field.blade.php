@@ -4,6 +4,7 @@
     'label' => null,
     'description' => null,
     'error' => null,
+    'required' => null,
 ])
 
 @use('Illuminate\Support\Str')
@@ -30,7 +31,7 @@
     {{ $attributes }}
 >
     @if (filled($label))
-        <x-fieldset.label for="{{ $id }}">{{ $label }}</x-fieldset.label>
+        <x-fieldset.label for="{{ $id }}" :$required>{{ $label }}</x-fieldset.label>
     @endif
 
     @if (filled($description))

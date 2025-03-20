@@ -35,6 +35,7 @@
             :id="$uid"
             :name="$inputName"
             :error="$error"
+            :required="$required"
         >
             <x-input.textarea
                 :rows="$rows"
@@ -59,6 +60,7 @@
             :id="$uid"
             :name="$inputName"
             :rows="$rows"
+            :required="$required"
             :attributes="$attributesBag"
             wire:model.live.debounce="values.{{ $uid }}"
         ></x-public::field.textarea>

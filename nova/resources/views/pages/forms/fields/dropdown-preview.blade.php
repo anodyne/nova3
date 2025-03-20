@@ -10,6 +10,7 @@
         :description="$description"
         :id="$uid"
         :name="$name"
+        :required="$required"
         :attributes="$attributesBag"
     >
         @if ($attributesBag->has('placeholder'))

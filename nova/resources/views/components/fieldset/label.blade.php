@@ -4,4 +4,7 @@
     {{ $attributes }}
 >
     {{ $slot }}
+    @if ($required)
+        <span class="font-sembold text-danger-500">*</span>
+    @endif
 </label>

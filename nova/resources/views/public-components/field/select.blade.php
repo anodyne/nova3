@@ -4,6 +4,7 @@
     'id' => null,
     'name' => null,
     'error' => null,
+    'required' => null,
 ])
 
 @aware(['form' => null])
@@ -15,7 +16,7 @@
     }
 @endphp
 
-<x-public::field :$label :$description :$id :$error>
+<x-public::field :$label :$description :$id :$error :$required>
     <div data-slot="control" class="relative w-full">
         <select
             id="{{ $id }}"
@@ -34,7 +35,7 @@
 
         <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
             <svg
-                class="size-5 stroke-gray-500 group-has-[[data-disabled]]:stroke-gray-600 dark:stroke-gray-400 sm:size-4 forced-colors:stroke-[CanvasText]"
+                class="size-5 stroke-gray-500 group-has-[[data-disabled]]:stroke-gray-600 sm:size-4 dark:stroke-gray-400 forced-colors:stroke-[CanvasText]"
                 viewBox="0 0 16 16"
                 aria-hidden="true"
                 fill="none"

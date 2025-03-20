@@ -5,6 +5,7 @@
     'name' => null,
     'rows' => null,
     'error' => null,
+    'required' => null,
 ])
 
 @aware(['form' => null])
@@ -16,7 +17,7 @@
     }
 @endphp
 
-<x-public::field :$label :$description :$error>
+<x-public::field :$label :$description :$error :$required>
     <textarea
         data-slot="control"
         id="{{ $id }}"

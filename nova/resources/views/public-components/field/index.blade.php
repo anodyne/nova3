@@ -3,6 +3,7 @@
     'description' => null,
     'id' => null,
     'error' => null,
+    'required' => null,
 ])
 
 <div
@@ -20,17 +21,20 @@
 >
     @if (filled($label))
         <label
-            class="nova-field-label block select-none text-base/6 text-gray-950 dark:text-white sm:text-sm/6"
+            class="nova-field-label block select-none text-base/6 text-gray-950 sm:text-sm/6 dark:text-white"
             data-slot="label"
             for="{{ $id }}"
         >
             {{ $label }}
+            @if ($required)
+                <span class="nova-field-label-required font-semibold text-danger-500">*</span>
+            @endif
         </label>
     @endif
 
     @if (filled($description))
         <div
-            class="nova-field-description text-base/6 text-gray-500 dark:text-gray-400 sm:text-sm/6"
+            class="nova-field-description text-base/6 text-gray-500 sm:text-sm/6 dark:text-gray-400"
             data-slot="description"
         >
             {{ $description }}
