@@ -254,7 +254,7 @@
                                 @if (filled($post->published_at))
                                     <dd>{{ DateHelper::formatShortDateWithTime($post->published_at) }}</dd>
                                 @else
-                                    <dd>&ndash;</dd>
+                                    <dd>&mdash;</dd>
                                 @endif
                             </div>
                         </dl>

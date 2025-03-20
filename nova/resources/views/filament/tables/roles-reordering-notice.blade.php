@@ -26,7 +26,7 @@
                 </p>
 
                 <p>
-                    Top roles have the greatest privileges &ndash; place the most important roles with the highest
+                    Top roles have the greatest privileges &mdash; place the most important roles with the highest
                     potential impact higher on the list, to ensure users can't gain unwanted access to areas of Nova.
                 </p>
 

@@ -7,7 +7,7 @@
 
 <x-admin-layout>
     <x-page-header>
-        <x-slot name="heading">Design page &ndash; {{ $page->name }}</x-slot>
+        <x-slot name="heading">Design page &mdash; {{ $page->name }}</x-slot>
 
         <x-slot name="actions">
             @can('viewAny', $page::class)

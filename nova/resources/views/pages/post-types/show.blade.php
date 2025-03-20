@@ -68,7 +68,7 @@
                                 @if (filled($postType->icon))
                                     <x-icon :name="$postType->icon" size="h-11 w-11 md:h-10 md:w-10"></x-icon>
                                 @else
-                                    &ndash;
+                                    &mdash;
                                 @endif
                             </x-panel.stat>
                             <x-panel.stat label="Accent color">
