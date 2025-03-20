@@ -36,6 +36,7 @@ class ApplicationsList extends TableComponent
                         'user_id',
                     ])
             )
+            ->defaultSort('created_at', 'desc')
             ->groups([
                 Group::make('result')->collapsible(),
             ])
