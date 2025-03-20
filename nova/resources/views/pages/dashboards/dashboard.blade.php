@@ -259,7 +259,11 @@
                                 <p
                                     class="text-base font-semibold tabular-nums tracking-tight text-gray-900 dark:text-white"
                                 >
-                                    {{ $currentActivityTimeframe->readingTime() }}
+                                    @if ($currentActivityTimeframe->words > 0)
+                                        {{ $currentActivityTimeframe->readingTime() }}
+                                    @else
+                                        &mdash;
+                                    @endif
                                 </p>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Reading time</p>
                             </div>
@@ -290,7 +294,11 @@
                                 <p
                                     class="text-base font-semibold tabular-nums tracking-tight text-gray-900 dark:text-white"
                                 >
-                                    {{ $lifetime->readingTime() }}
+                                    @if ($lifetime->words > 0)
+                                        {{ $lifetime->readingTime() }}
+                                    @else
+                                        &mdash;
+                                    @endif
                                 </p>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">Reading time</p>
                             </div>
