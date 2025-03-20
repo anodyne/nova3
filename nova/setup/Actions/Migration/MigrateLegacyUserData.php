@@ -37,7 +37,7 @@ class MigrateLegacyUserData
                 'content' => [],
             ];
 
-            $fields['content'][] = $this->createShortTextFieldJson(label: 'Date of birth', name: 'date_of_birth');
+            $fields['content'][] = $this->createDateFieldJson(label: 'Date of birth', name: 'date_of_birth');
             $fields['content'][] = $this->createLongTextFieldJson(label: 'Instant messengers', name: 'instant_message');
             $fields['content'][] = $this->createShortTextFieldJson(label: 'Location', name: 'location');
             $fields['content'][] = $this->createLongTextFieldJson(label: 'Interests', name: 'interests');

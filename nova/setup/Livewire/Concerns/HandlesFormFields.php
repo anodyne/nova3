@@ -57,6 +57,29 @@ trait HandlesFormFields
         ];
     }
 
+    protected function createDateFieldJson(string $label, string $name): array
+    {
+        return [
+            'type' => 'scribbleBlock',
+            'attrs' => [
+                'id' => Str::uuid()->toString(),
+                'type' => 'block',
+                'identifier' => 'field-date',
+                'values' => [
+                    'label' => $label,
+                    'description' => null,
+                    'name' => $name,
+                    'uid' => Str::random(12),
+                    'attributes' => [
+                        'placeholder' => null,
+                    ],
+                    'required' => false,
+                    'hideWhenEmpty' => true,
+                ],
+            ],
+        ];
+    }
+
     protected function buildLongTextFieldJson(object $model, string $uid): array
     {
         return [
