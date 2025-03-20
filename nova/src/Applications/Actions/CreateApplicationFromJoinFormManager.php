@@ -127,6 +127,6 @@ class CreateApplicationFromJoinFormManager
             ip_address: $request->ip(),
         );
 
-        return CreateApplicationManager::run($data, $request->info('applicationInfo', []));
+        return CreateApplicationManager::run($data, $request->input('applicationInfo', []));
     }
 }

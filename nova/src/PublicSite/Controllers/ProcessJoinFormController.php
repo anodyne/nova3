@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Nova\Applications\Actions\CreateApplicationFromJoinFormManager;
 use Nova\Foundation\Controllers\Controller;
 use Nova\PublicSite\Requests\StoreApplicationRequest;
+use Throwable;
 
 class ProcessJoinFormController extends Controller
 {
@@ -27,7 +28,9 @@ class ProcessJoinFormController extends Controller
             }
 
             return back()->with('join-submitted', 'yes');
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
+            report($th);
+
             return back()->with('join-submitted', 'no');
         }
     }

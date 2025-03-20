@@ -20,9 +20,9 @@ class CreateApplicationManager
 {
     use AsAction;
 
-    public function handle(ApplicationData $data, array $applicationInfoData = []): void
+    public function handle(ApplicationData $data, array $applicationInfoData = []): Application
     {
-        DB::transaction(function () use ($data, $applicationInfoData) {
+        return DB::transaction(function () use ($data, $applicationInfoData) {
             LogBatch::startBatch();
 
             $application = CreateApplication::run($data);
@@ -36,6 +36,8 @@ class CreateApplicationManager
             $this->notifyReviewers($application);
 
             LogBatch::endBatch();
+
+            return $application->refresh();
         });
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Data;
 
+use Bag\Attributes\StripExtraParameters;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 /**
  * @method static static from(?array $positions)
  */
+#[StripExtraParameters]
 readonly class AssignCharacterPositionsData extends Bag
 {
     public function __construct(

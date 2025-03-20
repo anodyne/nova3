@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Data;
 
+use Bag\Attributes\StripExtraParameters;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 /**
  * @method static static from(string $name, string $email, PronounsData $pronouns)
  */
+#[StripExtraParameters]
 readonly class UserData extends Bag
 {
     public function __construct(
