@@ -21,6 +21,11 @@ class AdminLayout extends Component
         $this->subnav = app('nova.meta')->subnavSection;
     }
 
+    public function draftPostsNeedingAttentionCount(): int
+    {
+        return once(fn () => Auth::user()->draftPostsNeedingAttention()->count());
+    }
+
     public function pendingApplicationsCount(): int
     {
         return once(fn () => Application::pending()->count());

@@ -227,6 +227,14 @@
                                     >
                                         <x-icon name="write" size="sm"></x-icon>
                                         <x-sidebar.label>Write</x-sidebar.label>
+
+                                        @if ($draftPostsNeedingAttentionCount() > 0)
+                                            <x-slot name="trailing">
+                                                <x-badge color="warning" class="tabular-nums">
+                                                    {{ $draftPostsNeedingAttentionCount() }}
+                                                </x-badge>
+                                            </x-slot>
+                                        @endif
                                     </x-sidebar.item>
                                 @endif
 
@@ -572,6 +580,14 @@
                                                     >
                                                         <x-icon name="write" size="sm"></x-icon>
                                                         <x-sidebar.label>Write</x-sidebar.label>
+
+                                                        @if ($draftPostsNeedingAttentionCount() > 0)
+                                                            <x-slot name="trailing">
+                                                                <x-badge color="warning" class="tabular-nums">
+                                                                    {{ $draftPostsNeedingAttentionCount() }}
+                                                                </x-badge>
+                                                            </x-slot>
+                                                        @endif
                                                     </x-sidebar.item>
                                                 @endif
 
