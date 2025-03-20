@@ -21,12 +21,20 @@
         </x-slot>
     </x-page-header>
 
-    <div class="my-8 max-w-2xl">
+    <div class="my-8 max-w-2xl space-y-8">
         <x-panel.primary
             title="Please note"
             icon="show"
             description="The preview below is not intended to be a high fidelity representation of your form. Once you save your form, you will be able to preview it in the browser."
         ></x-panel.primary>
+
+        @if ($form->updated_at->gt($form->published_at))
+            <x-panel.warning
+                title="Unpublished changes"
+                icon="progress"
+                description="Your form field(s) have been saved since you last published them. Nova only shows published form fields to users, so to ensure users are using the form with your latest changes, please publish your form."
+            ></x-panel.warning>
+        @endif
     </div>
 
     <livewire:forms-designer :nova-form="$form" />
