@@ -22,7 +22,7 @@
                 <x-panel.header
                     size="sm"
                     title="Summary of changes"
-                    description="Here is a summary of the changes that will be applied with this update."
+                    description="Below is a summary of the changes that will be applied with this update."
                 ></x-panel.header>
 
                 <x-panel>

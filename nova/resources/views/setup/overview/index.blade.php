@@ -38,10 +38,14 @@
 
         <div class="mx-auto max-w-2xl space-y-8">
             <x-panel variant="well">
-                <x-panel class="divide-y divide-gray-950/5" variant="inset">
+                <x-panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
                     @include('setup.overview._requirements-php')
                     @include('setup.overview._requirements-database')
                     @include('setup.overview._requirements-php-extensions')
+
+                    @if (! nova()->isInstalled())
+                        @include('setup.overview._requirements-nova2')
+                    @endif
                 </x-panel>
             </x-panel>
         </div>

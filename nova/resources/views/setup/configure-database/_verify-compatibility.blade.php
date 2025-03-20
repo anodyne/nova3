@@ -5,39 +5,36 @@
     $e = Environment::make();
 @endphp
 
-<x-spacing size="sm" class="grid grid-cols-4 gap-4">
-    <div class="col-span-3 font-medium text-gray-900">
-        <div
-            @class([
-                'flex gap-4',
-                'items-center' => $e->database->passes(),
-            ])
-        >
-            <div class="shrink-0">
-                <x-icon name="database-settings" size="xl" class="text-gray-500"></x-icon>
-            </div>
-            <div class="flex-1">
-                @if ($status === DatabaseConfigStatus::IncompatibleVersion)
-                    <x-h4>Incompatible database version</x-h4>
-
-                    <p class="mt-1 text-sm font-normal text-gray-500">
-                        Your database server is running MySQL {{ $e->database->version }}, but Nova requires MySQL 8.0
-                        or higher. Please contact your web host for assistance with fixing this issue.
-                    </p>
-                @elseif ($status === DatabaseConfigStatus::IncompatibleDriver)
-                    <x-h4>Incompatible database driver</x-h4>
-
-                    <p class="mt-1 text-sm font-normal text-gray-500">
-                        Your database server is running {{ $e->database->driverName() }}, but Nova requires MySQL.
-                        Please contact your web host for assistance with fixing this issue.
-                    </p>
-                @else
-                    <x-h4>Verify database compatibility</x-h4>
-                @endif
-            </div>
-        </div>
+<x-spacing size="sm" class="col-span-3 grid grid-cols-subgrid">
+    <div class="mr-4 shrink-0">
+        <x-icon name="database-settings" size="xl" class="text-gray-500"></x-icon>
     </div>
-    <div class="flex justify-end">
+
+    <div class="col-start-2">
+        @if ($status === DatabaseConfigStatus::IncompatibleVersion)
+            <x-h4 class="leading-8">Incompatible database version</x-h4>
+
+            <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
+                <p>
+                    Your database server is running MySQL {{ $e->database->version }}, but Nova requires MySQL 8.0 or
+                    higher. Please contact your web host for assistance with fixing this issue.
+                </p>
+            </div>
+        @elseif ($status === DatabaseConfigStatus::IncompatibleDriver)
+            <x-h4 class="leading-8">Incompatible database driver</x-h4>
+
+            <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
+                <p>
+                    Your database server is running {{ $e->database->driverName() }}, but Nova requires MySQL. Please
+                    contact your web host for assistance with fixing this issue.
+                </p>
+            </div>
+        @else
+            <x-h4 class="leading-8">Verify database compatibility</x-h4>
+        @endif
+    </div>
+
+    <div class="col-start-3 ml-4 flex shrink-0 justify-end">
         @if ($status === DatabaseConfigStatus::IncompatibleVersion ||
              $status === DatabaseConfigStatus::IncompatibleDriver)
             <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>

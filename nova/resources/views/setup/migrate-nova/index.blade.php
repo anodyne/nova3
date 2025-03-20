@@ -1,3 +1,5 @@
+@use('Nova\Setup\Enums\NovaMigrateStatus')
+
 <div
     class="mx-auto max-w-7xl space-y-16"
     x-data="{
@@ -19,10 +21,14 @@
 
     <div class="mx-auto max-w-lg space-y-8">
         <x-panel variant="well">
-            <x-panel class="divide-y divide-gray-950/5" variant="inset">
-                @include('setup.migrate-nova._configure-database')
-                @include('setup.migrate-nova._migrate-data')
-                @include('setup.migrate-nova._set-user-access')
+            <x-panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
+                @if ($status === NovaMigrateStatus::InsufficientLegacyVersion)
+                    @include('setup.migrate-nova._legacy-version')
+                @else
+                    @include('setup.migrate-nova._configure-database')
+                    @include('setup.migrate-nova._migrate-data')
+                    @include('setup.migrate-nova._set-user-access')
+                @endif
             </x-panel>
         </x-panel>
 

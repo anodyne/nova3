@@ -33,7 +33,7 @@
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
             <x-panel variant="well">
-                <x-panel class="divide-y divide-gray-950/5" variant="inset">
+                <x-panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
                     @include('setup.update-nova._check-updated')
                     @include('setup.update-nova._check-update-settings')
                     @include('setup.update-nova._send-telemetry')

@@ -1,21 +1,12 @@
-<x-spacing size="sm">
-    <div x-data="{ expanded: @js($e->extensions->fails()) }">
-        <div class="flex justify-between gap-6">
-            <div class="flex items-center gap-4">
-                <div class="shrink-0">
-                    <x-icon name="puzzle" class="text-gray-500" size="xl"></x-icon>
-                </div>
-                <x-h3 class="flex-1">Required PHP extensions</x-h3>
-            </div>
-            <div class="flex justify-end">
-                @if ($e->extensions->passes())
-                    <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
-                @else
-                    <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
-                @endif
-            </div>
-        </div>
-        <div class="ml-12 mt-2 max-w-lg space-y-4 text-sm/6 font-normal text-gray-500">
+<x-spacing class="col-span-3 grid grid-cols-subgrid" size="sm">
+    <div class="mr-4 shrink-0">
+        <x-icon name="puzzle" class="text-gray-500" size="xl"></x-icon>
+    </div>
+
+    <div class="col-start-2" x-data="{ expanded: @js($e->extensions->fails()) }">
+        <x-h3 class="leading-8">Required PHP extensions</x-h3>
+
+        <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
             <p>
                 Nova and its underlying framework require specific PHP extensions to be enabled for different features
                 to be used.
@@ -39,7 +30,8 @@
                 <span x-show="!expanded">Show the full list of required extensions &darr;</span>
             </button>
         </div>
-        <div x-show="expanded" class="ml-12 mt-6" x-collapse x-cloak>
+
+        <div x-show="expanded" class="mt-6" x-collapse x-cloak>
             <dl class="space-y-1">
                 @foreach ($e->extensions->requiredExtensions() as $extension)
                     <div class="flex items-center rounded-md px-3 py-2 odd:bg-gray-950/[.04]">
@@ -60,5 +52,13 @@
                 @endforeach
             </dl>
         </div>
+    </div>
+
+    <div class="col-start-3 ml-4 flex shrink-0 justify-end">
+        @if ($e->extensions->passes())
+            <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
+        @else
+            <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
+        @endif
     </div>
 </x-spacing>

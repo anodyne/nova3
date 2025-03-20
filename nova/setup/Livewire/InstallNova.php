@@ -21,6 +21,7 @@ use Nova\Menus\Actions\BustMenusCache;
 use Nova\Menus\Actions\RecacheMenus;
 use Nova\Pages\Actions\BustPagesCache;
 use Nova\Pages\Actions\RecachePages;
+use Nova\Settings\Models\Settings;
 use Nova\Setup\Enums\NovaInstallStatus;
 use Nova\Setup\Enums\SetupType;
 use Nova\Themes\Actions\InstallTheme;
@@ -55,7 +56,7 @@ class InstallNova extends Component
 
             $this->installGenreData();
 
-            // $this->updateSettings();
+            $this->updateSettings();
 
             $this->seedDatabase();
 
@@ -205,8 +206,8 @@ class InstallNova extends Component
 
     protected function updateSettings(): void
     {
-        settings()->update([
-            'game_name' => $this->name,
+        Settings::custom()->update([
+            'general->gameName' => $this->name,
         ]);
     }
 

@@ -41,6 +41,7 @@ class SetupServiceProvider extends DomainServiceProvider
                 'primary' => Color::Sky,
                 'danger' => Color::Rose,
                 'success' => Color::Emerald,
+                'info' => Color::Purple,
                 'gray' => Color::Gray,
             ]);
         }
@@ -81,6 +82,7 @@ class SetupServiceProvider extends DomainServiceProvider
             'setup-migrate-personal-logs' => Migrations\MigratePersonalLogs::class,
             'setup-migrate-news-items' => Migrations\MigrateNewsItems::class,
             'setup-migrate-private-messages' => Migrations\MigratePrivateMessages::class,
+            'setup-migrate-settings' => Migrations\MigrateSettings::class,
         ];
     }
 

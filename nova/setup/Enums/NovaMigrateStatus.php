@@ -16,6 +16,8 @@ enum NovaMigrateStatus: string
 
     case Failed = 'failed';
 
+    case InsufficientLegacyVersion = 'insufficient-legacy-version';
+
     case Success = 'success';
 
     case UserAccessUpdated = 'user-access-updated';
