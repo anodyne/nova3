@@ -82,7 +82,7 @@ abstract class MigrationStep extends Component
 
     public function mount(): void
     {
-        if ($this->wasSuccessfullyMigrated) {
+        if ($this->pendingMigrationCount > 0 && $this->wasSuccessfullyMigrated) {
             $this->shouldMigrate = false;
         }
     }
