@@ -102,6 +102,7 @@ class TablerIconSet extends IconSet
             'globe' => 'tabler-world',
             'group' => 'tabler-box-multiple',
             'hammer' => 'tabler-hammer',
+            'hammer-off' => 'tabler-hammer-off',
             'heart' => 'tabler-heart',
             'help' => 'tabler-help-circle',
             'hide' => 'tabler-eye-off',

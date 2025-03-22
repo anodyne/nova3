@@ -13,6 +13,7 @@ use Nova\DomainServiceProvider;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners;
 use Nova\Users\Livewire\ActivateUserButton;
+use Nova\Users\Livewire\BansList;
 use Nova\Users\Livewire\DeactivateUserButton;
 use Nova\Users\Livewire\DeleteMyAccount;
 use Nova\Users\Livewire\ForcePasswordResetButton;
@@ -57,6 +58,7 @@ class UserServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
+            'bans-list' => BansList::class,
             'users-list' => UsersList::class,
             'users-manage-characters' => ManageCharacters::class,
             'users-manage-roles' => ManageRoles::class,

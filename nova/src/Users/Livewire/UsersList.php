@@ -27,9 +27,11 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Actions\ActivateUserManager;
+use Nova\Users\Actions\BanUserManager;
 use Nova\Users\Actions\DeactivateUser;
 use Nova\Users\Actions\DeleteUserManager;
 use Nova\Users\Actions\ForcePasswordReset;
+use Nova\Users\Actions\UnbanUser;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Events\UserActivated;
 use Nova\Users\Events\UserDeactivated;
@@ -44,7 +46,7 @@ class UsersList extends TableComponent
     {
         return $table
             ->query(
-                User::with('media', 'latestLogin', 'latestPost', 'primaryCharacter', 'characters', 'activeCharacters', 'application')
+                User::with('media', 'latestLogin', 'latestPost', 'primaryCharacter', 'characters', 'activeCharacters', 'application', 'bans')
                     ->notHidden()
             )
             ->groups([
@@ -192,6 +194,38 @@ class UsersList extends TableComponent
                     ])->authorizeAny(['activate', 'deactivate'])->divided(),
 
                     ActionGroup::make([
+                        Action::make('banUser')
+                            ->authorize('update')
+                            ->icon(iconName('hammer'))
+                            ->color('gray')
+                            ->modalContentView('pages.users.ban')
+                            ->successNotificationTitle('User was banned')
+                            ->action(function (User $record) {
+                                BanUserManager::run($record);
+
+                                Notification::make()->success()
+                                    ->title($record->name.' has been banned')
+                                    ->body('The user account has also been deactivated. They will no longer be able to access the site.')
+                                    ->send();
+                            })
+                            ->visible(fn (User $record): bool => $record->isNotBanned()),
+                        Action::make('unbanUser')
+                            ->authorize('update')
+                            ->icon(iconName('hammer-off'))
+                            ->color('gray')
+                            ->modalContentView('pages.users.unban')
+                            ->successNotificationTitle('User was unbanned')
+                            ->action(function (User $record) {
+                                UnbanUser::run($record);
+
+                                Notification::make()->success()
+                                    ->title('User was unbanned')
+                                    ->send();
+                            })
+                            ->visible(fn (User $record): bool => $record->isBanned()),
+                    ])->authorize('update')->divided(),
+
+                    ActionGroup::make([
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.users.delete')
@@ -221,7 +255,8 @@ class UsersList extends TableComponent
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all()),
+                    ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
+                    ->default(fn () => request()->query('status', ['active'])),
                 TernaryFilter::make('assigned_characters')
                     ->label('Has assigned characters')
                     ->queries(

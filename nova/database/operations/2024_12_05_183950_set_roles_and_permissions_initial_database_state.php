@@ -50,6 +50,7 @@ return new class extends OneTimeOperation
                 'system.activity', 'system.error-logs',
                 'menu.create', 'menu.delete', 'menu.update', 'menu.view',
                 'announcement.create', 'announcement.delete', 'announcement.update',
+                'ban.create', 'ban.delete', 'ban.update', 'ban.view',
                 'report.view',
             ],
             'story-manager' => [
@@ -176,6 +177,11 @@ return new class extends OneTimeOperation
                 ['name' => 'site.update', 'display_name' => 'Update site', 'description' => 'Allows a user to run the update scripts for the site'],
 
                 ['name' => 'report.view', 'display_name' => 'View reports', 'description' => 'Allows a user to view any reports'],
+
+                ['name' => 'ban.create', 'display_name' => 'Create bans', 'description' => 'Allows a user to add new bans'],
+                ['name' => 'ban.delete', 'display_name' => 'Delete bans', 'description' => 'Allows a user to remove bans'],
+                ['name' => 'ban.update', 'display_name' => 'Update bans', 'description' => 'Allows a user to edit bans'],
+                ['name' => 'ban.view', 'display_name' => 'View bans', 'description' => 'Allows a user to view any bans'],
             ];
 
             collect($permissions)->each(function ($permission) {

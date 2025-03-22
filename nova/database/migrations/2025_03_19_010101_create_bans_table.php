@@ -24,6 +24,7 @@ return new class extends Migration
             $table->datetimes();
             $table->index('ip');
             $table->index('expired_at');
+            $table->json('metas')->nullable();
         });
     }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -23,7 +25,7 @@ return [
     |
      */
 
-    'model' => \Mchev\Banhammer\Models\Ban::class,
+    'model' => Nova\Users\Models\Ban::class,
 
     /*
     |--------------------------------------------------------------------------
