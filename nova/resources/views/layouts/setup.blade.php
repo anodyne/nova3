@@ -11,7 +11,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: dark)" />
         <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
         <x-fonts section="admin" />
@@ -21,9 +20,7 @@
         @stack('styles')
         @stack('headScripts')
     </head>
-    <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
-    >
+    <body class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100">
         <div id="nova">
             <div class="relative flex min-h-screen flex-col bg-gray-100">
                 <aside class="fixed inset-y-0 z-10 flex w-80 flex-col justify-between py-6">
@@ -89,7 +86,7 @@
 
                 <main class="flex flex-1 flex-col pb-2 lg:min-w-0 lg:pl-80 lg:pr-2 lg:pt-2">
                     <div
-                        class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-900 dark:lg:ring-white/10"
+                        class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5"
                     >
                         <div class="relative z-[2] mx-auto max-w-6xl">
                             {{ $slot }}
