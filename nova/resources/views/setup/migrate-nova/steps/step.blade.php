@@ -17,11 +17,11 @@
     @endif
 >
     <div class="mr-4 inline-flex shrink-0 items-center">
-        <x-switch
+        <flux:switch
             id="{{ str($label)->slug()->prepend('setup-migrate-') }}"
-            wire:model="shouldMigrate"
+            wire:model.live="shouldMigrate"
             :disabled="! $canDisableMigration"
-        ></x-switch>
+        ></flux:switch>
     </div>
 
     <div class="col-start-2 flex items-center gap-2 font-medium text-gray-900">

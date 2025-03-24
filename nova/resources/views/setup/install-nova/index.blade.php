@@ -39,14 +39,11 @@
                     </x-fieldset.field>
 
                     @env('local')
-                        <x-switch.field>
-                            <x-fieldset.label for="should_seed">Install with demo data</x-fieldset.label>
-                            <x-fieldset.description>
-                                Automatically create users, characters, stories, posts, and other game data to simulate
-                                how Nova would work with a fully operational game.
-                            </x-fieldset.description>
-                            <x-switch id="should_seed" wire:model="shouldSeed"></x-switch>
-                        </x-switch.field>
+                        <flux:switch
+                            wire:model.live="shouldSeed"
+                            label="Install with demo data"
+                            description="Automatically create users, characters, stories, posts, and other game data to simulate how Nova would work with a fully operational game."
+                        ></flux:switch>
                     @endenv
                 </x-fieldset.field-group>
             </x-fieldset>
