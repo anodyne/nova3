@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Users\Livewire;
 
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Filament\Actions\Action;
@@ -26,15 +28,17 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Actions\ActivateUser;
 use Nova\Users\Actions\ActivateUserManager;
 use Nova\Users\Actions\BanUserManager;
 use Nova\Users\Actions\DeactivateUser;
 use Nova\Users\Actions\DeleteUserManager;
 use Nova\Users\Actions\ForcePasswordReset;
-use Nova\Users\Actions\UnbanUser;
+use Nova\Users\Data\BanData;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Events\UserActivated;
 use Nova\Users\Events\UserDeactivated;
+use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
 use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
@@ -201,7 +205,11 @@ class UsersList extends TableComponent
                             ->modalContentView('pages.users.ban')
                             ->successNotificationTitle('User was banned')
                             ->action(function (User $record) {
-                                BanUserManager::run($record);
+                                $data = BanData::from(
+                                    bannable_id: $record->id,
+                                );
+
+                                BanUserManager::run($data);
 
                                 Notification::make()->success()
                                     ->title($record->name.' has been banned')
@@ -213,14 +221,37 @@ class UsersList extends TableComponent
                             ->authorize('update')
                             ->icon(iconName('hammer-off'))
                             ->color('gray')
+                            ->form([
+                                Toggle::make('reactivate')->label('Re-activate their user account'),
+                            ])
                             ->modalContentView('pages.users.unban')
                             ->successNotificationTitle('User was unbanned')
-                            ->action(function (User $record) {
-                                UnbanUser::run($record);
+                            ->action(function (User $record, array $data) {
+                                DB::transaction(function () use ($record, $data) {
+                                    $record->unban();
 
-                                Notification::make()->success()
-                                    ->title('User was unbanned')
-                                    ->send();
+                                    if (data_get($data, 'reactivate')) {
+                                        ActivateUser::run($record);
+
+                                        $bodyMessage = 'Their user account has been marked as active and they are able to participate again.';
+                                    } else {
+                                        if ($record->status->canTransitionTo(Inactive::class)) {
+                                            $record->status->transitionTo(Inactive::class);
+
+                                            $bodyMessage = 'Their user account is still marked as inactive. If you want them to be able to participate again, you will need to activate their account.';
+                                        }
+                                    }
+
+                                    activity()
+                                        ->performedOn($record)
+                                        ->event('unbanned')
+                                        ->log('unbanned');
+
+                                    Notification::make()->success()
+                                        ->title($record->name.' has been un-banned')
+                                        ->body(filled($bodyMessage) ? $bodyMessage : null)
+                                        ->send();
+                                });
                             })
                             ->visible(fn (User $record): bool => $record->isBanned()),
                     ])->authorize('update')->divided(),

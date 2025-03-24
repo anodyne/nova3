@@ -6,6 +6,7 @@ namespace Nova\Foundation\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Mchev\Banhammer\Commands\DeleteExpired;
 use Nova\Stories\Actions\PruneAbandonedPosts;
 use Nova\Stories\Actions\ReleaseExpiredPostLocks;
 use Spatie\MediaLibrary\MediaCollections\Commands\CleanCommand;
@@ -26,6 +27,9 @@ class Kernel extends ConsoleKernel
 
         // Cleanup any post lock data for expired post locks
         $schedule->command(ReleaseExpiredPostLocks::class)->everyFifteenMinutes();
+
+        // Cleanup any expired bans
+        $schedule->command(DeleteExpired::class)->daily();
 
         // Cleanup any media that is not associated with a model
         // $schedule->command(CleanCommand::class)->weekly();

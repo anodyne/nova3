@@ -116,7 +116,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict(! app()->environment('production'));
 
-        // Date::use(CarbonImmutable::class);
+        Date::use(CarbonImmutable::class);
 
         RedirectIfAuthenticated::redirectUsing(fn () => route('admin.dashboard'));
 

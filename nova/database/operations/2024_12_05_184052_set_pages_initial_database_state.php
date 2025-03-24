@@ -216,8 +216,6 @@ return new class extends OneTimeOperation
             ['name' => 'Show ban', 'uri' => 'admin/bans/{ban}/show', 'key' => 'admin.bans.show', 'resource' => 'Nova\\Users\\Controllers\\BanController@show', 'layout' => 'admin', 'heading' => 'View ban'],
             ['name' => 'Create ban', 'uri' => 'admin/bans/create', 'key' => 'admin.bans.create', 'resource' => 'Nova\\Users\\Controllers\\BanController@create', 'layout' => 'admin', 'heading' => 'Add a new ban'],
             ['name' => 'Store ban', 'uri' => 'admin/bans', 'key' => 'admin.bans.store', 'verb' => PageVerb::Post, 'resource' => 'Nova\\Users\\Controllers\\BanController@store', 'layout' => 'admin'],
-            ['name' => 'Edit ban', 'uri' => 'admin/bans/{ban}/edit', 'key' => 'admin.bans.edit', 'resource' => 'Nova\\Users\\Controllers\\BanController@edit', 'layout' => 'admin', 'heading' => 'Edit ban'],
-            ['name' => 'Update ban', 'uri' => 'admin/bans/{ban}', 'key' => 'admin.bans.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Users\\Controllers\\BanController@update', 'layout' => 'admin'],
         ];
 
         Page::unguarded(fn () => collect($pages)->each(

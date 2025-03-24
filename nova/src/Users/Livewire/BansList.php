@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Nova\Users\Livewire;
 
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -23,6 +25,7 @@ class BansList extends TableComponent
     {
         return $table
             ->query(Ban::with(['bannable', 'createdBy']))
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('bannable')
                     ->label('Ban')
@@ -31,7 +34,7 @@ class BansList extends TableComponent
                     ->description(fn (Ban $record): ?string => $record->bannable?->email)
                     ->extraAttributes(['class' => 'tabular-nums']),
                 TextColumn::make('created_by.name'),
-                TextColumn::make('expires_at')
+                TextColumn::make('expired_at')
                     ->label('Expiration')
                     ->placeholder('Never')
                     ->date(),
@@ -45,7 +48,7 @@ class BansList extends TableComponent
                         ViewAction::make()
                             ->authorize('view')
                             ->url(fn (Ban $record): string => route('admin.bans.show', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->authorize('view')->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -87,7 +90,14 @@ class BansList extends TableComponent
                             ->send();
                     }),
             ])
-            ->filters([])
+            ->filters([
+                TernaryFilter::make('hasExpiration')
+                    ->queries(
+                        true: fn (Builder $query): Builder => $query->whereNotNull('expired_at'),
+                        false: fn (Builder $query): Builder => $query->whereNull('expired_at'),
+                        blank: fn (Builder $query): Builder => $query,
+                    ),
+            ])
             ->emptyStateIcon(iconName('forbid'))
             ->emptyStateHeading('No bans found')
             ->emptyStateDescription('')
