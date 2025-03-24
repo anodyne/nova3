@@ -15,6 +15,7 @@
 
         <x-fonts section="admin" />
         @filamentStyles
+        @fluxStyles
         @novaAdminStyles
         <x-flux-styles />
         @stack('styles')
@@ -97,8 +98,8 @@
         </div>
 
         @filamentScripts(withCore: true)
-        @fluxScripts
         @novaSetupScripts
+        @fluxScripts
         @stack('scripts')
     </body>
 </html>

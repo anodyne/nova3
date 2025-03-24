@@ -1,11 +1,3 @@
-import axios from 'axios';
-
-import SwitchToggle from './components/switch-toggle';
-
 document.addEventListener('alpine:init', () => {
-    console.log('alpine init');
-    window.Alpine.data('switchToggle', SwitchToggle);
+    window.localStorage.setItem('flux.appearance', 'light');
 });
-
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios = axios;
