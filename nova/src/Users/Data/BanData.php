@@ -6,13 +6,13 @@ namespace Nova\Users\Data;
 
 use Bag\Attributes\Transforms;
 use Bag\Bag;
-use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Nova\Users\Models\User;
 
 /**
- * @method static static from(?string $bannable_type, ?string $bannable_id, ?string $ip, ?CarbonImmutable $expired_at)
+ * @method static static from(?string $bannable_type, ?string $bannable_id, ?string $ip, ?string $comment, ?CarbonInterface $expired_at)
  */
 readonly class BanData extends Bag
 {
@@ -21,7 +21,7 @@ readonly class BanData extends Bag
         public ?string $bannable_id,
         public ?string $ip,
         public ?string $comment,
-        public ?CarbonImmutable $expired_at
+        public ?CarbonInterface $expired_at
     ) {}
 
     public function user(): ?User
