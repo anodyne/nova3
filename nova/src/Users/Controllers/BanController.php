@@ -12,7 +12,6 @@ use Nova\Users\Models\User;
 use Nova\Users\Requests\StoreBanRequest;
 use Nova\Users\Responses\CreateBanResponse;
 use Nova\Users\Responses\ListBansResponse;
-use Nova\Users\Responses\ShowBanResponse;
 
 class BanController extends Controller
 {
@@ -28,13 +27,6 @@ class BanController extends Controller
     public function index()
     {
         return ListBansResponse::send();
-    }
-
-    public function show(Ban $ban)
-    {
-        return ShowBanResponse::sendWith([
-            'ban' => $ban->load('bannable', 'createdBy'),
-        ]);
     }
 
     public function create()

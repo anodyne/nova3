@@ -213,7 +213,6 @@ return new class extends OneTimeOperation
             ['name' => 'Post types report', 'uri' => 'admin/reporting/post-types', 'key' => 'admin.reporting.post-types', 'resource' => 'Nova\\Reporting\\Controllers\\PostTypesController', 'layout' => 'admin', 'heading' => 'Post types report'],
 
             ['name' => 'List bans', 'uri' => 'admin/bans', 'key' => 'admin.bans.index', 'resource' => 'Nova\\Users\\Controllers\\BanController@index', 'layout' => 'admin', 'heading' => 'Bans', 'subheading' => 'Manage any banned users or IP addresses for your site'],
-            ['name' => 'Show ban', 'uri' => 'admin/bans/{ban}/show', 'key' => 'admin.bans.show', 'resource' => 'Nova\\Users\\Controllers\\BanController@show', 'layout' => 'admin', 'heading' => 'View ban'],
             ['name' => 'Create ban', 'uri' => 'admin/bans/create', 'key' => 'admin.bans.create', 'resource' => 'Nova\\Users\\Controllers\\BanController@create', 'layout' => 'admin', 'heading' => 'Add a new ban'],
             ['name' => 'Store ban', 'uri' => 'admin/bans', 'key' => 'admin.bans.store', 'verb' => PageVerb::Post, 'resource' => 'Nova\\Users\\Controllers\\BanController@store', 'layout' => 'admin'],
         ];

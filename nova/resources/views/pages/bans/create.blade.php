@@ -69,7 +69,7 @@
                 <x-fieldset.field-group constrained x-show="type !== null" x-cloak>
                     <x-fieldset.field
                         label="Expires at"
-                        description="In order to automatically expire bans, you will need to setup a cron job to run at regular intervals that will delete expired bans"
+                        description="In order to automatically expire bans, you will need to setup a cron job to run at regular intervals that will delete expired bans. Otherwise, you will need to manually delete bans after they expire."
                         id="expired_at"
                         name="expired_at"
                         :error="$errors->first('expired_at')"

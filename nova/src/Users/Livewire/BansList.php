@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -33,13 +36,13 @@ class BansList extends TableComponent
                     ->getStateUsing(fn (Ban $record): string => $record->bannable?->name ?? $record->ip)
                     ->description(fn (Ban $record): ?string => $record->bannable?->email)
                     ->extraAttributes(['class' => 'tabular-nums']),
-                TextColumn::make('created_by.name'),
+                TextColumn::make('created_by.name')->label('Banned by'),
                 TextColumn::make('expired_at')
                     ->label('Expiration')
                     ->placeholder('Never')
                     ->date(),
                 TextColumn::make('created_at')
-                    ->label('Date')
+                    ->label('Banned on')
                     ->date(),
             ])
             ->actions([
@@ -47,7 +50,26 @@ class BansList extends TableComponent
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
-                            ->url(fn (Ban $record): string => route('admin.bans.show', $record)),
+                            ->slideOver()
+                            ->modalWidth(MaxWidth::Large)
+                            ->infolist(function (Infolist $infolist): Infolist {
+                                return $infolist->schema([
+                                    TextEntry::make('bannable.name')
+                                        ->label('User name')
+                                        ->visible(fn (Ban $record): bool => filled($record->bannable)),
+                                    TextEntry::make('ip')
+                                        ->label('IP address')
+                                        ->extraAttributes(['class' => 'tabular-nums'])
+                                        ->visible(fn (Ban $record): bool => filled($record->ip)),
+                                    TextEntry::make('created_by.name')->label('Banned by'),
+                                    TextEntry::make('created_at')->label('Banned on'),
+                                    TextEntry::make('expired_at')
+                                        ->label('Expiration')
+                                        ->placeholder('No expiration')
+                                        ->date(),
+                                    TextEntry::make('comment')->label('Comments'),
+                                ]);
+                            }),
                     ])->authorize('view')->divided(),
 
                     ActionGroup::make([
@@ -91,6 +113,16 @@ class BansList extends TableComponent
                     }),
             ])
             ->filters([
+                TernaryFilter::make('ip')
+                    ->label('Ban type')
+                    ->queries(
+                        true: fn (Builder $query): Builder => $query->whereNotNull('ip'),
+                        false: fn (Builder $query): Builder => $query->whereNull('ip'),
+                        blank: fn (Builder $query): Builder => $query,
+                    )
+                    ->trueLabel('IP bans')
+                    ->falseLabel('User bans')
+                    ->placeholder('All bans'),
                 TernaryFilter::make('hasExpiration')
                     ->queries(
                         true: fn (Builder $query): Builder => $query->whereNotNull('expired_at'),
