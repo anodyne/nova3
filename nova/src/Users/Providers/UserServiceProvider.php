@@ -24,10 +24,7 @@ use Nova\Users\Livewire\UserNotificationPreferencesList;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
-use Nova\Users\Spotlight\AddUser;
-use Nova\Users\Spotlight\EditUser;
-use Nova\Users\Spotlight\ViewUser;
-use Nova\Users\Spotlight\ViewUsers;
+use Nova\Users\Spotlight;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -89,10 +86,12 @@ class UserServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            AddUser::class,
-            EditUser::class,
-            ViewUser::class,
-            ViewUsers::class,
+            Spotlight\AddBan::class,
+            Spotlight\AddUser::class,
+            Spotlight\EditUser::class,
+            Spotlight\ViewUser::class,
+            Spotlight\ViewBans::class,
+            Spotlight\ViewUsers::class,
         ];
     }
 }
