@@ -52,6 +52,13 @@ class BansList extends TableComponent
                             ->authorize('view')
                             ->slideOver()
                             ->modalWidth(MaxWidth::Large)
+                            ->modalIcon(iconName('hammer'))
+                            ->modalHeading('')
+                            ->modalDescription(null)
+                            ->modalContent(fn (Ban $record, ViewAction $action) => view('pages.bans.show', [
+                                'record' => $record,
+                                'action' => $action,
+                            ]))
                             ->infolist(function (Infolist $infolist): Infolist {
                                 return $infolist->schema([
                                     TextEntry::make('bannable.name')
