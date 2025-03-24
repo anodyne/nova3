@@ -13,6 +13,7 @@ use Nova\DomainServiceProvider;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Listeners;
 use Nova\Users\Livewire\ActivateUserButton;
+use Nova\Users\Livewire\BansList;
 use Nova\Users\Livewire\DeactivateUserButton;
 use Nova\Users\Livewire\DeleteMyAccount;
 use Nova\Users\Livewire\ForcePasswordResetButton;
@@ -23,10 +24,7 @@ use Nova\Users\Livewire\UserNotificationPreferencesList;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
-use Nova\Users\Spotlight\AddUser;
-use Nova\Users\Spotlight\EditUser;
-use Nova\Users\Spotlight\ViewUser;
-use Nova\Users\Spotlight\ViewUsers;
+use Nova\Users\Spotlight;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -57,6 +55,7 @@ class UserServiceProvider extends DomainServiceProvider
     public function livewireComponents(): array
     {
         return [
+            'bans-list' => BansList::class,
             'users-list' => UsersList::class,
             'users-manage-characters' => ManageCharacters::class,
             'users-manage-roles' => ManageRoles::class,
@@ -87,10 +86,12 @@ class UserServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            AddUser::class,
-            EditUser::class,
-            ViewUser::class,
-            ViewUsers::class,
+            Spotlight\AddBan::class,
+            Spotlight\AddUser::class,
+            Spotlight\EditUser::class,
+            Spotlight\ViewUser::class,
+            Spotlight\ViewBans::class,
+            Spotlight\ViewUsers::class,
         ];
     }
 }

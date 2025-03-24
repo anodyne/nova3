@@ -38,6 +38,7 @@
         "livewire/livewire": "^3.4",
         "lorisleiva/laravel-actions": "^2.1",
         "mailersend/laravel-driver": "^2.7",
+        "mchev/banhammer": "^2.4",
         "mistralys/version-parser": "^2.1",
         "opcodesio/log-viewer": "^3.11",
         "ralphjsmit/laravel-filament-activitylog": "^1.8",

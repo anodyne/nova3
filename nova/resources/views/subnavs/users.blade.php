@@ -20,5 +20,11 @@
                 Permissions
             </x-sidebar.subnav.item>
         @endcan
+
+        @can('viewAny', Nova\Users\Models\Ban::class)
+            <x-sidebar.subnav.item :href="route('admin.bans.index')" :active="request()->routeIs('admin.bans.*')">
+                Bans
+            </x-sidebar.subnav.item>
+        @endcan
     </x-sidebar.subnav.group>
 </x-sidebar.subnav>

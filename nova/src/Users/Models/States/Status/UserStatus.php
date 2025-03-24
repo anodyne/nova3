@@ -32,8 +32,14 @@ abstract class UserStatus extends State implements HasColor, HasLabel
                 [Pending::class, Active::class, PendingToActive::class],
                 [Pending::class, Inactive::class],
                 [Pending::class, Hidden::class],
+                [Pending::class, Banned::class],
                 [Active::class, Inactive::class, ActiveToInactive::class],
+                [Active::class, Banned::class],
                 [Inactive::class, Active::class, InactiveToActive::class],
+                [Inactive::class, Banned::class],
+                [Hidden::class, Banned::class],
+                [Banned::class, Active::class],
+                [Banned::class, Inactive::class],
             ]);
     }
 }

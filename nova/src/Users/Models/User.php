@@ -19,6 +19,7 @@ use Illuminate\Notifications\Notification;
 use Lab404\Impersonate\Models\Impersonate;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Mchev\Banhammer\Traits\Bannable;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReviewer;
 use Nova\Discussions\Models\Discussion;
@@ -44,6 +45,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, MustVerifyEmail
 {
+    use Bannable;
     use CausesActivity;
     use Concerns\CanManageResources;
     use Concerns\HasAnnouncements;
