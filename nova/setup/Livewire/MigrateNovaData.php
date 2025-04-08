@@ -36,6 +36,7 @@ class MigrateNovaData extends Component
         Migrations\MigrateNewsItems::class,
         Migrations\MigratePrivateMessages::class,
         Migrations\MigrateSettings::class,
+        Migrations\MigrateBans::class,
     ];
 
     public int $currentStep = 0;
