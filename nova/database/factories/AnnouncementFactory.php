@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 use Nova\Announcements\Models\Announcement;
 use Nova\Announcements\Models\AnnouncementNotification;
+use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
 class AnnouncementFactory extends Factory
@@ -20,15 +22,18 @@ class AnnouncementFactory extends Factory
             'category' => fake()->randomElement(['Crew', 'Story', 'Fleet']),
             'content' => fake()->paragraphs(mt_rand(1, 10), asText: true),
             'user_id' => fn () => User::inRandomOrder()->first(),
-            'published' => false,
-            'published_at' => null,
+            'status' => fn () => Arr::randomWeightedElement([
+                PublishStatus::Draft->value => 25,
+                PublishStatus::Published->value => 75,
+            ]),
+            'published_at' => fn (array $attributes) => $attributes['status'] === PublishStatus::Published->value ? now() : null,
         ];
     }
 
     public function published()
     {
         return $this->state([
-            'published' => true,
+            'status' => PublishStatus::Published,
             'published_at' => now(),
         ]);
     }

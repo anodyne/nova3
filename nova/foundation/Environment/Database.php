@@ -55,6 +55,16 @@ class Database
         return str($this->version)->before('-')->toString();
     }
 
+    public function versionFor(string $driver): ?string
+    {
+        return match ($driver) {
+            'mysql' => '8.0+',
+            'mariadb' => '10.2.7+',
+            'pgsql' => '13.0+',
+            default => null
+        };
+    }
+
     public function platform(): string
     {
         return sprintf('%s %s', $this->driverName(), $this->versionNumber());
@@ -69,11 +79,30 @@ class Database
     {
         return match ($this->driver) {
             'mysql' => version_compare($this->version, '8.0', '>='),
-            'mariadb' => version_compare($this->version, '10.0', '>='),
+            'mariadb' => version_compare($this->version, '10.2.7', '>='),
             'pgsql' => version_compare($this->version, '13.0', '>='),
             'unknown' => true,
             default => false,
         };
+    }
+
+    public function passesDriver(): bool
+    {
+        return match ($this->driver) {
+            'mysql' => true,
+            'mariadb' => true,
+            'pgsql' => true,
+            default => false
+        };
+    }
+
+    public function passesVersion(): bool
+    {
+        if ($this->driver === 'unknown') {
+            return false;
+        }
+
+        return $this->passes();
     }
 
     public function isMysql(): bool

@@ -5,18 +5,24 @@ declare(strict_types=1);
 namespace Nova\Announcements\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
 class AnnouncementBuilder extends Builder
 {
-    public function notPublished(): self
+    public function draft(): self
     {
-        return $this->where('published', false);
+        return $this->where('status', PublishStatus::Draft);
+    }
+
+    public function pending(): self
+    {
+        return $this->where('status', PublishStatus::Pending);
     }
 
     public function published(): self
     {
-        return $this->where('published', true);
+        return $this->where('status', PublishStatus::Published);
     }
 
     public function searchFor($search): self

@@ -207,6 +207,22 @@
                                         @endif
                                     </x-sidebar.item>
                                 @endif
+
+                                @if ($pendingApprovalsCount() > 0)
+                                    <x-sidebar.item
+                                        :href="route('admin.pending-approval')"
+                                        :active="request()->routeIs('admin.pending-approval')"
+                                    >
+                                        <x-icon name="check-circle"></x-icon>
+                                        <x-sidebar.label>Pending approval</x-sidebar.label>
+
+                                        <x-slot name="trailing">
+                                            <x-badge color="warning" class="tabular-nums">
+                                                {{ $pendingApprovalsCount() }}
+                                            </x-badge>
+                                        </x-slot>
+                                    </x-sidebar.item>
+                                @endif
                             </x-sidebar.section>
                         </x-sidebar.header>
 
@@ -788,6 +804,14 @@
                                     @endif
 
                                     <x-icon name="megaphone"></x-icon>
+                                </x-navbar.item>
+                            @endif
+
+                            @if ($pendingApprovalsCount() > 0)
+                                <x-navbar.item :href="route('admin.pending-approval')">
+                                    <div class="absolute right-0 top-2 size-2 rounded-full bg-warning-500"></div>
+
+                                    <x-icon name="check-circle"></x-icon>
                                 </x-navbar.item>
                             @endif
 

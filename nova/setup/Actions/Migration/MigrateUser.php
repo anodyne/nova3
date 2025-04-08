@@ -11,6 +11,7 @@ use Nova\Forms\Models\Form;
 use Nova\Setup\Models\Upgrade;
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
+use Nova\Users\Actions\PopulateUserModerations;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\User;
 
@@ -43,6 +44,7 @@ class MigrateUser extends Migration
 
             PopulateAccountPreferences::run($user = User::find($userId));
             PopulateNotificationPreferences::run($user);
+            PopulateUserModerations::run($user);
 
             if ($form) {
                 CreateFormSubmission::run($form, $user);

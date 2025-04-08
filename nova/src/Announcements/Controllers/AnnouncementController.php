@@ -35,7 +35,7 @@ class AnnouncementController extends Controller
 
     public function show(Announcement $announcement)
     {
-        MarkAnnouncementRead::run($announcement, Auth::user());
+        defer(fn () => MarkAnnouncementRead::run($announcement, Auth::user()));
 
         return ShowAnnouncementResponse::sendWith([
             'announcement' => $announcement->loadMissing('user'),

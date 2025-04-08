@@ -7,6 +7,7 @@ namespace Nova\Announcements\Policies;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 use Nova\Announcements\Models\Announcement;
+use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
 class AnnouncementPolicy
@@ -57,6 +58,20 @@ class AnnouncementPolicy
     public function manage(User $user): Response
     {
         return $user->isAbleTo(['announcement.create', 'announcement.update', 'announcement.delete'])
+            ? $this->allow()
+            : $this->deny();
+    }
+
+    public function approve(User $user, Announcement $announcement): Response
+    {
+        return $this->approveAny($user)->allowed() && $announcement->status === PublishStatus::Pending
+            ? $this->allow()
+            : $this->deny();
+    }
+
+    public function approveAny(User $user): Response
+    {
+        return $user->isAbleTo('announcement.approve')
             ? $this->allow()
             : $this->deny();
     }

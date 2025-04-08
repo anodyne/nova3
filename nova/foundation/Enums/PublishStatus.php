@@ -7,29 +7,29 @@ namespace Nova\Foundation\Enums;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum BasicStatus: string implements HasColor, HasLabel
+enum PublishStatus: string implements HasColor, HasLabel
 {
-    case Active = 'active';
-
-    case Inactive = 'inactive';
+    case Draft = 'draft';
 
     case Pending = 'pending';
+
+    case Published = 'published';
 
     public function bgColor(): string
     {
         return match ($this) {
-            self::Active => 'bg-success-500',
-            self::Inactive => 'bg-gray-500',
+            self::Draft => 'bg-gray-500',
             self::Pending => 'bg-warning-500',
+            self::Published => 'bg-success-500',
         };
     }
 
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Active => 'success',
-            self::Inactive => 'gray',
+            self::Draft => 'gray',
             self::Pending => 'warning',
+            self::Published => 'success',
         };
     }
 

@@ -3,7 +3,7 @@
 <x-admin-layout>
     <x-page-header>
         <x-slot name="actions">
-            <x-button :href="route('admin.stories.posts-timeline')" outline>
+            <x-button :href="route('admin.stories.posts-timeline')">
                 <x-icon name="timeline" size="sm"></x-icon>
                 Posts timeline
             </x-button>

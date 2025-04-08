@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Data\AnnouncementData;
 use Nova\Announcements\Models\Announcement;
+use Nova\Foundation\Enums\PublishStatus;
 
 class UpdateAnnouncement
 {
@@ -16,7 +17,7 @@ class UpdateAnnouncement
     public function handle(Announcement $announcement, AnnouncementData $data): Announcement
     {
         return DB::transaction(function () use ($announcement, $data): Announcement {
-            $publishing = $announcement->published === false && $data->published === true;
+            $publishing = $announcement->status !== PublishStatus::Published && $data->status === PublishStatus::Published;
 
             $announcement->update([
                 ...$data->toArray(),

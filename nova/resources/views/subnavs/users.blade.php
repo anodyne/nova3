@@ -1,18 +1,32 @@
+@use('Nova\Roles\Models\Permission')
+@use('Nova\Roles\Models\Role')
+@use('Nova\Users\Models\Ban')
+@use('Nova\Users\Models\User')
+
 <x-sidebar.subnav>
     <x-sidebar.subnav.group>
-        @can('viewAny', Nova\Users\Models\User::class)
+        @can('viewAny', User::class)
             <x-sidebar.subnav.item :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                 All users
             </x-sidebar.subnav.item>
         @endcan
 
-        @can('viewAny', Nova\Roles\Models\Role::class)
+        @can('updateAny', User::class)
+            <x-sidebar.subnav.item
+                :href="route('admin.user-moderation')"
+                :active="request()->routeIs('admin.user-moderation')"
+            >
+                Moderation
+            </x-sidebar.subnav.item>
+        @endcan
+
+        @can('viewAny', Role::class)
             <x-sidebar.subnav.item :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.*')">
                 Roles
             </x-sidebar.subnav.item>
         @endcan
 
-        @can('viewAny', Nova\Roles\Models\Permission::class)
+        @can('viewAny', Permission::class)
             <x-sidebar.subnav.item
                 :href="route('admin.permissions.index')"
                 :active="request()->routeIs('admin.permissions.*')"
@@ -21,7 +35,7 @@
             </x-sidebar.subnav.item>
         @endcan
 
-        @can('viewAny', Nova\Users\Models\Ban::class)
+        @can('viewAny', Ban::class)
             <x-sidebar.subnav.item :href="route('admin.bans.index')" :active="request()->routeIs('admin.bans.*')">
                 Bans
             </x-sidebar.subnav.item>

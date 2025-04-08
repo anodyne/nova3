@@ -10,17 +10,18 @@ use Bag\Bag;
 use Bag\Mappers\Alias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
 /**
- * @method static static from(string $title, ?string $category, bool $published, ?string $content)
+ * @method static static from(string $title, ?string $category, PublishStatus $status, ?string $content)
  */
 readonly class AnnouncementData extends Bag
 {
     public function __construct(
         public string $title,
         public ?string $category,
-        public bool $published,
+        public PublishStatus $status,
 
         #[MapInputName(Alias::class, 'editor-content')]
         public ?string $content
@@ -35,10 +36,10 @@ readonly class AnnouncementData extends Bag
     protected static function fromRequest(Request $request): array
     {
         return [
-            'title' => $request->input('title'),
-            'category' => $request->input('category'),
-            'published' => $request->boolean('published'),
-            'content' => $request->input('editor-content'),
+            'title' => $request->string('title')->value(),
+            'category' => $request->string('category')->value(),
+            'status' => $request->enum('status', PublishStatus::class),
+            'content' => $request->string('editor-content')->value(),
         ];
     }
 }

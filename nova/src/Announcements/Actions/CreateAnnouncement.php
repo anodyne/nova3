@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Data\AnnouncementData;
 use Nova\Announcements\Models\Announcement;
+use Nova\Foundation\Enums\PublishStatus;
 
 class CreateAnnouncement
 {
@@ -16,14 +17,20 @@ class CreateAnnouncement
     public function handle(AnnouncementData $data): Announcement
     {
         return DB::transaction(function () use ($data): Announcement {
+            if ($data->user()->isModerated()) {
+                $data = $data->append(['status' => PublishStatus::Pending]);
+            }
+
             $announcement = $data->user()
                 ->announcements()
                 ->create([
                     ...$data->toArray(),
-                    ...['published_at' => $data->published ? now() : null],
+                    ...[
+                        'published_at' => $data->status === PublishStatus::Published ? now() : null,
+                    ],
                 ]);
 
-            NotifyUsers::runIf($data->published, $announcement, $data);
+            NotifyUsers::runIf($data->status === PublishStatus::Published, $announcement, $data);
 
             return $announcement;
         });

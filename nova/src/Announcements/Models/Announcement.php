@@ -11,6 +11,7 @@ use Laravel\Scout\Searchable;
 use Nova\Announcements\Events;
 use Nova\Announcements\Models\Builders\AnnouncementBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
+use Nova\Foundation\Enums\PublishStatus;
 use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
@@ -29,13 +30,13 @@ class Announcement extends Model
         'category',
         'content',
         'published_at',
-        'published',
+        'status',
         'title',
         'user_id',
     ];
 
     protected $casts = [
-        'published' => 'boolean',
+        'status' => PublishStatus::class,
         'published_at' => 'datetime',
     ];
 

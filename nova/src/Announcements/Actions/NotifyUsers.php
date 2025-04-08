@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Data\AnnouncementData;
 use Nova\Announcements\Models\Announcement;
@@ -17,18 +18,20 @@ class NotifyUsers
 
     public function handle(Announcement $announcement, AnnouncementData $data): void
     {
-        $usersToNotify = User::active()->get();
+        DB::transaction(function () use ($announcement, $data) {
+            $usersToNotify = User::active()->get();
 
-        $usersToNotify->each(function (User $user) use ($announcement, $data) {
-            AnnouncementNotification::create([
-                'announcement_id' => $announcement->id,
-                'user_id' => $user->id,
-                'is_seen' => $user->id === $data->user()->id,
-            ]);
+            $usersToNotify->each(function (User $user) use ($announcement, $data) {
+                AnnouncementNotification::create([
+                    'announcement_id' => $announcement->id,
+                    'user_id' => $user->id,
+                    'is_seen' => $user->id === $data->user()->id,
+                ]);
 
-            if ($data->user()->id !== $user->id) {
-                $user->notify(new AnnouncementPublished($announcement));
-            }
+                if ($data->user()->id !== $user->id) {
+                    $user->notify(new AnnouncementPublished($announcement));
+                }
+            });
         });
     }
 }

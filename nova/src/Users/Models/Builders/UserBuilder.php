@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Nova\Users\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Models\Builders\Concerns\ActiveBetween;
+use Nova\Users\Data\UserModerations;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\States\Status\Hidden;
 use Nova\Users\Models\States\Status\Inactive;
@@ -72,6 +74,17 @@ class UserBuilder extends Builder
         return $this->whereState('status', Pending::class);
     }
 
+    public function moderatedOn(string $key): self
+    {
+        $versionInfo = DB::versionInfo();
+
+        return match (true) {
+            $versionInfo->isMysql => $this->whereRaw("JSON_EXTRACT(moderations, '$.$key') = true"),
+            $versionInfo->isPosgres => $this->whereRaw("moderations->>'$key' = 'true'"),
+            default => $this->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(moderations, '$.$key')) != 'true'")
+        };
+    }
+
     public function notPending(): self
     {
         return $this->whereNotState('status', Pending::class);
@@ -80,5 +93,63 @@ class UserBuilder extends Builder
     public function selectTotalCount(): self
     {
         return $this->selectRaw('COUNT(*) as total_count');
+    }
+
+    public function whereModerationHasTrue(): self
+    {
+        $versionInfo = DB::versionInfo();
+
+        $keys = UserModerations::resources();
+
+        return match (true) {
+            $versionInfo->isMysql => $this->where(function (Builder $query) use ($keys) {
+                foreach ($keys as $key) {
+                    $query->orWhereRaw("JSON_EXTRACT(moderations, '$.$key') = true");
+                }
+            }),
+
+            $versionInfo->isPostgres => $this->whereRaw('
+                NOT EXISTS (
+                    SELECT 1
+                    FROM jsonb_each(moderations)
+                    WHERE value::boolean = true
+                )
+            '),
+
+            default => $this->where(function (Builder $query) use ($keys) {
+                foreach ($keys as $key) {
+                    $query->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT(moderations, '$.$key')) = 'true'");
+                }
+            }),
+        };
+    }
+
+    public function whereModerationDoesntHaveTrue(): self
+    {
+        $versionInfo = DB::versionInfo();
+
+        $keys = UserModerations::resources();
+
+        return match (true) {
+            $versionInfo->isMysql => $this->where(function (Builder $query) use ($keys) {
+                foreach ($keys as $key) {
+                    $query->whereRaw("JSON_EXTRACT(moderations, '$.$key') != true");
+                }
+            }),
+
+            $versionInfo->isPosgres => $this->whereRaw('
+                NOT EXISTS (
+                    SELECT 1
+                    FROM jsonb_each(moderations)
+                    WHERE value::boolean = true
+                )
+            '),
+
+            default => $this->where(function (Builder $query) use ($keys) {
+                foreach ($keys as $key) {
+                    $query->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(moderations, '$.$key')) != 'true'");
+                }
+            }),
+        };
     }
 }

@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-start-2">
-        <x-h3 class="leading-8">MySQL 8.0+ or MariaDB 10.0+ or PostgreSQL 13.0+</x-h3>
+        <x-h3 class="leading-8">MySQL 8.0+ or MariaDB 10.2.7+ or PostgreSQL 13.0+</x-h3>
 
         <div>
             <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">

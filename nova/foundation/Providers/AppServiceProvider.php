@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -116,7 +117,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Model::shouldBeStrict(! app()->environment('production'));
 
-        // Date::use(CarbonImmutable::class);
+        Date::use(CarbonImmutable::class);
 
         RedirectIfAuthenticated::redirectUsing(fn () => route('admin.dashboard'));
 
@@ -203,6 +204,21 @@ class AppServiceProvider extends ServiceProvider
             $table = $this;
 
             return $table->string($name)->nullable()->unique();
+        });
+
+        DB::macro('versionInfo', function (): object {
+            $pdo = DB::getPdo();
+            $driver = DB::getDriverName();
+
+            $rawVersion = $pdo->query('SELECT VERSION()')->fetchColumn();
+
+            return (object) [
+                'driver' => $driver,
+                'version' => $rawVersion,
+                'isMaria' => $driver === 'mysql' && str_contains($rawVersion, 'MariaDB'),
+                'isMysql' => $driver === 'mysql' && ! str_contains($rawVersion, 'MariaDB'),
+                'isPostgres' => $driver === 'pgsql',
+            ];
         });
     }
 

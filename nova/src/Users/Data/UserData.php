@@ -19,6 +19,7 @@ readonly class UserData extends Bag
         public string $name,
         public string $email,
         public PronounsData $pronouns,
+        public UserModerations $moderations
     ) {}
 
     #[Transforms(Request::class)]
@@ -28,6 +29,7 @@ readonly class UserData extends Bag
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'pronouns' => PronounsData::from($request),
+            'moderations' => UserModerations::from($request),
         ];
     }
 }

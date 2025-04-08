@@ -45,6 +45,7 @@ return new class extends OneTimeOperation
             ['name' => 'List activity logs', 'uri' => 'admin/activity-log', 'key' => 'admin.activity-log.index', 'resource' => 'Nova\\Dashboards\\Controllers\\ActivityLogController@index', 'layout' => 'admin', 'heading' => 'Activity log', 'subheading' => 'Track all user activity in Nova'],
             ['name' => 'View activity log', 'uri' => 'admin/activity-log/{activity}/show', 'key' => 'admin.activity-log.show', 'resource' => 'Nova\\Dashboards\\Controllers\\ActivityLogController@show', 'layout' => 'admin', 'heading' => 'Activity log detail'],
             ['name' => 'Error logs', 'uri' => 'admin/error-logs', 'key' => 'admin.error-logs.index', 'resource' => 'Nova\\Dashboards\\Controllers\\ErrorLogController', 'layout' => 'admin', 'heading' => 'Error logs'],
+            ['name' => 'Pending approval dashboard', 'uri' => 'admin/pending-approval', 'key' => 'admin.pending-approval', 'resource' => 'Nova\\Dashboards\\Controllers\\PendingApprovalController', 'layout' => 'admin', 'heading' => 'Pending approval'],
 
             ['name' => 'List themes', 'uri' => 'admin/themes', 'key' => 'admin.themes.index', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@index', 'layout' => 'admin', 'heading' => 'Themes', 'subheading' => 'Personalize your public-facing site with a custom theme'],
             ['name' => 'View theme', 'uri' => 'admin/themes/{theme}/show', 'key' => 'admin.themes.show', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@show', 'layout' => 'admin', 'content_can_be_edited' => false],
@@ -68,6 +69,7 @@ return new class extends OneTimeOperation
             ['name' => 'Store user', 'uri' => 'admin/users', 'key' => 'admin.users.store', 'verb' => PageVerb::Post, 'resource' => 'Nova\\Users\\Controllers\\UserController@store', 'layout' => 'admin'],
             ['name' => 'Edit user', 'uri' => 'admin/users/{user}/edit', 'key' => 'admin.users.edit', 'resource' => 'Nova\\Users\\Controllers\\UserController@edit', 'layout' => 'admin', 'heading' => 'Edit user'],
             ['name' => 'Update user', 'uri' => 'admin/users/{user}', 'key' => 'admin.users.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Users\\Controllers\\UserController@update', 'layout' => 'admin'],
+            ['name' => 'User moderation list', 'uri' => 'admin/user-moderation', 'key' => 'admin.user-moderation', 'resource' => 'Nova\\Users\\Controllers\\UserModerationController', 'layout' => 'admin', 'heading' => 'User moderation', 'subheading' => 'Manage all of the game’s user moderations'],
 
             ['name' => 'My account', 'uri' => 'admin/account', 'key' => 'admin.account.edit', 'resource' => 'Nova\\Users\\Controllers\\EditAccountController', 'layout' => 'admin', 'heading' => 'Account settings'],
             ['name' => 'Notification preferences', 'uri' => 'admin/account/notifications', 'key' => 'admin.account.notifications', 'resource' => 'Nova\\Users\\Controllers\\NotificationPreferencesController', 'layout' => 'admin', 'heading' => 'My notification preferences'],

@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Livewire;
 
-use Filament\Tables\Columns\IconColumn;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Nova\Announcements\Actions\DeleteAnnouncement;
+use Nova\Announcements\Actions\UpdateAnnouncement;
+use Nova\Announcements\Data\AnnouncementData;
 use Nova\Announcements\Models\Announcement;
+use Nova\Foundation\Enums\PublishStatus;
+use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
 use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
@@ -44,15 +50,25 @@ class AnnouncementsList extends TableComponent
                         'user_id',
                         'title',
                         'category',
-                        'published',
+                        'status',
                         'published_at',
                     ])
-                    ->unless(
-                        $user->can('manage', Announcement::class),
-                        fn (Builder $query): Builder => $query->published()
+                    ->when(
+                        $user->can('manage', Announcement::class) && $user->can('approveAny', Announcement::class),
+                        fn (Builder $query): Builder => $query,
+                    )
+                    ->when(
+                        $user->can('manage', Announcement::class) && $user->cannot('approveAny', Announcement::class),
+                        fn (Builder $query): Builder => $query->whereIn('status', [PublishStatus::Published, PublishStatus::Draft]),
+                    )
+                    ->when(
+                        $user->cannot('manage', Announcement::class) && $user->cannot('approveAny', Announcement::class),
+                        fn (Builder $query): Builder => $query->published(),
                     )
             )
+            ->defaultGroup('status')
             ->defaultSort('published_at', 'desc')
+            ->groups(['status'])
             ->recordUrl(fn (Announcement $record): string => route('admin.announcements.show', $record))
             ->columns([
                 ViewColumn::make('title')
@@ -65,21 +81,14 @@ class AnnouncementsList extends TableComponent
                 TextColumn::make('user.name')
                     ->label('Author')
                     ->toggleable(),
-                IconColumn::make('published')
-                    ->icon(fn (bool $state): string => match ($state) {
-                        true => iconName('check'),
-                        false => iconName('prohibited')
-                    })
-                    ->color(fn (bool $state): string => match ($state) {
-                        true => 'success',
-                        false => 'danger'
-                    })
-                    ->visible($user->can('manage', Announcement::class)),
                 TextColumn::make('published_at')
                     ->dateTime()
                     ->formatStateUsing(fn (Announcement $record): ?string => filled($record->published_at) ? DateHelper::formatDate($record->published_at) : null)
                     ->sortable()
                     ->toggleable(),
+                TextColumn::make('status')
+                    ->badge()
+                    ->visible($user->can('manage', Announcement::class)),
             ])
             ->actions([
                 ActionGroup::make([
@@ -88,6 +97,36 @@ class AnnouncementsList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Announcement $record): string => route('admin.announcements.edit', $record)),
                     ])->authorize('update')->divided(),
+
+                    ActionGroup::make([
+                        Action::make('approve')
+                            ->authorize('approve')
+                            ->icon(iconName('check-circle'))
+                            ->modalContent(fn (Announcement $record, Action $action): View => view('pages.announcements.approve', [
+                                'record' => $record,
+                                'action' => $action,
+                            ]))
+                            ->modalHeading('')
+                            ->modalWidth(MaxWidth::Large)
+                            ->modalSubmitActionLabel('Yes, approve it')
+                            ->action(function (Announcement $record): void {
+                                $announcementContent = Announcement::where('id', $record->id)->value('content');
+
+                                $data = AnnouncementData::from(
+                                    title: $record->title,
+                                    category: $record->category,
+                                    status: PublishStatus::Published,
+                                    content: $announcementContent
+                                );
+
+                                UpdateAnnouncement::run($record, $data);
+
+                                Notification::make()->success()
+                                    ->title('Announcement has been approved')
+                                    ->body('The announcement has been published and notifications have been sent.')
+                                    ->send();
+                            }),
+                    ])->authorize('approve')->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -116,18 +155,16 @@ class AnnouncementsList extends TableComponent
                     ->falseLabel('Only read announcements')
                     ->queries(
                         true: fn (Builder $query): Builder => $query->withUnreadNotificationsForUser($user),
-                        false: fn (Builder $query): Builder => $query->withReadNotificationsForUser($user),
-                        blank: fn (Builder $query): Builder => $query
+                        false: fn (Builder $query): Builder => $query->withReadNotificationsForUser($user)
                     ),
                 TernaryFilter::make('published_at')
                     ->label('Published')
                     ->placeholder('All announcements')
                     ->trueLabel('Published announcements')
-                    ->falseLabel('Upcoming announcements')
+                    ->falseLabel('Draft announcements')
                     ->queries(
                         true: fn (Builder $query): Builder => $query->published(),
-                        false: fn (Builder $query): Builder => $query->notPublished(),
-                        blank: fn (Builder $query): Builder => $query
+                        false: fn (Builder $query): Builder => $query->draft()
                     )
                     ->visible($user->can('manage', Announcement::class)),
                 SelectFilter::make('category')

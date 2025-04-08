@@ -21,6 +21,7 @@ use Nova\PublicSite\Requests\StoreApplicationRequest;
 use Nova\Users\Actions\CreateUser;
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
+use Nova\Users\Actions\PopulateUserModerations;
 use Nova\Users\Data\UserData;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\Facades\LogBatch;
@@ -85,6 +86,8 @@ class CreateApplicationFromJoinFormManager
             $user = PopulateAccountPreferences::run($user);
 
             $user = PopulateNotificationPreferences::run($user);
+
+            $user = PopulateUserModerations::run($user);
 
             $this->createFormSubmissionForUser($user, $request->input('userBio', []));
         }

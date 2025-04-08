@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\ForceDeleteBulkAction as FilamentForceDeleteBulkAction;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -20,7 +21,7 @@ class ForceDeleteBulkAction extends FilamentForceDeleteBulkAction
 
         $this->requiresConfirmation(false);
 
-        $this->modalWidth('lg');
+        $this->modalWidth(MaxWidth::Large);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

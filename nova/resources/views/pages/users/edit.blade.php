@@ -143,6 +143,48 @@
                         </x-panel>
                     </x-fieldset>
 
+                    <x-fieldset>
+                        <x-panel variant="well">
+                            <x-panel.header
+                                title="Moderation"
+                                description="You can require approval for publishing certain pieces of content"
+                            ></x-panel.header>
+
+                            <x-panel class="grid grid-cols-[1fr_auto] divide-y divide-gray-950/5 dark:divide-white/10">
+                                <x-spacing class="col-span-2 grid grid-cols-subgrid items-start" size="row">
+                                    <div>
+                                        <x-h4>Announcements</x-h4>
+                                        <x-text>Require approval for this user to publish an announcement</x-text>
+                                    </div>
+                                    <div class="ml-8 flex shrink-0 justify-end">
+                                        <x-switch
+                                            name="moderations[announcements]"
+                                            :value="old('moderations[announcements]', $user->moderations?->announcements ?? false)"
+                                            id="moderations_announcements"
+                                        ></x-switch>
+                                    </div>
+                                </x-spacing>
+
+                                <x-spacing class="col-span-2 grid grid-cols-subgrid items-start" size="row">
+                                    <div>
+                                        <x-h4>Posts</x-h4>
+                                        <x-text>
+                                            Require approval for this user to publish a post. This approval will be
+                                            required whether they are the only author or writing with other players.
+                                        </x-text>
+                                    </div>
+                                    <div class="ml-8 flex shrink-0 justify-end">
+                                        <x-switch
+                                            name="moderations[posts]"
+                                            :value="old('moderations[posts]', $user->moderations?->posts ?? false)"
+                                            id="moderations_posts"
+                                        ></x-switch>
+                                    </div>
+                                </x-spacing>
+                            </x-panel>
+                        </x-panel>
+                    </x-fieldset>
+
                     @canany(['activate', 'deactivate', 'forcePasswordReset'], $user)
                         <x-fieldset>
                             <x-panel variant="well">

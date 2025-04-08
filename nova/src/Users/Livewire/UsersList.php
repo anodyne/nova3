@@ -6,6 +6,7 @@ namespace Nova\Users\Livewire;
 
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -73,6 +74,17 @@ class UsersList extends TableComponent
                     ->listWithLineBreaks()
                     ->toggleable()
                     ->toggledHiddenByDefault(),
+                IconColumn::make('moderations')
+                    ->label('Is moderated')
+                    ->icon(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
+                        true => iconName('forbid'),
+                        default => null,
+                    })
+                    ->color(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
+                        true => 'danger',
+                        default => null,
+                    })
+                    ->toggleable(),
                 TextColumn::make('updated_at')
                     ->label('Last activity')
                     ->since()
@@ -293,6 +305,12 @@ class UsersList extends TableComponent
                     ->queries(
                         true: fn (Builder $query): Builder => $query->whereHas('activeCharacters'),
                         false: fn (Builder $query): Builder => $query->whereDoesntHave('activeCharacters')
+                    ),
+                TernaryFilter::make('moderated')
+                    ->label('Is moderated')
+                    ->queries(
+                        true: fn (Builder $query): Builder => $query->whereModerationHasTrue(),
+                        false: fn (Builder $query): Builder => $query->whereModerationDoesntHaveTrue()
                     ),
                 SelectFilter::make('last_login')
                     ->label('Last signed in')
