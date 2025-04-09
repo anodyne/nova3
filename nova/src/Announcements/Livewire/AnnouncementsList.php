@@ -15,9 +15,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
+use Nova\Announcements\Actions\ApproveAnnouncement;
 use Nova\Announcements\Actions\DeleteAnnouncement;
-use Nova\Announcements\Actions\UpdateAnnouncement;
-use Nova\Announcements\Data\AnnouncementData;
 use Nova\Announcements\Models\Announcement;
 use Nova\Foundation\Enums\PublishStatus;
 use Nova\Foundation\Filament\Actions\Action;
@@ -110,19 +109,10 @@ class AnnouncementsList extends TableComponent
                             ->modalWidth(MaxWidth::Large)
                             ->modalSubmitActionLabel('Yes, approve it')
                             ->action(function (Announcement $record): void {
-                                $announcementContent = Announcement::where('id', $record->id)->value('content');
-
-                                $data = AnnouncementData::from(
-                                    title: $record->title,
-                                    category: $record->category,
-                                    status: PublishStatus::Published,
-                                    content: $announcementContent
-                                );
-
-                                UpdateAnnouncement::run($record, $data);
+                                ApproveAnnouncement::run($record);
 
                                 Notification::make()->success()
-                                    ->title('Announcement has been approved')
+                                    ->title($record->title.' has been approved')
                                     ->body('The announcement has been published and notifications have been sent.')
                                     ->send();
                             }),

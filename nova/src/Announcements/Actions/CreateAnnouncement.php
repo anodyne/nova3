@@ -30,7 +30,7 @@ class CreateAnnouncement
                     ],
                 ]);
 
-            NotifyUsers::runIf($data->status === PublishStatus::Published, $announcement, $data);
+            NotifyUsers::runIf($data->status === PublishStatus::Published, $announcement);
 
             return $announcement;
         });
