@@ -106,6 +106,25 @@
                                 </div>
                             @endif
                         </div>
+
+                        <div class="py-1.5">
+                            <div class="flex w-full items-center justify-between gap-4">
+                                <dt class="flex items-center gap-2 font-medium text-gray-500">Maintenance mode</dt>
+                                <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
+                                    <livewire:maintenance-mode-switch :maintenance="app()->isDownForMaintenance()" />
+                                </dd>
+                            </div>
+
+                            @if (app()->isDownForMaintenance())
+                                <div class="flex gap-x-1.5">
+                                    <x-icon.micro.warning
+                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                    ></x-icon.micro.warning>
+
+                                    <p class="text-danger-500">Your application is currently down for maintenance.</p>
+                                </div>
+                            @endif
+                        </div>
                     </x-spacing>
                 </x-panel>
             </x-panel>

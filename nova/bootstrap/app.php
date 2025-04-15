@@ -31,6 +31,11 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
             'installed' => Nova\Foundation\Http\Middleware\CheckInstallStatus::class,
         ]);
 
+        $middleware->replace(
+            \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
+            \Nova\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class
+        );
+
         $middleware->web(append: [
             CheckNovaVersion::class,
             CheckAddonAndThemeVersions::class,
