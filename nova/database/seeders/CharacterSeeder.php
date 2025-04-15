@@ -81,7 +81,7 @@ class CharacterSeeder extends Seeder
             'rank_id' => 10,
         ]);
         $sidney->users()->save(User::find(2));
-        $sidney->positions()->save(Position::find(5));
+        $sidney->positions()->save(Position::find(31));
         CreateFormSubmission::run($form, $sidney);
         TrackStatusUpdate::run($sidney);
 
