@@ -34,9 +34,13 @@ class CharactersManifest extends Component
 
     public array $selectedDepartments = [];
 
+    public array $taggedDepartments = [];
+
     public ?string $positionStatus = null;
 
     public array $selectedPositions = [];
+
+    public array $taggedPositions = [];
 
     public ?string $characterStatus = null;
 
@@ -45,6 +49,8 @@ class CharactersManifest extends Component
     public ?string $availablePositionsStatus = null;
 
     public array $selectedAvailablePositions = [];
+
+    public array $taggedAvailablePositions = [];
 
     #[Computed]
     public function characters(): ?Collection
@@ -81,11 +87,13 @@ class CharactersManifest extends Component
             ->when($this->departmentStatus === 'active', fn ($dQuery) => $dQuery->active())
             ->when($this->departmentStatus === 'inactive', fn ($dQuery) => $dQuery->inactive())
             ->when($this->departmentStatus === 'choose', fn ($dQuery) => $dQuery->whereIn('id', $this->selectedDepartments))
+            ->when($this->departmentStatus === 'tags', fn ($dQuery) => $dQuery->hasTags($this->taggedDepartments))
             ->whereHas('positions', function ($query) {
                 return $query
                     ->when($this->positionStatus === 'active', fn ($pQuery) => $pQuery->active())
                     ->when($this->positionStatus === 'inactive', fn ($pQuery) => $pQuery->inactive())
                     ->when($this->positionStatus === 'choose', fn ($pQuery) => $pQuery->whereIn('id', $this->selectedPositions))
+                    ->when($this->positionStatus === 'tags', fn ($pQuery) => $pQuery->hasTags($this->taggedPositions))
                     ->when($this->showCharacters === true && $this->showAvailablePositions === false, function ($query) {
                         return $query->whereHas('characters', function ($query) {
                             return $query
@@ -114,6 +122,7 @@ class CharactersManifest extends Component
 
         return Position::available()
             ->when($this->availablePositionsStatus === 'choose', fn ($q) => $q->whereIn('id', $this->selectedAvailablePositions))
+            ->when($this->availablePositionsStatus === 'tags', fn ($q) => $q->hasTags($this->taggedAvailablePositions))
             ->ordered()
             ->get();
     }

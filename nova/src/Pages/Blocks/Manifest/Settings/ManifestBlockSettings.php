@@ -120,7 +120,7 @@ class ManifestBlockSettings extends ScribbleModal
                             'active' => 'Only active departments',
                             'inactive' => 'Only inactive departments',
                             'choose' => 'Choose departments to display',
-                            // 'tags' => 'Departments with specific tag(s)',
+                            'tags' => 'Departments with specific tag(s)',
                         ])
                         ->helperText('Departments without assigned characters will not be displayed unless you choose to show available positions')
                         ->live(),
@@ -129,11 +129,11 @@ class ManifestBlockSettings extends ScribbleModal
                         ->multiple()
                         ->visible(fn (Get $get): bool => $get('departmentStatus') === 'choose')
                         ->options(fn () => Department::get()->pluck('name', 'id')),
-                    Select::make('departmentTags')
+                    Select::make('taggedDepartments')
                         ->preload()
                         ->multiple()
                         ->visible(fn (Get $get): bool => $get('departmentStatus') === 'tags')
-                        ->options(fn () => Department::get()->pluck('name', 'id')),
+                        ->options(fn () => Department::query()->uniqueTags()),
                 ])
                 ->visible(fn (Get $get): bool => $get('showDepartments') === true),
 
@@ -147,7 +147,7 @@ class ManifestBlockSettings extends ScribbleModal
                             'active' => 'Only active positions',
                             'inactive' => 'Only inactive positions',
                             'choose' => 'Choose positions to display',
-                            // 'tags' => 'Positions with specific tag(s)',
+                            'tags' => 'Positions with specific tag(s)',
                         ])
                         ->live(),
                     Select::make('selectedPositions')
@@ -155,6 +155,11 @@ class ManifestBlockSettings extends ScribbleModal
                         ->multiple()
                         ->visible(fn (Get $get): bool => $get('positionStatus') === 'choose')
                         ->options(fn () => Position::get()->pluck('name', 'id')),
+                    Select::make('taggedPositions')
+                        ->preload()
+                        ->multiple()
+                        ->visible(fn (Get $get): bool => $get('positionStatus') === 'tags')
+                        ->options(fn () => Position::query()->uniqueTags()),
                 ])
                 ->visible(fn (Get $get): bool => $get('showDepartments') === true),
 
@@ -179,6 +184,11 @@ class ManifestBlockSettings extends ScribbleModal
                         ->multiple()
                         ->visible(fn (Get $get): bool => $get('availablePositionsStatus') === 'choose')
                         ->options(fn () => Position::active()->available()->get()->pluck('name', 'id')),
+                    Select::make('taggedAvailablePositions')
+                        ->preload()
+                        ->multiple()
+                        ->visible(fn (Get $get): bool => $get('availablePositionsStatus') === 'tags')
+                        ->options(fn () => Position::query()->uniqueTags()),
                 ])
                 ->visible(fn (Get $get): bool => $get('showAvailablePositions') === true),
 
@@ -236,14 +246,15 @@ class ManifestBlockSettings extends ScribbleModal
             'showDepartments' => $this->data['showDepartments'] ?? null,
             'departmentStatus' => $this->data['departmentStatus'] ?? null,
             'selectedDepartments' => $this->data['selectedDepartments'] ?? [],
-            'departmentTags' => $this->data['departmentTags'] ?? [],
+            'taggedDepartments' => $this->data['taggedDepartments'] ?? [],
             'positionStatus' => $this->data['positionStatus'] ?? null,
             'selectedPositions' => $this->data['selectedPositions'] ?? [],
-            'positionTags' => $this->data['positionTags'] ?? [],
+            'taggedPositions' => $this->data['taggedPositions'] ?? [],
 
             'showAvailablePositions' => $this->data['showAvailablePositions'] ?? null,
             'availablePositionsStatus' => $this->data['availablePositionsStatus'] ?? null,
             'selectedAvailablePositions' => $this->data['selectedAvailablePositions'] ?? [],
+            'taggedAvailablePositions' => $this->data['taggedAvailablePositions'] ?? [],
 
             'showCharacters' => $this->data['showCharacters'] ?? null,
             'characterStatus' => $this->data['characterStatus'] ?? null,

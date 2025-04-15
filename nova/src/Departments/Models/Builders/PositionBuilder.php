@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Nova\Departments\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Departments\Models\Concerns\QueriesUniqueTags;
 use Nova\Departments\Models\Department;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class PositionBuilder extends Builder
 {
     use QueriesStatus;
+    use QueriesUniqueTags;
 
     public function available(): self
     {

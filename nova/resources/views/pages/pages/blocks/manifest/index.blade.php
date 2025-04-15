@@ -30,10 +30,13 @@
                     :card-orientation="$cardOrientation ?? null"
                     :department-status="$departmentStatus ?? null"
                     :selected-departments="$selectedDepartments ?? []"
+                    :tagged-departments="$taggedDepartments ?? []"
                     :position-status="$positionStatus ?? null"
                     :selected-positions="$selectedPositions ?? []"
+                    :tagged-positions="$taggedPositions ?? []"
                     :available-positions-status="$availablePositionsStatus ?? null"
                     :selected-available-positions="$selectedAvailablePositions ?? []"
+                    :tagged-available-positions="$taggedAvailablePositions ?? []"
                     :character-status="$characterStatus ?? null"
                     :character-type="$characterType ?? null"
                 />
