@@ -242,7 +242,7 @@ return new class extends OneTimeOperation
                 'uri' => 'characters',
                 'key' => 'public.characters',
                 'layout' => 'public',
-                'blocks' => '{"type":"doc","content":[{"type":"scribbleBlock","attrs":{"id":"b98eacc0-199f-48f7-a0a6-95dcbe887a01","type":"block","identifier":"manifest","values":{"heading":"Characters","description":null,"headerOrientation":"left","bgOption":"transparent","dark":false,"spacingHorizontal":null,"spacingVertical":"none","layout":"cards","characterOptions":["avatar","position","rank-name","rank-image"],"cardOrientation":"center","showDepartments":false,"showAvailablePositions":false,"showCharacters":true,"characterStatus":"active","characterType":"primary-secondary"}}}]}',
+                'blocks' => '{"type":"doc","content":[{"type":"scribbleBlock","attrs":{"id":"b98eacc0-199f-48f7-a0a6-95dcbe887a01","type":"block","identifier":"manifest","values":{"heading":"Characters","description":null,"headerOrientation":"left","bgOption":"transparent","dark":false,"spacingHorizontal":null,"spacingVertical":"none","layout":"cards","characterOptions":["avatar","position","rank-name","rank-image"],"cardOrientation":"center","showDepartments":true,"showAvailablePositions":false,"showCharacters":true,"characterStatus":"active","characterType":"all"}}}]}',
                 'published_at' => now(),
                 'created_at' => now(),
                 'updated_at' => now(),

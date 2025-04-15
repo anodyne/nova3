@@ -10,6 +10,7 @@ use Nova\Dashboards\Livewire\ClearVersionCheckCacheButton;
 use Nova\Dashboards\Livewire\CopyDiagnosticDataButton;
 use Nova\Dashboards\Livewire\CopyStacktraceButton;
 use Nova\Dashboards\Livewire\ErrorLogViewer;
+use Nova\Dashboards\Livewire\MaintenanceModeSwitch;
 use Nova\Dashboards\Livewire\NovaUpdatePanel;
 use Nova\Dashboards\Livewire\NovaUpdatePanelTrigger;
 use Nova\Dashboards\Livewire\NovaVersionHistory;
@@ -32,6 +33,7 @@ class DashboardsServiceProvider extends DomainServiceProvider
             'copy-diagnostic-data-button' => CopyDiagnosticDataButton::class,
             'copy-stacktrace-button' => CopyStacktraceButton::class,
             'error-log-viewer' => ErrorLogViewer::class,
+            'maintenance-mode-switch' => MaintenanceModeSwitch::class,
             'nova-update-panel' => NovaUpdatePanel::class,
             'nova-update-panel-trigger' => NovaUpdatePanelTrigger::class,
             'nova-version-history' => NovaVersionHistory::class,
