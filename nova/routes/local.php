@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Nova\Addons\Models\Addon;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Nova\Discussions\Data\DiscussionData;
 use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\Form;
@@ -308,4 +309,8 @@ Route::get('migrate', function () {
     $freshForm = DB::table('forms')->find($form->id);
 
     dd(json_decode($freshForm->fields, associative: true));
+});
+
+Route::get('tags', function () {
+    dd(Position::query()->uniqueTags());
 });
