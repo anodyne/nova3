@@ -80,7 +80,7 @@ class UserBuilder extends Builder
 
         return match (true) {
             $versionInfo->isMysql => $this->whereRaw("JSON_EXTRACT(moderations, '$.$key') = true"),
-            $versionInfo->isPosgres => $this->whereRaw("moderations->>'$key' = 'true'"),
+            $versionInfo->isPostgres => $this->whereRaw("moderations->>'$key' = 'true'"),
             default => $this->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(moderations, '$.$key')) != 'true'")
         };
     }
@@ -137,7 +137,7 @@ class UserBuilder extends Builder
                 }
             }),
 
-            $versionInfo->isPosgres => $this->whereRaw('
+            $versionInfo->isPostgres => $this->whereRaw('
                 NOT EXISTS (
                     SELECT 1
                     FROM jsonb_each(moderations)
