@@ -126,21 +126,23 @@ class DepartmentsList extends TableComponent
                             ])
                             ->modalContentView('pages.departments.duplicate')
                             ->action(function (Department $record, array $data): void {
+                                $department = Department::find($record->id);
+
                                 $replica = DuplicateDepartment::run(
-                                    $record,
+                                    $department,
                                     DepartmentData::from(
                                         name: data_get($data, 'name'),
-                                        description: $record->description,
-                                        tags: $record->tags,
-                                        status: $record->status
+                                        description: $department->description,
+                                        tags: $department->tags,
+                                        status: $department->status
                                     )
                                 );
 
-                                DepartmentDuplicated::dispatch($replica, $record);
+                                DepartmentDuplicated::dispatch($replica, $department);
 
                                 Notification::make()->success()
                                     ->title("{$replica->name} department has been created")
-                                    ->body("All of the positions from the {$record->name} department have been duplicated into your new department.")
+                                    ->body("All of the positions from the {$department->name} department have been duplicated into your new department.")
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),

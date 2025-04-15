@@ -137,23 +137,25 @@ class PositionsList extends TableComponent
                             ])
                             ->modalContentView('pages.positions.duplicate')
                             ->action(function (Position $record, array $data): void {
+                                $position = Position::find($record->id);
+
                                 $replica = DuplicatePosition::run(
-                                    $record,
+                                    $position,
                                     PositionData::from(
                                         name: data_get($data, 'name'),
-                                        description: $record->description,
-                                        available: $record->available,
-                                        tags: $record->tags,
-                                        status: $record->status,
+                                        description: $position->description,
+                                        available: $position->available,
+                                        tags: $position->tags,
+                                        status: $position->status,
                                         department_id: data_get($data, 'department_id')
                                     )
                                 );
 
-                                PositionDuplicated::dispatch($replica, $record);
+                                PositionDuplicated::dispatch($replica, $position);
 
                                 Notification::make()->success()
                                     ->title("{$replica->name} has been created")
-                                    ->body("All of the data from {$record->name} has been duplicated into your new position.")
+                                    ->body("All of the data from {$position->name} has been duplicated into your new position.")
                                     ->send();
                             }),
                     ])->authorize('duplicate')->divided(),
