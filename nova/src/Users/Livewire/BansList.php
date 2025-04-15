@@ -20,6 +20,7 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\Ban;
 
@@ -80,7 +81,9 @@ class BansList extends TableComponent
                                         ->extraAttributes(['class' => 'tabular-nums'])
                                         ->visible(fn (Ban $record): bool => filled($record->ip)),
                                     TextEntry::make('created_by.name')->label('Banned by'),
-                                    TextEntry::make('created_at')->label('Banned on'),
+                                    TextEntry::make('created_at')
+                                        ->label('Banned on')
+                                        ->formatStateUsing(fn (Ban $record): string => DateHelper::formatDate($record->created_at)),
                                     TextEntry::make('expired_at')
                                         ->label('Expiration')
                                         ->placeholder('No expiration')
