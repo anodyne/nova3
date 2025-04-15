@@ -11,8 +11,8 @@ use Nova\Forms\Models\Form;
 use Nova\Setup\Models\Upgrade;
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
-use Nova\Users\Actions\PopulateUserModerations;
 use Nova\Users\Data\PronounsData;
+use Nova\Users\Data\UserModerations;
 use Nova\Users\Models\User;
 
 class MigrateUser extends Migration
@@ -30,6 +30,10 @@ class MigrateUser extends Migration
                     'force_password_reset' => true,
                     'status' => $model->status,
                     'pronouns' => PronounsData::from('none')->toJson(),
+                    'moderations' => UserModerations::from(
+                        announcements: $model->moderate_news === 'y',
+                        posts: $model->moderate_logs === 'y' || $model->moderate_posts === 'y'
+                    )->toJson(),
                     'created_at' => $joinDate = $this->convertDate($model->join_date),
                     'updated_at' => $this->convertDate($model->last_update, $joinDate),
                 ]);
@@ -44,7 +48,6 @@ class MigrateUser extends Migration
 
             PopulateAccountPreferences::run($user = User::find($userId));
             PopulateNotificationPreferences::run($user);
-            PopulateUserModerations::run($user);
 
             if ($form) {
                 CreateFormSubmission::run($form, $user);
