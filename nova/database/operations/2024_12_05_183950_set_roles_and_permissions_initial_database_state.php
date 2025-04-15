@@ -49,13 +49,13 @@ return new class extends OneTimeOperation
                 'application.approve',
                 'system.activity', 'system.error-logs',
                 'menu.create', 'menu.delete', 'menu.update', 'menu.view',
-                'announcement.create', 'announcement.delete', 'announcement.update',
+                'announcement.create', 'announcement.delete', 'announcement.update', 'announcement.approve',
                 'ban.create', 'ban.delete', 'ban.update', 'ban.view',
                 'report.view',
             ],
             'story-manager' => [
                 'story.create', 'story.delete', 'story.update',
-                'post.delete', 'post.update',
+                'post.delete', 'post.update', 'post.approve',
             ],
             'active' => [
                 'announcement.view',
@@ -142,6 +142,7 @@ return new class extends OneTimeOperation
                 ['name' => 'post.delete', 'display_name' => 'Delete posts', 'description' => 'Allows a user to remove posts'],
                 ['name' => 'post.update', 'display_name' => 'Update posts', 'description' => 'Allows a user to edit posts'],
                 ['name' => 'post.view', 'display_name' => 'View posts', 'description' => 'Allows a user to view any posts'],
+                ['name' => 'post.approve', 'display_name' => 'Approve posts', 'description' => 'Allows a user to approve any pending posts'],
 
                 ['name' => 'settings.update', 'display_name' => 'Update settings', 'description' => 'Allows a user to edit settings'],
 
@@ -172,6 +173,7 @@ return new class extends OneTimeOperation
                 ['name' => 'announcement.delete', 'display_name' => 'Delete announcements', 'description' => 'Allows a user to remove announcements'],
                 ['name' => 'announcement.update', 'display_name' => 'Update announcements', 'description' => 'Allows a user to edit announcements'],
                 ['name' => 'announcement.view', 'display_name' => 'View announcements', 'description' => 'Allows a user to view any announcements'],
+                ['name' => 'announcement.approve', 'display_name' => 'Approve announcements', 'description' => 'Allows a user to approve any pending announcements'],
 
                 ['name' => 'site.contact', 'display_name' => 'Site contact', 'description' => 'Allows a user to receive site contact messages'],
                 ['name' => 'site.update', 'display_name' => 'Update site', 'description' => 'Allows a user to run the update scripts for the site'],

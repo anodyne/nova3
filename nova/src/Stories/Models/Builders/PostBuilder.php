@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\States\PostStatus\Draft;
+use Nova\Stories\Models\States\PostStatus\Pending;
 use Nova\Stories\Models\States\PostStatus\Published;
 use Nova\Stories\Models\States\PostStatus\Started;
 use Nova\Stories\Models\Story;
@@ -86,6 +87,11 @@ class PostBuilder extends Builder
     public function draft(): self
     {
         return $this->whereState('status', Draft::class);
+    }
+
+    public function pending(): self
+    {
+        return $this->whereState('status', Pending::class);
     }
 
     public function published(): self

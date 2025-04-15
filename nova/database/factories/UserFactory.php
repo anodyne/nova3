@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
+use Nova\Users\Actions\PopulateUserModerations;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\States\Status\Inactive;
@@ -57,6 +58,8 @@ class UserFactory extends Factory
             PopulateAccountPreferences::run($user);
 
             PopulateNotificationPreferences::run($user);
+
+            PopulateUserModerations::run($user);
 
             TrackStatusUpdate::run($user);
         });

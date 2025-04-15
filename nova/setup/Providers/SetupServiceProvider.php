@@ -83,6 +83,7 @@ class SetupServiceProvider extends DomainServiceProvider
             'setup-migrate-news-items' => Migrations\MigrateNewsItems::class,
             'setup-migrate-private-messages' => Migrations\MigratePrivateMessages::class,
             'setup-migrate-settings' => Migrations\MigrateSettings::class,
+            'setup-migrate-bans' => Migrations\MigrateBans::class,
         ];
     }
 

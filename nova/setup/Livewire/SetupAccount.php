@@ -14,7 +14,9 @@ use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Setup\Enums\SetupType;
 use Nova\Setup\Telemetry;
+use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
+use Nova\Users\Actions\PopulateUserModerations;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
@@ -43,7 +45,11 @@ class SetupAccount extends Component
 
         $user->syncRolesWithoutDetaching(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
 
+        $user = PopulateAccountPreferences::run($user);
+
         $user = PopulateNotificationPreferences::run($user);
+
+        $user = PopulateUserModerations::run($user);
 
         UpdateApplicationReviewers::run(ApplicationReviewers::from(
             globalReviewers: [$user->id]

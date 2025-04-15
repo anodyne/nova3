@@ -22,7 +22,15 @@
                 <x-metadata label="Category" :value="$announcement->category"></x-metadata>
             @endif
 
-            <x-metadata label="Published" :value="DateHelper::formatDate($announcement->published_at)"></x-metadata>
+            <x-metadata label="Published">
+                <x-slot name="value">
+                    @if (filled($announcement->published_at))
+                        {{ DateHelper::formatDate($announcement->published_at) }}
+                    @else
+                        &ndash;
+                    @endif
+                </x-slot>
+            </x-metadata>
         </div>
 
         <div class="prose max-w-none dark:prose-invert">

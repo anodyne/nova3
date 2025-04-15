@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\RestoreAction as FilamentRestoreAction;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +22,7 @@ class RestoreAction extends FilamentRestoreAction
 
         $this->requiresConfirmation(false);
 
-        $this->modalWidth('lg');
+        $this->modalWidth(MaxWidth::Large);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

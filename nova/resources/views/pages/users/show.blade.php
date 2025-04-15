@@ -104,7 +104,7 @@
                     <x-spacing size="md" class="grid lg:grid-cols-2">
                         <x-panel.stat label="Published posts" :value="$user->published_posts_count"></x-panel.stat>
                         <x-panel.stat label="Last posted">
-                            {{ $user->latestPost->first()?->published_at?->diffForHumans() ?? '-' }}
+                            {!! $user->latestPost->first()?->published_at?->diffForHumans() ?? '&ndash;' !!}
                         </x-panel.stat>
                     </x-spacing>
 
@@ -133,7 +133,7 @@
                             {{ $user->created_at->diffForHumans() }}
                         </x-panel.stat>
                         <x-panel.stat label="Last signed in">
-                            {{ $user->latestLogin?->created_at->diffForHumans() ?? '-' }}
+                            {!! $user->latestLogin?->created_at->diffForHumans() ?? '&ndash;' !!}
                         </x-panel.stat>
                     </x-spacing>
                 </x-panel>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -11,6 +12,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -18,7 +20,9 @@ use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Stories\Actions\ApprovePost;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Actions\ForceUnlockPost;
 use Nova\Stories\Models\Post;
@@ -119,7 +123,25 @@ class PostsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Post $record): string => route('admin.posts.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                        Action::make('approve')
+                            ->authorize('approve')
+                            ->icon(iconName('check-circle'))
+                            ->modalContent(fn (Post $record, Action $action): View => view('pages.posts.approve', [
+                                'record' => $record,
+                                'action' => $action,
+                            ]))
+                            ->modalHeading('')
+                            ->modalWidth(MaxWidth::Large)
+                            ->modalSubmitActionLabel('Yes, approve it')
+                            ->action(function (Post $record): void {
+                                ApprovePost::run($record);
+
+                                Notification::make()->success()
+                                    ->title($record->title.' has been approved')
+                                    ->body('The post has been published and notifications have been sent.')
+                                    ->send();
+                            }),
+                    ])->authorizeAny(['view', 'update', 'approve'])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -160,7 +182,8 @@ class PostsList extends TableComponent
                     ->preload(),
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn (): array => Post::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all()),
+                    ->options(fn (): array => Post::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
+                    ->default(fn () => request()->query('status', [])),
                 TernaryFilter::make('published')
                     ->nullable()
                     ->attribute('published_at'),

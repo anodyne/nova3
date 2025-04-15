@@ -8,8 +8,8 @@
 
         <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
             <p>
-                If you’re planning to migrate an existing Nova 2 game, you’ll need to ensure that it’s running at least
-                Nova 2.7.13.
+                If you’re planning to migrate an existing Nova 2 game, you’ll need to ensure that the existing game is
+                running at least Nova 2.7.13.
             </p>
         </div>
     </div>

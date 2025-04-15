@@ -31,7 +31,11 @@ class MigrateNewsItem
                 'category' => $model->newscat_name,
                 'user_id' => $newUserId,
                 'content' => $model->news_content,
-                'published' => $model->news_status === 'activated',
+                'status' => match ($model->news_status) {
+                    'saved' => 'draft',
+                    'pending' => 'pending',
+                    default => 'published',
+                },
                 'published_at' => $date = $this->convertDate($model->news_date),
                 'created_at' => $created = $date ?? now('UTC'),
                 'updated_at' => $this->convertDate($model->news_last_update, $created),

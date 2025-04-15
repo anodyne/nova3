@@ -10,6 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Nova\Foundation\Environment\Database;
 use Nova\Setup\Enums\DatabaseConfigStatus;
 use Nova\Setup\Enums\SetupType;
 use Nova\Stories\Livewire\Concerns\InteractsWithRoute;
@@ -227,17 +228,19 @@ class ConfigureDatabase extends Component
 
     protected function verifyDatabaseVersionCompatibility(): void
     {
-        $pdo = DB::connection()->getPdo();
+        $database = new Database;
 
-        $this->status = DatabaseConfigStatus::Success;
-
-        if (version_compare('8.0', $this->getPdoVersion($pdo), '>')) {
+        if (! $database->passesVersion()) {
             $this->status = DatabaseConfigStatus::IncompatibleVersion;
         }
 
-        // if ($this->getPdoDriver($pdo) !== 'mysql') {
-        //     $this->status = DatabaseConfigStatus::IncompatibleDriver;
-        // }
+        if (! $database->passesDriver()) {
+            $this->status = DatabaseConfigStatus::IncompatibleDriver;
+        }
+
+        if ($database->passes()) {
+            $this->status = DatabaseConfigStatus::Success;
+        }
     }
 
     protected function getPdoVersion(PDO $pdo): ?string

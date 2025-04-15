@@ -25,7 +25,7 @@ class Role extends LaratrustRole implements Sortable
     use SortableTrait;
 
     protected $fillable = [
-        'name', 'display_name', 'description', 'is_default', 'order_column',
+        'name', 'display_name', 'description', 'is_default', 'order_column', 'is_locked',
     ];
 
     protected $casts = [

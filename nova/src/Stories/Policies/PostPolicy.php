@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 use Nova\Stories\Enums\PostEditTimeframe;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
+use Nova\Stories\Models\States\PostStatus\Pending;
 use Nova\Users\Models\User;
 
 class PostPolicy
@@ -113,6 +114,20 @@ class PostPolicy
     public function publish(User $user, Post $post): Response
     {
         return $this->canTakeActionOnDraftPost($user, $post, 'post.update');
+    }
+
+    public function approve(User $user, Post $post): Response
+    {
+        return $this->approveAny($user)->allowed() && $post->status->equals(Pending::class)
+            ? $this->allow()
+            : $this->deny();
+    }
+
+    public function approveAny(User $user): Response
+    {
+        return $user->isAbleTo('post.approve')
+            ? $this->allow()
+            : $this->deny();
     }
 
     private function canTakeActionOnDraftPost(User $user, Post $post, string $permission): Response

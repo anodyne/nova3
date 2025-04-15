@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Support\Enums\MaxWidth;
@@ -33,7 +34,17 @@ class BansList extends TableComponent
                 TextColumn::make('bannable')
                     ->label('Ban')
                     ->titleColumn()
-                    ->getStateUsing(fn (Ban $record): string => $record->bannable?->name ?? $record->ip)
+                    ->getStateUsing(function (Ban $record): string {
+                        if ($record->bannable) {
+                            return $record->bannable?->name;
+                        }
+
+                        if ($record->getMeta('email')) {
+                            return $record->getMeta('email');
+                        }
+
+                        return $record->ip;
+                    })
                     ->description(fn (Ban $record): ?string => $record->bannable?->email)
                     ->extraAttributes(['class' => 'tabular-nums']),
                 TextColumn::make('created_by.name')->label('Banned by'),
@@ -52,6 +63,13 @@ class BansList extends TableComponent
                             ->authorize('view')
                             ->slideOver()
                             ->modalWidth(MaxWidth::Large)
+                            ->modalIcon(iconName('hammer'))
+                            ->modalHeading('')
+                            ->modalDescription(null)
+                            ->modalContent(fn (Ban $record, ViewAction $action) => view('pages.bans.show', [
+                                'record' => $record,
+                                'action' => $action,
+                            ]))
                             ->infolist(function (Infolist $infolist): Infolist {
                                 return $infolist->schema([
                                     TextEntry::make('bannable.name')
@@ -68,6 +86,7 @@ class BansList extends TableComponent
                                         ->placeholder('No expiration')
                                         ->date(),
                                     TextEntry::make('comment')->label('Comments'),
+                                    KeyValueEntry::make('metas')->label('Metadata'),
                                 ]);
                             }),
                     ])->authorize('view')->divided(),

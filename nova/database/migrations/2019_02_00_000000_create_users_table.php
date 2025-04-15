@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->boolean('force_password_reset')->default(false);
             $table->dateTime('email_verified_at')->nullable();
             $table->json('preferences')->nullable();
+            $table->json('moderations')->nullable();
             $table->datetimes();
             $table->softDeletesDatetime();
         });

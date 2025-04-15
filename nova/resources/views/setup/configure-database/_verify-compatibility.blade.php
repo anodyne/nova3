@@ -16,8 +16,9 @@
 
             <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
                 <p>
-                    Your database server is running MySQL {{ $e->database->version }}, but Nova requires MySQL 8.0 or
-                    higher. Please contact your web host for assistance with fixing this issue.
+                    Your database server is running {{ $e->database->platform() }}, but Nova requires
+                    {{ $e->database->driverName() }} {{ $e->database->versionFor($e->database->driver) }}. Please
+                    contact your web host for assistance with fixing this issue.
                 </p>
             </div>
         @elseif ($status === DatabaseConfigStatus::IncompatibleDriver)
@@ -25,8 +26,8 @@
 
             <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
                 <p>
-                    Your database server is running {{ $e->database->driverName() }}, but Nova requires MySQL. Please
-                    contact your web host for assistance with fixing this issue.
+                    Your database server is running {{ $e->database->driverName() }}, but Nova requires MySQL, MariaDB,
+                    or PostgreSQL. Please contact your web host for assistance with fixing this issue.
                 </p>
             </div>
         @else

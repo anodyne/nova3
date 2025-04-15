@@ -1,4 +1,5 @@
 @use('Nova\Announcements\Models\Announcement')
+@use('Nova\Foundation\Enums\PublishStatus')
 
 <x-admin-layout>
     <x-spacing constrained>
@@ -33,20 +34,19 @@
                         </div>
                     </x-fieldset.field>
 
-                    <x-switch.group>
-                        <x-switch.field>
-                            <x-fieldset.label for="published">Published</x-fieldset.label>
-                            <x-fieldset.description>
-                                This announcement will be sent to all active users.
-                            </x-fieldset.description>
-
-                            <x-switch
-                                name="published"
-                                id="published"
-                                :value="old('published', $announcement->published)"
-                            ></x-switch>
-                        </x-switch.field>
-                    </x-switch.group>
+                    <x-fieldset.field label="Status" id="status" name="status" :error="$errors->first('status')">
+                        <x-select>
+                            <option value="">Choose a status</option>
+                            @foreach (PublishStatus::options(withPending: $announcement->status === PublishStatus::Pending) as $status)
+                                <option
+                                    value="{{ $status->value }}"
+                                    @selected($status->value === old('status', $announcement->status->value))
+                                >
+                                    {{ $status->getLabel() }}
+                                </option>
+                            @endforeach
+                        </x-select>
+                    </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>
 

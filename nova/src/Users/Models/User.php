@@ -30,6 +30,7 @@ use Nova\Foundation\Models\StatusHistory;
 use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Users\Data\PronounsData;
+use Nova\Users\Data\UserModerations;
 use Nova\Users\Data\UserPreferences;
 use Nova\Users\Events;
 use Nova\Users\Models\Builders\UserBuilder;
@@ -70,6 +71,7 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
     protected $casts = [
         'password' => 'hashed',
         'force_password_reset' => 'boolean',
+        'moderations' => UserModerations::class,
         'preferences' => UserPreferences::class,
         'pronouns' => PronounsData::class,
         'status' => UserStatus::class,
@@ -83,7 +85,7 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
 
     protected $fillable = [
         'name', 'email', 'password', 'force_password_reset', 'status',
-        'pronouns', 'preferences',
+        'pronouns', 'preferences', 'moderations',
     ];
 
     protected $hidden = [
@@ -203,6 +205,13 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
     {
         return new Attribute(
             get: fn (): bool => $this->status->equals(Inactive::class)
+        );
+    }
+
+    public function isModerated(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->moderations->isModerated(),
         );
     }
 

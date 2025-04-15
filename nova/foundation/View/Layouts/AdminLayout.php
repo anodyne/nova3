@@ -6,8 +6,10 @@ namespace Nova\Foundation\View\Layouts;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
+use Nova\Announcements\Models\Announcement;
 use Nova\Applications\Models\Application;
 use Nova\Pages\Models\Page;
+use Nova\Stories\Models\Post;
 
 class AdminLayout extends Component
 {
@@ -29,6 +31,26 @@ class AdminLayout extends Component
     public function pendingApplicationsCount(): int
     {
         return once(fn () => Application::pending()->count());
+    }
+
+    public function pendingApprovalsCount(): int
+    {
+        return once(function (): int {
+            /** @var \Nova\Users\Models\User $user */
+            $user = Auth::user();
+
+            $count = 0;
+
+            if ($user->can('approveAny', Announcement::class)) {
+                $count += Announcement::query()->pending()->count();
+            }
+
+            if ($user->can('approveAny', Post::class)) {
+                $count += Post::query()->pending()->count();
+            }
+
+            return $count;
+        });
     }
 
     public function unreadAnnouncementsCount(): int

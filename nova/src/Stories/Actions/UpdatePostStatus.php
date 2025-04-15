@@ -24,9 +24,24 @@ class UpdatePostStatus
     public function handle(Post $post, PostStatusData $data): Post
     {
         if ($data->status !== $post->status->name()) {
-            $post->status->transitionTo($this->statuses[$data->status]);
+            $post->status->transitionTo($this->setPostStatus(post: $post, data: $data));
         }
 
         return $post->refresh();
+    }
+
+    private function setPostStatus(Post $post, PostStatusData $data): string
+    {
+        $isPublishing = $data->status === 'published' && $data->status !== $post->status->name();
+
+        if (! $isPublishing) {
+            return $this->statuses[$data->status];
+        }
+
+        if ($isPublishing && $post->participatingUsers()->moderatedOn('posts')->count() === 0) {
+            return $this->statuses[$data->status];
+        }
+
+        return Pending::class;
     }
 }

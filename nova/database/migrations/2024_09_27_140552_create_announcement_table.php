@@ -17,14 +17,14 @@ return new class extends Migration
             $table->string('title');
             $table->string('category')->nullable();
             $table->longText('content');
-            $table->boolean('published')->default(false);
+            $table->string('status')->default('draft');
             $table->dateTime('published_at')->nullable();
             $table->datetimes();
 
-            $table->index(['published', 'category']);
-            $table->index(['published', 'published_at']);
+            $table->index(['status', 'category']);
+            $table->index(['status', 'published_at']);
             $table->index('category');
-            $table->index('published');
+            $table->index('status');
             $table->fullText('title');
         });
 

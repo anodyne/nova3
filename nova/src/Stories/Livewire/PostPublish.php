@@ -84,11 +84,18 @@ class PostPublish extends SlideOver
 
         $this->post->save();
 
-        UpdatePostStatus::run($this->post, PostStatusData::from('published'));
+        $post = UpdatePostStatus::run($this->post, PostStatusData::from('published'));
 
-        Notification::make()->success()
-            ->title('Post has been published')
-            ->send();
+        if ($post->status->equals(Published::class)) {
+            Notification::make()->success()
+                ->title('Post has been published')
+                ->send();
+        } else {
+            Notification::make()->warning()
+                ->title('Post has been sent for approval')
+                ->body('One or more authors have been marked for post moderation. This post will require approval before being published.')
+                ->send();
+        }
 
         $this->redirectRoute('admin.writing-overview');
     }
