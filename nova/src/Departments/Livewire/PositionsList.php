@@ -145,7 +145,7 @@ class PositionsList extends TableComponent
                                         name: data_get($data, 'name'),
                                         description: $position->description,
                                         available: $position->available,
-                                        tags: $position->tags,
+                                        tags: $position->tags ?? [],
                                         status: $position->status,
                                         department_id: data_get($data, 'department_id')
                                     )

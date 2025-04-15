@@ -133,7 +133,7 @@ class DepartmentsList extends TableComponent
                                     DepartmentData::from(
                                         name: data_get($data, 'name'),
                                         description: $department->description,
-                                        tags: $department->tags,
+                                        tags: $department->tags ?? [],
                                         status: $department->status
                                     )
                                 );
