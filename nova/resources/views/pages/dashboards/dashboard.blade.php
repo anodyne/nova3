@@ -166,8 +166,8 @@
             </div>
 
             <!-- Right column -->
-            <div class="grid grid-cols-1 gap-12">
-                <x-spacing width="2xs">
+            <div class="grid grid-cols-1 gap-12" data-tour="dashboard-writing-overview">
+                <x-spacing width="2xs" data-tour="dashboard-writing-level">
                     <div class="flex flex-col items-center gap-y-2">
                         <div class="relative">
                             <x-icon.gradient.laurel-wreath class="size-16"></x-icon.gradient.laurel-wreath>
@@ -209,7 +209,7 @@
                     </div>
                 </x-spacing>
 
-                <div class="space-y-8">
+                <div class="space-y-8" data-tour="dashboard-writing-stats">
                     <div class="flex items-center gap-x-2">
                         <x-icon name="chart-infographic" size="md" class="text-gray-500"></x-icon>
                         <x-h2>My Contributions</x-h2>
@@ -314,4 +314,9 @@
     </div>
 
     <x-tips section="dashboard" />
+
+    @push('scripts')
+        <script src="{{ asset('dist/js/tour.js') }}"></script>
+        <link href="{{ asset('dist/css/tour.css') }}" rel="stylesheet" />
+    @endpush
 </x-admin-layout>

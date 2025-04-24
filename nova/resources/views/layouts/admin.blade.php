@@ -152,7 +152,11 @@
                             </x-sidebar.section>
 
                             <x-sidebar.section>
-                                <x-sidebar.item type="button" x-on:click="$dispatch('toggle-search')">
+                                <x-sidebar.item
+                                    type="button"
+                                    x-on:click="$dispatch('toggle-search')"
+                                    data-tour="dashboard-search"
+                                >
                                     <x-icon name="search"></x-icon>
                                     <x-sidebar.label>Search</x-sidebar.label>
                                 </x-sidebar.item>
@@ -161,6 +165,7 @@
                                     <x-sidebar.item
                                         :href="route('admin.messages.index')"
                                         :active="request()->routeIs('admin.messages.*')"
+                                        data-tour="dashboard-messages"
                                     >
                                         <x-icon name="inbox"></x-icon>
                                         <x-sidebar.label>Messages</x-sidebar.label>
@@ -177,6 +182,7 @@
 
                                 <x-sidebar.item
                                     x-on:click="Livewire.dispatch('slide-over.open', {component: 'users-notifications'})"
+                                    data-tour="dashboard-notifications"
                                 >
                                     <x-icon name="bell"></x-icon>
                                     <x-sidebar.label>Notifications</x-sidebar.label>
@@ -231,6 +237,7 @@
                                 <x-sidebar.item
                                     :href="route('admin.dashboard')"
                                     :active="request()->routeIs('admin.dashboard')"
+                                    data-tour="dashboard"
                                 >
                                     <x-icon name="home" size="sm"></x-icon>
                                     <x-sidebar.label>Dashboard</x-sidebar.label>
@@ -240,6 +247,7 @@
                                     <x-sidebar.item
                                         :href="route('admin.writing-overview')"
                                         :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
+                                        data-tour="writing"
                                     >
                                         <x-icon name="write" size="sm"></x-icon>
                                         <x-sidebar.label>Write</x-sidebar.label>
@@ -271,6 +279,7 @@
                                 <x-sidebar.item
                                     :href="route('admin.characters.index')"
                                     :active="$meta->subnavSection === 'characters'"
+                                    data-tour="characters"
                                 >
                                     <x-icon name="characters" size="sm"></x-icon>
                                     <x-sidebar.label>Characters</x-sidebar.label>
@@ -280,6 +289,7 @@
                                     <x-sidebar.item
                                         :href="route('admin.users.index')"
                                         :active="$meta->subnavSection === 'users'"
+                                        data-tour="users"
                                     >
                                         <x-icon name="users" size="sm"></x-icon>
                                         <x-sidebar.label>Users</x-sidebar.label>
@@ -308,6 +318,7 @@
                                     <x-sidebar.item
                                         :href="route('admin.pages.index', ['pageType' => 0])"
                                         :active="request()->routeIs('admin.pages.*')"
+                                        data-tour="pages"
                                     >
                                         <x-icon name="www" size="sm"></x-icon>
                                         <x-sidebar.label>Pages</x-sidebar.label>
@@ -318,6 +329,7 @@
                                     <x-sidebar.item
                                         :href="route('admin.forms.index')"
                                         :active="$meta->subnavSection === 'forms'"
+                                        data-tour="forms"
                                     >
                                         <x-icon name="form"></x-icon>
                                         <x-sidebar.label>Forms</x-sidebar.label>
@@ -336,6 +348,7 @@
                                     <x-sidebar.item
                                         :href="route('admin.reporting.game-overview')"
                                         :active="$meta->subnavSection === 'reporting'"
+                                        data-tour="reporting"
                                     >
                                         <x-icon name="chart-dots"></x-icon>
                                         <x-sidebar.label>Reporting</x-sidebar.label>
@@ -346,6 +359,7 @@
                                     <x-sidebar.item
                                         :href="route('admin.settings.general.edit')"
                                         :active="$meta->subnavSection === 'settings'"
+                                        data-tour="settings"
                                     >
                                         <x-icon name="settings" size="sm"></x-icon>
                                         <x-sidebar.label>Settings</x-sidebar.label>
@@ -356,6 +370,7 @@
                                     <x-sidebar.item
                                         :href="route('admin.system-overview')"
                                         :active="$meta->subnavSection === 'system'"
+                                        data-tour="system"
                                     >
                                         <x-icon name="server" size="sm"></x-icon>
                                         <x-sidebar.label>System</x-sidebar.label>
@@ -441,7 +456,18 @@
                                     </x-spacing>
                                 </x-panel>
 
-                                <x-sidebar.item :href="external_content('discord')" target="_blank">
+                                @if (request()->routeIs('admin.dashboard'))
+                                    <x-sidebar.item onclick="window.TourManager.start('dashboard-tour')">
+                                        <x-icon name="directions" size="sm"></x-icon>
+                                        <x-sidebar.label>Take a tour</x-sidebar.label>
+                                    </x-sidebar.item>
+                                @endif
+
+                                <x-sidebar.item
+                                    :href="external_content('discord')"
+                                    target="_blank"
+                                    data-tour="dashboard-help"
+                                >
                                     <x-icon name="help" size="sm"></x-icon>
                                     <x-sidebar.label>Get help</x-sidebar.label>
                                     <x-slot name="trailing">

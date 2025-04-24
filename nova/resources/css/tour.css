@@ -1,0 +1,32 @@
+@import "../../../node_modules/shepherd.js/dist/css/shepherd.css";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.shepherd-element {
+    @apply rounded-xl bg-gray-100 p-0 shadow-xl ring-1 ring-gray-950/10;
+}
+.shepherd-content {
+}
+
+.shepherd-header {
+    @apply rounded-t-xl !bg-transparent !px-4 !py-3;
+}
+.shepherd-title {
+    @apply font-bold leading-7 tracking-tight text-gray-950;
+}
+.shepherd-cancel-icon {
+    font-size: 1.5em;
+}
+
+.shepherd-text {
+    @apply rounded-t-xl border-t border-gray-200 bg-white !px-4 !py-3 text-sm leading-6 text-gray-600;
+}
+
+.shepherd-footer {
+    @apply rounded-b-xl bg-white !px-4 !py-3;
+}
+.shepherd-button {
+    @apply !rounded-full !bg-gray-800 !px-4 text-sm font-medium !text-white hover:!bg-gray-700;
+}

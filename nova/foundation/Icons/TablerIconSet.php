@@ -75,6 +75,7 @@ class TablerIconSet extends IconSet
             'device-mobile' => 'tabler-device-mobile',
             'device-tablet' => 'tabler-device-tablet',
             'device' => 'tabler-devices',
+            'directions' => 'tabler-directions',
             'dismiss' => 'tabler-circle-x',
             'download' => 'tabler-cloud-download',
             'drag-handle' => 'tabler-grip-vertical',
