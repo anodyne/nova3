@@ -17,6 +17,7 @@
     <div
         @class([
             'absolute z-[2] h-2 rounded-full',
+            'ring-2 ring-white dark:ring-gray-950' => true,
             match ($color) {
                 'danger' => 'bg-danger-500',
                 'info' => 'bg-info-500',

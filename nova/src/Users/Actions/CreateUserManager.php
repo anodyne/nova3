@@ -9,6 +9,8 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
+use Nova\Onboarding\Actions\StartOnboarding;
+use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\StoreUserRequest;
 use Spatie\Activitylog\Facades\LogBatch;
@@ -43,6 +45,8 @@ class CreateUserManager
             UploadUserAvatar::run($user, $request->image_path);
 
             $this->createFormSubmission($user, $request->input('userBio', []));
+
+            StartOnboarding::run(OnboardingProcess::NewUser, $user);
 
             LogBatch::endBatch();
 

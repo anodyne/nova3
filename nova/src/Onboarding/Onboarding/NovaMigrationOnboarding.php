@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Nova\Onboarding\Onboarding;
+
+class NovaMigrationOnboarding implements OnboardingWizard
+{
+    public function steps(): array
+    {
+        return [
+            Steps\SetTimezone::class,
+        ];
+    }
+}

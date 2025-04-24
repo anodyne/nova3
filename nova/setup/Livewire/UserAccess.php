@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Nova\Onboarding\Actions\StartOnboarding;
+use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Setup\Enums\SetupType;
@@ -29,6 +31,10 @@ class UserAccess extends Component
             UpdateApplicationReviewers::run(ApplicationReviewers::from(
                 globalReviewers: [$user->id],
             ));
+
+            StartOnboarding::run(OnboardingProcess::NovaMigration, $user);
+
+            StartOnboarding::run(OnboardingProcess::NewUser, $user);
 
             Cache::put('migration_account_setup_complete', true, now()->addHour());
 

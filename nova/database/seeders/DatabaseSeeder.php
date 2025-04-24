@@ -10,8 +10,11 @@ use Nova\Addons\Actions\InstallAddon;
 use Nova\Addons\Models\Addon;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
+use Nova\Onboarding\Actions\StartOnboarding;
+use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Themes\Actions\InstallTheme;
 use Nova\Themes\Models\Theme;
+use Nova\Users\Models\User;
 use Symfony\Component\Finder\Finder;
 
 class DatabaseSeeder extends Seeder
@@ -45,6 +48,8 @@ class DatabaseSeeder extends Seeder
 
             ChangelogSeeder::class,
         ]);
+
+        StartOnboarding::run(OnboardingProcess::FreshInstall, User::find(1));
 
         activity()->enableLogging();
     }

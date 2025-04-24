@@ -17,6 +17,7 @@ use Nova\Forms\Models\Form;
 use Nova\Foundation\Models\SystemInfo;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Values\LatestVersion;
+use Nova\Onboarding\Actions\StartOnboarding;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
@@ -313,4 +314,10 @@ Route::get('migrate', function () {
 
 Route::get('tags', function () {
     dd(Position::query()->uniqueTags());
+});
+
+Route::get('onboarding', function () {
+    StartOnboarding::run('new-user', User::find(2));
+
+    return 'Done!';
 });

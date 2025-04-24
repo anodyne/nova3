@@ -46,6 +46,7 @@ return new class extends OneTimeOperation
             ['name' => 'View activity log', 'uri' => 'admin/activity-log/{activity}/show', 'key' => 'admin.activity-log.show', 'resource' => 'Nova\\Dashboards\\Controllers\\ActivityLogController@show', 'layout' => 'admin', 'heading' => 'Activity log detail'],
             ['name' => 'Error logs', 'uri' => 'admin/error-logs', 'key' => 'admin.error-logs.index', 'resource' => 'Nova\\Dashboards\\Controllers\\ErrorLogController', 'layout' => 'admin', 'heading' => 'Error logs'],
             ['name' => 'Pending approval dashboard', 'uri' => 'admin/pending-approval', 'key' => 'admin.pending-approval', 'resource' => 'Nova\\Dashboards\\Controllers\\PendingApprovalController', 'layout' => 'admin', 'heading' => 'Pending approval'],
+            ['name' => 'Onboarding overview', 'uri' => 'admin/onboarding', 'key' => 'admin.onboarding', 'resource' => 'Nova\\Onboarding\\Controllers\\OnboardingController', 'layout' => 'admin', 'heading' => 'Onboarding'],
 
             ['name' => 'List themes', 'uri' => 'admin/themes', 'key' => 'admin.themes.index', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@index', 'layout' => 'admin', 'heading' => 'Themes', 'subheading' => 'Personalize your public-facing site with a custom theme'],
             ['name' => 'View theme', 'uri' => 'admin/themes/{theme}/show', 'key' => 'admin.themes.show', 'resource' => 'Nova\\Themes\\Controllers\\ThemeController@show', 'layout' => 'admin', 'content_can_be_edited' => false],

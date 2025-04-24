@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\View\Layouts;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 use Nova\Announcements\Models\Announcement;
@@ -21,6 +22,11 @@ class AdminLayout extends Component
     {
         $this->page = request()->route()?->findPageFromRoute();
         $this->subnav = app('nova.meta')->subnavSection;
+    }
+
+    public function activeOnboardings(): Collection
+    {
+        return once(fn () => Auth::user()->activeOnboardings);
     }
 
     public function draftPostsNeedingAttentionCount(): int
