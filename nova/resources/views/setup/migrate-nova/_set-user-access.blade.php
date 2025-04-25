@@ -4,7 +4,7 @@
     </div>
 
     <div class="col-start-2">
-        <x-h4 class="leading-8">Set user access</x-h4>
+        <x-h4 class="leading-8">Set system administrator</x-h4>
     </div>
 
     <div class="col-start-3 ml-4 flex shrink-0 justify-end">

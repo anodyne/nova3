@@ -21,10 +21,16 @@ class UserAccess extends Component
 {
     public ?string $userId = null;
 
+    public ?string $password = null;
+
     public function setAccess()
     {
         if (filled($this->userId)) {
             $user = User::findOrFail($this->userId);
+
+            $user->password = bcrypt($this->password);
+            $user->force_password_reset = false;
+            $user->save();
 
             $user->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
 
