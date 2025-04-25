@@ -1,4 +1,5 @@
 @php
+    $ribbonColor ??= 'Sky';
     $color = constant('Nova\Foundation\Colors\Color::'.$ribbonColor);
 @endphp
 
@@ -86,11 +87,14 @@
                         </div>
                     @endif
                 </div>
-                <img
-                    src="{{ Storage::disk('media-pages')->url($image) }}"
-                    alt=""
-                    class="@xs:mt-10 @md:mt-16 @xl:mt-0 @xs:max-w-lg @xl:max-w-none aspect-[6/5] w-full rounded-2xl object-cover @4xl:row-span-2 @4xl:row-end-2 @4xl:mt-36"
-                />
+
+                @if (filled($image))
+                    <img
+                        src="{{ Storage::disk('media-pages')->url($image) }}"
+                        alt=""
+                        class="@xs:mt-10 @md:mt-16 @xl:mt-0 @xs:max-w-lg @xl:max-w-none aspect-[6/5] w-full rounded-2xl object-cover @4xl:row-span-2 @4xl:row-end-2 @4xl:mt-36"
+                    />
+                @endif
             </div>
         </x-public::block.wrapper>
     </div>
