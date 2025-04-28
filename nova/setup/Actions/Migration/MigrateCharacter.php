@@ -23,7 +23,7 @@ class MigrateCharacter
         $characterType = $this->getCharacterType($model->user, $model->charid);
 
         $newUserId = $this->getNewId(
-            id: $model->charid,
+            id: $model->user,
             collection: $users,
             upgradeKey: 'user'
         );
