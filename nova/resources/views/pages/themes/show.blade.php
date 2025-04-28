@@ -44,7 +44,7 @@
                 </x-fieldset.field-group>
             </x-fieldset>
 
-            @if (filled($theme->repository))
+            @if (filled($theme->repository->type) && filled($theme->repository->id))
                 <x-fieldset>
                     <x-panel variant="well">
                         <x-panel.header
@@ -68,6 +68,7 @@
                                     <x-text class="tabular-nums">{{ $theme->latest_version }}</x-text>
                                 </div>
                             </x-spacing>
+
                             <x-spacing size="row" class="group flex items-center justify-between">
                                 <div>
                                     <x-text>
