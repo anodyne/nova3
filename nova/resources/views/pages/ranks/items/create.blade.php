@@ -1,10 +1,15 @@
+@use('Illuminate\Support\Js')
 @use('Nova\Ranks\Models\RankGroup')
 @use('Nova\Ranks\Models\RankItem')
 @use('Nova\Ranks\Models\RankName')
 
 <x-admin-layout>
     <x-spacing
-        x-data="{ ...tabsList('base'), base: '{{ old('base_image') }}', overlay: '{{ old('overlay_image') }}' }"
+        x-data="{
+            ...tabsList('base'),
+            base: {{ Js::from(old('base_image')) }},
+            overlay: {{ Js::from(old('overlay_image')) }}
+        }"
         constrained
     >
         <x-page-header>

@@ -1,3 +1,4 @@
+@use('Illuminate\Support\Js')
 @use('Nova\Ranks\Models\RankGroup')
 @use('Nova\Ranks\Models\RankName')
 
@@ -5,8 +6,8 @@
     <x-spacing
         x-data="{
             ...tabsList('base'),
-            base: '{{ old('base_image', $item->base_image) }}',
-            overlay: '{{ old('overlay_image', $item->overlay_image) }}'
+            base: {{ Js::from(old('base_image', $item->base_image)) }},
+            overlay: {{ Js::from(old('overlay_image', $item->overlay_image)) }}
         }"
         constrained
     >
