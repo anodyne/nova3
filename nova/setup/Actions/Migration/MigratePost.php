@@ -18,7 +18,7 @@ class MigratePost
     use HandlesDates;
     use HandlesNewIds;
 
-    public function handle(object $model, int $postPostTypeId, ?Collection $missions): void
+    public function handle(object $model, int $postPostTypeId, ?Collection $missions, ?Collection $users): void
     {
         $newStoryId = $this->getNewId(
             id: $model->post_mission,
@@ -26,7 +26,13 @@ class MigratePost
             upgradeKey: 'mission'
         );
 
-        DB::transaction(function () use ($model, $postPostTypeId, $newStoryId) {
+        $lastSavedUserId = $this->getNewId(
+            id: $model->post_saved,
+            collection: $users,
+            upgradeKey: 'user'
+        );
+
+        DB::transaction(function () use ($model, $postPostTypeId, $newStoryId, $lastSavedUserId) {
             $postId = DB::table('posts')->insertGetId([
                 'title' => $model->post_title,
                 'location' => $model->post_location,
@@ -41,6 +47,7 @@ class MigratePost
                 'content' => $model->post_content,
                 'word_count' => str($model->post_content)->pipe('strip_tags')->wordCount(),
                 'published_at' => $date = $this->convertDate($model->post_date),
+                'last_update_by' => $lastSavedUserId,
                 'created_at' => $created = $date ?? now('UTC'),
                 'updated_at' => $this->convertDate($model->post_last_update, $created),
             ]);
@@ -77,7 +84,8 @@ class MigratePost
         $this->handle(
             model: $model,
             postPostTypeId: $postPostTypeId,
-            missions: null
+            missions: null,
+            users: null
         );
     }
 }
