@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="trash" title="Delete rank group?">
+<x-filament.modal-content :$action title="Delete rank group?">
     <p>
         Are you sure you want to delete the
         <strong class="font-semibold">{{ $record->name }}</strong>
