@@ -46,7 +46,7 @@ class MigratePost
                 },
                 'content' => $model->post_content,
                 'word_count' => str($model->post_content)->pipe('strip_tags')->wordCount(),
-                'published_at' => $date = $this->convertDate($model->post_date),
+                'published_at' => $date = $model->post_status === 'activated' ? $this->convertDate($model->post_date) : null,
                 'last_update_by' => $lastSavedUserId,
                 'created_at' => $created = $date ?? now('UTC'),
                 'updated_at' => $this->convertDate($model->post_last_update, $created),
