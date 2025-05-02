@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
+use Closure;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -59,17 +62,10 @@ class CharactersManifest extends Component
             return null;
         }
 
-        return Character::with('positions', 'rank.name')
-            ->when($this->characterStatus === 'all', fn ($query) => $query->notPending())
-            ->when($this->characterStatus === 'active', fn ($query) => $query->active())
-            ->when($this->characterStatus === 'inactive', fn ($query) => $query->inactive())
-            ->when($this->characterType === 'primary', fn ($query) => $query->primary())
-            ->when($this->characterType === 'secondary', fn ($query) => $query->secondary())
-            ->when($this->characterType === 'support', fn ($query) => $query->support())
-            ->when($this->characterType === 'primary-secondary', fn ($query) => $query->notSupport())
-            ->when($this->characterType === 'primary-support', fn ($query) => $query->notSecondary())
-            ->when($this->characterType === 'secondary-support', fn ($query) => $query->notPrimary())
-            ->get();
+        return tap(
+            Character::with('positions', 'rank.name'),
+            $this->filterCharacters()
+        )->get();
     }
 
     #[Computed]
@@ -81,34 +77,15 @@ class CharactersManifest extends Component
 
         return Department::query()
             ->with([
-                // 'positions' => fn ($query) => $query->whereHas('characters'),
-                'positions.characters.rank.name',
+                'positions' => fn ($q) => tap($q, $this->filterPositions())->with([
+                    'characters' => fn ($c) => tap($c, $this->filterCharacters())->with('rank.name'),
+                ]),
             ])
-            ->when($this->departmentStatus === 'active', fn ($dQuery) => $dQuery->active())
-            ->when($this->departmentStatus === 'inactive', fn ($dQuery) => $dQuery->inactive())
-            ->when($this->departmentStatus === 'choose', fn ($dQuery) => $dQuery->whereIn('id', $this->selectedDepartments))
-            ->when($this->departmentStatus === 'tags', fn ($dQuery) => $dQuery->hasTags($this->taggedDepartments))
-            ->whereHas('positions', function ($query) {
-                return $query
-                    ->when($this->positionStatus === 'active', fn ($pQuery) => $pQuery->active())
-                    ->when($this->positionStatus === 'inactive', fn ($pQuery) => $pQuery->inactive())
-                    ->when($this->positionStatus === 'choose', fn ($pQuery) => $pQuery->whereIn('id', $this->selectedPositions))
-                    ->when($this->positionStatus === 'tags', fn ($pQuery) => $pQuery->hasTags($this->taggedPositions))
-                    ->when($this->showCharacters === true && $this->showAvailablePositions === false, function ($query) {
-                        return $query->whereHas('characters', function ($query) {
-                            return $query
-                                ->when($this->characterStatus === 'all', fn ($cQuery) => $cQuery->notPending())
-                                ->when($this->characterStatus === 'active', fn ($cQuery) => $cQuery->active())
-                                ->when($this->characterStatus === 'inactive', fn ($cQuery) => $cQuery->inactive())
-                                ->when($this->characterType === 'primary', fn ($cQuery) => $cQuery->primary())
-                                ->when($this->characterType === 'secondary', fn ($cQuery) => $cQuery->secondary())
-                                ->when($this->characterType === 'support', fn ($cQuery) => $cQuery->support())
-                                ->when($this->characterType === 'primary-secondary', fn ($cQuery) => $cQuery->notSupport())
-                                ->when($this->characterType === 'primary-support', fn ($cQuery) => $cQuery->notSecondary())
-                                ->when($this->characterType === 'secondary-support', fn ($cQuery) => $cQuery->notPrimary());
-                        });
-                    });
-            })
+            ->when($this->departmentStatus === 'active', fn ($q) => $q->active())
+            ->when($this->departmentStatus === 'inactive', fn ($q) => $q->inactive())
+            ->when($this->departmentStatus === 'choose', fn ($q) => $q->whereIn('id', $this->selectedDepartments))
+            ->when($this->departmentStatus === 'tags', fn ($q) => $q->hasTags($this->taggedDepartments))
+            ->whereHas('positions', $this->filterPositions())
             ->ordered()
             ->get();
     }
@@ -120,7 +97,8 @@ class CharactersManifest extends Component
             return null;
         }
 
-        return Position::available()
+        return Position::query()
+            ->available()
             ->when($this->availablePositionsStatus === 'choose', fn ($q) => $q->whereIn('id', $this->selectedAvailablePositions))
             ->when($this->availablePositionsStatus === 'tags', fn ($q) => $q->hasTags($this->taggedAvailablePositions))
             ->ordered()
@@ -138,12 +116,42 @@ class CharactersManifest extends Component
             );
     }
 
-    public function render()
+    public function render(): View
     {
         return view('pages.pages.livewire.characters-manifest', [
             'characters' => $this->characters,
             'departments' => $this->departments,
             'positions' => $this->positions,
         ]);
+    }
+
+    public function filterPositions(): Closure
+    {
+        return function (Builder $query): Builder {
+            return $query
+                ->when($this->positionStatus === 'active', fn (Builder $q): Builder => $q->active())
+                ->when($this->positionStatus === 'inactive', fn (Builder $q): Builder => $q->inactive())
+                ->when($this->positionStatus === 'choose', fn (Builder $q): Builder => $q->whereIn('id', $this->selectedPositions))
+                ->when($this->positionStatus === 'tags', fn (Builder $q): Builder => $q->hasTags($this->taggedPositions))
+                ->when($this->showCharacters === true && $this->showAvailablePositions === false, function (Builder $q): Builder {
+                    return $q->whereHas('characters', $this->filterCharacters());
+                });
+        };
+    }
+
+    public function filterCharacters(): Closure
+    {
+        return function (Builder $query): Builder {
+            return $query
+                ->when($this->characterStatus === 'all', fn (Builder $q): Builder => $q->notPending())
+                ->when($this->characterStatus === 'active', fn (Builder $q): Builder => $q->active())
+                ->when($this->characterStatus === 'inactive', fn (Builder $q): Builder => $q->inactive())
+                ->when($this->characterType === 'primary', fn (Builder $q): Builder => $q->primary())
+                ->when($this->characterType === 'secondary', fn (Builder $q): Builder => $q->secondary())
+                ->when($this->characterType === 'support', fn (Builder $q): Builder => $q->support())
+                ->when($this->characterType === 'primary-secondary', fn (Builder $q): Builder => $q->notSupport())
+                ->when($this->characterType === 'primary-support', fn (Builder $q): Builder => $q->notSecondary())
+                ->when($this->characterType === 'secondary-support', fn (Builder $q): Builder => $q->notPrimary());
+        };
     }
 }

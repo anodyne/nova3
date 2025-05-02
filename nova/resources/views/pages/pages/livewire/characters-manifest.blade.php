@@ -8,7 +8,7 @@
                     <h2
                         class="font-[family-name:--font-header] text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                     >
-                        {{ $department->name }}
+                        {{ html_entity_decode($department->name) }}
                     </h2>
                 @endif
 
