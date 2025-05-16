@@ -23,6 +23,7 @@
         "@alpinejs/collapse": "^3.10",
         "@alpinejs/focus": "^3.10",
         "@awcodes/alpine-floating-ui": "^3.4",
+        "@floating-ui/dom": "^1.7.0",
         "@jaames/iro": "^5.5",
         "@nextapps-be/livewire-sortablejs": "^0.2",
         "@ryangjchandler/alpine-clipboard": "^2.2",
