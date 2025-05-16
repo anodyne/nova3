@@ -18,6 +18,7 @@
         @class([
             'absolute z-[2] h-2 rounded-full',
             'ring-2 ring-white dark:ring-gray-950' => true,
+            'w-2' => $percentage === 0,
             match ($color) {
                 'danger' => 'bg-danger-500',
                 'info' => 'bg-info-500',
@@ -26,6 +27,8 @@
                 default => 'bg-primary-500',
             },
         ])
-        style="width: {{ $percentage }}%"
+        @if ($percentage > 0)
+            style="width: {{ $percentage }}%"
+        @endif
     ></div>
 </div>
