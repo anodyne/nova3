@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Number;
 use Nova\Dashboards\Responses\DashboardResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Onboarding\Concerns\GetActiveOnboardingsForCurrentUser;
 use Nova\Settings\Enums\PostingTarget;
 use Nova\Users\Data\UserPostingReport;
 use Nova\Users\Models\User;
@@ -15,6 +16,8 @@ use Nova\Users\Reporting\PostingReporter;
 
 class DashboardController extends Controller
 {
+    use GetActiveOnboardingsForCurrentUser;
+
     protected User $user;
 
     public function __construct()
@@ -44,6 +47,7 @@ class DashboardController extends Controller
                 'lifetime' => $lifetime,
                 'currentActivityTimeframe' => $currentActivityTimeframe,
             ],
+            'activeOnboardings' => $this->getActiveOnboardingsForCurrentUser(sync: false),
         ]);
     }
 

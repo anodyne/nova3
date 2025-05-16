@@ -4,25 +4,29 @@ declare(strict_types=1);
 
 namespace Nova\Onboarding\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Foundation\Models\Model;
 use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Onboarding\Models\Builders\OnboardingBuilder;
+use Nova\Onboarding\Observers\OnboardingObserver;
 use Nova\Users\Models\User;
 
+#[ObservedBy([OnboardingObserver::class])]
 class Onboarding extends Model
 {
     protected $table = 'onboarding';
 
-    protected $fillable = ['name', 'key', 'description'];
+    protected $fillable = ['process', 'completed_at', 'user_id', 'steps'];
 
     protected $casts = [
-        'key' => OnboardingProcess::class,
+        'process' => OnboardingProcess::class,
+        'steps' => 'array',
     ];
 
-    public function users(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(User::class)->using(OnboardingUser::class);
+        return $this->belongsTo(User::class);
     }
 
     public function newEloquentBuilder($query): OnboardingBuilder

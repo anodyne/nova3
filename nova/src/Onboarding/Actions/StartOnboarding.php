@@ -15,10 +15,11 @@ class StartOnboarding
 
     public function handle(OnboardingProcess $process, User $user): Onboarding
     {
-        $process = Onboarding::query()->key($process)->first();
+        $model = Onboarding::create([
+            'process' => $process,
+            'user_id' => $user->id,
+        ]);
 
-        $process->users()->attach($user);
-
-        return $process;
+        return $model->fresh();
     }
 }

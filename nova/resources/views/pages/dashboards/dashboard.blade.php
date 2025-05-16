@@ -155,6 +155,47 @@
                     </x-panel>
                 </section>
 
+                <!-- Onboarding panel -->
+                @if ($activeOnboardings->count() > 0)
+                    @php($firstOnboarding = $activeOnboardings->first())
+
+                    <section
+                        class="group relative rounded-xl bg-gradient-to-b from-white via-white to-primary-50 ring-2 ring-inset ring-primary-500 transition hover:shadow-lg hover:shadow-primary-500/25 hover:ring-primary-400"
+                    >
+                        <div class="absolute left-4 top-0 -translate-y-1/2">
+                            <label
+                                class="rounded-lg bg-primary-500 px-2 py-1 text-sm/5 font-medium text-white ring-4 ring-white group-hover:bg-primary-400"
+                            >
+                                {{ $firstOnboarding->ctaLabel }}
+                            </label>
+                        </div>
+
+                        <x-spacing width="sm" height="md" class="space-y-4">
+                            <div class="divide-y divide-gray-950/5">
+                                @foreach ($activeOnboardings as $resource)
+                                    <div class="flex items-start justify-between gap-8 py-3">
+                                        <div>
+                                            <x-h4>{{ $resource->label }}</x-h4>
+                                            <x-text>{{ $resource->description }}</x-text>
+                                        </div>
+                                        <div class="flex w-1/4 items-center gap-2">
+                                            <x-progress
+                                                :percentage="$resource->percentComplete"
+                                                color="primary"
+                                            ></x-progress>
+                                            <div class="text-xs/5 font-medium tabular-nums">
+                                                {{ $resource->percentComplete }}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </x-spacing>
+
+                        <a href="{{ route('admin.onboarding') }}" class="absolute inset-0"></a>
+                    </section>
+                @endif
+
                 <div class="space-y-4">
                     <div>
                         <x-h2>Recently published posts</x-h2>

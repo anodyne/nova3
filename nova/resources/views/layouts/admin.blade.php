@@ -397,42 +397,6 @@
                             <x-sidebar.spacer></x-sidebar.spacer>
 
                             <x-sidebar.section>
-                                @if ($activeOnboardings()->count() > 0)
-                                    <x-panel class="mb-4 text-sm">
-                                        @foreach ($activeOnboardings() as $onboarding)
-                                            <x-spacing class="group relative" size="xs">
-                                                <a href="{{ route('admin.onboarding') }}" class="absolute inset-0"></a>
-
-                                                <div
-                                                    class="flex items-center justify-between text-gray-950 dark:text-white"
-                                                >
-                                                    <p class="font-semibold">{{ $onboarding->name }}</p>
-                                                    <span
-                                                        class="text-base font-medium leading-none text-gray-400 group-hover:text-gray-600 dark:text-gray-600 dark:group-hover:text-gray-400"
-                                                        aria-hidden="true"
-                                                    >
-                                                        &rarr;
-                                                    </span>
-                                                </div>
-
-                                                <div class="relative mt-3">
-                                                    <x-progress :percentage="70" color="primary"></x-progress>
-                                                </div>
-                                            </x-spacing>
-
-                                            @if (! $loop->last)
-                                                <x-spacing size="xs">
-                                                    <div class="relative">
-                                                        <div
-                                                            class="w-full border-t border-gray-950/5 dark:border-white/10"
-                                                        ></div>
-                                                    </div>
-                                                </x-spacing>
-                                            @endif
-                                        @endforeach
-                                    </x-panel>
-                                @endif
-
                                 @if (request()->routeIs('admin.dashboard'))
                                     <x-sidebar.item onclick="window.TourManager.start('dashboard-tour')">
                                         <x-icon name="directions" size="sm"></x-icon>

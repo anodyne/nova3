@@ -12,24 +12,16 @@ return new class extends Migration
     {
         Schema::create('onboarding', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('key')->unique();
-            $table->text('description')->nullable();
-            $table->text('onboarding_class');
-            $table->datetimes();
-        });
-
-        Schema::create('onboarding_user', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('onboarding_id');
-            $table->foreignId('user_id');
+            $table->string('process');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->dateTime('completed_at')->nullable();
+            $table->json('steps')->nullable();
+            $table->datetimes();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('onboarding_user');
         Schema::dropIfExists('onboarding');
     }
 };
