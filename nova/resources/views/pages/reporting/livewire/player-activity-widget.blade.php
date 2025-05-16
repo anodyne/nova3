@@ -8,7 +8,11 @@
 
     <x-panel>
         <x-spacing size="md" class="flex items-center justify-center gap-x-8">
-            <x-progress.circular :percentage="$stats->percentage()" class="size-20"></x-progress.circular>
+            <x-progress.circular
+                :percentage="$stats->percentage()"
+                size="2xl"
+                :show-percent="false"
+            ></x-progress.circular>
             <div>
                 <h2 class="shrink-0 text-6xl font-extrabold tabular-nums tracking-tight text-gray-950 dark:text-white">
                     {{ $stats->percentage() }}%
