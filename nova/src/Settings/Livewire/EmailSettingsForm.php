@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Settings\Livewire;
 
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Nova\Settings\Actions\UpdateEmail;
 use Nova\Settings\Actions\UpdateSettings;
@@ -18,9 +19,11 @@ class EmailSettingsForm extends Form
 
     public ?string $imagePath;
 
-    public ?string $fromAddress;
+    #[Validate('required')]
+    public string $fromAddress;
 
-    public ?string $fromName;
+    #[Validate('required')]
+    public string $fromName;
 
     public ?string $subjectPrefix;
 
@@ -58,6 +61,8 @@ class EmailSettingsForm extends Form
 
     public function save(): void
     {
+        $this->validate();
+
         DB::transaction(function () {
             UpdateSettings::run('email', $data = Email::from($this->all()));
 
