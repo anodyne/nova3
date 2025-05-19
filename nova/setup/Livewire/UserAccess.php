@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Nova\Onboarding\Actions\StartOnboarding;
+use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Setup\Enums\SetupType;
@@ -19,16 +21,26 @@ class UserAccess extends Component
 {
     public ?string $userId = null;
 
+    public ?string $password = null;
+
     public function setAccess()
     {
         if (filled($this->userId)) {
             $user = User::findOrFail($this->userId);
+
+            $user->password = bcrypt($this->password);
+            $user->force_password_reset = false;
+            $user->save();
 
             $user->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
 
             UpdateApplicationReviewers::run(ApplicationReviewers::from(
                 globalReviewers: [$user->id],
             ));
+
+            StartOnboarding::run(OnboardingProcess::NovaMigration, $user);
+
+            StartOnboarding::run(OnboardingProcess::NewUser, $user);
 
             Cache::put('migration_account_setup_complete', true, now()->addHour());
 

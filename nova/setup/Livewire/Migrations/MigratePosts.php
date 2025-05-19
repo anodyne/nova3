@@ -23,17 +23,19 @@ class MigratePosts extends MigrationStep
         ini_set('max_execution_time', 300);
 
         $missionMap = Upgrade::type('mission')->get();
+        $userMap = Upgrade::type('user')->get();
 
         $postPostTypeId = PostType::where('key', 'post')->first()->id;
 
         $this->query()
             ->whereNotIn('post_id', Upgrade::type('post')->pluck('old_id'))
-            ->chunkById(500, function (Collection $legacyPosts) use ($missionMap, $postPostTypeId) {
+            ->chunkById(500, function (Collection $legacyPosts) use ($missionMap, $userMap, $postPostTypeId) {
                 foreach ($legacyPosts as $legacyPost) {
                     MigratePost::run(
                         model: $legacyPost,
                         postPostTypeId: $postPostTypeId,
-                        missions: $missionMap
+                        missions: $missionMap,
+                        users: $userMap
                     );
                 }
             }, 'post_id');

@@ -23,6 +23,7 @@ return [
     Nova\Media\Providers\MediaServiceProvider::class,
     Nova\Menus\Providers\MenusServiceProvider::class,
     Nova\Notes\Providers\NotesServiceProvider::class,
+    Nova\Onboarding\Providers\OnboardingServiceProvider::class,
     Nova\Pages\Providers\PageServiceProvider::class,
     Nova\PublicSite\Providers\PublicSiteServiceProvider::class,
     Nova\Ranks\Providers\RankServiceProvider::class,

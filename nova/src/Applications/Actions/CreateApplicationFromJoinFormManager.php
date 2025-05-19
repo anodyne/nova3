@@ -17,6 +17,8 @@ use Nova\Characters\Models\Character;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
+use Nova\Onboarding\Actions\StartOnboarding;
+use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\PublicSite\Requests\StoreApplicationRequest;
 use Nova\Users\Actions\CreateUser;
 use Nova\Users\Actions\PopulateAccountPreferences;
@@ -90,6 +92,8 @@ class CreateApplicationFromJoinFormManager
             $user = PopulateUserModerations::run($user);
 
             $this->createFormSubmissionForUser($user, $request->input('userBio', []));
+
+            StartOnboarding::run(OnboardingProcess::NewUser, $user);
         }
 
         return $user;

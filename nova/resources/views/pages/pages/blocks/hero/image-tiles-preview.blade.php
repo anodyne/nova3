@@ -8,7 +8,7 @@
             <div
                 @class([
                     'nv-hero-content-wrapper pt-4',
-                    'mr-auto pr-4 ' => $orientation === 'right',
+                    'mr-auto pr-4 ' => $orientation === 'right' || blank($orientation),
                     'ml-auto pl-4' => $orientation === 'left',
                 ])
             >
@@ -73,79 +73,96 @@
             <div
                 @class([
                     'nv-hero-image-wrapper flex items-end',
-                    'order-last' => $orientation === 'right',
+                    'order-last' => $orientation === 'right' || blank($orientation),
                     'order-first justify-end' => $orientation === 'left',
                 ])
             >
                 <div class="nv-hero-image-ctn mt-0 flex justify-start gap-8">
-                    <div
-                        @class([
-                            'order-last w-44 flex-none space-y-8 pt-80',
-                            'order-none' => $orientation === 'right',
-                            'mr-0' => $orientation === 'left',
-                        ])
-                    >
-                        <div class="relative">
-                            <img
-                                src="{{ Storage::disk('media-pages')->url($images[0]['image']) }}"
-                                alt=""
-                                class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div
-                                class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                            ></div>
+                    @if (isset($images[0]))
+                        <div
+                            @class([
+                                'order-last w-44 flex-none space-y-8 pt-80',
+                                'order-none' => $orientation === 'right' || blank($orientation),
+                                'mr-0' => $orientation === 'left',
+                            ])
+                        >
+                            <div class="relative">
+                                <img
+                                    src="{{ Storage::disk('media-pages')->url($images[0]['image']) }}"
+                                    alt=""
+                                    class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                />
+                                <div
+                                    class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                                ></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="w-44 flex-none space-y-8 pt-36">
-                        <div class="relative">
-                            <img
-                                src="{{ Storage::disk('media-pages')->url($images[1]['image']) }}"
-                                alt=""
-                                class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div
-                                class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                            ></div>
-                        </div>
-                        <div class="relative">
-                            <img
-                                src="{{ Storage::disk('media-pages')->url($images[2]['image']) }}"
-                                alt=""
-                                class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div
-                                class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                            ></div>
-                        </div>
-                    </div>
+                    @endif
 
-                    <div
-                        @class([
-                            'w-44 flex-none space-y-8',
-                            'order-first' => $orientation === 'left',
-                        ])
-                    >
-                        <div class="relative">
-                            <img
-                                src="{{ Storage::disk('media-pages')->url($images[3]['image']) }}"
-                                alt=""
-                                class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div
-                                class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                            ></div>
+                    @if (isset($images[1]) || isset($images[2]))
+                        <div class="w-44 flex-none space-y-8 pt-36">
+                            @if (isset($images[1]))
+                                <div class="relative">
+                                    <img
+                                        src="{{ Storage::disk('media-pages')->url($images[1]['image']) }}"
+                                        alt=""
+                                        class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                    />
+                                    <div
+                                        class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                                    ></div>
+                                </div>
+                            @endif
+
+                            @if (isset($images[2]))
+                                <div class="relative">
+                                    <img
+                                        src="{{ Storage::disk('media-pages')->url($images[2]['image']) }}"
+                                        alt=""
+                                        class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                    />
+                                    <div
+                                        class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                                    ></div>
+                                </div>
+                            @endif
                         </div>
-                        <div class="relative">
-                            <img
-                                src="{{ Storage::disk('media-pages')->url($images[4]['image']) }}"
-                                alt=""
-                                class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div
-                                class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
-                            ></div>
+                    @endif
+
+                    @if (isset($images[3]) || isset($images[4]))
+                        <div
+                            @class([
+                                'w-44 flex-none space-y-8',
+                                'order-first' => $orientation === 'left',
+                            ])
+                        >
+                            @if (isset($images[3]))
+                                <div class="relative">
+                                    <img
+                                        src="{{ Storage::disk('media-pages')->url($images[3]['image']) }}"
+                                        alt=""
+                                        class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                    />
+                                    <div
+                                        class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                                    ></div>
+                                </div>
+                            @endif
+
+                            @if (isset($images[4]))
+                                <div class="relative">
+                                    <img
+                                        src="{{ Storage::disk('media-pages')->url($images[4]['image']) }}"
+                                        alt=""
+                                        class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                    />
+                                    <div
+                                        class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"
+                                    ></div>
+                                </div>
+                            @endif
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

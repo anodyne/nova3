@@ -91,6 +91,10 @@ class EnvWriter
 
     protected function formatValue(mixed $value): string
     {
+        if (is_null($value)) {
+            return '';
+        }
+
         if (is_bool($value)) {
             return $value ? 'true' : 'false';
         }

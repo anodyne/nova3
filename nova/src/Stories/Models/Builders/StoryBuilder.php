@@ -48,6 +48,11 @@ class StoryBuilder extends Builder
         return $this->whereState('status', Upcoming::class);
     }
 
+    public function exceptCompleted(): self
+    {
+        return $this->whereNotState('status', Completed::class);
+    }
+
     public function exceptUpcoming(): self
     {
         return $this->whereNotState('status', Upcoming::class);

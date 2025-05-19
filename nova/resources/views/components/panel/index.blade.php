@@ -3,13 +3,16 @@
     'noShadow' => false,
     'variant' => 'panel',
     'color' => 'gray',
+    'orientation' => 'vertical',
 ])
 
 <div
     data-slot="{{ $variant }}"
     {{
         $attributes->class([
-            'flex flex-col',
+            'flex',
+
+            'flex-col' => $orientation === 'vertical',
 
             // Panel
             'data-[slot=panel]:flex-1 data-[slot=panel]:rounded-xl data-[slot=panel]:bg-white data-[slot=panel]:ring-1 dark:data-[slot=panel]:bg-white/[.03]',

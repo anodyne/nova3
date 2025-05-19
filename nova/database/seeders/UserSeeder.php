@@ -8,6 +8,8 @@ use Illuminate\Database\Seeder;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Actions\TrackStatusUpdate;
+use Nova\Onboarding\Actions\StartOnboarding;
+use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Users\Models\User;
@@ -34,6 +36,7 @@ class UserSeeder extends Seeder
             globalReviewers: [$admin->id],
         ));
         CreateFormSubmission::run($form, $admin);
+        StartOnboarding::run(OnboardingProcess::NewUser, $admin);
 
         for ($i = 1; $i <= 15; $i++) {
             $activeUser = User::factory()
@@ -43,6 +46,7 @@ class UserSeeder extends Seeder
                 ]);
             $activeUser->addRoles(['active', 'writer']);
             CreateFormSubmission::run($form, $activeUser);
+            StartOnboarding::run(OnboardingProcess::NewUser, $activeUser);
         }
 
         $inactiveUser = User::factory()

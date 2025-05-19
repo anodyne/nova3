@@ -20,12 +20,18 @@ class MigrateForm
     use HandlesFormFields;
     use HandlesNewIds;
 
+    public int $jobTimeout = 300;
+
     public function handle(): void
     {
         DB::transaction(function () {
             $form = $this->getCharacterBioForm();
 
-            $form->submissions->each(fn ($submission) => $submission->responses->each->delete());
+            $form->submissions->each(function ($submission) {
+                $submission = $submission->loadMissing('responses');
+
+                $submission->responses->each->delete();
+            });
 
             $form->submissions()->delete();
 

@@ -14,12 +14,12 @@
                 <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
             @endcan
 
-            <x-button :href="route('preview-basic-page', $page->key)">
+            <x-button :href="route('preview-basic-page', $page->key)" target="_blank">
                 <x-icon name="www-preview" size="sm"></x-icon>
                 Preview page
             </x-button>
 
-            <x-button :href="url($page->uri)">
+            <x-button :href="url($page->uri)" target="_blank">
                 <x-icon name="www" size="sm"></x-icon>
                 Visit live page
             </x-button>

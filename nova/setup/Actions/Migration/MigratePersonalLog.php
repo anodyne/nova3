@@ -30,7 +30,7 @@ class MigratePersonalLog
                 },
                 'content' => $model->log_content,
                 'word_count' => str($model->log_content)->pipe('strip_tags')->wordCount(),
-                'published_at' => $date = $this->convertDate($model->log_date),
+                'published_at' => $date = $model->log_status === 'activated' ? $this->convertDate($model->log_date) : null,
                 'created_at' => $created = $date ?? now('UTC'),
                 'updated_at' => $this->convertDate($model->log_last_update, $created),
             ]);

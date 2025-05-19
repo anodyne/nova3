@@ -129,6 +129,7 @@ class TablerIconSet extends IconSet
             'login' => 'tabler-login',
             'logout' => 'tabler-logout',
             'mail' => 'tabler-mail',
+            'mail-settings' => 'tabler-mail-cog',
             'mature' => 'tabler-rating-18-plus',
             'megaphone' => 'tabler-speakerphone',
             'menu' => 'tabler-menu-2',

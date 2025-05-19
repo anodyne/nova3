@@ -7,7 +7,11 @@
                 @endcan
 
                 @can('update', $theme)
-                    <livewire:theme-settings :theme="$theme" :iconTrigger="false" />
+                    <x-button
+                        x-on:click="Livewire.dispatch('slide-over.open', {component: 'theme-settings', arguments: {'theme': '{{ $theme->location }}'}})"
+                    >
+                        Theme settings
+                    </x-button>
                 @endcan
             </x-slot>
         </x-page-header>

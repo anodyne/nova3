@@ -33,6 +33,7 @@ class MigrateNovaData extends Component
         Migrations\MigrateMissions::class,
         Migrations\MigratePosts::class,
         Migrations\MigratePersonalLogs::class,
+        Migrations\UpdatePostOrdering::class,
         Migrations\MigrateNewsItems::class,
         Migrations\MigratePrivateMessages::class,
         Migrations\MigrateSettings::class,

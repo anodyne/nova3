@@ -1,22 +1,34 @@
 @use('Nova\Settings\Enums\Mailer')
 
 <x-form action="" wire:submit="save">
+    @json($errors)
+
     <x-fieldset>
         <x-fieldset.field-group constrained>
             <x-fieldset.field label="Subject prefix" id="subject_prefix" name="subject_prefix">
-                <x-input.text wire:model.live="form.subjectPrefix" placeholder="[USS Nova]"></x-input.text>
+                <x-input.text wire:model.blur="form.subjectPrefix" placeholder="[USS Nova]"></x-input.text>
             </x-fieldset.field>
 
             <x-fieldset.field label="Reply to email address" id="reply_to" name="reply_to">
-                <x-input.text wire:model.live="form.replyTo" placeholder="reply-to-nova@example.com"></x-input.text>
+                <x-input.text wire:model.blur="form.replyTo" placeholder="reply-to-nova@example.com"></x-input.text>
             </x-fieldset.field>
 
-            <x-fieldset.field label="Global from email address" id="from_address" name="from_address">
-                <x-input.text wire:model.live="form.fromAddress"></x-input.text>
+            <x-fieldset.field
+                label="Global from email address"
+                id="from_address"
+                name="from_address"
+                :error="$errors->first('form.fromAddress')"
+            >
+                <x-input.text wire:model.blur="form.fromAddress"></x-input.text>
             </x-fieldset.field>
 
-            <x-fieldset.field label="Global from email name" id="from_name" name="from_name">
-                <x-input.text wire:model.live="form.fromName"></x-input.text>
+            <x-fieldset.field
+                label="Global from email name"
+                id="from_name"
+                name="from_name"
+                :error="$errors->first('form.fromName')"
+            >
+                <x-input.text wire:model.blur="form.fromName"></x-input.text>
             </x-fieldset.field>
         </x-fieldset.field-group>
     </x-fieldset>

@@ -10,6 +10,8 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
+use Nova\Onboarding\Actions\StartOnboarding;
+use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Setup\Enums\SetupType;
@@ -56,6 +58,10 @@ class SetupAccount extends Component
         ));
 
         CreateFormSubmission::run(Form::key('userBio')->first(), $user);
+
+        StartOnboarding::run(OnboardingProcess::FreshInstall, $user);
+
+        StartOnboarding::run(OnboardingProcess::NewUser, $user);
 
         $user->refresh();
 

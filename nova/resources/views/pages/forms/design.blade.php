@@ -14,7 +14,7 @@
                 <x-button :href="route('admin.forms.index')" plain>&larr; Back</x-button>
             @endcan
 
-            <x-button :href="route('admin.forms.preview', $form)">
+            <x-button :href="route('admin.forms.preview', $form)" target="_blank">
                 <x-icon name="form-preview" size="sm"></x-icon>
                 Preview form
             </x-button>
