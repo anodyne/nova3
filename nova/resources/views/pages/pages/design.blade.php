@@ -33,12 +33,20 @@
             description="The preview below is not intended to be a high fidelity representation of your page. Once you save your page, you will be able to preview it in the browser."
         ></x-panel.primary>
 
-        @if ($page->updated_at->gt($page->published_at))
+        @if (is_null($page->published_at))
             <x-panel.warning
                 title="Unpublished changes"
                 icon="progress"
-                description="Your page block(s) have been saved since you last published them. Nova only shows published page blocks, so to ensure users are seeing the page with your latest changes, please publish your page."
+                description="Your page blocks have not been published yet. Nova only shows published page blocks, so to ensure users are seeing the page with your latest changes, please publish your page."
             ></x-panel.warning>
+        @else
+            @if ($page->updated_at->gt($page->published_at))
+                <x-panel.warning
+                    title="Unpublished changes"
+                    icon="progress"
+                    description="Your page block(s) have been saved since you last published them. Nova only shows published page blocks, so to ensure users are seeing the page with your latest changes, please publish your page."
+                ></x-panel.warning>
+            @endif
         @endif
     </div>
 

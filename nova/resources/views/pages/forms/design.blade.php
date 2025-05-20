@@ -28,12 +28,20 @@
             description="The preview below is not intended to be a high fidelity representation of your form. Once you save your form, you will be able to preview it in the browser."
         ></x-panel.primary>
 
-        @if ($form->updated_at->gt($form->published_at))
+        @if (is_null($form->published_at))
             <x-panel.warning
                 title="Unpublished changes"
                 icon="progress"
-                description="Your form field(s) have been saved since you last published them. Nova only shows published form fields to users, so to ensure users are using the form with your latest changes, please publish your form."
+                description="Your form field(s) have not been published yet. Nova only shows published form fields to users, so to ensure users are using the form with your latest changes, please publish your form."
             ></x-panel.warning>
+        @else
+            @if ($form->updated_at->gt($form->published_at))
+                <x-panel.warning
+                    title="Unpublished changes"
+                    icon="progress"
+                    description="Your form field(s) have been saved since you last published them. Nova only shows published form fields to users, so to ensure users are using the form with your latest changes, please publish your form."
+                ></x-panel.warning>
+            @endif
         @endif
     </div>
 
