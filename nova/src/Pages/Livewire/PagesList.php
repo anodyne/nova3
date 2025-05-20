@@ -151,7 +151,9 @@ class PagesList extends TableComponent
                                     key: data_get($data, 'key'),
                                     uri: data_get($data, 'uri'),
                                     verb: $record->verb,
-                                    resource: $record->resource
+                                    resource: $record->resource,
+                                    layout: $record->layout,
+                                    status: BasicStatus::Active,
                                 );
 
                                 $replica = DuplicatePage::run($record, $pageData);
