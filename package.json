@@ -41,7 +41,7 @@
         "countable": "^3.0",
         "cross-env": "^7.0",
         "date-fns": "^3.2",
-        "esbuild": "^0.15",
+        "esbuild": "^0.25",
         "hex-to-rgba": "^2.0",
         "lodash": "^4.17",
         "numeral": "^2.0",
