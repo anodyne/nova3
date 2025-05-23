@@ -139,6 +139,7 @@ return new class extends OneTimeOperation
             ['name' => 'Store character', 'uri' => 'admin/characters', 'key' => 'admin.characters.store', 'verb' => PageVerb::Post, 'resource' => 'Nova\\Characters\\Controllers\\CharacterController@store', 'layout' => 'admin'],
             ['name' => 'Edit character', 'uri' => 'admin/characters/{character}/edit', 'key' => 'admin.characters.edit', 'resource' => 'Nova\\Characters\\Controllers\\CharacterController@edit', 'layout' => 'admin', 'heading' => 'Edit character'],
             ['name' => 'Update character', 'uri' => 'admin/characters/{character}', 'key' => 'admin.characters.update', 'verb' => PageVerb::Put, 'resource' => 'Nova\\Characters\\Controllers\\CharacterController@update', 'layout' => 'admin'],
+            ['name' => 'Migrate character ranks', 'uri' => 'admin/characters/migrate-ranks', 'key' => 'admin.characters.migrate-ranks', 'resource' => 'Nova\\Characters\\Controllers\\MigrateCharacterRanksController', 'layout' => 'admin', 'heading' => 'Migrate character ranks'],
 
             ['name' => 'List post types', 'uri' => 'admin/post-types', 'key' => 'admin.post-types.index', 'resource' => 'Nova\\Stories\\Controllers\\PostTypeController@index', 'layout' => 'admin', 'heading' => 'Post types', 'subheading' => 'Control the content users can post into stories'],
             ['name' => 'View post type', 'uri' => 'admin/post-types/{postType}/show', 'key' => 'admin.post-types.show', 'resource' => 'Nova\\Stories\\Controllers\\PostTypeController@show', 'layout' => 'admin', 'heading' => 'View post type'],

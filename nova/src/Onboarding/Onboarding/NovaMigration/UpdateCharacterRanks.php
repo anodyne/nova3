@@ -6,11 +6,11 @@ namespace Nova\Onboarding\Onboarding\NovaMigration;
 
 use Nova\Onboarding\Onboarding\OnboardingChecklistStep;
 
-class UpdateCharacterInfo extends OnboardingChecklistStep
+class UpdateCharacterRanks extends OnboardingChecklistStep
 {
     public function label(): string
     {
-        return 'Update character information';
+        return 'Update character ranks';
     }
 
     public function description(): ?string
@@ -20,6 +20,6 @@ class UpdateCharacterInfo extends OnboardingChecklistStep
 
     public function linkUrl(): ?string
     {
-        return route('admin.characters.index');
+        return route('admin.characters.migrate-ranks');
     }
 }

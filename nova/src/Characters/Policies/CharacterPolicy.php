@@ -74,6 +74,13 @@ class CharacterPolicy
             : $this->deny();
     }
 
+    public function updateAny(User $user): Response
+    {
+        return $user->isAbleTo('character.update')
+            ? $this->allow()
+            : $this->deny();
+    }
+
     public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('character.delete')

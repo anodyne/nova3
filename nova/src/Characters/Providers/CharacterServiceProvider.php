@@ -10,6 +10,7 @@ use Nova\Characters\Livewire\DeactivateCharacterButton;
 use Nova\Characters\Livewire\ManageOwnership;
 use Nova\Characters\Livewire\ManagePositions;
 use Nova\Characters\Livewire\ManageUsers;
+use Nova\Characters\Livewire\MigrateCharacterRanks;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Spotlight\AddCharacter;
 use Nova\Characters\Spotlight\EditCharacter;
@@ -25,6 +26,7 @@ class CharacterServiceProvider extends DomainServiceProvider
             'characters-manage-ownership' => ManageOwnership::class,
             'characters-manage-positions' => ManagePositions::class,
             'characters-manage-users' => ManageUsers::class,
+            'characters-migrate-ranks' => MigrateCharacterRanks::class,
             'characters-activate-button' => ActivateCharacterButton::class,
             'characters-deactivate-button' => DeactivateCharacterButton::class,
         ];
