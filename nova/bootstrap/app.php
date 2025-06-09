@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 use Nova\Foundation\Actions\OptimizeOrRepairDatabase;
 use Nova\Foundation\Application;
 use Nova\Foundation\Http\Middleware\CheckAddonAndThemeVersions;
@@ -53,6 +55,12 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
         //     'user' => $user ? $user->name.':'.$user->id : null,
         //     'url' => $request->method().':'.$request->fullUrl(),
         // ]);
+
+        // $exceptions->map(function (TokenMismatchException $e) {
+        //     return ValidationException::withMessages([
+        //         'global' => 'Your session has expired. Please try again.',
+        //     ]);
+        // });
     })
     ->withCommands([
         OptimizeOrRepairDatabase::class,

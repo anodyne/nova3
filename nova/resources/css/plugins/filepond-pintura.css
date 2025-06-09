@@ -1,0 +1,11 @@
+@import "../../../../node_modules/@pqina/pintura/pintura.css";
+
+.filepond--root {
+    @apply rounded-lg shadow ring-gray-950/10 dark:ring-white/10;
+}
+.filepond--drop-label {
+    @apply text-gray-500 dark:text-gray-400;
+}
+.filepond--label-action {
+    @apply text-primary-500 hover:text-primary-600 dark:hover:text-primary-400;
+}

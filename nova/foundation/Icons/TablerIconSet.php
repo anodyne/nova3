@@ -112,6 +112,7 @@ class TablerIconSet extends IconSet
             'image' => 'tabler-photo',
             'image-add' => 'tabler-photo-plus',
             'image-alert' => 'tabler-photo-exclamation',
+            'image-edit' => 'tabler-photo-edit',
             'inbox' => 'tabler-inbox',
             'info' => 'tabler-info-circle',
             'info-circle' => 'tabler-info-circle',

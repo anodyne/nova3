@@ -48,7 +48,7 @@ class RankItemsDropdown extends Component
         if ($rank) {
             $this->selected = RankItem::find($rank);
 
-            $this->selectRankGroup($this->selected->group_id);
+            $this->selectRankGroup($this->selected?->group_id);
         }
     }
 

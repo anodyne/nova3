@@ -92,7 +92,6 @@
                                     <option value="male">He/Him</option>
                                     <option value="female">She/Her</option>
                                     <option value="neutral">They/Them</option>
-                                    <option value="neo">Ze/Zir</option>
                                     <option value="other">Other pronouns not listed (please specify)</option>
                                 </x-select>
                             </x-fieldset.field>

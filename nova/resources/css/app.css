@@ -13,6 +13,7 @@
 
 @import "plugins/tagify.css";
 @import "plugins/tippy.css";
+@import "plugins/filepond.css";
 
 @import "tailwindcss/utilities";
 

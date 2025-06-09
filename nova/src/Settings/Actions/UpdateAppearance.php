@@ -15,13 +15,20 @@ class UpdateAppearance
 
     public function handle(Appearance $data, Request $request): Settings
     {
-        if ($data->imagePath !== null) {
+        if (is_null($data->imagePath)) {
+            settings()->clearMediaCollection('logo');
+
+            activity()
+                ->performedOn(settings())
+                ->event('removed logo')
+                ->log('removed logo');
+        } else {
             settings()->addMedia($data->imagePath)->toMediaCollection('logo');
 
             activity()
                 ->performedOn(settings())
-                ->event('uploaded image')
-                ->log('uploaded image');
+                ->event('uploaded logo')
+                ->log('uploaded logo');
         }
 
         return settings()->refresh();

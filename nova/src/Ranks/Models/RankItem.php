@@ -31,6 +31,8 @@ class RankItem extends Model implements Sortable
     protected $with = ['name'];
 
     protected $casts = [
+        'group_id' => 'integer',
+        'name_id' => 'integer',
         'order_column' => 'integer',
         'status' => BasicStatus::class,
     ];

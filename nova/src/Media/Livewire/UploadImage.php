@@ -35,21 +35,9 @@ class UploadImage extends Component
 
     protected string $filename = 'livewire.media.upload-image';
 
-    #[Computed]
-    public function hasImage(): bool
-    {
-        return filled($this->image) || filled($this->existingImage);
-    }
-
-    #[Computed]
-    public function path(): ?string
-    {
-        return $this->image?->getRealPath();
-    }
-
     public function updatedImage($value)
     {
-        $this->dispatch('mediaUploaded', path: $this->path);
+        $this->dispatch('mediaUploaded', path: $this->image?->temporaryUrl());
     }
 
     public function removeImage(): void
@@ -75,5 +63,17 @@ class UploadImage extends Component
             'hasImage' => $this->hasImage,
             'path' => $this->path,
         ]);
+    }
+
+    #[Computed]
+    public function hasImage(): bool
+    {
+        return filled($this->image) || filled($this->existingImage);
+    }
+
+    #[Computed]
+    public function path(): ?string
+    {
+        return $this->image?->getRealPath();
     }
 }

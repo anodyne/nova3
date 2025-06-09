@@ -13,13 +13,20 @@ class UploadDepartmentHeaderImage
 
     public function handle(Department $department, $imagePath): Department
     {
-        if ($imagePath !== null) {
+        if (is_null($imagePath)) {
+            $department->clearMediaCollection('header');
+
+            activity()
+                ->performedOn($department)
+                ->event('removed header image')
+                ->log('removed header image');
+        } else {
             $department->addMedia($imagePath)->toMediaCollection('header');
 
             activity()
                 ->performedOn($department)
-                ->event('uploaded')
-                ->log('uploaded');
+                ->event('uploaded header image')
+                ->log('uploaded header image');
         }
 
         return $department->refresh();
