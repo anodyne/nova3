@@ -24,15 +24,17 @@
                 ])
             />
         @else
-            <img
-                src="{{ Nova::getAvatarUrl('nova3') }}"
-                alt="generated user photo"
+            <div
                 @class([
-                    'h-16 w-16 object-cover',
+                    'flex h-16 w-16 items-center justify-center bg-gray-950/5 object-cover ring-1 ring-inset ring-gray-950/5 dark:bg-white/5 dark:ring-white/5',
                     'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
                     'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
                 ])
-            />
+            >
+                <div class="text-gray-500 dark:text-gray-400">
+                    <x-icon name="user" size="2xl"></x-icon>
+                </div>
+            </div>
         @endif
     @endif
 
@@ -54,15 +56,6 @@
                     <span>Change</span>
                     <span class="sr-only">user photo</span>
                 </label>
-
-                @if (blank($existingImage))
-                    <div
-                        class="relative z-10 ml-4 text-gray-500"
-                        x-tooltip.delay.250.raw="This is a unique generated avatar for your account"
-                    >
-                        <x-icon name="info" size="sm"></x-icon>
-                    </div>
-                @endif
             </div>
 
             @if ($hasImage)
