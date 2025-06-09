@@ -33,8 +33,6 @@ class UpdateUserManager
 
             UploadUserAvatar::run($user, $request->image_path);
 
-            RemoveUserAvatar::run($user, $request->boolean('remove_existing_image', false));
-
             $this->updateFormSubmission($user, $request->input('userBio', []));
 
             LogBatch::endBatch();
