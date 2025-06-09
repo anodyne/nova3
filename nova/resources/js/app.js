@@ -5,6 +5,7 @@ import Clipboard from '@ryangjchandler/alpine-clipboard';
 import ColorPicker from './components/color-picker';
 import DatePicker from './components/date-picker';
 import DateFormatPicker from './components/date-format-picker';
+import registerFilepond from './components/filepond';
 import Modal from './components/modal';
 import Ratings from './components/ratings';
 import TabsList from './components/tabs-list';
@@ -26,6 +27,8 @@ document.addEventListener('alpine:init', () => {
     window.Alpine.data('wordCount', WordCount);
 
     window.Alpine.plugin(Clipboard);
+
+    registerFilepond();
 });
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
