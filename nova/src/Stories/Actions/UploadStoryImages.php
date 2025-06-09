@@ -13,13 +13,20 @@ class UploadStoryImages
 
     public function handle(Story $story, $imagePath): Story
     {
-        if ($imagePath !== null) {
+        if (is_null($imagePath)) {
+            $story->clearMediaCollection('story-image');
+
+            activity()
+                ->performedOn($story)
+                ->event('removed story image')
+                ->log('removed story image');
+        } else {
             $story->addMedia($imagePath)->toMediaCollection('story-image');
 
             activity()
                 ->performedOn($story)
-                ->event('uploaded-image')
-                ->log('uploaded-image');
+                ->event('uploaded story image')
+                ->log('uploaded story image');
         }
 
         return $story->refresh();

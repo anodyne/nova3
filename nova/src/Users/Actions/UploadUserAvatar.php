@@ -13,7 +13,14 @@ class UploadUserAvatar
 
     public function handle(User $user, ?string $path = null): User
     {
-        if (filled($path)) {
+        if (is_null($path)) {
+            settings()->clearMediaCollection('avatar');
+
+            activity()
+                ->performedOn($user)
+                ->event('removed avatar')
+                ->log('removed avatar');
+        } else {
             $user->addMedia($path)->toMediaCollection('avatar');
 
             activity()
