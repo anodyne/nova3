@@ -14,10 +14,9 @@
             <x-fieldset.field label="Pronouns" id="pronouns" name="pronouns" :error="$errors->first('pronouns.value')">
                 <x-select class="w-auto" wire:model.live="form.pronouns">
                     <option value="none">Prefer not to share</option>
-                    <option value="male">He/Him/His</option>
-                    <option value="female">She/Her/Hers</option>
-                    <option value="neutral">They/Them/Theirs</option>
-                    <option value="neo">Ze/Zir/Zirs</option>
+                    <option value="male">He/Him</option>
+                    <option value="female">She/Her</option>
+                    <option value="neutral">They/Them</option>
                     <option value="other">Other pronouns not listed (please specify)</option>
                 </x-select>
             </x-fieldset.field>
