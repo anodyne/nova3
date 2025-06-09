@@ -832,26 +832,11 @@
                         class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-950 dark:lg:ring-white/10"
                     >
                         <div class="relative z-[2] mx-auto max-w-6xl">
-                            {{--
-                                @if (app('impersonate')->isImpersonating())
-                                <div
-                                class="relative -mx-6 -mt-6 mb-6 bg-[repeating-linear-gradient(-45deg,white,white_6px,theme(colors.warning.400/40%)_6px,theme(colors.warning.400/40%)_12px)] lg:-mx-10 lg:-mt-10 lg:rounded-t-lg"
-                                >
-                                <div class="absolute h-full w-full bg-gradient-to-t from-white from-10%"></div>
-                                
-                                <div class="relative flex items-center gap-x-6 p-4">
-                                <div class="flex-1 font-medium text-warning-800">
-                                You are impersonating {{ auth()->user()->name }}.
+                            @if ($errors->has('global'))
+                                <div class="mb-8">
+                                    <x-panel.danger :title="$errors->first('global')" icon="alert"></x-panel.danger>
                                 </div>
-                                <div>
-                                <x-button :href="route('impersonate.leave')" size="sm">
-                                End impersonation
-                                </x-button>
-                                </div>
-                                </div>
-                                </div>
-                                @endif
-                            --}}
+                            @endif
 
                             {{ $slot }}
                         </div>
