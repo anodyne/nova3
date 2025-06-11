@@ -1,10 +1,11 @@
+@use('Illuminate\Support\Facades\Storage')
 @use('Nova\Foundation\Nova')
 @use('Nova\Settings\Enums\AvatarShape')
 
 <div data-slot="control" class="isolate flex items-center gap-x-4">
     @if (filled($image))
         <img
-            src="{{ $image->temporaryUrl() }}"
+            src="{{ $previewUrl }}"
             alt="user photo"
             @class([
                 'h-16 w-16 object-cover',
@@ -53,8 +54,15 @@
                     for="user-photo"
                     class="pointer-events-none block rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 peer-hover:bg-slate-50 peer-focus:ring-2 peer-focus:ring-primary-600 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:peer-hover:bg-white/10"
                 >
-                    <span>Change</span>
-                    <span class="sr-only">user photo</span>
+                    <div class="flex items-center gap-x-2">
+                        <div>
+                            <span>Change</span>
+                            <span class="sr-only">user photo</span>
+                        </div>
+                        <div wire:loading wire:target="image">
+                            <flux:icon.loading class="size-4" />
+                        </div>
+                    </div>
                 </label>
             </div>
 
