@@ -12,7 +12,7 @@
     $message = str($prompt['message'])->markdown();
 @endphp
 
-<x-panel variant="well" class="flex h-full flex-col">
+<x-panel variant="well" class="flex h-full flex-col" {{ $attributes }}>
     <x-panel class="flex-1">
         <x-spacing size="md">
             <div class="flex flex-col gap-6">
