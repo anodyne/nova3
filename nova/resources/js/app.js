@@ -3,6 +3,7 @@ import '../../../vendor/wire-elements/pro/resources/js/overlay-component';
 
 import Clipboard from '@ryangjchandler/alpine-clipboard';
 import ColorPicker from './components/color-picker';
+import Cropper from './components/cropper';
 import DatePicker from './components/date-picker';
 import DateFormatPicker from './components/date-format-picker';
 import registerFilepond from './components/filepond';
@@ -16,6 +17,7 @@ import WordCount from './components/word-count';
 
 document.addEventListener('alpine:init', () => {
     window.Alpine.data('colorPicker', ColorPicker);
+    window.Alpine.data('cropper', Cropper);
     window.Alpine.data('datePicker', DatePicker);
     window.Alpine.data('dateFormatPicker', DateFormatPicker);
     window.Alpine.data('modal', Modal);

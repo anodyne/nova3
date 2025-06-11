@@ -116,7 +116,9 @@
                                 </x-fieldset.field>
                             </div>
 
-                            <livewire:media-upload-avatar :model="$user" />
+                            <x-fieldset.field label="User photo" id="avatar" name="avatar">
+                                <livewire:media-upload-avatar :model="$user" />
+                            </x-fieldset.field>
                         </x-fieldset.field-group>
                     </x-fieldset>
 

@@ -62,6 +62,7 @@ class UploadImage extends Component
         return view($this->filename, [
             'hasImage' => $this->hasImage,
             'path' => $this->path,
+            'previewUrl' => method_exists($this, 'previewUrl') ? $this->previewUrl : null,
         ]);
     }
 

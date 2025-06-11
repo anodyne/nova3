@@ -14,7 +14,7 @@ class UploadUserAvatar
     public function handle(User $user, ?string $path = null): User
     {
         if (is_null($path)) {
-            settings()->clearMediaCollection('avatar');
+            $user->clearMediaCollection('avatar');
 
             activity()
                 ->performedOn($user)

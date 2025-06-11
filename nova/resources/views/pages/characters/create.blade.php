@@ -50,7 +50,7 @@
                             <livewire:rank-items-dropdown :rank="old('rank_id')" />
                         </x-fieldset.field>
 
-                        <x-fieldset.field label="Avatar" id="avatar" name="avatar">
+                        <x-fieldset.field label="Character photo" id="avatar" name="avatar">
                             <livewire:media-upload-avatar />
                         </x-fieldset.field>
                     </x-fieldset.field-group>

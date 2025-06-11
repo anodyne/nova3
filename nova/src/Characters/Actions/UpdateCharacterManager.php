@@ -57,8 +57,6 @@ class UpdateCharacterManager
 
             UploadCharacterAvatar::run($character, $request->image_path);
 
-            RemoveCharacterAvatar::run($character, $request->boolean('remove_existing_image', false));
-
             $this->updateFormSubmission($character, $request->input('characterBio', []));
 
             LogBatch::endBatch();

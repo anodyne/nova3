@@ -6,6 +6,7 @@ namespace Nova\Users\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
 
@@ -47,5 +48,11 @@ class MyAccount extends Component
             'errors' => $this->errors,
             'timezones' => $this->timezones,
         ]);
+    }
+
+    #[On('croppedImageReady')]
+    public function handleCroppedImage($path)
+    {
+        $this->form->setProfilePhoto($path);
     }
 }
