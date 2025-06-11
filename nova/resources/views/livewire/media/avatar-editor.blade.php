@@ -13,7 +13,7 @@
 
     <x-slot name="footer">
         <x-button type="button" x-on:click="cropImage" color="primary">
-            Update
+            Crop
             <div wire:loading wire:target="croppedImage" x-transition.opacity>
                 <flux:icon.loading class="size-4" />
             </div>
