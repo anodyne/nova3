@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Nova\Users\Livewire;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Nova\Stories\Enums\ContentRatingValue;
+use Nova\Users\Actions\UploadUserAvatar;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\User;
 
@@ -40,11 +42,15 @@ class MyAccountForm extends Form
     #[Validate]
     public string $timezone;
 
+    public string $imagePath;
+
     public ContentRatingValue $languageContentRatingWarningThreshold;
 
     public ContentRatingValue $sexContentRatingWarningThreshold;
 
     public ContentRatingValue $violenceContentRatingWarningThreshold;
+
+    public ?string $croppedImage = null;
 
     public function rules(): array
     {
@@ -83,6 +89,11 @@ class MyAccountForm extends Form
         $this->violenceContentRatingWarningThreshold = $user->preferences->violenceContentRatingWarningThreshold;
     }
 
+    public function setProfilePhoto($path): void
+    {
+        $this->croppedImage = $path;
+    }
+
     public function save(): void
     {
         $this->validate();
@@ -106,7 +117,16 @@ class MyAccountForm extends Form
             'violenceContentRatingWarningThreshold',
         ]);
 
-        Auth::user()->update($data);
+        /** @var \Nova\Users\Models\User $user */
+        $user = Auth::user();
+
+        $user->update($data);
+
+        /**
+         * We use Storage::path() here to ensure we can add the temporary image
+         * to Media Library.
+         */
+        UploadUserAvatar::run($user, Storage::disk('public')->path($this->croppedImage));
 
         $this->reset('currentPassword', 'newPassword', 'newPasswordConfirmation');
     }
