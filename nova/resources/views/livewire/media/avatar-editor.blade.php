@@ -1,4 +1,4 @@
-<x-modal title="Crop avatar photo" icon="crop" x-data="cropper">
+<x-modal title="Crop photo" icon="crop" x-data="cropper">
     <div>
         <div class="truecropper">
             <img src="{{ $temporaryUrl }}" x-ref="image" class="w-full max-w-full" />
@@ -6,9 +6,9 @@
 
         <input type="file" x-ref="fileInput" wire:model="croppedImage" class="hidden" />
 
-        <div>
-            {{ $errors->first('croppedImage') }}
-        </div>
+        @error('croppedImage')
+            <x-fieldset.error-message>{{ $message }}</x-fieldset.error-message>
+        @enderror
     </div>
 
     <x-slot name="footer">
