@@ -95,14 +95,14 @@
     <x-fieldset>
         <x-fieldset.heading>
             <x-icon name="user-profile"></x-icon>
-            <x-fieldset.legend>Image</x-fieldset.legend>
+            <x-fieldset.legend>Profile photo</x-fieldset.legend>
             <x-fieldset.description>
-                Your user image should be a square image at least 500 pixels tall by 500 pixels wide, but not more than
-                10MB in size.
+                Your user profile photo should be a square image at least 500 pixels tall by 500 pixels wide, but not
+                more than 10MB in size.
 
                 <x-fieldset.description class="mt-4">
                     <x-text.strong>Note:</x-text.strong>
-                    if you don’t upload a user image, a unique placeholder will be generated for your account.
+                    if you don’t upload a user profile photo, a unique placeholder will be generated for your account.
                 </x-fieldset.description>
             </x-fieldset.description>
         </x-fieldset.heading>
