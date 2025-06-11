@@ -11,15 +11,22 @@ class UploadCharacterAvatar
 {
     use AsAction;
 
-    public function handle(Character $character, $imagePath): Character
+    public function handle(Character $character, ?string $path = null): Character
     {
-        if ($imagePath !== null) {
-            $character->addMedia($imagePath)->toMediaCollection('avatar');
+        if (is_null($path)) {
+            $character->clearMediaCollection('avatar');
 
             activity()
                 ->performedOn($character)
-                ->event('uploaded-avatar')
-                ->log('uploaded-avatar');
+                ->event('removed avatar')
+                ->log('removed avatar');
+        } else {
+            $character->addMedia($path)->toMediaCollection('avatar');
+
+            activity()
+                ->performedOn($character)
+                ->event('uploaded avatar')
+                ->log('uploaded avatar');
         }
 
         return $character->refresh();
