@@ -64,6 +64,7 @@ class TablerIconSet extends IconSet
             'code' => 'tabler-code',
             'columns' => 'tabler-columns-3',
             'copy' => 'tabler-copy',
+            'crop' => 'tabler-crop',
             'dashboard' => 'tabler-layout-dashboard',
             'database' => 'tabler-database',
             'database-export' => 'tabler-database-export',
