@@ -126,7 +126,11 @@ class MyAccountForm extends Form
          * We use Storage::path() here to ensure we can add the temporary image
          * to Media Library.
          */
-        UploadUserAvatar::run($user, Storage::disk('public')->path($this->croppedImage));
+        $path = ! is_null($this->croppedImage)
+            ? Storage::disk('public')->path($this->croppedImage)
+            : null;
+
+        UploadUserAvatar::run($user, $path);
 
         $this->reset('currentPassword', 'newPassword', 'newPasswordConfirmation');
     }
