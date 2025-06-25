@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,6 +25,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
+#[UseEloquentBuilder(DepartmentBuilder::class)]
 class Department extends Model implements HasMedia, Sortable
 {
     use HasFactory;
@@ -85,11 +87,6 @@ class Department extends Model implements HasMedia, Sortable
         return Attribute::make(
             get: fn () => implode(', ', $this->tags ?? [])
         );
-    }
-
-    public function newEloquentBuilder($query): DepartmentBuilder
-    {
-        return new DepartmentBuilder($query);
     }
 
     public function registerMediaCollections(): void

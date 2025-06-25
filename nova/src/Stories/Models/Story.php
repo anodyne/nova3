@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +28,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
 
+#[UseEloquentBuilder(StoryBuilder::class)]
 class Story extends Model implements HasMedia, Sortable
 {
     use HasFactory;
@@ -143,11 +145,6 @@ class Story extends Model implements HasMedia, Sortable
             'description',
             'summary',
         ]);
-    }
-
-    public function newEloquentBuilder($query): StoryBuilder
-    {
-        return new StoryBuilder($query);
     }
 
     public function registerMediaCollections(): void

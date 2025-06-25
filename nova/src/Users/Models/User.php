@@ -6,6 +6,7 @@ namespace Nova\Users\Models;
 
 use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -44,6 +45,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(UserBuilder::class)]
 class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, MustVerifyEmail
 {
     use Bannable;
@@ -238,11 +240,6 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
     public function canImpersonate(): bool
     {
         return $this->isAbleTo('user.impersonate');
-    }
-
-    public function newEloquentBuilder($query): UserBuilder
-    {
-        return new UserBuilder($query);
     }
 
     public function getActivitylogOptions(): LogOptions

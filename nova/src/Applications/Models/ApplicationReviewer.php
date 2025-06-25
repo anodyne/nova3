@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Applications\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Applications\Enums\ReviewerType;
@@ -15,6 +16,7 @@ use Nova\Users\Models\Scopes\ActiveUsers;
 use Nova\Users\Models\User;
 
 #[ScopedBy(ActiveUsers::class)]
+#[UseEloquentBuilder(ApplicationReviewerBuilder::class)]
 class ApplicationReviewer extends Model
 {
     use HasFactory;
@@ -34,10 +36,5 @@ class ApplicationReviewer extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function newEloquentBuilder($query): ApplicationReviewerBuilder
-    {
-        return new ApplicationReviewerBuilder($query);
     }
 }

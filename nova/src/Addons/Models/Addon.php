@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Collection;
@@ -20,6 +21,7 @@ use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(AddonBuilder::class)]
 class Addon extends Model
 {
     use ChecksAddonVersion;
@@ -68,11 +70,6 @@ class Addon extends Model
         $addonClass = 'Addons\\'.$this->location.'\\Addon';
 
         return new $addonClass;
-    }
-
-    public function newEloquentBuilder($query): AddonBuilder
-    {
-        return new AddonBuilder($query);
     }
 
     public function runScript(string $name): void

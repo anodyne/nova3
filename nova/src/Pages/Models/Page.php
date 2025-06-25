@@ -6,8 +6,11 @@ namespace Nova\Pages\Models;
 
 use Illuminate\Database\Eloquent\Attributes\CollectedBy;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
@@ -15,6 +18,7 @@ use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Menus\Models\MenuItem;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events;
+use Nova\Pages\Models\Builders\PageBuilder;
 use Nova\Pages\Models\Collections\PagesCollection;
 use Nova\Pages\Observers\PageObserver;
 use Spatie\Activitylog\LogOptions;
@@ -23,6 +27,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 #[CollectedBy(PagesCollection::class)]
 #[ObservedBy([PageObserver::class])]
+#[UseEloquentBuilder(PageBuilder::class)]
 class Page extends Model implements HasMedia
 {
     use HasPrefixedId;
@@ -109,6 +114,13 @@ class Page extends Model implements HasMedia
         );
     }
 
+    public function renderedBlockContent(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->generateBlockContent()
+        );
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return $this->baseActivitylogOptions()->logExcept([
@@ -116,11 +128,6 @@ class Page extends Model implements HasMedia
             'published_blocks',
             'intro',
         ]);
-    }
-
-    public function newEloquentBuilder($query): Builders\PageBuilder
-    {
-        return new Builders\PageBuilder($query);
     }
 
     public function registerMediaCollections(): void
@@ -137,5 +144,25 @@ class Page extends Model implements HasMedia
     public static function getMediaPath(): string
     {
         return '{model_id}/{media_id}/';
+    }
+
+    protected function generateBlockContent(): ?string
+    {
+        $content = null;
+
+        if (filled($this->published_blocks)) {
+            foreach ($this->published_blocks as $publishedBlock) {
+                if (View::exists('components.pages.blocks.'.$publishedBlock['type'])) {
+                    $content .= Blade::render('<x-dynamic-component :$component :$container :$content :$block />', [
+                        'component' => 'pages.blocks.'.$publishedBlock['type'],
+                        'container' => data_get($publishedBlock, 'data.container'),
+                        'content' => data_get($publishedBlock, 'data.content'),
+                        'block' => data_get($publishedBlock, 'data.block'),
+                    ]);
+                }
+            }
+        }
+
+        return $content;
     }
 }

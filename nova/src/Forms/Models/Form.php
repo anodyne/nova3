@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,6 +18,7 @@ use Nova\Foundation\Models\Model;
 use Spatie\Activitylog\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(FormBuilder::class)]
 class Form extends Model
 {
     use HasFactory;
@@ -127,10 +129,5 @@ class Form extends Model
                 'fields',
                 'published_fields',
             ]);
-    }
-
-    public function newEloquentBuilder($query): FormBuilder
-    {
-        return new FormBuilder($query);
     }
 }

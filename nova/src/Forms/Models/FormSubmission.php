@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,6 +14,7 @@ use Nova\Forms\Models\Builders\FormSubmissionBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
 
+#[UseEloquentBuilder(FormSubmissionBuilder::class)]
 class FormSubmission extends Model
 {
     use HasFactory;
@@ -44,10 +46,5 @@ class FormSubmission extends Model
         return Attribute::make(
             get: fn (): ?string => $this->responses()->where('field_uid', $this->form->options?->submissionTitleField)->first()?->value
         );
-    }
-
-    public function newEloquentBuilder($query): FormSubmissionBuilder
-    {
-        return new FormSubmissionBuilder($query);
     }
 }

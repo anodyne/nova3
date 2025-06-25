@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Nova\Discussions\Models\Builders\DiscussionParticipantBuilder;
 use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Users\Models\User;
 
+#[UseEloquentBuilder(DiscussionParticipantBuilder::class)]
 class DiscussionParticipant extends Pivot
 {
     use HasTableHelpers;
@@ -27,10 +29,5 @@ class DiscussionParticipant extends Pivot
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function newEloquentBuilder($query): DiscussionParticipantBuilder
-    {
-        return new DiscussionParticipantBuilder($query);
     }
 }
