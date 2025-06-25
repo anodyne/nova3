@@ -11,5 +11,5 @@
         </x-fieldset.controls>
     </form>
 
-    {{-- <x-filament-actions::modals /> --}}
+    <x-filament-actions::modals />
 </div>

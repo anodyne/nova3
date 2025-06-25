@@ -97,7 +97,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->configureNovaSingleton();
-        $this->configureTipTapBlocks();
+        // $this->configureTipTapBlocks();
         $this->configureDatabaseRepositories();
 
         $this->app->extend('blade.compiler', function ($compiler, $app) {
@@ -292,6 +292,8 @@ class AppServiceProvider extends ServiceProvider
         FilamentColor::addShades('forms::components.toggle.on', [500, 900]);
 
         FilamentIcon::register([
+            'forms::components.builder.actions.delete' => iconName('trash'),
+            'forms::components.builder.actions.reorder' => iconName('arrows-sort'),
             'forms::components.key-value.actions.delete' => iconName('trash'),
             'forms::components.repeater.actions.delete' => iconName('trash'),
             'forms::components.repeater.actions.reorder' => iconName('arrows-sort'),
