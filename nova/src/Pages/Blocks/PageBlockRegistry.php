@@ -12,6 +12,9 @@ class PageBlockRegistry
             Hero\StackedHeroBlock::make(Hero\StackedHeroBlock::component),
             Hero\SplitHeroBlock::make(Hero\SplitHeroBlock::component),
             Hero\ImageTilesHeroBlock::make(Hero\ImageTilesHeroBlock::component),
+
+            Logos\SimpleLogosBlock::make(Logos\SimpleLogosBlock::component),
+            Logos\SplitLogosBlock::make(Logos\SplitLogosBlock::component),
         ];
     }
 }
