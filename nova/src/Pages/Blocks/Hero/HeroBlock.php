@@ -16,6 +16,7 @@ use Filament\Forms\Get;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Pages\Blocks\Block as PageBuilderBlock;
 use Nova\Pages\Enums\BoxShadow;
+use Nova\Pages\Enums\ButtonSize;
 use Nova\Pages\Enums\Radius;
 
 abstract class HeroBlock extends PageBuilderBlock
@@ -75,7 +76,7 @@ abstract class HeroBlock extends PageBuilderBlock
                                         ->rgba()
                                         ->hidden(fn (Get $get): bool => $get('border-style') === 'none'),
                                 ]),
-                            Grid::make(2)->schema([
+                            Grid::make(3)->schema([
                                 Select::make('shadow')
                                     ->label('Shadow')
                                     ->options(BoxShadow::class)
@@ -84,6 +85,10 @@ abstract class HeroBlock extends PageBuilderBlock
                                     ->label('Corner radius')
                                     ->options(Radius::class)
                                     ->default(Radius::None->value),
+                                Select::make('size')
+                                    ->label('Button size')
+                                    ->options(ButtonSize::class)
+                                    ->default(ButtonSize::Large->value),
                             ]),
                         ]),
                 ]),

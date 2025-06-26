@@ -1,4 +1,5 @@
 @use('Nova\Pages\Enums\BoxShadow')
+@use('Nova\Pages\Enums\ButtonSize')
 @use('Nova\Pages\Enums\Radius')
 
 @php
@@ -25,6 +26,7 @@
         >
             @foreach (data_get($block, 'buttons') as $button)
                 @php
+                    $buttonSize = ButtonSize::tryFrom(data_get($button, 'size') ?? 'text');
                     $radius = Radius::tryFrom(data_get($button, 'radius') ?? 'none');
                     $shadow = BoxShadow::tryFrom(data_get($button, 'shadow') ?? 'none');
                 @endphp
@@ -40,10 +42,10 @@
                         href="{{ data_get($button, 'url') }}"
                         target="{{ data_get($button, 'url-target') }}"
                         @class([
-                            'flex items-center gap-1.5 px-3.5 py-2.5 text-sm/6 font-semibold transition hover:brightness-110',
-                            'bg-[--bg-color] text-[--text-color]',
+                            'flex items-center gap-1.5 bg-[--bg-color] text-[--text-color] transition hover:brightness-110',
                             'ring-1 ring-[--border-color]' => data_get($button, 'border-style') !== 'none',
                             'ring-inset' => data_get($button, 'border-style') === 'inner',
+                            $buttonSize?->getTailwindClasses(),
                             $radius?->getTailwindClasses(),
                             $shadow?->getTailwindClasses(),
                         ])

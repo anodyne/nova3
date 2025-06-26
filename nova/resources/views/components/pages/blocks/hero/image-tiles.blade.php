@@ -1,3 +1,7 @@
+@use('Nova\Pages\Enums\BoxShadow')
+@use('Nova\Pages\Enums\ButtonSize')
+@use('Nova\Pages\Enums\Radius')
+
 @php
     $images = collect(data_get($block, 'media.images'))->flatten()->toArray();
 @endphp
@@ -19,6 +23,7 @@
         >
             @foreach (data_get($block, 'buttons') as $button)
                 @php
+                    $buttonSize = ButtonSize::tryFrom(data_get($button, 'size') ?? 'text');
                     $radius = Radius::tryFrom(data_get($button, 'radius') ?? 'none');
                     $shadow = BoxShadow::tryFrom(data_get($button, 'shadow') ?? 'none');
                 @endphp
@@ -34,10 +39,10 @@
                         href="{{ data_get($button, 'url') }}"
                         target="{{ data_get($button, 'url-target') }}"
                         @class([
-                            'flex items-center gap-1.5 px-3.5 py-2.5 text-sm/6 font-semibold transition hover:brightness-110',
-                            'bg-[--bg-color] text-[--text-color]',
+                            'flex items-center gap-1.5 bg-[--bg-color] text-[--text-color] transition hover:brightness-110',
                             'ring-1 ring-[--border-color]' => data_get($button, 'border-style') !== 'none',
                             'ring-inset' => data_get($button, 'border-style') === 'inner',
+                            $buttonSize?->getTailwindClasses(),
                             $radius?->getTailwindClasses(),
                             $shadow?->getTailwindClasses(),
                         ])
@@ -83,7 +88,7 @@
             @endif
 
             @if (isset($images[1]) || isset($images[2]))
-                <div class="@xs:mr-auto @xl:mr-0 @xl:pt-52 w-44 flex-none space-y-8 @4xl:pt-36">
+                <div class="@xs:mr-auto @xl:mr-0 @xs:pt-52 w-44 flex-none space-y-8 @4xl:pt-36">
                     @if (isset($images[1]))
                         <div class="relative">
                             <img
