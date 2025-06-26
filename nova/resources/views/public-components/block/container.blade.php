@@ -13,6 +13,8 @@
     'headerClass' => null,
     'beforeContent' => null,
     'afterContent' => null,
+    'beforeHeader' => null,
+    'afterHeader' => null,
 ])
 
 @php

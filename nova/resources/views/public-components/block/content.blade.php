@@ -14,6 +14,8 @@
     'wrapperClass',
     'innerClass',
     'headerClass',
+    'beforeHeader',
+    'afterHeader',
 ])
 
 @php
@@ -56,8 +58,8 @@
     >
         <x-public::block.background-image :bg="data_get($content, 'bg')"></x-public::block.background-image>
 
-        @if (isset($leading))
-            {{ $leading }}
+        @if (isset($beforeHeader))
+            {{ $beforeHeader }}
         @endif
 
         @if (isset($header))
@@ -74,8 +76,8 @@
             ></x-public::block.header>
         @endif
 
-        @if (isset($trailing))
-            {{ $trailing }}
+        @if (isset($afterHeader))
+            {{ $afterHeader }}
         @endif
 
         {{ $slot }}

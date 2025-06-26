@@ -10,6 +10,11 @@
     'callout' => null,
 ])
 
+@aware([
+    'leading',
+    'trailing',
+])
+
 @php
     $headingTextShadow = TextShadow::tryFrom(data_get($heading, 'shadow') ?? 'none');
     $messageTextShadow = TextShadow::tryFrom(data_get($message, 'shadow') ?? 'none');
@@ -38,6 +43,10 @@
             '@lg:text-right' => $orientation === 'right',
         ])
     >
+        @isset($leading)
+            {{ $leading }}
+        @endisset
+
         @if (filled($callout))
             <div
                 @class([
@@ -102,5 +111,9 @@
                 {{ data_get($message, 'text') }}
             </x-public::lead>
         @endif
+
+        @isset($trailing)
+            {{ $trailing }}
+        @endisset
     </div>
 </div>
