@@ -22,6 +22,9 @@ class PageBlockRegistry
 
             Manifest\ManifestBlock::make(Manifest\ManifestBlock::component),
 
+            Stats\SimpleStatsBlock::make(Stats\SimpleStatsBlock::component),
+            Stats\SplitStatsBlock::make(Stats\SplitStatsBlock::component),
+
             Content\FreeformContentBlock::make(Content\FreeformContentBlock::component),
         ];
     }
