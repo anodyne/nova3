@@ -13,9 +13,4 @@ class SplitContentRatingsBlock extends ContentRatingsBlock
     protected ?string $blockLabel = 'Content ratings - Split';
 
     protected string|Closure|null $preview = 'content-ratings.split';
-
-    public function blockSchema(): array
-    {
-        return [];
-    }
 }
