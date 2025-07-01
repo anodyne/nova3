@@ -1,7 +1,7 @@
 @use('Nova\Pages\Enums\ProseSize')
 
 @php
-    $hasHeaderContent = filled($content, 'header.text') || filled($content, 'message.text') || filled($content, 'callout.text');
+    $hasHeaderContent = filled($content, 'heading.text') || filled($content, 'message.text') || filled($content, 'callout.text');
 
     $proseSize = ProseSize::tryFrom(data_get($block, 'text-size') ?? 'base');
 @endphp
