@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\ContentRatings;
 
+use Closure;
+
 class SplitContentRatingsBlock extends ContentRatingsBlock
 {
-    protected function setUp(): void
+    const component = 'content-ratings.split';
+
+    protected ?string $blockLabel = 'Content ratings - Split';
+
+    protected string|Closure|null $preview = 'content-ratings.split';
+
+    public function blockSchema(): array
     {
-        $this->baseConfiguration()
-            ->label('Content ratings - Split')
-            ->identifier('ratings-split')
-            ->optionsModal(Settings\SplitContentRatingsBlockSettings::class)
-            ->renderedView('pages.pages.blocks.content-ratings.split')
-            ->editorView('pages.pages.blocks.content-ratings.split-preview');
+        return [];
     }
 }

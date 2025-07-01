@@ -50,7 +50,8 @@ abstract class Block extends BuilderBlock
                         Tabs\Tab::make('block')
                             ->label('Block settings')
                             ->icon(iconName('settings'))
-                            ->schema($this->blockSchema()),
+                            ->schema($this->blockSchema())
+                            ->visible(fn (): bool => count($this->blockSchema()) > 0),
                     ])
                     ->contained(false),
             ])

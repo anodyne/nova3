@@ -16,6 +16,10 @@ class PageBlockRegistry
             Logos\SimpleLogosBlock::make(Logos\SimpleLogosBlock::component),
             Logos\SplitLogosBlock::make(Logos\SplitLogosBlock::component),
 
+            ContentRatings\CardsContentRatingsBlock::make(ContentRatings\CardsContentRatingsBlock::component),
+            ContentRatings\GridContentRatingsBlock::make(ContentRatings\GridContentRatingsBlock::component),
+            ContentRatings\SplitContentRatingsBlock::make(ContentRatings\SplitContentRatingsBlock::component),
+
             Content\FreeformContentBlock::make(Content\FreeformContentBlock::component),
         ];
     }

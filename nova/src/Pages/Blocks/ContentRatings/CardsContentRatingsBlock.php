@@ -4,15 +4,23 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\ContentRatings;
 
+use Closure;
+use Filament\Forms\Components\Toggle;
+
 class CardsContentRatingsBlock extends ContentRatingsBlock
 {
-    protected function setUp(): void
+    const component = 'content-ratings.cards';
+
+    protected ?string $blockLabel = 'Content ratings - Cards';
+
+    protected string|Closure|null $preview = 'content-ratings.cards';
+
+    public function blockSchema(): array
     {
-        $this->baseConfiguration()
-            ->label('Content ratings - Cards')
-            ->identifier('ratings-cards')
-            ->optionsModal(Settings\CardsContentRatingsBlockSettings::class)
-            ->renderedView('pages.pages.blocks.content-ratings.cards')
-            ->editorView('pages.pages.blocks.content-ratings.cards-preview');
+        return [
+            Toggle::make('block.dark')
+                ->label('My block uses a dark background')
+                ->helperText('This will ensure that the colors of each rating will be better tuned to the background'),
+        ];
     }
 }

@@ -4,15 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\ContentRatings;
 
-use Awcodes\Scribble\Enums\ToolType;
-use Awcodes\Scribble\ScribbleTool;
+use Closure;
+use Nova\Pages\Blocks\Block as PageBuilderBlock;
 
-abstract class ContentRatingsBlock extends ScribbleTool
+abstract class ContentRatingsBlock extends PageBuilderBlock
 {
-    protected function baseConfiguration(): self
-    {
-        return $this
-            ->icon('tabler-explicit')
-            ->type(ToolType::Block);
-    }
+    protected string|Closure $section = 'Content Ratings';
 }
