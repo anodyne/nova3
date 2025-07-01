@@ -4,20 +4,35 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Content;
 
-use Awcodes\Scribble\Enums\ToolType;
-use Awcodes\Scribble\ScribbleTool;
+use Closure;
+use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
+use Nova\Pages\Blocks\Block as PageBuilderBlock;
+use Nova\Pages\Enums\ProseSize;
 
-class FreeformContentBlock extends ScribbleTool
+class FreeformContentBlock extends PageBuilderBlock
 {
-    protected function setUp(): void
+    const component = 'content.index';
+
+    protected string|Closure $section = 'Freeform content';
+
+    protected ?string $blockLabel = 'Freeform content block';
+
+    protected string|Closure|null $preview = 'content.index';
+
+    public function blockSchema(): array
     {
-        $this
-            ->icon('tabler-text-size')
-            ->type(ToolType::Block)
-            ->label('Freeform content')
-            ->identifier('content')
-            ->optionsModal(Settings\FreeformContentBlockSettings::class)
-            ->renderedView('pages.pages.blocks.content.index')
-            ->editorView('pages.pages.blocks.content.index-preview');
+        return [
+            Grid::make(2)->schema([
+                Select::make('block.text-size')
+                    ->label('Size')
+                    ->options(ProseSize::class)
+                    ->default(ProseSize::Base->value),
+                ColorPicker::make('block.text-color')->label('Color'),
+            ]),
+            RichEditor::make('block.content'),
+        ];
     }
 }

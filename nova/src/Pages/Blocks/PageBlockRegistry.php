@@ -15,6 +15,8 @@ class PageBlockRegistry
 
             Logos\SimpleLogosBlock::make(Logos\SimpleLogosBlock::component),
             Logos\SplitLogosBlock::make(Logos\SplitLogosBlock::component),
+
+            Content\FreeformContentBlock::make(Content\FreeformContentBlock::component),
         ];
     }
 }
