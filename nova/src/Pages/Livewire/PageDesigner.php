@@ -33,7 +33,7 @@ class PageDesigner extends FormComponent
             ->schema([
                 Builder::make('blocks')
                     ->hiddenLabel()
-                    ->blockPreviews(areInteractive: true)
+                    ->blockPreviews()
                     ->blocks(PageBlockRegistry::blocks())
                     ->addAction(function (Action $action): Action {
                         return $action

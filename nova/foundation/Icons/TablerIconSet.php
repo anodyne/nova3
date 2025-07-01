@@ -125,6 +125,7 @@ class TablerIconSet extends IconSet
             'info-circle' => 'tabler-info-circle',
             'key' => 'tabler-key',
             'layer' => 'tabler-stack-2',
+            'layout' => 'tabler-layout',
             'leaf' => 'tabler-leaf',
             'link' => 'tabler-link',
             'list' => 'tabler-list',

@@ -20,6 +20,8 @@ class PageBlockRegistry
             ContentRatings\GridContentRatingsBlock::make(ContentRatings\GridContentRatingsBlock::component),
             ContentRatings\SplitContentRatingsBlock::make(ContentRatings\SplitContentRatingsBlock::component),
 
+            Manifest\ManifestBlock::make(Manifest\ManifestBlock::component),
+
             Content\FreeformContentBlock::make(Content\FreeformContentBlock::component),
         ];
     }

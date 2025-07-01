@@ -122,6 +122,7 @@ enum Tabler: string
     case InfoCircle = 'tabler-info-circle';
     case Key = 'tabler-key';
     case Layer = 'tabler-stack-2';
+    case Layout = 'tabler-layout';
     case Leaf = 'tabler-leaf';
     case Link = 'tabler-link';
     case List = 'tabler-list';
