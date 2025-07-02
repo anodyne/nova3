@@ -25,46 +25,9 @@
             ])
         >
             @foreach (data_get($block, 'buttons') as $button)
-                @php
-                    $buttonSize = ButtonSize::tryFrom(data_get($button, 'size') ?? 'text');
-                    $radius = Radius::tryFrom(data_get($button, 'radius') ?? 'none');
-                    $shadow = BoxShadow::tryFrom(data_get($button, 'shadow') ?? 'none');
-                @endphp
-
-                <div
-                    style="
-                        --bg-color: {{ data_get($button, 'bg-color') }};
-                        --text-color: {{ data_get($button, 'text-color') }};
-                        --border-color: {{ data_get($button, 'border-color') }};
-                    "
-                >
-                    <a
-                        href="{{ data_get($button, 'url') }}"
-                        target="{{ data_get($button, 'url-target') }}"
-                        @class([
-                            'flex items-center gap-1.5 bg-[--bg-color] text-[--text-color] transition hover:brightness-110',
-                            'ring-1 ring-[--border-color]' => data_get($button, 'border-style') !== 'none',
-                            'ring-inset' => data_get($button, 'border-style') === 'inner',
-                            $buttonSize?->getTailwindClasses(),
-                            $radius?->getTailwindClasses(),
-                            $shadow?->getTailwindClasses(),
-                        ])
-                    >
-                        <span>{{ data_get($button, 'text') }}</span>
-
-                        @if (data_get($button, 'decoration') === 'arrow')
-                            <span class="text-base/6" aria-hidden="true">&rarr;</span>
-                        @endif
-
-                        @if (data_get($button, 'decoration') === 'single-chevron')
-                            <span class="text-base/6" aria-hidden="true">&rsaquo;</span>
-                        @endif
-
-                        @if (data_get($button, 'decoration') === 'double-chevron')
-                            <span class="text-base/6" aria-hidden="true">&raquo;</span>
-                        @endif
-                    </a>
-                </div>
+                <x-public::block.button :$button>
+                    {{ data_get($button, 'text') }}
+                </x-public::block.button>
             @endforeach
         </div>
     </x-slot>
