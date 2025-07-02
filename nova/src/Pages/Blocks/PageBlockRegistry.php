@@ -25,6 +25,8 @@ class PageBlockRegistry
             Stats\SimpleStatsBlock::make(Stats\SimpleStatsBlock::component),
             Stats\SplitStatsBlock::make(Stats\SplitStatsBlock::component),
 
+            Stories\AlternatingStoriesBlock::make(Stories\AlternatingStoriesBlock::component),
+
             Content\FreeformContentBlock::make(Content\FreeformContentBlock::component),
         ];
     }
