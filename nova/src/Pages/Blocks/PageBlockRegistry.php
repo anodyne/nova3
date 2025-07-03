@@ -28,6 +28,10 @@ class PageBlockRegistry
             Stories\AlternatingStoriesBlock::make(Stories\AlternatingStoriesBlock::component),
             Stories\StoriesTimelineBlock::make(Stories\StoriesTimelineBlock::component),
 
+            Features\GridFeatureBlock::make(Features\GridFeatureBlock::component),
+            Features\CardsFeatureBlock::make(Features\CardsFeatureBlock::component),
+            Features\AlternatingFeatureBlock::make(Features\AlternatingFeatureBlock::component),
+
             Content\FreeformContentBlock::make(Content\FreeformContentBlock::component),
         ];
     }

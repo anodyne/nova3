@@ -4,15 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Features;
 
-use Awcodes\Scribble\Enums\ToolType;
-use Awcodes\Scribble\ScribbleTool;
+use Closure;
+use Nova\Pages\Blocks\Block as PageBuilderBlock;
 
-abstract class FeatureBlock extends ScribbleTool
+abstract class FeatureBlock extends PageBuilderBlock
 {
-    protected function baseConfiguration(): self
-    {
-        return $this
-            ->icon('tabler-sparkles')
-            ->type(ToolType::Block);
-    }
+    protected string|Closure $section = 'Features';
 }

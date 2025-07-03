@@ -191,8 +191,10 @@ enum Tabler: string
     case StatusChange = 'tabler-status-change';
     case Sun = 'tabler-sun';
     case Support = 'tabler-lifebuoy';
+    case Table = 'tabler-table';
     case Tag = 'tabler-tag';
     case Tags = 'tabler-tags';
+    case Template = 'tabler-template';
     case ThumbsDown = 'tabler-thumb-down';
     case ThumbsUp = 'tabler-thumb-up';
     case Timeline = 'tabler-timeline-event';
