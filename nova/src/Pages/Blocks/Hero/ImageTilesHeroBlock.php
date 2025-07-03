@@ -13,7 +13,7 @@ class ImageTilesHeroBlock extends HeroBlock
 {
     const component = 'hero.image-tiles';
 
-    protected ?string $blockLabel = 'Hero - Image tiles block';
+    protected ?string $blockLabel = 'Hero - Image tiles';
 
     protected string|Closure|null $preview = 'hero.image-tiles';
 

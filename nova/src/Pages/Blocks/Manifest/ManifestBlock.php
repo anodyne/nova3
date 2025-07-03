@@ -19,7 +19,7 @@ class ManifestBlock extends PageBuilderBlock
 {
     const component = 'manifest.index';
 
-    protected ?string $blockLabel = 'Manifest - Character manifest block';
+    protected ?string $blockLabel = 'Character manifest';
 
     protected string|Closure|null $preview = 'manifest.index';
 

@@ -17,7 +17,7 @@ class AlternatingFeatureBlock extends FeatureBlock
 {
     const component = 'features.alternating';
 
-    protected ?string $blockLabel = 'Features - Alternating block';
+    protected ?string $blockLabel = 'Features - Alternating';
 
     protected string|Closure|null $preview = 'features.alternating';
 

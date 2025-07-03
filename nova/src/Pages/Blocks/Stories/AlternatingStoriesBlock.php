@@ -20,7 +20,7 @@ class AlternatingStoriesBlock extends StoriesBlock
 {
     const component = 'stories.alternating';
 
-    protected ?string $blockLabel = 'Stories - Alternating block';
+    protected ?string $blockLabel = 'Stories - Alternating';
 
     protected string|Closure|null $preview = 'stories.alternating';
 

@@ -16,7 +16,7 @@ class GridFeatureBlock extends FeatureBlock
 {
     const component = 'features.grid';
 
-    protected ?string $blockLabel = 'Features - Grid block';
+    protected ?string $blockLabel = 'Features - Grid';
 
     protected string|Closure|null $preview = 'features.grid';
 

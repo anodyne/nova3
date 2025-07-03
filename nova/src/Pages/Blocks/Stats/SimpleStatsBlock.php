@@ -10,7 +10,7 @@ class SimpleStatsBlock extends StatsBlock
 {
     const component = 'stats.simple';
 
-    protected ?string $blockLabel = 'Stats - Simple block';
+    protected ?string $blockLabel = 'Stats - Simple';
 
     protected string|Closure|null $preview = 'stats.simple';
 }

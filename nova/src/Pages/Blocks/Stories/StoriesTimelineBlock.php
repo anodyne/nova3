@@ -12,7 +12,7 @@ class StoriesTimelineBlock extends StoriesBlock
 {
     const component = 'stories.timeline';
 
-    protected ?string $blockLabel = 'Stories - Timeline block';
+    protected ?string $blockLabel = 'Stories - Timeline';
 
     protected string|Closure|null $preview = 'stories.timeline';
 

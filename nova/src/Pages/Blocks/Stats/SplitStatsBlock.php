@@ -10,7 +10,7 @@ class SplitStatsBlock extends StatsBlock
 {
     const component = 'stats.split';
 
-    protected ?string $blockLabel = 'Stats - Split block';
+    protected ?string $blockLabel = 'Stats - Split';
 
     protected string|Closure|null $preview = 'stats.split';
 }

@@ -21,7 +21,7 @@ class CardsFeatureBlock extends FeatureBlock
 {
     const component = 'features.cards';
 
-    protected ?string $blockLabel = 'Features - Cards block';
+    protected ?string $blockLabel = 'Features - Cards';
 
     protected string|Closure|null $preview = 'features.cards';
 

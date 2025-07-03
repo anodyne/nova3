@@ -34,7 +34,7 @@ class PageDesigner extends FormComponent
                 Builder::make('blocks')
                     ->hiddenLabel()
                     ->blockPreviews()
-                    ->blockPickerColumns(3)
+                    ->blockPickerColumns(2)
                     ->blocks(PageBlockRegistry::blocks())
                     ->addAction(function (Action $action): Action {
                         return $action

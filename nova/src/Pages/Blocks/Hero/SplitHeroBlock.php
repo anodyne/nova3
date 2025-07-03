@@ -20,7 +20,7 @@ class SplitHeroBlock extends HeroBlock
 {
     const component = 'hero.split';
 
-    protected ?string $blockLabel = 'Hero - Split block';
+    protected ?string $blockLabel = 'Hero - Split';
 
     protected string|Closure|null $preview = 'hero.split';
 

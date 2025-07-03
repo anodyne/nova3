@@ -18,7 +18,7 @@ class FreeformContentBlock extends PageBuilderBlock
 
     protected string|Closure $section = 'Freeform content';
 
-    protected ?string $blockLabel = 'Freeform content block';
+    protected ?string $blockLabel = 'Freeform content';
 
     protected string|Closure|null $preview = 'content.index';
 

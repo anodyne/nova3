@@ -20,7 +20,7 @@ class StackedHeroBlock extends HeroBlock
 {
     const component = 'hero.stacked';
 
-    protected ?string $blockLabel = 'Hero - Stacked block';
+    protected ?string $blockLabel = 'Hero - Stacked';
 
     protected string|Closure|null $preview = 'hero.stacked';
 
