@@ -8,11 +8,13 @@ use Closure;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Get;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\ButtonSize;
 use Nova\Pages\Enums\Radius;
+use Nova\Stories\Models\Story;
 
 class AlternatingStoriesBlock extends StoriesBlock
 {
@@ -25,7 +27,28 @@ class AlternatingStoriesBlock extends StoriesBlock
     public function blockSchema(): array
     {
         return [
-            ...$this->storiesSection(),
+            Section::make()
+                ->heading('Stories')
+                ->description('Customize the types of stories and how they display')
+                ->icon(iconName('books'))
+                ->schema([
+                    Select::make('block.storyType')
+                        ->options([
+                            'current' => 'Current stories',
+                            'upcoming' => 'Upcoming stories',
+                            'ongoing' => 'Ongoing stories (story arcs)',
+                            'custom' => 'Select stories to display',
+                        ])
+                        ->live(),
+                    Select::make('block.selectedStories')
+                        ->options(fn () => Story::get()->pluck('title', 'id'))
+                        ->multiple()
+                        ->preload()
+                        ->searchable()
+                        ->visible(fn (Get $get): bool => $get('block.storyType') === 'custom'),
+                    Toggle::make('block.showStoryDescription')->label('Show story description'),
+                    Toggle::make('block.showStoryStats')->label('Show story stats'),
+                ]),
             Section::make()
                 ->heading('Appearance')
                 ->description('Customize the appearance of the stories displayed in the block')

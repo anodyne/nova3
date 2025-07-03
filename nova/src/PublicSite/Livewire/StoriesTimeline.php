@@ -13,6 +13,8 @@ class StoriesTimeline extends Component
 {
     public string $sortDirection = 'asc';
 
+    public string $bgColor = '#ffffff';
+
     #[Computed]
     public function stories(): Collection
     {

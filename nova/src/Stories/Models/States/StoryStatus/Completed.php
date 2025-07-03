@@ -25,7 +25,7 @@ class Completed extends StoryStatus
 
     public function timelineMarker(): string
     {
-        return 'bg-gray-400 dark:bg-gray-500 ring-white dark:ring-gray-900';
+        return 'before:text-gray-400 dark:before:text-gray-500';
     }
 
     public function name(): string
