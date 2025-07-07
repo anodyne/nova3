@@ -25,6 +25,8 @@ class PageBlockRegistry
             Hero\SplitHeroBlock::make(Hero\SplitHeroBlock::component),
             Hero\ImageTilesHeroBlock::make(Hero\ImageTilesHeroBlock::component),
 
+            ImageGallery\CarouselImageGalleryBlock::make(ImageGallery\CarouselImageGalleryBlock::component),
+
             Logos\SimpleLogosBlock::make(Logos\SimpleLogosBlock::component),
             Logos\SplitLogosBlock::make(Logos\SplitLogosBlock::component),
 
