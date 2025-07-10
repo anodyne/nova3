@@ -26,6 +26,7 @@
 
     $bgOption = data_get($content, 'bg.option');
     $hasBackgroundColor = filled($bgOption) && $bgOption === 'color';
+    $hasBackgroundImage = filled($bgOption) && ! in_array($bgOption, ['color', 'transparent']);
     $hasBorder = data_get($content, 'border.enabled') == 'yes';
     $radius = Radius::tryFrom(data_get($content, 'radius') ?? 'none');
     $shadow = BoxShadow::tryFrom(data_get($content, 'shadow') ?? 'none');
@@ -53,6 +54,7 @@
             $blur?->getTailwindClasses(),
             'border border-[--content-border-color]' => $hasBorder,
             'bg-[--content-bg-color]' => $hasBackgroundColor,
+            'overflow-hidden' => $hasBackgroundImage,
             $innerClass => isset($innerClass),
         ])
     >
