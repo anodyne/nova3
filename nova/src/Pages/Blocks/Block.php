@@ -228,7 +228,9 @@ abstract class Block extends BuilderBlock
                         ->schema([
                             TextInput::make('content.heading.text')->label('Text'),
                             Grid::make(2)->schema([
-                                ColorPicker::make('content.heading.color')->label('Color'),
+                                ColorPicker::make('content.heading.color')
+                                    ->label('Color')
+                                    ->rgba(),
                                 Select::make('content.heading.shadow')
                                     ->label('Text shadow')
                                     ->options(TextShadow::class)
@@ -251,7 +253,9 @@ abstract class Block extends BuilderBlock
                                     'orderedList',
                                 ]),
                             Grid::make(2)->schema([
-                                ColorPicker::make('content.message.color')->label('Color'),
+                                ColorPicker::make('content.message.color')
+                                    ->label('Color')
+                                    ->rgba(),
                                 Select::make('content.message.shadow')
                                     ->label('Text shadow')
                                     ->options(TextShadow::class)
