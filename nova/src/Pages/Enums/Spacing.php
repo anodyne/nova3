@@ -28,7 +28,7 @@ enum Spacing: string implements HasLabel
             self::Medium => 'Medium',
             self::Large => 'Large',
             self::ExtraLarge => 'Extra large',
-            default => 'None',
+            self::None => 'None',
         };
     }
 
@@ -40,7 +40,7 @@ enum Spacing: string implements HasLabel
             self::Medium => 'px-8',
             self::Large => 'px-16',
             self::ExtraLarge => 'px-24',
-            default => 'px-0',
+            self::None => 'px-0',
         };
     }
 
@@ -52,7 +52,7 @@ enum Spacing: string implements HasLabel
             self::Medium => 'py-8',
             self::Large => 'py-16',
             self::ExtraLarge => 'py-24',
-            default => 'py-0',
+            self::None => 'py-0',
         };
     }
 }
