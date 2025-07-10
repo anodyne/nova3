@@ -25,6 +25,7 @@
                     slides: @js($images),
                 })"
         x-init="autoplay"
+        x-cloak
         @class([
             'relative w-full overflow-hidden',
             $radius?->getTailwindClasses(),
