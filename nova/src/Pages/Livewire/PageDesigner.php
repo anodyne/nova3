@@ -11,7 +11,6 @@ use Filament\Support\Enums\IconSize;
 use Filament\Support\Enums\MaxWidth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\On;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
 use Nova\Pages\Actions\PublishPage;
@@ -36,6 +35,7 @@ class PageDesigner extends FormComponent
                     ->blockPreviews(areInteractive: true)
                     ->blockPickerColumns(2)
                     ->blocks(PageBlockRegistry::blocks())
+                    ->collapsible()
                     ->addAction(function (Action $action): Action {
                         return $action
                             ->label('Add block')
@@ -49,13 +49,13 @@ class PageDesigner extends FormComponent
                             ->icon(iconName('settings'))
                             ->slideOver()
                             ->modalWidth(MaxWidth::TwoExtraLarge);
-                    }),
+                    })
+                    ->afterStateUpdated(fn () => $this->save()),
             ])
             ->statePath('data')
             ->model($this->page);
     }
 
-    #[On('saved-scribble-modal')]
     public function save(): void
     {
         UpdatePage::run($this->page, PageBlocksData::from($this->form->getState()));
