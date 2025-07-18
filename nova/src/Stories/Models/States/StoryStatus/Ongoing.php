@@ -25,7 +25,7 @@ class Ongoing extends StoryStatus
 
     public function timelineMarker(): string
     {
-        return 'bg-success-500 ring-white dark:ring-gray-900';
+        return 'before:text-success-500';
     }
 
     public function name(): string

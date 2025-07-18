@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -19,6 +20,7 @@ use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(ApplicationBuilder::class)]
 class Application extends Model
 {
     use Discussable;
@@ -80,10 +82,5 @@ class Application extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function newEloquentBuilder($query): ApplicationBuilder
-    {
-        return new ApplicationBuilder($query);
     }
 }

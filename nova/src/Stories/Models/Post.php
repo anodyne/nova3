@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,7 @@ use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 #[ObservedBy([PostObserver::class])]
+#[UseEloquentBuilder(PostBuilder::class)]
 class Post extends Model implements Sortable
 {
     use Concerns\HasContentRatings;
@@ -211,11 +213,6 @@ class Post extends Model implements Sortable
         return Attribute::make(
             get: fn (): string => collect([$this->location, $this->day, $this->time])->filter()->join(', ')
         );
-    }
-
-    public function newEloquentBuilder($query): PostBuilder
-    {
-        return new PostBuilder($query);
     }
 
     public function addParticipant(User $user): void

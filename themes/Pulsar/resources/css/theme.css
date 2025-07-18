@@ -6,11 +6,11 @@
 }
 
 body {
-    @apply bg-white px-2 py-2;
+    @apply bg-white;
 }
 
 .content-ctn {
-    @apply relative mx-auto flex max-w-6xl flex-1 flex-col;
+    @apply relative flex flex-1 flex-col;
 }
 
 .content {
@@ -218,12 +218,6 @@ body {
     @apply flex items-center gap-x-2 text-sm/4 font-semibold text-gray-700;
 }
 
-.nv-hero,
-.nv-features,
-.nv-cta {
-    @apply overflow-hidden rounded-2xl;
-}
-
 .nv-tabs {
 }
 .nv-tabs-list {
@@ -234,8 +228,4 @@ body {
 }
 .nv-tabs-content {
     @apply mt-6;
-}
-
-.nv-badge {
-    @apply font-semibold;
 }

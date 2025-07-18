@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,6 +35,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(CharacterBuilder::class)]
 class Character extends Model implements HasMedia
 {
     use Concerns\HasUsers;
@@ -176,11 +178,6 @@ class Character extends Model implements HasMedia
     public function canBeDeleted(): bool
     {
         return $this->posts()->count() === 0;
-    }
-
-    public function newEloquentBuilder($query): CharacterBuilder
-    {
-        return new CharacterBuilder($query);
     }
 
     public function registerMediaCollections(): void

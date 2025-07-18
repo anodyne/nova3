@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\ContentRatings;
 
-use Awcodes\Scribble\Enums\ToolType;
-use Awcodes\Scribble\ScribbleTool;
+use Closure;
+use Filament\Forms\Components\Toggle;
+use Nova\Pages\Blocks\Block as PageBuilderBlock;
 
-abstract class ContentRatingsBlock extends ScribbleTool
+abstract class ContentRatingsBlock extends PageBuilderBlock
 {
-    protected function baseConfiguration(): self
+    protected string|Closure $section = 'Content Ratings';
+
+    public function blockSchema(): array
     {
-        return $this
-            ->icon('tabler-explicit')
-            ->type(ToolType::Block);
+        return [
+            Toggle::make('block.dark')
+                ->label('My block uses a dark background')
+                ->helperText('This will ensure that the colors of each rating will be better tuned to the background'),
+        ];
     }
 }

@@ -4,15 +4,38 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Hero;
 
+use Closure;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
+
 class ImageTilesHeroBlock extends HeroBlock
 {
-    protected function setUp(): void
+    const component = 'hero.image-tiles';
+
+    protected ?string $blockLabel = 'Hero - Image tiles';
+
+    protected string|Closure|null $preview = 'hero.image-tiles';
+
+    public function blockSchema(): array
     {
-        $this->baseConfiguration()
-            ->label('Hero - Image tiles')
-            ->identifier('hero-image-tiles')
-            ->optionsModal(Settings\ImageTilesHeroBlockSettings::class)
-            ->renderedView('pages.pages.blocks.hero.image-tiles')
-            ->editorView('pages.pages.blocks.hero.image-tiles-preview');
+        return [
+            ...$this->buttonsRepeater(),
+            Section::make('block.media')
+                ->heading('Media')
+                ->description('Customize the media that you want displayed for the block')
+                ->icon(iconName('image'))
+                ->schema([
+                    Repeater::make('block.media.images')
+                        ->maxItems(5)
+                        ->hiddenLabel()
+                        ->schema([
+                            FileUpload::make('image')
+                                ->disk('media-pages')
+                                ->directory((string) $this->getPageDesignerPage())
+                                ->image(),
+                        ]),
+                ]),
+        ];
     }
 }

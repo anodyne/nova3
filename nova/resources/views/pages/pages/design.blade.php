@@ -7,7 +7,7 @@
 
 <x-admin-layout>
     <x-page-header>
-        <x-slot name="heading">Design page &mdash; {{ $page->name }}</x-slot>
+        <x-slot name="heading">Design page &ndash; {{ $page->name }}</x-slot>
 
         <x-slot name="actions">
             @can('viewAny', $page::class)
@@ -27,12 +27,6 @@
     </x-page-header>
 
     <div class="my-8 max-w-2xl space-y-8">
-        <x-panel.primary
-            title="Please note"
-            icon="show"
-            description="The preview below is not intended to be a high fidelity representation of your page. Once you save your page, you will be able to preview it in the browser."
-        ></x-panel.primary>
-
         @if (is_null($page->published_at))
             <x-panel.warning
                 title="Unpublished changes"

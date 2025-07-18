@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
+#[UseEloquentBuilder(PositionBuilder::class)]
 class Position extends Model implements Sortable
 {
     use HasFactory;
@@ -92,10 +94,5 @@ class Position extends Model implements Sortable
     public function buildSortQuery(): Builder
     {
         return static::query()->where('department_id', $this->department_id);
-    }
-
-    public function newEloquentBuilder($query): PositionBuilder
-    {
-        return new PositionBuilder($query);
     }
 }

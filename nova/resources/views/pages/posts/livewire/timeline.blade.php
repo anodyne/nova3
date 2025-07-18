@@ -14,7 +14,7 @@
                 <x-slot name="leading">
                     <select
                         aria-label="Post sort field"
-                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                         wire:model.live="sortField"
                     >
                         <option value="order_column">Sort by timeline order</option>
@@ -24,7 +24,7 @@
 
                 <select
                     aria-label="Post sort direction"
-                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                     wire:model.live="sortDirection"
                 >
                     <option value="desc">Newest first</option>
@@ -44,7 +44,7 @@
     </div>
 
     @if ($posts->count() > 0)
-        <x-timeline class="mt-12">
+        <x-feed class="mt-12">
             @foreach ($posts as $post)
                 @php
                     $showMetaFields = $post->postType->fields->location->enabled || $post->postType->fields->day->enabled || $post->postType->fields->time->enabled;
@@ -54,21 +54,14 @@
                     $post->loadMissing('characterAuthors', 'userAuthors');
                 @endphp
 
-                <x-timeline.item
-                    :title="$post->title"
-                    :last="$loop->last"
-                    class="ring-white dark:ring-gray-900"
-                    style="background-color:{{ $post->postType->color }}"
-                >
-                    <x-slot name="title">
-                        <div class="flex items-center gap-x-6">
-                            <x-h2>{{ $post->title }}</x-h2>
-                            <x-badge>{{ $post->postType->name }}</x-badge>
-                        </div>
-                    </x-slot>
+                <x-feed.item :dot-color="$post->postType->color">
+                    <div class="flex items-center gap-x-6">
+                        <x-h2>{{ $post->title }}</x-h2>
+                        <x-badge>{{ $post->postType->name }}</x-badge>
+                    </div>
 
                     <div class="mt-1.5">
-                        <x-timeline.post-meta-fields :post="$post"></x-timeline.post-meta-fields>
+                        <x-feed.post-meta-fields :post="$post"></x-feed.post-meta-fields>
 
                         @if ($showContent)
                             <div
@@ -94,7 +87,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-timeline.post-meta-data :post="$post"></x-timeline.post-meta-data>
+                            <x-feed.post-meta-data :post="$post"></x-feed.post-meta-data>
                         </div>
 
                         <div class="mt-8">
@@ -106,9 +99,9 @@
                             </x-button>
                         </div>
                     </div>
-                </x-timeline.item>
+                </x-feed.item>
             @endforeach
-        </x-timeline>
+        </x-feed>
     @else
         <x-empty-state variant="jumbo">
             <x-icon name="book"></x-icon>

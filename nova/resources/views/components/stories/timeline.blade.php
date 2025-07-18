@@ -3,7 +3,7 @@
     'expanded' => false,
 ])
 
-<x-timeline>
+<x-feed>
     @foreach ($stories as $story)
         @php
             $expandedState = true;
@@ -23,41 +23,35 @@
                 x-data="{ expanded: @js(! $story->is_completed) }"
             @endif
         >
-            <x-timeline.item
-                :last="$loop->last"
-                :highlighted="$story->is_current"
-                :class="$story->status->timelineMarker()"
-            >
-                <x-slot name="title">
-                    <div
-                        @class([
-                            'flex w-full items-center justify-between',
-                            'cursor-pointer' => $story->children_count > 0 && ! $expanded,
-                        ])
-                        @if ($story->children_count > 0 && ! $expanded)
-                            x-on:click="expanded = !expanded"
-                        @endif
-                    >
-                        <div class="flex items-center gap-x-6">
-                            <x-h2>{{ $story->title }}</x-h2>
+            <x-feed.item :class="$story->status->timelineMarker()">
+                <div
+                    @class([
+                        'flex w-full items-center justify-between',
+                        'cursor-pointer' => $story->children_count > 0 && ! $expanded,
+                    ])
+                    @if ($story->children_count > 0 && ! $expanded)
+                        x-on:click="expanded = !expanded"
+                    @endif
+                >
+                    <div class="flex items-center gap-x-6">
+                        <x-h2>{{ $story->title }}</x-h2>
 
-                            <x-badge :color="$story->status->getColor()">
-                                {{ $story->status->getLabel() }}
-                            </x-badge>
-                        </div>
-
-                        @if ($story->children_count > 0)
-                            <div class="shrink-0">
-                                <span x-show="!expanded">
-                                    <x-icon name="add" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
-                                </span>
-                                <span x-show="expanded">
-                                    <x-icon name="remove" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
-                                </span>
-                            </div>
-                        @endif
+                        <x-badge :color="$story->status->getColor()">
+                            {{ $story->status->getLabel() }}
+                        </x-badge>
                     </div>
-                </x-slot>
+
+                    @if ($story->children_count > 0)
+                        <div class="shrink-0">
+                            <span x-show="!expanded">
+                                <x-icon name="add" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
+                            </span>
+                            <span x-show="expanded">
+                                <x-icon name="remove" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
+                            </span>
+                        </div>
+                    @endif
+                </div>
 
                 <div
                     class="w-full"
@@ -74,7 +68,7 @@
                     </div>
 
                     <div class="relative mt-3">
-                        <x-timeline.story-meta-data :story="$story"></x-timeline.story-meta-data>
+                        <x-feed.story-meta-data :story="$story"></x-feed.story-meta-data>
                     </div>
 
                     <div class="mt-8">
@@ -89,7 +83,7 @@
                         </div>
                     @endif
                 </div>
-            </x-timeline.item>
+            </x-feed.item>
         </div>
     @endforeach
-</x-timeline>
+</x-feed>

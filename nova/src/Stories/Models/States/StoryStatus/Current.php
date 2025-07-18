@@ -25,7 +25,7 @@ class Current extends StoryStatus
 
     public function timelineMarker(): string
     {
-        return 'bg-primary-500 ring-primary-500';
+        return 'before:text-primary-500';
     }
 
     public function name(): string

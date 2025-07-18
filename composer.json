@@ -26,6 +26,7 @@
         "filament/tables": "^3.0-stable",
         "flowframe/laravel-trend": "^0.4",
         "guzzlehttp/guzzle": "^7.2",
+        "hosmelq/name-of-person": "^0.1.0",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/fortify": "^1.16",
         "laravel/framework": "^12.0",

@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
-use Awcodes\Scribble\ScribbleEditor;
+use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Builder;
 use Filament\Forms\Form;
+use Filament\Support\Enums\IconSize;
+use Filament\Support\Enums\MaxWidth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\On;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
-use Nova\Foundation\Scribble\Profiles\PageBuilderProfile;
 use Nova\Pages\Actions\PublishPage;
 use Nova\Pages\Actions\UpdatePage;
+use Nova\Pages\Blocks\PageBlockRegistry;
 use Nova\Pages\Data\PageBlocksData;
 use Nova\Pages\Models\Page;
 
@@ -28,16 +30,32 @@ class PageDesigner extends FormComponent
     {
         return $form
             ->schema([
-                ScribbleEditor::make('blocks')
+                Builder::make('blocks')
                     ->hiddenLabel()
-                    ->helperText("Type '/' to show a list of available blocks to add to your page or hover over an existing block to see editing options")
-                    ->profile(PageBuilderProfile::class),
+                    ->blockPreviews(areInteractive: true)
+                    ->blockPickerColumns(2)
+                    ->blocks(PageBlockRegistry::blocks())
+                    ->collapsible()
+                    ->addAction(function (Action $action): Action {
+                        return $action
+                            ->label('Add block')
+                            ->icon(iconName('add'))
+                            ->iconSize(IconSize::Medium)
+                            ->slideOver()
+                            ->modalWidth(MaxWidth::TwoExtraLarge);
+                    })
+                    ->editAction(function (Action $action): Action {
+                        return $action
+                            ->icon(iconName('settings'))
+                            ->slideOver()
+                            ->modalWidth(MaxWidth::TwoExtraLarge);
+                    })
+                    ->afterStateUpdated(fn () => $this->save()),
             ])
             ->statePath('data')
             ->model($this->page);
     }
 
-    #[On('saved-scribble-modal')]
     public function save(): void
     {
         UpdatePage::run($this->page, PageBlocksData::from($this->form->getState()));

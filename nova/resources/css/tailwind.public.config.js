@@ -11,6 +11,7 @@ module.exports = {
     content: [
         './nova/resources/**/*.{js,ts,blade.php,css}',
         './nova/foundation/View/Components/*.php',
+        './nova/src/**/Enums/*.php',
         './nova/src/**/Models/**/*.php',
         './vendor/filament/**/*.blade.php',
         './vendor/livewire-ui/modal/resources/views/*.blade.php',

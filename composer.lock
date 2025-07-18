@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee383f35e72a07977be1aa6c0d733fad",
+    "content-hash": "b13dc2bf26d745936b6a9fdb80d5daec",
     "packages": [
         {
             "name": "amphp/amp",
@@ -3932,6 +3932,71 @@
                 }
             ],
             "time": "2025-02-03T10:55:03+00:00"
+        },
+        {
+            "name": "hosmelq/name-of-person",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hosmelq/name-of-person.git",
+                "reference": "2ec737ce8f24daf66f586c03881e57bc1bc0ce46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hosmelq/name-of-person/zipball/2ec737ce8f24daf66f586c03881e57bc1bc0ce46",
+                "reference": "2ec737ce8f24daf66f586c03881e57bc1bc0ce46",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "driftingly/rector-laravel": "^2.0.5",
+                "ergebnis/composer-normalize": "^2.47",
+                "larastan/larastan": "^3.5.0",
+                "laravel/pint": "^1.22.1",
+                "orchestra/testbench": "^9.14",
+                "pestphp/pest": "^3.8.2",
+                "phpstan/extension-installer": "^1.4.3",
+                "phpstan/phpstan-deprecation-rules": "^2.0.3",
+                "phpstan/phpstan-strict-rules": "^2.0.4",
+                "rector/rector": "^2.1.0",
+                "rector/type-perfect": "^2.1.0",
+                "shipmonk/composer-dependency-analyser": "^1.8.3",
+                "spaze/phpstan-disallowed-calls": "^4.5.0",
+                "thecodingmachine/phpstan-safe-rule": "^1.4.1",
+                "ticketswap/phpstan-error-formatter": "^1.1.5",
+                "tomasvotruba/type-coverage": "^2.0.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HosmelQ\\NameOfPerson\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hosmel Quintana",
+                    "email": "hosmelq@gmail.com"
+                }
+            ],
+            "description": "Presenting names of people in full, familiar, abbreviated, and initialized forms",
+            "keywords": [
+                "Person",
+                "hosmelq",
+                "laravel",
+                "name",
+                "name-of-person"
+            ],
+            "support": {
+                "issues": "https://github.com/hosmelq/name-of-person/issues",
+                "source": "https://github.com/hosmelq/name-of-person/tree/v0.1.0"
+            },
+            "time": "2025-07-01T15:20:33+00:00"
         },
         {
             "name": "kelunik/certificate",

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -12,6 +13,7 @@ use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Stories\Models\Builders\PostAuthorBuilder;
 use Nova\Users\Models\User;
 
+#[UseEloquentBuilder(PostAuthorBuilder::class)]
 class PostAuthor extends MorphPivot
 {
     use HasTableHelpers;
@@ -35,10 +37,5 @@ class PostAuthor extends MorphPivot
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function newEloquentBuilder($query): PostAuthorBuilder
-    {
-        return new PostAuthorBuilder($query);
     }
 }

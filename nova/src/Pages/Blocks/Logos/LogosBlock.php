@@ -4,15 +4,42 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Logos;
 
-use Awcodes\Scribble\Enums\ToolType;
-use Awcodes\Scribble\ScribbleTool;
+use Closure;
+use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Nova\Pages\Blocks\Block as PageBuilderBlock;
 
-abstract class LogosBlock extends ScribbleTool
+abstract class LogosBlock extends PageBuilderBlock
 {
-    protected function baseConfiguration(): self
+    protected string|Closure $section = 'Logos';
+
+    public function blockSchema(): array
     {
-        return $this
-            ->icon('tabler-library-photo')
-            ->type(ToolType::Block);
+        return [
+            Section::make()
+                ->heading('Logo(s)')
+                ->description('Upload the logo(s) you want to display in the block')
+                ->icon(iconName('image'))
+                ->schema([
+                    Repeater::make('block.logos')
+                        ->hiddenLabel()
+                        ->schema([
+                            TextInput::make('url')
+                                ->label('URL')
+                                ->url(),
+                            Grid::make(2)->schema([
+                                TextInput::make('text'),
+                                ColorPicker::make('text-color')->label('Color'),
+                            ]),
+                            FileUpload::make('image')
+                                ->disk('media-pages')
+                                ->directory((string) $this->getPageDesignerPage()),
+                        ]),
+                ]),
+        ];
     }
 }
