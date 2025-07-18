@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +24,7 @@ use Spatie\EloquentSortable\SortableTrait;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(PostTypeBuilder::class)]
 class PostType extends Model implements Sortable
 {
     use HasFactory;
@@ -97,10 +99,5 @@ class PostType extends Model implements Sortable
         return Attribute::make(
             get: fn (): bool => $this->options->notifiesUsers
         );
-    }
-
-    public function newEloquentBuilder($query): PostTypeBuilder
-    {
-        return new PostTypeBuilder($query);
     }
 }

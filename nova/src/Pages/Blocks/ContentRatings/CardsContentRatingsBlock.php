@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\ContentRatings;
 
+use Closure;
+
 class CardsContentRatingsBlock extends ContentRatingsBlock
 {
-    protected function setUp(): void
-    {
-        $this->baseConfiguration()
-            ->label('Content ratings - Cards')
-            ->identifier('ratings-cards')
-            ->optionsModal(Settings\CardsContentRatingsBlockSettings::class)
-            ->renderedView('pages.pages.blocks.content-ratings.cards')
-            ->editorView('pages.pages.blocks.content-ratings.cards-preview');
-    }
+    const component = 'content-ratings.cards';
+
+    protected ?string $blockLabel = 'Content ratings - Cards';
+
+    protected string|Closure|null $preview = 'content-ratings.cards';
 }

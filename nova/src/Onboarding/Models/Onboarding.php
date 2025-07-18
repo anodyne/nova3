@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Onboarding\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Foundation\Models\Model;
 use Nova\Onboarding\Enums\OnboardingProcess;
@@ -13,6 +14,7 @@ use Nova\Onboarding\Observers\OnboardingObserver;
 use Nova\Users\Models\User;
 
 #[ObservedBy([OnboardingObserver::class])]
+#[UseEloquentBuilder(OnboardingBuilder::class)]
 class Onboarding extends Model
 {
     protected $table = 'onboarding';
@@ -27,10 +29,5 @@ class Onboarding extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function newEloquentBuilder($query): OnboardingBuilder
-    {
-        return new OnboardingBuilder($query);
     }
 }

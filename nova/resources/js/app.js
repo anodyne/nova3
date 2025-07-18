@@ -2,6 +2,7 @@ import axios from 'axios';
 import '../../../vendor/wire-elements/pro/resources/js/overlay-component';
 
 import Clipboard from '@ryangjchandler/alpine-clipboard';
+import Carousel from './components/carousel';
 import ColorPicker from './components/color-picker';
 import Cropper from './components/cropper';
 import DatePicker from './components/date-picker';
@@ -16,6 +17,7 @@ import SwitchToggle from './components/switch-toggle';
 import WordCount from './components/word-count';
 
 document.addEventListener('alpine:init', () => {
+    window.Alpine.data('carousel', Carousel);
     window.Alpine.data('colorPicker', ColorPicker);
     window.Alpine.data('cropper', Cropper);
     window.Alpine.data('datePicker', DatePicker);

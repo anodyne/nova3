@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -17,6 +18,7 @@ use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(DiscussionBuilder::class)]
 class Discussion extends Model
 {
     use HasFactory;
@@ -115,10 +117,5 @@ class Discussion extends Model
         return Attribute::make(
             get: fn (): bool => $this->allParticipants()->count() > 2
         );
-    }
-
-    public function newEloquentBuilder($query): DiscussionBuilder
-    {
-        return new DiscussionBuilder($query);
     }
 }

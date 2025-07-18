@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Collection;
@@ -18,6 +19,7 @@ use Nova\Themes\Data\ThemeSettings;
 use Nova\Themes\Events;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 
+#[UseEloquentBuilder(ThemeBuilder::class)]
 class Theme extends Model
 {
     use ChecksAddonVersion;
@@ -54,11 +56,6 @@ class Theme extends Model
         $themeClass = 'Themes\\'.$this->location.'\\Theme';
 
         return new $themeClass;
-    }
-
-    public function newEloquentBuilder($query): ThemeBuilder
-    {
-        return new ThemeBuilder($query);
     }
 
     public function addonVersionCacheKey(): string

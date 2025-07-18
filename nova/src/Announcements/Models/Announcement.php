@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,6 +18,7 @@ use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(AnnouncementBuilder::class)]
 class Announcement extends Model
 {
     use HasFactory;
@@ -64,11 +66,6 @@ class Announcement extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return $this->baseActivitylogOptions()->logExcept(['content']);
-    }
-
-    public function newEloquentBuilder($query): AnnouncementBuilder
-    {
-        return new AnnouncementBuilder($query);
     }
 
     public function toSearchableArray(): array

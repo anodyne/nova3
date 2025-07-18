@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laratrust\Models\Role as LaratrustRole;
@@ -16,6 +17,7 @@ use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(RoleBuilder::class)]
 class Role extends LaratrustRole implements Sortable
 {
     use HasFactory;
@@ -52,10 +54,5 @@ class Role extends LaratrustRole implements Sortable
         return parent::getMorphByUserRelation($relationship)
             // ->whereState('status', Active::class)
             ->orderBy('name');
-    }
-
-    public function newEloquentBuilder($query): RoleBuilder
-    {
-        return new RoleBuilder($query);
     }
 }

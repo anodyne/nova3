@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,6 +14,7 @@ use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Foundation\Models\Model;
 use Spatie\EloquentSortable\Sortable;
 
+#[UseEloquentBuilder(FormFieldBuilder::class)]
 class FormField extends Model implements Sortable
 {
     use HasFactory;
@@ -36,10 +38,5 @@ class FormField extends Model implements Sortable
     public function responses(): HasMany
     {
         return $this->hasMany(FormSubmissionResponse::class, 'field_uid', 'uid');
-    }
-
-    public function newEloquentBuilder($query): FormFieldBuilder
-    {
-        return new FormFieldBuilder($query);
     }
 }

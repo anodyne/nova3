@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Menus\Models;
 
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +24,7 @@ use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
 #[ObservedBy([MenuItemObserver::class])]
+#[UseEloquentBuilder(MenuItemBuilder::class)]
 class MenuItem extends Model implements Sortable
 {
     use HasFactory;
@@ -96,10 +98,5 @@ class MenuItem extends Model implements Sortable
     public function buildSortQuery(): Builder
     {
         return static::query()->where('menu_id', $this->menu_id);
-    }
-
-    public function newEloquentBuilder($query): MenuItemBuilder
-    {
-        return new MenuItemBuilder($query);
     }
 }

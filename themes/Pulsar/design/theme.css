@@ -6,18 +6,11 @@
 body {
     --tw-bg-opacity: 1;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
 }
 
 .content-ctn {
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
-    max-width: 72rem;
     flex: 1 1 0%;
     flex-direction: column;
 }
@@ -2245,13 +2238,6 @@ body {
     color: rgba(var(--gray-700), var(--tw-text-opacity, 1));
 }
 
-.nv-hero,
-.nv-features,
-.nv-cta {
-    overflow: hidden;
-    border-radius: 1rem;
-}
-
 .nv-tabs {
 }
 
@@ -2315,8 +2301,4 @@ body {
 
 .nv-tabs-content {
     margin-top: 1.5rem;
-}
-
-.nv-badge {
-    font-weight: 600;
 }

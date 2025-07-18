@@ -145,11 +145,6 @@ class Story extends Model implements HasMedia, Sortable
         ]);
     }
 
-    public function newEloquentBuilder($query): StoryBuilder
-    {
-        return new StoryBuilder($query);
-    }
-
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('story-image')
@@ -194,6 +189,11 @@ class Story extends Model implements HasMedia, Sortable
             'prefixed_id' => $this->prefixed_id,
             'title' => $this->title,
         ];
+    }
+
+    public function newEloquentBuilder($query): StoryBuilder
+    {
+        return new StoryBuilder($query);
     }
 
     public static function getMediaPath(): string

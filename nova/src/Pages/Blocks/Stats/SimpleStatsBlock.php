@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Stats;
 
+use Closure;
+
 class SimpleStatsBlock extends StatsBlock
 {
-    protected function setUp(): void
-    {
-        $this->baseConfiguration()
-            ->label('Stats - Simple')
-            ->identifier('stats-simple')
-            ->optionsModal(Settings\SimpleStatsBlockSettings::class)
-            ->renderedView('pages.pages.blocks.stats.simple')
-            ->editorView('pages.pages.blocks.stats.simple-preview');
-    }
+    const component = 'stats.simple';
+
+    protected ?string $blockLabel = 'Stats - Simple';
+
+    protected string|Closure|null $preview = 'stats.simple';
 }

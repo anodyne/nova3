@@ -31,6 +31,6 @@
             </div>
         @endif
 
-        {!! scribble($page->published_blocks ?? ['content' => null])->toHtml() !!}
+        {!! $page->rendered_block_content !!}
     </div>
 </x-dynamic-component>

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Settings\Data;
 use Nova\Settings\Models\Builders\SettingsBuilder;
 use Spatie\MediaLibrary\HasMedia;
 
+#[UseEloquentBuilder(SettingsBuilder::class)]
 class Settings extends Model implements HasMedia
 {
     use InteractsWithMedia;
@@ -41,11 +43,6 @@ class Settings extends Model implements HasMedia
         'applications',
         'dashboard',
     ];
-
-    public function newEloquentBuilder($query): SettingsBuilder
-    {
-        return new SettingsBuilder($query);
-    }
 
     public function registerMediaCollections(): void
     {

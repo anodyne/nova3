@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Models;
 
+use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Foundation\Concerns\LogsActivity;
@@ -14,6 +15,7 @@ use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+#[UseEloquentBuilder(NoteBuilder::class)]
 class Note extends Model
 {
     use HasFactory;
@@ -38,10 +40,5 @@ class Note extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return $this->baseActivitylogOptions()->logExcept(['content']);
-    }
-
-    public function newEloquentBuilder($query): NoteBuilder
-    {
-        return new NoteBuilder($query);
     }
 }
