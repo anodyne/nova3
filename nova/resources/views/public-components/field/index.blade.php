@@ -23,7 +23,9 @@
         <label
             class="nova-field-label block select-none text-base/6 text-gray-950 sm:text-sm/6 dark:text-white"
             data-slot="label"
-            for="{{ $id }}"
+            @isset($id)
+                for="{{ $id }}"
+            @endisset
         >
             {{ $label }}
             @if ($required)

@@ -4,16 +4,27 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Fields;
 
+use Closure;
+use Filament\Forms\Components\TextInput;
+
 class DateField extends Field
 {
-    protected function setUp(): void
+    const component = 'date';
+
+    protected ?string $blockLabel = 'Date';
+
+    protected string|Closure|null $preview = 'date-preview';
+
+    public function attributesSchema(): array
     {
-        $this->baseConfiguration()
-            ->icon('tabler-calendar')
-            ->label('Date')
-            ->identifier('field-date')
-            ->optionsModal(Settings\DateFieldSettings::class)
-            ->renderedView('pages.forms.fields.date')
-            ->editorView('pages.forms.fields.date-preview');
+        return [
+            TextInput::make('attrs.placeholder')
+                ->label('Placeholder'),
+        ];
+    }
+
+    public function detailsSchema(): array
+    {
+        return [];
     }
 }

@@ -9,12 +9,24 @@
 @use('Nova\Forms\Enums\FormType')
 
 @php
+    $options = data_get($attrs, 'options');
+    unset($attrs['options']);
+
+    $form ??= $this->getNovaForm();
+
+    $uid = data_get($attrs, 'id');
+    $label = data_get($details, 'label');
+    $description = data_get($details, 'description');
+
+    $hideWhenEmpty = data_get($details, 'hideWhenEmpty');
+    $required = data_get($details, 'required');
+
     $errorKey = $form->type === FormType::Basic ? "values.{$uid}" : "{$form->key}.{$uid}";
     $error = $errors->getBag('default')->first($errorKey);
 
     $value = data_get($values, $uid);
 
-    $inputName = $form ? $form?->key."[{$uid}]" : $name;
+    $inputName = $form ? $form?->key."[{$uid}]" : data_get($attrs, 'name');
 @endphp
 
 @if ($admin)
@@ -27,7 +39,7 @@
             </x-fieldset.field>
         @endif
     @else
-        <x-fieldset.field :label="$label" :description="$description" :required="$required">
+        <x-fieldset.field :label="$label" :description="$description" :required="$required" :id="$uid">
             <x-radio.group :error="$error">
                 @foreach ((array) $options as $option)
                     @php
@@ -36,7 +48,7 @@
 
                     <x-radio.field>
                         @if (filled(data_get($option, 'label')))
-                            <x-fieldset.label for="{{ $name }}_{{ data_get($option, 'value') }}">
+                            <x-fieldset.label for="{{ data_get($attrs, 'name') }}_{{ data_get($option, 'value') }}">
                                 {{ data_get($option, 'label') }}
                             </x-fieldset.label>
                         @endif
@@ -48,7 +60,7 @@
                         @endif
 
                         <x-radio
-                            id="{{ $name }}_{{ data_get($option, 'value') }}"
+                            id="{{ data_get($attrs, 'name') }}_{{ data_get($option, 'value') }}"
                             :attributes="$attributesBag"
                             wire:model.live.debounce="values.{{ $uid }}"
                             :name="$inputName"
@@ -69,19 +81,18 @@
             </x-public::field>
         @endif
     @else
-        <x-public::field.radio-group :label="$label" :description="$description" :required="$required">
+        <x-public::field.radio-group :label="$label" :id="$uid" :description="$description" :required="$required">
             @foreach ((array) $options as $option)
                 @php
                     $attributesBag = new ComponentAttributeBag((array) data_get($option, 'attributes'));
-                    $inputName = $form ? $form?->key."[{$uid}]" : $name;
+                    $inputName = $form ? $form?->key."[{$uid}]" : data_get($option, 'name');
                 @endphp
 
                 <x-public::field.radio
-                    :name="$inputName"
                     :value="data_get($option, 'value')"
                     :label="data_get($option, 'label')"
                     :description="data_get($option, 'description')"
-                    id="{{ $name }}_{{ data_get($option, 'value') }}"
+                    id="{{ $inputName }}_{{ data_get($option, 'value') }}"
                     :attributes="$attributesBag"
                 ></x-public::field.radio>
             @endforeach

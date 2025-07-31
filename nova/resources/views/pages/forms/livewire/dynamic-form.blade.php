@@ -2,7 +2,7 @@
 
 <div class="space-y-12">
     <x-form.dynamic :$admin :$form :$static :$values>
-        {!! scribble($fields ?? ['content' => null])->toHtml() !!}
+        {!! $form->rendered_block_content !!}
     </x-form.dynamic>
 
     @if ($showsFormControls)

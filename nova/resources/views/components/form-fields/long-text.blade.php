@@ -9,9 +9,24 @@
 @use('Nova\Forms\Enums\FormType')
 
 @php
-    $attributesBag = new ComponentAttributeBag((array) $attributes);
+    $attrs = array_merge(
+        $attrs,
+        $attrs['other'] ?? []
+    );
+    unset($attrs['other']);
 
-    $inputName = $form ? $form?->key."[{$uid}]" : $name;
+    $form ??= $this->getNovaForm();
+
+    $uid = data_get($attrs, 'id');
+    $label = data_get($details, 'label');
+    $description = data_get($details, 'description');
+
+    $hideWhenEmpty = data_get($details, 'hideWhenEmpty');
+    $required = data_get($details, 'required');
+
+    $attributesBag = new ComponentAttributeBag((array) $attrs);
+
+    $inputName = $form ? $form?->key."[{$uid}]" : data_get($attrs, 'name');
 
     $errorKey = $form->type === FormType::Basic ? "values.{$uid}" : "{$form->key}.{$uid}";
     $error = $errors->getBag('default')->first($errorKey);
@@ -23,9 +38,9 @@
     @if ($static)
         @if (filled($value) || blank($value) && ! $hideWhenEmpty)
             <x-fieldset.field :label="$label" :id="$uid">
-                <x-text>
+                <x-text.markdown>
                     {{ filled($value) ? $value : '—' }}
-                </x-text>
+                </x-text.markdown>
             </x-fieldset.field>
         @endif
     @else
@@ -37,27 +52,28 @@
             :error="$error"
             :required="$required"
         >
-            <x-input.email :attributes="$attributesBag" wire:model.live.debounce="values.{{ $uid }}"></x-input.email>
+            <x-input.textarea
+                :attributes="$attributesBag"
+                wire:model.live.debounce="values.{{ $uid }}"
+            ></x-input.textarea>
         </x-fieldset.field>
     @endif
 @else
     @if ($static)
         @if (filled($value) || blank($value) && ! $hideWhenEmpty)
             <x-public::field :label="$label">
-                <div data-slot="text">
-                    {{ filled($value) ? $value : '—' }}
+                <div class="space-y-6" data-slot="text">
+                    {!! filled($value) ? str($value)->markdown() : '—' !!}
                 </div>
             </x-public::field>
         @endif
     @else
-        <x-public::field.email
+        <x-public::field.textarea
             :label="$label"
             :description="$description"
-            :id="$uid"
-            :name="$inputName"
             :required="$required"
             :attributes="$attributesBag"
             wire:model.live.debounce="values.{{ $uid }}"
-        ></x-public::field.email>
+        ></x-public::field.textarea>
     @endif
 @endif

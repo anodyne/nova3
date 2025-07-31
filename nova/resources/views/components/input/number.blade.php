@@ -33,6 +33,6 @@
     ></x-input>
 
     <x-button tag="button" color="neutral" x-on:click.prevent="value++" text>
-        <x-icon name="add" size="md"></x-icon>
+        <x-icon name="add-circle" size="md"></x-icon>
     </x-button>
 </div>

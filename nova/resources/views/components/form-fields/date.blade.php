@@ -9,9 +9,24 @@
 @use('Nova\Forms\Enums\FormType')
 
 @php
-    $attributesBag = new ComponentAttributeBag((array) $attributes);
+    $attrs = array_merge(
+        $attrs,
+        $attrs['other'] ?? []
+    );
+    unset($attrs['other']);
 
-    $inputName = $form ? $form?->key."[{$uid}]" : $name;
+    $form ??= $this->getNovaForm();
+
+    $uid = data_get($attrs, 'id');
+    $label = data_get($details, 'label');
+    $description = data_get($details, 'description');
+
+    $hideWhenEmpty = data_get($details, 'hideWhenEmpty');
+    $required = data_get($details, 'required');
+
+    $attributesBag = new ComponentAttributeBag((array) $attrs);
+
+    $inputName = $form ? $form?->key."[{$uid}]" : data_get($attrs, 'name');
 
     $errorKey = $form->type === FormType::Basic ? "values.{$uid}" : "{$form->key}.{$uid}";
     $error = $errors->getBag('default')->first($errorKey);
@@ -37,17 +52,7 @@
             :error="$error"
             :required="$required"
         >
-            <x-select :attributes="$attributesBag" wire:model.live.debounce="values.{{ $uid }}">
-                @if ($attributesBag->has('placeholder'))
-                    <option value="">{{ $attributesBag->get('placeholder') }}</option>
-                @endif
-
-                @foreach ((array) $options as $value => $text)
-                    <option value="{{ $value }}">
-                        {{ $text }}
-                    </option>
-                @endforeach
-            </x-select>
+            <x-input type="date" :attributes="$attributesBag" wire:model.live.debounce="values.{{ $uid }}"></x-input>
         </x-fieldset.field>
     @endif
 @else
@@ -60,24 +65,12 @@
             </x-public::field>
         @endif
     @else
-        <x-public::field.select
+        <x-public::field.date
             :label="$label"
             :description="$description"
-            :id="$uid"
-            :name="$inputName"
-            :required="$required"
             :attributes="$attributesBag"
+            :required="$required"
             wire:model.live.debounce="values.{{ $uid }}"
-        >
-            @if ($attributesBag->has('placeholder'))
-                <option value="">{{ $attributesBag->get('placeholder') }}</option>
-            @endif
-
-            @foreach ((array) $options as $value => $text)
-                <option value="{{ $value }}">
-                    {{ $text }}
-                </option>
-            @endforeach
-        </x-public::field.select>
+        ></x-public::field.date>
     @endif
 @endif

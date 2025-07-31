@@ -22,12 +22,6 @@
     </x-page-header>
 
     <div class="my-8 max-w-2xl space-y-8">
-        <x-panel.primary
-            title="Please note"
-            icon="show"
-            description="The preview below is not intended to be a high fidelity representation of your form. Once you save your form, you will be able to preview it in the browser."
-        ></x-panel.primary>
-
         @if (is_null($form->published_at))
             <x-panel.warning
                 title="Unpublished changes"
