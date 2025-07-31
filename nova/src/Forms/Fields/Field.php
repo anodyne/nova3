@@ -21,12 +21,16 @@ abstract class Field extends BuilderBlock
 
     protected bool $showOtherHtmlAttributesField = true;
 
+    protected bool $isContentField = false;
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->label($this->blockLabel)
-            ->schema([
+        if ($this->isContentField) {
+            $schema = $this->detailsSchema();
+        } else {
+            $schema = [
                 Tabs::make()
                     ->tabs([
                         Tabs\Tab::make('details')
@@ -40,10 +44,15 @@ abstract class Field extends BuilderBlock
                         Tabs\Tab::make('attrs')
                             ->label('Attributes')
                             ->icon(iconName('list-details'))
-                            ->schema($this->baseAttributesSchema($this->attributesSchema())),
+                            ->schema($this->baseAttributesSchema($this->attributesSchema()))
+                            ->hidden($this->isContentField),
                     ])
                     ->contained(false),
-            ])
+            ];
+        }
+
+        $this->label($this->blockLabel)
+            ->schema($schema)
             ->preview('components.form-fields.'.$this->preview);
     }
 
@@ -53,6 +62,10 @@ abstract class Field extends BuilderBlock
 
     protected function infoSchema(): array
     {
+        if ($this->isContentField) {
+            return [];
+        }
+
         return [
             TextInput::make('details.label')
                 ->live(onBlur: true)
@@ -66,6 +79,10 @@ abstract class Field extends BuilderBlock
 
     protected function requiredSchema(): array
     {
+        if ($this->isContentField) {
+            return [];
+        }
+
         return [
             Toggle::make('details.required')
                 ->label('Require this field to have a value'),

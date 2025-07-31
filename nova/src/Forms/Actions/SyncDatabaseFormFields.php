@@ -15,6 +15,7 @@ class SyncDatabaseFormFields
     public function handle(Form $form): void
     {
         collect($form->published_fields ?? [])
+            ->reject(fn ($field): bool => data_get($field, 'type') === 'content')
             ->each(function ($field, $key) use ($form) {
                 FormField::updateOrCreate(
                     ['uid' => data_get($field, 'data.attrs.id')],

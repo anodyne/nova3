@@ -1,3 +1,3 @@
-<div class="max-w-2xl p-4">
+<div {{ $attributes->class(['max-w-2xl p-4']) }}>
     {{ $slot }}
 </div>

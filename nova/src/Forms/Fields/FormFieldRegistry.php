@@ -16,6 +16,7 @@ class FormFieldRegistry
             DateField::make(DateField::component),
             DropdownField::make(DropdownField::component),
             SelectOneField::make(SelectOneField::component),
+            ContentField::make(ContentField::component),
         ];
     }
 }

@@ -25,7 +25,7 @@ return new class extends OneTimeOperation
             'key' => 'characterBio',
             'type' => FormType::Advanced,
             'is_locked' => true,
-            'fields' => '[{"type":"dropdown","data":{"details":{"label":"Gender","description":null,"required":false,"hideWhenEmpty":false},"attrs":{"name":"gender","id":"q1KFAGgD2qmY","placeholder":null,"options":{"Male":"Male","Female":"Female","Other":"Other"},"other":[]}}}]',
+            'fields' => '[{"type":"content","data":{"details":{"content":"<h2>Physical characteristics<\/h2>"}}},{"type":"dropdown","data":{"details":{"label":"Gender","description":null,"required":false,"hideWhenEmpty":false},"attrs":{"name":"gender","id":"q1KFAGgD2qmY","placeholder":null,"options":{"Male":"Male","Female":"Female","Other":"Other"},"other":[]}}}]',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
