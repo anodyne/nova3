@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models;
 
-use Filament\Models\Contracts\HasName;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -46,7 +45,7 @@ use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 #[UseEloquentBuilder(UserBuilder::class)]
-class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, MustVerifyEmail
+class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerifyEmail
 {
     use Bannable;
     use CausesActivity;
@@ -132,61 +131,6 @@ class User extends Authenticatable implements HasMedia, HasName, LaratrustUser, 
     {
         return new Attribute(
             get: fn (): bool => $this->getFirstMedia('avatar') !== null
-        );
-    }
-
-    public function initials(): Attribute
-    {
-        return new Attribute(
-            get: function (): ?string {
-                $segments = explode(' ', $this->name);
-
-                // Only 1 segment, so try to explode on a dash
-                if (count($segments) === 1) {
-                    $segments = explode('-', $this->name);
-
-                    // Only 1 segment, so try to explode on an underscore
-                    if (count($segments) === 1) {
-                        $segments = explode('_', $this->name);
-
-                        // Only 1 segment, so try to explode at capital letters
-                        if (count($segments) === 1) {
-                            $segments = preg_split('/(?=[A-Z])/', $this->name, -1, PREG_SPLIT_NO_EMPTY);
-
-                            // Only 1 segment, so finally split the string and grab the first 2 letters
-                            if (count($segments) === 1) {
-                                $string = str_split($segments[0]);
-
-                                $segments = [
-                                    $string[0],
-                                    $string[1],
-                                ];
-                            }
-                        }
-                    }
-                }
-
-                // Exactly 2 segments, which makes this one easy
-                if (count($segments) === 2) {
-                    return strtoupper(trim(
-                        collect($segments)
-                            ->map(fn ($segment) => mb_substr($segment, 0, 1))
-                            ->join('')
-                    ));
-                }
-
-                // More than 2 segments, so grab the first and last items
-                if (count($segments) > 2) {
-                    return strtoupper(trim(
-                        collect([
-                            $segments[array_key_first($segments)],
-                            $segments[array_key_last($segments)],
-                        ])
-                            ->map(fn ($segment) => mb_substr($segment, 0, 1))
-                            ->join('')
-                    ));
-                }
-            }
         );
     }
 
