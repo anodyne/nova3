@@ -61,8 +61,6 @@
         @stack('modal')
         @livewire('livewire-ui-spotlight')
         @livewire('notifications')
-        @livewire('scribble.renderer')
-        @livewire('scribble.modals')
 
         {{ NovaView::renderHook('auth::scripts.before') }}
 

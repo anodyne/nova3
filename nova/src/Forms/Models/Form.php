@@ -88,18 +88,18 @@ class Form extends Model
         return Attribute::make(
             get: function () use ($form): array {
                 if ($form->type === FormType::Basic) {
-                    return collect(data_get($this->published_fields, 'content', []))
-                        ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                    return collect($this->published_fields ?? [])
+                        ->filter(fn ($field) => data_get($field, 'data.details.required', false))
                         ->flatMap(fn ($field) => [
-                            sprintf('%s.%s.required', 'values', data_get($field, 'attrs.values.uid')) => data_get($field, 'attrs.values.label').' field is required',
+                            sprintf('%s.%s.required', 'values', data_get($field, 'data.attrs.id')) => data_get($field, 'data.details.label').' field is required',
                         ])
                         ->all();
                 }
 
-                return collect(data_get($this->published_fields, 'content', []))
-                    ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                return collect($this->published_fields ?? [])
+                    ->filter(fn ($field) => data_get($field, 'data.details.required', false))
                     ->flatMap(fn ($field) => [
-                        sprintf('%s.%s.required', $form->key, data_get($field, 'attrs.values.uid')) => data_get($field, 'attrs.values.label').' field is required',
+                        sprintf('%s.%s.required', $form->key, data_get($field, 'data.attrs.id')) => data_get($field, 'data.details.label').' field is required',
                     ])
                     ->all();
             }
@@ -113,18 +113,18 @@ class Form extends Model
         return Attribute::make(
             get: function () use ($form): array {
                 if ($form->type === FormType::Basic) {
-                    return collect(data_get($this->published_fields, 'content', []))
-                        ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                    return collect($this->published_fields ?? [])
+                        ->filter(fn ($field) => data_get($field, 'data.details.required', false))
                         ->flatMap(fn ($field) => [
-                            sprintf('%s.%s', 'values', data_get($field, 'attrs.values.uid')) => 'required',
+                            sprintf('%s.%s', 'values', data_get($field, 'data.attrs.id')) => 'required',
                         ])
                         ->all();
                 }
 
-                return collect(data_get($this->published_fields, 'content', []))
-                    ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                return collect($this->published_fields ?? [])
+                    ->filter(fn ($field) => data_get($field, 'data.details.required', false))
                     ->flatMap(fn ($field) => [
-                        sprintf('%s.%s', $this->key, data_get($field, 'attrs.values.uid')) => 'required',
+                        sprintf('%s.%s', $this->key, data_get($field, 'data.attrs.id')) => 'required',
                     ])
                     ->all();
             }

@@ -15,7 +15,6 @@ module.exports = {
         './nova/src/**/Models/**/*.php',
         './vendor/filament/**/*.blade.php',
         './vendor/livewire-ui/modal/resources/views/*.blade.php',
-        './vendor/awcodes/scribble/resources/**/*{.blade.php,.svelte}',
         './storage/framework/views/*.php',
         './themes/**/*.blade.php',
     ],

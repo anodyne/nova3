@@ -1,5 +1,5 @@
 <x-admin-layout>
     <div class="nova-form-content">
-        {!! scribble($form->fields ?? ['content' => null])->toHtml() !!}
+        {!! $form->rendered_block_content !!}
     </div>
 </x-admin-layout>

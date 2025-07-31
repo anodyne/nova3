@@ -37,8 +37,6 @@ module.exports = {
         './vendor/rawilk/laravel-form-components/src/**/*.php',
         './vendor/rawilk/laravel-form-components/resources/**/*.php',
         './vendor/rawilk/laravel-form-components/resources/js/*.js',
-        './vendor/awcodes/scribble/resources/**/*{.blade.php,.svelte}',
-        './vendor/awcodes/typist/resources/views/**/*.blade.php',
         './vendor/livewire/flux-pro/stubs/**/*.blade.php',
         './vendor/livewire/flux/stubs/**/*.blade.php',
         './vendor/ralphjsmit/laravel-filament-activitylog/resources/**/*.blade.php',

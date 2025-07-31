@@ -88,8 +88,8 @@ class ApplicationReviewModal extends Modal
             ->first();
 
         if (blank($submission)) {
-            $this->values = collect($this->applicationReviewForm->published_fields['content'] ?? [])
-                ->flatMap(fn ($item) => [data_get($item, 'attrs.values.uid') => ''])
+            $this->values = collect($this->applicationReviewForm->published_fields ?? [])
+                ->flatMap(fn ($item) => [data_get($item, 'data.attrs.id') => ''])
                 ->all();
         } else {
             $this->values = $submission->responses

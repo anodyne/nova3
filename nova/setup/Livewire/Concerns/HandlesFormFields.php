@@ -11,23 +11,19 @@ trait HandlesFormFields
     protected function buildDropdownFieldJson(object $model, string $uid, array $options): array
     {
         return [
-            'type' => 'scribbleBlock',
-            'attrs' => [
-                'id' => Str::uuid()->toString(),
-                'type' => 'block',
-                'identifier' => 'field-dropdown',
-                'values' => [
+            'type' => 'dropdown',
+            'data' => [
+                'details' => [
                     'label' => str_replace(['&amp;'], ['&'], $model->field_label_page),
                     'description' => $model->field_help,
-                    'name' => $model->field_name,
-                    'uid' => $uid,
-                    'attributes' => [
-                        'placeholder' => null,
-                        'id' => $model->field_fid,
-                    ],
-                    'options' => $options,
                     'required' => false,
                     'hideWhenEmpty' => true,
+                ],
+                'attrs' => [
+                    'name' => $model->field_name,
+                    'id' => $uid,
+                    'placeholder' => null,
+                    'options' => $options,
                 ],
             ],
         ];
@@ -36,22 +32,19 @@ trait HandlesFormFields
     protected function createDropdownFieldJson(string $label, string $name, array $options): array
     {
         return [
-            'type' => 'scribbleBlock',
-            'attrs' => [
-                'id' => Str::uuid()->toString(),
-                'type' => 'block',
-                'identifier' => 'field-dropdown',
-                'values' => [
+            'type' => 'dropdown',
+            'data' => [
+                'details' => [
                     'label' => $label,
                     'description' => null,
-                    'name' => $name,
-                    'uid' => Str::random(12),
-                    'attributes' => [
-                        'placeholder' => null,
-                    ],
-                    'options' => $options,
                     'required' => false,
                     'hideWhenEmpty' => true,
+                ],
+                'attrs' => [
+                    'name' => $name,
+                    'id' => Str::random(12),
+                    'placeholder' => null,
+                    'options' => $options,
                 ],
             ],
         ];
@@ -60,21 +53,18 @@ trait HandlesFormFields
     protected function createDateFieldJson(string $label, string $name): array
     {
         return [
-            'type' => 'scribbleBlock',
-            'attrs' => [
-                'id' => Str::uuid()->toString(),
-                'type' => 'block',
-                'identifier' => 'field-date',
-                'values' => [
+            'type' => 'date',
+            'data' => [
+                'details' => [
                     'label' => $label,
                     'description' => null,
-                    'name' => $name,
-                    'uid' => Str::random(12),
-                    'attributes' => [
-                        'placeholder' => null,
-                    ],
                     'required' => false,
                     'hideWhenEmpty' => true,
+                ],
+                'attrs' => [
+                    'name' => $name,
+                    'id' => Str::random(12),
+                    'placeholder' => null,
                 ],
             ],
         ];
@@ -83,23 +73,19 @@ trait HandlesFormFields
     protected function buildLongTextFieldJson(object $model, string $uid): array
     {
         return [
-            'type' => 'scribbleBlock',
-            'attrs' => [
-                'id' => Str::uuid()->toString(),
-                'type' => 'block',
-                'identifier' => 'field-long-text',
-                'values' => [
+            'type' => 'long-text',
+            'data' => [
+                'details' => [
                     'label' => str_replace(['&amp;'], ['&'], $model->field_label_page),
                     'description' => $model->field_help,
-                    'name' => $model->field_name,
-                    'uid' => $uid,
-                    'rows' => $model->field_rows,
-                    'attributes' => [
-                        'placeholder' => null,
-                        'id' => $model->field_fid,
-                    ],
                     'required' => false,
                     'hideWhenEmpty' => true,
+                ],
+                'attrs' => [
+                    'name' => $model->field_name,
+                    'id' => $uid,
+                    'placeholder' => null,
+                    'rows' => $model->field_rows,
                 ],
             ],
         ];
@@ -108,22 +94,19 @@ trait HandlesFormFields
     protected function createLongTextFieldJson(string $label, string $name): array
     {
         return [
-            'type' => 'scribbleBlock',
-            'attrs' => [
-                'id' => Str::uuid()->toString(),
-                'type' => 'block',
-                'identifier' => 'field-long-text',
-                'values' => [
+            'type' => 'long-text',
+            'data' => [
+                'details' => [
                     'label' => $label,
                     'description' => null,
-                    'name' => $name,
-                    'uid' => Str::random(12),
-                    'rows' => 3,
-                    'attributes' => [
-                        'placeholder' => null,
-                    ],
                     'required' => false,
                     'hideWhenEmpty' => true,
+                ],
+                'attrs' => [
+                    'name' => $name,
+                    'id' => Str::random(12),
+                    'placeholder' => null,
+                    'rows' => 3,
                 ],
             ],
         ];
@@ -132,22 +115,18 @@ trait HandlesFormFields
     protected function buildShortTextFieldJson(object $model, string $uid): array
     {
         return [
-            'type' => 'scribbleBlock',
-            'attrs' => [
-                'id' => Str::uuid()->toString(),
-                'type' => 'block',
-                'identifier' => 'field-short-text',
-                'values' => [
+            'type' => 'short-text',
+            'data' => [
+                'details' => [
                     'label' => str_replace(['&amp;'], ['&'], $model->field_label_page),
                     'description' => $model->field_help,
-                    'name' => $model->field_name,
-                    'uid' => $uid,
-                    'attributes' => [
-                        'placeholder' => null,
-                        'id' => $model->field_fid,
-                    ],
                     'required' => false,
                     'hideWhenEmpty' => true,
+                ],
+                'attrs' => [
+                    'name' => $model->field_name,
+                    'id' => $uid,
+                    'placeholder' => null,
                 ],
             ],
         ];
@@ -156,21 +135,18 @@ trait HandlesFormFields
     protected function createShortTextFieldJson(string $label, string $name): array
     {
         return [
-            'type' => 'scribbleBlock',
-            'attrs' => [
-                'id' => Str::uuid()->toString(),
-                'type' => 'block',
-                'identifier' => 'field-short-text',
-                'values' => [
+            'type' => 'short-text',
+            'data' => [
+                'details' => [
                     'label' => $label,
                     'description' => null,
-                    'name' => $name,
-                    'uid' => Str::random(12),
-                    'attributes' => [
-                        'placeholder' => null,
-                    ],
                     'required' => false,
                     'hideWhenEmpty' => true,
+                ],
+                'attrs' => [
+                    'name' => $name,
+                    'id' => Str::random(12),
+                    'placeholder' => null,
                 ],
             ],
         ];

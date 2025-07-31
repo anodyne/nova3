@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
-use Awcodes\Scribble\Facades\ScribbleFacade;
 use Carbon\CarbonImmutable;
 use Filament\Notifications\Livewire\Notifications;
 use Filament\Notifications\Notification as FilamentNotification;
@@ -14,7 +13,6 @@ use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
@@ -46,9 +44,7 @@ use Livewire\Livewire;
 use Nova\Addons\Models\Addon;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
-use Nova\Forms\Fields;
 use Nova\Forms\Models\Form;
-use Nova\Foundation\Blocks\BlockManager;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
@@ -76,7 +72,6 @@ use Nova\Foundation\View\Layouts\EmailLayout;
 use Nova\Foundation\View\Layouts\PublicLayout;
 use Nova\Menus\Models\MenuItem;
 use Nova\Navigation\Models\Navigation;
-use Nova\Pages\Blocks;
 use Nova\Pages\Models\Page;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
@@ -97,7 +92,6 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->configureNovaSingleton();
-        // $this->configureTipTapBlocks();
         $this->configureDatabaseRepositories();
 
         $this->app->extend('blade.compiler', function ($compiler, $app) {
@@ -328,10 +322,6 @@ class AppServiceProvider extends ServiceProvider
                 });
         });
 
-        TiptapEditor::configureUsing(function (TiptapEditor $component) {
-            return $component->blocks($this->app[BlockManager::class]->blocks());
-        });
-
         Timeline::configureUsing(function (Timeline $timeline) {
             $timeline
                 ->attributeLabels([
@@ -396,58 +386,6 @@ class AppServiceProvider extends ServiceProvider
                 'Rank set' => collect(data_get(cache('nova.addons'), 'rank', []))->join(', '),
             ]);
         }
-    }
-
-    protected function configureTipTapBlocks(): void
-    {
-        $blockManager = new BlockManager;
-
-        $blockManager->registerPageBlocks([
-            Blocks\Hero\ImageTilesHeroBlock::make(),
-            Blocks\Hero\OffsetImageHeroBlock::make(),
-            Blocks\Hero\SplitHeroBlock::make(),
-            Blocks\Hero\StackedHeroBlock::make(),
-
-            Blocks\Stats\SimpleStatsBlock::make(),
-            Blocks\Stats\SplitStatsBlock::make(),
-
-            Blocks\CallToAction\SimpleCallToActionBlock::make(),
-            Blocks\CallToAction\SplitCallToActionBlock::make(),
-
-            Blocks\Features\GridFeatureBlock::make(),
-            Blocks\Features\CardsFeatureBlock::make(),
-            Blocks\Features\AlternatingFeatureBlock::make(),
-
-            Blocks\Logos\SimpleLogosBlock::make(),
-            Blocks\Logos\SplitLogosBlock::make(),
-
-            Blocks\Content\FreeformContentBlock::make(),
-
-            Blocks\Stories\AlternatingStoriesBlock::make(),
-            Blocks\Stories\StoriesTimelineBlock::make(),
-
-            Blocks\Manifest\ManifestBlock::make(),
-
-            Blocks\ContentRatings\CardsContentRatingsBlock::make(),
-            Blocks\ContentRatings\GridContentRatingsBlock::make(),
-            Blocks\ContentRatings\SplitContentRatingsBlock::make(),
-        ]);
-
-        $blockManager->registerFormBlocks([
-            Fields\ShortTextField::make(),
-            Fields\LongTextField::make(),
-            Fields\NumberField::make(),
-            Fields\EmailField::make(),
-            Fields\DateField::make(),
-            Fields\DropdownField::make(),
-            Fields\SelectOneField::make(),
-        ]);
-
-        $this->app->scoped(BlockManager::class, fn () => $blockManager);
-
-        ScribbleFacade::registerTools(
-            $this->app[BlockManager::class]->blocks()->toArray()
-        );
     }
 
     protected function configureGlobalEventListeners(): void

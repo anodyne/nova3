@@ -169,8 +169,8 @@ class DynamicForm extends Component
 
     protected function setBlankValuesForCreate(): void
     {
-        $this->values = collect($this->form->published_fields['content'] ?? [])
-            ->flatMap(fn ($item) => [data_get($item, 'attrs.values.uid') => ''])
+        $this->values = collect($this->form->published_fields ?? [])
+            ->flatMap(fn ($item) => [data_get($item, 'data.attrs.id') => ''])
             ->all();
     }
 
@@ -189,8 +189,8 @@ class DynamicForm extends Component
     {
         $emailValues = [];
 
-        foreach ($this->form->published_fields['content'] as $field) {
-            $emailValues[data_get($field, 'attrs.values.label')] = $this->values[data_get($field, 'attrs.values.uid')];
+        foreach ($this->form->published_fields as $field) {
+            $emailValues[data_get($field, 'data.details.label')] = $this->values[data_get($field, 'data.attrs.id')];
         }
 
         return $emailValues;
