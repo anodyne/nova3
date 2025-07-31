@@ -28,9 +28,11 @@
     $hideWhenEmpty = data_get($details, 'hideWhenEmpty');
     $required = data_get($details, 'required');
 
-    $attributesBag = new ComponentAttributeBag((array) $attrs);
-
     $inputName = $form ? $form?->key."[{$uid}]" : data_get($attrs, 'name');
+
+    $attrs['name'] = $inputName;
+
+    $attributesBag = new ComponentAttributeBag((array) $attrs);
 
     $errorKey = $form->type === FormType::Basic ? "values.{$uid}" : "{$form->key}.{$uid}";
     $error = $errors->getBag('default')->first($errorKey);

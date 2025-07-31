@@ -84,8 +84,11 @@
         <x-public::field.radio-group :label="$label" :id="$uid" :description="$description" :required="$required">
             @foreach ((array) $options as $option)
                 @php
-                    $attributesBag = new ComponentAttributeBag((array) data_get($option, 'attributes'));
                     $inputName = $form ? $form?->key."[{$uid}]" : data_get($option, 'name');
+
+                    $option['name'] = $inputName;
+
+                    $attributesBag = new ComponentAttributeBag((array) data_get($option, 'attributes'));
                 @endphp
 
                 <x-public::field.radio
