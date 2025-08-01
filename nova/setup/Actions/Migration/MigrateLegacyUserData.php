@@ -32,16 +32,13 @@ class MigrateLegacyUserData
 
             $form->update(['fields' => []]);
 
-            $fields = [
-                'type' => 'doc',
-                'content' => [],
-            ];
+            $fields = [];
 
-            $fields['content'][] = $this->createDateFieldJson(label: 'Date of birth', name: 'date_of_birth');
-            $fields['content'][] = $this->createLongTextFieldJson(label: 'Instant messengers', name: 'instant_message');
-            $fields['content'][] = $this->createShortTextFieldJson(label: 'Location', name: 'location');
-            $fields['content'][] = $this->createLongTextFieldJson(label: 'Interests', name: 'interests');
-            $fields['content'][] = $this->createLongTextFieldJson(label: 'Bio', name: 'bio');
+            $fields[] = $this->createDateFieldJson(label: 'Date of birth', name: 'date_of_birth');
+            $fields[] = $this->createLongTextFieldJson(label: 'Instant messengers', name: 'instant_message');
+            $fields[] = $this->createShortTextFieldJson(label: 'Location', name: 'location');
+            $fields[] = $this->createLongTextFieldJson(label: 'Interests', name: 'interests');
+            $fields[] = $this->createLongTextFieldJson(label: 'Bio', name: 'bio');
 
             $form->update([
                 'fields' => $fields,

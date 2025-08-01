@@ -39,28 +39,20 @@ class MigrateForm
 
             $form->update(['fields' => []]);
 
-            $fields = [
-                'type' => 'doc',
-                'content' => [],
-            ];
+            $fields = [];
 
             DB::connection('nova2')
                 ->table('characters_tabs')
                 ->orderBy('tab_order', 'asc')
                 ->get()
                 ->each(function ($tab) use (&$fields, $form) {
-                    $fields['content'][] = [
-                        'type' => 'heading',
-                        'attrs' => [
-                            'class' => null,
-                            'id' => null,
-                            'textAlign' => 'start',
-                            'level' => 2,
+                    $fields[] = [
+                        'type' => 'content',
+                        'data' => [
+                            'details' => [
+                                'content' => '<h2>'.str_replace(['&amp;'], ['&'], $tab->tab_name).'</h2>',
+                            ],
                         ],
-                        'content' => [[
-                            'type' => 'text',
-                            'text' => str_replace(['&amp;'], ['&'], $tab->tab_name),
-                        ]],
                     ];
 
                     DB::connection('nova2')
@@ -69,18 +61,13 @@ class MigrateForm
                         ->orderBy('section_order', 'asc')
                         ->get()
                         ->each(function ($section) use (&$fields, $form, $tab) {
-                            $fields['content'][] = [
-                                'type' => 'heading',
-                                'attrs' => [
-                                    'class' => null,
-                                    'id' => null,
-                                    'textAlign' => 'start',
-                                    'level' => 3,
+                            $fields[] = [
+                                'type' => 'content',
+                                'data' => [
+                                    'details' => [
+                                        'content' => '<h3>'.str_replace(['&amp;'], ['&'], filled($section->section_name) ? $section->section_name : $tab->tab_name).'</h3>',
+                                    ],
                                 ],
-                                'content' => [[
-                                    'type' => 'text',
-                                    'text' => str_replace(['&amp;'], ['&'], filled($section->section_name) ? $section->section_name : $tab->tab_name),
-                                ]],
                             ];
 
                             DB::connection('nova2')
@@ -116,7 +103,7 @@ class MigrateForm
                                             ->toArray();
                                     }
 
-                                    $fields['content'][] = match ($fieldType) {
+                                    $fields[] = match ($fieldType) {
                                         'field-dropdown' => $this->buildDropdownFieldJson($field, $fieldUid, $options),
                                         'field-long-text' => $this->buildLongTextFieldJson($field, $fieldUid),
                                         default => $this->buildShortTextFieldJson($field, $fieldUid),
