@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Tables\Actions\BulkActionGroup as FilamentBulkActionGroup;
-
-class BulkActionGroup extends FilamentBulkActionGroup
+class BulkActionGroup extends \Filament\Actions\BulkActionGroup
 {
     protected function setUp(): void
     {

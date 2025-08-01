@@ -60,7 +60,7 @@ class RankGroupsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -87,7 +87,7 @@ class RankGroupsList extends TableComponent
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')->label('New rank group name'),
                                 Select::make('base_image')
                                     ->label('New base image')

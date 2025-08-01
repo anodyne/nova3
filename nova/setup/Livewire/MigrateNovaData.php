@@ -4,6 +4,22 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Nova\Setup\Livewire\Migrations\MigrateUsers;
+use Nova\Setup\Livewire\Migrations\MigrateUserForm;
+use Nova\Setup\Livewire\Migrations\MigrateDepartments;
+use Nova\Setup\Livewire\Migrations\MigratePositions;
+use Nova\Setup\Livewire\Migrations\MigrateCharacters;
+use Nova\Setup\Livewire\Migrations\MigrateCharacterForm;
+use Nova\Setup\Livewire\Migrations\MigrateApplications;
+use Nova\Setup\Livewire\Migrations\MigrateMissionGroups;
+use Nova\Setup\Livewire\Migrations\MigrateMissions;
+use Nova\Setup\Livewire\Migrations\MigratePosts;
+use Nova\Setup\Livewire\Migrations\MigratePersonalLogs;
+use Nova\Setup\Livewire\Migrations\UpdatePostOrdering;
+use Nova\Setup\Livewire\Migrations\MigrateNewsItems;
+use Nova\Setup\Livewire\Migrations\MigratePrivateMessages;
+use Nova\Setup\Livewire\Migrations\MigrateSettings;
+use Nova\Setup\Livewire\Migrations\MigrateBans;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
 use Livewire\Attributes\Computed;
@@ -22,22 +38,22 @@ class MigrateNovaData extends Component
     public array $errors = [];
 
     public array $migrators = [
-        Migrations\MigrateUsers::class,
-        Migrations\MigrateUserForm::class,
-        Migrations\MigrateDepartments::class,
-        Migrations\MigratePositions::class,
-        Migrations\MigrateCharacters::class,
-        Migrations\MigrateCharacterForm::class,
-        Migrations\MigrateApplications::class,
-        Migrations\MigrateMissionGroups::class,
-        Migrations\MigrateMissions::class,
-        Migrations\MigratePosts::class,
-        Migrations\MigratePersonalLogs::class,
-        Migrations\UpdatePostOrdering::class,
-        Migrations\MigrateNewsItems::class,
-        Migrations\MigratePrivateMessages::class,
-        Migrations\MigrateSettings::class,
-        Migrations\MigrateBans::class,
+        MigrateUsers::class,
+        MigrateUserForm::class,
+        MigrateDepartments::class,
+        MigratePositions::class,
+        MigrateCharacters::class,
+        MigrateCharacterForm::class,
+        MigrateApplications::class,
+        MigrateMissionGroups::class,
+        MigrateMissions::class,
+        MigratePosts::class,
+        MigratePersonalLogs::class,
+        UpdatePostOrdering::class,
+        MigrateNewsItems::class,
+        MigratePrivateMessages::class,
+        MigrateSettings::class,
+        MigrateBans::class,
     ];
 
     public int $currentStep = 0;

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Filament\Support\Enums\TextSize;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\TextColumn\TextColumnSize;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
 use Nova\Foundation\Livewire\TableComponent;
@@ -54,7 +54,7 @@ class RecentPublishedPostsList extends TableComponent
                             ->weight(FontWeight::Medium)
                             ->grow(false),
                         TextColumn::make('locationDayTime')
-                            ->size(TextColumnSize::Small)
+                            ->size(TextSize::Small)
                             ->color('gray')
                             ->extraAttributes(['class' => 'italic'])
                             ->grow(false),

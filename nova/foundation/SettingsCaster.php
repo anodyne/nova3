@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Settings;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Support\Jsonable;
 
@@ -12,11 +13,11 @@ class SettingsCaster implements CastsAttributes
     /**
      * Cast the given value.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param Model $model
      * @param  string  $key
      * @param  mixed  $value
      * @param  array  $attributes
-     * @return \Domain\Settings\Settings
+     * @return Settings
      */
     public function get($model, $key, $value, $attributes)
     {
@@ -28,9 +29,9 @@ class SettingsCaster implements CastsAttributes
     /**
      * Prepare the given value for storage.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param Model $model
      * @param  string  $key
-     * @param  \Domain\Settings\Settings  $value
+     * @param Settings $value
      * @param  array  $attributes
      * @return string
      */

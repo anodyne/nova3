@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Discussions\Models\Discussion;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Nova\Model>
+ * @extends Factory<\Nova\Model>
  */
 class DiscussionFactory extends Factory
 {

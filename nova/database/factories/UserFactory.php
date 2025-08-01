@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\CanAddMedia;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Actions\TrackStatusUpdate;
@@ -21,7 +22,7 @@ use Nova\Users\Models\User;
  */
 class UserFactory extends Factory
 {
-    use Concerns\CanAddMedia;
+    use CanAddMedia;
 
     protected $model = User::class;
 

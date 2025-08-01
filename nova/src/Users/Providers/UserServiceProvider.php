@@ -4,6 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Users\Providers;
 
+use Nova\Users\Listeners\CheckForForcedPasswordReset;
+use Nova\Users\Listeners\RecordLoginTime;
+use Nova\Users\Listeners\GeneratePassword;
+use Nova\Users\Listeners\LogImpersonationEnd;
+use Nova\Users\Listeners\LogImpersonationStart;
+use Nova\Users\Listeners\ClearForcedPasswordResetFlag;
+use Nova\Users\Spotlight\AddBan;
+use Nova\Users\Spotlight\AddUser;
+use Nova\Users\Spotlight\EditUser;
+use Nova\Users\Spotlight\ViewUser;
+use Nova\Users\Spotlight\ViewBans;
+use Nova\Users\Spotlight\ViewUsers;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\PasswordReset;
@@ -33,22 +45,22 @@ class UserServiceProvider extends DomainServiceProvider
     {
         return [
             Authenticated::class => [
-                Listeners\CheckForForcedPasswordReset::class,
+                CheckForForcedPasswordReset::class,
             ],
             Login::class => [
-                Listeners\RecordLoginTime::class,
+                RecordLoginTime::class,
             ],
             UserCreatedByAdmin::class => [
-                Listeners\GeneratePassword::class,
+                GeneratePassword::class,
             ],
             LeaveImpersonation::class => [
-                Listeners\LogImpersonationEnd::class,
+                LogImpersonationEnd::class,
             ],
             TakeImpersonation::class => [
-                Listeners\LogImpersonationStart::class,
+                LogImpersonationStart::class,
             ],
             PasswordReset::class => [
-                Listeners\ClearForcedPasswordResetFlag::class,
+                ClearForcedPasswordResetFlag::class,
             ],
         ];
     }
@@ -88,12 +100,12 @@ class UserServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\AddBan::class,
-            Spotlight\AddUser::class,
-            Spotlight\EditUser::class,
-            Spotlight\ViewUser::class,
-            Spotlight\ViewBans::class,
-            Spotlight\ViewUsers::class,
+            AddBan::class,
+            AddUser::class,
+            EditUser::class,
+            ViewUser::class,
+            ViewBans::class,
+            ViewUsers::class,
         ];
     }
 }

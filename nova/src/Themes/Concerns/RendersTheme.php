@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Concerns;
 
+use Exception;
 use Spatie\Html\Elements\Element;
 
 trait RendersTheme
@@ -14,7 +15,7 @@ trait RendersTheme
     {
         try {
             return $this->structure->render();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             dd($exception);
         }
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation;
 
+use InvalidArgumentException;
 use Illuminate\Support\Facades\Storage;
 
 class WordGenerator
@@ -63,14 +64,14 @@ class WordGenerator
 
         foreach ($list as $key => $weight) {
             if ($weight < 0) {
-                throw new \InvalidArgumentException("Weights cannot be negative. Found $key => $weight.");
+                throw new InvalidArgumentException("Weights cannot be negative. Found $key => $weight.");
             }
 
             $totalWeight += $weight;
         }
 
         if ($totalWeight === 0) {
-            throw new \InvalidArgumentException('Total weight must exceed zero.');
+            throw new InvalidArgumentException('Total weight must exceed zero.');
         } elseif ($totalWeight === 1) {
             return array_search(1, $list);
         }

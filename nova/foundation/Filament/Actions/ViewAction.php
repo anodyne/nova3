@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Tables\Actions\ViewAction as FilamentViewAction;
-
-class ViewAction extends FilamentViewAction
+class ViewAction extends \Filament\Actions\ViewAction
 {
     protected function setUp(): void
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Models;
 
+use Nova\Applications\Events\ApplicationAccepted;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,7 +44,7 @@ class Application extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\ApplicationAccepted::class,
+        'created' => ApplicationAccepted::class,
     ];
 
     public function acceptedReviews(): BelongsToMany

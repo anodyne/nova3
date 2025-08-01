@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation;
 
+use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -190,7 +191,7 @@ class NovaManager
     /**
      * Provide data from the backend for the frontend to use.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function provideScriptVariables()
     {

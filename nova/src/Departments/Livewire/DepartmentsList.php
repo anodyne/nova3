@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Livewire;
 
+use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -81,7 +81,7 @@ class DepartmentsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -121,7 +121,7 @@ class DepartmentsList extends TableComponent
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')->label('New department name'),
                             ])
                             ->modalContentView('pages.departments.duplicate')

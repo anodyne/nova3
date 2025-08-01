@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\Action;
+use Filament\Actions\Action;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -114,7 +114,7 @@ class PostsList extends TableComponent
                     ->toggleable()
                     ->toggledHiddenByDefault(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -131,7 +131,7 @@ class PostsList extends TableComponent
                                 'action' => $action,
                             ]))
                             ->modalHeading('')
-                            ->modalWidth(MaxWidth::Large)
+                            ->modalWidth(Width::Large)
                             ->modalSubmitActionLabel('Yes, approve it')
                             ->action(function (Post $record): void {
                                 ApprovePost::run($record);

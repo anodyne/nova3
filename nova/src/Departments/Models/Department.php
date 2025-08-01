@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
+use Nova\Departments\Events\DepartmentCreated;
+use Nova\Departments\Events\DepartmentDeleted;
+use Nova\Departments\Events\DepartmentUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,9 +49,9 @@ class Department extends Model implements HasMedia, Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\DepartmentCreated::class,
-        'deleted' => Events\DepartmentDeleted::class,
-        'updated' => Events\DepartmentUpdated::class,
+        'created' => DepartmentCreated::class,
+        'deleted' => DepartmentDeleted::class,
+        'updated' => DepartmentUpdated::class,
     ];
 
     public function activeCharacters(): HasManyDeep

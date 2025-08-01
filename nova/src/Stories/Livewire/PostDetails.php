@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +19,8 @@ use Nova\Stories\Models\Post;
 
 class PostDetails extends Component
 {
-    use Concerns\InteractsWithPost;
-    use Concerns\InteractsWithPostType;
+    use InteractsWithPost;
+    use InteractsWithPostType;
 
     public ?string $title = null;
 

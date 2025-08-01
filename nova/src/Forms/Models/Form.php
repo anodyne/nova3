@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Nova\Forms\Events\FormCreated;
+use Nova\Forms\Events\FormDeleted;
+use Nova\Forms\Events\FormUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,9 +55,9 @@ class Form extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\FormCreated::class,
-        'deleted' => Events\FormDeleted::class,
-        'updated' => Events\FormUpdated::class,
+        'created' => FormCreated::class,
+        'deleted' => FormDeleted::class,
+        'updated' => FormUpdated::class,
     ];
 
     public function formFields(): HasMany

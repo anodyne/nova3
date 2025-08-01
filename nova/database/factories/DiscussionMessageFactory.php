@@ -11,7 +11,7 @@ use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Users\Models\User;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Nova\Model>
+ * @extends Factory<\Nova\Model>
  */
 class DiscussionMessageFactory extends Factory
 {

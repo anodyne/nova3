@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
+use Filament\Schemas\Schema;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -18,7 +18,7 @@ abstract class FormComponent extends Component implements HasForms
 
     protected string $view = 'livewire.filament-form';
 
-    abstract public function form(Form $form): Form;
+    abstract public function form(Schema $schema): Schema;
 
     public function render(): ?View
     {

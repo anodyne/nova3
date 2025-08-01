@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Livewire;
 
+use Filament\Actions\Action;
+use Filament\Support\Enums\Size;
 use Filament\Forms\Components\CheckboxList;
-use Filament\Support\Enums\ActionSize;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -75,7 +75,7 @@ class AddonsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -158,7 +158,7 @@ class AddonsList extends TableComponent
                             ->modalHeading(fn (Addon $record): string => $record->name.' add-on settings')
                             ->modalDescription(null)
                             ->fillForm(fn (Addon $record): ?array => $record->settings?->settings ?? [])
-                            ->form(fn (Addon $record): ?array => $record->getAddonClass()->settingsForm())
+                            ->schema(fn (Addon $record): ?array => $record->getAddonClass()->settingsForm())
                             ->action(function (Addon $record, array $data) {
                                 $settingsData = new AddonSettings(settings: $data);
 
@@ -219,7 +219,7 @@ class AddonsList extends TableComponent
                     ->modalContent(fn (Action $action): View => view('pages.add-ons.pending-addons', [
                         'action' => $action,
                     ]))
-                    ->form([
+                    ->schema([
                         CheckboxList::make('addons')
                             ->options(Addon::getInstallableAddons())
                             ->label('Select the pending add-on(s) you’d like to install:'),
@@ -284,7 +284,7 @@ class AddonsList extends TableComponent
              */
             Action::make('extensionInstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
                     LogBatch::startBatch();
@@ -303,7 +303,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('extensionUninstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record) {
                     LogBatch::startBatch();
@@ -322,7 +322,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('extensionRunMigrations')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Run')
                 ->action(function (Addon $record): void {
                     $record->runScript('runMigrations');
@@ -333,7 +333,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('extensionRollbackMigrations')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Rollback')
                 ->action(function (Addon $record): void {
                     $record->runScript('rollbackMigrations');
@@ -348,7 +348,7 @@ class AddonsList extends TableComponent
              */
             Action::make('rankSetInstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
                     $record->runScript('install');
@@ -360,7 +360,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('rankSetUninstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record): void {
                     $record->runScript('uninstall');
@@ -372,7 +372,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('rankSetReplace')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Replace')
                 ->action(function (Addon $record): void {
                     $record->runScript('replace');
@@ -384,7 +384,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('rankSetAppend')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Append')
                 ->action(function (Addon $record): void {
                     $record->runScript('append');
@@ -400,7 +400,7 @@ class AddonsList extends TableComponent
              */
             Action::make('genreInstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
                     $record->runScript('install');
@@ -412,7 +412,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('genreUpdate')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Update')
                 ->action(function (Addon $record): void {
                     $record->runScript('update');
@@ -424,7 +424,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('genreUninstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record): void {
                     $record->runScript('uninstall');

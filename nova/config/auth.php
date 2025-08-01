@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Nova\Users\Models\User;
+
 return [
 
     /*
@@ -64,7 +66,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Nova\Users\Models\User::class,
+            'model' => User::class,
         ],
 
         // 'users' => [

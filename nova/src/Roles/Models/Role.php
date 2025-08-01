@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Models;
 
+use Nova\Roles\Events\RoleCreated;
+use Nova\Roles\Events\RoleDeleted;
+use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -37,9 +40,9 @@ class Role extends LaratrustRole implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\RoleCreated::class,
-        'deleted' => Events\RoleDeleted::class,
-        'updated' => Events\RoleUpdated::class,
+        'created' => RoleCreated::class,
+        'deleted' => RoleDeleted::class,
+        'updated' => RoleUpdated::class,
     ];
 
     /**

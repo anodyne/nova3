@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,7 +15,7 @@ use Nova\Stories\Models\Post;
 
 class PostPositionEditor extends SlideOver
 {
-    use Concerns\InteractsWithPost;
+    use InteractsWithPost;
 
     public string $search = '';
 

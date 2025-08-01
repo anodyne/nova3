@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Fields;
 
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Forms\Components\Builder\Block as BuilderBlock;
 use Filament\Forms\Components\KeyValue;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Set;
 use Illuminate\Support\Str;
 
 abstract class Field extends BuilderBlock
@@ -33,7 +34,7 @@ abstract class Field extends BuilderBlock
             $schema = [
                 Tabs::make()
                     ->tabs([
-                        Tabs\Tab::make('details')
+                        Tab::make('details')
                             ->label('Basic details')
                             ->icon(iconName('info'))
                             ->schema([
@@ -41,7 +42,7 @@ abstract class Field extends BuilderBlock
                                 ...$this->requiredSchema(),
                                 ...$this->detailsSchema(),
                             ]),
-                        Tabs\Tab::make('attrs')
+                        Tab::make('attrs')
                             ->label('Attributes')
                             ->icon(iconName('list-details'))
                             ->schema($this->baseAttributesSchema($this->attributesSchema()))

@@ -4,6 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Nova\Stories\Models\Concerns\HasContentRatings;
+use Nova\Stories\Events\PostCreating;
+use Nova\Stories\Events\PostCreated;
+use Nova\Stories\Events\PostDeleted;
+use Nova\Stories\Events\PostSaved;
+use Nova\Stories\Events\PostSaving;
+use Nova\Stories\Events\PostUpdated;
+use Nova\Stories\Models\States\PostStatus\Draft;
+use Nova\Stories\Models\States\PostStatus\Pending;
+use Nova\Stories\Models\States\PostStatus\Published;
+use Nova\Stories\Models\States\PostStatus\Started;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -34,7 +45,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(PostBuilder::class)]
 class Post extends Model implements Sortable
 {
-    use Concerns\HasContentRatings;
+    use HasContentRatings;
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
@@ -73,12 +84,12 @@ class Post extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'creating' => Events\PostCreating::class,
-        'created' => Events\PostCreated::class,
-        'deleted' => Events\PostDeleted::class,
-        'saved' => Events\PostSaved::class,
-        'saving' => Events\PostSaving::class,
-        'updated' => Events\PostUpdated::class,
+        'creating' => PostCreating::class,
+        'created' => PostCreated::class,
+        'deleted' => PostDeleted::class,
+        'saved' => PostSaved::class,
+        'saving' => PostSaving::class,
+        'updated' => PostUpdated::class,
     ];
 
     public function participatingUsers(): BelongsToMany
@@ -123,21 +134,21 @@ class Post extends Model implements Sortable
     public function isDraft(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->status->equals(PostStatus\Draft::class)
+            get: fn (): bool => $this->status->equals(Draft::class)
         );
     }
 
     public function isPending(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->status->equals(PostStatus\Pending::class)
+            get: fn (): bool => $this->status->equals(Pending::class)
         );
     }
 
     public function isPublished(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->status->equals(PostStatus\Published::class)
+            get: fn (): bool => $this->status->equals(Published::class)
         );
     }
 
@@ -151,7 +162,7 @@ class Post extends Model implements Sortable
     public function isStarted(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->status->equals(PostStatus\Started::class)
+            get: fn (): bool => $this->status->equals(Started::class)
         );
     }
 
@@ -257,7 +268,7 @@ class Post extends Model implements Sortable
     {
         return static::query()
             ->story($this->story)
-            ->whereNotState('status', PostStatus\Started::class);
+            ->whereNotState('status', Started::class);
     }
 
     public function shouldSortWhenCreating(): bool

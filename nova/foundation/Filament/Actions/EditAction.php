@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Tables\Actions\EditAction as FilamentEditAction;
-
-class EditAction extends FilamentEditAction
+class EditAction extends \Filament\Actions\EditAction
 {
     protected function setUp(): void
     {

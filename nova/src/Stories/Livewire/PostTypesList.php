@@ -115,7 +115,7 @@ class PostTypesList extends TableComponent
                     ->formatStateUsing(fn (PostType $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -147,7 +147,7 @@ class PostTypesList extends TableComponent
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->modalContentView('pages.post-types.duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')->label('Post type name'),
                             ])
                             ->action(function (PostType $record, array $data): void {
@@ -183,7 +183,7 @@ class PostTypesList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.post-types.delete')
-                            ->form(function (PostType $record): ?array {
+                            ->schema(function (PostType $record): ?array {
                                 if ($record->posts_count === 0) {
                                     return null;
                                 }
@@ -216,7 +216,7 @@ class PostTypesList extends TableComponent
                         ForceDeleteAction::make()
                             ->authorize('forceDelete')
                             ->modalContentView('pages.post-types.force-delete')
-                            ->form(function (PostType $record): ?array {
+                            ->schema(function (PostType $record): ?array {
                                 if ($record->posts_count === 0) {
                                     return null;
                                 }

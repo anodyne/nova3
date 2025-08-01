@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
-use Filament\Forms\Components\Actions\Action;
+use Filament\Schemas\Schema;
+use Filament\Actions\Action;
+use Filament\Support\Enums\Width;
 use Filament\Forms\Components\Builder;
-use Filament\Forms\Form;
 use Filament\Support\Enums\IconSize;
-use Filament\Support\Enums\MaxWidth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Locked;
 use Nova\Foundation\Filament\Notifications\Notification;
@@ -26,10 +26,10 @@ class PageDesigner extends FormComponent
 
     protected string $view = 'pages.pages.livewire.page-designer';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Builder::make('blocks')
                     ->hiddenLabel()
                     ->blockPreviews(areInteractive: true)
@@ -42,13 +42,13 @@ class PageDesigner extends FormComponent
                             ->icon(iconName('add'))
                             ->iconSize(IconSize::Medium)
                             ->slideOver()
-                            ->modalWidth(MaxWidth::TwoExtraLarge);
+                            ->modalWidth(Width::TwoExtraLarge);
                     })
                     ->editAction(function (Action $action): Action {
                         return $action
                             ->icon(iconName('settings'))
                             ->slideOver()
-                            ->modalWidth(MaxWidth::TwoExtraLarge);
+                            ->modalWidth(Width::TwoExtraLarge);
                     })
                     ->afterStateUpdated(fn () => $this->save()),
             ])

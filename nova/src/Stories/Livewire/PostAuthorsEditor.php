@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -16,10 +20,10 @@ use Nova\Users\Models\User;
 #[On('post-authors-modified')]
 class PostAuthorsEditor extends SlideOver
 {
-    use Concerns\InteractsWithCharacterAuthors;
-    use Concerns\InteractsWithPost;
-    use Concerns\InteractsWithPostType;
-    use Concerns\InteractsWithUserAuthors;
+    use InteractsWithCharacterAuthors;
+    use InteractsWithPost;
+    use InteractsWithPostType;
+    use InteractsWithUserAuthors;
 
     public string $search = '';
 

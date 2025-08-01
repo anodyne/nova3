@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Livewire;
 
+use Filament\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -56,7 +56,7 @@ class ThemesList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -102,7 +102,7 @@ class ThemesList extends TableComponent
                     ->modalDescription(null)
                     ->modalSubmitActionLabel('Install')
                     ->modalContent(fn (): View => view('pages.themes.pending-themes'))
-                    ->form([
+                    ->schema([
                         CheckboxList::make('themes')
                             ->options(Theme::getInstallableThemes()->flatMap(fn ($theme): array => [$theme => $theme]))
                             ->label('Select the pending themes you’d like to install:'),

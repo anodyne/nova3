@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
+use Nova\Characters\Models\Concerns\HasUsers;
+use Nova\Characters\Events\CharacterCreated;
+use Nova\Characters\Events\CharacterDeleted;
+use Nova\Characters\Events\CharacterUpdated;
+use Nova\Characters\Events\CharacterForceDeleted;
+use Nova\Characters\Events\CharacterRestored;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -38,7 +44,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(CharacterBuilder::class)]
 class Character extends Model implements HasMedia
 {
-    use Concerns\HasUsers;
+    use HasUsers;
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
@@ -53,11 +59,11 @@ class Character extends Model implements HasMedia
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\CharacterCreated::class,
-        'deleted' => Events\CharacterDeleted::class,
-        'updated' => Events\CharacterUpdated::class,
-        'forceDeleted' => Events\CharacterForceDeleted::class,
-        'restored' => Events\CharacterRestored::class,
+        'created' => CharacterCreated::class,
+        'deleted' => CharacterDeleted::class,
+        'updated' => CharacterUpdated::class,
+        'forceDeleted' => CharacterForceDeleted::class,
+        'restored' => CharacterRestored::class,
     ];
 
     protected $fillable = [

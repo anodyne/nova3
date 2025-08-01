@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
+use Nova\Departments\Events\PositionCreated;
+use Nova\Departments\Events\PositionDeleted;
+use Nova\Departments\Events\PositionUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -49,9 +52,9 @@ class Position extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\PositionCreated::class,
-        'deleted' => Events\PositionDeleted::class,
-        'updated' => Events\PositionUpdated::class,
+        'created' => PositionCreated::class,
+        'deleted' => PositionDeleted::class,
+        'updated' => PositionUpdated::class,
     ];
 
     public function activeCharacters(): BelongsToMany

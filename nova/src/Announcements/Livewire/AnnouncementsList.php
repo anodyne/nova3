@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Livewire;
 
-use Filament\Support\Enums\MaxWidth;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -89,7 +89,7 @@ class AnnouncementsList extends TableComponent
                     ->badge()
                     ->visible($user->can('manage', Announcement::class)),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         EditAction::make()
@@ -106,7 +106,7 @@ class AnnouncementsList extends TableComponent
                                 'action' => $action,
                             ]))
                             ->modalHeading('')
-                            ->modalWidth(MaxWidth::Large)
+                            ->modalWidth(Width::Large)
                             ->modalSubmitActionLabel('Yes, approve it')
                             ->action(function (Announcement $record): void {
                                 ApproveAnnouncement::run($record);

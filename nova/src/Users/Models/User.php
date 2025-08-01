@@ -4,6 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models;
 
+use Nova\Users\Models\Concerns\CanManageResources;
+use Nova\Users\Models\Concerns\HasAnnouncements;
+use Nova\Users\Models\Concerns\HasCharacters;
+use Nova\Users\Models\Concerns\HasFormSubmissions;
+use Nova\Users\Models\Concerns\HasLogins;
+use Nova\Users\Models\Concerns\HasNotes;
+use Nova\Users\Models\Concerns\HasOnboarding;
+use Nova\Users\Models\Concerns\HasPosts;
+use Nova\Users\Events\UserCreated;
+use Nova\Users\Events\UserUpdated;
+use Nova\Users\Events\UserDeleted;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -49,14 +60,14 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
 {
     use Bannable;
     use CausesActivity;
-    use Concerns\CanManageResources;
-    use Concerns\HasAnnouncements;
-    use Concerns\HasCharacters;
-    use Concerns\HasFormSubmissions;
-    use Concerns\HasLogins;
-    use Concerns\HasNotes;
-    use Concerns\HasOnboarding;
-    use Concerns\HasPosts;
+    use CanManageResources;
+    use HasAnnouncements;
+    use HasCharacters;
+    use HasFormSubmissions;
+    use HasLogins;
+    use HasNotes;
+    use HasOnboarding;
+    use HasPosts;
     use HasFactory;
     use HasPrefixedId;
     use HasRolesAndPermissions;
@@ -80,9 +91,9 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\UserCreated::class,
-        'updated' => Events\UserUpdated::class,
-        'deleted' => Events\UserDeleted::class,
+        'created' => UserCreated::class,
+        'updated' => UserUpdated::class,
+        'deleted' => UserDeleted::class,
     ];
 
     protected $fillable = [

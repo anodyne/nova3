@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\ForceDeleteAction as FilamentForceDeleteAction;
+use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 
-class ForceDeleteAction extends FilamentForceDeleteAction
+class ForceDeleteAction extends \Filament\Actions\ForceDeleteAction
 {
     use HasModalContentView;
 
@@ -23,7 +22,7 @@ class ForceDeleteAction extends FilamentForceDeleteAction
 
         $this->requiresConfirmation(false);
 
-        $this->modalWidth(MaxWidth::Large);
+        $this->modalWidth(Width::Large);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

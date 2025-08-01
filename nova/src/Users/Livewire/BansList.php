@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Filament\Support\Enums\Width;
+use Filament\Schemas\Schema;
 use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Infolist;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -57,13 +57,13 @@ class BansList extends TableComponent
                     ->label('Banned on')
                     ->date(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
                             ->slideOver()
-                            ->modalWidth(MaxWidth::Large)
+                            ->modalWidth(Width::Large)
                             ->modalIcon(iconName('hammer'))
                             ->modalHeading('')
                             ->modalDescription(null)
@@ -71,8 +71,8 @@ class BansList extends TableComponent
                                 'record' => $record,
                                 'action' => $action,
                             ]))
-                            ->infolist(function (Infolist $infolist): Infolist {
-                                return $infolist->schema([
+                            ->schema(function (Schema $schema): Schema {
+                                return $schema->components([
                                     TextEntry::make('bannable.name')
                                         ->label('User name')
                                         ->visible(fn (Ban $record): bool => filled($record->bannable)),

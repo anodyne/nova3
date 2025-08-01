@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Concerns;
 
+use Nova\Themes\BaseTheme;
 use Nova\Themes\Models\Theme;
 
 trait InteractsWithModel
@@ -41,7 +42,7 @@ trait InteractsWithModel
     /**
      * Set the properties of the class from the model.
      *
-     * @return \Nova\Themes\BaseTheme
+     * @return BaseTheme
      */
     public function setThemeProperties()
     {

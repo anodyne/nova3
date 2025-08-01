@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Providers;
 
+use Nova\Menus\Spotlight\AddMenuItem;
+use Nova\Menus\Spotlight\EditMenuItem;
+use Nova\Menus\Spotlight\ViewMenuItems;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Events\ModelOrderChanged;
 use Nova\Menus\Listeners\RecacheAfterReordering;
@@ -41,9 +44,9 @@ class MenusServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\AddMenuItem::class,
-            Spotlight\EditMenuItem::class,
-            Spotlight\ViewMenuItems::class,
+            AddMenuItem::class,
+            EditMenuItem::class,
+            ViewMenuItems::class,
         ];
     }
 }

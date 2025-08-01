@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Providers;
 
+use Nova\Forms\Spotlight\DesignForm;
+use Nova\Forms\Spotlight\ViewForm;
+use Nova\Forms\Spotlight\ViewForms;
 use Nova\DomainServiceProvider;
 use Nova\Forms\Livewire\DynamicForm;
 use Nova\Forms\Livewire\FormDesigner;
@@ -47,9 +50,9 @@ class FormServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\DesignForm::class,
-            Spotlight\ViewForm::class,
-            Spotlight\ViewForms::class,
+            DesignForm::class,
+            ViewForm::class,
+            ViewForms::class,
         ];
     }
 }

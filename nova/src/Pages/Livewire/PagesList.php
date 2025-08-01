@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -90,7 +90,7 @@ class PagesList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         Action::make('visit')
@@ -137,7 +137,7 @@ class PagesList extends TableComponent
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->modalContentView('pages.pages.duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn (Set $set, string $state) => $set('key', str($state)->slug())),

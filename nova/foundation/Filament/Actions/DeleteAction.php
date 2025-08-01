@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\DeleteAction as FilamentDeleteAction;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
+use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 
-class DeleteAction extends FilamentDeleteAction
+class DeleteAction extends \Filament\Actions\DeleteAction
 {
-    use Concerns\HasModalContentView;
+    use HasModalContentView;
 
     protected function setUp(): void
     {
@@ -21,7 +21,7 @@ class DeleteAction extends FilamentDeleteAction
 
         $this->requiresConfirmation(false);
 
-        $this->modalWidth(MaxWidth::Large);
+        $this->modalWidth(Width::Large);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

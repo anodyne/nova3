@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks;
 
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Grid;
 use Filament\Forms\Components\Builder\Block as BuilderBlock;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Get;
 use Illuminate\Support\Facades\Cache;
 use Nova\Pages\Enums\BackgroundImageIntensity;
 use Nova\Pages\Enums\Blur;
@@ -39,15 +40,15 @@ abstract class Block extends BuilderBlock
             ->schema([
                 Tabs::make()
                     ->tabs([
-                        Tabs\Tab::make('container')
+                        Tab::make('container')
                             ->label('Container')
                             ->icon(iconName('box-padding'))
                             ->schema($this->containerSchema()),
-                        Tabs\Tab::make('content')
+                        Tab::make('content')
                             ->label('Content')
                             ->icon(iconName('box-margin'))
                             ->schema($this->contentSchema()),
-                        Tabs\Tab::make('block')
+                        Tab::make('block')
                             ->label('Block settings')
                             ->icon(iconName('settings'))
                             ->schema($this->blockSchema())

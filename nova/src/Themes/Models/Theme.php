@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Models;
 
+use Nova\Themes\Events\ThemeCreated;
+use Nova\Themes\Events\ThemeDeleted;
+use Nova\Themes\Events\ThemeUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,9 +42,9 @@ class Theme extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\ThemeCreated::class,
-        'deleted' => Events\ThemeDeleted::class,
-        'updated' => Events\ThemeUpdated::class,
+        'created' => ThemeCreated::class,
+        'deleted' => ThemeDeleted::class,
+        'updated' => ThemeUpdated::class,
     ];
 
     public function isCurrentPublicTheme(): Attribute

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Attributes\On;
@@ -16,7 +17,7 @@ use Nova\Stories\Models\Post;
 
 class PostRatings extends Component
 {
-    use Concerns\InteractsWithPost;
+    use InteractsWithPost;
 
     public ContentRatingValue $language;
 

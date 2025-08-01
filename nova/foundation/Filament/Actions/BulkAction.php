@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\BulkAction as FilamentBulkAction;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
+use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 
-class BulkAction extends FilamentBulkAction
+class BulkAction extends \Filament\Actions\BulkAction
 {
-    use Concerns\HasModalContentView;
+    use HasModalContentView;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->modalWidth(MaxWidth::Large);
+        $this->modalWidth(Width::Large);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

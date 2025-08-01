@@ -105,7 +105,7 @@ class UsersList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -175,7 +175,7 @@ class UsersList extends TableComponent
                             ->color('gray')
                             ->modalContentView('pages.users.activate')
                             ->modalSubmitActionLabel('Activate')
-                            ->form([
+                            ->schema([
                                 Checkbox::make('activate_previous_character')
                                     ->label('Activate previous character')
                                     ->default(true),
@@ -233,7 +233,7 @@ class UsersList extends TableComponent
                             ->authorize('update')
                             ->icon(iconName('hammer-off'))
                             ->color('gray')
-                            ->form([
+                            ->schema([
                                 Toggle::make('reactivate')->label('Re-activate their user account'),
                             ])
                             ->modalContentView('pages.users.unban')

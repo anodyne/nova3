@@ -117,7 +117,7 @@ class MyAccountForm extends Form
             'violenceContentRatingWarningThreshold',
         ]);
 
-        /** @var \Nova\Users\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         $user->update($data);

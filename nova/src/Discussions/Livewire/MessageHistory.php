@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Livewire;
 
+use Throwable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
@@ -125,7 +126,7 @@ class MessageHistory extends Component
                 ->title('Failed to leave discussion')
                 ->body($th->getMessage())
                 ->send();
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             report($th);
 
             Notification::make()->danger()

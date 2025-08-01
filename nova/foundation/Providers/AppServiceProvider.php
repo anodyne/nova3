@@ -58,8 +58,12 @@ use Nova\Foundation\Livewire\ConfirmationModal;
 use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconPicker;
 use Nova\Foundation\Livewire\Rating;
-use Nova\Foundation\Macros;
+use Nova\Foundation\Macros\ArrMacros;
 use Nova\Foundation\Macros\CreateUpdateOrDelete;
+use Nova\Foundation\Macros\NotificationMacros;
+use Nova\Foundation\Macros\StrMacros;
+use Nova\Foundation\Macros\TextColumnMacros;
+use Nova\Foundation\Macros\ViewMacros;
 use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
@@ -83,8 +87,8 @@ use Nova\Settings\Models\Settings;
 use Nova\Stories\Models\PostType;
 use Nova\Themes\Models\Theme;
 use Nova\Users\Models\User;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
@@ -165,12 +169,12 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureMacros()
     {
-        Arr::mixin(new Macros\ArrMacros);
-        Redirector::mixin(new Macros\NotificationMacros);
-        RedirectResponse::mixin(new Macros\NotificationMacros);
-        Str::mixin(new Macros\StrMacros);
-        TextColumn::mixin(new Macros\TextColumnMacros);
-        ViewFactory::mixin(new Macros\ViewMacros);
+        Arr::mixin(new ArrMacros);
+        Redirector::mixin(new NotificationMacros);
+        RedirectResponse::mixin(new NotificationMacros);
+        Str::mixin(new StrMacros);
+        TextColumn::mixin(new TextColumnMacros);
+        ViewFactory::mixin(new ViewMacros);
 
         Route::macro('findPageFromRoute', function () {
             /** @var Route */

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Nova\Setup\Livewire\Concerns\HandlesMigration;
+use Nova\Setup\Livewire\Concerns\InteractsWithEnvFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -20,8 +22,8 @@ use Throwable;
 #[Layout('layouts.setup', ['type' => SetupType::Install])]
 class ConfigureDatabase extends Component
 {
-    use Concerns\HandlesMigration;
-    use Concerns\InteractsWithEnvFile;
+    use HandlesMigration;
+    use InteractsWithEnvFile;
     use InteractsWithRoute;
 
     public string $driver = 'mysql';

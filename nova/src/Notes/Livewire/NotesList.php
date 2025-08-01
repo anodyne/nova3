@@ -53,7 +53,7 @@ class NotesList extends TableComponent
                     ->since()
                     ->sortable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()

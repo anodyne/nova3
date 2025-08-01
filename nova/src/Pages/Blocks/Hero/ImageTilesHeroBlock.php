@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Hero;
 
+use Filament\Schemas\Components\Section;
 use Closure;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 
 class ImageTilesHeroBlock extends HeroBlock
 {

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Models;
 
+use Nova\Menus\Events\MenuItemCreated;
+use Nova\Menus\Events\MenuItemDeleted;
+use Nova\Menus\Events\MenuItemUpdated;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -53,9 +56,9 @@ class MenuItem extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\MenuItemCreated::class,
-        'deleted' => Events\MenuItemDeleted::class,
-        'updated' => Events\MenuItemUpdated::class,
+        'created' => MenuItemCreated::class,
+        'deleted' => MenuItemDeleted::class,
+        'updated' => MenuItemUpdated::class,
     ];
 
     public function menu(): BelongsTo

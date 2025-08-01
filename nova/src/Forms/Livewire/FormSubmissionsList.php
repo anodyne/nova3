@@ -64,7 +64,7 @@ class FormSubmissionsList extends TableComponent
                     ->toggleable()
                     ->sortable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()

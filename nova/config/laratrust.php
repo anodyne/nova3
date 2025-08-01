@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+use Nova\Users\Models\User;
+use Nova\Roles\Models\Role;
+use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Team;
+
 return [
 
     /*
@@ -112,7 +117,7 @@ return [
     */
 
     'user_models' => [
-        'user' => Nova\Users\Models\User::class,
+        'user' => User::class,
     ],
 
     /*
@@ -126,14 +131,14 @@ return [
     |
     */
     'models' => [
-        'role' => Nova\Roles\Models\Role::class,
+        'role' => Role::class,
 
-        'permission' => Nova\Roles\Models\Permission::class,
+        'permission' => Permission::class,
 
         /**
          * Will be used only if the teams functionality is enabled.
          */
-        'team' => Nova\Roles\Models\Team::class,
+        'team' => Team::class,
     ],
 
     /*

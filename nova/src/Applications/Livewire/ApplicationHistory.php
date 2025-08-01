@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
-use Filament\Infolists\Infolist;
+use Filament\Schemas\Schema;
 use Livewire\Attributes\Locked;
 use Nova\Applications\Models\Application;
 use Nova\Foundation\Helpers\DateHelper;
@@ -19,11 +19,11 @@ class ApplicationHistory extends InfolistComponent
     #[Locked]
     public Application $application;
 
-    public function infolist(Infolist $infolist): Infolist
+    public function infolist(Schema $schema): Schema
     {
-        return $infolist
+        return $schema
             ->record($this->application)
-            ->schema([
+            ->components([
                 Timeline::make()
                     ->hiddenLabel()
                     ->attributeLabels([

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Models;
 
+use Nova\Addons\Events\AddonCreated;
+use Nova\Addons\Events\AddonDeleted;
+use Nova\Addons\Events\AddonUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,9 +52,9 @@ class Addon extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\AddonCreated::class,
-        'deleted' => Events\AddonDeleted::class,
-        'updated' => Events\AddonUpdated::class,
+        'created' => AddonCreated::class,
+        'deleted' => AddonDeleted::class,
+        'updated' => AddonUpdated::class,
     ];
 
     public function hasAddonClass(): Attribute

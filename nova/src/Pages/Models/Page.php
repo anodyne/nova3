@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Models;
 
+use Nova\Pages\Events\PageCreated;
+use Nova\Pages\Events\PageDeleted;
+use Nova\Pages\Events\PageUpdated;
 use Illuminate\Database\Eloquent\Attributes\CollectedBy;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
@@ -66,9 +69,9 @@ class Page extends Model implements HasMedia
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\PageCreated::class,
-        'deleted' => Events\PageDeleted::class,
-        'updated' => Events\PageUpdated::class,
+        'created' => PageCreated::class,
+        'deleted' => PageDeleted::class,
+        'updated' => PageUpdated::class,
     ];
 
     public function menuItems(): HasMany

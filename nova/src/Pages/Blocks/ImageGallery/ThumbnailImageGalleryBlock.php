@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\ImageGallery;
 
+use Filament\Schemas\Components\Section;
 use Closure;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\Radius;

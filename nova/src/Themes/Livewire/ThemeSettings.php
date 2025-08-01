@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Livewire;
 
+use Filament\Schemas\Schema;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Themes\Data\ThemeSettings as ThemeSettingsData;
@@ -22,10 +22,10 @@ class ThemeSettings extends SlideOver implements HasForms
 
     public string|Theme $theme;
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema($this->theme->themeClass()->settingsForm())
+        return $schema
+            ->components($this->theme->themeClass()->settingsForm())
             ->statePath('data')
             ->model($this->theme);
     }

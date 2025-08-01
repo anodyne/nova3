@@ -34,9 +34,11 @@ readonly class ThemeSettings extends Bag
 
     public function textAccentColor(): ?string
     {
-        $fallbackTextColor = (Contrast::ratio(Hex::fromString($this->accentColor()), Hex::fromString('#fff')) >= 2.0)
-            ? '#fff'
-            : '#000';
+        // $fallbackTextColor = (Contrast::ratio(Hex::fromString($this->accentColor()), Hex::fromString('#fff')) >= 2.0)
+        //     ? '#fff'
+        //     : '#000';
+
+        $fallbackTextColor = '#000';
 
         return data_get($this->settings, 'textAccentColor', $fallbackTextColor);
     }

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use LivewireUI\Spotlight\Commands\Logout;
+
 return [
 
     /*
@@ -31,7 +33,7 @@ return [
     */
 
     'commands' => [
-        \LivewireUI\Spotlight\Commands\Logout::class,
+        Logout::class,
     ],
 
     /*

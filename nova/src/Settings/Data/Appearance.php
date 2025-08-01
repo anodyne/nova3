@@ -49,11 +49,11 @@ readonly class Appearance extends Bag
     protected function processColor(string $color): array
     {
         if (is_string($color) && str_starts_with($color, '#')) {
-            return Color::hex($color);
+            return Color::generateV3Palette($color);
         }
 
         if (is_string($color) && str_starts_with($color, 'rgb')) {
-            return Color::rgb($color);
+            return Color::generateV3Palette($color);
         }
 
         return constant('Nova\Foundation\Colors\Color::'.$color);

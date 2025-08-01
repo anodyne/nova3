@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Providers;
 
+use Nova\Pages\Spotlight\DesignPage;
+use Nova\Pages\Spotlight\ViewPage;
+use Nova\Pages\Spotlight\ViewPages;
 use Nova\DomainServiceProvider;
 use Nova\Pages\Livewire\AlternatingStories;
 use Nova\Pages\Livewire\CharactersManifest;
@@ -45,9 +48,9 @@ class PageServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\DesignPage::class,
-            Spotlight\ViewPage::class,
-            Spotlight\ViewPages::class,
+            DesignPage::class,
+            ViewPage::class,
+            ViewPages::class,
         ];
     }
 }

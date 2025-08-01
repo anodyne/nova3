@@ -97,7 +97,7 @@ class StoryPostsList extends TableComponent
                     ->toggleable()
                     ->toggledHiddenByDefault(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()

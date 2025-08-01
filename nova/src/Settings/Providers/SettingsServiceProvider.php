@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Providers;
 
+use Nova\Settings\Spotlight\ViewCharacterSettings;
+use Nova\Settings\Spotlight\ViewEmailSettings;
+use Nova\Settings\Spotlight\ViewGeneralSettings;
+use Nova\Settings\Spotlight\ViewNotificationSettings;
+use Nova\Settings\Spotlight\ViewPostingActivitySettings;
+use Nova\Settings\Spotlight\ViewRatingsSettings;
+use Nova\Settings\Spotlight\ViewApplicationsSettings;
 use Nova\DomainServiceProvider;
 use Nova\Settings\Livewire\ContentRatingsSettings;
 use Nova\Settings\Livewire\EmailSettings;
@@ -40,13 +47,13 @@ class SettingsServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\ViewCharacterSettings::class,
-            Spotlight\ViewEmailSettings::class,
-            Spotlight\ViewGeneralSettings::class,
-            Spotlight\ViewNotificationSettings::class,
-            Spotlight\ViewPostingActivitySettings::class,
-            Spotlight\ViewRatingsSettings::class,
-            Spotlight\ViewApplicationsSettings::class,
+            ViewCharacterSettings::class,
+            ViewEmailSettings::class,
+            ViewGeneralSettings::class,
+            ViewNotificationSettings::class,
+            ViewPostingActivitySettings::class,
+            ViewRatingsSettings::class,
+            ViewApplicationsSettings::class,
         ];
     }
 }

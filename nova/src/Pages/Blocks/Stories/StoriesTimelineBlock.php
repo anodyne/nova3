@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Stories;
 
+use Filament\Schemas\Components\Section;
 use Closure;
 use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Section;
 
 class StoriesTimelineBlock extends StoriesBlock
 {

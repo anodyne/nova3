@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Fonts;
 
+use Nova\Foundation\Fonts\Contracts\FontProvider;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\HtmlString;
 
-class LocalFontProvider implements Contracts\FontProvider
+class LocalFontProvider implements FontProvider
 {
     public function getFontHtml(string $family, ?string $url = null): Htmlable
     {

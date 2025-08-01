@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Models;
 
+use Nova\Announcements\Events\AnnouncementCreated;
+use Nova\Announcements\Events\AnnouncementDeleted;
+use Nova\Announcements\Events\AnnouncementUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -43,9 +46,9 @@ class Announcement extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\AnnouncementCreated::class,
-        'deleted' => Events\AnnouncementDeleted::class,
-        'updated' => Events\AnnouncementUpdated::class,
+        'created' => AnnouncementCreated::class,
+        'deleted' => AnnouncementDeleted::class,
+        'updated' => AnnouncementUpdated::class,
     ];
 
     public function notifications(): HasMany

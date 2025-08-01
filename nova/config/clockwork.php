@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Illuminate\Container\Container;
+use Illuminate\Foundation\Application;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -370,8 +373,8 @@ return [
 
     // A list of classes that will never be serialized (eg. a common service container class)
     'serialization_blackbox' => [
-        \Illuminate\Container\Container::class,
-        \Illuminate\Foundation\Application::class,
+        Container::class,
+        Application::class,
         \Laravel\Lumen\Application::class,
     ],
 

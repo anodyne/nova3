@@ -56,7 +56,7 @@ class RankNamesList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -83,7 +83,7 @@ class RankNamesList extends TableComponent
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')->label('New rank name'),
                             ])
                             ->modalContentView('pages.ranks.names.duplicate')

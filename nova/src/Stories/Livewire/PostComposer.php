@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Nova\Stories\Livewire\Concerns\InteractsWithPostLocks;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Nova\Stories\Livewire\Concerns\InteractsWithStories;
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +27,9 @@ use WireElements\Pro\Concerns\InteractsWithConfirmationModal;
 
 class PostComposer extends Component
 {
-    use Concerns\InteractsWithPostLocks;
-    use Concerns\InteractsWithPostType;
-    use Concerns\InteractsWithStories;
+    use InteractsWithPostLocks;
+    use InteractsWithPostType;
+    use InteractsWithStories;
     use InteractsWithConfirmationModal;
 
     #[Locked]

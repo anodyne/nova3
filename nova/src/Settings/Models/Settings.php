@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Models;
 
+use Nova\Settings\Data\General;
+use Nova\Settings\Data\Email;
+use Nova\Settings\Data\Appearance;
+use Nova\Settings\Data\Characters;
+use Nova\Settings\Data\Discord;
+use Nova\Settings\Data\PostingActivity;
+use Nova\Settings\Data\ContentRatings;
+use Nova\Settings\Data\Applications;
+use Nova\Settings\Data\Dashboard;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
@@ -19,15 +28,15 @@ class Settings extends Model implements HasMedia
     protected $table = 'settings';
 
     protected $casts = [
-        'general' => Data\General::class,
-        'email' => Data\Email::class,
-        'appearance' => Data\Appearance::class,
-        'characters' => Data\Characters::class,
-        'discord' => Data\Discord::class,
-        'posting_activity' => Data\PostingActivity::class,
-        'ratings' => Data\ContentRatings::class,
-        'applications' => Data\Applications::class,
-        'dashboard' => Data\Dashboard::class,
+        'general' => General::class,
+        'email' => Email::class,
+        'appearance' => Appearance::class,
+        'characters' => Characters::class,
+        'discord' => Discord::class,
+        'posting_activity' => PostingActivity::class,
+        'ratings' => ContentRatings::class,
+        'applications' => Applications::class,
+        'dashboard' => Dashboard::class,
     ];
 
     protected $fillable = [

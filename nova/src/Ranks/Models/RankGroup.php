@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Models;
 
+use Nova\Ranks\Events\RankGroupCreated;
+use Nova\Ranks\Events\RankGroupUpdated;
+use Nova\Ranks\Events\RankGroupDeleted;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -34,9 +37,9 @@ class RankGroup extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\RankGroupCreated::class,
-        'updated' => Events\RankGroupUpdated::class,
-        'deleted' => Events\RankGroupDeleted::class,
+        'created' => RankGroupCreated::class,
+        'updated' => RankGroupUpdated::class,
+        'deleted' => RankGroupDeleted::class,
     ];
 
     public function ranks(): HasMany

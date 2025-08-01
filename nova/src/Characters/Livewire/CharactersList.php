@@ -91,7 +91,7 @@ class CharactersList extends TableComponent
                     ->formatStateUsing(fn (Character $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()

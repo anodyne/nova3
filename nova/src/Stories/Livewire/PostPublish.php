@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Filament\Notifications\Actions\Action;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Filament\Actions\Action;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -25,8 +27,8 @@ use Nova\Stories\Models\States\PostStatus\Published;
 
 class PostPublish extends SlideOver
 {
-    use Concerns\InteractsWithPost;
-    use Concerns\InteractsWithPostType;
+    use InteractsWithPost;
+    use InteractsWithPostType;
 
     #[Locked]
     public Post $post;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Filament\Tables\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
@@ -106,7 +106,7 @@ class StoriesList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -124,7 +124,7 @@ class StoriesList extends TableComponent
                                 'start_date' => $record->started_at->toIso8601String(),
                                 'end_date' => $record->ended_at->toIso8601String(),
                             ])
-                            ->form([
+                            ->schema([
                                 DatePicker::make('start_date')->prefixIcon(iconName('calendar')),
                                 DatePicker::make('end_date')->prefixIcon(iconName('calendar')),
                             ])

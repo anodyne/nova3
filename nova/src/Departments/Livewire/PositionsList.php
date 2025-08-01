@@ -96,7 +96,7 @@ class PositionsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -131,7 +131,7 @@ class PositionsList extends TableComponent
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')->label('New position name'),
                                 Select::make('department_id')->relationship('department', 'name'),
                             ])

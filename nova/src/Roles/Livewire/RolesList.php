@@ -73,7 +73,7 @@ class RolesList extends TableComponent
                     ->trueIcon(iconName('check'))
                     ->falseIcon(''),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -92,7 +92,7 @@ class RolesList extends TableComponent
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->modalContentView('pages.roles.duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('display_name')->label('New role name'),
                             ])
                             ->action(function (Role $record, array $data): void {

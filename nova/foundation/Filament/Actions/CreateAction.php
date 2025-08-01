@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Tables\Actions\CreateAction as FilamentCreateAction;
-
-class CreateAction extends FilamentCreateAction
+class CreateAction extends \Filament\Actions\CreateAction
 {
     protected function setUp(): void
     {

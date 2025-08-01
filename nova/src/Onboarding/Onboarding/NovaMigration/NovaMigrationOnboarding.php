@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Onboarding\Onboarding\NovaMigration;
 
+use Nova\Onboarding\Onboarding\OnboardingChecklistStep;
 use Nova\Onboarding\Onboarding\OnboardingChecklist;
 
 class NovaMigrationOnboarding extends OnboardingChecklist
 {
     /**
-     * @return array<\Nova\Onboarding\Onboarding\OnboardingChecklistStep>
+     * @return array<OnboardingChecklistStep>
      */
     public function steps(): array
     {

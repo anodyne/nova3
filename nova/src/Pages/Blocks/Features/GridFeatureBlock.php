@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Features;
 
+use Filament\Schemas\Components\Section;
+use Filament\Actions\Action;
 use Closure;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 

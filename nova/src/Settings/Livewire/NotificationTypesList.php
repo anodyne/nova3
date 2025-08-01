@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Get;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
@@ -63,7 +63,7 @@ class NotificationTypesList extends TableComponent
                     ->alignCenter()
                     ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary'),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         Action::make('auditNotification')
@@ -88,7 +88,7 @@ class NotificationTypesList extends TableComponent
                                 'database_default' => $record->database_default,
                                 'mail_default' => $record->mail_default,
                             ])
-                            ->form([
+                            ->schema([
                                 Toggle::make('database_default')
                                     ->label('In-app')
                                     ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
@@ -124,7 +124,7 @@ class NotificationTypesList extends TableComponent
                                 'webhook' => $record->discord_settings?->webhook,
                                 'color' => $record->discord_settings?->color,
                             ])
-                            ->form([
+                            ->schema([
                                 Toggle::make('use_global')
                                     ->label('Use global settings')
                                     ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
@@ -174,7 +174,7 @@ class NotificationTypesList extends TableComponent
                         'webhook' => settings('discord.webhook'),
                         'color' => settings('discord.color'),
                     ])
-                    ->form([
+                    ->schema([
                         TextInput::make('webhook')
                             ->label('Discord webhook')
                             ->helperText(

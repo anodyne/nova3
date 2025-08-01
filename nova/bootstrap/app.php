@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Nova\Foundation\Http\Middleware\CheckInstallStatus;
+use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Session\TokenMismatchException;
@@ -30,11 +32,11 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'installed' => Nova\Foundation\Http\Middleware\CheckInstallStatus::class,
+            'installed' => CheckInstallStatus::class,
         ]);
 
         $middleware->replace(
-            \Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class,
+            PreventRequestsDuringMaintenance::class,
             \Nova\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class
         );
 
