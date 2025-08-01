@@ -17,7 +17,7 @@ class NovaMigrationOnboarding extends OnboardingChecklist
             ConfigureEmail::class,
             CheckDepartmentsAndPositions::class,
             SetupRanks::class,
-            UpdateCharacterInfo::class,
+            UpdateCharacterRanks::class,
         ]);
     }
 }
