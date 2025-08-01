@@ -4,16 +4,31 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Fields;
 
+use Closure;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\TextInput;
+
 class NumberField extends Field
 {
-    protected function setUp(): void
+    const component = 'number';
+
+    protected ?string $blockLabel = 'Number';
+
+    protected string|Closure|null $preview = 'number-preview';
+
+    public function attributesSchema(): array
     {
-        $this->baseConfiguration()
-            ->icon('tabler-number-123')
-            ->label('Number')
-            ->identifier('field-number')
-            ->optionsModal(Settings\NumberFieldSettings::class)
-            ->renderedView('pages.forms.fields.number')
-            ->editorView('pages.forms.fields.number-preview');
+        return [
+            TextInput::make('attrs.placeholder')
+                ->label('Placeholder'),
+
+            Placeholder::make('additionalAttributes')
+                ->content(str('Number fields will include an `inputmode` of **decimal** to ensure software keyboards display the correct options.')->markdown()->toHtmlString()),
+        ];
+    }
+
+    public function detailsSchema(): array
+    {
+        return [];
     }
 }

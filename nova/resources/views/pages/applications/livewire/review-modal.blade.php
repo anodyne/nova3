@@ -60,7 +60,7 @@
 
             <x-fieldset.field-group>
                 <x-form.dynamic :admin="true" :form="$applicationReviewForm" :$values>
-                    {!! scribble($applicationReviewForm->published_fields ?? ['content' => null])->toHtml() !!}
+                    {!! $applicationReviewForm->rendered_block_content !!}
                 </x-form.dynamic>
             </x-fieldset.field-group>
         </x-fieldset>

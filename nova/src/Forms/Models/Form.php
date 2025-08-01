@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Nova\Forms\Data\FormOptions;
 use Nova\Forms\Enums\FormType;
 use Nova\Forms\Events;
@@ -72,6 +74,13 @@ class Form extends Model
         );
     }
 
+    public function renderedBlockContent(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->generateBlockContent()
+        );
+    }
+
     public function validationMessages(): Attribute
     {
         $form = $this;
@@ -79,18 +88,18 @@ class Form extends Model
         return Attribute::make(
             get: function () use ($form): array {
                 if ($form->type === FormType::Basic) {
-                    return collect(data_get($this->published_fields, 'content', []))
-                        ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                    return collect($this->published_fields ?? [])
+                        ->filter(fn ($field) => data_get($field, 'data.details.required', false))
                         ->flatMap(fn ($field) => [
-                            sprintf('%s.%s.required', 'values', data_get($field, 'attrs.values.uid')) => data_get($field, 'attrs.values.label').' field is required',
+                            sprintf('%s.%s.required', 'values', data_get($field, 'data.attrs.id')) => data_get($field, 'data.details.label').' field is required',
                         ])
                         ->all();
                 }
 
-                return collect(data_get($this->published_fields, 'content', []))
-                    ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                return collect($this->published_fields ?? [])
+                    ->filter(fn ($field) => data_get($field, 'data.details.required', false))
                     ->flatMap(fn ($field) => [
-                        sprintf('%s.%s.required', $form->key, data_get($field, 'attrs.values.uid')) => data_get($field, 'attrs.values.label').' field is required',
+                        sprintf('%s.%s.required', $form->key, data_get($field, 'data.attrs.id')) => data_get($field, 'data.details.label').' field is required',
                     ])
                     ->all();
             }
@@ -104,18 +113,18 @@ class Form extends Model
         return Attribute::make(
             get: function () use ($form): array {
                 if ($form->type === FormType::Basic) {
-                    return collect(data_get($this->published_fields, 'content', []))
-                        ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                    return collect($this->published_fields ?? [])
+                        ->filter(fn ($field) => data_get($field, 'data.details.required', false))
                         ->flatMap(fn ($field) => [
-                            sprintf('%s.%s', 'values', data_get($field, 'attrs.values.uid')) => 'required',
+                            sprintf('%s.%s', 'values', data_get($field, 'data.attrs.id')) => 'required',
                         ])
                         ->all();
                 }
 
-                return collect(data_get($this->published_fields, 'content', []))
-                    ->filter(fn ($field) => data_get($field, 'attrs.values.required', false))
+                return collect($this->published_fields ?? [])
+                    ->filter(fn ($field) => data_get($field, 'data.details.required', false))
                     ->flatMap(fn ($field) => [
-                        sprintf('%s.%s', $this->key, data_get($field, 'attrs.values.uid')) => 'required',
+                        sprintf('%s.%s', $this->key, data_get($field, 'data.attrs.id')) => 'required',
                     ])
                     ->all();
             }
@@ -129,5 +138,24 @@ class Form extends Model
                 'fields',
                 'published_fields',
             ]);
+    }
+
+    protected function generateBlockContent(): ?string
+    {
+        $content = null;
+
+        if (filled($this->published_fields)) {
+            foreach ($this->published_fields as $publishedField) {
+                if (View::exists('components.form-fields.'.$publishedField['type'])) {
+                    $content .= Blade::render('<x-dynamic-component :$component :$details :$attrs />', [
+                        'component' => 'form-fields.'.$publishedField['type'],
+                        'details' => data_get($publishedField, 'data.details'),
+                        'attrs' => data_get($publishedField, 'data.attrs'),
+                    ]);
+                }
+            }
+        }
+
+        return $content;
     }
 }

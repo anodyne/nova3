@@ -1,9 +1,6 @@
 @props([
     'label' => null,
     'description' => null,
-    'id' => null,
-    'name' => null,
-    'rows' => null,
     'error' => null,
     'required' => null,
 ])
@@ -12,17 +9,16 @@
 
 @php
     if (filled($form)) {
+        $id = data_get($attributes, 'id');
+
         $errorKey = "{$form->key}.{$id}";
         $error = $errors->getBag('default')->first($errorKey);
     }
 @endphp
 
-<x-public::field :$label :$description :$error :$required>
+<x-public::field :$label :$description :id="data_get($attributes, 'id')" :$error :$required>
     <textarea
         data-slot="control"
-        id="{{ $id }}"
-        name="{{ $name }}"
-        rows="{{ $rows }}"
         {{
             $attributes->class([
                 'nv-form-field-textarea',

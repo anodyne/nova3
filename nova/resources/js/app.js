@@ -7,6 +7,7 @@ import ColorPicker from './components/color-picker';
 import Cropper from './components/cropper';
 import DatePicker from './components/date-picker';
 import DateFormatPicker from './components/date-format-picker';
+import KeyValueField from './components/key-value-field';
 import registerFilepond from './components/filepond';
 import Modal from './components/modal';
 import Ratings from './components/ratings';
@@ -22,6 +23,7 @@ document.addEventListener('alpine:init', () => {
     window.Alpine.data('cropper', Cropper);
     window.Alpine.data('datePicker', DatePicker);
     window.Alpine.data('dateFormatPicker', DateFormatPicker);
+    window.Alpine.data('keyValueField', KeyValueField);
     window.Alpine.data('modal', Modal);
     window.Alpine.data('ratings', Ratings);
     window.Alpine.data('tabsList', TabsList);

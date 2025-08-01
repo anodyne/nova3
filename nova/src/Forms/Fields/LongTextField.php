@@ -4,16 +4,32 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Fields;
 
+use Closure;
+use Filament\Forms\Components\TextInput;
+
 class LongTextField extends Field
 {
-    protected function setUp(): void
+    const component = 'long-text';
+
+    protected ?string $blockLabel = 'Long text';
+
+    protected string|Closure|null $preview = 'long-text-preview';
+
+    public function attributesSchema(): array
     {
-        $this->baseConfiguration()
-            ->icon('tabler-text-plus')
-            ->label('Long text')
-            ->identifier('field-long-text')
-            ->optionsModal(Settings\LongTextFieldSettings::class)
-            ->renderedView('pages.forms.fields.long-text')
-            ->editorView('pages.forms.fields.long-text-preview');
+        return [
+            TextInput::make('attrs.placeholder')
+                ->label('Placeholder'),
+
+            TextInput::make('attrs.rows')
+                ->label('Rows')
+                ->numeric()
+                ->default(5),
+        ];
+    }
+
+    public function detailsSchema(): array
+    {
+        return [];
     }
 }

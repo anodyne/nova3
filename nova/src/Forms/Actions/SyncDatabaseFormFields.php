@@ -14,17 +14,17 @@ class SyncDatabaseFormFields
 
     public function handle(Form $form): void
     {
-        collect(data_get($form->published_fields, 'content') ?? [])
-            ->reject(fn ($field) => $field['type'] !== 'scribbleBlock')
+        collect($form->published_fields ?? [])
+            ->reject(fn ($field): bool => data_get($field, 'type') === 'content')
             ->each(function ($field, $key) use ($form) {
                 FormField::updateOrCreate(
-                    ['uid' => data_get($field, 'attrs.values.uid')],
+                    ['uid' => data_get($field, 'data.attrs.id')],
                     [
                         'form_id' => $form->id,
-                        'uid' => data_get($field, 'attrs.values.uid'),
-                        'name' => data_get($field, 'attrs.values.name'),
-                        'label' => data_get($field, 'attrs.values.label'),
-                        'type' => data_get($field, 'attrs.identifier'),
+                        'uid' => data_get($field, 'data.attrs.id'),
+                        'name' => data_get($field, 'data.attrs.name'),
+                        'label' => data_get($field, 'data.details.label'),
+                        'type' => data_get($field, 'type'),
                         'order_column' => $key,
                     ]
                 );

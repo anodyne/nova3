@@ -1,5 +1,4 @@
 @props([
-    'name',
     'value',
     'label' => null,
     'description' => null,
@@ -15,7 +14,6 @@
     <div class="nova-field-radio-wrapper flex h-6 items-center">
         <input
             type="radio"
-            name="{{ $name }}"
             value="{{ $value }}"
             {{
                 $attributes->class([
@@ -29,7 +27,12 @@
 
     <div class="nova-field-radio-content ml-3 text-sm/6">
         @if (filled($label))
-            <label class="nova-field-label font-medium text-gray-900 dark:text-white">{{ $label }}</label>
+            <label
+                class="nova-field-label font-medium text-gray-900 dark:text-white"
+                for="{{ data_get($attributes, 'id') }}"
+            >
+                {{ $label }}
+            </label>
         @endif
 
         @if (filled($description))

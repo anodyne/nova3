@@ -1,8 +1,6 @@
 @props([
     'label' => null,
     'description' => null,
-    'id' => null,
-    'name' => null,
     'error' => null,
     'required' => null,
 ])
@@ -11,16 +9,16 @@
 
 @php
     if (filled($form)) {
+        $id = data_get($attributes, 'id');
+
         $errorKey = "{$form->key}.{$id}";
         $error = $errors->getBag('default')->first($errorKey);
     }
 @endphp
 
-<x-public::field :$label :$description :$id :$error :$required>
+<x-public::field :$label :$description :id="data_get($attributes, 'id')" :$error :$required>
     <div data-slot="control" class="relative w-full">
         <select
-            id="{{ $id }}"
-            name="{{ $name }}"
             {{
                 $attributes->class([
                     'nv-form-field-select',

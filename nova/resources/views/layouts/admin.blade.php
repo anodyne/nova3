@@ -852,8 +852,6 @@
         @livewire('slide-over-pro')
         @livewire('livewire-ui-spotlight')
         @livewire('notifications')
-        @livewire('scribble.renderer')
-        @livewire('scribble.modals')
         @livewire('global-search')
 
         {{ NovaView::renderHook('admin::scripts.before') }}

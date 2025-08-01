@@ -1,5 +1,5 @@
 <x-public-layout>
     <div class="nova-basic-page-content">
-        {!! scribble($page->blocks ?? ['content' => null])->toHtml() !!}
+        {!! $page->rendered_block_content !!}
     </div>
 </x-public-layout>

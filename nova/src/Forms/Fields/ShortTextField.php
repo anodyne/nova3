@@ -4,16 +4,27 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Fields;
 
+use Closure;
+use Filament\Forms\Components\TextInput;
+
 class ShortTextField extends Field
 {
-    protected function setUp(): void
+    const component = 'short-text';
+
+    protected ?string $blockLabel = 'Short text';
+
+    protected string|Closure|null $preview = 'short-text-preview';
+
+    public function attributesSchema(): array
     {
-        $this->baseConfiguration()
-            ->icon('tabler-forms')
-            ->label('Short text')
-            ->identifier('field-short-text')
-            ->optionsModal(Settings\ShortTextFieldSettings::class)
-            ->renderedView('pages.forms.fields.short-text')
-            ->editorView('pages.forms.fields.short-text-preview');
+        return [
+            TextInput::make('attrs.placeholder')
+                ->label('Placeholder'),
+        ];
+    }
+
+    public function detailsSchema(): array
+    {
+        return [];
     }
 }
