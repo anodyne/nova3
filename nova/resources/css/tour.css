@@ -4,6 +4,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@config "../../../tailwind.config.js";
+
 .shepherd-element {
     @apply rounded-xl bg-gray-100 p-0 shadow-xl ring-1 ring-gray-950/10;
 }

@@ -18,6 +18,8 @@
 
 @import "filament.css";
 
+@config "../../../tailwind.config.js";
+
 [x-cloak] {
     @apply hidden;
 }
