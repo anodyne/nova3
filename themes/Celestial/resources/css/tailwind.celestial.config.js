@@ -1,11 +1,9 @@
 /* eslint-disable */
-import preset from '../../../../vendor/filament/support/tailwind.config.preset';
 const defaultTheme = require('tailwindcss/defaultTheme');
 /* eslint-enable */
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    presets: [preset],
     content: [
         './themes/celestial/**/*.blade.php',
     ],

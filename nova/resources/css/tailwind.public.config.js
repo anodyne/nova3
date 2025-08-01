@@ -1,5 +1,4 @@
 /* eslint-disable */
-import preset from '../../../vendor/filament/support/tailwind.config.preset';
 const defaultTheme = require('tailwindcss/defaultTheme');
 const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
 const plugin = require('tailwindcss/plugin');
@@ -7,7 +6,6 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    presets: [preset],
     content: [
         './nova/resources/**/*.{js,ts,blade.php,css}',
         './nova/foundation/View/Components/*.php',
