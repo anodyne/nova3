@@ -10,6 +10,7 @@ use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\UserNotificationPreference;
 
@@ -49,7 +50,7 @@ class UserNotificationPreferencesList extends TableComponent
                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
                     ->disabled(fn (Model $record): bool => ! $record->notificationType->mail),
             ])
-            ->emptyStateIcon(iconName('notification'))
+            ->emptyStateIcon(Icon::Notification)
             ->emptyStateHeading('No notification preferences found');
     }
 }

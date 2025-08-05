@@ -10,7 +10,7 @@
 
     @if (filled($error))
         <div data-slot="error" class="flex items-center gap-x-1">
-            <x-icon name="alert" size="sm" class="text-danger-400 dark:text-danger-600"></x-icon>
+            <x-icon :name="Icon::AlertCircle" size="sm" class="text-danger-400 dark:text-danger-600"></x-icon>
             <x-fieldset.error-message>{{ $error }}</x-fieldset.error-message>
         </div>
     @endif

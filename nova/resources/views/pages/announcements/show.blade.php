@@ -8,7 +8,7 @@
 
                 @can('update', $announcement)
                     <x-button :href="route('admin.announcements.edit', $announcement)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -33,7 +33,7 @@
             </x-metadata>
         </div>
 
-        <div class="prose max-w-none dark:prose-invert">
+        <div class="prose dark:prose-invert max-w-none">
             {!! $announcement->content !!}
         </div>
     </x-spacing>

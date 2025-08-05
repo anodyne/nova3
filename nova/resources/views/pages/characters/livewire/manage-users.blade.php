@@ -5,7 +5,7 @@
                 @forelse ($searchResults as $user)
                     <x-panel.manage.result-item :value="$user->id" :text="$user->name"></x-panel.manage.result-item>
                 @empty
-                    <x-empty-state.small icon="users" title="No user(s) found"></x-empty-state.small>
+                    <x-empty-state.small :icon="Icon::Users" title="No user(s) found"></x-empty-state.small>
                 @endforelse
             </x-dropdown.group>
         </x-panel.manage.search>
@@ -33,27 +33,34 @@
                             </x-button>
                         @endif
 
-                        <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger" color="neutral-danger">
-                                <x-icon name="trash" size="sm"></x-icon>
+                        <x-dropdown placement="bottom end">
+                            <x-slot name="trigger">
+                                <x-button type="button" color="neutral-danger" size="none" text>
+                                    <x-icon :name="Icon::Trash" size="sm"></x-icon>
+                                </x-button>
                             </x-slot>
 
                             <x-dropdown.group>
                                 <x-dropdown.text>
                                     Are you sure you want to unassign
-                                    <strong class="font-semibold text-gray-700 dark:text-gray-200">
+                                    <strong class="font-semibold">
                                         {{ $user->name }}
                                     </strong>
                                     from this character?
                                 </x-dropdown.text>
                             </x-dropdown.group>
                             <x-dropdown.group>
-                                <x-dropdown.item-danger type="button" icon="trash" wire:click="remove({{ $user->id }})">
-                                    Unassign
-                                </x-dropdown.item-danger>
                                 <x-dropdown.item
                                     type="button"
-                                    icon="prohibited"
+                                    :icon="Icon::Trash"
+                                    wire:click="remove({{ $user->id }})"
+                                    variant="danger"
+                                >
+                                    Unassign
+                                </x-dropdown.item>
+                                <x-dropdown.item
+                                    type="button"
+                                    :icon="Icon::Ban"
                                     x-on:click.prevent="$dispatch('dropdown-close')"
                                 >
                                     Cancel
@@ -66,7 +73,7 @@
         </div>
     @else
         <x-panel.manage.empty
-            icon="users"
+            :icon="Icon::Users"
             heading="No user(s) assigned"
             description="Get started by assigning a user to this character"
         ></x-panel.manage.empty>

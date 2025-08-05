@@ -6,6 +6,7 @@ namespace Nova\Stories\Livewire;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -31,6 +32,7 @@ use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\RestoreBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Actions\DeletePostType;
@@ -42,8 +44,8 @@ use Nova\Stories\Data\PostTypeData;
 use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Events\PostTypeDuplicated;
 use Nova\Stories\Models\PostType;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
 class PostTypesList extends TableComponent
 {
@@ -97,7 +99,7 @@ class PostTypesList extends TableComponent
                     ->label('Included in post tracking')
                     ->alignCenter()
                     ->trueColor('success')
-                    ->trueIcon(iconName('check'))
+                    ->trueIcon(Icon::CheckCircle)
                     ->falseIcon('')
                     ->toggleable()
                     ->toggledHiddenByDefault(),
@@ -105,7 +107,7 @@ class PostTypesList extends TableComponent
                     ->label('Sends published notifications')
                     ->alignCenter()
                     ->trueColor('success')
-                    ->trueIcon(iconName('check'))
+                    ->trueIcon(Icon::CheckCircle)
                     ->falseIcon('')
                     ->toggleable()
                     ->toggledHiddenByDefault(),
@@ -124,7 +126,7 @@ class PostTypesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (PostType $record): string => route('admin.post-types.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -167,7 +169,7 @@ class PostTypesList extends TableComponent
                                     ->title("{$replica->name} post type has been created")
                                     ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         RestoreAction::make()
@@ -244,7 +246,7 @@ class PostTypesList extends TableComponent
                                         fn (Notification $notification) => $notification->body('All posts have been re-assigned to the '.$newPostType->name.' post type.')
                                     );
                             }),
-                    ])->authorizeAny(['delete', 'restore', 'forceDelete'])->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -356,9 +358,9 @@ class PostTypesList extends TableComponent
                 SelectFilter::make('visibility')->options(PostTypeVisibility::class),
                 TrashedFilter::make()->label('Deleted post types'),
             ])
-            ->columnToggleFormWidth('sm')
+            ->columnManagerWidth(Width::Small)
             ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Icon::List)
             ->emptyStateHeading('No post types found')
             ->emptyStateDescription('Post types allow you to control the type of content users can create inside of stories.')
             ->emptyStateActions([

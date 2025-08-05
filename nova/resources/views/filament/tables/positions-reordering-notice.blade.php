@@ -17,7 +17,7 @@
 @endphp
 
 <x-spacing class="[&+.fi-ta-header-toolbar]:!border-t-0" size="px">
-    <x-panel.primary icon="arrows-sort" icon-size="lg" title="Change sorting order">
+    <x-panel.primary :icon="Icon::Reorder" icon-size="lg" title="Change sorting order">
         <x-slot name="description">
             <div class="space-y-4">
                 <p>

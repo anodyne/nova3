@@ -31,7 +31,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="status-change"></x-icon>
+                    <x-icon :name="Icon::StatusChange"></x-icon>
                     <x-fieldset.legend>Story status</x-fieldset.legend>
                     <x-fieldset.description>
                         Setting the status of a story lets you control the stories that players are able to write
@@ -62,7 +62,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="timeline"></x-icon>
+                    <x-icon :name="Icon::Timeline"></x-icon>
                     <x-fieldset.legend>Story position</x-fieldset.legend>
                     <x-fieldset.description>
                         Stories exist on a timeline for the game. This means you can organize them in just about any way

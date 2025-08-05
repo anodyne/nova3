@@ -21,7 +21,7 @@ class ClearVersionCheckCacheButton extends Component
     {
         return <<<'blade'
             <x-button type="button" color="neutral" wire:click="clear">
-                <x-icon name="eraser" size="sm"></x-icon>
+                <x-icon :name="Icon::Eraser" size="sm"></x-icon>
                 Clear
             </x-button>
         blade;

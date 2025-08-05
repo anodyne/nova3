@@ -4,7 +4,7 @@
     $postType = $getRecord();
 @endphp
 
-<div class="flex items-center space-x-2 px-6">
+<div class="flex items-center space-x-2 px-3">
     <div class="mt-0.5 shrink-0" style="color: {{ $postType->color }}">
         @isset($postType->icon)
             <x-icon :name="$postType->icon" size="md"></x-icon>

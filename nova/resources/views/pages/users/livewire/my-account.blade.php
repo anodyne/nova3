@@ -59,7 +59,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="key"></x-icon>
+            <x-icon :name="Icon::Key"></x-icon>
             <x-fieldset.legend>Change password</x-fieldset.legend>
             <x-fieldset.description>
                 This will be used to sign in to your account and complete high severity actions. We recommend using a
@@ -94,7 +94,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="user-profile"></x-icon>
+            <x-icon :name="Icon::UserProfile"></x-icon>
             <x-fieldset.legend>Profile photo</x-fieldset.legend>
             <x-fieldset.description>
                 Your user profile photo should be a square image at least 500 pixels tall by 500 pixels wide, but not
@@ -116,7 +116,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="preferences"></x-icon>
+            <x-icon :name="Icon::Preferences"></x-icon>
             <x-fieldset.legend>My preferences</x-fieldset.legend>
             <x-fieldset.description>
                 You can update your personal preferences to change the way Nova looks and behaves for your own account.
@@ -129,7 +129,7 @@
 
                 <flux:select variant="listbox" placeholder="Choose timezone" wire:model.live="form.timezone" searchable>
                     @foreach ($timezones as $tz)
-                        <flux:option value="{{ $tz->id }}">{{ $tz->name }}</flux:option>
+                        <flux:select.option value="{{ $tz->id }}">{{ $tz->name }}</flux:select.option>
                     @endforeach
                 </flux:select>
             </flux:field>
@@ -144,7 +144,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="warning"></x-icon>
+            <x-icon :name="Icon::Warning"></x-icon>
             <x-fieldset.legend>Content rating warning thresholds</x-fieldset.legend>
             <x-fieldset.description>
                 You can choose to be warned about potentially offensive content in a story post if that post meets
@@ -234,7 +234,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="trash"></x-icon>
+            <x-icon :name="Icon::Trash"></x-icon>
             <x-fieldset.legend>Delete my account</x-fieldset.legend>
             <x-fieldset.description>
                 If you would like to permanently delete your account from the system, you can do so from the page linked

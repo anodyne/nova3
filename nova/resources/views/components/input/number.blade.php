@@ -20,7 +20,7 @@
     }"
 >
     <x-button tag="button" color="neutral" x-on:click.prevent="value--" text>
-        <x-icon name="remove" size="md"></x-icon>
+        <x-icon :name="Icon::MinusCircle" size="md"></x-icon>
     </x-button>
 
     <x-input
@@ -33,6 +33,6 @@
     ></x-input>
 
     <x-button tag="button" color="neutral" x-on:click.prevent="value++" text>
-        <x-icon name="add-circle" size="md"></x-icon>
+        <x-icon :name="Icon::PlusCircle" size="md"></x-icon>
     </x-button>
 </div>

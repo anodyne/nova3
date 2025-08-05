@@ -1,0 +1,57 @@
+@import "tailwindcss" source("../views");
+@import "../../../vendor/livewire/flux/dist/flux.css";
+
+@source "../../foundation/View/Components/*.php";
+@source "../../foundation/View/Layouts/*.php";
+@source "../../src/**/Enums/*.php";
+@source "../../src/**/Models/**/*.php";
+@source "../../../vendor/livewire/flux/stubs";
+@source "../../../vendor/livewire/flux-pro/stubs";
+@source "../../../vendor/ralphjsmit/laravel-filament-activitylog/resources/views";
+@source "../../../vendor/wire-elements/pro/config/wire-elements-pro.php";
+@source "../../../vendor/wire-elements/pro/resources/views";
+@source "../../../storage/framework/views";
+
+@import "../../../vendor/filament/support/resources/css/index.css";
+@import "../../../vendor/filament/actions/resources/css/index.css";
+@import "../../../vendor/filament/forms/resources/css/index.css";
+@import "../../../vendor/filament/infolists/resources/css/index.css";
+@import "../../../vendor/filament/notifications/resources/css/index.css";
+@import "../../../vendor/filament/schemas/resources/css/index.css";
+@import "../../../vendor/filament/tables/resources/css/index.css";
+
+@import "./filament/index.css";
+
+@import "./components/icon.css" layer(components);
+@import "./components/modal.css" layer(components);
+
+@import "./utilities/safelist.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant mono-theme (&:where([data-theme="mono"] *));
+
+@theme inline {
+    --color-zinc-50: var(--color-gray-50);
+    --color-zinc-100: var(--color-gray-100);
+    --color-zinc-200: var(--color-gray-200);
+    --color-zinc-300: var(--color-gray-300);
+    --color-zinc-400: var(--color-gray-400);
+    --color-zinc-500: var(--color-gray-500);
+    --color-zinc-600: var(--color-gray-600);
+    --color-zinc-700: var(--color-gray-700);
+    --color-zinc-800: var(--color-gray-800);
+    --color-zinc-900: var(--color-gray-900);
+    --color-zinc-950: var(--color-gray-950);
+
+    --color-accent: var(--color-primary-500);
+    --color-accent-content: var(--color-primary-600);
+    --color-accent-foreground: var(--color-white);
+}
+
+@layer theme {
+    .dark {
+        --color-accent: var(--color-primary-500);
+        --color-accent-content: var(--color-primary-400);
+        --color-accent-foreground: var(--color-white);
+    }
+}

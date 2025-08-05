@@ -1,5 +1,7 @@
+@reference "../../../../vendor/filament/support/resources/css/index.css";
+
 .filepond--root {
-    @apply rounded-lg shadow ring-gray-950/10 dark:ring-white/10;
+    @apply rounded-lg shadow-sm ring-gray-950/10 dark:ring-white/10;
 }
 .filepond--drop-label {
     @apply text-gray-500 dark:text-gray-400;

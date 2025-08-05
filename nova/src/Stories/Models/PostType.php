@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
-use Nova\Stories\Events\PostTypeCreated;
-use Nova\Stories\Events\PostTypeDeleted;
-use Nova\Stories\Events\PostTypeUpdated;
-use Nova\Stories\Events\PostTypeForceDeleted;
-use Nova\Stories\Events\PostTypeRestored;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,12 +12,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Models\Model;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Data\Fields;
 use Nova\Stories\Data\Options;
 use Nova\Stories\Enums\PostTypeVisibility;
-use Nova\Stories\Events;
+use Nova\Stories\Events\PostTypeCreated;
+use Nova\Stories\Events\PostTypeDeleted;
+use Nova\Stories\Events\PostTypeForceDeleted;
+use Nova\Stories\Events\PostTypeRestored;
+use Nova\Stories\Events\PostTypeUpdated;
 use Nova\Stories\Models\Builders\PostTypeBuilder;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -57,6 +57,7 @@ class PostType extends Model implements Sortable
 
     protected $casts = [
         'fields' => Fields::class,
+        'icon' => Icon::class,
         'options' => Options::class,
         'order_column' => 'integer',
         'status' => BasicStatus::class,

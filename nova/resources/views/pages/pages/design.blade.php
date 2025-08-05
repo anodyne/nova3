@@ -15,12 +15,12 @@
             @endcan
 
             <x-button :href="route('preview-basic-page', $page->key)" target="_blank">
-                <x-icon name="www-preview" size="sm"></x-icon>
+                <x-icon :name="Icon::WwwPreview" size="sm"></x-icon>
                 Preview page
             </x-button>
 
             <x-button :href="url($page->uri)" target="_blank">
-                <x-icon name="www" size="sm"></x-icon>
+                <x-icon :name="Icon::Www" size="sm"></x-icon>
                 Visit live page
             </x-button>
         </x-slot>
@@ -30,14 +30,14 @@
         @if (is_null($page->published_at))
             <x-panel.warning
                 title="Unpublished changes"
-                icon="progress"
+                :icon="Icon::Progress"
                 description="Your page blocks have not been published yet. Nova only shows published page blocks, so to ensure users are seeing the page with your latest changes, please publish your page."
             ></x-panel.warning>
         @else
             @if ($page->updated_at->gt($page->published_at))
                 <x-panel.warning
                     title="Unpublished changes"
-                    icon="progress"
+                    :icon="Icon::Progress"
                     description="Your page block(s) have been saved since you last published them. Nova only shows published page blocks, so to ensure users are seeing the page with your latest changes, please publish your page."
                 ></x-panel.warning>
             @endif

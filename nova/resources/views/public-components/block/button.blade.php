@@ -21,8 +21,8 @@
         href="{{ data_get($button, 'url') }}"
         target="{{ data_get($button, 'url-target') }}"
         @class([
-            'flex items-center gap-1.5 bg-[--bg-color] text-[--text-color] transition hover:brightness-110',
-            'ring-1 ring-[--border-color]' => data_get($button, 'border-style') !== 'none',
+            'flex items-center gap-1.5 bg-(--bg-color) text-(--text-color) transition hover:brightness-110',
+            'ring-1 ring-(--border-color)' => data_get($button, 'border-style') !== 'none',
             'ring-inset' => data_get($button, 'border-style') === 'inner',
             $buttonSize?->getTailwindClasses(),
             $radius?->getTailwindClasses(),

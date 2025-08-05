@@ -45,7 +45,7 @@
                         @if ($post->postType->fields->location->enabled && filled($post->location))
                             <div class="metadata-item">
                                 <div class="metadata-item-icon">
-                                    <x-icon name="location" size="md"></x-icon>
+                                    <x-icon :name="Icon::Location" size="md"></x-icon>
                                 </div>
                                 <div class="metadata-item-label">{{ $post->location }}</div>
                             </div>
@@ -54,7 +54,7 @@
                         @if ($post->postType->fields->day->enabled && filled($post->day))
                             <div class="metadata-item">
                                 <div class="metadata-item-icon">
-                                    <x-icon name="calendar" size="md"></x-icon>
+                                    <x-icon :name="Icon::Calendar" size="md"></x-icon>
                                 </div>
                                 <div class="metadata-item-label">{{ $post->day }}</div>
                             </div>
@@ -63,7 +63,7 @@
                         @if ($post->postType->fields->time->enabled && filled($post->time))
                             <div class="metadata-item">
                                 <div class="metadata-item-icon">
-                                    <x-icon name="clock" size="md"></x-icon>
+                                    <x-icon :name="Icon::Clock" size="md"></x-icon>
                                 </div>
                                 <div class="metadata-item-label">{{ $post->time }}</div>
                             </div>
@@ -77,7 +77,7 @@
 
                 <div class="post-content-warning" x-show="showContentWarning" x-cloak>
                     <div class="heading">
-                        <x-icon name="warning" size="xl"></x-icon>
+                        <x-icon :name="Icon::Warning" size="xl"></x-icon>
                         <x-public::h2>Warning</x-public::h2>
                     </div>
 

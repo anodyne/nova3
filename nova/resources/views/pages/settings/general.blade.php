@@ -4,7 +4,7 @@
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                        <x-icon name="search" size="sm"></x-icon>
+                        <x-icon :name="Icon::Search" size="sm"></x-icon>
                         Find a setting
                     </x-button>
                 </div>
@@ -22,7 +22,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="send"></x-icon>
+                    <x-icon :name="Icon::Send"></x-icon>
                     <x-fieldset.legend>Contact form</x-fieldset.legend>
                     <x-fieldset.description>
                         Manage the settings for how outside users contact the game.

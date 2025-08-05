@@ -7,7 +7,7 @@
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                        <x-icon name="search" size="sm"></x-icon>
+                        <x-icon :name="Icon::Search" size="sm"></x-icon>
                         Find a setting
                     </x-button>
                 </div>
@@ -17,8 +17,8 @@
         <x-form :action="route('admin.settings.appearance.update')" method="PUT">
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="paint-brush"></x-icon>
-                    <x-fieldset.legend>Theme</x-fieldset.legend>
+                    <x-icon :name="Icon::PaintBrush"></x-icon>
+                    <x-fieldset.legend>Public site theme</x-fieldset.legend>
                     <x-fieldset.description>
                         Update the way your public site looks through the theme and its settings.
                     </x-fieldset.description>
@@ -31,7 +31,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="image"></x-icon>
+                    <x-icon :name="Icon::Photo"></x-icon>
                     <x-fieldset.legend>Logo</x-fieldset.legend>
                     <x-fieldset.description>
                         You can upload a logo that will be used in the header of the admin system, in some themes for
@@ -52,8 +52,8 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="palette"></x-icon>
-                    <x-fieldset.legend>Colors</x-fieldset.legend>
+                    <x-icon :name="Icon::Palette"></x-icon>
+                    <x-fieldset.legend>Admin site theme</x-fieldset.legend>
                     <x-fieldset.description>
                         Put your own personal touch on Nova by changing the colors used throughout the admin system. You
                         can choose from a series of pre-defined color scales or specify your own color and a color scale
@@ -62,56 +62,34 @@
                 </x-fieldset.heading>
 
                 <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Gray" id="colors_gray" name="colors_gray">
-                        <livewire:color-shade-picker type="gray" name="colors_gray" :selected="$settings->colorsGray" />
-                    </x-fieldset.field>
+                    <x-fieldset.field label="Theme" id="admin_theme">
+                        <div class="flex items-center gap-3" data-slot="control">
+                            <div class="flex gap-3 *:size-8 *:rounded-full">
+                                <div class="bg-primary-500" x-tooltip.raw="Primary color"></div>
+                                <div class="bg-danger-500" x-tooltip.raw="Danger color"></div>
+                                <div class="bg-info-500" x-tooltip.raw="Info color"></div>
+                                <div class="bg-success-500" x-tooltip.raw="Success color"></div>
+                                <div class="bg-warning-500" x-tooltip.raw="Warning color"></div>
+                                <div class="bg-gray-400" x-tooltip.raw="Gray shade"></div>
+                            </div>
 
-                    <x-fieldset.field label="Primary color" id="colors_primary" name="colors_primary">
-                        <livewire:color-shade-picker
-                            type="colors"
-                            name="colors_primary"
-                            :selected="$settings->colorsPrimary"
-                            :allow-panda="true"
-                        />
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Danger color" id="colors_danger" name="colors_danger">
-                        <livewire:color-shade-picker
-                            type="colors"
-                            name="colors_danger"
-                            :selected="$settings->colorsDanger"
-                        />
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Warning color" id="colors_warning" name="colors_warning">
-                        <livewire:color-shade-picker
-                            type="colors"
-                            name="colors_warning"
-                            :selected="$settings->colorsWarning"
-                        />
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Success color" id="colors_success" name="colors_success">
-                        <livewire:color-shade-picker
-                            type="colors"
-                            name="colors_success"
-                            :selected="$settings->colorsSuccess"
-                        />
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Info color" id="colors_info" name="colors_info">
-                        <livewire:color-shade-picker
-                            type="colors"
-                            name="colors_info"
-                            :selected="$settings->colorsInfo"
-                        />
+                            <div class="flex shrink-0 items-center">
+                                <x-button
+                                    type="button"
+                                    x-on:click="$dispatch('slide-over.open', {component: 'settings-theme-builder'})"
+                                    text
+                                >
+                                    <x-icon :name="Icon::Settings" size="md"></x-icon>
+                                </x-button>
+                            </div>
+                        </div>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="typography"></x-icon>
+                    <x-icon :name="Icon::Typography"></x-icon>
                     <x-fieldset.legend>Fonts</x-fieldset.legend>
                     <x-fieldset.description>
                         Customize Nova by changing the fonts used throughout the admin system.
@@ -151,7 +129,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="user-profile"></x-icon>
+                    <x-icon :name="Icon::UserProfile"></x-icon>
                     <x-fieldset.legend>Avatars</x-fieldset.legend>
                     <x-fieldset.description>
                         Update the shape and style of avatars throughout Nova.

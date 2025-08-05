@@ -1,8 +1,12 @@
+@php
+    $themeSettings = theme('settings');
+@endphp
+
 @push('styles')
     <style>
         :root {
-            --accent-color: {{ theme('settings')->accentColor() }};
-            --text-accent-color: {{ theme('settings')->textAccentColor() }};
+            --accent-color: {{ $themeSettings->accentColor() }};
+            --text-accent-color: {{ $themeSettings->textAccentColor() }};
         }
     </style>
     <link rel="stylesheet" href="{{ asset('themes/Pulsar/design/theme.css') }}" />

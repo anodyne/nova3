@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Nova\Addons\Livewire;
 
 use Filament\Actions\Action;
-use Filament\Support\Enums\Size;
 use Filament\Forms\Components\CheckboxList;
+use Filament\Support\Enums\Size;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -30,9 +30,10 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\TextAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Facades\LogBatch;
 use Spatie\Activitylog\Models\Activity;
 
@@ -85,10 +86,10 @@ class AddonsList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Addon $record): string => route('admin.addons.edit', $record)),
                         TextAction::make('textNotice')
-                            ->icon(iconName('edit-off'))
+                            ->icon(Icon::EditOff)
                             ->label('This add-on was installed from a QuickInstall file and cannot be edited')
                             ->visible(fn (Addon $record): bool => filled($record->repository?->id)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -96,13 +97,13 @@ class AddonsList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->itemIcons([
-                                        'installed' => icon('add'),
-                                        'ran-append' => iconName('image-add'),
-                                        'ran-install' => iconName('bolt'),
-                                        'ran-migrations' => iconName('database'),
-                                        'ran-migrations-rollback' => iconName('database-off'),
-                                        'ran-replace' => iconName('image-alert'),
-                                        'ran-uninstall' => iconName('bolt-off'),
+                                        'installed' => Icon::Plus->value,
+                                        'ran-append' => Icon::PhotoAdd->value,
+                                        'ran-install' => Icon::Bolt->value,
+                                        'ran-migrations' => Icon::Database->value,
+                                        'ran-migrations-rollback' => Icon::DatabaseOff->value,
+                                        'ran-replace' => Icon::PhotoAlert->value,
+                                        'ran-uninstall' => Icon::BoltOff->value,
                                     ])
                                     ->itemIconColors([
                                         'installed' => 'success',
@@ -146,13 +147,13 @@ class AddonsList extends TableComponent
                                     ])
                                     ->modelLabel(Addon::class, 'add-on');
                             }),
-                    ])->authorize('view')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('addonSettings')
                             ->authorize('update')
                             ->slideOver()
-                            ->icon(iconName('settings'))
+                            ->icon(Icon::Settings)
                             ->modalWidth('lg')
                             ->modalIcon(null)
                             ->modalHeading(fn (Addon $record): string => $record->name.' add-on settings')
@@ -171,7 +172,7 @@ class AddonsList extends TableComponent
                         Action::make('openActionsPanel')
                             ->authorize('runActions')
                             ->slideOver()
-                            ->icon(iconName('automation'))
+                            ->icon(Icon::Automation)
                             ->modalWidth('xl')
                             ->modalIcon(null)
                             ->modalHeading('')
@@ -183,21 +184,22 @@ class AddonsList extends TableComponent
                                 'action' => $action,
                             ]))
                             ->registerModalActions($this->actionPanelActions()),
-                    ])->authorizeAny(['runActions', 'updateSettings'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('goToUpdate')
-                            ->icon(iconName('cloud-share'))
+                            ->icon(Icon::CloudShare)
                             ->url(fn (Addon $record): ?string => $record->update_url)
                             ->visible(fn (Addon $record): bool => $record->has_update),
-                    ])->authorizeAny(['create', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.add-ons.delete')
                             ->successNotificationTitle(fn (Addon $record): string => $record->name.' add-on was deleted')
                             ->using(fn (Addon $record): Addon => DeleteAddon::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -208,7 +210,7 @@ class AddonsList extends TableComponent
                 Action::make('install')
                     ->authorize('create')
                     ->label('Add-ons available to install')
-                    ->icon(iconName('sparkles'))
+                    ->icon(Icon::Sparkles)
                     ->color('gray')
                     ->visible(fn (): bool => Addon::hasInstallableAddons())
                     ->modalWidth('xl')
@@ -265,7 +267,7 @@ class AddonsList extends TableComponent
                         $notification->send();
                     }),
             ])
-            ->emptyStateIcon(iconName('puzzle'))
+            ->emptyStateIcon(Icon::Puzzle)
             ->emptyStateHeading('No add-ons found')
             ->emptyStateDescription('Add-ons allow you to personalize and extend Nova to work and behave the way you want.')
             ->emptyStateActions([

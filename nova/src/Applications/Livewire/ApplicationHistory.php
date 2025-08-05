@@ -8,10 +8,11 @@ use Filament\Schemas\Schema;
 use Livewire\Attributes\Locked;
 use Nova\Applications\Models\Application;
 use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\InfolistComponent;
 use Nova\Ranks\Models\RankItem;
 use Nova\Users\Models\User;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class ApplicationHistory extends InfolistComponent
@@ -67,8 +68,8 @@ class ApplicationHistory extends InfolistComponent
                         ]),
                     ])
                     ->itemIcons([
-                        'accepted' => iconName('progress-check'),
-                        'denied' => iconName('progress-x'),
+                        'accepted' => Icon::ProgressCheck->value,
+                        'denied' => Icon::ProgressXmark->value,
                     ])
                     ->itemIconColors([
                         'accepted' => 'success',

@@ -29,7 +29,7 @@
 
     @if ($status === DatabaseConfigStatus::AlreadyConfigured)
         <div class="flex items-center justify-center">
-            <x-button.setup href="{{ url('setup/migrate') }}" leading="database-import">
+            <x-button.setup href="{{ url('setup/migrate') }}" :leading="Icon::DatabaseImport">
                 Continue migration
             </x-button.setup>
         </div>
@@ -40,7 +40,7 @@
             <div class="grid grid-cols-2 gap-8">
                 <x-button color="neutral" wire:click="useSameDatabaseForMigration">
                     <x-spacing size="md" class="space-y-2 text-left">
-                        <x-icon name="database" size="xl" class="text-gray-600"></x-icon>
+                        <x-icon :name="Icon::Database" size="xl" class="text-gray-600"></x-icon>
                         <x-h3>Use the same database</x-h3>
                         <p class="text-sm/6 font-normal text-gray-600">
                             Your Nova 2 database tables live in the same database that you are installing Nova 3 into.
@@ -50,7 +50,7 @@
 
                 <x-button color="neutral" wire:click="useDifferentDatabaseForMigration">
                     <x-spacing size="md" class="space-y-2 text-left">
-                        <x-icon name="database-export" size="xl" class="text-gray-600"></x-icon>
+                        <x-icon :name="Icon::DatabaseExport" size="xl" class="text-gray-600"></x-icon>
                         <x-h3>Use a different database</x-h3>
                         <p class="text-sm/6 font-normal text-gray-600">
                             Your Nova 2 database tables live in a separate database from the one you are installing Nova
@@ -68,7 +68,7 @@
         @if ($shouldShowForm)
             <div class="mx-auto max-w-lg space-y-12">
                 @if ($errorMessage)
-                    <x-panel.danger title="Error connecting to your database" icon="alert-circle">
+                    <x-panel.danger title="Error connecting to your database" :icon="Icon::AlertCircle">
                         {{ $errorMessage }}
                     </x-panel.danger>
                 @endif
@@ -124,7 +124,7 @@
 
                 <x-fieldset>
                     <x-fieldset.heading>
-                        <x-icon name="database-settings"></x-icon>
+                        <x-icon :name="Icon::DatabaseSettings"></x-icon>
                         <x-fieldset.legend>Advanced settings</x-fieldset.legend>
                         <x-fieldset.description>
                             In most cases you won’t need to change these values unless your web host has provided you
@@ -179,7 +179,7 @@
 
                     <a
                         href="{{ url('setup/migrate') }}"
-                        class="text-sm font-semibold leading-6 text-gray-900 hover:text-primary-600"
+                        class="hover:text-primary-600 text-sm leading-6 font-semibold text-gray-900"
                     >
                         Back to migration center
                     </a>
@@ -200,7 +200,7 @@
 
             @if ($status === DatabaseConfigStatus::Success)
                 <div class="flex items-center justify-center">
-                    <x-button.setup href="{{ url('setup/migrate') }}" leading="database-import">
+                    <x-button.setup href="{{ url('setup/migrate') }}" :leading="Icon::DatabaseImport">
                         Continue migration
                     </x-button.setup>
                 </div>

@@ -8,7 +8,7 @@
 
 <x-spacing class="col-span-3 grid grid-cols-subgrid" size="sm">
     <div class="mr-4 shrink-0">
-        <x-icon name="database" class="text-gray-500" size="xl"></x-icon>
+        <x-icon :name="Icon::Database" class="text-gray-500" size="xl"></x-icon>
     </div>
 
     <div class="col-start-2">
@@ -38,10 +38,10 @@
 
             @if (! $canVerifyDatabase || ($canVerifyDatabase && $e->database->driver === 'mariadb'))
                 <div class="mt-6">
-                    <div class="rounded-lg bg-warning-50 px-6 py-4 ring-1 ring-inset ring-warning-500/20">
+                    <div class="bg-warning-50 ring-warning-500/20 rounded-lg px-6 py-4 ring-1 ring-inset">
                         <x-h3 class="text-warning-700">A note about MariaDB</x-h3>
 
-                        <p class="mt-2 text-sm/6 text-warning-600">
+                        <p class="text-warning-600 mt-2 text-sm/6">
                             Nova does support using MariaDB instead of MySQL, however, a
                             {{-- format-ignore-start --}}
                     <a href="https://jira.mariadb.org/browse/MDEV-19077" target="_blank" class="font-medium text-warning-800 underline hover:text-warning-900">known bug</a>
@@ -62,12 +62,12 @@
     <div class="col-start-3 ml-4 flex shrink-0 justify-end">
         @if ($canVerifyDatabase)
             @if ($e->database->passes())
-                <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
+                <x-icon :name="Icon::CheckCircle" class="text-primary-500" size="xl"></x-icon>
             @else
-                <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
+                <x-icon :name="Icon::XmarkCircle" class="text-danger-500" size="xl"></x-icon>
             @endif
         @else
-            <x-icon name="help" class="text-warning-500" size="xl"></x-icon>
+            <x-icon :name="Icon::Help" class="text-warning-500" size="xl"></x-icon>
         @endif
     </div>
 </x-spacing>

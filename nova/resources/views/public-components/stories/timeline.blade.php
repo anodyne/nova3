@@ -40,13 +40,21 @@
                         </x-badge>
                     </div>
 
-                    @if ($story->children_count > 0)
+                    @if ($story->children_count > 0 && ! $expanded)
                         <div class="shrink-0">
                             <span x-show="!expanded">
-                                <x-icon name="add" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
+                                <x-icon
+                                    :name="Icon::PlusCircle"
+                                    size="md"
+                                    class="text-gray-400 dark:text-gray-500"
+                                ></x-icon>
                             </span>
                             <span x-show="expanded">
-                                <x-icon name="remove" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
+                                <x-icon
+                                    :name="Icon::MinusCircle"
+                                    size="md"
+                                    class="text-gray-400 dark:text-gray-500"
+                                ></x-icon>
                             </span>
                         </div>
                     @endif
@@ -61,7 +69,7 @@
                     @endif
                 >
                     <div
-                        class="prose max-w-4xl dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
+                        class="prose dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400 max-w-4xl"
                     >
                         {!! $story->description !!}
                     </div>

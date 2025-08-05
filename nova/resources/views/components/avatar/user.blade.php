@@ -9,7 +9,9 @@
     @if ($secondaryStatus || $secondaryPronouns || $secondary)
         <x-slot name="secondary">
             @if ($secondaryStatus)
-                <x-badge :color="$user->status->getColor()">{{ $user->status->getLabel() }}</x-badge>
+                <x-badge :color="$user->status->getColor()" variant="dot">
+                    {{ $user->status->getLabel() }}
+                </x-badge>
             @endif
 
             @if ($secondaryPronouns)

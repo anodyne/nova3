@@ -8,12 +8,12 @@
         <x-spacing size="none" class="mb-6 flex flex-col gap-6">
             <div class="flex-1">
                 <div
-                    class="relative mt-2 flex flex-col space-y-3 text-base md:flex-row md:items-center md:space-x-8 md:space-y-0 md:text-sm"
+                    class="relative mt-2 flex flex-col space-y-3 text-base md:flex-row md:items-center md:space-y-0 md:space-x-8 md:text-sm"
                 >
                     @if ($post->postType->fields->location->enabled && filled($post->location))
                         <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
                             <div class="text-gray-400 dark:text-gray-500">
-                                <x-icon name="location"></x-icon>
+                                <x-icon :name="Icon::Location"></x-icon>
                             </div>
                             <div>{{ $post->location }}</div>
                         </div>
@@ -22,7 +22,7 @@
                     @if ($post->postType->fields->day->enabled && filled($post->day))
                         <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
                             <div class="text-gray-400 dark:text-gray-500">
-                                <x-icon name="calendar"></x-icon>
+                                <x-icon :name="Icon::Calendar"></x-icon>
                             </div>
                             <div>{{ $post->day }}</div>
                         </div>
@@ -31,7 +31,7 @@
                     @if ($post->postType->fields->time->enabled && filled($post->time))
                         <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
                             <div class="text-gray-400 dark:text-gray-500">
-                                <x-icon name="clock"></x-icon>
+                                <x-icon :name="Icon::Clock"></x-icon>
                             </div>
                             <div>{{ $post->time }}</div>
                         </div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
 
-                <div class="prose prose-lg relative mt-4 max-w-none dark:prose-invert">
+                <div class="prose prose-lg dark:prose-invert relative mt-4 max-w-none">
                     {!! $post->content !!}
                 </div>
             </div>

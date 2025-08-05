@@ -4,7 +4,7 @@
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                        <x-icon name="search" size="sm"></x-icon>
+                        <x-icon :name="Icon::Search" size="sm"></x-icon>
                         Find a setting
                     </x-button>
                 </div>

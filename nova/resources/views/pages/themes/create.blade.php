@@ -76,7 +76,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="typography"></x-icon>
+                    <x-icon :name="Icon::Typography"></x-icon>
                     <x-fieldset.legend>Fonts</x-fieldset.legend>
                     <x-fieldset.description>Customize your theme by changing the fonts used.</x-fieldset.description>
                 </x-fieldset.heading>

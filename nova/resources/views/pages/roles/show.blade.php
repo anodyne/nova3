@@ -8,7 +8,7 @@
 
                 @can('update', $role)
                     <x-button :href="route('admin.roles.edit', $role)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -57,7 +57,7 @@
                                 @empty
                                     <div class="lg:col-span-2">
                                         <x-empty-state.small
-                                            icon="key"
+                                            :icon="Icon::Key"
                                             title="No permissions assigned"
                                             message="There are no permissions assigned this role"
                                         ></x-empty-state.small>
@@ -81,7 +81,7 @@
                                 @empty
                                     <div class="lg:col-span-2">
                                         <x-empty-state.small
-                                            icon="users"
+                                            :icon="Icon::Users"
                                             title="No users assigned"
                                             message="There are no users assigned this role"
                                         ></x-empty-state.small>

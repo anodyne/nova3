@@ -1,9 +1,8 @@
-@config "./tailwind.pulsar.config.js";
-
-:root {
-    --bg-light: #fff;
-    --bg-dark: #030712;
-}
+@import "tailwindcss" source("../");
+@import "../../../../nova/resources/css/utilities/safelist.css";
+@import "../../../../nova/resources/css/utilities/fonts.css";
+@reference "../../../../vendor/filament/support/resources/css/index.css";
+@plugin "@tailwindcss/typography";
 
 body {
     @apply bg-white;
@@ -27,7 +26,7 @@ body {
     @apply ml-auto flex shrink-0 items-center pr-2;
 }
 .main-nav .auth-ctn a {
-    @apply relative rounded-lg bg-[--accent-color] px-3.5 py-1.5 text-center text-sm/6 font-semibold text-[--text-accent-color] shadow-sm transition before:absolute before:inset-0 before:z-[1] before:rounded-[calc(theme(borderRadius.lg)-1px)] before:bg-white before:bg-opacity-0 hover:text-[--text-accent-color] before:hover:bg-opacity-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+    @apply relative rounded-lg bg-(--accent-color) px-3.5 py-1.5 text-center text-sm/6 font-semibold text-(--text-accent-color) shadow-xs transition before:absolute before:inset-0 before:z-1 before:rounded-[calc(var(--radius-lg)-1px)] before:bg-white/0 hover:text-(--text-accent-color) before:hover:bg-white/10 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2;
 }
 .main-nav ul {
     @apply flex items-center;
@@ -36,14 +35,14 @@ body {
     @apply relative px-3 py-2.5;
 }
 .main-nav ul li[data-active] {
-    @apply after:absolute after:inset-x-1 after:-bottom-px after:h-px after:bg-gradient-to-r after:from-transparent after:via-[--accent-color] after:to-transparent;
+    @apply after:absolute after:inset-x-1 after:-bottom-px after:h-px after:bg-linear-to-r after:from-transparent after:via-(--accent-color) after:to-transparent;
 }
 .main-nav a,
 .main-nav button {
-    @apply flex items-center gap-x-1.5 font-bold text-gray-500 transition hover:text-gray-950 [&>[data-slot=icon]]:size-5 [&>[data-slot=icon]]:shrink-0;
+    @apply flex items-center gap-x-1.5 font-bold text-gray-500 transition hover:text-gray-950 *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0;
 }
 .main-nav [data-active] a {
-    @apply text-[--accent-color];
+    @apply text-(--accent-color);
 }
 
 .advanced-page {
@@ -99,7 +98,7 @@ body {
     @apply flex items-baseline gap-x-8;
 }
 .character-bio .horizontal-divider {
-    @apply h-px max-w-lg bg-gradient-to-r from-gray-200 to-transparent;
+    @apply h-px max-w-lg bg-linear-to-r from-gray-200 to-transparent;
 }
 
 /**
@@ -176,10 +175,10 @@ body {
     @apply flex items-center gap-x-3;
 }
 .story-post .post-content-warning .heading > [data-slot="icon"] {
-    @apply text-danger-500;
+    @apply text-(--color-danger-500);
 }
 .story-post .post-content-warning .heading > h2 {
-    @apply mt-0 text-danger-600 dark:text-danger-400;
+    @apply mt-0 text-(--color-danger-600) dark:text-(--color-danger-400);
 }
 .story-post .post-content-warning .summary {
     @apply mt-12 max-w-2xl;
@@ -191,7 +190,7 @@ body {
     @apply flex;
 }
 .story-post .post-navigation-container .pill-link {
-    @apply inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:size-5;
+    @apply inline-flex justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 *:data-[slot=icon]:size-5;
 }
 .story-post .post-navigation-container .link {
     @apply text-base font-semibold text-gray-900 transition hover:text-gray-600 dark:text-white dark:hover:text-gray-300;
@@ -200,13 +199,13 @@ body {
     @apply flex flex-col items-start gap-3;
 }
 .story-post .post-navigation-container .previous .pill-link {
-    @apply [&>[data-slot=icon]]:-ml-1 [&>[data-slot=icon]]:rotate-180;
+    @apply *:data-[slot=icon]:-ml-1 *:data-[slot=icon]:rotate-180;
 }
 .story-post .post-navigation-container .next {
     @apply ml-auto flex flex-col items-end gap-3;
 }
 .story-post .post-navigation-container .next .pill-link {
-    @apply [&>[data-slot=icon]]:-mr-1;
+    @apply *:data-[slot=icon]:-mr-1;
 }
 .story-post .ratings-container {
     @apply flex flex-col gap-y-4;
@@ -221,7 +220,7 @@ body {
 .nv-tabs {
 }
 .nv-tabs-list {
-    @apply inline-flex items-center gap-x-2 rounded-lg bg-gray-50 px-4 ring-1 ring-gray-900/5 [&>[data-active]]:text-[--accent-color] [&>[data-active]]:after:absolute [&>[data-active]]:after:inset-x-1 [&>[data-active]]:after:-bottom-px [&>[data-active]]:after:h-px [&>[data-active]]:after:bg-gradient-to-r [&>[data-active]]:after:from-transparent [&>[data-active]]:after:via-[--accent-color] [&>[data-active]]:after:to-transparent [&>[data-active]]:hover:text-[--accent-color];
+    @apply inline-flex items-center gap-x-2 rounded-lg bg-gray-50 px-4 ring-1 ring-gray-900/5 *:data-active:text-(--accent-color) *:data-active:after:absolute *:data-active:after:inset-x-1 *:data-active:after:-bottom-px *:data-active:after:h-px *:data-active:after:bg-linear-to-r *:data-active:after:from-transparent *:data-active:after:via-(--accent-color) *:data-active:after:to-transparent hover:*:data-active:text-(--accent-color);
 }
 .nv-tabs-tab {
     @apply relative px-4 py-1.5 text-sm/6 font-medium text-gray-500 hover:text-gray-900;

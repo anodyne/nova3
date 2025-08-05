@@ -20,12 +20,13 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Forms\Components\DatePicker;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\UpdateStory;
 use Nova\Stories\Actions\UpdateStoryStatus;
 use Nova\Stories\Models\Story;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class StoriesList extends TableComponent
@@ -63,10 +64,10 @@ class StoriesList extends TableComponent
                     ->counts('posts')
                     ->label('# of posts')
                     ->alignCenter()
-                    ->summarize([
-                        Sum::make()->label('Total posts'),
-                        Average::make()->label('Avg posts / story'),
-                    ])
+                    // ->summarize([
+                    //     Sum::make()->label('Total posts'),
+                    //     Average::make()->label('Avg posts / story'),
+                    // ])
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('recursive_posts_count')
@@ -82,12 +83,12 @@ class StoriesList extends TableComponent
                     ->label('# of words')
                     ->numeric()
                     ->alignCenter()
-                    ->summarize([
-                        Sum::make()->label('Total words'),
-                        Average::make()
-                            ->label('Avg words / story')
-                            ->numeric(decimalPlaces: 2),
-                    ])
+                    // ->summarize([
+                    //     Sum::make()->label('Total words'),
+                    //     Average::make()
+                    //         ->label('Avg words / story')
+                    //         ->numeric(decimalPlaces: 2),
+                    // ])
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('started_at')
@@ -118,15 +119,15 @@ class StoriesList extends TableComponent
                         Action::make('dates')
                             ->authorize('updateDates')
                             ->label('Update dates')
-                            ->icon(iconName('calendar'))
+                            ->icon(Icon::Calendar)
                             ->color('gray')
                             ->fillForm(fn (Story $record): array => [
                                 'start_date' => $record->started_at->toIso8601String(),
                                 'end_date' => $record->ended_at->toIso8601String(),
                             ])
                             ->schema([
-                                DatePicker::make('start_date')->prefixIcon(iconName('calendar')),
-                                DatePicker::make('end_date')->prefixIcon(iconName('calendar')),
+                                DatePicker::make('start_date')->prefixIcon(Icon::Calendar),
+                                DatePicker::make('end_date')->prefixIcon(Icon::Calendar),
                             ])
                             ->modalWidth('lg')
                             ->modalIcon(null)
@@ -208,30 +209,30 @@ class StoriesList extends TableComponent
                                 }),
                         ])
                             ->grouped()
-                            ->icon(iconName('status-change'))
+                            ->icon(Icon::StatusChange)
                             ->label('Change status'),
                     ])->divided(),
 
                     ActionGroup::make([
                         Action::make('create-before')
                             ->authorize('create')
-                            ->icon(iconName('move-up'))
+                            ->icon(Icon::MoveUp)
                             ->color('gray')
                             ->label('Before this story')
                             ->url(fn (Story $record): string => route('admin.stories.create', 'direction=before&neighbor='.$record->id)),
                         Action::make('create-after')
                             ->authorize('create')
-                            ->icon(iconName('move-down'))
+                            ->icon(Icon::MoveDown)
                             ->color('gray')
                             ->label('After this story')
                             ->url(fn (Story $record): string => route('admin.stories.create', 'direction=after&neighbor='.$record->id)),
                         Action::make('create-inside')
                             ->authorize('create')
-                            ->icon(iconName('move-right'))
+                            ->icon(Icon::MoveRight)
                             ->color('gray')
                             ->label('Inside this story')
                             ->url(fn (Story $record): string => route('admin.stories.create', 'parent='.$record->id)),
-                    ])->authorize('create')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -257,10 +258,10 @@ class StoriesList extends TableComponent
                     ActionGroup::make([
                         Action::make('delete')
                             ->authorize('delete')
-                            ->icon(iconName('trash'))
+                            ->icon(Icon::Trash)
                             ->color('danger')
                             ->url(fn (Story $record): string => route('admin.stories.delete', $record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -276,7 +277,7 @@ class StoriesList extends TableComponent
                     ->nullable()
                     ->attribute('parent_id'),
             ])
-            ->emptyStateIcon(iconName('book'))
+            ->emptyStateIcon(Icon::Books)
             ->emptyStateHeading('No stories found')
             ->emptyStateActions([
                 CreateAction::make()

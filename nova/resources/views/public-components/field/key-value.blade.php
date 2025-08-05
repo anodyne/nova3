@@ -39,7 +39,7 @@
                 </div>
 
                 <x-public::button type="button" x-on:click="remove(index)" class="nv-form-field-kv-delete">
-                    <x-icon name="trash" size="sm"></x-icon>
+                    <x-icon :name="Icon::Trash" size="sm"></x-icon>
                 </x-public::button>
             </div>
         </template>

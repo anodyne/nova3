@@ -6,7 +6,7 @@
 
                 @can('update', $character)
                     <x-button :href="route('admin.characters.edit', $character)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -17,11 +17,11 @@
             @if (filled($form->published_fields))
                 <x-tab.group name="character">
                     <x-tab.heading name="info">
-                        <x-icon name="info" size="sm"></x-icon>
+                        <x-icon :name="Icon::Info" size="sm"></x-icon>
                         Basic info
                     </x-tab.heading>
                     <x-tab.heading name="bio">
-                        <x-icon name="user-profile" size="sm"></x-icon>
+                        <x-icon :name="Icon::UserProfile" size="sm"></x-icon>
                         Bio
                     </x-tab.heading>
                 </x-tab.group>
@@ -55,7 +55,10 @@
                                 </div>
                             </x-spacing>
                         @empty
-                            <x-empty-state.small icon="list" title="No position(s) assigned"></x-empty-state.small>
+                            <x-empty-state.small
+                                :icon="Icon::List"
+                                title="No position(s) assigned"
+                            ></x-empty-state.small>
                         @endforelse
                     </x-panel>
                 </x-panel>
@@ -90,7 +93,7 @@
                             @empty
                                 <div class="lg:col-span-2">
                                     <x-empty-state.small
-                                        icon="users"
+                                        :icon="Icon::Users"
                                         title="No users assigned"
                                         message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
                                         :link-access="gate()->allows('viewAny', Nova\Departments\Models\Position::class)"

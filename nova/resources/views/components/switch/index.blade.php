@@ -80,14 +80,14 @@
             'bg-gray-200 ring-1 ring-inset ring-black/5 dark:bg-white/5 dark:ring-white/15',
 
             // Checked
-            'data-[checked]:bg-[--switch-bg] data-[checked]:ring-[--switch-bg-ring] dark:data-[checked]:bg-[--switch-bg] dark:data-[checked]:ring-[--switch-bg-ring]',
+            'data-[checked]:bg-(--switch-bg) data-[checked]:ring-(--switch-bg-ring) dark:data-[checked]:bg-(--switch-bg) dark:data-[checked]:ring-(--switch-bg-ring)',
 
             // Focus
             'focus:outline-none data-[focus]:outline data-[focus]:outline-2 data-[focus]:outline-offset-2 data-[focus]:outline-blue-500',
 
             // Hover
-            'hover:ring-black/15 hover:data-[checked]:ring-[--switch-bg-ring]',
-            'dark:hover:ring-white/25 dark:hover:data-[checked]:ring-[--switch-bg-ring]',
+            'hover:ring-black/15 hover:data-[checked]:ring-(--switch-bg-ring)',
+            'dark:hover:ring-white/25 dark:hover:data-[checked]:ring-(--switch-bg-ring)',
 
             // Disabled
             'data-[disabled]:bg-gray-200 data-[disabled]:data-[checked]:bg-gray-200 data-[disabled]:opacity-50 data-[disabled]:data-[checked]:ring-black/5',
@@ -107,7 +107,7 @@
                 'translate-x-4 sm:translate-x-3': isChecked(),
                 'translate-x-0': ! isChecked(),
             }"
-            class="pointer-events-none relative inline-block size-[1.125rem] translate-x-0 rounded-full border border-transparent bg-white shadow ring-1 ring-black/5 transition duration-200 ease-in-out group-data-[checked]:translate-x-4 group-data-[checked]:bg-[--switch] group-data-[disabled]:group-data-[checked]:bg-white group-data-[disabled]:group-data-[checked]:shadow group-data-[checked]:shadow-[--switch-shadow] group-data-[checked]:ring-[--switch-ring] group-data-[disabled]:group-data-[checked]:ring-black/5 sm:size-3.5 sm:group-data-[checked]:translate-x-3"
+            class="pointer-events-none relative inline-block size-[1.125rem] translate-x-0 rounded-full border border-transparent bg-white shadow ring-1 ring-black/5 transition duration-200 ease-in-out group-data-[checked]:translate-x-4 group-data-[checked]:bg-(--switch) group-data-[disabled]:group-data-[checked]:bg-white group-data-[disabled]:group-data-[checked]:shadow group-data-[checked]:shadow-(--switch-shadow) group-data-[checked]:ring-(--switch-ring) group-data-[disabled]:group-data-[checked]:ring-black/5 sm:size-3.5 sm:group-data-[checked]:translate-x-3"
             aria-hidden="true"
         ></span>
     </button>

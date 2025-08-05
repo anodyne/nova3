@@ -1,1 +1,1 @@
-<x-button.editor-tools action="setLink()" active="link" icon="tabler-link"></x-button.editor-tools>
+<x-button.editor-tools action="setLink()" active="link" :icon="Icon::Link"></x-button.editor-tools>

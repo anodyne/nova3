@@ -32,19 +32,19 @@
                 @if (filled($form->published_fields))
                     <x-tab.group name="user">
                         <x-tab.heading name="info">
-                            <x-icon name="info" size="sm"></x-icon>
+                            <x-icon :name="Icon::Info" size="sm"></x-icon>
                             Basic info
                             @if ($errors->hasAny(['email', 'name', 'pronouns']))
-                                <span class="shrink-0 text-danger-500">
+                                <span class="text-danger-500 shrink-0">
                                     <x-icon.micro.alert />
                                 </span>
                             @endif
                         </x-tab.heading>
                         <x-tab.heading name="bio">
-                            <x-icon name="user-profile" size="sm"></x-icon>
+                            <x-icon :name="Icon::UserProfile" size="sm"></x-icon>
                             Bio
                             @if ($errors->has('userBio.*'))
-                                <span class="shrink-0 text-danger-500">
+                                <span class="text-danger-500 shrink-0">
                                     <x-icon.micro.alert />
                                 </span>
                             @endif
@@ -196,7 +196,11 @@
                                         <x-spacing size="md" class="grid grid-cols-3 gap-6">
                                             <div class="col-span-2">
                                                 <div class="flex items-center gap-2">
-                                                    <x-icon name="check" size="md" class="text-gray-500"></x-icon>
+                                                    <x-icon
+                                                        :name="Icon::CheckCircle"
+                                                        size="md"
+                                                        class="text-gray-500"
+                                                    ></x-icon>
                                                     <x-h3>Activate character</x-h3>
                                                 </div>
                                                 <x-text class="mt-2">
@@ -215,7 +219,11 @@
                                         <x-spacing size="md" class="grid grid-cols-3 gap-6">
                                             <div class="col-span-2">
                                                 <div class="flex items-center gap-2">
-                                                    <x-icon name="remove" size="md" class="text-gray-500"></x-icon>
+                                                    <x-icon
+                                                        :name="Icon::MinusCircle"
+                                                        size="md"
+                                                        class="text-gray-500"
+                                                    ></x-icon>
                                                     <x-h3>Deactivate user</x-h3>
                                                 </div>
                                                 <x-text class="mt-2">
@@ -234,7 +242,11 @@
                                         <x-spacing size="md" class="grid grid-cols-3 gap-6">
                                             <div class="col-span-2">
                                                 <div class="flex items-center gap-2">
-                                                    <x-icon name="lock-closed" size="md" class="text-gray-500"></x-icon>
+                                                    <x-icon
+                                                        :name="Icon::LockClosed"
+                                                        size="md"
+                                                        class="text-gray-500"
+                                                    ></x-icon>
                                                     <x-h3>Force password reset</x-h3>
                                                 </div>
                                                 <x-text class="mt-2">

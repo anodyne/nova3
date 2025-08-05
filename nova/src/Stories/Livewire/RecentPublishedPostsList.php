@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Filament\Support\Enums\TextSize;
 use Filament\Support\Enums\FontWeight;
+use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Models\Post;
 
@@ -61,7 +62,7 @@ class RecentPublishedPostsList extends TableComponent
                     ]),
                 ]),
             ])
-            ->emptyStateIcon(iconName('write'))
+            ->emptyStateIcon(Icon::Write)
             ->emptyStateHeading('No published posts found');
     }
 }

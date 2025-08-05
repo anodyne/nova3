@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
-use Filament\Schemas\Schema;
 use Filament\Actions\Action;
-use Filament\Support\Enums\Width;
 use Filament\Forms\Components\Builder;
+use Filament\Schemas\Schema;
 use Filament\Support\Enums\IconSize;
+use Filament\Support\Enums\Width;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Locked;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\FormComponent;
 use Nova\Pages\Actions\PublishPage;
 use Nova\Pages\Actions\UpdatePage;
@@ -39,14 +40,14 @@ class PageDesigner extends FormComponent
                     ->addAction(function (Action $action): Action {
                         return $action
                             ->label('Add block')
-                            ->icon(iconName('add'))
+                            ->icon(Icon::Plus)
                             ->iconSize(IconSize::Medium)
                             ->slideOver()
                             ->modalWidth(Width::TwoExtraLarge);
                     })
                     ->editAction(function (Action $action): Action {
                         return $action
-                            ->icon(iconName('settings'))
+                            ->icon(Icon::Settings)
                             ->slideOver()
                             ->modalWidth(Width::TwoExtraLarge);
                     })

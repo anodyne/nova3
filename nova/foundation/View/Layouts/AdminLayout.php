@@ -28,6 +28,17 @@ class AdminLayout extends Component
         $this->user = Auth::user();
     }
 
+    public function themeDataAttribute(): ?string
+    {
+        $primaryColor = settings('appearance.colorsPrimary');
+
+        if ($primaryColor !== 'Mono') {
+            return null;
+        }
+
+        return ' data-theme="mono"';
+    }
+
     public function draftPostsNeedingAttentionCount(): int
     {
         return once(fn () => $this->user->draftPostsNeedingAttention()->count());

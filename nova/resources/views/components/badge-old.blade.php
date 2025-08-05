@@ -9,7 +9,7 @@
     {{
         $attributes->class([
             'nv-badge inline-flex items-center font-medium tracking-normal ring-1 ring-inset',
-            '[&>[data-slot=icon]]:-mx-0.5 [&>[data-slot=icon]]:my-0.5 [&>[data-slot=icon]]:shrink-0 [&>[data-slot=icon]]:text-[--btn-icon] [&>[data-slot=icon]]:sm:my-1',
+            '[&>[data-slot=icon]]:-mx-0.5 [&>[data-slot=icon]]:my-0.5 [&>[data-slot=icon]]:shrink-0 [&>[data-slot=icon]]:text-(--btn-icon) [&>[data-slot=icon]]:sm:my-1',
             '[&>[data-slot=badge]]:bg-white dark:[&>[data-slot=badge]]:bg-gray-950',
             match ($size) {
                 'sm' => 'nv-badge-sm gap-x-2.5 rounded-md px-1.5 py-0.5 text-xs/5 has-[[data-slot=badge]]:rounded-lg data-[pill]:rounded-full data-[pill]:px-2 [&>[data-slot=badge]]:-mx-0.5 [&>[data-slot=badge]]:my-0.5 data-[pill]:[&>[data-slot=badge]]:-mx-1',

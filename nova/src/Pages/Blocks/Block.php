@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks;
 
-use Filament\Schemas\Components\Tabs;
-use Filament\Schemas\Components\Tabs\Tab;
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Utilities\Get;
-use Filament\Schemas\Components\Grid;
 use Filament\Forms\Components\Builder\Block as BuilderBlock;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
@@ -16,7 +11,13 @@ use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Get;
 use Illuminate\Support\Facades\Cache;
+use Nova\Foundation\Icons\Icon;
 use Nova\Pages\Enums\BackgroundImageIntensity;
 use Nova\Pages\Enums\Blur;
 use Nova\Pages\Enums\BoxShadow;
@@ -42,15 +43,15 @@ abstract class Block extends BuilderBlock
                     ->tabs([
                         Tab::make('container')
                             ->label('Container')
-                            ->icon(iconName('box-padding'))
+                            ->icon(Icon::BoxPadding)
                             ->schema($this->containerSchema()),
                         Tab::make('content')
                             ->label('Content')
-                            ->icon(iconName('box-margin'))
+                            ->icon(Icon::BoxMargin)
                             ->schema($this->contentSchema()),
                         Tab::make('block')
                             ->label('Block settings')
-                            ->icon(iconName('settings'))
+                            ->icon(Icon::Settings)
                             ->schema($this->blockSchema())
                             ->visible(fn (): bool => count($this->blockSchema()) > 0),
                     ])
@@ -67,7 +68,7 @@ abstract class Block extends BuilderBlock
             Section::make()
                 ->heading('Dimensions')
                 ->description('Customize the width and spacing of the block container')
-                ->icon(iconName('dimensions'))
+                ->icon(Icon::Dimensions)
                 ->schema([
                     Select::make('container.width')->options(MaxWidth::class),
                     Section::make('container.spacing')
@@ -88,7 +89,7 @@ abstract class Block extends BuilderBlock
             Section::make()
                 ->heading('Appearance')
                 ->description('Customize the appearance of the block to match your theme / site')
-                ->icon(iconName('palette'))
+                ->icon(Icon::Palette)
                 ->schema([
                     Section::make('container.bg')
                         ->heading('Background')
@@ -122,7 +123,7 @@ abstract class Block extends BuilderBlock
             Section::make()
                 ->heading('Dimensions')
                 ->description('Customize the width and spacing of the content container')
-                ->icon(iconName('dimensions'))
+                ->icon(Icon::Dimensions)
                 ->schema([
                     Select::make('content.width')->options(MaxWidth::class),
                     Section::make('content.spacing')
@@ -143,7 +144,7 @@ abstract class Block extends BuilderBlock
             Section::make()
                 ->heading('Appearance')
                 ->description('Customize the appearance of the block to match your theme / site')
-                ->icon(iconName('palette'))
+                ->icon(Icon::Palette)
                 ->schema([
                     Section::make('content.bg')
                         ->heading('Background')
@@ -207,7 +208,7 @@ abstract class Block extends BuilderBlock
             Section::make()
                 ->heading('Content')
                 ->description('Add a heading, message, and callout to the block')
-                ->icon(iconName('blockquote'))
+                ->icon(Icon::Blockquote)
                 ->schema([
                     ToggleButtons::make('content.orientation')
                         ->label('Orientation')
@@ -218,9 +219,9 @@ abstract class Block extends BuilderBlock
                             'right' => 'Right',
                         ])
                         ->icons([
-                            'left' => 'tabler-align-left',
-                            'center' => 'tabler-align-center',
-                            'right' => 'tabler-align-right',
+                            'left' => Icon::EditorAlignLeft,
+                            'center' => Icon::EditorAlignCenter,
+                            'right' => Icon::EditorAlignRight,
                         ]),
                     Section::make('content.heading')
                         ->heading('Heading')

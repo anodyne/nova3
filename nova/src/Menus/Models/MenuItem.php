@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Models;
 
-use Nova\Menus\Events\MenuItemCreated;
-use Nova\Menus\Events\MenuItemDeleted;
-use Nova\Menus\Events\MenuItemUpdated;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,10 +13,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Models\Model;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
-use Nova\Menus\Events;
+use Nova\Menus\Events\MenuItemCreated;
+use Nova\Menus\Events\MenuItemDeleted;
+use Nova\Menus\Events\MenuItemUpdated;
 use Nova\Menus\Models\Builders\MenuItemBuilder;
 use Nova\Menus\Observers\MenuItemObserver;
 use Nova\Pages\Models\Page;
@@ -47,6 +47,7 @@ class MenuItem extends Model implements Sortable
     ];
 
     protected $casts = [
+        'icon' => Icon::class,
         'link_type' => LinkType::class,
         'order_column' => 'integer',
         'page_id' => 'integer',
@@ -79,13 +80,6 @@ class MenuItem extends Model implements Sortable
     public function items(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
-    }
-
-    public function iconName(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): ?string => str($this->icon)->prepend('tabler-')->toString()
-        );
     }
 
     public function link(): Attribute

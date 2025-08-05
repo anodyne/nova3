@@ -9,7 +9,7 @@
                         <x-slot name="leading">
                             <select
                                 aria-label="Story sort field"
-                                class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                                class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:ring-0 focus:outline-none sm:text-sm dark:text-white"
                                 wire:model.live="sortField"
                             >
                                 <option value="order_column">Sort by timeline order</option>
@@ -20,7 +20,7 @@
 
                         <select
                             aria-label="Story sort direction"
-                            class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 dark:text-white sm:text-sm"
+                            class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:ring-0 focus:outline-none sm:text-sm dark:text-white"
                             wire:model.live="sortDirection"
                         >
                             <option value="desc">Newest first</option>
@@ -32,7 +32,7 @@
                 @can('viewAny', Story::class)
                     <div class="flex items-center">
                         <x-button :href="route('admin.stories.index')" color="primary">
-                            <x-icon name="settings" size="sm"></x-icon>
+                            <x-icon :name="Icon::Settings" size="sm"></x-icon>
                             Manage stories
                         </x-button>
                     </div>
@@ -45,7 +45,7 @@
         </x-spacing>
     @else
         <x-empty-state variant="jumbo">
-            <x-icon name="book"></x-icon>
+            <x-icon :name="Icon::BookClosed"></x-icon>
             <x-h2>No stories found</x-h2>
 
             @can('create', Story::class)

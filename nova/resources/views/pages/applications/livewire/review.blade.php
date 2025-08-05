@@ -3,7 +3,10 @@
 <div class="space-y-8">
     <div class="space-y-1">
         <x-h4>Application review</x-h4>
-        <x-text>Leave your review of the application for others to see and contribute to the overall decision.</x-text>
+        <x-text>
+            Leave your review of the application for others to see and
+            contribute to the overall decision.
+        </x-text>
     </div>
 
     <div class="space-y-2">
@@ -48,7 +51,9 @@
             @if ($application->accepted_reviews_count > 0)
                 <div
                     class="bg-success-500"
-                    style="width: {{ ($application->accepted_reviews_count / $application->reviews_count) * 100 }}%"
+                    style="
+                        width: {{ ($application->accepted_reviews_count / $application->reviews_count) * 100 }}%;
+                    "
                 ></div>
             @endif
 
@@ -59,7 +64,9 @@
             @if ($application->denied_reviews_count > 0)
                 <div
                     class="bg-danger-500"
-                    style="width: {{ ($application->denied_reviews_count / $application->reviews_count) * 100 }}%"
+                    style="
+                        width: {{ ($application->denied_reviews_count / $application->reviews_count) * 100 }}%;
+                    "
                 ></div>
             @endif
         </div>
@@ -72,14 +79,15 @@
                     wire:click="$dispatch('modal.open', {component: 'application-review-modal', arguments: {'application': {{ $application->id }}, 'user': {{ auth()->id() }}}})"
                     class="w-full"
                 >
-                    <x-icon name="progress" size="sm"></x-icon>
+                    <x-icon :name="Icon::Progress" size="sm"></x-icon>
                     {{ $currentUserHasReviewed ? 'Update review' : 'Add review' }}
                 </x-button>
             @endcan
 
             @cannot('vote', $application)
                 <x-text>
-                    Your review has been recorded, but admins do not allow changing your review after submitting it.
+                    Your review has been recorded, but admins do not allow
+                    changing your review after submitting it.
                 </x-text>
             @endcannot
         </div>

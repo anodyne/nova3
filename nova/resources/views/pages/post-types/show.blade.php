@@ -10,7 +10,7 @@
 
                 @can('update', $postType)
                     <x-button :href="route('admin.post-types.edit', $postType)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -87,7 +87,7 @@
                         @if ($postType->fields->{$field->value}->enabled)
                             <x-spacing size="row" class="flex items-center gap-x-3 font-medium">
                                 <div class="flex items-center">
-                                    <div class="h-2 w-2 rounded-full bg-success-500"></div>
+                                    <div class="bg-success-500 h-2 w-2 rounded-full"></div>
                                 </div>
 
                                 <span>{{ $field->getLabel() }} field</span>
@@ -107,64 +107,64 @@
                 <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
                     @if ($postType->options->notifiesUsers)
                         <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon name="notification" size="md"></x-icon>
+                            <x-icon :name="Icon::Notification" size="md"></x-icon>
                             <span>Sends notifications when published</span>
                         </x-spacing>
                     @else
                         <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon name="notification-off" size="md"></x-icon>
+                            <x-icon :name="Icon::NotificationOff" size="md"></x-icon>
                             <span>Does not send notifications when published</span>
                         </x-spacing>
                     @endif
 
                     @if ($postType->options->includedInPostTracking)
                         <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon name="chart" size="md"></x-icon>
+                            <x-icon :name="Icon::Chart" size="md"></x-icon>
                             <span>Included in activity tracking stats</span>
                         </x-spacing>
                     @endif
 
                     @if ($postType->options->allowsMultipleAuthors)
                         <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon name="users" size="md"></x-icon>
+                            <x-icon :name="Icon::Users" size="md"></x-icon>
                             <span>Allows multiple authors</span>
                         </x-spacing>
                     @endif
 
                     @if ($postType->options->allowsCharacterAuthors)
                         <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon name="characters" size="md"></x-icon>
+                            <x-icon :name="Icon::Characters" size="md"></x-icon>
                             <span>Allows characters as authors</span>
                         </x-spacing>
                     @endif
 
                     @if ($postType->options->allowsUserAuthors)
                         <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon name="user" size="md"></x-icon>
+                            <x-icon :name="Icon::User" size="md"></x-icon>
                             <span>Allows users as authors</span>
                         </x-spacing>
                     @endif
 
                     @if ($postType->options->showContentInTimelineView)
                         <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon name="timeline" size="md"></x-icon>
+                            <x-icon :name="Icon::Timeline" size="md"></x-icon>
                             <span>Show content in timeline view</span>
                         </x-spacing>
                     @endif
 
                     @if ($postType->role)
                         <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon name="shield" size="md"></x-icon>
+                            <x-icon :name="Icon::Shield" size="md"></x-icon>
                             <span>Requires {{ $postType->role->display_name }} role</span>
                         </x-spacing>
                     @endif
 
                     <x-spacing size="row" class="flex items-center gap-3 font-medium">
                         @if ($postType->options->editTimeframe->value === 'never')
-                            <x-icon name="edit-off" size="md"></x-icon>
+                            <x-icon :name="Icon::EditOff" size="md"></x-icon>
                             <span>{{ $postType->options->editTimeframe->getLabel() }}</span>
                         @else
-                            <x-icon name="edit" size="md"></x-icon>
+                            <x-icon :name="Icon::Edit" size="md"></x-icon>
                             <span>
                                 Can be edited for {{ $postType->options->editTimeframe->getLabel() }} after publishing
                             </span>

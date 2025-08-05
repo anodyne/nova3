@@ -23,7 +23,7 @@ class RebuildSearchIndexButton extends Component
     {
         return <<<'blade'
             <x-button type="button" color="neutral" wire:click="clear">
-                <x-icon name="hammer" size="sm"></x-icon>
+                <x-icon :name="Icon::Hammer" size="sm"></x-icon>
                 Re-build
             </x-button>
         blade;

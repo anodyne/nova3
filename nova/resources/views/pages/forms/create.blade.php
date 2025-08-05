@@ -84,7 +84,7 @@
 
             <x-fieldset x-show="type === 'basic'" x-cloak>
                 <x-fieldset.heading>
-                    <x-icon name="settings"></x-icon>
+                    <x-icon :name="Icon::Settings"></x-icon>
                     <x-fieldset.legend>Form options</x-fieldset.legend>
                     <x-fieldset.description>
                         When displayed on the public site, only in character posts will be visible. Out of character

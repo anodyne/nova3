@@ -8,7 +8,7 @@
         aria-expanded="false"
     >
         @if (filled($item->icon))
-            <x-icon :name="$item->icon_name"></x-icon>
+            <x-icon :name="$item->icon"></x-icon>
         @endif
 
         <span>{{ $item->label }}</span>
@@ -23,7 +23,7 @@
     </a>
 
     <div
-        class="absolute left-1/2 top-full min-w-[240px] origin-top-right -translate-x-1/2 pt-2"
+        class="absolute top-full left-1/2 min-w-[240px] origin-top-right -translate-x-1/2 pt-2"
         x-show="open"
         x-transition:enter="transform transition duration-200 ease-out"
         x-transition:enter-start="-translate-y-2 opacity-0"

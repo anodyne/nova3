@@ -74,7 +74,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="rank"></x-icon>
+                    <x-icon :name="Icon::Rank"></x-icon>
                     <x-fieldset.legend>Select your rank images</x-fieldset.legend>
                     <x-fieldset.description>
                         Ranks are comprised of a base image and an overlay image. This provides more flexibility with

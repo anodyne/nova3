@@ -21,11 +21,12 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Actions\InstallTheme;
 use Nova\Themes\Models\Theme;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 
 class ThemesList extends TableComponent
 {
@@ -43,11 +44,14 @@ class ThemesList extends TableComponent
                     ->prefix('themes/')
                     ->searchable()
                     ->toggleable(),
+
+                // FIXME: This should be able to use null for the falseIcon
                 IconColumn::make('is_current_public_theme')
                     ->label('Current theme')
-                    ->icon(fn (bool $state): ?string => $state ? iconName('check-circle') : null)
-                    ->color(fn (bool $state): ?string => $state ? 'success' : null)
+                    ->trueIcon(Icon::CheckCircle)
+                    ->falseIcon(Icon::XmarkCircle)
                     ->toggleable(),
+
                 TextColumn::make('repository.type')
                     ->label('Checking version from')
                     ->badge()
@@ -65,7 +69,7 @@ class ThemesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Theme $record): string => route('admin.themes.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make(),
@@ -73,17 +77,17 @@ class ThemesList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('goToUpdate')
-                            ->icon(iconName('cloud-share'))
+                            ->icon(Icon::CloudShare)
                             ->url(fn (Theme $record): ?string => $record->update_url)
                             ->visible(fn (Theme $record): bool => $record->has_update),
-                    ])->authorizeAny(['create', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
                             ->modalContentView('pages.themes.delete')
                             ->successNotificationTitle(fn (Theme $record): string => $record->name.' theme was deleted')
                             ->using(fn (Theme $record): Theme => DeleteTheme::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -93,7 +97,7 @@ class ThemesList extends TableComponent
                 Action::make('install')
                     ->authorize('create')
                     ->label('Themes available to install')
-                    ->icon(iconName('sparkles'))
+                    ->icon(Icon::Sparkles)
                     ->color('gray')
                     ->visible(fn (): bool => Theme::hasInstallableThemes())
                     ->modalWidth('xl')
@@ -148,7 +152,7 @@ class ThemesList extends TableComponent
                         $notification->send();
                     }),
             ])
-            ->emptyStateIcon(iconName('paint-brush'))
+            ->emptyStateIcon(Icon::PaintBrush)
             ->emptyStateHeading('No theme found')
             ->emptyStateDescription("Themes allow you to personalize your public-facing site to reflect your game's personality.")
             ->emptyStateActions([

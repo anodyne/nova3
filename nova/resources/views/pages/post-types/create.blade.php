@@ -65,7 +65,7 @@
 
                 <x-fieldset>
                     <x-fieldset.heading>
-                        <x-icon name="show"></x-icon>
+                        <x-icon :name="Icon::Show"></x-icon>
                         <x-fieldset.legend>Visibility</x-fieldset.legend>
                         <x-fieldset.description>
                             When displayed on the public site, only in character posts will be visible. Out of character
@@ -105,7 +105,7 @@
             <div x-show="isTab('fields')" class="space-y-12" x-cloak>
                 <x-fieldset>
                     <x-fieldset.heading>
-                        <x-icon name="form"></x-icon>
+                        <x-icon :name="Icon::Form"></x-icon>
                         <x-fieldset.legend>Fields</x-fieldset.legend>
                         <x-fieldset.description>
                             Post types control which fields are available when creating a post of that type. You can
@@ -127,7 +127,7 @@
                                     <x-slot name="title">
                                         <div class="flex items-center gap-x-1">
                                             <p>{{ $field->getLabel() }} field</p>
-                                            <p class="font-medium text-danger-500" x-show="required">*</p>
+                                            <p class="text-danger-500 font-medium" x-show="required">*</p>
                                         </div>
                                     </x-slot>
 
@@ -143,7 +143,7 @@
                                                 'rotate-90': expanded,
                                             }"
                                         >
-                                            <x-icon name="chevron-right" size="md"></x-icon>
+                                            <x-icon :name="Icon::ChevronRight" size="md"></x-icon>
                                         </div>
                                     </x-slot>
                                 </x-panel.header>
@@ -213,7 +213,7 @@
             <div x-show="isTab('options')" class="space-y-12" x-cloak>
                 <x-fieldset>
                     <x-fieldset.heading>
-                        <x-icon name="preferences"></x-icon>
+                        <x-icon :name="Icon::Preferences"></x-icon>
                         <x-fieldset.legend>Options</x-fieldset.legend>
                         <x-fieldset.description>
                             Post types control the behavior of a post of that type with a wide range of options. You can

@@ -1,6 +1,6 @@
 @use('Nova\Settings\Enums\ServerEnvironment')
 
-<x-modal.slide-over title="Environment settings" icon="leaf">
+<x-modal.slide-over title="Environment settings" :icon="Icon::Leaf">
     <x-form action="">
         <x-fieldset.field-group>
             <x-fieldset.field label="Environment" id="environment" name="environment">

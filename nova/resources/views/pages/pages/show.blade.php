@@ -10,12 +10,12 @@
 
                 @can('update', $page)
                     <x-button :href="route('admin.pages.design', $page)" color="neutral">
-                        <x-icon name="tools" size="sm"></x-icon>
+                        <x-icon :name="Icon::Tools" size="sm"></x-icon>
                         Design
                     </x-button>
 
                     <x-button :href="route('admin.pages.edit', $page)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -89,12 +89,12 @@
             @if ($page->is_basic)
                 <x-fieldset.controls>
                     <x-button :href="url($page->uri)">
-                        <x-icon name="www" size="sm"></x-icon>
+                        <x-icon :name="Icon::Www" size="sm"></x-icon>
                         Visit live page
                     </x-button>
 
                     <x-button :href="route('preview-basic-page', $page->key)">
-                        <x-icon name="www-preview" size="sm"></x-icon>
+                        <x-icon :name="Icon::WwwPreview" size="sm"></x-icon>
                         Preview page
                     </x-button>
                 </x-fieldset.controls>

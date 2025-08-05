@@ -3,7 +3,7 @@
         <x-page-header>
             <x-slot name="actions">
                 <x-button :href="route('admin.account.notifications')">
-                    <x-icon name="notification" size="sm"></x-icon>
+                    <x-icon :name="Icon::Notification" size="sm"></x-icon>
                     <span>Notifications</span>
                 </x-button>
             </x-slot>

@@ -26,7 +26,7 @@
 
                 @can('update', $department)
                     <x-button :href="route('admin.departments.edit', $department)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -78,13 +78,13 @@
                                         color="neutral"
                                         text
                                     >
-                                        <x-icon name="edit" size="sm"></x-icon>
+                                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                                     </x-button>
                                 @endcan
                             </x-spacing>
                         @empty
                             <x-empty-state.small
-                                icon="list"
+                                :icon="Icon::List"
                                 title="No positions assigned"
                                 message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
                                 :link-access="gate()->allows('viewAny', Position::class)"
@@ -120,14 +120,14 @@
                                                 class="group-hover:visible sm:invisible"
                                                 text
                                             >
-                                                <x-icon name="edit" size="sm"></x-icon>
+                                                <x-icon :name="Icon::Edit" size="sm"></x-icon>
                                             </x-button>
                                         @endcan
                                     </div>
                                 @empty
                                     <div class="col-span-2">
                                         <x-empty-state.small
-                                            icon="characters"
+                                            :icon="Icon::Characters"
                                             title="No characters assigned"
                                             message="There aren’t any characters assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
                                         ></x-empty-state.small>
@@ -159,14 +159,14 @@
                                                 class="group-hover:visible sm:invisible"
                                                 text
                                             >
-                                                <x-icon name="edit" size="sm"></x-icon>
+                                                <x-icon :name="Icon::Edit" size="sm"></x-icon>
                                             </x-button>
                                         @endcan
                                     </div>
                                 @empty
                                     <div class="col-span-2">
                                         <x-empty-state.small
-                                            icon="users"
+                                            :icon="Icon::Users"
                                             title="No users assigned"
                                             message="There aren’t any active users who have a character assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
                                         ></x-empty-state.small>

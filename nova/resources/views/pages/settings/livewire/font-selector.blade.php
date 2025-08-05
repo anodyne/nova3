@@ -1,8 +1,16 @@
 <x-dropdown max-height="20rem" width="md">
     <x-slot name="selectTrigger">
         {{ $family ?? 'Select a font' }}
-        <input type="hidden" name="{{ $fontProviderInputName }}" value="{{ $provider }}" />
-        <input type="hidden" name="{{ $fontFamilyInputName }}" value="{{ $family }}" />
+        <input
+            type="hidden"
+            name="{{ $fontProviderInputName }}"
+            value="{{ $provider }}"
+        />
+        <input
+            type="hidden"
+            name="{{ $fontFamilyInputName }}"
+            value="{{ $family }}"
+        />
     </x-slot>
 
     <div>
@@ -47,15 +55,20 @@
         @if ($provider === 'local')
             <x-fieldset class="p-4">
                 <x-fieldset.heading>
-                    <x-icon name="server"></x-icon>
+                    <x-icon :name="Icon::Server"></x-icon>
                     <x-fieldset.legend>Local fonts</x-fieldset.legend>
-                    <x-fieldset.description>Use a font that’s stored on your server</x-fieldset.description>
+                    <x-fieldset.description>
+                        Use a font that’s stored on your server
+                    </x-fieldset.description>
                 </x-fieldset.heading>
 
                 <x-fieldset.field-group>
                     <div>
                         @foreach ($localFonts as $font)
-                            <x-dropdown.item type="button" wire:click="$set('family', '{{ $font }}')">
+                            <x-dropdown.item
+                                type="button"
+                                wire:click="$set('family', '{{ $font }}')"
+                            >
                                 {{ $font }}
                             </x-dropdown.item>
                         @endforeach
@@ -67,12 +80,20 @@
         @if ($provider === 'bunny')
             <x-fieldset class="p-4">
                 <x-fieldset.heading>
-                    <x-logos.bunny-fonts-color class="size-9 md:size-8" data-slot="icon"></x-logos.bunny-fonts-color>
+                    <x-logos.bunny-fonts-color
+                        class="size-9 md:size-8"
+                        data-slot="icon"
+                    ></x-logos.bunny-fonts-color>
                     <x-fieldset.legend>Bunny Fonts</x-fieldset.legend>
                     <x-fieldset.description>
-                        <x-text.link href="https://bunny.net/fonts/" target="_blank">Bunny Fonts</x-text.link>
-                        is a privacy-focused, GDPR-compliant font service. In most cases, it’s a drop-in replacement for
-                        Google Fonts.
+                        <x-text.link
+                            href="https://bunny.net/fonts/"
+                            target="_blank"
+                        >
+                            Bunny Fonts
+                        </x-text.link>
+                        is a privacy-focused, GDPR-compliant font service. In
+                        most cases, it’s a drop-in replacement for Google Fonts.
                     </x-fieldset.description>
                 </x-fieldset.heading>
 
@@ -84,7 +105,9 @@
                         name="button_font_bunny"
                         wire:ignore
                     >
-                        <x-input.text wire:model.live.debounce="family"></x-input.text>
+                        <x-input.text
+                            wire:model.live.debounce="family"
+                        ></x-input.text>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>
@@ -93,11 +116,20 @@
         @if ($provider === 'google')
             <x-fieldset class="p-4">
                 <x-fieldset.heading>
-                    <x-logos.google-color class="size-9 md:size-8" data-slot="icon"></x-logos.google-color>
+                    <x-logos.google-color
+                        class="size-9 md:size-8"
+                        data-slot="icon"
+                    ></x-logos.google-color>
                     <x-fieldset.legend>Google Fonts</x-fieldset.legend>
                     <x-fieldset.description>
-                        <x-text.link href="https://google.com/fonts" target="_blank">Google Fonts</x-text.link>
-                        is a library of open source font families for convenient use on the web.
+                        <x-text.link
+                            href="https://google.com/fonts"
+                            target="_blank"
+                        >
+                            Google Fonts
+                        </x-text.link>
+                        is a library of open source font families for convenient
+                        use on the web.
                     </x-fieldset.description>
                 </x-fieldset.heading>
 
@@ -109,7 +141,9 @@
                         name="button_font_google"
                         wire:ignore
                     >
-                        <x-input.text wire:model.live.debounce="family"></x-input.text>
+                        <x-input.text
+                            wire:model.live.debounce="family"
+                        ></x-input.text>
                     </x-fieldset.field>
                 </x-fieldset.field-group>
             </x-fieldset>

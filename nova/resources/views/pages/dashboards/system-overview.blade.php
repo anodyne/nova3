@@ -26,7 +26,7 @@
 
         <div class="grid gap-8 lg:grid-cols-2">
             <x-panel variant="well">
-                <x-panel.header title="Environment" icon="leaf">
+                <x-panel.header title="Environment" :icon="Icon::Leaf">
                     <x-slot name="actions">
                         <x-button
                             x-on:click="Livewire.dispatch('slide-over.open', {component: 'settings-environment'})"
@@ -51,7 +51,7 @@
                             @if (! str(config('app.url'))->startsWith('https'))
                                 <div class="flex gap-x-1.5">
                                     <x-icon.micro.warning
-                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                        class="text-danger-500 h-6 w-4 shrink-0"
                                     ></x-icon.micro.warning>
 
                                     <p class="text-danger-500">
@@ -73,7 +73,7 @@
                             @if (config('app.env') !== 'production')
                                 <div class="flex gap-x-1.5">
                                     <x-icon.micro.warning
-                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                        class="text-danger-500 h-6 w-4 shrink-0"
                                     ></x-icon.micro.warning>
 
                                     <p class="text-danger-500">
@@ -95,7 +95,7 @@
                             @if (config('app.debug') && config('app.env') === 'production')
                                 <div class="flex gap-x-1.5">
                                     <x-icon.micro.warning
-                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                        class="text-danger-500 h-6 w-4 shrink-0"
                                     ></x-icon.micro.warning>
 
                                     <p class="text-danger-500">
@@ -118,7 +118,7 @@
                             @if (app()->isDownForMaintenance())
                                 <div class="flex gap-x-1.5">
                                     <x-icon.micro.warning
-                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                        class="text-danger-500 h-6 w-4 shrink-0"
                                     ></x-icon.micro.warning>
 
                                     <p class="text-danger-500">Your application is currently down for maintenance.</p>
@@ -130,7 +130,7 @@
             </x-panel>
 
             <x-panel variant="well">
-                <x-panel.header title="Drivers" icon="server-settings"></x-panel.header>
+                <x-panel.header title="Drivers" :icon="Icon::ServerSettings"></x-panel.header>
 
                 <x-panel>
                     <x-spacing class="text-sm/6" size="md">
@@ -169,14 +169,14 @@
             </x-panel>
 
             <x-panel variant="well">
-                <x-panel.header title="Versions" icon="versions"></x-panel.header>
+                <x-panel.header title="Versions" :icon="Icon::Versions"></x-panel.header>
 
                 <x-panel>
                     <x-spacing class="text-sm/6" size="md">
                         <div class="flex w-full items-center justify-between gap-4 py-1.5">
                             <dt class="flex items-center gap-2 font-medium text-gray-500">PHP</dt>
                             <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                                class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ PHP_VERSION }}
                             </dd>
@@ -184,7 +184,7 @@
                         <div class="flex w-full items-center justify-between gap-4 py-1.5">
                             <dt class="flex items-center gap-2 font-medium text-gray-500">Database</dt>
                             <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                                class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ app('nova.environment')->database->platform() }}
                             </dd>
@@ -192,7 +192,7 @@
                         <div class="flex w-full items-center justify-between gap-4 py-1.5">
                             <dt class="flex items-center gap-2 font-medium text-gray-500">Nova files</dt>
                             <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                                class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ nova()->filesVersion() }}
                             </dd>
@@ -200,7 +200,7 @@
                         <div class="flex w-full items-center justify-between gap-4 py-1.5">
                             <dt class="flex items-center gap-2 font-medium text-gray-500">Nova database</dt>
                             <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                                class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ nova()->databaseVersion() }}
                             </dd>
@@ -208,7 +208,7 @@
                         <div class="flex w-full items-center justify-between gap-4 py-1.5">
                             <dt class="flex items-center gap-2 font-medium text-gray-500">Laravel</dt>
                             <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                                class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ app()->version() }}
                             </dd>
@@ -216,7 +216,7 @@
                         <div class="flex w-full items-center justify-between gap-4 py-1.5">
                             <dt class="flex items-center gap-2 font-medium text-gray-500">Livewire</dt>
                             <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                                class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ app()->livewireVersion() }}
                             </dd>
@@ -224,7 +224,7 @@
                         <div class="flex w-full items-center justify-between gap-4 py-1.5">
                             <dt class="flex items-center gap-2 font-medium text-gray-500">Filament</dt>
                             <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
+                                class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ app()->filamentVersion() }}
                             </dd>
@@ -247,7 +247,7 @@
             @endphp
 
             <x-panel variant="well">
-                <x-panel.header title="File permissions" icon="folder-settings"></x-panel.header>
+                <x-panel.header title="File permissions" :icon="Icon::FolderSettings"></x-panel.header>
 
                 <x-panel>
                     <x-spacing class="text-sm/6" size="md">
@@ -262,7 +262,7 @@
                                     >
                                         @if (is_writable($path))
                                             <x-icon
-                                                name="check-circle-filled"
+                                                :name="Icon::CheckCircleFilled"
                                                 size="sm"
                                                 class="text-success-500"
                                             ></x-icon>
@@ -275,7 +275,7 @@
                                 @if (! is_writable($path))
                                     <div class="flex gap-x-1.5">
                                         <x-icon.micro.warning
-                                            class="h-6 w-4 shrink-0 text-danger-500"
+                                            class="text-danger-500 h-6 w-4 shrink-0"
                                         ></x-icon.micro.warning>
 
                                         <p class="text-danger-500">

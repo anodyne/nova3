@@ -20,7 +20,7 @@
                             description="Ban an existing user account from accessing the site"
                         >
                             <x-slot name="icon">
-                                <x-icon name="user-off" size="lg"></x-icon>
+                                <x-icon :name="Icon::UserOff" size="lg"></x-icon>
                             </x-slot>
                         </flux:radio>
 
@@ -30,7 +30,7 @@
                             description="Ban an IP address from accessing the site"
                         >
                             <x-slot name="icon">
-                                <x-icon name="network" size="lg"></x-icon>
+                                <x-icon :name="Icon::Network" size="lg"></x-icon>
                             </x-slot>
                         </flux:radio>
                     </flux:radio.group>

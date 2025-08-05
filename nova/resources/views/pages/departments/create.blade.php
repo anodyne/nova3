@@ -49,7 +49,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="image"></x-icon>
+                    <x-icon :name="Icon::Photo"></x-icon>
                     <x-fieldset.legend>Header image</x-fieldset.legend>
                     <x-fieldset.description>
                         Header images are used on the public-facing site to give you more control over the look and feel

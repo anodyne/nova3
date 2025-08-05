@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Nova\Foundation\Icons\Icon;
+
 class ActionGroup extends \Filament\Actions\ActionGroup
 {
     protected function setUp(): void
@@ -11,7 +13,7 @@ class ActionGroup extends \Filament\Actions\ActionGroup
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(iconName('more'));
+        $this->icon(Icon::DotsVertical);
         $this->dropdownPlacement('bottom-end');
     }
 

@@ -22,13 +22,14 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankItemManager;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
 class RankItemsList extends TableComponent
 {
@@ -67,7 +68,7 @@ class RankItemsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (RankItem $record): string => route('admin.ranks.items.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -90,7 +91,7 @@ class RankItemsList extends TableComponent
                             ->modalContentView('pages.ranks.items.delete')
                             ->successNotificationTitle(fn (RankItem $record): string => $record->name->name.' rank item was deleted')
                             ->using(fn (RankItem $record): Model => DeleteRankItemManager::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -136,7 +137,7 @@ class RankItemsList extends TableComponent
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(iconName('rank'))
+            ->emptyStateIcon(Icon::Rank)
             ->emptyStateHeading('No ranks found')
             ->emptyStateDescription('Rank items bring the rank group, rank name, and images together in a simple and easy-to-use rank experience.')
             ->emptyStateActions([

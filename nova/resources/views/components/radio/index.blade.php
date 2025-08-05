@@ -19,16 +19,16 @@
             'before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-white before:shadow',
 
             // Background color when checked
-            'before:peer-checked:bg-[--radio-checked-bg]',
+            'before:peer-checked:bg-(--radio-checked-bg)',
 
             // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
             'dark:before:hidden',
 
             // Background color applied to control in dark mode
-            'dark:bg-white/5 dark:peer-checked:bg-[--radio-checked-bg]',
+            'dark:bg-white/5 dark:peer-checked:bg-(--radio-checked-bg)',
 
             // Border
-            'border border-gray-950/15 hover:border-gray-950/30 peer-checked:border-transparent peer-checked:bg-[--radio-checked-border] peer-checked:hover:border-transparent',
+            'border border-gray-950/15 hover:border-gray-950/30 peer-checked:border-transparent peer-checked:bg-(--radio-checked-border) peer-checked:hover:border-transparent',
             'dark:border-white/15 dark:hover:border-white/30 dark:peer-checked:border-white/5 dark:peer-checked:hover:border-white/5',
 
             // Inner highlight shadow
@@ -59,6 +59,6 @@
             },
         ])
     >
-        <span class="size-[0.375rem] rounded-full bg-[--radio-indicator]"></span>
+        <span class="size-[0.375rem] rounded-full bg-(--radio-indicator)"></span>
     </label>
 </span>

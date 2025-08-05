@@ -1,4 +1,4 @@
-<x-modal :icon="$isReplying ? 'message-reply' : 'message'" :title="$isReplying ? 'Reply' : 'New message'">
+<x-modal :icon="$isReplying ? Icon::MessageReply : Icon::Message" :title="$isReplying ? 'Reply' : 'New message'">
     <x-form action="">
         <x-fieldset>
             <x-fieldset.field-group>

@@ -15,11 +15,12 @@ use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 
 class StoryPostsList extends TableComponent
 {
@@ -106,7 +107,7 @@ class StoryPostsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Post $record): string => route('admin.posts.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make(),
@@ -114,12 +115,12 @@ class StoryPostsList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('create-before')
-                            ->icon(iconName('move-up'))
+                            ->icon(Icon::MoveUp)
                             ->color('gray')
                             ->label('Before this post')
                             ->url(fn (Post $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'before'])),
                         Action::make('create-after')
-                            ->icon(iconName('move-down'))
+                            ->icon(Icon::MoveDown)
                             ->color('gray')
                             ->label('After this post')
                             ->url(fn (Post $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'after'])),
@@ -132,7 +133,7 @@ class StoryPostsList extends TableComponent
                             ->modalContentView('pages.posts.delete')
                             ->successNotificationTitle(fn (Post $record): string => $record->title.' post was deleted')
                             ->using(fn (Post $record): Model => DeletePost::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -146,7 +147,7 @@ class StoryPostsList extends TableComponent
                     ->preload()
                     ->visible(request()->route('story') === null),
             ])
-            ->emptyStateIcon(iconName('write'))
+            ->emptyStateIcon(Icon::Write)
             ->emptyStateHeading('No posts found');
     }
 }

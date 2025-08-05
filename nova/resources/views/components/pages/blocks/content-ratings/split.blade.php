@@ -14,7 +14,7 @@
 
                     <div class="flex items-center gap-x-3">
                         <dd
-                            class="w-12 text-center font-[family-name:--font-header] text-5xl font-semibold tracking-tight text-gray-900 dark:text-white"
+                            class="w-12 text-center font-(family-name:--font-header) text-5xl font-semibold tracking-tight text-gray-900 dark:text-white"
                         >
                             {{ $rating->rating->value }}
                         </dd>

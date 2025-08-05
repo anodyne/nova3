@@ -23,11 +23,11 @@
                     @if (data_get($feature, 'content'))
                         <div
                             @class([
-                                'prose prose-lg max-w-none font-[family-name:--font-body]',
-                                'prose-h1:font-[family-name:--font-header]',
-                                'prose-h2:font-[family-name:--font-header]',
-                                'prose-h3:font-[family-name:--font-header]',
-                                'prose-h4:font-[family-name:--font-header]',
+                                'prose prose-lg max-w-none font-(family-name:--font-body)',
+                                'prose-h1:font-(family-name:--font-header)',
+                                'prose-h2:font-(family-name:--font-header)',
+                                'prose-h3:font-(family-name:--font-header)',
+                                'prose-h4:font-(family-name:--font-header)',
                                 'dark:prose-invert',
                             ])
                         >

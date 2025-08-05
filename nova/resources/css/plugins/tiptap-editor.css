@@ -1,3 +1,5 @@
+@reference "../../../../vendor/filament/support/resources/css/index.css";
+
 .editor {
     @apply relative;
 
@@ -17,7 +19,7 @@
         }
 
         a {
-            @apply text-primary-500 underline cursor-pointer;
+            @apply text-(--color-primary-500) underline cursor-pointer;
         }
 
         ul {

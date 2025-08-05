@@ -8,6 +8,7 @@ use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
+use Nova\Foundation\Icons\Icon;
 
 class RestoreAction extends \Filament\Actions\RestoreAction
 {
@@ -17,7 +18,7 @@ class RestoreAction extends \Filament\Actions\RestoreAction
     {
         parent::setUp();
 
-        $this->icon(iconName('history'));
+        $this->icon(Icon::Restore);
 
         $this->requiresConfirmation(false);
 

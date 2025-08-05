@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
-use Filament\Schemas\Components\Utilities\Get;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
@@ -16,6 +16,7 @@ use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Foundation\Models\NotificationType;
 use Nova\Settings\Actions\UpdateSettings;
@@ -67,7 +68,7 @@ class NotificationTypesList extends TableComponent
                 ActionGroup::make([
                     ActionGroup::make([
                         Action::make('auditNotification')
-                            ->icon(iconName('show'))
+                            ->icon(Icon::Show)
                             ->label('User preferences')
                             ->size('lg')
                             ->color('gray')
@@ -78,7 +79,7 @@ class NotificationTypesList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('userDefaults')
-                            ->icon(iconName('preferences'))
+                            ->icon(Icon::Preferences)
                             ->label('Default values')
                             ->size('lg')
                             ->color('gray')
@@ -114,7 +115,7 @@ class NotificationTypesList extends TableComponent
 
                         Action::make('discordSettings')
                             ->label('Discord settings')
-                            ->icon(iconName('brand-discord'))
+                            ->icon(Icon::BrandDiscord)
                             ->size('lg')
                             ->modalWidth('xl')
                             ->color('gray')
@@ -165,7 +166,7 @@ class NotificationTypesList extends TableComponent
             ->headerActions([
                 Action::make('globalDiscordSettings')
                     ->label('Global Discord settings')
-                    ->icon(iconName('brand-discord'))
+                    ->icon(Icon::BrandDiscord)
                     ->color('gray')
                     ->modalWidth('xl')
                     ->modalSubmitActionLabel('Update')
@@ -196,7 +197,7 @@ class NotificationTypesList extends TableComponent
                             ->send();
                     }),
             ])
-            ->emptyStateIcon(iconName('write'))
-            ->emptyStateHeading('No draft posts found');
+            ->emptyStateIcon(Icon::Bell)
+            ->emptyStateHeading('No notification types found');
     }
 }

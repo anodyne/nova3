@@ -5,14 +5,19 @@ declare(strict_types=1);
 namespace Nova\Foundation\Providers;
 
 use Carbon\CarbonImmutable;
+use Filament\Forms\View\FormsIconAlias;
 use Filament\Notifications\Livewire\Notifications;
 use Filament\Notifications\Notification as FilamentNotification;
+use Filament\Notifications\View\NotificationsIconAlias;
 use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\Size;
 use Filament\Support\Enums\VerticalAlignment;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\View\SupportIconAlias;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\View\TablesIconAlias;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
@@ -48,8 +53,7 @@ use Nova\Forms\Models\Form;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\IconSets;
-use Nova\Foundation\Icons\TablerIconSet;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Listeners\AuthenticationEventSubscriber;
 use Nova\Foundation\Listeners\SetEmailSubjectPrefix;
 use Nova\Foundation\Livewire\AdvancedColorPicker;
@@ -140,7 +144,6 @@ class AppServiceProvider extends ServiceProvider
         $this->configureMacros();
         $this->configureAboutCommand();
         $this->configureDatabaseFactories();
-        $this->configureIconManager();
         $this->configureBlade();
 
         if (Nova::isInstalled()) {
@@ -220,14 +223,6 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    protected function configureIconManager()
-    {
-        $iconSets = new IconSets;
-        $iconSets->addDefault('tabler', new TablerIconSet);
-
-        $this->app->scoped(IconSets::class, fn () => $iconSets);
-    }
-
     protected function configureBlade(): void
     {
         Blade::anonymousComponentPath(resource_path('views/public-components'), 'public');
@@ -285,43 +280,43 @@ class AppServiceProvider extends ServiceProvider
     {
         FilamentColor::register($this->app['nova.settings']?->appearance?->getColors() ?? []);
 
-        FilamentColor::addShades('badge', [200, 300, 400, 700, 800, 950]);
-        FilamentColor::addShades('tables::columns.toggle-column.on', [500, 900]);
-        FilamentColor::addShades('forms::components.toggle.on', [500, 900]);
-
         FilamentIcon::register([
-            'forms::components.builder.actions.delete' => iconName('trash'),
-            'forms::components.builder.actions.reorder' => iconName('arrows-sort'),
-            'forms::components.key-value.actions.delete' => iconName('trash'),
-            'forms::components.repeater.actions.delete' => iconName('trash'),
-            'forms::components.repeater.actions.reorder' => iconName('arrows-sort'),
-            'tables::actions.disable-reordering' => iconName('check'),
-            'tables::actions.enable-reordering' => iconName('arrows-sort'),
-            'tables::actions.filter' => iconName('filter'),
-            'tables::actions.group' => iconName('group'),
-            'tables::actions.toggle-columns' => iconName('columns'),
-            'tables::reorder.handle' => iconName('drag-handle'),
-            'tables::search-field' => iconName('search'),
-            'modal.close-button' => iconName('x'),
-            'notifications::notification.danger' => 'notis-danger',
-            'notifications::notification.info' => 'notis-info',
-            'notifications::notification.success' => 'notis-success',
-            'notifications::notification.warning' => 'notis-warning',
-            'pagination.previous-button' => iconName('chevron-left'),
-            'pagination.next-button' => iconName('chevron-right'),
+            FormsIconAlias::COMPONENTS_BUILDER_ACTIONS_DELETE => Icon::Trash,
+            FormsIconAlias::COMPONENTS_BUILDER_ACTIONS_REORDER => Icon::ArrowsSort,
+            FormsIconAlias::COMPONENTS_KEY_VALUE_ACTIONS_DELETE => Icon::Trash,
+            FormsIconAlias::COMPONENTS_REPEATER_ACTIONS_DELETE => Icon::Trash,
+            FormsIconAlias::COMPONENTS_REPEATER_ACTIONS_REORDER => Icon::ArrowsSort,
+
+            TablesIconAlias::ACTIONS_COLUMN_MANAGER => Icon::Columns,
+            TablesIconAlias::ACTIONS_DISABLE_REORDERING => Icon::Check,
+            TablesIconAlias::ACTIONS_ENABLE_REORDERING => Icon::ArrowsSort,
+            TablesIconAlias::ACTIONS_FILTER => Icon::Filter,
+            TablesIconAlias::ACTIONS_GROUP => Icon::BoxMultiple,
+            TablesIconAlias::ACTIONS_OPEN_BULK_ACTIONS => Icon::DotsVertical,
+            TablesIconAlias::REORDER_HANDLE => Icon::DragHandle,
+            TablesIconAlias::SEARCH_FIELD => Icon::Search,
+
+            NotificationsIconAlias::NOTIFICATION_DANGER => 'notis-danger',
+            NotificationsIconAlias::NOTIFICATION_INFO => 'notis-info',
+            NotificationsIconAlias::NOTIFICATION_SUCCESS => 'notis-success',
+            NotificationsIconAlias::NOTIFICATION_WARNING => 'notis-warning',
+
+            SupportIconAlias::MODAL_CLOSE_BUTTON => Icon::Xmark,
+            SupportIconAlias::PAGINATION_PREVIOUS_BUTTON => Icon::ChevronLeft,
+            SupportIconAlias::PAGINATION_NEXT_BUTTON => Icon::ChevronRight,
         ]);
 
         Table::configureUsing(function (Table $table) {
             $table
                 ->filtersTriggerAction(function ($action) {
-                    return $action->size('lg')->color('gray');
+                    return $action->size(Size::Large)->color('gray');
                 })
                 ->toggleColumnsTriggerAction(function ($action) {
-                    return $action->size('lg')->color('gray');
+                    return $action->size(Size::Large)->color('gray');
                 })
                 ->reorderRecordsTriggerAction(function ($action, bool $isReordering) {
                     return $action
-                        ->size('lg')
+                        ->size(Size::Large)
                         ->color($isReordering ? 'primary' : 'gray');
                 });
         });
@@ -349,8 +344,8 @@ class AppServiceProvider extends ServiceProvider
                 ->causerName(null, 'System')
                 ->itemDateTimeTimezone(fn () => Auth::user()?->preferences?->timezone ?? 'UTC')
                 ->itemIcons([
-                    'created' => iconName('add'),
-                    'duplicated' => iconName('copy'),
+                    'created' => Icon::Plus->value,
+                    'duplicated' => Icon::Copy->value,
                 ])
                 ->itemIconColors([
                     'created' => 'success',
@@ -370,7 +365,7 @@ class AppServiceProvider extends ServiceProvider
 
         TimelineAction::configureUsing(function (TimelineAction $action) {
             $action
-                ->icon(iconName('history'))
+                ->icon(Icon::History)
                 ->label('Activity history');
         }, isImportant: true);
 

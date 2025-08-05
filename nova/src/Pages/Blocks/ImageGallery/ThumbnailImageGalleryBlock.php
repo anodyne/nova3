@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\ImageGallery;
 
-use Filament\Schemas\Components\Section;
 use Closure;
 use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Section;
+use Nova\Foundation\Icons\Icon;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\Radius;
 
@@ -24,7 +25,7 @@ class ThumbnailImageGalleryBlock extends ImageGalleryBlock
             Section::make()
                 ->heading('Options')
                 ->description('Set the display options for the gallery')
-                ->icon(iconName('preferences'))
+                ->icon(Icon::Preferences)
                 ->columns(2)
                 ->schema([
                     Select::make('block.options.radius')

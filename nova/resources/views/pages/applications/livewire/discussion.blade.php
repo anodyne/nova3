@@ -8,12 +8,12 @@
             <div class="min-w-0 flex-1">
                 <form action="#" class="relative">
                     <div
-                        class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-950/10 focus-within:ring-2 focus-within:ring-primary-500 dark:ring-white/10 dark:focus-within:ring-primary-500"
+                        class="focus-within:ring-primary-500 dark:focus-within:ring-primary-500 overflow-hidden rounded-lg shadow-sm ring-1 ring-gray-950/10 ring-inset focus-within:ring-2 dark:ring-white/10"
                     >
                         <label for="comment" class="sr-only">Add your message</label>
                         <textarea
                             rows="3"
-                            class="block max-h-60 w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 [field-sizing:content] placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 dark:text-white dark:placeholder:text-gray-500"
+                            class="block [field-sizing:content] max-h-60 w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 dark:text-white dark:placeholder:text-gray-500"
                             placeholder="Add a message to the application review"
                             wire:model.live="content"
                         ></textarea>
@@ -27,10 +27,10 @@
                         </div>
                     </div>
 
-                    <div class="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+                    <div class="absolute inset-x-0 bottom-0 flex justify-between py-2 pr-2 pl-3">
                         <div class="ml-auto shrink-0">
                             <x-button type="button" wire:click="addMessage" plain>
-                                <x-icon name="send" size="sm"></x-icon>
+                                <x-icon :name="Icon::Send" size="sm"></x-icon>
                             </x-button>
                         </div>
                     </div>
@@ -39,10 +39,12 @@
         </div>
     @endif
 
-    <ul @class([
-        'grid grid-cols-1 space-y-6',
-        'mt-8' => ApplicationResult::Pending,
-    ])>
+    <ul
+        @class([
+            'grid grid-cols-1 space-y-6',
+            'mt-8' => ApplicationResult::Pending,
+        ])
+    >
         @if ($application->result !== ApplicationResult::Pending)
             <div class="space-y-1">
                 <div
@@ -56,7 +58,7 @@
                         <x-spacing size="md">
                             <div class="flex items-center gap-x-3">
                                 <x-icon
-                                    :name="$application->result === ApplicationResult::Accept ? 'progress-check' : 'progress-x'"
+                                    :name="$application->result === ApplicationResult::Accept ? Icon::ProgressCheck : Icon::ProgressXmark"
                                     size="lg"
                                 ></x-icon>
                                 <div class="text-base/7 font-semibold">
@@ -121,10 +123,14 @@
                             <div class="flex flex-col gap-y-2" x-data="{ expanded: false }">
                                 <x-spacing size="md">
                                     <div class="flex items-center gap-x-3">
-                                        <x-icon :name="$accepted ? 'progress-check' : 'progress-x'" size="lg"></x-icon>
+                                        <x-icon
+                                            :name="$accepted ? Icon::ProgressCheck : Icon::ProgressXmark"
+                                            size="lg"
+                                        ></x-icon>
                                         <div class="text-base/7 font-semibold">
                                             {{ $message->user->name }} has voted to
-                                            {{ str($message->result->getShortLabel())->lower() }} this application
+                                            {{ str($message->result->getShortLabel())->lower() }}
+                                            this application
                                         </div>
                                     </div>
 
@@ -178,7 +184,9 @@
                             'flex-row-reverse pe-1 text-right' => $isMe,
                         ])
                     >
-                        <div class="font-medium text-gray-500 dark:text-gray-400">{{ $message->user->name }}</div>
+                        <div class="font-medium text-gray-500 dark:text-gray-400">
+                            {{ $message->user->name }}
+                        </div>
                         <div>{{ $message->updated_at?->diffForHumans() }}</div>
                     </div>
                 </div>
@@ -186,7 +194,7 @@
         @empty
             @if ($application->result === ApplicationResult::Pending)
                 <x-empty-state.small
-                    icon="message-dots"
+                    :icon="Icon::MessageDots"
                     message="Go ahead, say something and get the conversation started."
                 >
                     <x-slot name="title">No discussion messages</x-slot>

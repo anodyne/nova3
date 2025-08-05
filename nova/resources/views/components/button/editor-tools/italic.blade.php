@@ -1,1 +1,1 @@
-<x-button.editor-tools action="toggleItalic()" active="italic" icon="tabler-italic"></x-button.editor-tools>
+<x-button.editor-tools action="toggleItalic()" active="italic" :icon="Icon::EditorItalic"></x-button.editor-tools>

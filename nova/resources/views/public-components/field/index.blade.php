@@ -21,7 +21,7 @@
 >
     @if (filled($label))
         <label
-            class="nova-field-label block select-none text-base/6 text-gray-950 sm:text-sm/6 dark:text-white"
+            class="nova-field-label block text-base/6 text-gray-950 select-none sm:text-sm/6 dark:text-white"
             data-slot="label"
             @isset($id)
                 for="{{ $id }}"
@@ -29,7 +29,7 @@
         >
             {{ $label }}
             @if ($required)
-                <span class="nova-field-label-required font-semibold text-danger-500">*</span>
+                <span class="nova-field-label-required text-danger-500 font-semibold">*</span>
             @endif
         </label>
     @endif
@@ -47,8 +47,12 @@
 
     @if (filled($error))
         <div data-slot="error" class="nova-field-error flex items-center gap-x-1">
-            <x-icon name="alert" size="sm" class="nova-field-error-icon text-danger-400 dark:text-danger-600"></x-icon>
-            <div class="nova-field-error-message text-sm/6 font-medium text-danger-500">{{ $error }}</div>
+            <x-icon
+                :name="Icon::AlertCircle"
+                size="sm"
+                class="nova-field-error-icon text-danger-400 dark:text-danger-600"
+            ></x-icon>
+            <div class="nova-field-error-message text-danger-500 text-sm/6 font-medium">{{ $error }}</div>
         </div>
     @endif
 </div>

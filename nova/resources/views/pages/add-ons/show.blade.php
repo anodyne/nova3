@@ -6,7 +6,7 @@
 
                 @can('update', $addon)
                     <x-button :href="route('admin.addons.edit', $addon)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -63,7 +63,7 @@
                     <x-panel variant="well">
                         <x-panel.header
                             title="Version check info"
-                            icon="broadcast"
+                            :icon="Icon::Broadcast"
                             description="Basic information about how the add-on checks for new versions"
                         ></x-panel.header>
 

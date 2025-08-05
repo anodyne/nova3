@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
+use Nova\Foundation\Icons\Icon;
 
 class RestoreBulkAction extends \Filament\Actions\RestoreBulkAction
 {
@@ -17,7 +18,7 @@ class RestoreBulkAction extends \Filament\Actions\RestoreBulkAction
     {
         parent::setUp();
 
-        $this->icon(iconName('history'));
+        $this->icon(Icon::Restore);
 
         $this->requiresConfirmation(false);
 

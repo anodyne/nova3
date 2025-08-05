@@ -9,13 +9,15 @@
             <option value="">Choose a log file</option>
 
             @foreach ($files as $file)
-                <option value="{{ $file->identifier }}">{{ $file->name }}</option>
+                <option value="{{ $file->identifier }}">
+                    {{ $file->name }}
+                </option>
             @endforeach
         </x-select>
 
         @if (filled($selectedLogFile))
             <x-button wire:click="downloadLogFile" text>
-                <x-icon name="download" size="sm"></x-icon>
+                <x-icon :name="Icon::Download" size="sm"></x-icon>
             </x-button>
 
             <x-button
@@ -24,7 +26,7 @@
                 color="neutral-danger"
                 text
             >
-                <x-icon name="trash" size="sm"></x-icon>
+                <x-icon :name="Icon::Trash" size="sm"></x-icon>
             </x-button>
         @endif
     </div>
@@ -44,7 +46,9 @@
 
                     <x-badge :color="$badgeColor" pill>
                         {{ $count->level->value }}
-                        <x-badge :color="$badgeColor" class="tabular-nums" pill>{{ $count->count }}</x-badge>
+                        <x-badge :color="$badgeColor" class="tabular-nums" pill>
+                            {{ $count->count }}
+                        </x-badge>
                     </x-badge>
                 @endforeach
             </div>
@@ -91,7 +95,7 @@
                             <div class="flex gap-x-2">
                                 {{--
                                     <button type="button" x-clipboard.raw="{{ $logLine->message }}">
-                                    <x-icon name="copy" size="size-5"></x-icon>
+                                    <x-icon :name="Icon::Copy" size="size-5"></x-icon>
                                     </button>
                                 --}}
 
@@ -146,7 +150,7 @@
 
                             <div class="flex items-center gap-x-2">
                                 <button type="button" x-clipboard.raw="{{ $logLine->message }}">
-                                    <x-icon name="copy" size="size-5"></x-icon>
+                                    <x-icon :name="Icon::Copy" size="size-5"></x-icon>
                                 </button>
 
                                 <button
@@ -180,12 +184,16 @@
                                     @if (is_array($contextLine))
                                         @foreach (Arr::except($contextLine, 'exception') as $cKey => $cLine)
                                             <x-fieldset.field :label="$cKey">
-                                                <x-text>{{ $cLine }}</x-text>
+                                                <x-text>
+                                                    {{ $cLine }}
+                                                </x-text>
                                             </x-fieldset.field>
                                         @endforeach
                                     @else
                                         <x-fieldset.field :label="$key">
-                                            <x-text>{{ $contextLine }}</x-text>
+                                            <x-text>
+                                                {{ $contextLine }}
+                                            </x-text>
                                         </x-fieldset.field>
                                     @endif
                                 @endforeach

@@ -7,7 +7,7 @@
 
 <x-spacing size="sm" class="col-span-3 grid grid-cols-subgrid">
     <div class="mr-4 shrink-0">
-        <x-icon name="database-settings" size="xl" class="text-gray-500"></x-icon>
+        <x-icon :name="Icon::DatabaseSettings" size="xl" class="text-gray-500"></x-icon>
     </div>
 
     <div class="col-start-2">
@@ -38,9 +38,9 @@
     <div class="col-start-3 ml-4 flex shrink-0 justify-end">
         @if ($status === DatabaseConfigStatus::IncompatibleVersion ||
              $status === DatabaseConfigStatus::IncompatibleDriver)
-            <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
+            <x-icon :name="Icon::XmarkCircle" class="text-danger-500" size="xl"></x-icon>
         @else
-            <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
+            <x-icon :name="Icon::CheckCircle" class="text-primary-500" size="xl"></x-icon>
         @endif
     </div>
 </x-spacing>

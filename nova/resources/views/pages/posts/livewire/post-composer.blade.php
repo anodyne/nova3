@@ -46,8 +46,8 @@
                                         wire:click="startPostTypeChange({{ $availablePostType->id }})"
                                         :selected="$availablePostType->id === $postTypeId"
                                     >
-                                        <div class="flex items-center gap-x-1.5">
-                                            <div class="shrink-0 text-gray-400 dark:text-gray-600">
+                                        <div class="flex items-center gap-3">
+                                            <div class="shrink-0 text-gray-400 group-focus:text-gray-300">
                                                 <x-icon :name="$availablePostType->icon" size="sm"></x-icon>
                                             </div>
 
@@ -113,7 +113,7 @@
 
                     @if (! $canPublish)
                         <div
-                            class="rounded-lg bg-danger-50 px-3 py-1.5 text-sm/6 text-danger-600 ring-1 ring-danger-200 dark:bg-danger-950 dark:text-danger-400 dark:ring-danger-800"
+                            class="bg-danger-50 text-danger-600 ring-danger-200 dark:bg-danger-950 dark:text-danger-400 dark:ring-danger-800 rounded-lg px-3 py-1.5 text-sm/6 ring-1"
                         >
                             {!! $validationErrors !!}
                         </div>
@@ -129,7 +129,7 @@
                 @can('delete', $post)
                     <div>
                         <x-button class="w-full" wire:click="delete" color="neutral-danger" text>
-                            <x-icon name="trash" size="sm"></x-icon>
+                            <x-icon :name="Icon::Trash" size="sm"></x-icon>
                             Delete post
                         </x-button>
                     </div>
@@ -138,7 +138,7 @@
                 @can('discard', $post)
                     <div>
                         <x-button class="w-full" wire:click="discard" color="neutral-danger" text>
-                            <x-icon name="trash" size="sm"></x-icon>
+                            <x-icon :name="Icon::Trash" size="sm"></x-icon>
                             Discard draft
                         </x-button>
                     </div>
@@ -149,7 +149,7 @@
                 <flux:accordion.item expanded transition>
                     <flux:accordion.heading>
                         <div class="flex items-center gap-x-2">
-                            <x-icon name="characters" size="sm"></x-icon>
+                            <x-icon :name="Icon::Characters" size="sm"></x-icon>
                             <span>Authors</span>
                         </div>
                     </flux:accordion.heading>
@@ -163,7 +163,7 @@
                     <flux:accordion.item expanded transition>
                         <flux:accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon name="mature" size="sm"></x-icon>
+                                <x-icon :name="Icon::Rating18" size="sm"></x-icon>
                                 <span>Content ratings</span>
                             </div>
                         </flux:accordion.heading>
@@ -178,7 +178,7 @@
                     <flux:accordion.item expanded transition>
                         <flux:accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon name="blockquote" size="sm"></x-icon>
+                                <x-icon :name="Icon::Blockquote" size="sm"></x-icon>
                                 <span>Summary</span>
                             </div>
                         </flux:accordion.heading>
@@ -193,7 +193,7 @@
                     <flux:accordion.item expanded transition>
                         <flux:accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon name="timeline" size="sm"></x-icon>
+                                <x-icon :name="Icon::Timeline" size="sm"></x-icon>
                                 <span>Post position</span>
                             </div>
                         </flux:accordion.heading>
@@ -207,7 +207,7 @@
                 <flux:accordion.item expanded transition>
                     <flux:accordion.heading>
                         <div class="flex items-center gap-x-2">
-                            <x-icon name="info" size="sm"></x-icon>
+                            <x-icon :name="Icon::Info" size="sm"></x-icon>
                             <span>Post info</span>
                         </div>
                     </flux:accordion.heading>

@@ -22,7 +22,7 @@
                         @if ($showContent)
                             <div
                                 @class([
-                                    'prose prose-lg relative max-w-4xl dark:prose-invert',
+                                    'prose prose-lg dark:prose-invert relative max-w-4xl',
                                     'mt-4' => $showMetaFields,
                                 ])
                             >
@@ -34,7 +34,7 @@
                             <div class="flex -space-x-2 overflow-hidden">
                                 @foreach ($post->authors_avatars as $url)
                                     <img
-                                        class="inline-block h-10 w-10 rounded-full bg-white ring-2 ring-white"
+                                        class="inline-block size-10 rounded-full bg-white ring-2 ring-white"
                                         src="{{ $url }}"
                                         alt=""
                                     />
@@ -59,7 +59,7 @@
         </x-feed>
     @else
         <x-empty-state variant="jumbo">
-            <x-icon name="book"></x-icon>
+            <x-icon :name="Icon::BookClosed"></x-icon>
             <x-h2>No posts found</x-h2>
 
             @if (blank($storyId))

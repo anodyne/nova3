@@ -14,7 +14,7 @@
             <x-fieldset>
                 @if ($role->is_default)
                     <x-panel.warning
-                        icon="warning"
+                        :icon="Icon::Warning"
                         icon-size="xl"
                         class="mt-4"
                         description="You’re editing a role that is given to every new user. Exercise caution when making changes to this role."

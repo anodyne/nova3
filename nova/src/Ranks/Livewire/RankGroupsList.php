@@ -24,6 +24,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankGroupManager;
 use Nova\Ranks\Actions\DuplicateRankGroup;
@@ -31,8 +32,8 @@ use Nova\Ranks\Concerns\FindRankImages;
 use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Events\RankGroupDuplicated;
 use Nova\Ranks\Models\RankGroup;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class RankGroupsList extends TableComponent
@@ -69,7 +70,7 @@ class RankGroupsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (RankGroup $record): string => route('admin.ranks.groups.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -112,7 +113,7 @@ class RankGroupsList extends TableComponent
                                     ->body("All of the ranks from the {$record->name} rank group have been duplicated into your new rank group.")
                                     ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -120,7 +121,7 @@ class RankGroupsList extends TableComponent
                             ->modalContentView('pages.ranks.groups.delete')
                             ->successNotificationTitle(fn (RankGroup $record): string => $record->name.' rank group was deleted')
                             ->using(fn (RankGroup $record): Model => DeleteRankGroupManager::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -164,7 +165,7 @@ class RankGroupsList extends TableComponent
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Icon::List)
             ->emptyStateHeading('No rank groups found')
             ->emptyStateDescription('Rank groups are a simple way to collect related rank items together for simpler searching and selecting ranks in Nova.')
             ->emptyStateActions([

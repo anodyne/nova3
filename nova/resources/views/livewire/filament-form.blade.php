@@ -8,4 +8,6 @@
             <x-button type="submit" color="primary">Save</x-button>
         </x-fieldset.controls>
     </form>
+
+    <x-filament-actions::modals />
 </div>

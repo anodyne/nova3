@@ -30,7 +30,7 @@
     @else
         <div class="flex items-center justify-center">
             @if (! $isRunning)
-                <x-button.setup type="button" leading="play" wire:click="startMigration">
+                <x-button.setup type="button" :leading="Icon::PlayerPlay" wire:click="startMigration">
                     Start migration
                 </x-button.setup>
             @else

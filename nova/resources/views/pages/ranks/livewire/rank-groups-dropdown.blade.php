@@ -4,13 +4,13 @@
     <div class="flex w-full items-center gap-x-3">
         <flux:select variant="listbox" wire:model.live="group" placeholder="Select a rank group" searchable>
             @foreach ($rankGroups as $rankGroup)
-                <flux:option value="{{ $rankGroup->id }}">{{ $rankGroup->name }}</flux:option>
+                <flux:select.option value="{{ $rankGroup->id }}">{{ $rankGroup->name }}</flux:select.option>
             @endforeach
         </flux:select>
 
         @can('create', RankGroup::class)
             <x-button :href="route('admin.ranks.groups.index')" color="neutral" text>
-                <x-icon name="settings" size="md"></x-icon>
+                <x-icon :name="Icon::Settings" size="md"></x-icon>
             </x-button>
         @endcan
     </div>

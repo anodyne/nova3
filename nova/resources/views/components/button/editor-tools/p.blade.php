@@ -1,1 +1,5 @@
-<x-button.editor-tools action="setParagraph()" active="paragraph" icon="tabler-pilcrow"></x-button.editor-tools>
+<x-button.editor-tools
+    action="setParagraph()"
+    active="paragraph"
+    :icon="Icon::EditorParagraph"
+></x-button.editor-tools>

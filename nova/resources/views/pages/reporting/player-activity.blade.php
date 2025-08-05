@@ -22,15 +22,15 @@
         <div class="space-y-4">
             <div class="flex items-center gap-x-6 text-sm/6 font-medium">
                 <div class="flex items-center gap-x-1">
-                    <x-icon name="check-circle" size="md" class="text-primary-500"></x-icon>
+                    <x-icon :name="Icon::CheckCircle" size="md" class="text-primary-500"></x-icon>
                     <p>Published post</p>
                 </div>
                 <div class="flex items-center gap-x-1">
-                    <x-icon name="circle-dashed" size="md" class="text-gray-500"></x-icon>
+                    <x-icon :name="Icon::CircleDashed" size="md" class="text-gray-500"></x-icon>
                     <p>Draft post</p>
                 </div>
                 <div class="flex items-center gap-x-1">
-                    <x-icon name="abc" size="md" class="text-gray-500"></x-icon>
+                    <x-icon :name="Icon::Abc" size="md" class="text-gray-500"></x-icon>
                     <p>Post words</p>
                 </div>
             </div>
@@ -42,9 +42,9 @@
                             <div>
                                 <div class="flex gap-x-2">
                                     @if ($meetsRequirements($user))
-                                        <x-icon name="check-circle" size="md" class="text-success-500"></x-icon>
+                                        <x-icon :name="Icon::CheckCircle" size="md" class="text-success-500"></x-icon>
                                     @else
-                                        <x-icon name="x-circle" size="md" class="text-danger-500"></x-icon>
+                                        <x-icon :name="Icon::XmarkCircle" size="md" class="text-danger-500"></x-icon>
                                     @endif
 
                                     <div>
@@ -62,15 +62,15 @@
 
                             <div class="grid shrink-0 grid-cols-3 gap-4 text-sm/6">
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon name="check-circle" size="md" class="text-primary-500"></x-icon>
+                                    <x-icon :name="Icon::CheckCircle" size="md" class="text-primary-500"></x-icon>
                                     {{ $user->published_post_count }}
                                 </div>
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon name="circle-dashed" size="md" class="text-gray-500"></x-icon>
+                                    <x-icon :name="Icon::CircleDashed" size="md" class="text-gray-500"></x-icon>
                                     {{ $user->draft_post_count }}
                                 </div>
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon name="abc" size="md" class="text-gray-500"></x-icon>
+                                    <x-icon :name="Icon::Abc" size="md" class="text-gray-500"></x-icon>
                                     {{ Number::format($user->total_word_count ?? 0) }}
                                 </div>
                             </div>

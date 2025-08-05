@@ -22,11 +22,11 @@
             <x-fieldset.controls class="mt-4 md:mt-8">
                 @can('update', $form)
                     <x-button :href="route('admin.forms.edit', $form)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                     <x-button :href="route('admin.forms.design', $form)" color="neutral">
-                        <x-icon name="tools" size="sm"></x-icon>
+                        <x-icon :name="Icon::Tools" size="sm"></x-icon>
                         Design
                     </x-button>
                 @endcan

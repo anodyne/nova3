@@ -8,7 +8,7 @@
         <div class="space-y-12">
             @can('approveAny', Announcement::class)
                 <x-panel variant="well">
-                    <x-panel.header title="Announcements" icon="megaphone"></x-panel.header>
+                    <x-panel.header title="Announcements" :icon="Icon::Megaphone"></x-panel.header>
 
                     <x-panel class="divide-y divide-gray-950/5 dark:divide-white/10">
                         @forelse ($announcements as $announcement)
@@ -28,10 +28,10 @@
                                         variant="subtle"
                                         square
                                     >
-                                        <x-icon name="show" size="sm"></x-icon>
+                                        <x-icon :name="Icon::Show" size="sm"></x-icon>
                                     </flux:button>
                                     <flux:button :href="route('admin.announcements.index')" variant="subtle" square>
-                                        <x-icon name="settings" size="sm"></x-icon>
+                                        <x-icon :name="Icon::Settings" size="sm"></x-icon>
                                     </flux:button>
                                 </div>
                             </x-spacing>
@@ -46,7 +46,7 @@
 
             @can('approveAny', Post::class)
                 <x-panel variant="well">
-                    <x-panel.header title="Posts" icon="write"></x-panel.header>
+                    <x-panel.header title="Posts" :icon="Icon::Write"></x-panel.header>
 
                     <x-panel class="divide-y divide-gray-950/5 dark:divide-white/10">
                         @forelse ($posts as $post)
@@ -65,14 +65,14 @@
                                         variant="subtle"
                                         square
                                     >
-                                        <x-icon name="show" size="sm"></x-icon>
+                                        <x-icon :name="Icon::Show" size="sm"></x-icon>
                                     </flux:button>
                                     <flux:button
                                         :href="route('admin.posts.index', 'status[]=pending')"
                                         variant="subtle"
                                         square
                                     >
-                                        <x-icon name="settings" size="sm"></x-icon>
+                                        <x-icon :name="Icon::Settings" size="sm"></x-icon>
                                     </flux:button>
                                 </div>
                             </x-spacing>

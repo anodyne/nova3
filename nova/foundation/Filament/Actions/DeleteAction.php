@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
+use Nova\Foundation\Icons\Icon;
 
 class DeleteAction extends \Filament\Actions\DeleteAction
 {
@@ -17,7 +18,7 @@ class DeleteAction extends \Filament\Actions\DeleteAction
     {
         parent::setUp();
 
-        $this->icon(iconName('trash'));
+        $this->icon(Icon::Trash);
 
         $this->requiresConfirmation(false);
 

@@ -5,14 +5,14 @@
         <x-slot name="actions">
             @can('updateAny', User::class)
                 <x-button :href="route('admin.user-moderation')">
-                    <x-icon name="forbid" size="sm"></x-icon>
+                    <x-icon :name="Icon::Forbid" size="sm"></x-icon>
                     Moderate users
                 </x-button>
             @endcan
 
             @can('create', User::class)
                 <x-button :href="route('admin.users.create')" color="primary">
-                    <x-icon name="add" size="sm"></x-icon>
+                    <x-icon :name="Icon::Plus" size="sm"></x-icon>
                     Add
                 </x-button>
             @endcan

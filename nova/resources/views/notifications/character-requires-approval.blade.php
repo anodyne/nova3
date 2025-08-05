@@ -2,7 +2,7 @@
 
 <x-notification :notification="$notification">
     <x-slot name="leading" class="text-warning-500">
-        <x-icon name="user" size="xl"></x-icon>
+        <x-icon :name="Icon::User" size="xl"></x-icon>
     </x-slot>
 
     <strong class="font-semibold text-gray-900 dark:text-white">{{ $character_name }}</strong>

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -23,6 +23,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Pages\Actions\DeletePage;
 use Nova\Pages\Actions\DuplicatePage;
@@ -30,8 +31,8 @@ use Nova\Pages\Data\PageData;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events\PageDuplicated;
 use Nova\Pages\Models\Page;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class PagesList extends TableComponent
@@ -94,12 +95,12 @@ class PagesList extends TableComponent
                 ActionGroup::make([
                     ActionGroup::make([
                         Action::make('visit')
-                            ->icon(iconName('www'))
+                            ->icon(Icon::Www)
                             ->label('Live page')
                             ->url(fn (Page $record): string => url($record->uri))
                             ->visible(fn (Page $record): bool => $record->is_published),
                         Action::make('preview')
-                            ->icon(iconName('www-preview'))
+                            ->icon(Icon::WwwPreview)
                             ->label('Preview page')
                             ->url(fn (Page $record): string => route('preview-basic-page', $record->key)),
                     ])->divided(),
@@ -113,9 +114,9 @@ class PagesList extends TableComponent
                             ->url(fn (Page $record): string => route('admin.pages.edit', $record)),
                         Action::make('design')
                             ->authorize('design')
-                            ->icon(iconName('tools'))
+                            ->icon(Icon::Tools)
                             ->url(fn (Page $record): string => route('admin.pages.design', $record)),
-                    ])->authorizeAny(['view', 'update', 'design'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -164,7 +165,7 @@ class PagesList extends TableComponent
                                     ->title("{$replica->name} page has been created")
                                     ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -177,7 +178,7 @@ class PagesList extends TableComponent
                                     ->title($record->name.' page was deleted')
                                     ->send();
                             }),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -228,7 +229,7 @@ class PagesList extends TableComponent
                     ->label('HTTP verb')
                     ->options(PageVerb::class),
             ])
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Icon::List)
             ->emptyStateHeading('No pages found')
             ->emptyStateDescription('Manage all of Nova’s pages.')
             ->emptyStateActions([

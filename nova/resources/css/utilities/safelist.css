@@ -1,0 +1,8 @@
+@source inline("{md:,}col-span-{1..12..1}");
+@source inline("{md:,}grid-cols-{1..12..1}");
+@source inline("{sm:,md:,lg:,xl:,2xl:,}max-w-{lg,xl,2xl,3xl,4xl,5xl,6xl,7xl}");
+@source inline("{sm:,md:,lg:,}origin-{top,top-left,top-right,bottom,bottom-right,bottom-left}");
+@source inline("{sm:,md:,lg:,}left-{0,auto}");
+@source inline("{sm:,md:,lg:,}right-{0,auto}");
+@source inline("bg-{red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose}-500");
+@source inline("bg-{slate,gray,zinc,neutral,stone}-400");

@@ -14,7 +14,7 @@
                 <x-slot name="leading">
                     <select
                         aria-label="Post sort field"
-                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:ring-0 focus:outline-none sm:text-sm dark:text-white"
                         wire:model.live="sortField"
                     >
                         <option value="order_column">Sort by timeline order</option>
@@ -24,7 +24,7 @@
 
                 <select
                     aria-label="Post sort direction"
-                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:ring-0 focus:outline-none sm:text-sm dark:text-white"
                     wire:model.live="sortDirection"
                 >
                     <option value="desc">Newest first</option>
@@ -36,7 +36,7 @@
         @can('viewAny', $postClass)
             <div class="flex items-center">
                 <x-button :href="route('admin.posts.index')" outline>
-                    <x-icon name="settings" size="sm"></x-icon>
+                    <x-icon :name="Icon::Settings" size="sm"></x-icon>
                     Manage posts
                 </x-button>
             </div>
@@ -66,7 +66,7 @@
                         @if ($showContent)
                             <div
                                 @class([
-                                    'prose prose-lg relative max-w-4xl dark:prose-invert',
+                                    'prose prose-lg dark:prose-invert relative max-w-4xl',
                                     'mt-4' => $showMetaFields,
                                 ])
                             >
@@ -104,7 +104,7 @@
         </x-feed>
     @else
         <x-empty-state variant="jumbo">
-            <x-icon name="book"></x-icon>
+            <x-icon :name="Icon::BookClosed"></x-icon>
             <x-h2>No posts found</x-h2>
 
             @if (blank($storyId))

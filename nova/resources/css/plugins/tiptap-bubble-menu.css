@@ -1,3 +1,5 @@
+@reference "../../../../vendor/filament/support/resources/css/index.css";
+
 .bubble-menu {
     @apply absolute flex bg-black rounded-lg px-4 py-1 mb-1 z-20 items-center justify-center invisible opacity-0;
 

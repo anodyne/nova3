@@ -26,7 +26,7 @@
 
                     <div
                         @class([
-                            'flex flex-col bg-[--feature-card-color] ring-1 ring-[--feature-card-border-color]',
+                            'flex flex-col bg-(--feature-card-color) ring-1 ring-(--feature-card-border-color)',
                             $cardRadius?->getTailwindClasses(),
                             $cardShadow?->getTailwindClasses(),
                             match (true) {
@@ -42,7 +42,7 @@
                         <x-spacing class="flex-1" size="md">
                             @if ($heading = data_get($column, 'heading'))
                                 <h3
-                                    class="font-[family-name:--font-header] text-lg/8 font-semibold text-[--feature-heading-color]"
+                                    class="font-(family-name:--font-header) text-lg/8 font-semibold text-(--feature-heading-color)"
                                 >
                                     {{ $heading }}
                                 </h3>
@@ -51,7 +51,7 @@
                             @if ($description = data_get($column, 'description'))
                                 <div
                                     @class([
-                                        'space-y-6 text-base/7 text-[--feature-description-color]',
+                                        'space-y-6 text-base/7 text-(--feature-description-color)',
                                         'mt-1' => filled($heading),
                                     ])
                                 >

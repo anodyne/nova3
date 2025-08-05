@@ -1,9 +1,11 @@
+@import "../../../../vendor/wire-elements/pro/resources/css/tailwind/overlay-component.css";
+
 .wep-slide-over-container-inner {
     @apply inset-y-4 right-4;
 }
 
 .wep-slide-over-container-inner-content {
-    @apply rounded-xl bg-white py-0 shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-950;
+    @apply rounded-xl py-0 shadow-xl ring-1 ring-gray-950/5 dark:bg-gray-950;
 }
 
 .wep-modal-content {

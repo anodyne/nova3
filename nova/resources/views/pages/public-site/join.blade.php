@@ -35,7 +35,7 @@
 
                                 @if ($errors->has('userInfo.*') || $errors->has('userBio.*'))
                                     <span class="text-danger-500">
-                                        <x-icon name="alert" size="sm"></x-icon>
+                                        <x-icon :name="Icon::AlertCircle" size="sm"></x-icon>
                                     </span>
                                 @endif
                             </div>
@@ -48,7 +48,7 @@
 
                                     @if ($errors->has('characterInfo.*') || $errors->has('characterBio.*'))
                                         <span class="text-danger-500">
-                                            <x-icon name="alert" size="sm"></x-icon>
+                                            <x-icon :name="Icon::AlertCircle" size="sm"></x-icon>
                                         </span>
                                     @endif
                                 </div>
@@ -62,7 +62,7 @@
 
                                     @if ($errors->has('applicationInfo.*'))
                                         <span class="text-danger-500">
-                                            <x-icon name="alert" size="sm"></x-icon>
+                                            <x-icon :name="Icon::AlertCircle" size="sm"></x-icon>
                                         </span>
                                     @endif
                                 </div>

@@ -22,13 +22,14 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Roles\Actions\DeleteRole;
 use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Events\RoleDuplicated;
 use Nova\Roles\Models\Role;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 
 class RolesList extends TableComponent
 {
@@ -52,7 +53,7 @@ class RolesList extends TableComponent
                 TextColumn::make('display_name')
                     ->titleColumn()
                     ->label('Name')
-                    ->icon(fn (Role $record): ?string => $record->is_locked ? iconName('lock-closed') : null)
+                    ->icon(fn (Role $record): ?Icon => $record->is_locked ? Icon::LockClosed : null)
                     ->iconPosition('after')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('user_count')
@@ -66,12 +67,13 @@ class RolesList extends TableComponent
                     ->alignCenter()
                     ->toggleable()
                     ->toggledHiddenByDefault(),
+
+                // FIXME: This should be able to use null for the falseIcon
                 IconColumn::make('is_default')
                     ->label('Assigned to new users')
                     ->alignCenter()
-                    ->trueColor('success')
-                    ->trueIcon(iconName('check'))
-                    ->falseIcon(''),
+                    ->trueIcon(Icon::CheckCircle)
+                    ->falseIcon(Icon::XmarkCircle),
             ])
             ->recordActions([
                 ActionGroup::make([
@@ -82,7 +84,7 @@ class RolesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Role $record): string => route('admin.roles.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make(),
@@ -112,7 +114,7 @@ class RolesList extends TableComponent
                                     ->body('Any permissions assigned to the '.$record->display_name.' role have been added to your new role.')
                                     ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -120,7 +122,7 @@ class RolesList extends TableComponent
                             ->modalContentView('pages.roles.delete')
                             ->successNotificationTitle(fn (Role $record): string => $record->display_name.' role was deleted')
                             ->using(fn (Role $record): Model => DeleteRole::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -175,7 +177,7 @@ class RolesList extends TableComponent
                     ),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.roles-reordering-notice') : null)
-            ->emptyStateIcon(iconName('shield'))
+            ->emptyStateIcon(Icon::Shield)
             ->emptyStateHeading('No roles found')
             ->emptyStateDescription('Roles allow you to control what users can and cannot access throughout Nova.')
             ->emptyStateActions([

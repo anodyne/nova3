@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
-use Filament\Support\Enums\Width;
-use Filament\Schemas\Schema;
 use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -21,6 +21,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\Ban;
 
@@ -64,7 +65,7 @@ class BansList extends TableComponent
                             ->authorize('view')
                             ->slideOver()
                             ->modalWidth(Width::Large)
-                            ->modalIcon(iconName('hammer'))
+                            ->modalIcon(Icon::Hammer)
                             ->modalHeading('')
                             ->modalDescription(null)
                             ->modalContent(fn (Ban $record, ViewAction $action) => view('pages.bans.show', [
@@ -92,7 +93,7 @@ class BansList extends TableComponent
                                     KeyValueEntry::make('metas')->label('Metadata'),
                                 ]);
                             }),
-                    ])->authorize('view')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -100,7 +101,7 @@ class BansList extends TableComponent
                             ->modalContentView('pages.bans.delete')
                             ->successNotificationTitle('Ban was deleted')
                             ->using(fn (Ban $record) => $record->delete()),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -152,7 +153,7 @@ class BansList extends TableComponent
                         blank: fn (Builder $query): Builder => $query,
                     ),
             ])
-            ->emptyStateIcon(iconName('forbid'))
+            ->emptyStateIcon(Icon::Forbid)
             ->emptyStateHeading('No bans found')
             ->emptyStateDescription('')
             ->emptyStateActions([

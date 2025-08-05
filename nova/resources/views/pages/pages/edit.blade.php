@@ -119,7 +119,7 @@
 
             <x-fieldset x-show="type === 'advanced'" x-cloak>
                 <x-fieldset.heading>
-                    <x-icon name="code"></x-icon>
+                    <x-icon :name="Icon::Code"></x-icon>
                     <x-fieldset.legend>Advanced page options</x-fieldset.legend>
                     <x-fieldset.description>
                         Advanced pages allow you to do more complex things than the page builder. You will need to
@@ -157,7 +157,7 @@
             @if ($page->content_can_be_edited)
                 <x-fieldset x-show="verb === 'get'" x-cloak>
                     <x-fieldset.heading>
-                        <x-icon name="blockquote"></x-icon>
+                        <x-icon :name="Icon::Blockquote"></x-icon>
                         <x-fieldset.legend>Page content</x-fieldset.legend>
                         <x-fieldset.description>
                             Set the heading, sub-heading, and intro text for the page.
@@ -194,7 +194,7 @@
 
             <x-fieldset x-show="verb === 'get'" x-cloak>
                 <x-fieldset.heading>
-                    <x-icon name="seo"></x-icon>
+                    <x-icon :name="Icon::Seo"></x-icon>
                     <x-fieldset.legend>SEO tools</x-fieldset.legend>
                     <x-fieldset.description>
                         Customize your SEO settings for better placement in search results and more. This is most

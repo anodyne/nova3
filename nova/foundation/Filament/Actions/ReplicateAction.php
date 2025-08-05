@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
+use Nova\Foundation\Icons\Icon;
 
 class ReplicateAction extends \Filament\Actions\ReplicateAction
 {
@@ -18,7 +19,7 @@ class ReplicateAction extends \Filament\Actions\ReplicateAction
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(iconName('copy'));
+        $this->icon(Icon::Copy);
         $this->label('Duplicate');
 
         $this->modalWidth(Width::ExtraLarge);

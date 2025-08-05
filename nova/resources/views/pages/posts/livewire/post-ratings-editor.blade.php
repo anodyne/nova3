@@ -1,7 +1,7 @@
 <x-modal.slide-over
     title="Update content ratings"
     description="Let players and readers know what to expect from your post by setting the content ratings. These content ratings follow the game’s default ratings unless you specify otherwise."
-    icon="mature"
+    :icon="Icon::Rating18"
 >
     <x-form action="">
         <x-fieldset.field-group>

@@ -4,9 +4,11 @@
             <x-slot name="heading">Messages</x-slot>
 
             <x-slot name="actions">
-                <x-dropdown placement="bottom-end">
+                <x-dropdown placement="bottom end">
                     <x-slot name="trigger">
-                        <x-icon name="write" size="sm"></x-icon>
+                        <x-button type="button" size="none" text>
+                            <x-icon :name="Icon::Write" size="sm"></x-icon>
+                        </x-button>
                     </x-slot>
 
                     <x-dropdown.group>
@@ -27,14 +29,14 @@
                 <li
                     @class([
                         'flex cursor-pointer items-center gap-x-4 rounded-xl px-2.5 py-4',
-                        'bg-primary-100 ring-1 ring-inset ring-primary-950/10 dark:bg-primary-950 dark:ring-white/10' => $selected === $conversation->id,
+                        'bg-primary-100 ring-primary-950/10 dark:bg-primary-950 ring-1 ring-inset dark:ring-white/10' => $selected === $conversation->id,
                     ])
                     wire:click="selectConversation({{ $conversation->id }})"
                 >
                     @if (filled($participant))
                         <x-avatar :src="$participant->avatar_url" :tooltip="$participant->name" size="sm"></x-avatar>
                     @else
-                        <x-icon name="user" size="xl"></x-icon>
+                        <x-icon :name="Icon::User" size="xl"></x-icon>
                     @endif
 
                     <div class="flex min-w-0 items-center">
@@ -49,12 +51,12 @@
             @empty
                 <li>
                     <x-empty-state>
-                        <x-icon name="messages"></x-icon>
+                        <x-icon :name="Icon::Messages"></x-icon>
                         <x-h3>No conversations</x-h3>
                         <x-text>Get started by creating a new conversation</x-text>
 
                         <x-button wire:click="startNewConversation" color="primary">
-                            <x-icon name="write" size="sm"></x-icon>
+                            <x-icon :name="Icon::Write" size="sm"></x-icon>
                             Start a new conversation
                         </x-button>
                     </x-empty-state>

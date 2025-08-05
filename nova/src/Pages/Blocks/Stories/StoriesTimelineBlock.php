@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Stories;
 
-use Filament\Schemas\Components\Section;
 use Closure;
 use Filament\Forms\Components\Radio;
+use Filament\Schemas\Components\Section;
+use Nova\Foundation\Icons\Icon;
 
 class StoriesTimelineBlock extends StoriesBlock
 {
@@ -21,7 +22,7 @@ class StoriesTimelineBlock extends StoriesBlock
         return [
             Section::make()
                 ->heading('Timeline options')
-                ->icon(iconName('timeline'))
+                ->icon(Icon::Timeline)
                 ->schema([
                     Radio::make('block.timelineSorting')->options([
                         'asc' => 'Oldest stories first',

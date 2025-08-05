@@ -8,10 +8,10 @@
 
     <x-button x-on:click="showPassword = !showPassword" type="button" color="neutral" tabindex="-1" x-cloak text>
         <div x-show="showPassword" class="leading-0">
-            <x-icon name="hide" size="sm"></x-icon>
+            <x-icon :name="Icon::Hide" size="sm"></x-icon>
         </div>
         <div x-show="!showPassword" class="leading-0">
-            <x-icon name="show" size="sm"></x-icon>
+            <x-icon :name="Icon::Show" size="sm"></x-icon>
         </div>
     </x-button>
 </div>

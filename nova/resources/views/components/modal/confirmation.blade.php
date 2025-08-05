@@ -29,9 +29,9 @@
                         <button
                             x-on:click="Livewire.dispatch('modal.close')"
                             alt="Close modal"
-                            class="relative inline-flex h-8 w-8 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-transparent text-sm font-medium text-gray-400 transition hover:bg-gray-800/5 hover:text-gray-800 dark:text-gray-500 dark:hover:bg-white/15 dark:hover:text-white"
+                            class="relative inline-flex h-8 w-8 items-center justify-center gap-2 rounded-md bg-transparent text-sm font-medium whitespace-nowrap text-gray-400 transition hover:bg-gray-800/5 hover:text-gray-800 dark:text-gray-500 dark:hover:bg-white/15 dark:hover:text-white"
                         >
-                            <x-icon name="x" size="sm"></x-icon>
+                            <x-icon :name="Icon::Xmark" size="sm"></x-icon>
                         </button>
                     </div>
                 </div>

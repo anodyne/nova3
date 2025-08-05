@@ -32,9 +32,10 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class PositionsList extends TableComponent
@@ -105,7 +106,7 @@ class PositionsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Position $record): string => route('admin.positions.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -158,7 +159,7 @@ class PositionsList extends TableComponent
                                     ->body("All of the data from {$position->name} has been duplicated into your new position.")
                                     ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -166,7 +167,7 @@ class PositionsList extends TableComponent
                             ->modalContentView('pages.positions.delete')
                             ->successNotificationTitle(fn (Position $record): string => $record->name.' position was deleted')
                             ->using(fn (Position $record): Model => DeletePosition::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -222,7 +223,7 @@ class PositionsList extends TableComponent
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.positions-reordering-notice') : null)
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Icon::List)
             ->emptyStateHeading('No positions found')
             ->emptyStateDescription('Positions are the jobs or stations that characters can be assigned to for display on your manifests.')
             ->emptyStateActions([

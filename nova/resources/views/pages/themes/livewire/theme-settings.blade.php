@@ -4,7 +4,7 @@
     <x-form action="">
         <x-fieldset>
             <x-fieldset.heading>
-                <x-icon name="typography"></x-icon>
+                <x-icon :name="Icon::Typography"></x-icon>
                 <x-fieldset.legend>Fonts</x-fieldset.legend>
                 <x-fieldset.description>Customize the theme by changing the fonts used.</x-fieldset.description>
             </x-fieldset.heading>
@@ -35,7 +35,7 @@
         @if ($theme->settings->hasSettings())
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="preferences"></x-icon>
+                    <x-icon :name="Icon::Preferences"></x-icon>
                     <x-fieldset.legend>Additional theme settings</x-fieldset.legend>
                     <x-fieldset.description>Customize various options for the theme.</x-fieldset.description>
                 </x-fieldset.heading>

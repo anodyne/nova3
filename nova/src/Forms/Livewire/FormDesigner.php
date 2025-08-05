@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Livewire;
 
-use Filament\Schemas\Schema;
 use Filament\Actions\Action;
-use Filament\Support\Enums\Width;
 use Filament\Forms\Components\Builder;
+use Filament\Schemas\Schema;
 use Filament\Support\Enums\IconSize;
+use Filament\Support\Enums\Width;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -19,6 +19,7 @@ use Nova\Forms\Data\FormFieldsData;
 use Nova\Forms\Fields\FormFieldRegistry;
 use Nova\Forms\Models\Form as NovaForm;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\FormComponent;
 
 class FormDesigner extends FormComponent
@@ -40,14 +41,14 @@ class FormDesigner extends FormComponent
                     ->addAction(function (Action $action): Action {
                         return $action
                             ->label('Add field')
-                            ->icon(iconName('add'))
+                            ->icon(Icon::Plus)
                             ->iconSize(IconSize::Medium)
                             ->slideOver()
                             ->modalWidth(Width::ExtraLarge);
                     })
                     ->editAction(function (Action $action): Action {
                         return $action
-                            ->icon(iconName('settings'))
+                            ->icon(Icon::Settings)
                             ->slideOver()
                             ->modalWidth(Width::ExtraLarge);
                     })

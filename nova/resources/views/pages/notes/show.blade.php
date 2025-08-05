@@ -5,7 +5,7 @@
                 <x-button :href="route('admin.notes.index')" plain>&larr; Back</x-button>
 
                 <x-button :href="route('admin.notes.edit', $note)" color="primary">
-                    <x-icon name="edit" size="sm"></x-icon>
+                    <x-icon :name="Icon::Edit" size="sm"></x-icon>
                     Edit
                 </x-button>
             </x-slot>

@@ -19,16 +19,16 @@
             'before:absolute before:inset-0 before:-z-10 before:rounded-[calc(0.3125rem-1px)] before:bg-white before:shadow',
 
             // Background color when checked
-            'before:peer-checked:bg-[--checkbox-checked-bg]',
+            'before:peer-checked:bg-(--checkbox-checked-bg)',
 
             // Background color is moved to control and shadow is removed in dark mode so hide `before` pseudo
             'dark:before:hidden',
 
             // Background color applied to control in dark mode
-            'dark:bg-white/5 dark:peer-checked:bg-[--checkbox-checked-bg]',
+            'dark:bg-white/5 dark:peer-checked:bg-(--checkbox-checked-bg)',
 
             // Border
-            'border border-gray-950/15 hover:border-gray-950/30 peer-checked:border-transparent peer-checked:bg-[--checkbox-checked-border] peer-checked:hover:border-transparent',
+            'border border-gray-950/15 hover:border-gray-950/30 peer-checked:border-transparent peer-checked:bg-(--checkbox-checked-border) peer-checked:hover:border-transparent',
             'dark:border-white/15 dark:hover:border-white/30 dark:peer-checked:border-white/5 dark:peer-checked:hover:border-white/5',
 
             // Inner highlight shadow
@@ -54,7 +54,7 @@
         ])
     >
         <svg
-            class="size-4 stroke-[--checkbox-check] opacity-0 peer-checked:group-[]:opacity-100 sm:h-3.5 sm:w-3.5"
+            class="size-4 stroke-(--checkbox-check) opacity-0 peer-checked:group-[]:opacity-100 sm:h-3.5 sm:w-3.5"
             viewBox="0 0 14 14"
             fill="none"
         >

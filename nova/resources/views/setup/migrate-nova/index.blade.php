@@ -34,7 +34,9 @@
 
         @if ($status?->isSuccessful())
             <div class="flex items-center justify-center">
-                <x-button.setup :href="route('login')" leading="arrow-right">Start using Nova</x-button.setup>
+                <x-button.setup :href="route('login')" :leading="Icon::ArrowRightCircle">
+                    Start using Nova
+                </x-button.setup>
             </div>
         @endif
     </div>

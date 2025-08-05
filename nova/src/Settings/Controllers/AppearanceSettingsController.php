@@ -37,7 +37,18 @@ class AppearanceSettingsController extends Controller
         $this->authorize('update', settings());
 
         DB::transaction(function () use ($request) {
-            UpdateSettings::run('appearance', $data = Appearance::from($request));
+            $settings = settings('appearance');
+
+            $requestWithColors = $request->merge([
+                'colors_primary' => $settings->colorsPrimary,
+                'colors_danger' => $settings->colorsDanger,
+                'colors_info' => $settings->colorsInfo,
+                'colors_success' => $settings->colorsSuccess,
+                'colors_warning' => $settings->colorsWarning,
+                'colors_gray' => $settings->colorsGray,
+            ]);
+
+            UpdateSettings::run('appearance', $data = Appearance::from($requestWithColors));
 
             UpdateAppearance::run($data, $request);
         });

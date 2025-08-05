@@ -2,5 +2,5 @@
     action="toggleHeading({ level: 1 })"
     active="heading"
     active-options="{ level: 1 }"
-    icon="tabler-h-1"
+    :icon="Icon::EditorH1"
 ></x-button.editor-tools>

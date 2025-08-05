@@ -73,7 +73,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="enter"></x-icon>
+                    <x-icon :name="Icon::Enter"></x-icon>
                     <x-fieldset.legend>Availability</x-fieldset.legend>
                     <x-fieldset.description>
                         You can allow or prevent players from picking this position by setting the number of available

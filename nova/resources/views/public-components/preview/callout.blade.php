@@ -20,7 +20,7 @@
     "
 >
     <span
-        class="rounded-full bg-[--nv-page-callout-color50] px-3 py-1 text-sm/6 font-semibold text-[--nv-page-callout-color700] ring-1 ring-inset ring-[--nv-page-callout-color200] hover:bg-[--nv-page-callout-color100] hover:ring-[--nv-page-callout-color300] dark:bg-[--nv-page-callout-color950] dark:text-[--nv-page-callout-color300] dark:ring-[--nv-page-callout-color800] dark:hover:bg-[--nv-page-callout-color900] dark:hover:ring-[--nv-page-callout-color700]"
+        class="rounded-full bg-(--nv-page-callout-color50) px-3 py-1 text-sm/6 font-semibold text-(--nv-page-callout-color700) ring-1 ring-inset ring-(--nv-page-callout-color200) hover:bg-(--nv-page-callout-color100) hover:ring-(--nv-page-callout-color300) dark:bg-(--nv-page-callout-color950) dark:text-(--nv-page-callout-color300) dark:ring-(--nv-page-callout-color800) dark:hover:bg-(--nv-page-callout-color900) dark:hover:ring-(--nv-page-callout-color700)"
     >
         Callout preview text
         <span aria-hidden="true">&rarr;</span>

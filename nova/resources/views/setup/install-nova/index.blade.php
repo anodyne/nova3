@@ -12,7 +12,7 @@
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
-                <x-panel.danger title="Error installing Nova" icon="alert-circle">
+                <x-panel.danger title="Error installing Nova" :icon="Icon::AlertCircle">
                     {{ $errorMessage }}
                 </x-panel.danger>
             @endif
@@ -76,14 +76,14 @@
 
         <div class="flex items-center justify-center gap-8">
             @if ($e->database->driver !== 'pgsql')
-                <x-button.setup href="{{ url('setup/migrate') }}" leading="forward-all">
+                <x-button.setup href="{{ url('setup/migrate') }}" :leading="Icon::ForwardAll">
                     Migrate your Nova 2 data
                 </x-button.setup>
 
-                <span class="text-sm font-semibold uppercase text-gray-500">or</span>
+                <span class="text-sm font-semibold text-gray-500 uppercase">or</span>
             @endif
 
-            <x-button.setup href="{{ url('setup/setup-account') }}" leading="arrow-right">
+            <x-button.setup href="{{ url('setup/setup-account') }}" :leading="Icon::ArrowRightCircle">
                 Continue as a fresh install
             </x-button.setup>
         </div>

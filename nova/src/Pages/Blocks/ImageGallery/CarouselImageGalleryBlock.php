@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\ImageGallery;
 
-use Filament\Schemas\Components\Section;
 use Closure;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Schemas\Components\Section;
+use Nova\Foundation\Icons\Icon;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\Radius;
 
@@ -25,7 +26,7 @@ class CarouselImageGalleryBlock extends ImageGalleryBlock
             Section::make()
                 ->heading('Carousel options')
                 ->description('Customize how the image gallery carousel behaves')
-                ->icon(iconName('preferences'))
+                ->icon(Icon::Preferences)
                 ->columns(2)
                 ->schema([
                     Select::make('block.carousel.autoplay')

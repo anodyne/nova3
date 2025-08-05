@@ -25,11 +25,11 @@
         @if ($e->passes())
             <div class="flex items-center justify-center">
                 @if ($component->type === SetupType::Update)
-                    <x-button.setup :href="url('setup/update/whats-new')" leading="megaphone">
+                    <x-button.setup :href="url('setup/update/whats-new')" :leading="Icon::Megaphone">
                         Learn about what’s new in this update
                     </x-button.setup>
                 @else
-                    <x-button.setup :href="url('setup/configure-database')" leading="database-settings">
+                    <x-button.setup :href="url('setup/configure-database')" :leading="Icon::DatabaseSettings">
                         Connect to your database
                     </x-button.setup>
                 @endif

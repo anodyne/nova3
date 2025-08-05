@@ -6,7 +6,7 @@
                     <img src="{{ $department->getFirstMediaUrl('header') }}" class="h-8 w-auto" alt="" />
                 @else
                     <h2
-                        class="font-[family-name:--font-header] text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                        class="font-(family-name:--font-header) text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                     >
                         {{ html_entity_decode($department->name) }}
                     </h2>

@@ -38,30 +38,30 @@
             @if ($post->postType->fields->showMetaFields())
                 <div class="mt-8 flex items-center gap-x-8">
                     @if ($post->postType->fields->location->enabled && filled($post->location))
-                        <x-metadata icon="location" :value="$post->location"></x-metadata>
+                        <x-metadata :icon="Icon::Location" :value="$post->location"></x-metadata>
                     @endif
 
                     @if ($post->postType->fields->day->enabled && filled($post->day))
-                        <x-metadata icon="calendar" :value="$post->day"></x-metadata>
+                        <x-metadata :icon="Icon::Calendar" :value="$post->day"></x-metadata>
                     @endif
 
                     @if ($post->postType->fields->time->enabled && filled($post->time))
-                        <x-metadata icon="clock" :value="$post->time"></x-metadata>
+                        <x-metadata :icon="Icon::Clock" :value="$post->time"></x-metadata>
                     @endif
                 </div>
             @endif
 
-            <div class="prose mt-8 max-w-none dark:prose-invert" x-cloak x-show="!showContentWarning">
+            <div class="prose dark:prose-invert mt-8 max-w-none" x-cloak x-show="!showContentWarning">
                 {!! $post->content !!}
             </div>
 
             <div x-show="showContentWarning" x-cloak>
                 <div class="flex items-center gap-x-3">
-                    <x-icon name="warning" size="xl" class="text-danger-500"></x-icon>
-                    <h1 class="block text-4xl font-extrabold leading-loose tracking-tight text-danger-600">Warning</h1>
+                    <x-icon :name="Icon::Warning" size="xl" class="text-danger-500"></x-icon>
+                    <h1 class="text-danger-600 block text-4xl leading-loose font-extrabold tracking-tight">Warning</h1>
                 </div>
 
-                <div class="prose mb-8 dark:prose-invert">
+                <div class="prose dark:prose-invert mb-8">
                     <p>
                         This post includes mature content that may not be suitable for all audiences and could be
                         sensitive or triggering for some readers.
@@ -107,7 +107,7 @@
                     @if (filled($previousPost))
                         <div class="flex flex-col items-start gap-3">
                             <a
-                                class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-ml-1"
+                                class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-gray-800 dark:ring-inset dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-ml-1"
                                 aria-label="Previous post: {{ $previousPost->title }}"
                                 href="{{ route('admin.posts.show', [$story, $previousPost]) }}"
                             >
@@ -128,7 +128,7 @@
                     @if (filled($nextPost))
                         <div class="ml-auto flex flex-col items-end gap-3">
                             <a
-                                class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-mr-1"
+                                class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-gray-800 dark:ring-inset dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-mr-1"
                                 aria-label="Next post: {{ $nextPost->title }}"
                                 href="{{ route('admin.posts.show', [$story, $nextPost]) }}"
                             >
@@ -193,7 +193,7 @@
             @if (filled($previousPost))
                 <div class="flex flex-col items-start gap-1.5">
                     <a
-                        class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-ml-1"
+                        class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-gray-800 dark:ring-inset dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-ml-1"
                         aria-label="Previous post: {{ $previousPost->title }}"
                         href="{{ route('admin.posts.show', [$story, $previousPost]) }}"
                     >
@@ -214,7 +214,7 @@
             @if (filled($nextPost))
                 <div class="flex flex-col items-start gap-1.5">
                     <a
-                        class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-inset dark:ring-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-mr-1"
+                        class="inline-flex items-center justify-center gap-0.5 overflow-hidden rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-900 transition hover:bg-gray-200 dark:bg-gray-800/40 dark:text-gray-400 dark:ring-1 dark:ring-gray-800 dark:ring-inset dark:hover:bg-gray-800 dark:hover:text-gray-300 [&>[data-slot=icon]]:-mr-1"
                         aria-label="Next post: {{ $nextPost->title }}"
                         href="{{ route('admin.posts.show', [$story, $nextPost]) }}"
                     >

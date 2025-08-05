@@ -8,6 +8,7 @@ use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
+use Nova\Foundation\Icons\Icon;
 
 class ForceDeleteAction extends \Filament\Actions\ForceDeleteAction
 {
@@ -18,7 +19,7 @@ class ForceDeleteAction extends \Filament\Actions\ForceDeleteAction
         parent::setUp();
 
         $this->color('danger');
-        $this->icon(iconName('trash'));
+        $this->icon(Icon::Trash);
 
         $this->requiresConfirmation(false);
 

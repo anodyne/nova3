@@ -11,6 +11,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Data\UserModerations;
 use Nova\Users\Models\User;
@@ -81,7 +82,7 @@ class UserModerationList extends TableComponent
                     ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
                     ->default(fn () => request()->query('status', ['active'])),
             ])
-            ->emptyStateIcon(iconName('user'))
+            ->emptyStateIcon(Icon::User)
             ->emptyStateHeading('No users found');
     }
 }

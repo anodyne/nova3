@@ -13,7 +13,7 @@
                         </x-slot>
                     </x-panel.manage.result-item>
                 @empty
-                    <x-empty-state.small icon="list" title="No position(s) found"></x-empty-state.small>
+                    <x-empty-state.small :icon="Icon::List" title="No position(s) found"></x-empty-state.small>
                 @endforelse
             </x-dropdown.group>
         </x-panel.manage.search>
@@ -28,31 +28,34 @@
                     </div>
 
                     <div class="flex items-center justify-end space-x-3">
-                        <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger" color="neutral-danger">
-                                <x-icon name="trash" size="sm"></x-icon>
+                        <x-dropdown placement="bottom end">
+                            <x-slot name="trigger">
+                                <x-button type="button" color="neutral-danger" size="none" text>
+                                    <x-icon :name="Icon::Trash" size="sm"></x-icon>
+                                </x-button>
                             </x-slot>
 
                             <x-dropdown.group>
                                 <x-dropdown.text>
                                     Are you sure you want to unassign the
-                                    <strong class="font-semibold text-gray-700 dark:text-gray-200">
+                                    <strong class="font-semibold">
                                         {{ $position->name }}
                                     </strong>
                                     position?
                                 </x-dropdown.text>
                             </x-dropdown.group>
                             <x-dropdown.group>
-                                <x-dropdown.item-danger
-                                    type="button"
-                                    icon="trash"
-                                    wire:click="remove({{ $position->id }})"
-                                >
-                                    Unassign
-                                </x-dropdown.item-danger>
                                 <x-dropdown.item
                                     type="button"
-                                    icon="prohibited"
+                                    :icon="Icon::Trash"
+                                    wire:click="remove({{ $position->id }})"
+                                    variant="danger"
+                                >
+                                    Unassign
+                                </x-dropdown.item>
+                                <x-dropdown.item
+                                    type="button"
+                                    :icon="Icon::Ban"
                                     x-on:click.prevent="$dispatch('dropdown-close')"
                                 >
                                     Cancel
@@ -65,7 +68,7 @@
         </div>
     @else
         <x-panel.manage.empty
-            icon="list"
+            :icon="Icon::List"
             heading="No position(s) assigned"
             description="Get started by assigning a position to this character"
         ></x-panel.manage.empty>

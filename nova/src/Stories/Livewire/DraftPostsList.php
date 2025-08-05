@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Filament\Support\Enums\TextSize;
 use Filament\Support\Enums\FontWeight;
+use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Filament\Actions\Action;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Models\Post;
 
@@ -82,19 +83,19 @@ class DraftPostsList extends TableComponent
                                 return null;
                             })
                             ->color('gray')
-                            ->icon(iconName('lock-closed'))
+                            ->icon(Icon::LockClosed)
                             ->alignEnd(),
                     ])->extraAttributes(['class' => 'gap-y-1.5'])->grow(false),
                 ]),
             ])
-            ->emptyStateIcon(iconName('write'))
+            ->emptyStateIcon(Icon::Write)
             ->emptyStateHeading('You don’t have any draft posts')
             ->emptyStateDescription('Start writing a post to join in on the fun.')
             ->emptyStateActions([
                 Action::make('write')
                     ->url(route('admin.posts.create'))
                     ->label('Start writing')
-                    ->icon(iconName('write'))
+                    ->icon(Icon::Write)
                     ->authorize('create'),
             ]);
     }

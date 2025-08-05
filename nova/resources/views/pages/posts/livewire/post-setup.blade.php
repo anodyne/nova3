@@ -12,13 +12,13 @@
             <x-panel.header
                 title="Story"
                 description="Choose which currently running story you’d like to create your post in."
-                icon="books"
+                :icon="Icon::Books"
                 icon-size="lg"
             >
                 @can('manage', Story::class)
                     <x-slot name="actions">
                         <x-button :href="route('admin.stories.index')" color="neutral" text>
-                            <x-icon name="settings" size="md"></x-icon>
+                            <x-icon :name="Icon::Settings" size="md"></x-icon>
                         </x-button>
                     </x-slot>
                 @endcan
@@ -28,7 +28,7 @@
                 <x-spacing size="md">
                     @if ($currentStories->count() === 0)
                         <x-empty-state>
-                            <x-icon name="books"></x-icon>
+                            <x-icon :name="Icon::Books"></x-icon>
                             <x-h3>No stories available</x-h3>
                             <x-text>
                                 There are no actively running stories right now. Update a story to a status of current
@@ -52,7 +52,7 @@
                             </div>
 
                             @error('storyId')
-                                <p class="ml-0.5 mt-1 text-sm font-medium text-danger-500">{{ $message }}</p>
+                                <p class="text-danger-500 mt-1 ml-0.5 text-sm font-medium">{{ $message }}</p>
                             @enderror
                         </div>
                     @endif
@@ -64,13 +64,13 @@
             <x-panel.header
                 title="Post type"
                 description="Post types allow you to control the type of content that can be created inside of stories."
-                icon="edit-settings"
+                :icon="Icon::EditSettings"
                 icon-size="lg"
             >
                 @can('viewAny', PostType::class)
                     <x-slot name="actions">
                         <x-button :href="route('admin.post-types.index')" color="neutral" text>
-                            <x-icon name="settings" size="md"></x-icon>
+                            <x-icon :name="Icon::Settings" size="md"></x-icon>
                         </x-button>
                     </x-slot>
                 @endcan
@@ -80,7 +80,7 @@
                 <x-spacing size="md">
                     @if ($availablePostTypes->count() === 0)
                         <x-empty-state>
-                            <x-icon name="edit-settings"></x-icon>
+                            <x-icon :name="Icon::EditSettings"></x-icon>
                             <x-h3>No post types available</x-h3>
                             <x-text>
                                 You do not have any post types available to you. Please contact a Game Master to add a
@@ -104,7 +104,7 @@
                             </div>
 
                             @error('postTypeId')
-                                <p class="ml-0.5 mt-1 text-sm font-medium text-danger-500">{{ $message }}</p>
+                                <p class="text-danger-500 mt-1 ml-0.5 text-sm font-medium">{{ $message }}</p>
                             @enderror
                         </div>
                     @endif
@@ -116,13 +116,13 @@
             <x-panel.header
                 title="Your author"
                 description="Choose which of your active characters you’d like to use as an author on this post. You will be able to add more authors after starting your post."
-                icon="user-edit"
+                :icon="Icon::UserEdit"
                 icon-size="lg"
             >
                 @can('createAny', Character::class)
                     <x-slot name="actions">
                         <x-button :href="route('admin.characters.index')" color="neutral" text>
-                            <x-icon name="settings" size="md"></x-icon>
+                            <x-icon :name="Icon::Settings" size="md"></x-icon>
                         </x-button>
                     </x-slot>
                 @endcan
@@ -132,7 +132,7 @@
                 <x-spacing size="md">
                     @if ($characters->count() === 0)
                         <x-empty-state>
-                            <x-icon name="characters"></x-icon>
+                            <x-icon :name="Icon::Characters"></x-icon>
                             <x-h3>No active characters</x-h3>
                             <x-text>
                                 You do not have any active characters to choose from.
@@ -163,7 +163,7 @@
                             </div>
 
                             @error('characterId')
-                                <p class="ml-0.5 mt-1 text-sm font-medium text-danger-500">{{ $message }}</p>
+                                <p class="text-danger-500 mt-1 ml-0.5 text-sm font-medium">{{ $message }}</p>
                             @enderror
                         </div>
                     @endif

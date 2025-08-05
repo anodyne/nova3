@@ -58,7 +58,7 @@
                 @if (filled($title))
                     <h3
                         @class([
-                            'font-[family-name:--font-header] text-sm font-semibold',
+                            'font-(family-name:--font-header) text-sm font-semibold',
                             match ($level) {
                                 'danger' => 'text-danger-800',
                                 'info' => 'text-info-800',
@@ -76,7 +76,7 @@
                 @if (filled($slot))
                     <div
                         @class([
-                            'mt-2 font-[family-name:--font-body] text-sm',
+                            'mt-2 font-(family-name:--font-body) text-sm',
                             match ($level) {
                                 'danger' => 'text-danger-700',
                                 'info' => 'text-info-700',

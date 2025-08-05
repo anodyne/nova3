@@ -1,4 +1,4 @@
-<x-filament.modal-content icon="preferences" title="Default values">
+<x-filament.modal-content :icon="Icon::Preferences" title="Default values">
     <x-text>
         You can set the default values for the
         <strong class="font-semibold">{{ $record->name }}</strong>

@@ -35,7 +35,7 @@
                 />
 
                 @if (data_get($logo, 'text') !== null)
-                    <h3 class="text-base/7 font-medium text-[--logo-text-color]">
+                    <h3 class="text-base/7 font-medium text-(--logo-text-color)">
                         {{ data_get($logo, 'text') }}
                     </h3>
                 @endif

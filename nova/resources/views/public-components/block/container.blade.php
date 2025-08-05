@@ -32,7 +32,7 @@
             'relative @container',
             $width->getTailwindClasses(),
             'mx-auto' => data_get($container, 'width') !== MaxWidth::Full,
-            'bg-[--container-bg-color]' => $hasBackgroundColor,
+            'bg-(--container-bg-color)' => $hasBackgroundColor,
         ])
     }}
     style="--container-bg-color: {{ data_get($container, 'bg.color', 'transparent') }}"

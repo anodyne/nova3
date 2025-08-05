@@ -28,6 +28,7 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Actions\ActivateUser;
 use Nova\Users\Actions\ActivateUserManager;
@@ -41,8 +42,8 @@ use Nova\Users\Events\UserActivated;
 use Nova\Users\Events\UserDeactivated;
 use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\User;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class UsersList extends TableComponent
@@ -74,17 +75,20 @@ class UsersList extends TableComponent
                     ->listWithLineBreaks()
                     ->toggleable()
                     ->toggledHiddenByDefault(),
-                IconColumn::make('moderations')
-                    ->label('Is moderated')
-                    ->icon(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
-                        true => iconName('forbid'),
-                        default => null,
-                    })
-                    ->color(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
-                        true => 'danger',
-                        default => null,
-                    })
-                    ->toggleable(),
+
+                // FIXME: This should be able to use null for the falseIcon
+                // IconColumn::make('moderations')
+                //     ->label('Is moderated')
+                //     ->icon(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
+                //         true => Icon::Forbid,
+                //         default => null,
+                //     })
+                //     ->color(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
+                //         true => 'danger',
+                //         default => null,
+                //     })
+                //     ->toggleable(),
+
                 TextColumn::make('updated_at')
                     ->label('Last activity')
                     ->since()
@@ -95,12 +99,15 @@ class UsersList extends TableComponent
                     ->label('Last sign in')
                     ->since()
                     ->toggleable(),
-                TextColumn::make('latestPost.0.published_at')
-                    ->label('Last post')
-                    ->since()
-                    ->toggleable()
-                    ->color(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'danger' : null)
-                    ->weight(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'semibold' : null),
+
+                // FIXME: This should be able to use null
+                // TextColumn::make('latestPost.0.published_at')
+                //     ->label('Last post')
+                //     ->since()
+                //     ->toggleable()
+                //     ->color(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'danger' : null)
+                //     ->weight(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'semibold' : null),
+
                 TextColumn::make('status')
                     ->badge()
                     ->toggleable(),
@@ -114,13 +121,13 @@ class UsersList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (User $record): string => route('admin.users.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('application')
                             ->label('View application')
                             ->color('gray')
-                            ->icon(iconName('progress'))
+                            ->icon(Icon::Progress)
                             ->url(fn (User $record): ?string => route('admin.applications.show', $record->application)),
                     ])->visible(fn (User $record): bool => filled($record->application))->divided(),
 
@@ -129,9 +136,9 @@ class UsersList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->withRelations(['characters'])
-                                    ->itemIcon('activated', iconName('check'))
+                                    ->itemIcon('activated', Icon::CheckCircle->value)
                                     ->itemIconColor('activated', 'success')
-                                    ->itemIcon('deactivated', iconName('remove'))
+                                    ->itemIcon('deactivated', Icon::MinusCircle->value)
                                     ->itemIconColor('deactivated', 'warning')
                                     ->eventDescription('assigned', function (Activity $activity) {
                                         $characterIds = $activity->getExtraProperty('characterIds');
@@ -164,14 +171,14 @@ class UsersList extends TableComponent
                             ->modalContentView('pages.users.impersonate-warning')
                             ->modalSubmitActionLabel('Impersonate')
                             ->color('gray')
-                            ->icon(iconName('spy'))
+                            ->icon(Icon::Spy)
                             ->action(fn (User $record) => to_route('impersonate', $record->id)),
-                    ])->authorize('impersonate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('activate')
                             ->authorize('activate')
-                            ->icon(iconName('check'))
+                            ->icon(Icon::CheckCircle)
                             ->color('gray')
                             ->modalContentView('pages.users.activate')
                             ->modalSubmitActionLabel('Activate')
@@ -194,7 +201,7 @@ class UsersList extends TableComponent
                             }),
                         Action::make('deactivate')
                             ->authorize('deactivate')
-                            ->icon(iconName('remove'))
+                            ->icon(Icon::MinusCircle)
                             ->color('gray')
                             ->modalContentView('pages.users.deactivate')
                             ->modalSubmitActionLabel('Deactivate')
@@ -207,12 +214,12 @@ class UsersList extends TableComponent
                                     ->title("{$record->name} has been deactivated")
                                     ->send();
                             }),
-                    ])->authorizeAny(['activate', 'deactivate'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('banUser')
                             ->authorize('update')
-                            ->icon(iconName('hammer'))
+                            ->icon(Icon::Hammer)
                             ->color('gray')
                             ->modalContentView('pages.users.ban')
                             ->successNotificationTitle('User was banned')
@@ -231,7 +238,7 @@ class UsersList extends TableComponent
                             ->visible(fn (User $record): bool => $record->isNotBanned()),
                         Action::make('unbanUser')
                             ->authorize('update')
-                            ->icon(iconName('hammer-off'))
+                            ->icon(Icon::HammerOff)
                             ->color('gray')
                             ->schema([
                                 Toggle::make('reactivate')->label('Re-activate their user account'),
@@ -266,7 +273,7 @@ class UsersList extends TableComponent
                                 });
                             })
                             ->visible(fn (User $record): bool => $record->isBanned()),
-                    ])->authorize('update')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -274,7 +281,7 @@ class UsersList extends TableComponent
                             ->modalContentView('pages.users.delete')
                             ->successNotificationTitle('User was deleted')
                             ->using(fn (User $record): Model => DeleteUserManager::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -282,7 +289,7 @@ class UsersList extends TableComponent
                     ->authorize('updateAny')
                     ->modalContentView('pages.users.force-password-reset-bulk')
                     ->modalSubmitActionLabel('Force password reset')
-                    ->icon(iconName('key'))
+                    ->icon(Icon::Key)
                     ->color('gray')
                     ->action(function (Collection $records): void {
                         $records = $records
@@ -357,7 +364,7 @@ class UsersList extends TableComponent
                         return 'Last posted: within '.$data['value'];
                     }),
             ])
-            ->emptyStateIcon(iconName('users'))
+            ->emptyStateIcon(Icon::Users)
             ->emptyStateHeading('No users found')
             ->emptyStateDescription('')
             ->emptyStateActions([

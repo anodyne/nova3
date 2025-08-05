@@ -23,8 +23,7 @@
         {{ NovaView::renderHook('auth::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-50 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
-        @if (settings('appearance.panda')) data-panda @endif
+        class="h-full bg-white font-(family-name:--font-body) text-gray-600 antialiased xl:bg-gray-50 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
     >
         {{ NovaView::renderHook('auth::body.start') }}
 
@@ -65,6 +64,7 @@
         {{ NovaView::renderHook('auth::scripts.before') }}
 
         @filamentScripts(withCore: true)
+        @fluxScripts
         @novaAdminScripts
         @stack('scripts')
 

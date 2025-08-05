@@ -11,12 +11,12 @@
 @aware(['color'])
 
 <x-spacing
-    @class([
+    {{
+    $attributes->merge(['size' => 'row'])->class([
         'flex justify-between gap-x-8',
         'items-center' => blank($description),
-        $attributes->get('class') => $attributes->has('class'),
     ])
-    {{ $attributes->merge(['size' => 'row']) }}
+}}
 >
     <div
         @class([
@@ -42,7 +42,7 @@
                     },
                 ])
             >
-                <x-icon :name="$icon" :size="$iconSize"></x-icon>
+                <x-icon :name="$icon" :size="$iconSize" class="shrink-0"></x-icon>
             </div>
         @endif
 
@@ -51,7 +51,7 @@
                 <div class="flex items-center gap-x-3">
                     <h3
                         @class([
-                            'font-[family-name:--font-header]',
+                            'font-(family-name:--font-header)',
                             match ($size) {
                                 'sm' => 'text-sm/6 font-semibold',
                                 default => 'text-base/6 font-semibold',
@@ -79,7 +79,7 @@
             @if (filled($description))
                 <div
                     @class([
-                        'text-pretty text-sm/6',
+                        'text-sm/6 text-pretty',
                         match ($color) {
                             'danger' => 'text-danger-600 dark:text-danger-400',
                             'info' => 'text-info-600 dark:text-info-400',

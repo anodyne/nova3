@@ -15,7 +15,7 @@
             @endcan
 
             <x-button :href="route('admin.forms.preview', $form)" target="_blank">
-                <x-icon name="form-preview" size="sm"></x-icon>
+                <x-icon :name="Icon::FormPreview" size="sm"></x-icon>
                 Preview form
             </x-button>
         </x-slot>
@@ -25,14 +25,14 @@
         @if (is_null($form->published_at))
             <x-panel.warning
                 title="Unpublished changes"
-                icon="progress"
+                :icon="Icon::Progress"
                 description="Your form field(s) have not been published yet. Nova only shows published form fields to users, so to ensure users are using the form with your latest changes, please publish your form."
             ></x-panel.warning>
         @else
             @if ($form->updated_at->gt($form->published_at))
                 <x-panel.warning
                     title="Unpublished changes"
-                    icon="progress"
+                    :icon="Icon::Progress"
                     description="Your form field(s) have been saved since you last published them. Nova only shows published form fields to users, so to ensure users are using the form with your latest changes, please publish your form."
                 ></x-panel.warning>
             @endif

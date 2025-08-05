@@ -31,7 +31,7 @@
 
                     <div class="flex shrink-0 items-center">
                         <x-button type="button" x-on:click="colorPicker.color.set(inputColor)" text>
-                            <x-icon name="check" size="md"></x-icon>
+                            <x-icon :name="Icon::CheckCircle" size="md"></x-icon>
                         </x-button>
                     </div>
                 </div>

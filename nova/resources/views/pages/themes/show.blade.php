@@ -6,7 +6,7 @@
 
                 @can('update', $theme)
                     <x-button :href="route('admin.themes.edit', $theme)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -49,7 +49,7 @@
                     <x-panel variant="well">
                         <x-panel.header
                             title="Version check info"
-                            icon="broadcast"
+                            :icon="Icon::Broadcast"
                             description="Basic information about how the theme checks for new versions"
                         ></x-panel.header>
 

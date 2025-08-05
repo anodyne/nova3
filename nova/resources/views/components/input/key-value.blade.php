@@ -14,14 +14,14 @@
             </div>
 
             <x-button type="button" x-on:click="remove(index)" size="none" color="neutral-danger" text>
-                <x-icon name="trash" size="sm"></x-icon>
+                <x-icon :name="Icon::Trash" size="sm"></x-icon>
             </x-button>
         </div>
     </template>
 
     <div class="pt-2">
         <x-button type="button" x-on:click="add()" plain>
-            <x-icon name="add" size="sm"></x-icon>
+            <x-icon :name="Icon::Plus" size="sm"></x-icon>
             Add row
         </x-button>
     </div>

@@ -3,7 +3,7 @@
 <x-form action="" wire:submit="save">
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="mature"></x-icon>
+            <x-icon :name="Icon::Rating18"></x-icon>
             <x-fieldset.legend>Default {{ $category }} rating</x-fieldset.legend>
             <x-fieldset.description>
                 This is the default {{ $category }} content rating for your game. This is a good way to show current
@@ -20,7 +20,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="warning"></x-icon>
+            <x-icon :name="Icon::Warning"></x-icon>
             <x-fieldset.legend>Rating threshold warning</x-fieldset.legend>
             <x-fieldset.description>
                 You can choose to warn readers about potentially offensive content in a story post if that post meets
@@ -58,7 +58,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="blockquote"></x-icon>
+            <x-icon :name="Icon::Blockquote"></x-icon>
             <x-fieldset.legend>Rating level descriptions</x-fieldset.legend>
             <x-fieldset.description>
                 Customize the descriptions of what is permitted at each level of the rating scale.

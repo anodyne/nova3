@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Livewire;
 
+use BackedEnum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -22,9 +23,10 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class FormsList extends TableComponent
@@ -47,7 +49,7 @@ class FormsList extends TableComponent
                 TextColumn::make('name')
                     ->titleColumn()
                     ->label('Form name')
-                    ->icon(fn (Form $record): ?string => $record->is_locked ? iconName('lock-closed') : null)
+                    ->icon(fn (Form $record): ?BackedEnum => $record->is_locked ? Icon::LockClosed : null)
                     ->iconPosition('after')
                     ->searchable()
                     ->sortable(),
@@ -69,7 +71,7 @@ class FormsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Form $record): string => route('admin.forms.edit', $record)),
-                    ])->authorize('update')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -94,17 +96,17 @@ class FormsList extends TableComponent
                     ActionGroup::make([
                         Action::make('design')
                             ->authorize('design')
-                            ->icon(iconName('tools'))
+                            ->icon(Icon::Tools)
                             ->url(fn (Form $record): string => route('admin.forms.design', $record)),
                         Action::make('preview')
-                            ->icon(iconName('form-preview'))
+                            ->icon(Icon::FormPreview)
                             ->label('Preview form')
                             ->url(fn (Form $record): string => route('admin.forms.preview', $record)),
-                    ])->authorize('design')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('submissions')
-                            ->icon(iconName('clipboard'))
+                            ->icon(Icon::Clipboard)
                             ->url(route('admin.form-submissions.index'))
                             ->visible(fn (Form $record): bool => $record->options?->collectResponses ?? false),
                     ])->divided(),
@@ -118,7 +120,7 @@ class FormsList extends TableComponent
 
                                 Notification::make()->success()->title($record->name.' form was deleted');
                             }),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -156,7 +158,7 @@ class FormsList extends TableComponent
                 SelectFilter::make('type')->options(FormType::class),
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Icon::List)
             ->emptyStateHeading('No forms found')
             ->emptyStateDescription('Manage all of Nova’s forms.')
             ->emptyStateActions([

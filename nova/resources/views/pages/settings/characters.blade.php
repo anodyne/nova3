@@ -4,7 +4,7 @@
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                        <x-icon name="search" size="sm"></x-icon>
+                        <x-icon :name="Icon::Search" size="sm"></x-icon>
                         Find a setting
                     </x-button>
                 </div>
@@ -15,14 +15,14 @@
             <x-fieldset>
                 <x-panel.primary
                     title="Looking for character manifest settings?"
-                    icon="characters"
+                    :icon="Icon::Characters"
                     description="Character manifest settings can be found by going to the Design Page screen for the page the character manifest block is on."
                 ></x-panel.primary>
             </x-fieldset>
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="check-circle"></x-icon>
+                    <x-icon :name="Icon::CheckCircle"></x-icon>
                     <x-fieldset.legend>Character creation approvals</x-fieldset.legend>
                     <x-fieldset.description>
                         Set whether characters of certain types require approval before being activated.
@@ -75,7 +75,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="forbid"></x-icon>
+                    <x-icon :name="Icon::Forbid"></x-icon>
                     <x-fieldset.legend>Character limits</x-fieldset.legend>
                     <x-fieldset.description>
                         Define how many active characters a user can have linked to their account. Additional characters
@@ -104,7 +104,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="plus-minus"></x-icon>
+                    <x-icon :name="Icon::PlusMinus"></x-icon>
                     <x-fieldset.legend>Automatic position availability</x-fieldset.legend>
                     <x-fieldset.description>
                         You can pick which character statuses will trigger Nova to automatically update position

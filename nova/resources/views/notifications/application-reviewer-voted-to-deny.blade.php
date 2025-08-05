@@ -2,7 +2,7 @@
 
 <x-notification :notification="$notification">
     <x-slot name="leading" class="text-danger-500">
-        <x-icon name="progress-x" size="xl"></x-icon>
+        <x-icon :name="Icon::ProgressXmark" size="xl"></x-icon>
     </x-slot>
 
     {{-- format-ignore-start --}}

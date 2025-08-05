@@ -1,1 +1,1 @@
-<x-button.editor-tools action="toggleBold()" active="bold" icon="tabler-bold"></x-button.editor-tools>
+<x-button.editor-tools action="toggleBold()" active="bold" :icon="Icon::EditorBold"></x-button.editor-tools>

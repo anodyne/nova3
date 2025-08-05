@@ -36,11 +36,15 @@
                                 <div class="flex w-full items-center gap-4">
                                     <div class="shrink-0">
                                         @if (data_get($actions, "{$story->id}.story.action") === 'move')
-                                            <x-icon name="arrow-right" size="md" class="text-primary-500"></x-icon>
+                                            <x-icon
+                                                :name="Icon::ArrowRightCircle"
+                                                size="md"
+                                                class="text-primary-500"
+                                            ></x-icon>
                                         @endif
 
                                         @if (data_get($actions, "{$story->id}.story.action") === 'delete')
-                                            <x-icon name="trash" size="md" class="text-danger-500"></x-icon>
+                                            <x-icon :name="Icon::Trash" size="md" class="text-danger-500"></x-icon>
                                         @endif
                                     </div>
 
@@ -54,7 +58,7 @@
                                 </div>
 
                                 @if (data_get($actions, "{$story->id}.story.action") === 'move')
-                                    <div class="ml-12 mt-4 w-full max-w-lg space-y-4 text-sm font-normal text-gray-500">
+                                    <div class="mt-4 ml-12 w-full max-w-lg space-y-4 text-sm font-normal text-gray-500">
                                         <x-fieldset.field id="move_story" name="move_story">
                                             <x-select
                                                 wire:change="trackStoryAction({{ $story->id }}, 'move', $event.target.value)"
@@ -92,15 +96,23 @@
                                     <div class="flex items-center gap-4">
                                         <div class="shrink-0">
                                             @if (data_get($actions, "{$story->id}.posts.action") === 'move')
-                                                <x-icon name="arrow-right" size="md" class="text-primary-500"></x-icon>
+                                                <x-icon
+                                                    :name="Icon::ArrowRightCircle"
+                                                    size="md"
+                                                    class="text-primary-500"
+                                                ></x-icon>
                                             @endif
 
                                             @if (data_get($actions, "{$story->id}.posts.action") === 'delete')
-                                                <x-icon name="trash" size="md" class="text-danger-500"></x-icon>
+                                                <x-icon :name="Icon::Trash" size="md" class="text-danger-500"></x-icon>
                                             @endif
 
                                             @if (data_get($actions, "{$story->id}.posts.action") === 'none')
-                                                <x-icon name="remove" size="md" class="text-gray-500"></x-icon>
+                                                <x-icon
+                                                    :name="Icon::MinusCircle"
+                                                    size="md"
+                                                    class="text-gray-500"
+                                                ></x-icon>
                                             @endif
                                         </div>
 
@@ -117,7 +129,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="ml-10 mt-4 max-w-lg space-y-4 text-sm font-normal text-gray-500">
+                                <div class="mt-4 ml-10 max-w-lg space-y-4 text-sm font-normal text-gray-500">
                                     @if (data_get($actions, "{$story->id}.story.action") === 'delete')
                                         <x-radio.group class="w-full max-w-lg">
                                             <x-radio.field>

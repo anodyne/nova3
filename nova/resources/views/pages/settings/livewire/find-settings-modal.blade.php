@@ -4,7 +4,7 @@
             <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Find settings</h3>
 
             <x-button color="neutral" wire:click="dismiss" text>
-                <x-icon name="x" size="sm"></x-icon>
+                <x-icon :name="Icon::Xmark" size="sm"></x-icon>
             </x-button>
         </div>
     </x-spacing>
@@ -14,13 +14,13 @@
             <x-fieldset.field>
                 <x-input.text placeholder="Search for settings" wire:model.live.debounce.500ms="search" autofocus>
                     <x-slot name="leading">
-                        <x-icon name="search" size="sm"></x-icon>
+                        <x-icon :name="Icon::Search" size="sm"></x-icon>
                     </x-slot>
 
                     <x-slot name="trailing">
                         @if ($search)
                             <x-button tag="button" color="neutral" wire:click="$set('search', '')" text>
-                                <x-icon name="x" size="sm"></x-icon>
+                                <x-icon :name="Icon::Xmark" size="sm"></x-icon>
                             </x-button>
                         @endif
                     </x-slot>
@@ -31,7 +31,7 @@
                 @if ($filteredSettings->count() === 0)
                     <div class="flex flex-col items-center h-60">
                         <div class="flex flex-col flex-1 justify-center text-center">
-                            <x-icon name="settings" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
+                            <x-icon :name="Icon::Settings" size="h-12 w-12" class="mx-auto text-gray-500"></x-icon>
                             <h3 class="mt-2 text-sm font-medium text-gray-900">No settings found</h3>
                             <p class="mt-1 text-sm text-gray-600">
                                 Search for settings.

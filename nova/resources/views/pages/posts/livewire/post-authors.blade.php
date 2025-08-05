@@ -31,9 +31,9 @@
         <a role="button" wire:click="openForEditing" class="group">
             <x-empty-state
                 variant="compact"
-                class="border-gray-950/54 rounded-lg border border-dashed transition group-hover:bg-gray-950/[.02] dark:border-white/10 dark:group-hover:bg-white/[.04]"
+                class="rounded-lg border border-dashed border-gray-950/54 transition group-hover:bg-gray-950/[.02] dark:border-white/10 dark:group-hover:bg-white/[.04]"
             >
-                <x-icon name="characters"></x-icon>
+                <x-icon :name="Icon::Characters"></x-icon>
                 <x-h2>No authors</x-h2>
                 <x-text>There are no authors for your post. Add an author to continue writing your post.</x-text>
             </x-empty-state>

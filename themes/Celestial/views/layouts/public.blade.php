@@ -8,7 +8,7 @@
 
 @section('layout')
     <div class="lg:px-8">
-        <div class="mx-auto flex h-full w-full max-w-6xl flex-col bg-[--bodyColor] ring-1 ring-[--bodyBorderColor]">
+        <div class="mx-auto flex h-full w-full max-w-6xl flex-col bg-(--bodyColor) ring-1 ring-(--bodyBorderColor)">
             <header class="relative flex items-center justify-between px-4 py-6 sm:px-8 lg:px-12">
                 <div class="flex items-center">
                     <x-logos.nova class="h-9 w-auto"></x-logos.nova>
@@ -69,7 +69,7 @@
                 @yield('template')
             </main>
 
-            <footer class="border-t border-[--bodyBorderColor] px-4 py-12 sm:px-8 lg:px-12">
+            <footer class="border-t border-(--bodyBorderColor) px-4 py-12 sm:px-8 lg:px-12">
                 <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
                     <div
                         class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200"

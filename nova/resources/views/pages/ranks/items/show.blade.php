@@ -8,7 +8,7 @@
 
                 @can('update', $item)
                     <x-button :href="route('admin.ranks.items.edit', $item)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -68,14 +68,14 @@
                                                 class="group-hover:visible sm:invisible"
                                                 text
                                             >
-                                                <x-icon name="edit" size="sm"></x-icon>
+                                                <x-icon :name="Icon::Edit" size="sm"></x-icon>
                                             </x-button>
                                         @endcan
                                     </div>
                                 @empty
                                     <div class="col-span-2">
                                         <x-empty-state.small
-                                            icon="characters"
+                                            :icon="Icon::Characters"
                                             title="No characters assigned"
                                             message="There aren’t any characters assigned to this rank item. Assign some characters to this rank item to populate this list."
                                         ></x-empty-state.small>

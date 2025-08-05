@@ -1,4 +1,4 @@
-<x-modal.slide-over title="Manage authors" icon="characters">
+<x-modal.slide-over title="Manage authors" :icon="Icon::Characters">
     <div class="space-y-6">
         <div class="space-y-3">
             <x-text size="lg">
@@ -53,7 +53,7 @@
 
                                     @if ($filteredCharacters->isEmpty() && $filteredUsers->isEmpty())
                                         <x-empty-state.small
-                                            icon="alert"
+                                            :icon="Icon::AlertCircle"
                                             title="No author(s) found"
                                         ></x-empty-state.small>
                                     @endif
@@ -109,7 +109,7 @@
                                                         </x-select>
 
                                                         @if (in_array($characterAuthor->id, $characterAuthorsValidationErrors))
-                                                            <p class="ml-0.5 mt-1 text-sm font-medium text-danger-500">
+                                                            <p class="text-danger-500 mt-1 ml-0.5 text-sm font-medium">
                                                                 Select a user to continue
                                                             </p>
                                                         @endif
@@ -117,15 +117,17 @@
                                                 @endif
                                             @endif
 
-                                            <x-dropdown placement="bottom-end">
-                                                <x-slot name="trigger" color="neutral-danger">
-                                                    <x-icon name="trash" size="md"></x-icon>
+                                            <x-dropdown placement="bottom end">
+                                                <x-slot name="trigger">
+                                                    <x-button type="button" color="neutral-danger" size="none" text>
+                                                        <x-icon :name="Icon::Trash" size="md"></x-icon>
+                                                    </x-button>
                                                 </x-slot>
 
                                                 <x-dropdown.group>
                                                     <x-dropdown.text>
                                                         Are you sure you want to remove
-                                                        <strong class="font-semibold text-gray-700 dark:text-gray-200">
+                                                        <strong class="font-semibold">
                                                             {{ $characterAuthor->name }}
                                                         </strong>
                                                         as an author of this post?
@@ -133,16 +135,17 @@
                                                 </x-dropdown.group>
 
                                                 <x-dropdown.group>
-                                                    <x-dropdown.item-danger
-                                                        type="button"
-                                                        icon="trash"
-                                                        wire:click="removeCharacterAuthor({{ $characterAuthor->id }})"
-                                                    >
-                                                        Remove
-                                                    </x-dropdown.item-danger>
                                                     <x-dropdown.item
                                                         type="button"
-                                                        icon="prohibited"
+                                                        :icon="Icon::Trash"
+                                                        wire:click="removeCharacterAuthor({{ $characterAuthor->id }})"
+                                                        variant="danger"
+                                                    >
+                                                        Remove
+                                                    </x-dropdown.item>
+                                                    <x-dropdown.item
+                                                        type="button"
+                                                        :icon="Icon::Ban"
                                                         x-on:click.prevent="$dispatch('dropdown-close')"
                                                     >
                                                         Cancel
@@ -166,31 +169,34 @@
                                         <div class="flex items-center gap-4">
                                             <span>{{ $userAuthor->name }}</span>
 
-                                            <x-dropdown placement="bottom-end">
-                                                <x-slot name="trigger" color="neutral-danger">
-                                                    <x-icon name="trash" size="md"></x-icon>
+                                            <x-dropdown placement="bottom end">
+                                                <x-slot name="trigger">
+                                                    <x-button type="button" color="neutral-danger" size="none" text>
+                                                        <x-icon :name="Icon::Trash" size="md"></x-icon>
+                                                    </x-button>
                                                 </x-slot>
 
                                                 <x-dropdown.group>
                                                     <x-dropdown.text>
                                                         Are you sure you want to remove
-                                                        <strong class="font-semibold text-gray-700 dark:text-gray-200">
+                                                        <strong class="font-semibold">
                                                             {{ $userAuthor->name }}
                                                         </strong>
                                                         as an author of this post?
                                                     </x-dropdown.text>
                                                 </x-dropdown.group>
                                                 <x-dropdown.group>
-                                                    <x-dropdown.item-danger
-                                                        type="button"
-                                                        icon="trash"
-                                                        wire:click="removeUserAuthor({{ $userAuthor->id }})"
-                                                    >
-                                                        Remove
-                                                    </x-dropdown.item-danger>
                                                     <x-dropdown.item
                                                         type="button"
-                                                        icon="prohibited"
+                                                        :icon="Icon::Trash"
+                                                        wire:click="removeUserAuthor({{ $userAuthor->id }})"
+                                                        variant="danger"
+                                                    >
+                                                        Remove
+                                                    </x-dropdown.item>
+                                                    <x-dropdown.item
+                                                        type="button"
+                                                        :icon="Icon::Ban"
                                                         x-on:click.prevent="$dispatch('dropdown-close')"
                                                     >
                                                         Cancel
@@ -203,7 +209,7 @@
                             </div>
                         @else
                             <x-empty-state.small
-                                icon="users"
+                                :icon="Icon::Users"
                                 title="No authors assigned"
                                 message="Add an author to continue writing your post"
                             ></x-empty-state.small>

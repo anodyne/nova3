@@ -22,7 +22,7 @@
 
         {{ NovaView::renderHook('public::head-scripts.after') }}
     </head>
-    <body class="h-full font-[family-name:--font-body] antialiased">
+    <body class="h-full font-(family-name:--font-body) antialiased">
         {{ NovaView::renderHook('public::body.start') }}
 
         <main id="nova">

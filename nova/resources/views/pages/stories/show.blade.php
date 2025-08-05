@@ -26,7 +26,7 @@
 
                 @can('update', $story)
                     <x-button :href="route('admin.stories.edit', $story)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -49,14 +49,14 @@
         <x-spacing height="xl" width="2xs" x-show="isTab('details')" class="space-y-12">
             <div class="space-y-4">
                 <div
-                    class="prose prose-lg max-w-3xl dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
+                    class="prose prose-lg dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400 max-w-3xl"
                 >
                     {!! $story->description !!}
                 </div>
 
-                <div class="flex flex-col space-y-4 text-sm/6 md:flex-row md:items-center md:space-x-8 md:space-y-0">
+                <div class="flex flex-col space-y-4 text-sm/6 md:flex-row md:items-center md:space-y-0 md:space-x-8">
                     @if ($story->started_at)
-                        <x-metadata icon="calendar">
+                        <x-metadata :icon="Icon::Calendar">
                             @if (blank($story->ended_at))
                                 Started on
                             @endif
@@ -68,7 +68,7 @@
                             @endif
                         </x-metadata>
 
-                        <x-metadata icon="clock">
+                        <x-metadata :icon="Icon::Clock">
                             @php($daysRunning = $story->started_at->diffInDays($story->ended_at ?? now()))
                             {{ trans_choice('Running for|Ran for', blank($story->ended_at)) }}
                             {{ number_format($daysRunning) }} {{ str('day')->plural($daysRunning) }}
@@ -76,7 +76,7 @@
                     @endif
 
                     @if ($ancestors->count() > 0)
-                        <x-metadata icon="book">
+                        <x-metadata :icon="Icon::BookClosed">
                             <a
                                 href="{{ route('admin.stories.show', $ancestors->last()) }}"
                                 class="hover:text-primary-500"
@@ -118,7 +118,7 @@
         <x-spacing
             size="md"
             x-show="isTab('summary')"
-            class="prose prose-lg max-w-none dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
+            class="prose prose-lg dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400 max-w-none"
             x-cloak
         >
             {!! $story->summary !!}

@@ -11,7 +11,7 @@
 
                 @can('update', $user)
                     <x-button :href="route('admin.users.edit', $user)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -20,17 +20,17 @@
 
         <x-tab.group name="user" class="mb-12">
             <x-tab.heading name="info">
-                <x-icon name="info" size="sm"></x-icon>
+                <x-icon :name="Icon::Info" size="sm"></x-icon>
                 Basic info
             </x-tab.heading>
             <x-tab.heading name="stats">
-                <x-icon name="chart" size="sm"></x-icon>
+                <x-icon :name="Icon::Chart" size="sm"></x-icon>
                 Stats
             </x-tab.heading>
 
             @if (filled($form->published_fields))
                 <x-tab.heading name="bio">
-                    <x-icon name="user-profile" size="sm"></x-icon>
+                    <x-icon :name="Icon::UserProfile" size="sm"></x-icon>
                     Bio
                 </x-tab.heading>
             @endif
@@ -78,7 +78,7 @@
                         @empty
                             <div class="lg:col-span-2">
                                 <x-empty-state>
-                                    <x-icon name="characters"></x-icon>
+                                    <x-icon :name="Icon::Characters"></x-icon>
                                     <x-h3>No characters assigned</x-h3>
                                     <x-text>
                                         There aren’t any positions assigned to this department. Assign some positions to
@@ -114,7 +114,7 @@
                         @empty
                             <div class="lg:col-span-2">
                                 <x-empty-state>
-                                    <x-icon name="books"></x-icon>
+                                    <x-icon :name="Icon::Books"></x-icon>
                                     <x-h3>No published posts</x-h3>
                                     <x-text>There aren’t any published posts by this user</x-text>
                                 </x-empty-state>

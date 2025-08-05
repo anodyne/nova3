@@ -1,6 +1,6 @@
 @use('Nova\Applications\Enums\ApplicationResult')
 
-<x-modal title="Review application" icon="progress">
+<x-modal title="Review application" :icon="Icon::Progress">
     <x-form action="">
         <x-fieldset>
             <x-fieldset.field-group>
@@ -14,7 +14,7 @@
                             'text-gray-600 ring-gray-200 dark:text-gray-400 dark:ring-gray-700' => $form->result !== ApplicationResult::Accept,
                         ])
                     >
-                        <x-icon name="progress-check" size="xl"></x-icon>
+                        <x-icon :name="Icon::ProgressCheck" size="xl"></x-icon>
                         <div class="flex flex-col gap-y-1">
                             <div
                                 @class([
@@ -37,7 +37,7 @@
                             'text-gray-600 ring-gray-200 dark:text-gray-400 dark:ring-gray-700' => $form->result !== ApplicationResult::Deny,
                         ])
                     >
-                        <x-icon name="progress-x" size="lg"></x-icon>
+                        <x-icon :name="Icon::ProgressXmark" size="lg"></x-icon>
                         <div class="flex flex-col gap-y-1">
                             <div
                                 @class([

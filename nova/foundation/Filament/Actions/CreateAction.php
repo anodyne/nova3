@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Filament\Support\Enums\Size;
+use Nova\Foundation\Icons\Icon;
+
 class CreateAction extends \Filament\Actions\CreateAction
 {
     protected function setUp(): void
@@ -11,7 +14,7 @@ class CreateAction extends \Filament\Actions\CreateAction
         parent::setUp();
 
         $this->color('primary');
-        $this->icon(iconName('add'));
-        $this->iconSize('md');
+        $this->icon(Icon::Plus);
+        $this->size(Size::Medium);
     }
 }

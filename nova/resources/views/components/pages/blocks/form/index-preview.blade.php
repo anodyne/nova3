@@ -2,7 +2,7 @@
     'not-prose',
     'dark' => $dark,
 ]) style="--bgColor: {{ $bgColor ?? 'transparent' }}">
-    <div class="mx-auto max-w-7xl bg-[--bgColor] px-8 py-8 font-[family-name:Flow_Circular]">
+    <div class="mx-auto max-w-7xl bg-(--bgColor) px-8 py-8 font-[family-name:Flow_Circular]">
         <x-public::preview.block.header
             :heading="$heading ?? null"
             :description="$description ?? null"

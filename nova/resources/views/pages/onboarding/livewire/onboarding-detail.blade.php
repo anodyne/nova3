@@ -78,8 +78,8 @@
                 @endif
             </x-dropdown.group>
             <x-dropdown.group>
-                <x-dropdown.item type="button" icon="check" wire:click="finish">Finish</x-dropdown.item>
-                <x-dropdown.item type="button" icon="prohibited" x-on:click.prevent="$dispatch('dropdown-close')">
+                <x-dropdown.item type="button" :icon="Icon::Check" wire:click="finish">Finish</x-dropdown.item>
+                <x-dropdown.item type="button" :icon="Icon::Ban" x-on:click.prevent="$dispatch('dropdown-close')">
                     Cancel
                 </x-dropdown.item>
             </x-dropdown.group>

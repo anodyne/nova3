@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation;
 
-use Illuminate\Support\Collection;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
@@ -208,7 +208,7 @@ class NovaManager
     protected function cssAdminAssets()
     {
         $appUrl = url('');
-        $appStylesPath = "{$appUrl}/dist/css/app.css";
+        $appStylesPath = "{$appUrl}/dist/css/admin.css";
 
         return <<<HTML
 <link href="{$appStylesPath}" rel="stylesheet">

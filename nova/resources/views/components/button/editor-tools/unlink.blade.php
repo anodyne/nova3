@@ -1,1 +1,1 @@
-<x-button.editor-tools action="unsetLink()" icon="tabler-link-off" {{ $attributes }}></x-button.editor-tools>
+<x-button.editor-tools action="unsetLink()" :icon="Icon::LinkOff" {{ $attributes }}></x-button.editor-tools>

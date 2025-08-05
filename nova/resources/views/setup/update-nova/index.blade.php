@@ -10,13 +10,13 @@
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
-                <x-panel.danger title="Error updating Nova" icon="alert-circle">
+                <x-panel.danger title="Error updating Nova" :icon="Icon::AlertCircle">
                     {{ $errorMessage }}
                 </x-panel.danger>
             @endif
 
             <div class="flex items-center justify-center">
-                <x-button.setup type="button" wire:click="update" leading="update">
+                <x-button.setup type="button" wire:click="update" :leading="Icon::RefreshDot">
                     <div class="flex items-center gap-3">
                         <div>Run update</div>
                         <x-icon.loader
@@ -43,7 +43,7 @@
         </div>
 
         <div class="flex items-center justify-center gap-8">
-            <x-button.setup href="{{ route('admin.dashboard') }}" leading="arrow-right">
+            <x-button.setup href="{{ route('admin.dashboard') }}" :leading="Icon::ArrowRightCircle">
                 Back to the site
             </x-button.setup>
         </div>

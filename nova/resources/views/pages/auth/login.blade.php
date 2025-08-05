@@ -9,7 +9,7 @@
                                 <x-input.email
                                     placeholder="john@example.com"
                                     :value="old('email')"
-                                    data-cy="email"
+                                    autocomplete="email"
                                     required
                                     autofocus
                                 ></x-input.email>
@@ -18,15 +18,15 @@
                             <x-fieldset.field label="Password" id="password" name="password">
                                 <x-input.password
                                     placeholder="Your password"
-                                    data-cy="password"
+                                    autocomplete="current-password"
                                     required
                                 ></x-input.password>
                             </x-fieldset.field>
 
-                            <div class="flex items-center gap-x-2.5">
-                                <x-switch name="remember" id="remember"></x-switch>
-                                <x-fieldset.label for="status">Remember me</x-fieldset.label>
-                            </div>
+                            <flux:field variant="inline">
+                                <flux:switch name="remember" id="remember"></flux:switch>
+                                <flux:label>Remember me</flux:label>
+                            </flux:field>
                         </x-fieldset.field-group>
                     </x-fieldset>
 

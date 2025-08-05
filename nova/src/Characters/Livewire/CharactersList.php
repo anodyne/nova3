@@ -39,9 +39,10 @@ use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\RestoreBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class CharactersList extends TableComponent
@@ -100,7 +101,7 @@ class CharactersList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Character $record): string => route('admin.characters.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -115,8 +116,8 @@ class CharactersList extends TableComponent
                                         ]),
                                     ])
                                     ->itemIcons([
-                                        'activated' => iconName('check'),
-                                        'deactivated' => iconName('remove'),
+                                        'activated' => Icon::CheckCircle->value,
+                                        'deactivated' => Icon::MinusCircle->value,
                                     ])
                                     ->itemIconColors([
                                         'activated' => 'success',
@@ -128,7 +129,7 @@ class CharactersList extends TableComponent
                     ActionGroup::make([
                         Action::make('activateCharacter')
                             ->authorize('activate')
-                            ->icon(iconName('check'))
+                            ->icon(Icon::CheckCircle)
                             ->color('gray')
                             ->modalContentView('pages.characters.activate')
                             ->modalSubmitActionLabel('Activate')
@@ -143,7 +144,7 @@ class CharactersList extends TableComponent
                             }),
                         Action::make('deactivateCharacter')
                             ->authorize('deactivate')
-                            ->icon(iconName('remove'))
+                            ->icon(Icon::MinusCircle)
                             ->color('gray')
                             ->modalContentView('pages.characters.deactivate')
                             ->modalSubmitActionLabel('Deactivate')
@@ -156,13 +157,13 @@ class CharactersList extends TableComponent
                                     ->title($record->name.' has been deactivated')
                                     ->send();
                             }),
-                    ])->authorizeAny(['activate', 'deactivate'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('application')
                             ->label('View application')
                             ->color('gray')
-                            ->icon(iconName('progress'))
+                            ->icon(Icon::Progress)
                             ->visible(fn (Character $record): bool => Gate::allows('vote', $record->application))
                             ->url(fn (Character $record): ?string => route('admin.applications.show', $record->application)),
                     ])->visible(fn (Character $record): bool => Gate::allows('vote', $record->application))->divided(),
@@ -200,13 +201,13 @@ class CharactersList extends TableComponent
                                     ->title($record->name.' was force deleted')
                                     ->send();
                             }),
-                    ])->authorizeAny(['delete', 'forceDelete', 'restore'])->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
                 BulkAction::make('bulkActivateCharacter')
                     ->authorize('activateAny')
-                    ->icon(iconName('check'))
+                    ->icon(Icon::CheckCircle)
                     ->color('gray')
                     ->label('Activate selected')
                     ->modalContentView('pages.characters.activate-bulk')
@@ -244,7 +245,7 @@ class CharactersList extends TableComponent
                     }),
                 BulkAction::make('bulkDeactivateCharacter')
                     ->authorize('deactivateAny')
-                    ->icon(iconName('remove'))
+                    ->icon(Icon::MinusCircle)
                     ->color('gray')
                     ->label('Deactivate selected')
                     ->modalContentView('pages.characters.deactivate-bulk')
@@ -390,7 +391,7 @@ class CharactersList extends TableComponent
                     ->visible($user->can('manage', new Character)),
                 TrashedFilter::make()->label('Deleted characters'),
             ])
-            ->emptyStateIcon(iconName('characters'))
+            ->emptyStateIcon(Icon::Characters)
             ->emptyStateHeading('No characters found')
             ->emptyStateDescription('')
             ->emptyStateActions([

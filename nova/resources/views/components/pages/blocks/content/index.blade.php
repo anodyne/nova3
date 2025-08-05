@@ -9,7 +9,7 @@
 <x-public::block.container :$container :$content :$block class="nv-content">
     <div
         @class([
-            'prose max-w-none text-[--prose-text-color]',
+            'prose max-w-none text-(--prose-text-color)',
             $proseSize?->getTailwindClasses(),
             'mt-6' => $hasHeaderContent,
         ])

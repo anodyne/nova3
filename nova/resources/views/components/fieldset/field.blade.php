@@ -24,8 +24,9 @@
         '[&>[data-slot=info]+[data-slot=control]]:mt-3',
         '[&>[data-slot=control]+[data-slot=description]]:mt-3',
         '[&>[data-slot=control]+[data-slot=help]]:mt-1.5',
-        '[&>[data-slot=control]+[data-slot=error]]:mt-3',
-        '[&>[data-slot=control]+[data-slot=info]]:mt-3',
+        '[&>[data-slot=control]+[data-slot=error]]:mt-1.5',
+        '[&>[data-slot=control]+[data-slot=info]]:mt-1.5',
+        '[&>[data-slot=control]+[data-slot=warning]]:mt-1.5',
         '[&>[data-slot=label]]:font-medium',
     ])
     {{ $attributes }}
@@ -42,7 +43,7 @@
 
     @if (filled($error))
         <div data-slot="error" class="flex items-center gap-x-1">
-            <x-icon name="alert" size="sm" class="text-danger-400 dark:text-danger-600"></x-icon>
+            <x-icon :name="Icon::AlertCircle" size="sm" class="text-danger-400 dark:text-danger-600"></x-icon>
             <x-fieldset.error-message>{{ $error }}</x-fieldset.error-message>
         </div>
     @endif

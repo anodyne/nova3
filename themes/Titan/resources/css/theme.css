@@ -1,3 +1,9 @@
+@import "tailwindcss" source("../");
+@import "../../../../nova/resources/css/utilities/safelist.css";
+@import "../../../../nova/resources/css/utilities/fonts.css";
+@reference "../../../../vendor/filament/support/resources/css/index.css";
+@plugin "@tailwindcss/typography";
+
 :root {
     --bg-light: #ffffff;
     --bg-dark: #000;
@@ -30,7 +36,7 @@
 }
 
 html {
-    @apply bg-[--black];
+    @apply bg-(--black);
 }
 
 main#nova {

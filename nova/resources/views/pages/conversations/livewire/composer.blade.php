@@ -2,12 +2,12 @@
     <div class="min-w-0 flex-1">
         <form action="#" class="relative">
             <div
-                class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-200 focus-within:ring-2 focus-within:ring-primary-600"
+                class="focus-within:ring-primary-600 overflow-hidden rounded-lg shadow-sm ring-1 ring-gray-200 ring-inset focus-within:ring-2"
             >
                 <label for="comment" class="sr-only">Add your message</label>
                 <textarea
                     rows="3"
-                    class="block max-h-60 w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 [field-sizing:content] placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    class="block [field-sizing:content] max-h-60 w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                     placeholder="Message Leslie"
                     wire:model.live="content"
                 ></textarea>
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
+            <div class="absolute inset-x-0 bottom-0 flex justify-between py-2 pr-2 pl-3">
                 <div class="flex items-center space-x-5">
                     <div class="flex items-center">
                         <button
@@ -41,7 +41,7 @@
                 </div>
                 <div class="flex-shrink-0">
                     <x-button type="button" wire:click="sendMessage" plain>
-                        <x-icon name="send" size="sm"></x-icon>
+                        <x-icon :name="Icon::Send" size="sm"></x-icon>
                     </x-button>
                 </div>
             </div>

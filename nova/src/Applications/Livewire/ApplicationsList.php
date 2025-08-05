@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Url;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 
 class ApplicationsList extends TableComponent
@@ -76,7 +77,7 @@ class ApplicationsList extends TableComponent
                     ->multiple()
                     ->options(ApplicationResult::class),
             ])
-            ->emptyStateIcon(iconName('progress'))
+            ->emptyStateIcon(Icon::Progress)
             ->emptyStateHeading('No applications found');
     }
 }

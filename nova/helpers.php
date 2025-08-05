@@ -5,32 +5,12 @@ declare(strict_types=1);
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Mistralys\VersionParser\VersionParser;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Nova;
 
 if (! function_exists('gate')) {
     function gate()
     {
         return app(GateContract::class);
-    }
-}
-
-if (! function_exists('icon')) {
-    function icon(string $name, string $size = 'md', string $class = '', array $attributes = [])
-    {
-        return app(Icon::class)->make(
-            name: $name,
-            size: $size,
-            class: $class,
-            attributes: $attributes
-        );
-    }
-}
-
-if (! function_exists('iconName')) {
-    function iconName(string $name)
-    {
-        return icon($name)->name();
     }
 }
 

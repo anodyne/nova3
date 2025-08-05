@@ -27,8 +27,8 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
 class AnnouncementsList extends TableComponent
 {
@@ -95,12 +95,12 @@ class AnnouncementsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Announcement $record): string => route('admin.announcements.edit', $record)),
-                    ])->authorize('update')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('approve')
                             ->authorize('approve')
-                            ->icon(iconName('check-circle'))
+                            ->icon(Icon::CheckCircle)
                             ->modalContent(fn (Announcement $record, Action $action): View => view('pages.announcements.approve', [
                                 'record' => $record,
                                 'action' => $action,
@@ -116,7 +116,7 @@ class AnnouncementsList extends TableComponent
                                     ->body('The announcement has been published and notifications have been sent.')
                                     ->send();
                             }),
-                    ])->authorize('approve')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -134,7 +134,7 @@ class AnnouncementsList extends TableComponent
                             ->modalContentView('pages.announcements.delete')
                             ->successNotificationTitle(fn (Announcement $record): string => $record->title.' announcement was deleted')
                             ->using(fn (Announcement $record): Model => DeleteAnnouncement::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -160,7 +160,7 @@ class AnnouncementsList extends TableComponent
                 SelectFilter::make('category')
                     ->options(Announcement::query()->uniqueCategories()->pluck('category', 'category')->all()),
             ])
-            ->emptyStateIcon(iconName('megaphone'))
+            ->emptyStateIcon(Icon::Megaphone)
             ->emptyStateHeading('No announcements')
             ->emptyStateDescription(null)
             ->emptyStateActions([

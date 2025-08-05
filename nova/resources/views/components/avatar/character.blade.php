@@ -32,11 +32,15 @@
             @endif
 
             @if ($secondaryStatus)
-                <x-badge :color="$character->status->getColor()">{{ $character->status->getLabel() }}</x-badge>
+                <x-badge :color="$character->status->getColor()" variant="dot">
+                    {{ $character->status->getLabel() }}
+                </x-badge>
             @endif
 
             @if ($secondaryType)
-                <x-badge :color="$character->type->getColor()">{{ $character->type->getLabel() }}</x-badge>
+                <x-badge :color="$character->type->getColor()">
+                    {{ $character->type->getLabel() }}
+                </x-badge>
             @endif
 
             {{ $secondary }}

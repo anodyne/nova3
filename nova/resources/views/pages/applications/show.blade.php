@@ -47,7 +47,7 @@
                             <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: true }" x-cloak>
                                 <x-panel.header
                                     title="User details"
-                                    icon="user-profile"
+                                    :icon="Icon::UserProfile"
                                     class="cursor-pointer"
                                     x-on:click="expanded = !expanded"
                                 >
@@ -64,7 +64,7 @@
                                                 'rotate-90': expanded,
                                             }"
                                         >
-                                            <x-icon name="chevron-right" size="md"></x-icon>
+                                            <x-icon :name="Icon::ChevronRight" size="md"></x-icon>
                                         </div>
                                     </x-slot>
                                 </x-panel.header>
@@ -112,7 +112,7 @@
                             <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: false }">
                                 <x-panel.header
                                     title="Character details"
-                                    icon="characters"
+                                    :icon="Icon::Characters"
                                     class="cursor-pointer"
                                     x-on:click="expanded = !expanded"
                                 >
@@ -129,7 +129,7 @@
                                                 'rotate-90': expanded,
                                             }"
                                         >
-                                            <x-icon name="chevron-right" size="md"></x-icon>
+                                            <x-icon :name="Icon::ChevronRight" size="md"></x-icon>
                                         </div>
                                     </x-slot>
                                 </x-panel.header>
@@ -185,7 +185,7 @@
                             <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: false }">
                                 <x-panel.header
                                     title="Application details"
-                                    icon="progress"
+                                    :icon="Icon::Progress"
                                     class="cursor-pointer"
                                     x-on:click="expanded = !expanded"
                                 >
@@ -196,7 +196,7 @@
                                                 'rotate-90': expanded,
                                             }"
                                         >
-                                            <x-icon name="chevron-right" size="md"></x-icon>
+                                            <x-icon :name="Icon::ChevronRight" size="md"></x-icon>
                                         </div>
                                     </x-slot>
                                 </x-panel.header>
@@ -266,14 +266,14 @@
                                                 <div class="ml-8 flex shrink-0 items-center space-x-3">
                                                     <div x-show="!expanded">
                                                         <x-icon
-                                                            name="add"
+                                                            :name="Icon::Plus"
                                                             size="md"
                                                             class="text-gray-400 dark:text-gray-500"
                                                         ></x-icon>
                                                     </div>
                                                     <div x-show="expanded">
                                                         <x-icon
-                                                            name="remove"
+                                                            :name="Icon::MinusCircle"
                                                             size="md"
                                                             class="text-gray-400 dark:text-gray-500"
                                                         ></x-icon>

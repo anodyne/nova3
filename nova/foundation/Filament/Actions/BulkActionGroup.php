@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Filament\Support\Enums\Size;
+use Nova\Foundation\Icons\Icon;
+
 class BulkActionGroup extends \Filament\Actions\BulkActionGroup
 {
     protected function setUp(): void
@@ -11,8 +14,8 @@ class BulkActionGroup extends \Filament\Actions\BulkActionGroup
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(iconName('more'));
-        $this->size('h-7 w-7');
+        $this->icon(Icon::DotsVertical);
+        $this->size(Size::Medium);
         $this->dropdownPlacement('bottom-end');
     }
 

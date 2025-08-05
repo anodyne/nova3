@@ -2,7 +2,7 @@
 
 <x-notification :notification="$notification">
     <x-slot name="leading" class="text-primary-500">
-        <x-icon name="megaphone" size="xl"></x-icon>
+        <x-icon :name="Icon::Megaphone" size="xl"></x-icon>
     </x-slot>
 
     <strong class="font-semibold text-gray-900 dark:text-white">{{ $announcement_title }}</strong>

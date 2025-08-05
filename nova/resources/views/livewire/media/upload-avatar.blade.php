@@ -27,13 +27,13 @@
         @else
             <div
                 @class([
-                    'flex h-16 w-16 items-center justify-center bg-gray-950/5 object-cover ring-1 ring-inset ring-gray-950/5 dark:bg-white/5 dark:ring-white/5',
+                    'flex h-16 w-16 items-center justify-center bg-gray-950/5 object-cover ring-1 ring-gray-950/5 ring-inset dark:bg-white/5 dark:ring-white/5',
                     'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
                     'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
                 ])
             >
                 <div class="text-gray-500 dark:text-gray-400">
-                    <x-icon name="user" size="2xl"></x-icon>
+                    <x-icon :name="Icon::User" size="2xl"></x-icon>
                 </div>
             </div>
         @endif
@@ -52,7 +52,7 @@
 
                 <label
                     for="user-photo"
-                    class="pointer-events-none block rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 peer-hover:bg-slate-50 peer-focus:ring-2 peer-focus:ring-primary-600 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:peer-hover:bg-white/10"
+                    class="peer-focus:ring-primary-600 pointer-events-none block rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-slate-300 ring-inset peer-hover:bg-slate-50 peer-focus:ring-2 dark:bg-white/5 dark:text-white dark:ring-white/10 dark:peer-hover:bg-white/10"
                 >
                     <div class="flex items-center gap-x-2">
                         <div>
@@ -68,7 +68,7 @@
 
             @if ($hasImage)
                 <x-button color="neutral-danger" wire:click="removeImage" text>
-                    <x-icon name="trash" size="sm"></x-icon>
+                    <x-icon :name="Icon::Trash" size="sm"></x-icon>
                 </x-button>
             @endif
         </div>
@@ -76,8 +76,8 @@
         <p class="text-sm font-medium text-gray-500">{{ $supportMessage }}</p>
 
         @error('image')
-            <p class="relative ml-0.5 mt-2 flex w-full items-center space-x-2 text-sm text-danger-600" role="alert">
-                <x-icon name="alert" size="sm" class="shrink-0 text-danger-500"></x-icon>
+            <p class="text-danger-600 relative mt-2 ml-0.5 flex w-full items-center space-x-2 text-sm" role="alert">
+                <x-icon :name="Icon::AlertCircle" size="sm" class="text-danger-500 shrink-0"></x-icon>
                 <span>{{ $message }}</span>
             </p>
         @enderror

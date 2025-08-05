@@ -1,7 +1,7 @@
 <x-auth-layout page-header="Reset your password">
     @if (session('status'))
         <div
-            class="mb-6 rounded-lg border border-warning-300 bg-warning-50 px-4 py-3 font-medium text-warning-600 md:text-sm"
+            class="border-warning-300 bg-warning-50 text-warning-600 mb-6 rounded-lg border px-4 py-3 font-medium md:text-sm"
             role="alert"
         >
             {{ session('status') }}
@@ -26,7 +26,12 @@
 
                         <x-fieldset.field-group>
                             <x-fieldset.field label="Email" id="email" name="email" :error="$errors->first('email')">
-                                <x-input.email :value="old('email')" data-cy="email" placeholder="john@example.com" />
+                                <x-input.email
+                                    :value="old('email')"
+                                    data-cy="email"
+                                    placeholder="john@example.com"
+                                    autocomplete="email"
+                                />
                             </x-fieldset.field>
                         </x-fieldset.field-group>
                     </x-fieldset>

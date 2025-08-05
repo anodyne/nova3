@@ -1,12 +1,12 @@
 @use('Nova\Foundation\Enums\ReleaseSeverity')
 
-<x-modal.slide-over title="Nova updates" icon="update">
+<x-modal.slide-over title="Nova updates" :icon="Icon::RefreshDot">
     <div class="space-y-8">
         @if (! $hasUpdate)
             <x-panel variant="well" color="primary">
                 <x-panel.header
                     title="Nova is up-to-date"
-                    icon="check-circle"
+                    :icon="Icon::CheckCircle"
                     icon-size="lg"
                     description="You are running the latest available release of Nova."
                 ></x-panel.header>
@@ -20,8 +20,8 @@
 
                     @if ($hasCriticalUpdate)
                         <x-slot name="actions">
-                            <div class="flex items-center gap-x-1 text-sm/6 font-medium text-danger-500">
-                                <x-icon name="update-alert" size="sm"></x-icon>
+                            <div class="text-danger-500 flex items-center gap-x-1 text-sm/6 font-medium">
+                                <x-icon :name="Icon::RefreshAlert" size="sm"></x-icon>
                                 <p>Critical update</p>
                             </div>
                         </x-slot>
@@ -37,7 +37,7 @@
                         @endif
 
                         @if (filled($upstream->details))
-                            <div class="prose mt-4 dark:prose-invert">
+                            <div class="prose dark:prose-invert mt-4">
                                 {!! str($upstream->details)->markdown() !!}
                             </div>
                         @endif
@@ -62,7 +62,7 @@
 
         @if ($hasUpcomingUpdate)
             <x-panel variant="well" color="info">
-                <x-panel.header icon="calendar">
+                <x-panel.header :icon="Icon::Calendar">
                     @if (is_null($upcoming->date))
                         <x-slot name="title">Upcoming Nova update planned</x-slot>
 

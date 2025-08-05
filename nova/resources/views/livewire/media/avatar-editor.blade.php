@@ -1,4 +1,4 @@
-<x-modal title="Crop photo" icon="crop" x-data="cropper">
+<x-modal title="Crop photo" :icon="Icon::Crop" x-data="cropper">
     <div>
         <div class="truecropper">
             <img src="{{ $temporaryUrl }}" x-ref="image" class="w-full max-w-full" />

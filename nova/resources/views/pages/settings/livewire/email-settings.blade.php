@@ -35,7 +35,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="image"></x-icon>
+            <x-icon :name="Icon::Photo"></x-icon>
             <x-fieldset.legend>Logo</x-fieldset.legend>
             <x-fieldset.description>
                 You can upload a logo that will be used in the header of the emails sent from Nova.
@@ -55,7 +55,7 @@
 
     <x-fieldset>
         <x-fieldset.heading>
-            <x-icon name="settings"></x-icon>
+            <x-icon :name="Icon::Settings"></x-icon>
             <x-fieldset.legend>Configuration</x-fieldset.legend>
             <x-fieldset.description>
                 Set your email configuration values and they’ll be written to the configuration file for you.

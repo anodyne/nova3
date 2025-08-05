@@ -23,7 +23,7 @@
 
             <ul
                 role="list"
-                class="mt-6 divide-y divide-gray-950/5 border-b border-t border-gray-950/5 dark:divide-white/5 dark:border-white/5"
+                class="mt-6 divide-y divide-gray-950/5 border-t border-b border-gray-950/5 dark:divide-white/5 dark:border-white/5"
             >
                 @forelse ($forms as $f)
                     <li>
@@ -58,9 +58,9 @@
                         <div class="group relative flex items-center space-x-3 py-4">
                             <div class="flex-shrink-0">
                                 <span
-                                    class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-success-500"
+                                    class="bg-success-500 inline-flex h-10 w-10 items-center justify-center rounded-lg"
                                 >
-                                    <x-icon name="check" class="text-white"></x-icon>
+                                    <x-icon :name="Icon::CheckCircle" class="text-white"></x-icon>
                                 </span>
                             </div>
                             <div class="min-w-0 flex-1">

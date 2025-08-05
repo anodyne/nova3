@@ -2,7 +2,7 @@
 
 <x-notification :notification="$notification">
     <x-slot name="leading" class="text-danger-500">
-        <x-icon name="thumbs-down" size="xl"></x-icon>
+        <x-icon :name="Icon::ThumbsDown" size="xl"></x-icon>
     </x-slot>
 
     Your newly created character

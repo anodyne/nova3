@@ -3,8 +3,8 @@
 <div>
     <x-spacing width="sm">
         <div class="flex items-center space-x-2">
-            <x-icon name="bell" size="md" class="shrink-0 text-gray-600 dark:text-gray-500"></x-icon>
-            <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-gray-100" id="modal-title">
+            <x-icon :name="Icon::Bell" size="md" class="shrink-0 text-gray-600 dark:text-gray-500"></x-icon>
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100" id="modal-title">
                 Notification: {{ $notification->name }}
             </h3>
         </div>
@@ -12,7 +12,7 @@
 
     @if ($notification->type === NotificationAudience::Personal)
         @if ($user === null)
-            <x-panel.warning icon="warning" title="You are editing the global setting" class="mx-6 mt-6">
+            <x-panel.warning :icon="Icon::Warning" title="You are editing the global setting" class="mx-6 mt-6">
                 <div class="space-y-4">
                     <p>
                         If you want to update your personal preference for this notification, click the button below to
@@ -29,7 +29,11 @@
         @endif
 
         @if ($user !== null)
-            <x-panel.primary icon="warning" title="You are editing your personal preference setting" class="mx-6 mt-6">
+            <x-panel.primary
+                :icon="Icon::Warning"
+                title="You are editing your personal preference setting"
+                class="mx-6 mt-6"
+            >
                 <div class="space-y-4">
                     <p>
                         If you want to update the global setting for this notification, click the button below to switch
@@ -64,7 +68,7 @@
                         </p>
                     @endif
                 </div>
-                <div class="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
+                <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex sm:flex-shrink-0 sm:items-center">
                     <x-switch name="default" id="default1" :value="old('default')"></x-switch>
                 </div>
             </div>
@@ -88,7 +92,7 @@
                         </p>
                     @endif
                 </div>
-                <div class="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
+                <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex sm:flex-shrink-0 sm:items-center">
                     <x-switch name="default" id="default2" :value="old('default')"></x-switch>
                 </div>
             </div>
@@ -104,7 +108,7 @@
                             settings below.
                         </p>
                     </div>
-                    <div class="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
+                    <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex sm:flex-shrink-0 sm:items-center">
                         <x-switch name="default" id="default3" :value="old('default')"></x-switch>
                     </div>
                 </div>

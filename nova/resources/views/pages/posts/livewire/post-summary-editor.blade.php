@@ -1,7 +1,7 @@
 <x-modal.slide-over
     title="Post summary"
     description="If your post contains content intended only for mature audiences or that could be difficult for some people to read, you can provide a summary of the post."
-    icon="blockquote"
+    :icon="Icon::Blockquote"
 >
     <x-form action="">
         <x-fieldset.field-group>

@@ -1,4 +1,4 @@
-<x-modal title="Manage application reviewers" icon="users">
+<x-modal title="Manage application reviewers" :icon="Icon::Users">
     <x-form action="">
         <x-fieldset>
             <x-checkbox.group class="*:rounded-lg *:px-3 *:py-1 *:odd:bg-gray-950/[.04] *:dark:odd:bg-white/[.07]">

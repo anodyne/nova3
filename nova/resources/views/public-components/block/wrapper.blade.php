@@ -16,8 +16,8 @@
 <div
     {{
         $attributes->class([
-            'nv-wrapper relative isolate overflow-hidden p-0.5 font-[family-name:--font-body]',
-            'bg-[--bgColor]' => ! $noBackground,
+            'nv-wrapper relative isolate overflow-hidden p-0.5 font-(family-name:--font-body)',
+            'bg-(--bgColor)' => ! $noBackground,
         ])
     }}
 >

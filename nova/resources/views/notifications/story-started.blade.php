@@ -2,7 +2,7 @@
 
 <x-notification :notification="$notification">
     <x-slot name="leading" class="text-success-500">
-        <x-icon name="books" size="xl"></x-icon>
+        <x-icon :name="Icon::Books" size="xl"></x-icon>
     </x-slot>
 
     <strong class="font-semibold text-gray-900 dark:text-white">{{ $story_title }}</strong>

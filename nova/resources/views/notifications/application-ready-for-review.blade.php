@@ -2,7 +2,7 @@
 
 <x-notification :notification="$notification">
     <x-slot name="leading" class="text-warning-500">
-        <x-icon name="progress-check" size="xl"></x-icon>
+        <x-icon :name="Icon::ProgressCheck" size="xl"></x-icon>
     </x-slot>
 
     An application for

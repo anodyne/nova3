@@ -10,7 +10,7 @@
 
                 @can('update', $group)
                     <x-button :href="route('admin.ranks.groups.edit', $group)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -56,13 +56,13 @@
                                     class="group-hover:visible sm:invisible"
                                     text
                                 >
-                                    <x-icon name="edit" size="md"></x-icon>
+                                    <x-icon :name="Icon::Edit" size="md"></x-icon>
                                 </x-button>
                             @endcan
                         </x-spacing>
                     @empty
                         <x-empty-state.small
-                            icon="rank"
+                            :icon="Icon::Rank"
                             title="No ranks found for this rank group"
                             :link="route('admin.ranks.items.create')"
                             :link-access="gate()->allows('create', RankItem::class)"

@@ -7,7 +7,7 @@
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                        <x-icon name="search" size="sm"></x-icon>
+                        <x-icon :name="Icon::Search" size="sm"></x-icon>
                         Find a setting
                     </x-button>
                 </div>
@@ -42,7 +42,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="award"></x-icon>
+                    <x-icon :name="Icon::Award"></x-icon>
                     <x-fieldset.legend>Contributions list</x-fieldset.legend>
                     <x-fieldset.description>
                         Update how you’d like the contributions list to be calculated and displayed.
@@ -74,7 +74,7 @@
                         description="You have access to the full Tabler icon set for this icon"
                         name="leaderboard[icon]"
                     >
-                        <x-input.text :value="old('leaderboard[icon]', $settings->leaderboard->icon)" />
+                        <x-input.text :value="old('leaderboard[icon]', $settings->leaderboard->icon->value)" />
                     </x-fieldset.field>
 
                     <x-switch.group>

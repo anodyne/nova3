@@ -44,26 +44,26 @@
 
     <div class="col-start-3 ml-4 flex shrink-0 items-center justify-end">
         @if ($isRunning)
-            <x-icon name="update" class="animate-reverse-spin text-gray-600" size="xl"></x-icon>
+            <x-icon :name="RefreshDot" class="animate-reverse-spin text-gray-600" size="xl"></x-icon>
         @else
             @if ($isFinished)
                 @if ($wasSuccessfullyMigrated)
-                    <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
+                    <x-icon :name="Icon::CheckCircle" class="text-primary-500" size="xl"></x-icon>
                 @else
                     @if ($batchId)
-                        <x-icon name="tabler-progress-bolt" class="text-warning-500" size="xl"></x-icon>
+                        <x-icon :name="Icon::ProgressBolt" class="text-warning-500" size="xl"></x-icon>
                     @else
-                        <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
+                        <x-icon :name="Icon::XmarkCircle" class="text-danger-500" size="xl"></x-icon>
                     @endif
                 @endif
             @else
                 @if ($shouldMigrate)
-                    <x-icon name="circle-dashed" class="text-gray-400" size="xl"></x-icon>
+                    <x-icon :name="Icon::CircleDashed" class="text-gray-400" size="xl"></x-icon>
                 @else
                     @if ($wasSuccessfullyMigrated)
-                        <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
+                        <x-icon :name="Icon::CheckCircle" class="text-primary-500" size="xl"></x-icon>
                     @else
-                        <x-icon name="forbid" class="text-gray-400" size="xl"></x-icon>
+                        <x-icon :name="Icon::Forbid" class="text-gray-400" size="xl"></x-icon>
                     @endif
                 @endif
             @endif

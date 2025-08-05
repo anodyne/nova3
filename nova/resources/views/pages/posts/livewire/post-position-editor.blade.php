@@ -3,25 +3,25 @@
 <x-modal.slide-over
     title="Update post position"
     description="Posts live on a timeline which allows you to set exactly where this post should appear in the story’s timeline."
-    icon="timeline"
+    :icon="Icon::Timeline"
 >
     <flux:tab.group>
         <flux:tabs variant="pills">
             <flux:tab name="custom" wire:click="$set('direction', 'after')">
                 <div class="flex items-center gap-x-1.5">
-                    <x-icon name="arrows-sort" size="sm"></x-icon>
+                    <x-icon :name="Icon::ArrowsSort" size="sm"></x-icon>
                     Custom position
                 </div>
             </flux:tab>
             <flux:tab name="start" wire:click="$set('direction', 'start')">
                 <div class="flex items-center gap-x-1.5">
-                    <x-icon name="arrow-vertical-start" size="sm"></x-icon>
+                    <x-icon :name="Icon::ArrowVerticalStart" size="sm"></x-icon>
                     Start of the story
                 </div>
             </flux:tab>
             <flux:tab name="end" wire:click="$set('direction', 'end')">
                 <div class="flex items-center gap-x-1.5">
-                    <x-icon name="arrow-vertical-end" size="sm"></x-icon>
+                    <x-icon :name="Icon::ArrowVerticalEnd" size="sm"></x-icon>
                     End of the story
                 </div>
             </flux:tab>
@@ -31,7 +31,7 @@
             <x-panel.primary
                 title="Move to start"
                 description="Your post will appear as the first post in the story."
-                icon="arrow-vertical-start"
+                :icon="Icon::ArrowVerticalStart"
             ></x-panel.primary>
         </flux:tab.panel>
 
@@ -39,14 +39,14 @@
             <x-panel.primary
                 title="Move to end"
                 description="Your post will appear as the last post in the story."
-                icon="arrow-vertical-end"
+                :icon="Icon::ArrowVerticalEnd"
             ></x-panel.primary>
         </flux:tab.panel>
 
         <flux:tab.panel name="custom" class="space-y-6">
             <x-panel.manage.search :$search placeholder="Find a post in the current story">
                 @if ($searchResults->count() === 0)
-                    <x-empty-state.small icon="book" title="No post(s) found"></x-empty-state.small>
+                    <x-empty-state.small :icon="Icon::BookClosed" title="No post(s) found"></x-empty-state.small>
                 @else
                     <x-dropdown.group>
                         @foreach ($searchResults as $post)

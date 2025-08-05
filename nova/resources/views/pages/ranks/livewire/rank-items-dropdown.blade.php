@@ -15,7 +15,9 @@
     @if (! isset($items))
         @if ($selected)
             <x-dropdown.group>
-                <x-dropdown.item wire:click="selectRankItem(null)" icon="x">Clear selected rank</x-dropdown.item>
+                <x-dropdown.item wire:click="selectRankItem(null)" :icon="Icon::Xmark">
+                    Clear selected rank
+                </x-dropdown.item>
             </x-dropdown.group>
         @endif
 

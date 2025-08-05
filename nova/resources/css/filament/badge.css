@@ -1,0 +1,21 @@
+.fi-badge {
+    @apply rounded-full font-medium ring-gray-200;
+}
+.fi-badge.fi-size-sm {
+    @apply px-2 py-0.5 text-xs tracking-normal;
+}
+.fi-badge.fi-color-danger {
+    @apply ring-danger-200;
+}
+.fi-badge.fi-color-info {
+    @apply ring-info-200;
+}
+.fi-badge.fi-color-primary {
+    @apply ring-primary-200;
+}
+.fi-badge.fi-color-success {
+    @apply ring-success-200;
+}
+.fi-badge.fi-color-warning {
+    @apply ring-warning-200;
+}

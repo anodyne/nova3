@@ -83,16 +83,7 @@
                     </x-fieldset.field>
 
                     <x-fieldset.field label="Icon" name="icon" id="icon">
-                        <x-slot name="description">
-                            You have access to the full
-                            <x-text.link href="https://tabler.io/icons" target="_blank">Tabler icon set</x-text.link>
-                            for this icon. You can find an icon you and want and enter its name in this field. If you
-                            want to use a filled variant of an icon, append
-                            <code>-filled</code>
-                            to the end of the icon name.
-                        </x-slot>
-
-                        <x-input.text :value="old('icon')" data-cy="icon" />
+                        <livewire:icon-picker :selected="old('icon')" />
                     </x-fieldset.field>
 
                     <x-fieldset.field label="Parent menu item" name="parent_id" id="parent_id">

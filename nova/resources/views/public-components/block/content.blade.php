@@ -52,8 +52,8 @@
             $radius?->getTailwindClasses(),
             $shadow?->getTailwindClasses(),
             $blur?->getTailwindClasses(),
-            'border border-[--content-border-color]' => $hasBorder,
-            'bg-[--content-bg-color]' => $hasBackgroundColor,
+            'border border-(--content-border-color)' => $hasBorder,
+            'bg-(--content-bg-color)' => $hasBackgroundColor,
             'overflow-hidden' => $hasBackgroundImage,
             $innerClass => isset($innerClass),
         ])

@@ -1,5 +1,5 @@
 <x-button.editor-tools
     action="toggleOrderedList()"
     active="orderedList"
-    icon="tabler-list-numbers"
+    :icon="Icon::ListNumbers"
 ></x-button.editor-tools>

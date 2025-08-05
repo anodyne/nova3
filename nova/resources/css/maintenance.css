@@ -1,7 +1,5 @@
 @import 'tailwindcss' source(none);
-
 @source "../views/maintenance.blade.php";
-
 @custom-variant dark (&:is(.dark *));
 
 @theme {

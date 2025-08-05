@@ -4,7 +4,7 @@
             <x-slot name="actions">
                 <div x-data="{}">
                     <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                        <x-icon name="search" size="sm"></x-icon>
+                        <x-icon :name="Icon::Search" size="sm"></x-icon>
                         Find a setting
                     </x-button>
                 </div>
@@ -77,7 +77,7 @@
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon name="users"></x-icon>
+                    <x-icon :name="Icon::Users"></x-icon>
                     <x-fieldset.legend>Reviewers</x-fieldset.legend>
                     <x-fieldset.description>
                         Control the users who are involved in reviewing new users and characters to join the game.

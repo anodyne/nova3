@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Hero;
 
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Grid;
-use Filament\Schemas\Components\Utilities\Get;
 use Closure;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
+use Nova\Foundation\Icons\Icon;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Pages\Blocks\Block as PageBuilderBlock;
 use Nova\Pages\Enums\BoxShadow;
@@ -29,7 +30,7 @@ abstract class HeroBlock extends PageBuilderBlock
             Section::make()
                 ->heading('Buttons')
                 ->description('Customize any buttons you want displayed in the block')
-                ->icon(iconName('click'))
+                ->icon(Icon::Click)
                 ->schema([
                     Repeater::make('block.buttons')
                         ->hiddenLabel()

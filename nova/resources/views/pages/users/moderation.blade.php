@@ -5,7 +5,7 @@
         @can('viewAny', User::class)
             <x-slot name="actions">
                 <x-button :href="route('admin.users.index')">
-                    <x-icon name="users" size="sm"></x-icon>
+                    <x-icon :name="Icon::Users" size="sm"></x-icon>
                     Manage users
                 </x-button>
             </x-slot>

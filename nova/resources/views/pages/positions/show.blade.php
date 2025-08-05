@@ -28,7 +28,7 @@
 
                 @can('update', $position)
                     <x-button :href="route('admin.positions.edit', $position)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -96,14 +96,14 @@
                                                 class="group-hover:visible sm:invisible"
                                                 text
                                             >
-                                                <x-icon name="edit" size="sm"></x-icon>
+                                                <x-icon :name="Icon::Edit" size="sm"></x-icon>
                                             </x-button>
                                         @endcan
                                     </div>
                                 @empty
                                     <div class="col-span-2">
                                         <x-empty-state.small
-                                            icon="characters"
+                                            :icon="Icon::Characters"
                                             title="No characters assigned"
                                             message="There aren’t any characters assigned to this position. Assign some characters to the position to populate this list."
                                         ></x-empty-state.small>
@@ -135,14 +135,14 @@
                                                 class="group-hover:visible sm:invisible"
                                                 text
                                             >
-                                                <x-icon name="edit" size="sm"></x-icon>
+                                                <x-icon :name="Icon::Edit" size="sm"></x-icon>
                                             </x-button>
                                         @endcan
                                     </div>
                                 @empty
                                     <div class="col-span-2">
                                         <x-empty-state.small
-                                            icon="users"
+                                            :icon="Icon::Users"
                                             title="No users assigned"
                                             message="There aren’t any active users who have a character assigned to this position. Assign some characters to the position to populate this list."
                                         ></x-empty-state.small>

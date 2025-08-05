@@ -12,6 +12,7 @@
                                     data-cy="email"
                                     required
                                     autofocus
+                                    autocomplete="email"
                                 />
                             </x-fieldset.field>
 
@@ -21,7 +22,12 @@
                                 name="password"
                                 :error="$errors->first('password')"
                             >
-                                <x-input.password placeholder="Password" data-cy="password" required />
+                                <x-input.password
+                                    placeholder="Password"
+                                    data-cy="password"
+                                    required
+                                    autocomplete="new-password"
+                                />
                             </x-fieldset.field>
 
                             <x-fieldset.field
@@ -34,6 +40,7 @@
                                     placeholder="Confirm your password"
                                     data-cy="password-confirm"
                                     required
+                                    autocomplete="off"
                                 />
                             </x-fieldset.field>
                         </x-fieldset.field-group>

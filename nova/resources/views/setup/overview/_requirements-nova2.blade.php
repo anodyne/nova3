@@ -15,6 +15,6 @@
     </div>
 
     <div class="col-start-3 ml-4 flex shrink-0 justify-end">
-        <x-icon name="help" class="text-warning-500" size="xl"></x-icon>
+        <x-icon :name="Icon::Help" class="text-warning-500" size="xl"></x-icon>
     </div>
 </x-spacing>

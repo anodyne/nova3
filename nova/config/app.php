@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-use Nova\Foundation\Nova;
-use Nova\Foundation\Facades\NovaView;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Facade;
+use Nova\Foundation\Facades\NovaView;
+use Nova\Foundation\Icons\Icon;
+use Nova\Foundation\Icons\Illustration;
+use Nova\Foundation\Nova;
 
 return [
 
@@ -144,9 +146,11 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Illustration' => Illustration::class,
         'Nova' => Nova::class,
         'NovaView' => NovaView::class,
         'SEO' => SEOTools::class,
+        'Icon' => Icon::class,
     ])->toArray(),
 
 ];

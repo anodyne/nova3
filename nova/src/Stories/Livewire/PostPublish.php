@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Nova\Stories\Livewire\Concerns\InteractsWithPost;
-use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Filament\Actions\Action;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
@@ -15,6 +13,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Renderless;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Stories\Actions\UnlockPost;
 use Nova\Stories\Actions\UpdatePostPosition;
@@ -22,6 +21,8 @@ use Nova\Stories\Actions\UpdatePostStatus;
 use Nova\Stories\Data\PostPositionData;
 use Nova\Stories\Data\PostStatusData;
 use Nova\Stories\Enums\PositionDirection;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\States\PostStatus\Published;
 
@@ -70,7 +71,7 @@ class PostPublish extends SlideOver
             ->actions([
                 Action::make('refresh')
                     ->color('gray')
-                    ->icon(iconName('arrows-sync'))
+                    ->icon(Icon::Reload)
                     ->url(route('admin.posts.edit', $this->post)),
             ])
             ->send();

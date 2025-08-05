@@ -4,7 +4,7 @@
             <x-input.text name="{{ $name }}" wire:model.live.debounce.500ms="selected">
                 <x-slot name="trailing">
                     <button type="button" wire:click="resetField">
-                        <x-icon name="x" size="sm"></x-icon>
+                        <x-icon :name="Icon::Xmark" size="sm"></x-icon>
                     </button>
                 </x-slot>
             </x-input.text>
@@ -23,7 +23,7 @@
     </div>
 
     @if ($allowPanda)
-        <div class="ml-0.5 mt-2 flex items-center gap-x-2.5">
+        <div class="mt-2 ml-0.5 flex items-center gap-x-2.5">
             <x-switch wire:model.live="panda" id="panda" name="panda" :on-value="1" :off-value="0"></x-switch>
             <x-fieldset.label for="panda">Pandify 🐼</x-fieldset.label>
         </div>

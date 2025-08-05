@@ -17,7 +17,7 @@
             <div class="nv-ratings-grid-item-rating-wrapper flex items-center gap-x-3">
                 <div
                     @class([
-                        'nv-ratings-grid-item flex h-12 w-12 items-center justify-center rounded-xl font-[family-name:--font-header] text-4xl font-bold ring-1 ring-inset',
+                        'nv-ratings-grid-item flex h-12 w-12 items-center justify-center rounded-xl font-(family-name:--font-header) text-4xl font-bold ring-1 ring-inset',
                         match ($rating->rating) {
                             ContentRatingValue::Level1 => match ($dark) {
                                 true => 'nv-ratings-grid-item-1-dark bg-yellow-500 text-white ring-white/20',

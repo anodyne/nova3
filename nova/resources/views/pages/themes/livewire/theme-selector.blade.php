@@ -14,7 +14,7 @@
                 text
             >
                 <span class="shrink-0">
-                    <x-icon name="settings" size="md"></x-icon>
+                    <x-icon :name="Icon::Settings" size="md"></x-icon>
                 </span>
             </x-button>
         </div>

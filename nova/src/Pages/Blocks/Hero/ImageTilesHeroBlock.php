@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Hero;
 
-use Filament\Schemas\Components\Section;
 use Closure;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Schemas\Components\Section;
+use Nova\Foundation\Icons\Icon;
 
 class ImageTilesHeroBlock extends HeroBlock
 {
@@ -24,7 +25,7 @@ class ImageTilesHeroBlock extends HeroBlock
             Section::make('block.media')
                 ->heading('Media')
                 ->description('Customize the media that you want displayed for the block')
-                ->icon(iconName('image'))
+                ->icon(Icon::Photo)
                 ->schema([
                     Repeater::make('block.media.images')
                         ->maxItems(5)

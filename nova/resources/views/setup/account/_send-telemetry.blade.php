@@ -7,7 +7,7 @@
 
 <x-spacing size="sm" class="col-span-3 grid grid-cols-subgrid">
     <div class="mr-4 shrink-0">
-        <x-icon name="broadcast" size="xl" class="text-gray-500"></x-icon>
+        <x-icon :name="Icon::Broadcast" size="xl" class="text-gray-500"></x-icon>
     </div>
 
     <div class="col-start-2" x-data="{ expanded: false }">
@@ -24,7 +24,7 @@
             </p>
 
             <button
-                class="rounded-full bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 transition hover:bg-gray-100"
+                class="rounded-full bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 ring-1 ring-gray-500/10 transition ring-inset hover:bg-gray-100"
                 x-on:click="expanded = !expanded"
             >
                 <span x-show="expanded" x-cloak>Hide the full list of telemetry data &uarr;</span>
@@ -60,6 +60,6 @@
     </div>
 
     <div class="col-start-3 ml-4 flex shrink-0 justify-end">
-        <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
+        <x-icon :name="Icon::CheckCircle" class="text-primary-500" size="xl"></x-icon>
     </div>
 </x-spacing>

@@ -1,21 +1,16 @@
 @props([
-    'name' => '',
-    'color' => 'blue',
+    'list',
+    'panels',
 ])
 
-@php
-    $name = preg_replace('/[\s]/', '-', $name);
-    if ($name == '') {
-        exit('you need to specify the name property of the tab');
-    }
-@endphp
+<el-tab-group data-slot="tabs">
+    <el-tab-list
+        class="inline-flex h-10 rounded-[10px] bg-gray-800/5 p-[5px] shadow-[inset_0_0_1.5px_.5px_#0000001F] dark:bg-white/10"
+    >
+        {{ $list }}
+    </el-tab-list>
 
-<div
-    data-slot="tabs"
-    @class([
-        'inline-flex items-center gap-x-1.5 overflow-x-scroll rounded-full bg-gray-950/[.08] px-[5px] py-1 text-sm/6 dark:bg-white/5',
-        $attributes->get('class') => $attributes->has('class'),
-    ])
->
-    {{ $slot }}
-</div>
+    <el-tab-panels>
+        {{ $panels }}
+    </el-tab-panels>
+</el-tab-group>
