@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Models;
 
-use Nova\Notes\Events\NoteCreated;
-use Nova\Notes\Events\NoteDeleted;
-use Nova\Notes\Events\NoteUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
-use Nova\Notes\Events;
+use Nova\Notes\Events\NoteCreated;
+use Nova\Notes\Events\NoteDeleted;
+use Nova\Notes\Events\NoteUpdated;
 use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
