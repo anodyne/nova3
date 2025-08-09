@@ -3,6 +3,8 @@
     'variant' => null,
     'size' => 'sm',
     'color' => 'gray',
+    'leading' => false,
+    'trailing' => false,
 ])
 
 @php
@@ -27,8 +29,12 @@
 
 <span
     data-slot="badge"
+    data-nova-badge
+    @if ($variant === 'inset')
+        data-nova-badge-inset
+    @endif
     @class([
-        'nv-badge flex size-max items-center font-medium whitespace-nowrap tabular-nums ring-1 ring-inset',
+        'flex size-max items-center font-medium tracking-normal whitespace-nowrap tabular-nums ring-1 ring-inset',
 
         match ($type) {
             // Color badge
@@ -51,9 +57,9 @@
                     },
                 },
                 match ($size) {
-                    'md' => 'rounded-md text-sm',
-                    'lg' => 'rounded-lg text-sm',
-                    default => 'rounded-md text-xs',
+                    'md' => 'rounded-md text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
+                    'lg' => 'rounded-lg text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-lg)-(--spacing(1)))]',
+                    default => 'rounded-md text-xs [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
                 },
                 $colorClasses,
             ]),
@@ -79,9 +85,9 @@
                     },
                 },
                 match ($size) {
-                    'md' => 'rounded-md text-sm',
-                    'lg' => 'rounded-lg text-sm',
-                    default => 'rounded-md text-xs',
+                    'md' => 'rounded-md text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
+                    'lg' => 'rounded-lg text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-lg)-(--spacing(1)))]',
+                    default => 'rounded-md text-xs [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
                 },
                 'bg-white text-gray-700 ring-gray-200',
             ]),
@@ -114,11 +120,67 @@
                 $colorClasses,
             ]),
         },
+
+        '[&_[data-nova-badge-inset]]:bg-white',
     ])
 >
+    @if ($leading)
+        <div
+            @class([
+                'me-2',
+                match ($type) {
+                    'color' => match ($size) {
+                        'md' => '-ms-1.5',
+                        'lg' => '-ms-1.5',
+                        default => '-ms-1',
+                    },
+                    'modern' => match ($size) {
+                        'md' => '-ms-1.5',
+                        'lg' => '-ms-1.5',
+                        default => '-ms-1',
+                    },
+                    default => match ($size) {
+                        'md' => '-ms-2',
+                        'lg' => '-ms-2',
+                        default => '-ms-1.5',
+                    }
+                },
+            ])
+        >
+            {{ $leading }}
+        </div>
+    @endif
+
     @if ($variant === 'dot')
         <x-badge.dot :class="$addonClasses"></x-badge.dot>
     @endif
 
     {{ $slot }}
+
+    @if ($trailing)
+        <div
+            @class([
+                'ms-2',
+                match ($type) {
+                    'color' => match ($size) {
+                        'md' => '-me-1.5',
+                        'lg' => '-me-1.5',
+                        default => '-me-1',
+                    },
+                    'modern' => match ($size) {
+                        'md' => '-me-1.5',
+                        'lg' => '-me-1.5',
+                        default => '-me-1',
+                    },
+                    default => match ($size) {
+                        'md' => '-me-2',
+                        'lg' => '-me-2',
+                        default => '-me-1.5',
+                    }
+                },
+            ])
+        >
+            {{ $trailing }}
+        </div>
+    @endif
 </span>
