@@ -1,49 +1,48 @@
 @props([
     'character',
-    'primaryRank' => true,
-    'primaryStatus' => false,
-    'secondaryPositions' => true,
-    'secondaryStatus' => false,
-    'secondaryType' => false,
-    'secondary' => false,
+    'rank' => true,
+    'status' => false,
+    'positions' => false,
+    'type' => false,
+    'subtitle' => false,
 ])
 
-@php($character->loadMissing('rank', 'positions'))
+@php
+    $character->loadMissing('rank', 'positions');
 
-<x-avatar.meta :src="$character->avatar_url" {{ $attributes }}>
-    <x-slot name="primary">
-        @if ($primaryStatus)
-            <div class="mr-2 flex items-center">
-                <x-status :status="$character->status"></x-status>
-            </div>
-        @endif
+    $statusColor = ucfirst($character->status->getColor());
 
-        @if ($primaryRank)
+    $badgeColor = strtolower(settings("appearance.colors{$statusColor}"));
+@endphp
+
+<x-avatar :src="$character->avatar_url" {{ $attributes }} :badge="$status" badge:color="{{ $badgeColor }}">
+    <x-slot name="title" class="truncate">
+        @if ($rank)
             {{ $character?->rank?->name?->name }}
         @endif
 
         {{ $character->name }}
     </x-slot>
 
-    @if ($secondaryPositions || $secondaryStatus || $secondaryType || $secondary)
-        <x-slot name="secondary">
-            @if ($secondaryPositions)
-                {{ $character?->positions->implode('name', ' & ') }}
-            @endif
-
-            @if ($secondaryStatus)
-                <x-badge :color="$character->status->getColor()" variant="dot">
+    @if ($positions || $status || $type || $subtitle)
+        <x-slot name="subtitle" class="flex items-center gap-2 truncate">
+            @if ($status)
+                <x-badge :color="$character->status->getColor()" size="sm">
                     {{ $character->status->getLabel() }}
                 </x-badge>
             @endif
 
-            @if ($secondaryType)
+            @if ($type)
                 <x-badge :color="$character->type->getColor()">
                     {{ $character->type->getLabel() }}
                 </x-badge>
             @endif
 
-            {{ $secondary }}
+            @if ($positions)
+                {{ $character?->positions->implode('name', ' & ') }}
+            @endif
+
+            {{ $subtitle }}
         </x-slot>
     @endif
-</x-avatar.meta>
+</x-avatar>
