@@ -123,6 +123,7 @@ enum Icon: string implements HasLabel
     case Columns = 'tabler-columns-3';
     case Compass = 'tabler-compass';
     case Copy = 'tabler-copy';
+    case CopyCheck = 'tabler-copy-check';
     case Crop = 'tabler-crop';
     case Cube = 'tabler-cube';
     case Dashboard = 'tabler-layout-dashboard';
@@ -306,6 +307,10 @@ enum Icon: string implements HasLabel
     case ServerSettings = 'tabler-server-cog';
     case Settings = 'tabler-settings';
     case SettingsCheck = 'tabler-settings-check';
+    case ShapeCircle = 'tabler-circle';
+    case ShapeCircleFilled = 'tabler-circle-filled';
+    case ShapeSquare = 'tabler-square';
+    case ShapeSquareFilled = 'tabler-square-filled';
     case Share = 'tabler-share-2';
     case Shield = 'tabler-shield';
     case ShieldLock = 'tabler-shield-lock';
