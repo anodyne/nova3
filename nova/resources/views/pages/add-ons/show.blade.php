@@ -2,11 +2,11 @@
     <x-spacing constrained>
         <x-page-header :heading="$addon->name" :description="'addons/'.$addon->location">
             <x-slot name="actions">
-                <x-button x-on:click="window.history.back()" plain>&larr; Back</x-button>
+                <x-button x-on:click="window.history.back()" variant="ghost" inset="right">&larr; Back</x-button>
 
                 @can('update', $addon)
-                    <x-button :href="route('admin.addons.edit', $addon)" color="primary">
-                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.addons.edit', $addon)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
@@ -14,7 +14,7 @@
         </x-page-header>
 
         <x-form action="">
-            @if (filled($addon->preview))
+            @if (filled($addon->preview) && Storage::disk('addons')->exists($addon->location.'/'.$addon->preview))
                 <x-panel variant="well">
                     <x-panel variant="inset">
                         <img
@@ -27,35 +27,29 @@
             @endif
 
             <x-fieldset>
-                <x-fieldset.field-group>
-                    <x-fieldset.field label="Version">
-                        <div data-slot="text">
-                            <x-text>{{ $addon->version }}</x-text>
-                        </div>
-                    </x-fieldset.field>
+                <x-fieldset.fields>
+                    <x-input.display label="Version">
+                        <x-text>{{ $addon->version }}</x-text>
+                    </x-input.display>
 
-                    <x-fieldset.field label="Type">
-                        <div data-slot="text">
-                            <x-badge :color="$addon->type->getColor()">
-                                {{ $addon->type->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
+                    <x-input.display label="Type">
+                        <x-badge :color="$addon->type->getColor()" size="md">
+                            {{ $addon->type->getLabel() }}
+                        </x-badge>
+                    </x-input.display>
 
-                    <x-fieldset.field label="Status">
-                        <div data-slot="text">
-                            <x-badge :color="$addon->status->getColor()">
-                                {{ $addon->status->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
+                    <x-input.display label="Status">
+                        <x-badge :color="$addon->status->getColor()" size="md">
+                            {{ $addon->status->getLabel() }}
+                        </x-badge>
+                    </x-input.display>
 
                     @if (filled($addon->credits))
-                        <x-fieldset.field label="Credits">
+                        <x-input.field label="Credits">
                             <x-text>{{ $addon->credits }}</x-text>
-                        </x-fieldset.field>
+                        </x-input.field>
                     @endif
-                </x-fieldset.field-group>
+                </x-fieldset.fields>
             </x-fieldset>
 
             @if (filled($addon->repository?->id))
@@ -63,13 +57,13 @@
                     <x-panel variant="well">
                         <x-panel.header
                             title="Version check info"
-                            :icon="Icon::Broadcast"
+                            :icon="Tabler::Broadcast"
                             description="Basic information about how the add-on checks for new versions"
                         ></x-panel.header>
 
                         <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                            <x-spacing size="row" class="group flex items-center justify-between">
-                                <div class="flex items-center gap-x-3">
+                            <x-spacing size="row" class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
                                     <x-text>
                                         <x-text.strong>Latest version</x-text.strong>
                                     </x-text>
@@ -103,7 +97,7 @@
                                         </x-text>
                                     </div>
                                     <div>
-                                        <x-button :href="$addon->update_url" color="heavy-neutral" text>
+                                        <x-button :href="$addon->update_url" variant="ghost" inset="right top bottom">
                                             Go to add-on repository &rarr;
                                         </x-button>
                                     </div>

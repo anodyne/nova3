@@ -1,5 +1,5 @@
 <div class="space-y-12">
-    <x-add-ons.action-script :action="$action->getModalAction('rankSetInstall')" :icon="Icon::Bolt" title="Install">
+    <x-add-ons.action-script :action="$action->getModalAction('rankSetInstall')" :icon="Tabler::Bolt" title="Install">
         If you would like to install the rank set images, you can run the install script.
 
         <x-slot name="alert">
@@ -10,7 +10,7 @@
 
     <x-add-ons.action-script
         :action="$action->getModalAction('rankSetReplace')"
-        :icon="Icon::PhotoAlert"
+        :icon="Tabler::PhotoExclamation"
         title="Replace existing images"
     >
         This will replace any existing rank set images that are in the same folder structure and have the same name with
@@ -19,7 +19,7 @@
 
     <x-add-ons.action-script
         :action="$action->getModalAction('rankSetAppend')"
-        :icon="Icon::PhotoAdd"
+        :icon="Tabler::PhotoPlus"
         title="Add missing images"
     >
         This will add any rank set images that are not in the existing rank set images in the same folder structure.
@@ -27,7 +27,7 @@
 
     <x-add-ons.action-script
         :action="$action->getModalAction('rankSetUninstall')"
-        :icon="Icon::BoltOff"
+        :icon="Tabler::BoltOff"
         color="danger"
         title="Uninstall"
     >
