@@ -4,11 +4,11 @@
     <x-spacing constrained>
         <x-page-header :heading="$announcement->title">
             <x-slot name="actions">
-                <x-button x-on:click="window.history.back()" plain>&larr; Back</x-button>
+                <x-button x-on:click="window.history.back()" variant="ghost">&larr; Back</x-button>
 
                 @can('update', $announcement)
-                    <x-button :href="route('admin.announcements.edit', $announcement)" color="primary">
-                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.announcements.edit', $announcement)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
@@ -27,7 +27,7 @@
                     @if (filled($announcement->published_at))
                         {{ DateHelper::formatDate($announcement->published_at) }}
                     @else
-                        &ndash;
+                        <em class="text-warning-600">Unpublished</em>
                     @endif
                 </x-slot>
             </x-metadata>

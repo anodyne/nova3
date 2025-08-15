@@ -6,59 +6,47 @@
         <x-page-header>
             @can('viewAny', Announcement::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.announcements.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.announcements.index')" variant="ghost" inset="right">
+                        &larr; Back
+                    </x-button>
                 </x-slot>
             @endcan
         </x-page-header>
 
         <x-form :action="route('admin.announcements.store')">
             <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Title" id="title" name="title" :error="$errors->first('title')">
-                        <x-input.text :value="old('title')" data-cy="title" />
-                    </x-fieldset.field>
+                <x-fieldset.fields constrained>
+                    <x-input label="Title" name="title" :value="old('title')" />
 
-                    <x-fieldset.field
+                    <flux:autocomplete
                         label="Category"
                         description="You can select any existing category that you’ve used in the past, or you can create a new category."
-                        id="category"
                         name="category"
-                        :error="$errors->first('category')"
+                        :value="old('category')"
                     >
-                        <div data-slot="control">
-                            <flux:autocomplete name="category" value="{{ old('category') }}">
-                                @foreach ($categories as $category)
-                                    <flux:autocomplete.item>{{ $category }}</flux:autocomplete.item>
-                                @endforeach
-                            </flux:autocomplete>
-                        </div>
-                    </x-fieldset.field>
+                        @foreach ($categories as $category)
+                            <flux:autocomplete.item>{{ $category }}</flux:autocomplete.item>
+                        @endforeach
+                    </flux:autocomplete>
 
-                    <x-fieldset.field label="Status" id="status" name="status" :error="$errors->first('status')">
-                        <x-select>
-                            <option value="">Choose a status</option>
-                            @foreach (PublishStatus::options() as $status)
-                                <option
-                                    value="{{ $status->value }}"
-                                    @selected($status->value === old('status', 'draft'))
-                                >
-                                    {{ $status->getLabel() }}
-                                </option>
-                            @endforeach
-                        </x-select>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                    <x-select label="Status" name="status">
+                        <option value="">Choose a status</option>
+                        @foreach (PublishStatus::options() as $status)
+                            <option value="{{ $status->value }}" @selected($status->value === old('status', 'draft'))>
+                                {{ $status->getLabel() }}
+                            </option>
+                        @endforeach
+                    </x-select>
+                </x-fieldset.fields>
             </x-fieldset>
 
             <x-fieldset>
-                <x-fieldset.field id="content" name="content" :error="$errors->first('editor-content')">
-                    <x-editor :value="old('editor-content', '')"></x-editor>
-                </x-fieldset.field>
+                <x-editor name="content" :value="old('content')"></x-editor>
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('admin.announcements.index')" plain>Cancel</x-button>
+                <x-button type="submit" variant="primary">Add</x-button>
+                <x-button :href="route('admin.announcements.index')" variant="ghost">Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
