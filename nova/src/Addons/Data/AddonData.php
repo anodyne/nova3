@@ -36,7 +36,7 @@ readonly class AddonData extends Bag
             'version' => $request->input('version'),
             'credits' => $request->input('credits'),
             'type' => AddonType::tryFrom($request->input('status')) ?? AddonType::Extension,
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive') ?? BasicStatus::Active,
             'preview' => $request->input('preview'),
             'settings' => AddonSettings::from(settings: $request->input('settings') ?? []),
             'repository' => $request->has('repository') ? AddonRepository::from($request->input('repository')) : null,

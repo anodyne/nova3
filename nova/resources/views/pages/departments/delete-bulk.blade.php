@@ -3,7 +3,7 @@
 <x-filament.modal-content :$action>
     <x-slot name="title">Delete {{ $count }} selected {{ str('department')->plural($count) }}?</x-slot>
 
-    <p>Are you sure you want to delete the following departments?</p>
+    <x-text variant="strong">Are you sure you want to delete the following departments?</x-text>
 
     <ul class="list-inside list-disc">
         @foreach ($records as $record)
@@ -11,10 +11,10 @@
         @endforeach
     </ul>
 
-    <p>You won’t be able to recover {{ trans_choice('it|them', $count) }}.</p>
+    <x-text variant="strong">You won’t be able to recover {{ trans_choice('it|them', $count) }}.</x-text>
 
-    <p>
+    <x-text variant="strong">
         All positions assigned to {{ trans_choice('this department|these departments', $count) }} will be removed. Any
         character(s) assigned to a removed position will need to be re-assigned to another position.
-    </p>
+    </x-text>
 </x-filament.modal-content>

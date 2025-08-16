@@ -6,7 +6,7 @@
             <x-slot name="description">
                 <div class="flex items-center gap-x-8">
                     <x-metadata label="Status">
-                        <x-badge :color="$department->status->getColor()">
+                        <x-badge :color="$department->status->getColor()" size="md">
                             {{ $department->status->getLabel() }}
                         </x-badge>
                     </x-metadata>
@@ -21,12 +21,15 @@
 
             <x-slot name="actions">
                 @can('viewAny', $department::class)
-                    <x-button :href="route('admin.departments.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.departments.index')" variant="ghost">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
 
                 @can('update', $department)
-                    <x-button :href="route('admin.departments.edit', $department)" color="primary">
-                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.departments.edit', $department)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
@@ -36,15 +39,13 @@
         <x-form action="">
             @if (filled($department->tags))
                 <x-fieldset>
-                    <x-fieldset.field-group constrained>
-                        <x-fieldset.field label="Tags">
-                            <div data-slot="control">
-                                @foreach ($department->tags as $tag)
-                                    <x-badge>{{ $tag }}</x-badge>
-                                @endforeach
-                            </div>
-                        </x-fieldset.field>
-                    </x-fieldset.field-group>
+                    <x-fieldset.fields constrained>
+                        <x-input.display label="Tags">
+                            @foreach ($department->tags as $tag)
+                                <x-badge size="md">{{ $tag }}</x-badge>
+                            @endforeach
+                        </x-input.display>
+                    </x-fieldset.fields>
                 </x-fieldset>
             @endif
 
@@ -55,6 +56,8 @@
                             <x-slot name="actions">
                                 <x-button
                                     :href="route('admin.positions.index', ['tableFilters' => ['department_id' => ['values' => [$department->id]]]])"
+                                    variant="ghost"
+                                    inset="right top bottom"
                                 >
                                     Manage
                                 </x-button>
@@ -62,36 +65,44 @@
                         @endcan
                     </x-panel.header>
 
-                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        @forelse ($department->positions as $position)
-                            <x-spacing size="row" class="group flex items-center justify-between">
-                                <div class="flex items-center gap-x-3">
-                                    <x-status :status="$position->status"></x-status>
-                                    <div class="truncate font-medium text-gray-900 dark:text-white">
-                                        {{ $position->name }}
+                    <x-panel>
+                        <x-panel.group divided>
+                            @forelse ($department->positions as $position)
+                                <x-panel.group.row>
+                                    <div class="flex items-center gap-2">
+                                        <x-status :status="$position->status" />
+                                        <x-heading>{{ $position->name }}</x-heading>
                                     </div>
-                                </div>
-                                @can('update', $position)
-                                    <x-button
-                                        :href="route('admin.positions.edit', $position)"
-                                        class="group-hover:visible sm:invisible"
-                                        color="neutral"
-                                        text
-                                    >
-                                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
-                                    </x-button>
-                                @endcan
-                            </x-spacing>
-                        @empty
-                            <x-empty-state.small
-                                :icon="Icon::List"
-                                title="No positions assigned"
-                                message="There aren’t any positions assigned to this department. Assign some positions to this department to populate this list."
-                                :link-access="gate()->allows('viewAny', Position::class)"
-                                :link="route('admin.positions.index')"
-                                label="Assign positions &rarr;"
-                            ></x-empty-state.small>
-                        @endforelse
+
+                                    @can('update', $position)
+                                        <x-button
+                                            :href="route('admin.positions.edit', $position)"
+                                            variant="subtle"
+                                            inset="right top bottom"
+                                            square
+                                        >
+                                            <x-icon :name="Tabler::Pencil" size="sm" />
+                                        </x-button>
+                                    @endcan
+                                </x-panel.group.row>
+                            @empty
+                                <x-empty>
+                                    <x-illustration :name="Illustration::Megaphone" />
+                                    <x-empty.heading>No positions assigned</x-empty.heading>
+                                    <x-empty.text>
+                                        There aren’t any positions assigned to this department. Assign some positions to
+                                        this department to populate this list.
+                                    </x-empty.text>
+
+                                    @can('viewAny', Position::class)
+                                        <x-button :href="route('admin.positions.index')" variant="ghost">
+                                            Assign positions
+                                            <span aria-hidden="true">→</span>
+                                        </x-button>
+                                    @endcan
+                                </x-empty>
+                            @endforelse
+                        </x-panel.group>
                     </x-panel>
                 </x-panel>
             </x-fieldset>
@@ -106,31 +117,31 @@
                                 @forelse ($department->activeCharacters as $character)
                                     <div class="group flex items-center justify-between">
                                         <div class="flex items-center">
-                                            <x-avatar.character
-                                                :character="$character"
-                                                :primary-rank="false"
-                                                :secondary-positions="true"
-                                            ></x-avatar.character>
+                                            <x-avatar.character :character="$character" positions />
                                         </div>
 
                                         @can('update', $character)
                                             <x-button
                                                 :href="route('admin.characters.edit', $character)"
-                                                color="neutral"
-                                                class="group-hover:visible sm:invisible"
-                                                text
+                                                variant="subtle"
+                                                inset="right top bottom"
+                                                square
                                             >
-                                                <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                                                <x-icon :name="Tabler::Pencil" size="sm" />
                                             </x-button>
                                         @endcan
                                     </div>
                                 @empty
                                     <div class="col-span-2">
-                                        <x-empty-state.small
-                                            :icon="Icon::Characters"
-                                            title="No characters assigned"
-                                            message="There aren’t any characters assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
-                                        ></x-empty-state.small>
+                                        <x-empty>
+                                            <x-illustration :name="Illustration::Vulcan" />
+                                            <x-empty.heading>No characters assigned</x-empty.heading>
+                                            <x-empty.text>
+                                                There aren’t any characters assigned to any positions within this
+                                                department. Assign some characters to positions within this department
+                                                to populate this list.
+                                            </x-empty.text>
+                                        </x-empty>
                                     </div>
                                 @endforelse
                             </div>
@@ -149,27 +160,31 @@
                                 @forelse ($department->activeUsers as $user)
                                     <div class="group flex items-center justify-between">
                                         <div class="flex items-center">
-                                            <x-avatar.user :user="$user"></x-avatar.user>
+                                            <x-avatar.user :$user pronouns />
                                         </div>
 
                                         @can('update', $user)
                                             <x-button
                                                 :href="route('admin.users.edit', $user)"
-                                                color="neutral"
-                                                class="group-hover:visible sm:invisible"
-                                                text
+                                                variant="subtle"
+                                                inset="right top bottom"
+                                                square
                                             >
-                                                <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                                                <x-icon :name="Tabler::Pencil" size="sm" />
                                             </x-button>
                                         @endcan
                                     </div>
                                 @empty
                                     <div class="col-span-2">
-                                        <x-empty-state.small
-                                            :icon="Icon::Users"
-                                            title="No users assigned"
-                                            message="There aren’t any active users who have a character assigned to any positions within this department. Assign some characters to positions within this department to populate this list."
-                                        ></x-empty-state.small>
+                                        <x-empty>
+                                            <x-illustration :name="Illustration::Users" />
+                                            <x-empty.heading>No users assigned</x-empty.heading>
+                                            <x-empty.text>
+                                                There aren’t any active users who have a character assigned to any
+                                                positions within this department. Assign some characters to positions
+                                                within this department to populate this list.
+                                            </x-empty.text>
+                                        </x-empty>
                                     </div>
                                 @endforelse
                             </div>

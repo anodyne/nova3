@@ -5,51 +5,39 @@
         <x-page-header>
             @can('viewAny', Department::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.departments.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.departments.index')" variant="ghost" inset="right">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 </x-slot>
             @endcan
         </x-page-header>
 
         <x-form :action="route('admin.departments.store')">
             <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
-                        <x-input.text :value="old('name')" data-cy="name" />
-                    </x-fieldset.field>
+                <x-fieldset.fields constrained>
+                    <x-input label="Name" name="name" :value="old('name')" />
 
-                    <x-fieldset.field label="Description" id="description" name="description">
-                        <x-input.textarea rows="5">
-                            {{ old('description') }}
-                        </x-input.textarea>
-                    </x-fieldset.field>
+                    <x-textarea label="Description" name="description" rows="5">
+                        {{ old('description') }}
+                    </x-textarea>
 
-                    <div class="flex items-center gap-x-2.5">
-                        <x-switch
-                            name="status"
-                            :value="old('status', 'active')"
-                            on-value="active"
-                            off-value="inactive"
-                            id="status"
-                        ></x-switch>
-                        <x-fieldset.label for="status">Active</x-fieldset.label>
-                    </div>
+                    <x-switch label="Active" name="status" :checked="old('status')" align="left" />
 
-                    <x-fieldset.field
+                    <x-textarea
                         label="Tags"
                         description="A comma-separated list of tags that can be used for organizing your manifest(s)"
-                        id="tags"
                         name="tags"
+                        rows="2"
                     >
-                        <x-input.textarea rows="2">
-                            {{ old('tags') }}
-                        </x-input.textarea>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                        {{ old('tags') }}
+                    </x-textarea>
+                </x-fieldset.fields>
             </x-fieldset>
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon :name="Icon::Photo"></x-icon>
+                    <x-icon :name="Tabler::Photo"></x-icon>
                     <x-fieldset.legend>Header image</x-fieldset.legend>
                     <x-fieldset.description>
                         Header images are used on the public-facing site to give you more control over the look and feel
@@ -58,14 +46,14 @@
                     </x-fieldset.description>
                 </x-fieldset.heading>
 
-                <x-fieldset.field-group constrained>
+                <x-fieldset.fields constrained>
                     <livewire:media-upload-image />
-                </x-fieldset.field-group>
+                </x-fieldset.fields>
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('admin.departments.index')" plain>Cancel</x-button>
+                <x-button type="submit" variant="primary">Add</x-button>
+                <x-button :href="route('admin.departments.index')" variant="ghost">Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

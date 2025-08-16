@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Models;
 
-use Nova\Addons\Events\AddonCreated;
-use Nova\Addons\Events\AddonDeleted;
-use Nova\Addons\Events\AddonUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +13,9 @@ use Nova\Addons\BaseAddon;
 use Nova\Addons\Data\AddonRepository;
 use Nova\Addons\Data\AddonSettings;
 use Nova\Addons\Enums\AddonType;
-use Nova\Addons\Events;
+use Nova\Addons\Events\AddonCreated;
+use Nova\Addons\Events\AddonDeleted;
+use Nova\Addons\Events\AddonUpdated;
 use Nova\Addons\Models\Builders\AddonBuilder;
 use Nova\Foundation\Concerns\ChecksAddonVersion;
 use Nova\Foundation\Concerns\LogsActivity;

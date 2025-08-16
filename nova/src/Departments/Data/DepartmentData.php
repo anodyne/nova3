@@ -28,7 +28,7 @@ readonly class DepartmentData extends Bag
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'tags' => array_map('trim', explode(',', $request->input('tags') ?? '')),
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
         ];
     }
 }

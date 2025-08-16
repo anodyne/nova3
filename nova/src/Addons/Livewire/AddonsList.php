@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Support\Enums\Size;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -30,7 +32,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\TextAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
@@ -86,7 +88,7 @@ class AddonsList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Addon $record): string => route('admin.addons.edit', $record)),
                         TextAction::make('textNotice')
-                            ->icon(Icon::EditOff)
+                            ->icon(Tabler::PencilOff)
                             ->label('This add-on was installed from a QuickInstall file and cannot be edited')
                             ->visible(fn (Addon $record): bool => filled($record->repository?->id)),
                     ])->divided(),
@@ -97,13 +99,13 @@ class AddonsList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->itemIcons([
-                                        'installed' => Icon::Plus->value,
-                                        'ran-append' => Icon::PhotoAdd->value,
-                                        'ran-install' => Icon::Bolt->value,
-                                        'ran-migrations' => Icon::Database->value,
-                                        'ran-migrations-rollback' => Icon::DatabaseOff->value,
-                                        'ran-replace' => Icon::PhotoAlert->value,
-                                        'ran-uninstall' => Icon::BoltOff->value,
+                                        'installed' => Tabler::Plus->value,
+                                        'ran-append' => Tabler::PhotoPlus->value,
+                                        'ran-install' => Tabler::Bolt->value,
+                                        'ran-migrations' => Tabler::Database->value,
+                                        'ran-migrations-rollback' => Tabler::DatabaseOff->value,
+                                        'ran-replace' => Tabler::PhotoExclamation->value,
+                                        'ran-uninstall' => Tabler::BoltOff->value,
                                     ])
                                     ->itemIconColors([
                                         'installed' => 'success',
@@ -151,29 +153,24 @@ class AddonsList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('addonSettings')
-                            ->authorize('update')
+                            ->authorize('updateSettings')
                             ->slideOver()
-                            ->icon(Icon::Settings)
-                            ->modalWidth('lg')
+                            ->icon(Tabler::Settings)
+                            ->modalWidth(Width::Large)
                             ->modalIcon(null)
                             ->modalHeading(fn (Addon $record): string => $record->name.' add-on settings')
                             ->modalDescription(null)
                             ->fillForm(fn (Addon $record): ?array => $record->settings?->settings ?? [])
                             ->schema(fn (Addon $record): ?array => $record->getAddonClass()->settingsForm())
+                            ->successNotificationTitle('Add-on settings have been updated')
                             ->action(function (Addon $record, array $data) {
-                                $settingsData = new AddonSettings(settings: $data);
-
-                                UpdateAddonSettings::run($record, $settingsData);
-
-                                Notification::make()->success()
-                                    ->title('Add-on settings have been updated')
-                                    ->send();
+                                UpdateAddonSettings::run($record, new AddonSettings(settings: $data));
                             }),
                         Action::make('openActionsPanel')
                             ->authorize('runActions')
                             ->slideOver()
-                            ->icon(Icon::Automation)
-                            ->modalWidth('xl')
+                            ->icon(Tabler::Automation)
+                            ->modalWidth(Width::ExtraLarge)
                             ->modalIcon(null)
                             ->modalHeading('')
                             ->modalDescription(null)
@@ -188,7 +185,7 @@ class AddonsList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('goToUpdate')
-                            ->icon(Icon::CloudShare)
+                            ->icon(Tabler::CloudShare)
                             ->url(fn (Addon $record): ?string => $record->update_url)
                             ->visible(fn (Addon $record): bool => $record->has_update),
                     ])->divided(),
@@ -210,10 +207,10 @@ class AddonsList extends TableComponent
                 Action::make('install')
                     ->authorize('create')
                     ->label('Add-ons available to install')
-                    ->icon(Icon::Sparkles)
+                    ->icon(Tabler::Sparkles)
                     ->color('gray')
                     ->visible(fn (): bool => Addon::hasInstallableAddons())
-                    ->modalWidth('xl')
+                    ->modalWidth(Width::ExtraLarge)
                     ->modalIcon(null)
                     ->modalHeading('')
                     ->modalDescription(null)
@@ -267,7 +264,7 @@ class AddonsList extends TableComponent
                         $notification->send();
                     }),
             ])
-            ->emptyStateIcon(Icon::Puzzle)
+            ->emptyStateIcon(Illustration::Addons)
             ->emptyStateHeading('No add-ons found')
             ->emptyStateDescription('Add-ons allow you to personalize and extend Nova to work and behave the way you want.')
             ->emptyStateActions([

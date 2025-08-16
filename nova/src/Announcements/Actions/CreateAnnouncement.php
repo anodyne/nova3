@@ -17,7 +17,7 @@ class CreateAnnouncement
     public function handle(AnnouncementData $data): Announcement
     {
         return DB::transaction(function () use ($data): Announcement {
-            if ($data->user()->isModerated()) {
+            if ($data->status === PublishStatus::Published && $data->user()->isModerated()) {
                 $data = $data->append(['status' => PublishStatus::Pending]);
             }
 

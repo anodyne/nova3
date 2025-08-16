@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -26,6 +27,7 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
@@ -100,7 +102,7 @@ class AnnouncementsList extends TableComponent
                     ActionGroup::make([
                         Action::make('approve')
                             ->authorize('approve')
-                            ->icon(Icon::CheckCircle)
+                            ->icon(Tabler::CircleCheck)
                             ->modalContent(fn (Announcement $record, Action $action): View => view('pages.announcements.approve', [
                                 'record' => $record,
                                 'action' => $action,
@@ -160,7 +162,7 @@ class AnnouncementsList extends TableComponent
                 SelectFilter::make('category')
                     ->options(Announcement::query()->uniqueCategories()->pluck('category', 'category')->all()),
             ])
-            ->emptyStateIcon(Icon::Megaphone)
+            ->emptyStateIcon(Illustration::Megaphone)
             ->emptyStateHeading('No announcements')
             ->emptyStateDescription(null)
             ->emptyStateActions([
