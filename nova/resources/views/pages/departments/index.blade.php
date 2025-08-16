@@ -4,8 +4,8 @@
     <x-page-header>
         @can('create', Department::class)
             <x-slot name="actions">
-                <x-button :href="route('admin.departments.create')" color="primary">
-                    <x-icon :name="Tabler::Plus" size="sm"></x-icon>
+                <x-button :href="route('admin.departments.create')" variant="primary">
+                    <x-icon :name="Tabler::Plus" size="sm" />
                     Add
                 </x-button>
             </x-slot>
@@ -14,5 +14,5 @@
 
     <livewire:departments-list />
 
-    <x-tips section="departments"></x-tips>
+    <x-tips section="departments" />
 </x-admin-layout>

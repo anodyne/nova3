@@ -1,12 +1,18 @@
 @use('Nova\Departments\Models\Position')
+@use('Nova\Foundation\Enums\BasicStatus')
 
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-header>
             @can('viewAny', Position::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.positions.index', 'department='.$position->department->id)" plain>
-                        &larr; Back
+                    <x-button
+                        :href="route('admin.positions.index', 'department='.$position->department->id)"
+                        variant="ghost"
+                        inset="right"
+                    >
+                        <span aria-hidden="true">←</span>
+                        Back
                     </x-button>
                 </x-slot>
             @endcan
@@ -14,62 +20,45 @@
 
         <x-form :action="route('admin.positions.update', $position)" method="PUT">
             <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
-                        <x-input.text :value="old('name', $position->name)" data-cy="name" />
-                    </x-fieldset.field>
+                <x-fieldset.fields constrained>
+                    <x-input label="Name" name="name" :value="old('name', $position->name)" />
 
-                    <x-fieldset.field
-                        label="Department"
-                        name="department_id"
-                        id="department_id"
-                        :error="$errors->first('department_id')"
-                    >
-                        <x-select>
-                            @foreach ($departments as $department)
-                                <option
-                                    value="{{ $department->id }}"
-                                    @if ($department->id == old('department_id', $position->department->id)) selected @endif
-                                >
-                                    {{ $department->name }}
-                                </option>
-                            @endforeach
-                        </x-select>
-                    </x-fieldset.field>
+                    <x-select label="Department" name="department_id">
+                        @foreach ($departments as $department)
+                            <option
+                                value="{{ $department->id }}"
+                                @selected($department->id == old('department_id', $position->department_id))
+                            >
+                                {{ $department->name }}
+                            </option>
+                        @endforeach
+                    </x-select>
 
-                    <x-fieldset.field label="Description" id="description" name="description">
-                        <x-input.textarea rows="5">
-                            {{ old('description', $position->description) }}
-                        </x-input.textarea>
-                    </x-fieldset.field>
+                    <x-textarea label="Description" name="description" rows="5">
+                        {{ old('description', $position->description) }}
+                    </x-textarea>
 
-                    <div class="flex items-center gap-x-2.5">
-                        <x-switch
-                            name="status"
-                            :value="old('status', $position->status->value ?? 'active')"
-                            on-value="active"
-                            off-value="inactive"
-                            id="status"
-                        ></x-switch>
-                        <x-fieldset.label for="status">Active</x-fieldset.label>
-                    </div>
+                    <x-switch
+                        label="Active"
+                        name="status"
+                        :checked="old('status', $position->status === BasicStatus::Active)"
+                        align="left"
+                    />
 
-                    <x-fieldset.field
+                    <x-textarea
                         label="Tags"
                         description="A comma-separated list of tags that can be used for organizing your manifest(s)"
-                        id="tags"
                         name="tags"
+                        rows="2"
                     >
-                        <x-input.textarea rows="2">
-                            {{ old('tags', $position->tags_as_string) }}
-                        </x-input.textarea>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                        {{ old('tags', $position->tags_as_string) }}
+                    </x-textarea>
+                </x-fieldset.fields>
             </x-fieldset>
 
             <x-fieldset>
                 <x-fieldset.heading>
-                    <x-icon :name="Icon::Enter"></x-icon>
+                    <x-icon :name="Tabler::DoorEnter"></x-icon>
                     <x-fieldset.legend>Availability</x-fieldset.legend>
                     <x-fieldset.description>
                         You can allow or prevent players from picking this position by setting the number of available
@@ -77,30 +66,35 @@
 
                         @can('update', settings())
                             <x-fieldset.description class="mt-4">
-                                Nova can keep the number updated for you as characters are assigned and un-assigned to
-                                this position. Go to
-                                <x-button :href="route('admin.settings.characters.edit')" color="primary" text>
-                                    character settings
-                                </x-button>
-                                to update your availability settings.
+                                Nova can keep the number of available slots for a position updated for you as characters
+                                are assigned and un-assigned to the position. You can update the availability settings
+                                for individual character types from Character Settings.
                             </x-fieldset.description>
+
+                            <x-button :href="route('admin.settings.characters.edit')" class="mt-4">
+                                Go to character settings
+                                <span aria-hidden="true">→</span>
+                            </x-button>
                         @endcan
                     </x-fieldset.description>
                 </x-fieldset.heading>
 
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Available slots" id="available" name="available">
+                <x-fieldset.fields constrained>
+                    <div class="w-full sm:w-1/2">
                         <x-input.number
+                            label="Available Slots"
+                            name="available"
                             :value="old('available', $position->available)"
-                            class="w-full sm:w-1/3"
-                        ></x-input.number>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                        />
+                    </div>
+                </x-fieldset.fields>
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Update</x-button>
-                <x-button :href="route('admin.positions.index', $position->department)" plain>Cancel</x-button>
+                <x-button type="submit" variant="primary">Update</x-button>
+                <x-button :href="route('admin.positions.index', $position->department)" variant="ghost">
+                    Cancel
+                </x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
