@@ -5,7 +5,7 @@
         @can('create', RankItem::class)
             <x-slot name="actions">
                 <x-button :href="route('admin.ranks.items.create')" color="primary">
-                    <x-icon :name="Icon::Plus" size="sm"></x-icon>
+                    <x-icon :name="Tabler::Plus" size="sm"></x-icon>
                     Add
                 </x-button>
             </x-slot>

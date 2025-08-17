@@ -15,7 +15,7 @@
     @if (! isset($items))
         @if ($selected)
             <x-dropdown.group>
-                <x-dropdown.item wire:click="selectRankItem(null)" :icon="Icon::Xmark">
+                <x-dropdown.item wire:click="selectRankItem(null)" :icon="Tabler::X">
                     Clear selected rank
                 </x-dropdown.item>
             </x-dropdown.group>
@@ -31,7 +31,10 @@
         </x-dropdown.group>
     @else
         <x-dropdown.group>
-            <x-dropdown.item wire:click="clearRankItems">&larr; Change selected rank group</x-dropdown.item>
+            <x-dropdown.item wire:click="clearRankItems">
+                <span aria-hidden="true">←</span>
+                Change selected rank group
+            </x-dropdown.item>
 
             @forelse ($items as $item)
                 <x-dropdown.item wire:click="selectRankItem({{ $item->id }})">

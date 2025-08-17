@@ -14,18 +14,18 @@ class RankGroupsDropdown extends Component
 {
     public ?int $group = null;
 
+    public function render(): View
+    {
+        return view('pages.ranks.livewire.rank-groups-dropdown', [
+            'rankGroups' => $this->rankGroups,
+        ]);
+    }
+
     #[Computed]
     public function rankGroups(): Collection
     {
         return RankGroup::query()
             ->ordered()
             ->get();
-    }
-
-    public function render(): View
-    {
-        return view('pages.ranks.livewire.rank-groups-dropdown', [
-            'rankGroups' => $this->rankGroups,
-        ]);
     }
 }

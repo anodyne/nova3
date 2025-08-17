@@ -24,7 +24,7 @@ readonly class RankNameData extends Bag
     {
         return [
             'name' => $request->input('name'),
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
         ];
     }
 }

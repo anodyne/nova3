@@ -5,34 +5,26 @@
         <x-page-header>
             @can('viewAny', RankName::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.ranks.names.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.names.index')" variant="ghost" inset="right">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 </x-slot>
             @endcan
         </x-page-header>
 
         <x-form :action="route('admin.ranks.names.store')">
             <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Name" id="name" name="name" :error="$errors->first('name')">
-                        <x-input.text :value="old('name')" data-cy="name" />
-                    </x-fieldset.field>
+                <x-fieldset.fields constrained>
+                    <x-input label="Name" name="name" :value="old('name')" />
 
-                    <div class="flex items-center gap-x-2.5">
-                        <x-switch
-                            name="status"
-                            :value="old('status', 'active')"
-                            on-value="active"
-                            off-value="inactive"
-                            id="status"
-                        ></x-switch>
-                        <x-fieldset.label for="status">Active</x-fieldset.label>
-                    </div>
-                </x-fieldset.field-group>
+                    <x-switch label="Active" name="status" :checked="old('status')" align="left" />
+                </x-fieldset.fields>
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('admin.ranks.names.index')" plain>Cancel</x-button>
+                <x-button type="submit" variant="primary">Add</x-button>
+                <x-button :href="route('admin.ranks.names.index')" variant="ghost">Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

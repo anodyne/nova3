@@ -1,3 +1,4 @@
+@use('Nova\Foundation\Enums\BasicStatus')
 @use('Nova\Ranks\Models\RankItem')
 
 <x-admin-layout>
@@ -5,65 +6,72 @@
         <x-page-header>
             <x-slot name="actions">
                 @can('viewAny', $group::class)
-                    <x-button :href="route('admin.ranks.groups.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.groups.index')" variant="ghost" inset="right">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
             </x-slot>
         </x-page-header>
 
         <x-form :action="route('admin.ranks.groups.update', $group)" method="PUT">
             <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <flux:input label="Name" name="name" :value="old('name', $group->name)"></flux:input>
+                <x-fieldset.fields constrained>
+                    <x-input label="Name" name="name" :value="old('name', $group->name)" />
 
-                    <div class="flex items-center gap-x-2.5">
-                        <x-switch
-                            name="status"
-                            :value="old('status', $group->status->value ?? 'active')"
-                            on-value="active"
-                            off-value="inactive"
-                            id="status"
-                        ></x-switch>
-                        <x-fieldset.label for="status">Active</x-fieldset.label>
-                    </div>
-                </x-fieldset.field-group>
+                    <x-switch
+                        label="Active"
+                        name="status"
+                        :checked="old('status', $group->status === BasicStatus::Active)"
+                        align="left"
+                    />
+                </x-fieldset.fields>
             </x-fieldset>
 
             <x-fieldset>
                 <x-panel variant="well">
                     <x-panel.header title="Ranks assigned to this group"></x-panel.header>
 
-                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                        @forelse ($group->ranks as $rank)
-                            <x-spacing size="row" class="group flex items-center justify-between">
-                                <div class="flex items-center gap-x-3">
-                                    <div class="flex items-center gap-x-3">
-                                        <x-status :status="$rank->status"></x-status>
-                                        <x-rank :rank="$rank"></x-rank>
-                                    </div>
-                                    <div class="truncate font-medium text-gray-950 dark:text-white">
-                                        {{ $rank->name?->name }}
-                                    </div>
-                                </div>
+                    <x-panel>
+                        <x-panel.group divided>
+                            @forelse ($group->ranks as $rank)
+                                <x-panel.group.row>
+                                    <div class="flex items-center gap-3">
+                                        <x-rank :$rank />
+                                        <div class="flex flex-col gap-0.5">
+                                            <x-heading>{{ $rank->name?->name }}</x-heading>
 
-                                @can('update', $rank)
-                                    <x-button
-                                        :href="route('admin.ranks.items.edit', $rank)"
-                                        class="group-hover:visible sm:invisible"
-                                        text
-                                    >
-                                        <x-icon :name="Icon::Edit" size="md"></x-icon>
-                                    </x-button>
-                                @endcan
-                            </x-spacing>
-                        @empty
-                            <x-empty-state.small
-                                :icon="Icon::Rank"
-                                title="No ranks found for this rank group"
-                                :link="route('admin.ranks.items.create')"
-                                :link-access="gate()->allows('create', RankItem::class)"
-                                label="Add a rank item &rarr;"
-                            ></x-empty-state.small>
-                        @endforelse
+                                            <x-badge :color="$rank->status->getColor()">
+                                                {{ $rank->status->getLabel() }}
+                                            </x-badge>
+                                        </div>
+                                    </div>
+
+                                    @can('update', $rank)
+                                        <x-button
+                                            :href="route('admin.ranks.items.edit', $rank)"
+                                            variant="subtle"
+                                            inset="right top bottom"
+                                            square
+                                        >
+                                            <x-icon :name="Tabler::Pencil" size="sm" />
+                                        </x-button>
+                                    @endcan
+                                </x-panel.group.row>
+                            @empty
+                                <x-empty>
+                                    <x-illustration :name="Illustration::MilitaryRank" />
+                                    <x-empty.heading>No ranks found for this rank group</x-empty.heading>
+
+                                    @can('create', RankItem::class)
+                                        <x-button :href="route('admin.ranks.items.create')" variant="ghost">
+                                            Add a rank item
+                                            <span aria-hidden="true">→</span>
+                                        </x-button>
+                                    @endcan
+                                </x-empty>
+                            @endforelse
+                        </x-panel.group>
                     </x-panel>
                 </x-panel>
             </x-fieldset>

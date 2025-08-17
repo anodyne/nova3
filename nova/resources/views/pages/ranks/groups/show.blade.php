@@ -5,12 +5,15 @@
         <x-page-header>
             <x-slot name="actions">
                 @can('viewAny', $group::class)
-                    <x-button :href="route('admin.ranks.groups.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.groups.index')" variant="ghost">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
 
                 @can('update', $group)
-                    <x-button :href="route('admin.ranks.groups.edit', $group)" color="primary">
-                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.ranks.groups.edit', $group)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm"></x-icon>
                         Edit
                     </x-button>
                 @endcan
@@ -19,56 +22,65 @@
 
         <x-form action="">
             <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Group name">
+                <x-fieldset.fields constrained>
+                    <x-input.display label="Group name">
                         <x-text>{{ $group->name }}</x-text>
-                    </x-fieldset.field>
+                    </x-input.display>
 
-                    <x-fieldset.field label="Status">
-                        <div data-slot="text">
-                            <x-badge :color="$group->status->getColor()">
-                                {{ $group->status->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                    <x-input.display label="Status">
+                        <x-badge :color="$group->status->getColor()" size="md">
+                            {{ $group->status->getLabel() }}
+                        </x-badge>
+                    </x-input.display>
+                </x-fieldset.fields>
             </x-fieldset>
 
             <x-panel variant="well">
                 <x-panel.header title="Ranks assigned to this group"></x-panel.header>
 
-                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                    @forelse ($group->ranks as $rank)
-                        <x-spacing size="row" class="group flex items-center justify-between">
-                            <div class="flex items-center gap-x-3">
-                                <div class="flex items-center gap-x-3">
-                                    <x-status :status="$rank->status"></x-status>
-                                    <x-rank :rank="$rank"></x-rank>
-                                </div>
-                                <div class="truncate font-medium text-gray-950 dark:text-white">
-                                    {{ $rank->name?->name }}
-                                </div>
-                            </div>
+                <x-panel>
+                    <x-panel.group divided>
+                        @forelse ($group->ranks as $rank)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3">
+                                    <x-rank :$rank />
 
-                            @can('update', $rank)
-                                <x-button
-                                    :href="route('admin.ranks.items.edit', $rank)"
-                                    class="group-hover:visible sm:invisible"
-                                    text
-                                >
-                                    <x-icon :name="Icon::Edit" size="md"></x-icon>
-                                </x-button>
-                            @endcan
-                        </x-spacing>
-                    @empty
-                        <x-empty-state.small
-                            :icon="Icon::Rank"
-                            title="No ranks found for this rank group"
-                            :link="route('admin.ranks.items.create')"
-                            :link-access="gate()->allows('create', RankItem::class)"
-                            label="Add a rank item &rarr;"
-                        ></x-empty-state.small>
-                    @endforelse
+                                    <div class="flex flex-col gap-0.5">
+                                        <x-heading>
+                                            {{ $rank->name?->name }}
+                                        </x-heading>
+
+                                        <x-badge :color="$rank->status->getColor()">
+                                            {{ $rank->status->getLabel() }}
+                                        </x-badge>
+                                    </div>
+                                </div>
+
+                                @can('update', $rank)
+                                    <x-button
+                                        :href="route('admin.ranks.items.edit', $rank)"
+                                        variant="subtle"
+                                        inset="right top bottom"
+                                        square
+                                    >
+                                        <x-icon :name="Tabler::Pencil" size="sm" />
+                                    </x-button>
+                                @endcan
+                            </x-panel.group.row>
+                        @empty
+                            <x-empty>
+                                <x-illustration :name="Illustration::MilitaryRank" />
+                                <x-empty.heading>No ranks found for this rank group</x-empty.heading>
+
+                                @can('create', RankItem::class)
+                                    <x-button :href="route('admin.ranks.items.create')" variant="ghost">
+                                        Add a rank item
+                                        <span aria-hidden="true">→</span>
+                                    </x-button>
+                                @endcan
+                            </x-empty>
+                        @endforelse
+                    </x-panel.group>
                 </x-panel>
             </x-panel>
         </x-form>

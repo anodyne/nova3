@@ -14,7 +14,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -23,8 +22,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankGroupManager;
 use Nova\Ranks\Actions\DuplicateRankGroup;
@@ -44,6 +42,7 @@ class RankGroupsList extends TableComponent
     {
         return $table
             ->query(RankGroup::query())
+            ->recordUrl(fn (RankGroup $record): string => route('admin.ranks.groups.show', $record))
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
@@ -107,11 +106,6 @@ class RankGroupsList extends TableComponent
                                 );
 
                                 RankGroupDuplicated::dispatch($replica, $record);
-
-                                Notification::make()->success()
-                                    ->title("{$replica->name} rank group has been created")
-                                    ->body("All of the ranks from the {$record->name} rank group have been duplicated into your new rank group.")
-                                    ->send();
                             }),
                     ])->divided(),
 
@@ -129,30 +123,7 @@ class RankGroupsList extends TableComponent
                     ->authorize('deleteAny')
                     ->modalContentView('pages.ranks.groups.delete-bulk')
                     ->action(function (Collection $records): void {
-                        $ignoredRecords = 0;
-
-                        $records = $records
-                            ->filter(function (RankGroup $record) use (&$ignoredRecords): bool {
-                                if (Gate::allows('delete', $record)) {
-                                    return true;
-                                }
-
-                                $ignoredRecords += 1;
-
-                                return false;
-                            })
-                            ->each(fn (RankGroup $record): Model => DeleteRankGroupManager::run($record));
-
-                        Notification::make()->success()
-                            ->title(count($records).' '.trans_choice('rank group was|rank groups were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
-                            ->send();
+                        $records->each(fn (RankGroup $record): Model => DeleteRankGroupManager::run($record));
                     }),
             ])
             ->filters([
@@ -165,7 +136,7 @@ class RankGroupsList extends TableComponent
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(Icon::List)
+            ->emptyStateIcon(Illustration::Layers)
             ->emptyStateHeading('No rank groups found')
             ->emptyStateDescription('Rank groups are a simple way to collect related rank items together for simpler searching and selecting ranks in Nova.')
             ->emptyStateActions([

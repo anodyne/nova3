@@ -3,7 +3,7 @@
 <x-filament.modal-content :$action>
     <x-slot name="title">Delete {{ $count }} selected {{ str('rank item')->plural($count) }}?</x-slot>
 
-    <p>Are you sure you want to delete the following rank items?</p>
+    <x-text variant="strong">Are you sure you want to delete the following rank items?</x-text>
 
     <ul class="list-inside list-disc">
         @foreach ($records as $record)
@@ -14,10 +14,10 @@
         @endforeach
     </ul>
 
-    <p>You won’t be able to recover {{ trans_choice('it|them', $count) }}.</p>
+    <x-text variant="strong">You won’t be able to recover {{ trans_choice('it|them', $count) }}.</x-text>
 
-    <p>
+    <x-text variant="strong">
         Any character with {{ trans_choice('this rank|these ranks', $count) }} will need to have a new rank assigned to
         them.
-    </p>
+    </x-text>
 </x-filament.modal-content>

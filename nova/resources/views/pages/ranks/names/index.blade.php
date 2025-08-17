@@ -4,8 +4,8 @@
     <x-page-header>
         @can('create', RankName::class)
             <x-slot name="actions">
-                <x-button :href="route('admin.ranks.names.create')" color="primary">
-                    <x-icon :name="Icon::Plus" size="sm"></x-icon>
+                <x-button :href="route('admin.ranks.names.create')" variant="primary">
+                    <x-icon :name="Tabler::Plus" size="sm" />
                     Add
                 </x-button>
             </x-slot>

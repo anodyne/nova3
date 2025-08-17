@@ -14,18 +14,18 @@ class RankNamesDropdown extends Component
 {
     public ?int $name = null;
 
+    public function render(): View
+    {
+        return view('pages.ranks.livewire.rank-names-dropdown', [
+            'rankNames' => $this->rankNames,
+        ]);
+    }
+
     #[Computed]
     public function rankNames(): Collection
     {
         return RankName::query()
             ->ordered()
             ->get();
-    }
-
-    public function render(): View
-    {
-        return view('pages.ranks.livewire.rank-names-dropdown', [
-            'rankNames' => $this->rankNames,
-        ]);
     }
 }
