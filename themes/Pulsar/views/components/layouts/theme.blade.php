@@ -28,7 +28,10 @@
             @endguest
 
             @auth
-                <a href="{{ route('admin.dashboard') }}">Dashboard &rarr;</a>
+                <a href="{{ route('admin.dashboard') }}">
+                    Dashboard
+                    <span aria-hidden="true">→</span>
+                </a>
             @endauth
         </div>
     </nav>
