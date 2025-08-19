@@ -15,7 +15,7 @@
             'flex-col' => $orientation === 'vertical',
 
             // Panel
-            'data-[slot=panel]:flex-1 data-[slot=panel]:rounded-xl data-[slot=panel]:bg-white data-[slot=panel]:ring-1 dark:data-[slot=panel]:bg-white/[.03]',
+            'data-[slot=panel]:flex-1 data-[slot=panel]:rounded-xl data-[slot=panel]:bg-white data-[slot=panel]:ring-1 dark:data-[slot=panel]:bg-gray-950',
             match ($color) {
                 'danger' => 'data-[slot=panel]:ring-danger-200 dark:data-[slot=panel]:ring-danger-800',
                 'info' => 'data-[slot=panel]:ring-info-200 dark:data-[slot=panel]:ring-info-800',
@@ -33,7 +33,7 @@
                 'primary' => 'data-[slot=well]:bg-primary-50 data-[slot=well]:ring-primary-200 dark:data-[slot=well]:bg-primary-950 dark:data-[slot=well]:ring-primary-800',
                 'success' => 'data-[slot=well]:bg-success-50 data-[slot=well]:ring-success-200 dark:data-[slot=well]:bg-success-950 dark:data-[slot=well]:ring-success-800',
                 'warning' => 'data-[slot=well]:bg-warning-50 data-[slot=well]:ring-warning-200 dark:data-[slot=well]:bg-warning-950 dark:data-[slot=well]:ring-warning-800',
-                default => 'data-[slot=well]:bg-gray-950/[.04] data-[slot=well]:ring-gray-200 dark:data-[slot=well]:bg-white/5 dark:data-[slot=well]:ring-gray-800',
+                default => 'data-[slot=well]:bg-gray-50 data-[slot=well]:ring-gray-200 dark:data-[slot=well]:bg-gray-900 dark:data-[slot=well]:ring-gray-800',
             } => $variant === 'well',
 
             // Card
