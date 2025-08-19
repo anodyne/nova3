@@ -10,9 +10,7 @@
 @php
     $character->loadMissing('rank', 'positions');
 
-    $statusColor = ucfirst($character->status->getColor());
-
-    $badgeColor = strtolower(settings("appearance.colors{$statusColor}"));
+    $badgeColor = settings('appearance')->getColorFromSemanticColor($character->status->getColor());
 @endphp
 
 <x-avatar :src="$character->avatar_url" {{ $attributes }} :badge="$status" badge:color="{{ $badgeColor }}">
@@ -27,7 +25,7 @@
     @if ($positions || $status || $type || $subtitle)
         <x-slot name="subtitle" class="flex items-center gap-2 truncate">
             @if ($status)
-                <x-badge :color="$character->status->getColor()" size="sm">
+                <x-badge :color="$character->status->getColor()">
                     {{ $character->status->getLabel() }}
                 </x-badge>
             @endif

@@ -3,11 +3,13 @@
     'subtitle' => null,
 ])
 
+@use('Nova\Settings\Enums\AvatarShape')
+
 <div class="flex items-center gap-3" data-slot="avatar">
-    <flux:avatar {{ $attributes }}></flux:avatar>
+    <flux:avatar :circle="settings('appearance.avatarShape') === AvatarShape::Circle" {{ $attributes }}></flux:avatar>
 
     @if ($title || $subtitle)
-        <div>
+        <div class="flex flex-col gap-1">
             @if ($title)
                 <div
                     @class([

@@ -1,5 +1,5 @@
 @props([
-    'type' => 'pill',
+    'type' => 'square',
     'variant' => null,
     'size' => 'sm',
     'color' => 'gray',
@@ -9,21 +9,21 @@
 
 @php
     $colorClasses = match ($color) {
-        'primary' => 'bg-primary-50 text-primary-700 ring-primary-200',
-        'danger' => 'bg-danger-50 text-danger-700 ring-danger-200',
-        'info' => 'bg-info-50 text-info-700 ring-info-200',
-        'success' => 'bg-success-50 text-success-700 ring-success-200',
-        'warning' => 'bg-warning-50 text-warning-700 ring-warning-200',
-        default => 'bg-gray-50 text-gray-700 ring-gray-200',
+        'primary' => 'bg-primary-50 dark:bg-primary-900 dark:ring-primary-700 dark:text-primary-300 text-primary-700 ring-primary-200',
+        'danger' => 'bg-danger-50 dark:bg-danger-900 dark:ring-danger-700 dark:text-danger-300 text-danger-700 ring-danger-200',
+        'info' => 'bg-info-50 dark:bg-info-900 dark:ring-info-700 dark:text-info-300 text-info-700 ring-info-200',
+        'success' => 'bg-success-50 dark:bg-success-900 dark:ring-success-700 dark:text-success-300 text-success-700 ring-success-200',
+        'warning' => 'bg-warning-50 dark:bg-warning-900 dark:ring-warning-700 dark:text-warning-300 text-warning-700 ring-warning-200',
+        default => 'bg-gray-50 text-gray-700 ring-gray-200 dark:bg-gray-900 dark:text-gray-300 dark:ring-gray-700',
     };
 
     $addonClasses = match ($color) {
-        'primary' => 'text-primary-500',
-        'danger' => 'text-danger-500',
-        'info' => 'text-info-500',
-        'success' => 'text-success-500',
-        'warning' => 'text-warning-500',
-        default => 'text-gray-500',
+        'primary' => 'text-primary-500 dark:text-primary-300',
+        'danger' => 'text-danger-500 dark:text-danger-300',
+        'info' => 'text-info-500 dark:text-info-300',
+        'success' => 'text-success-500 dark:text-success-300',
+        'warning' => 'text-warning-500 dark:text-warning-300',
+        default => 'text-gray-500 dark:text-gray-300',
     };
 @endphp
 
@@ -34,11 +34,11 @@
         data-nova-badge-inset
     @endif
     @class([
-        'flex size-max items-center font-medium tracking-normal whitespace-nowrap tabular-nums ring-1 ring-inset',
+        'inline-flex size-max items-center font-medium tracking-normal whitespace-nowrap tabular-nums ring-1 ring-inset',
 
         match ($type) {
-            // Color badge
-            'color' => Arr::toCssClasses([
+            // Square badge
+            'square' => Arr::toCssClasses([
                 match ($variant) {
                     'dot' => match ($size) {
                         'md' => 'gap-1 px-2 py-0.5',
@@ -129,7 +129,7 @@
             @class([
                 'me-2',
                 match ($type) {
-                    'color' => match ($size) {
+                    'square' => match ($size) {
                         'md' => '-ms-1.5',
                         'lg' => '-ms-1.5',
                         default => '-ms-1',
@@ -162,7 +162,7 @@
             @class([
                 'ms-2',
                 match ($type) {
-                    'color' => match ($size) {
+                    'square' => match ($size) {
                         'md' => '-me-1.5',
                         'lg' => '-me-1.5',
                         default => '-me-1',

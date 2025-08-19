@@ -6,9 +6,7 @@
 ])
 
 @php
-    $statusColor = ucfirst($user->status->getColor());
-
-    $badgeColor = strtolower(settings("appearance.colors{$statusColor}"));
+    $badgeColor = settings('appearance')->getColorFromSemanticColor($user->status->getColor());
 @endphp
 
 <x-avatar
