@@ -1,0 +1,13 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g class="[--illustration-bg:var(--color-white)] [--illustration-accent-light:var(--color-primary-200)] [--illustration-accent:var(--color-primary-600)] [--illustration-accent-bg:var(--color-primary-50)]">
+        <path d="M10 50a40 40 0 1 0 80 0 40 40 0 1 0 -80 0Z" class="fill-(--illustration-accent-bg)" stroke-width="1"></path>
+        <path d="M69.983 62.663 50 56.269l-19.983 6.394H18.028v0.1a5.114 5.114 0 0 0 3.556 4.872l26.857 8.594a5.107 5.107 0 0 0 3.118 0l26.857 -8.594a5.114 5.114 0 0 0 3.556 -4.872v-0.1Z" class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+        <path d="m50 52.432 31.972 10.231 -31.192 9.982a2.564 2.564 0 0 1 -1.56 0l-31.192 -9.982Z" class="fill-(--illustration-bg)" stroke-width="1"></path>
+        <path d="m50 52.432 31.972 10.231 -31.192 9.982a2.564 2.564 0 0 1 -1.56 0l-31.192 -9.982Z" fill="none" class="stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+        <path d="M69.983 48.6 50 42.2l-19.983 6.4H18.028v0.1a5.114 5.114 0 0 0 3.556 4.872l26.857 8.595a5.122 5.122 0 0 0 3.118 0l26.857 -8.597a5.114 5.114 0 0 0 3.556 -4.87v-0.1Z" class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+        <path d="m50 38.364 31.972 10.232L50 58.827 18.028 48.596 50 38.364z" class="fill-(--illustration-bg)" stroke-width="1"></path>
+        <path d="M50 38.364 81.972 48.6 50.78 58.577a2.549 2.549 0 0 1 -1.56 0L18.028 48.6Z" fill="none" class="stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+        <path d="M69.983 34.528 50 28.133l-19.983 6.4H18.028v0.1a5.114 5.114 0 0 0 3.556 4.867l26.857 8.6a5.122 5.122 0 0 0 3.118 0l26.857 -8.6a5.114 5.114 0 0 0 3.556 -4.872v-0.1Z" class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+        <path d="M49.22 24.546a2.564 2.564 0 0 1 1.56 0l31.192 9.982 -31.192 9.981a2.549 2.549 0 0 1 -1.56 0l-31.192 -9.981Z" class="fill-(--illustration-bg) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+    </g>
+</svg>
