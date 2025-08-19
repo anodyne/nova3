@@ -7,6 +7,7 @@ namespace Nova\Setup\Actions;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\RecacheIcons;
 
 class UpdateNova
 {
@@ -26,6 +27,8 @@ class UpdateNova
 
         Artisan::call('icons:cache');
         Artisan::call('view:cache');
+
+        RecacheIcons::run();
     }
 
     public function asCommand(Command $command): void

@@ -13,6 +13,7 @@ use Livewire\Component;
 use Nova\Addons\Actions\BustActiveAddonsCache;
 use Nova\Addons\Actions\InstallAddon;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Actions\RecacheIcons;
 use Nova\Foundation\EnvWriter;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Models\ExternalContent;
@@ -165,6 +166,7 @@ class InstallNova extends Component
 
         RecachePages::run();
         RecacheMenus::run();
+        RecacheIcons::run();
     }
 
     protected function installThemes(): void

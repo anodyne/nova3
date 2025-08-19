@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
-use Anodyne\TablerIcons\Tabler;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Foundation\Actions\RecacheIcons;
 
 class IconPicker extends Component
 {
@@ -19,18 +19,9 @@ class IconPicker extends Component
 
     public function mount()
     {
-        Cache::forget('tabler.icons.searchable');
-
-        $searchableIcons = collect(Tabler::cases())
-            ->map(fn ($icon) => [
-                'name' => $name = str($icon->name)->headline()->toString(),
-                'value' => $icon->value,
-                'searchable' => strtolower($name.' '.$icon->value),
-            ])
-            ->values()
-            ->toArray();
-
-        Cache::put('tabler.icons.searchable', $searchableIcons);
+        if (Cache::missing('tabler.icons.searchable')) {
+            RecacheIcons::run();
+        }
     }
 
     public function render()
