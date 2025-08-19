@@ -25,7 +25,8 @@ return new class extends Migration
             $table->json('repository')->nullable();
             $table->datetimes();
 
-            $table->fullText(['name', 'location']);
+            $table->fullText('name');
+            $table->fullText('location');
             $table->index(['type', 'status']);
             $table->index('type');
             $table->index('status');

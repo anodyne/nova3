@@ -7,6 +7,13 @@ use Illuminate\Pipeline\Pipeline;
 use Mistralys\VersionParser\VersionParser;
 use Nova\Foundation\Nova;
 
+if (! function_exists('__s')) {
+    function __s(string $key): Stringable
+    {
+        return str(trans($key));
+    }
+}
+
 if (! function_exists('gate')) {
     function gate()
     {

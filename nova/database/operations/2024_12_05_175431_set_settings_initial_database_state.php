@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Nova\Foundation\Icons\Icon;
+use Anodyne\TablerIcons\Tabler;
 use Nova\Settings\Data\Appearance;
 use Nova\Settings\Data\Applications;
 use Nova\Settings\Data\Characters;
@@ -124,7 +124,7 @@ return new class extends OneTimeOperation
             'dashboard' => Dashboard::from(
                 leaderboard: Leaderboard::from(
                     title: 'Top Contributors',
-                    icon: Icon::Award,
+                    icon: Tabler::Award,
                     target: PostingTarget::Words,
                     userSelectableTimeframe: false,
                     timeframe: LeaderboardTimeframe::Days30,

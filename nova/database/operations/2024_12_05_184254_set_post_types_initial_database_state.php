@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Nova\Foundation\Icons\Icon;
+use Anodyne\TablerIcons\Tabler;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Data\Field;
 use Nova\Stories\Data\Fields;
@@ -39,7 +39,7 @@ return new class extends OneTimeOperation
                 'key' => 'post',
                 'description' => 'A post that drives the story forward. It can be a singular post or a collaborative post with other characters in the game.',
                 'color' => '#0ea5e9',
-                'icon' => Icon::BookClosed,
+                'icon' => Tabler::Book2,
                 'visibility' => PostTypeVisibility::InCharacter,
                 'fields' => Fields::from([
                     'title' => Field::from([
@@ -88,7 +88,7 @@ return new class extends OneTimeOperation
                 'key' => 'personal',
                 'description' => 'A post more geared toward telling the perspective of individual characters. This can often be thought of as an inner monologue or journal entry.',
                 'color' => '#10b981',
-                'icon' => Icon::AddressBook,
+                'icon' => Tabler::AddressBook,
                 'visibility' => PostTypeVisibility::InCharacter,
                 'fields' => Fields::from([
                     'title' => Field::from([
@@ -137,7 +137,7 @@ return new class extends OneTimeOperation
                 'key' => 'marker',
                 'description' => 'Mark time or location for the story to give players an indication that the action has moved location or timeframes.',
                 'color' => '#ec4899',
-                'icon' => Icon::Location,
+                'icon' => Tabler::MapPin,
                 'visibility' => PostTypeVisibility::OutOfCharacter,
                 'fields' => Fields::from([
                     'title' => Field::from([
@@ -187,7 +187,7 @@ return new class extends OneTimeOperation
                 'key' => 'note',
                 'description' => 'Inform players of key pieces of information about the story in a single place. Players will be able to see all notes when composing a new story post.',
                 'color' => '#a855f7',
-                'icon' => Icon::Bulb,
+                'icon' => Tabler::Bulb,
                 'visibility' => PostTypeVisibility::OutOfCharacter,
                 'fields' => Fields::from([
                     'title' => Field::from([
