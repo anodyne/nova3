@@ -4,7 +4,7 @@
     'actions' => null,
 ])
 
-<div class="flex items-start gap-x-4">
+<div class="flex items-start gap-4">
     <div
         @class([
             'shrink-0',
@@ -23,7 +23,7 @@
         </div>
 
         <div class="mt-2">
-            <x-text color="subtle" size="sm">
+            <x-text variant="subtle">
                 {{ data_get($notification, 'date') }}
             </x-text>
         </div>
