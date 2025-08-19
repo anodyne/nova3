@@ -1,0 +1,36 @@
+@props([
+    'variant' => null,
+])
+
+<div
+    {{
+        $attributes->class([
+            // Base styles
+            'flex flex-col items-center',
+
+            // Variant styles
+            match ($variant) {
+                'compact' => 'p-4 [&>[data-slot=icon]]:size-8 [&>[data-slot=illustration]]:w-28',
+                'jumbo' => 'p-8 [&>[data-slot=icon]]:size-32 [&>[data-slot=illustration]]:w-52',
+                default => 'p-6 [&>[data-slot=icon]]:size-16 [&>[data-slot=illustration]]:w-40',
+            },
+
+            // Icon styles
+            '[&>[data-slot=icon]]:text-gray-400 dark:[&>[data-slot=icon]]:text-gray-500',
+
+            // Illustration styles
+            '[&>[data-slot=illustration]]:h-auto',
+
+            // Spacing styles
+            '[&>[data-slot=icon]+[data-slot=heading]]:mt-2',
+            '[&>[data-slot=illustration]+[data-slot=heading]]:mt-2',
+            '[&>[data-slot=icon]+[data-slot=text]]:mt-2',
+            '[&>[data-slot=illustration]+[data-slot=text]]:mt-2',
+            '[&>[data-slot=heading]+[data-slot=text]]:mt-2',
+            '[&>[data-slot=heading]+[data-slot=button]]:mt-6',
+            '[&>[data-slot=text]+[data-slot=button]]:mt-6',
+        ])
+    }}
+>
+    {{ $slot }}
+</div>
