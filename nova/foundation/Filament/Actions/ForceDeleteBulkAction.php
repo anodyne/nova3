@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
-use Nova\Foundation\Icons\Icon;
 
 class ForceDeleteBulkAction extends \Filament\Actions\ForceDeleteBulkAction
 {
@@ -18,7 +18,7 @@ class ForceDeleteBulkAction extends \Filament\Actions\ForceDeleteBulkAction
     {
         parent::setUp();
 
-        $this->icon(Icon::Trash);
+        $this->icon(Tabler::Trash);
 
         $this->requiresConfirmation(false);
 

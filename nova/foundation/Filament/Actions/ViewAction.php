@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Size;
-use Nova\Foundation\Icons\Icon;
 
 class ViewAction extends \Filament\Actions\ViewAction
 {
@@ -14,7 +14,7 @@ class ViewAction extends \Filament\Actions\ViewAction
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(Icon::Show);
+        $this->icon(Tabler::Eye);
         $this->size(Size::Medium);
     }
 }

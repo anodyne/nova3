@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
-use Nova\Foundation\Icons\Icon;
 
 class DeleteAction extends \Filament\Actions\DeleteAction
 {
@@ -18,9 +18,23 @@ class DeleteAction extends \Filament\Actions\DeleteAction
     {
         parent::setUp();
 
-        $this->icon(Icon::Trash);
+        $this->icon(Tabler::Trash);
 
         $this->requiresConfirmation(false);
+
+        $this->successNotificationTitle(function (Model $record): string {
+            return trans('messages.table.delete-success', [
+                'title' => $record->title,
+                'label' => $this->getRecordTitle(),
+            ]);
+        });
+
+        $this->failureNotificationTitle(function (Model $record): string {
+            return trans('messages.table.delete-failure', [
+                'title' => $record->title,
+                'label' => $this->getRecordTitle(),
+            ]);
+        });
 
         $this->modalWidth(Width::Large);
         $this->modalIcon(null);

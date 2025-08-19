@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
-use Nova\Foundation\Icons\Icon;
 
 class RestoreAction extends \Filament\Actions\RestoreAction
 {
@@ -18,7 +18,7 @@ class RestoreAction extends \Filament\Actions\RestoreAction
     {
         parent::setUp();
 
-        $this->icon(Icon::Restore);
+        $this->icon(Tabler::Restore);
 
         $this->requiresConfirmation(false);
 

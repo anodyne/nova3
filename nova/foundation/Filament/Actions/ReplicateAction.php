@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
-use Nova\Foundation\Icons\Icon;
 
 class ReplicateAction extends \Filament\Actions\ReplicateAction
 {
@@ -19,8 +19,22 @@ class ReplicateAction extends \Filament\Actions\ReplicateAction
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(Icon::Copy);
+        $this->icon(Tabler::Copy);
         $this->label('Duplicate');
+
+        $this->successNotificationTitle(function (Model $record): string {
+            return trans('messages.table.replicate-success', [
+                'title' => $record->title,
+                'label' => $this->getRecordTitle(),
+            ]);
+        });
+
+        $this->failureNotificationTitle(function (Model $record): string {
+            return trans('messages.table.replicate-failure', [
+                'title' => $record->title,
+                'label' => $this->getRecordTitle(),
+            ]);
+        });
 
         $this->modalWidth(Width::ExtraLarge);
         $this->modalIcon(null);

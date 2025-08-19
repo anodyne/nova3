@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Size;
-use Nova\Foundation\Icons\Icon;
 
 class CreateAction extends \Filament\Actions\CreateAction
 {
@@ -14,7 +14,7 @@ class CreateAction extends \Filament\Actions\CreateAction
         parent::setUp();
 
         $this->color('primary');
-        $this->icon(Icon::Plus);
+        $this->icon(Tabler::Plus);
         $this->size(Size::Medium);
     }
 }

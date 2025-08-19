@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Nova\Foundation\Icons\Icon;
+use Anodyne\TablerIcons\Tabler;
 
 class ActionGroup extends \Filament\Actions\ActionGroup
 {
@@ -13,7 +13,7 @@ class ActionGroup extends \Filament\Actions\ActionGroup
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(Icon::DotsVertical);
+        $this->icon(Tabler::DotsVertical);
         $this->dropdownPlacement('bottom-end');
     }
 

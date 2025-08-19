@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Size;
-use Nova\Foundation\Icons\Icon;
 
 class BulkActionGroup extends \Filament\Actions\BulkActionGroup
 {
@@ -14,7 +14,7 @@ class BulkActionGroup extends \Filament\Actions\BulkActionGroup
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(Icon::DotsVertical);
+        $this->icon(Tabler::DotsVertical);
         $this->size(Size::Medium);
         $this->dropdownPlacement('bottom-end');
     }
