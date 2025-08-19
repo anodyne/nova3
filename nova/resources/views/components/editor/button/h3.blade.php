@@ -1,6 +1,6 @@
-<x-button.editor-tools
+<x-editor.button
     action="toggleHeading({ level: 3 })"
     active="heading"
     active-options="{ level: 3 }"
-    :icon="Icon::EditorH3"
-></x-button.editor-tools>
+    :icon="Tabler::H3"
+></x-editor.button>
