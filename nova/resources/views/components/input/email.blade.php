@@ -1,1 +1,1 @@
-<x-input {{ $attributes->merge(['type' => 'email', 'inputmode' => 'email']) }}></x-input>
+<x-input type="email" inputmode="email" {{ $attributes }} />
