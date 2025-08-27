@@ -14,14 +14,16 @@
     x-on:confetti.window="celebrate()"
 >
     <header class="mx-auto max-w-2xl space-y-6 text-center">
-        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Migrate from Nova 2</h1>
+        <x-setup::page-heading>Migrate from Nova 2</x-setup::page-heading>
 
-        <p class="text-lg/8 text-gray-600">Easily move your existing data from Nova 2 to the new Nova 3 format.</p>
+        <x-setup::page-subheading>
+            Easily move your existing data from Nova 2 to the new Nova 3 format.
+        </x-setup::page-subheading>
     </header>
 
     <div class="mx-auto max-w-lg space-y-8">
-        <x-panel variant="well">
-            <x-panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
+        <x-setup::panel variant="well">
+            <x-setup::panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
                 @if ($status === NovaMigrateStatus::InsufficientLegacyVersion)
                     @include('setup.migrate-nova._legacy-version')
                 @else
@@ -29,14 +31,15 @@
                     @include('setup.migrate-nova._migrate-data')
                     @include('setup.migrate-nova._set-user-access')
                 @endif
-            </x-panel>
-        </x-panel>
+            </x-setup::panel>
+        </x-setup::panel>
 
         @if ($status?->isSuccessful())
             <div class="flex items-center justify-center">
-                <x-button.setup :href="route('login')" :leading="Icon::ArrowRightCircle">
+                <x-setup::button :href="route('login')">
                     Start using Nova
-                </x-button.setup>
+                    <span aria-hidden="true">→</span>
+                </x-setup::button>
             </div>
         @endif
     </div>

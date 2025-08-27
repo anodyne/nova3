@@ -4,24 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Providers;
 
-use Nova\Setup\Livewire\Migrations\MigrateUsers;
-use Nova\Setup\Livewire\Migrations\MigrateUserForm;
-use Nova\Setup\Livewire\Migrations\MigrateDepartments;
-use Nova\Setup\Livewire\Migrations\MigratePositions;
-use Nova\Setup\Livewire\Migrations\MigrateCharacters;
-use Nova\Setup\Livewire\Migrations\MigrateCharacterForm;
-use Nova\Setup\Livewire\Migrations\MigrateApplications;
-use Nova\Setup\Livewire\Migrations\MigrateMissionGroups;
-use Nova\Setup\Livewire\Migrations\MigrateMissions;
-use Nova\Setup\Livewire\Migrations\MigratePosts;
-use Nova\Setup\Livewire\Migrations\MigratePersonalLogs;
-use Nova\Setup\Livewire\Migrations\MigrateNewsItems;
-use Nova\Setup\Livewire\Migrations\MigratePrivateMessages;
-use Nova\Setup\Livewire\Migrations\MigrateSettings;
-use Nova\Setup\Livewire\Migrations\MigrateBans;
-use Nova\Setup\Livewire\Migrations\UpdatePostOrdering;
 use BladeUI\Icons\Console\CacheCommand;
-use Filament\Support\Colors\ColorManager;
+use Filament\Support\Facades\FilamentColor;
 use Livewire\Commands\DiscoverCommand;
 use Livewire\Livewire;
 use Nova\DomainServiceProvider;
@@ -32,7 +16,22 @@ use Nova\Setup\Actions\SetDatabaseInitialState;
 use Nova\Setup\Livewire\ConfigureDatabase;
 use Nova\Setup\Livewire\InstallNova;
 use Nova\Setup\Livewire\MigrateNovaData;
-use Nova\Setup\Livewire\Migrations;
+use Nova\Setup\Livewire\Migrations\MigrateApplications;
+use Nova\Setup\Livewire\Migrations\MigrateBans;
+use Nova\Setup\Livewire\Migrations\MigrateCharacterForm;
+use Nova\Setup\Livewire\Migrations\MigrateCharacters;
+use Nova\Setup\Livewire\Migrations\MigrateDepartments;
+use Nova\Setup\Livewire\Migrations\MigrateMissionGroups;
+use Nova\Setup\Livewire\Migrations\MigrateMissions;
+use Nova\Setup\Livewire\Migrations\MigrateNewsItems;
+use Nova\Setup\Livewire\Migrations\MigratePersonalLogs;
+use Nova\Setup\Livewire\Migrations\MigratePositions;
+use Nova\Setup\Livewire\Migrations\MigratePosts;
+use Nova\Setup\Livewire\Migrations\MigratePrivateMessages;
+use Nova\Setup\Livewire\Migrations\MigrateSettings;
+use Nova\Setup\Livewire\Migrations\MigrateUserForm;
+use Nova\Setup\Livewire\Migrations\MigrateUsers;
+use Nova\Setup\Livewire\Migrations\UpdatePostOrdering;
 use Nova\Setup\Livewire\SetupAccount;
 use Nova\Setup\Livewire\UpdateNova;
 use Nova\Setup\Livewire\UserAccess;
@@ -53,12 +52,13 @@ class SetupServiceProvider extends DomainServiceProvider
         Livewire::forceAssetInjection();
 
         if (! Nova::isInstalled()) {
-            app(ColorManager::class)->register([
+            FilamentColor::register([
                 'primary' => Color::Sky,
                 'danger' => Color::Rose,
-                'success' => Color::Emerald,
+                'gray' => Color::Zinc,
                 'info' => Color::Purple,
-                'gray' => Color::Gray,
+                'success' => Color::Emerald,
+                'warning' => Color::Amber,
             ]);
         }
     }

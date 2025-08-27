@@ -17,23 +17,23 @@
     @endif
 >
     <div class="mr-4 inline-flex shrink-0 items-center">
-        <flux:switch
+        <x-switch
             id="{{ str($label)->slug()->prepend('setup-migrate-') }}"
             wire:model.live="shouldMigrate"
             :disabled="! $canDisableMigration"
-        ></flux:switch>
+        />
     </div>
 
     <div class="col-start-2 flex items-center gap-2 font-medium text-gray-900">
         <div class="flex items-center gap-4">
             <div class="flex flex-1 items-center gap-3">
-                <x-h4>{{ $label }}</x-h4>
+                <x-setup::heading size="lg" level="2" class="leading-7">{{ $label }}</x-setup::heading>
 
                 @if ($shouldMigrate)
                     <x-badge :color="$migrationCountBadgeColor">
                         {{ Number::format($pendingMigrationCount) }}
                         @if ($isFinished)
-                            &rarr;
+                            <span aria-hidden="true">&nbsp;→&nbsp;</span>
                             {{ Number::format($completedMigrationCount) }}
                         @endif
                     </x-badge>
@@ -44,26 +44,26 @@
 
     <div class="col-start-3 ml-4 flex shrink-0 items-center justify-end">
         @if ($isRunning)
-            <x-icon :name="RefreshDot" class="animate-reverse-spin text-gray-600" size="xl"></x-icon>
+            <x-icon :name="Tabler::RefreshDot" class="animate-reverse-spin text-gray-600" size="xl" />
         @else
             @if ($isFinished)
                 @if ($wasSuccessfullyMigrated)
-                    <x-icon :name="Icon::CheckCircle" class="text-primary-500" size="xl"></x-icon>
+                    <x-icon :name="Tabler::CircleCheck" class="text-primary-500" size="xl" />
                 @else
                     @if ($batchId)
-                        <x-icon :name="Icon::ProgressBolt" class="text-warning-500" size="xl"></x-icon>
+                        <x-icon :name="Tabler::ProgressBolt" class="text-warning-500" size="xl" />
                     @else
-                        <x-icon :name="Icon::XmarkCircle" class="text-danger-500" size="xl"></x-icon>
+                        <x-icon :name="Tabler::CircleX" class="text-danger-500" size="xl" />
                     @endif
                 @endif
             @else
                 @if ($shouldMigrate)
-                    <x-icon :name="Icon::CircleDashed" class="text-gray-400" size="xl"></x-icon>
+                    <x-icon :name="Tabler::CircleDashed" class="text-gray-400" size="xl" />
                 @else
                     @if ($wasSuccessfullyMigrated)
-                        <x-icon :name="Icon::CheckCircle" class="text-primary-500" size="xl"></x-icon>
+                        <x-icon :name="Tabler::CircleCheck" class="text-primary-500" size="xl" />
                     @else
-                        <x-icon :name="Icon::Forbid" class="text-gray-400" size="xl"></x-icon>
+                        <x-icon :name="Tabler::Forbid2" class="text-gray-400" size="xl" />
                     @endif
                 @endif
             @endif
@@ -79,28 +79,21 @@
 
     @if (filled($noteMessage))
         <div class="relative col-span-3 mt-4">
-            <div class="flex gap-2 rounded-lg bg-gray-50 px-3 py-1 font-medium text-gray-500 ring-1 ring-gray-950/10">
-                <div class="shrink-0 text-gray-400">
-                    <x-icon.mini.info class="h-6 w-5" />
-                </div>
-                <div class="text-sm/6">
-                    {!! $noteMessage !!}
-                </div>
-            </div>
+            <x-setup::callout icon="information-circle">
+                {!! $noteMessage !!}
+            </x-setup::callout>
         </div>
     @endif
 
     @if (! empty($errors))
         <div class="relative col-span-3 mt-4">
-            <x-panel.danger title="Errors">
-                <x-slot name="description">
-                    <ul>
-                        @foreach ($errors as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </x-slot>
-            </x-panel.danger>
+            <x-callout.danger heading="Errors" :icon="Tabler::AlertCircle">
+                <ul>
+                    @foreach ($errors as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </x-callout.danger>
         </div>
     @endif
 </div>

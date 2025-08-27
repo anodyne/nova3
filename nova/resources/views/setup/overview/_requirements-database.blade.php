@@ -6,68 +6,54 @@
     }
 @endphp
 
-<x-spacing class="col-span-3 grid grid-cols-subgrid" size="sm">
-    <div class="mr-4 shrink-0">
-        <x-icon :name="Icon::Database" class="text-gray-500" size="xl"></x-icon>
-    </div>
+<x-setup::panel.row :icon="Tabler::Database" heading="MySQL 8.0+ or MariaDB 10.2.7+ or PostgreSQL 13.0+">
+    <p>
+        Nova requires a database to store and retrieve your game’s data. Your server must be able to connect to a
+        MySQL-compatible database (such as MySQL or MariaDB) or a PostgreSQL database.
+    </p>
 
-    <div class="col-start-2">
-        <x-h3 class="leading-8">MySQL 8.0+ or MariaDB 10.2.7+ or PostgreSQL 13.0+</x-h3>
+    @if ($canVerifyDatabase)
+        <p>Your server is running {{ $e->database->platform() }}.</p>
+    @else
+        <p>
+            Without a connection to the database, we cannot definitively determine if your database meets the platform
+            and version requirements. We will verify platform and version information after we are able to connect to
+            your database.
+        </p>
 
-        <div>
-            <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
+        @if ($e->passes())
+            <p>Please continue to the next step to setup your database connection.</p>
+        @endif
+    @endif
+
+    @if (! $canVerifyDatabase || ($canVerifyDatabase && $e->database->driver === 'mysql'))
+        <div class="mt-6">
+            <x-setup::callout.warning heading="A note about MariaDB">
                 <p>
-                    Nova requires a database to store and retrieve your game’s data. Your server must be able to connect
-                    to a MySQL-compatible database (such as MySQL or MariaDB) or a PostgreSQL database.
-                </p>
-
-                @if ($canVerifyDatabase)
-                    <p>Your server is running {{ $e->database->platform() }}.</p>
-                @else
-                    <p>
-                        Without a connection to the database, we cannot definitively determine if your database meets
-                        the platform and version requirements. We will verify platform and version information after we
-                        are able to connect to your database.
-                    </p>
-
-                    @if ($e->passes())
-                        <p>Please continue to the next step to setup your database connection.</p>
-                    @endif
-                @endif
-            </div>
-
-            @if (! $canVerifyDatabase || ($canVerifyDatabase && $e->database->driver === 'mariadb'))
-                <div class="mt-6">
-                    <div class="bg-warning-50 ring-warning-500/20 rounded-lg px-6 py-4 ring-1 ring-inset">
-                        <x-h3 class="text-warning-700">A note about MariaDB</x-h3>
-
-                        <p class="text-warning-600 mt-2 text-sm/6">
-                            Nova does support using MariaDB instead of MySQL, however, a
-                            {{-- format-ignore-start --}}
+                    Nova does support using MariaDB instead of MySQL, however, a
+                    {{-- format-ignore-start --}}
                     <a href="https://jira.mariadb.org/browse/MDEV-19077" target="_blank" class="font-medium text-warning-800 underline hover:text-warning-900">known bug</a>
                     {{-- format-ignore-end --}}
-                            in MariaDB prevents calculating values from nested resources. Due to this issue, Nova hides
-                            certain user interface elements with these problematic calculations if you are using
-                            MariaDB. For more information, please refer to the
-                            {{-- format-ignore-start --}}
+                    in MariaDB prevents calculating values from nested resources. Due to this issue, Nova hides certain
+                    user interface elements with these problematic calculations if you are using MariaDB. For more
+                    information, please refer to the
+                    {{-- format-ignore-start --}}
                     <a href="https://anodyne-productions.com/docs/3.0/database" target="_blank" class="font-medium text-warning-800 underline hover:text-warning-900">database documentation</a>.
                     {{-- format-ignore-end --}}
-                        </p>
-                    </div>
-                </div>
-            @endif
+                </p>
+            </x-setup::callout.warning>
         </div>
-    </div>
+    @endif
 
-    <div class="col-start-3 ml-4 flex shrink-0 justify-end">
+    <x-slot name="trailing">
         @if ($canVerifyDatabase)
             @if ($e->database->passes())
-                <x-icon :name="Icon::CheckCircle" class="text-primary-500" size="xl"></x-icon>
+                <x-icon :name="Tabler::CircleCheck" class="text-primary-500" size="lg" />
             @else
-                <x-icon :name="Icon::XmarkCircle" class="text-danger-500" size="xl"></x-icon>
+                <x-icon :name="Tabler::CircleX" class="text-danger-500" size="lg" />
             @endif
         @else
-            <x-icon :name="Icon::Help" class="text-warning-500" size="xl"></x-icon>
+            <x-icon :name="Tabler::HelpCircle" class="text-warning-500" size="lg" />
         @endif
-    </div>
-</x-spacing>
+    </x-slot>
+</x-setup::panel.row>
