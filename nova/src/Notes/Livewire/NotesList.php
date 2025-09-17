@@ -98,7 +98,7 @@ class NotesList extends TableComponent
                         $records->each(fn (Note $record): Model => DeleteNote::run($record));
                     }),
             ])
-            ->emptyStateIcon(Illustration::NoNotes)
+            ->emptyStateIcon(Illustration::Notes)
             ->emptyStateHeading('No notes found')
             ->emptyStateDescription('Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next story post.')
             ->emptyStateActions([

@@ -1,19 +1,20 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-header :heading="$note->title">
             <x-slot name="actions">
-                <x-button :href="route('admin.notes.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.notes.index')" variant="ghost">
+                    <span aria-hidden="true">←</span>
+                    Back
+                </x-button>
 
-                <x-button :href="route('admin.notes.edit', $note)" color="primary">
-                    <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                <x-button :href="route('admin.notes.edit', $note)" variant="primary">
+                    <x-icon :name="Tabler::Pencil" size="sm" />
                     Edit
                 </x-button>
             </x-slot>
         </x-page-header>
 
-        <x-h2>{{ $note->title }}</x-h2>
-
-        <div class="prose mt-6 max-w-none">
+        <div class="prose dark:prose-invert max-w-none">
             {!! $note->content !!}
         </div>
     </x-spacing>

@@ -4,8 +4,8 @@
     <x-page-header>
         @can('create', Note::class)
             <x-slot name="actions">
-                <x-button :href="route('admin.notes.create')" color="primary">
-                    <x-icon :name="Icon::Plus" size="sm"></x-icon>
+                <x-button :href="route('admin.notes.create')" variant="primary">
+                    <x-icon :name="Tabler::Plus" size="sm" />
                     Add
                 </x-button>
             </x-slot>
