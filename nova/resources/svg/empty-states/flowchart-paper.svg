@@ -1,22 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <g class="[--illustration-bg:var(--color-white)] [--illustration-accent-light:var(--color-primary-200)] [--illustration-accent:var(--color-primary-600)] [--illustration-accent-bg:var(--color-primary-50)]">
-        <path class="fill-(--illustration-accent-bg)" d="M9.667 50.499a40 40 0 1 0 80 0 40 40 0 1 0 -80 0" stroke-width="1"></path>
-        <path stroke-linecap="round" stroke-linejoin="round" class="fill-(--illustration-bg) stroke-(--illustration-accent)" d="M55.835 14.325 60.579 25l5.931 -5.93 -10.675 -4.745z" stroke-width="1"></path>
-        <path class="fill-(--illustration-accent-light)" d="M26.226 76.445a21.684 2.019 0 1 0 43.368 0 21.684 2.019 0 1 0 -43.368 0" stroke-width="1"></path>
-        <path d="M76.573 32.077v34.667a2.794 2.794 0 0 1 -2.8 2.8H22.9a5.028 5.028 0 0 1 -5.032 -5.032V32.077a2.8 2.8 0 0 1 2.8 -2.795h53.109a2.8 2.8 0 0 1 2.796 2.795z" class="fill-(--illustration-bg)" stroke-width="1"></path>
-        <path d="M76.573 32.077v34.667a2.794 2.794 0 0 1 -2.8 2.8H22.9a5.028 5.028 0 0 1 -5.032 -5.032V32.077a2.8 2.8 0 0 1 2.8 -2.795h53.109a2.8 2.8 0 0 1 2.796 2.795z" fill="none" class="stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
-        <path d="M17.866 64.647a5.033 5.033 0 0 1 8.849 -3.28 0.692 0.692 0 0 0 1.216 -0.456v-34.56a5.224 5.224 0 0 0 -4.762 -5.309 5.032 5.032 0 0 0 -5.3 5.025z" stroke-linecap="round" stroke-linejoin="round" class="stroke-(--illustration-accent) fill-(--illustration-bg)" stroke-width="1"></path>
-        <path class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" d="M33.742 34.454h14.097s0.5 0 0.5 0.5v4.032s0 0.5 -0.5 0.5H33.742s-0.5 0 -0.5 -0.5v-4.032s0 -0.5 0.5 -0.5" stroke-width="1"></path>
-        <path class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" d="M57.226 34.454h14.097s0.5 0 0.5 0.5v4.032s0 0.5 -0.5 0.5H57.226s-0.5 0 -0.5 -0.5v-4.032s0 -0.5 0.5 -0.5" stroke-width="1"></path>
-        <path class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" d="m47.5 46.195 5.032 -5.032 5.033 5.032 -5.033 5.033z" stroke-width="1"></path>
-        <path d="M64.274 39.486v3.355a3.355 3.355 0 0 1 -3.355 3.359h-3.354m-16.774 -6.714v3.355a3.355 3.355 0 0 0 3.354 3.359H47.5m5.032 5.028v8.387m-15.932 0v-1.678a3.355 3.355 0 0 1 3.355 -3.354h25.158a3.355 3.355 0 0 1 3.355 3.354v1.678" fill="none" class="stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
-        <path class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" d="M34.081 62.131a2.516 2.516 0 1 0 5.032 0 2.516 2.516 0 1 0 -5.032 0" stroke-width="1"></path>
-        <path class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" d="M50.016 62.131a2.516 2.516 0 1 0 5.032 0 2.516 2.516 0 1 0 -5.032 0" stroke-width="1"></path>
-        <path class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" d="M65.952 62.131a2.516 2.516 0 1 0 5.032 0 2.516 2.516 0 1 0 -5.032 0" stroke-width="1"></path>
-        <path stroke-linecap="round" stroke-linejoin="round" class="stroke-(--illustration-accent) fill-(--illustration-bg)" d="m60.578 25 5.931 -5.93 21.943 21.943 -5.93 5.93z" stroke-width="1"></path>
-        <path stroke-linecap="round" stroke-linejoin="round" class="stroke-(--illustration-accent) fill-(--illustration-bg)" d="m60.58 25 2.966 -2.966 21.943 21.943 -2.966 2.966z" stroke-width="1"></path>
-        <path stroke-linecap="round" stroke-linejoin="round" class="stroke-(--illustration-accent) fill-(--illustration-bg)" d="m80.15 44.57 5.93 -5.93 2.373 2.372 -5.93 5.93z" stroke-width="1"></path>
-        <path d="m88.453 41.012 -5.931 5.931 0.593 0.593a4.194 4.194 0 0 0 5.931 -5.931z" stroke-linecap="round" stroke-linejoin="round" class="stroke-(--illustration-accent) fill-(--illustration-bg)" stroke-width="1"></path>
-        <path class="fill-(--illustration-accent-light) stroke-(--illustration-accent)" stroke-linecap="round" stroke-linejoin="round" d="m55.835 14.325 2.92 6.57 3.649 -3.65 -6.569 -2.92z" stroke-width="1"></path>
-    </g>
+    <path stroke="#daedf7" stroke-miterlimit="10" fill="#daedf7" d="M9.679 50a40 40 0 1 0 80 0 40 40 0 1 0 -80 0" stroke-width="1"></path>
+    <path stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" fill="#f7e5c6" d="m55.882 14.241 4.744 10.675 5.93 -5.93 -10.674 -4.745z" stroke-width="1"></path>
+    <path fill="#45413c" opacity=".15" d="M29.413 76.621a20 1.622 0 1 0 40 0 20 1.622 0 1 0 -40 0" stroke-width="1"></path>
+    <path d="M76.62 31.994V66.66a2.8 2.8 0 0 1 -2.8 2.8H22.943a5.029 5.029 0 0 1 -5.032 -5.033V31.994a2.8 2.8 0 0 1 2.8 -2.8h53.113a2.8 2.8 0 0 1 2.796 2.8z" fill="#ffffff" stroke-width="1"></path>
+    <path d="M24.621 29.2v40.256h-1.678a5.029 5.029 0 0 1 -5.032 -5.033V31.994a2.8 2.8 0 0 1 2.8 -2.8z" fill="#daedf7" stroke-width="1"></path>
+    <path d="M76.62 31.994V66.66a2.8 2.8 0 0 1 -2.8 2.8H22.943a5.029 5.029 0 0 1 -5.032 -5.033V31.994a2.8 2.8 0 0 1 2.8 -2.8h53.113a2.8 2.8 0 0 1 2.796 2.8z" fill="none" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+    <path d="M17.913 64.563a5.032 5.032 0 0 1 8.848 -3.28 0.692 0.692 0 0 0 1.216 -0.455v-34.56a5.224 5.224 0 0 0 -4.761 -5.31 5.032 5.032 0 0 0 -5.3 5.025z" fill="#ffffff" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+    <path fill="#ffe500" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="M33.789 34.37h14.097s0.5 0 0.5 0.5v4.032s0 0.5 -0.5 0.5H33.789s-0.5 0 -0.5 -0.5V34.87s0 -0.5 0.5 -0.5" stroke-width="1"></path>
+    <path fill="#ffe500" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="M57.273 34.37H71.37s0.5 0 0.5 0.5v4.032s0 0.5 -0.5 0.5H57.273s-0.5 0 -0.5 -0.5V34.87s0 -0.5 0.5 -0.5" stroke-width="1"></path>
+    <path fill="#ff6242" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="m47.547 46.112 5.033 -5.032 5.032 5.032 -5.032 5.033z" stroke-width="1"></path>
+    <path d="M64.321 39.4v3.355a3.355 3.355 0 0 1 -3.355 3.355h-3.355M40.837 39.4v3.355a3.355 3.355 0 0 0 3.355 3.355h3.355m5.032 5.034v8.387m-15.935 0v-1.677A3.355 3.355 0 0 1 40 54.5h25.16a3.355 3.355 0 0 1 3.355 3.355v1.677" fill="none" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+    <path fill="#6dd627" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="M34.128 62.047a2.516 2.516 0 1 0 5.032 0 2.516 2.516 0 1 0 -5.032 0" stroke-width="1"></path>
+    <path fill="#6dd627" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="M50.063 62.047a2.516 2.516 0 1 0 5.032 0 2.516 2.516 0 1 0 -5.032 0" stroke-width="1"></path>
+    <path fill="#6dd627" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="M65.999 62.047a2.516 2.516 0 1 0 5.032 0 2.516 2.516 0 1 0 -5.032 0" stroke-width="1"></path>
+    <path fill="#8cffe4" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="m60.625 24.917 5.93 -5.931L88.5 40.929l-5.93 5.93z" stroke-width="1"></path>
+    <path fill="#00dba8" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="m60.626 24.916 2.966 -2.966 21.943 21.943 -2.966 2.966z" stroke-width="1"></path>
+    <path fill="#ffe500" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="m80.197 44.486 5.93 -5.93 2.373 2.372 -5.93 5.93z" stroke-width="1"></path>
+    <path d="m88.5 40.929 -5.93 5.93 0.593 0.593a4.193 4.193 0 0 0 5.931 -5.93z" fill="#ffb0ca" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+    <path fill="#87898c" stroke="#45413c" stroke-linecap="round" stroke-linejoin="round" d="m55.882 14.241 2.919 6.57 3.65 -3.65 -6.569 -2.92z" stroke-width="1"></path>
 </svg>
