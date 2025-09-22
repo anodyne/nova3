@@ -20,7 +20,7 @@
 
         <x-form :action="route('admin.positions.update', $position)" method="PUT">
             <x-fieldset>
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <x-input label="Name" name="name" :value="old('name', $position->name)" />
 
                     <x-select label="Department" name="department_id">
@@ -53,33 +53,31 @@
                     >
                         {{ old('tags', $position->tags_as_string) }}
                     </x-textarea>
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>
-                <x-fieldset.heading>
-                    <x-icon :name="Tabler::DoorEnter"></x-icon>
-                    <x-fieldset.legend>Availability</x-fieldset.legend>
-                    <x-fieldset.description>
+                <x-fieldset.heading :icon="Tabler::DoorEnter" heading="Availability">
+                    <x-description>
                         You can allow or prevent players from picking this position by setting the number of available
                         slots.
+                    </x-description>
 
-                        @can('update', settings())
-                            <x-fieldset.description class="mt-4">
-                                Nova can keep the number of available slots for a position updated for you as characters
-                                are assigned and un-assigned to the position. You can update the availability settings
-                                for individual character types from Character Settings.
-                            </x-fieldset.description>
+                    @can('update', settings())
+                        <x-description>
+                            Nova can keep the number of available slots for a position updated for you as characters are
+                            assigned and un-assigned to the position. You can update the availability settings for
+                            individual character types from Character Settings.
+                        </x-description>
 
-                            <x-button :href="route('admin.settings.characters.edit')" class="mt-4">
-                                Go to character settings
-                                <span aria-hidden="true">→</span>
-                            </x-button>
-                        @endcan
-                    </x-fieldset.description>
+                        <x-button :href="route('admin.settings.characters.edit')">
+                            Go to character settings
+                            <span aria-hidden="true">→</span>
+                        </x-button>
+                    @endcan
                 </x-fieldset.heading>
 
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <div class="w-full sm:w-1/2">
                         <x-input.number
                             label="Available Slots"
@@ -87,7 +85,7 @@
                             :value="old('available', $position->available)"
                         />
                     </div>
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset.controls>

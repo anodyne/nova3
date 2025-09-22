@@ -2,7 +2,7 @@
     <x-spacing constrained>
         <x-page-header :heading="$position->name">
             <x-slot name="description">
-                <div class="flex items-center gap-x-8">
+                <x-metadata.group size="md" gap="lg">
                     <x-metadata label="Department" :value="$position->department->name"></x-metadata>
 
                     <x-metadata label="Status">
@@ -10,7 +10,7 @@
                             {{ $position->status->getLabel() }}
                         </x-badge>
                     </x-metadata>
-                </div>
+                </x-metadata.group>
             </x-slot>
 
             @if (filled($position->description))
@@ -42,13 +42,13 @@
         <x-form action="">
             @if (filled($position->tags))
                 <x-fieldset>
-                    <x-fieldset.fields constrained>
+                    <x-fieldset.group constrained>
                         <x-input.display label="Tags">
                             @foreach ($position->tags as $tag)
                                 <x-badge size="md">{{ $tag }}</x-badge>
                             @endforeach
                         </x-input.display>
-                    </x-fieldset.fields>
+                    </x-fieldset.group>
                 </x-fieldset>
             @endif
 

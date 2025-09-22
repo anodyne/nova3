@@ -16,7 +16,7 @@ class StorePositionRequest extends FormRequest
             'department_id' => ['required', 'exists:departments,id'],
             'description' => ['nullable'],
             'name' => ['required'],
-            'status' => ['required'],
+            'status' => ['sometimes'],
             'tags' => ['nullable'],
         ];
     }

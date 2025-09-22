@@ -1,7 +1,7 @@
 <x-filament.modal-content :$action title="Delete position?">
     <x-text variant="strong">
         Are you sure you want to delete the
-        <strong class="font-semibold">{{ $record->name }}</strong>
+        <strong>{{ $record->name }}</strong>
         position from the {{ $record->department?->name }} department? You won’t be able to recover it.
     </x-text>
 
