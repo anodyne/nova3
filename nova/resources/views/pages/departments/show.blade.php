@@ -4,13 +4,13 @@
     <x-spacing constrained>
         <x-page-header :heading="$department->name">
             <x-slot name="description">
-                <div class="flex items-center gap-x-8">
+                <x-metadata.group size="md" gap="lg">
                     <x-metadata label="Status">
                         <x-badge :color="$department->status->getColor()" size="md">
                             {{ $department->status->getLabel() }}
                         </x-badge>
                     </x-metadata>
-                </div>
+                </x-metadata.group>
             </x-slot>
 
             @if (filled($department->description))
@@ -39,13 +39,13 @@
         <x-form action="">
             @if (filled($department->tags))
                 <x-fieldset>
-                    <x-fieldset.fields constrained>
+                    <x-fieldset.group constrained>
                         <x-input.display label="Tags">
                             @foreach ($department->tags as $tag)
                                 <x-badge size="md">{{ $tag }}</x-badge>
                             @endforeach
                         </x-input.display>
-                    </x-fieldset.fields>
+                    </x-fieldset.group>
                 </x-fieldset>
             @endif
 
@@ -66,7 +66,7 @@
                     </x-panel.header>
 
                     <x-panel>
-                        <x-panel.group divided>
+                        <x-spacing.group divided>
                             @forelse ($department->positions as $position)
                                 <x-panel.group.row>
                                     <div class="flex items-center gap-2">
@@ -87,7 +87,7 @@
                                 </x-panel.group.row>
                             @empty
                                 <x-empty>
-                                    <x-illustration :name="Illustration::Megaphone" />
+                                    <x-illustration :name="Illustration::HandpickResume" />
                                     <x-empty.heading>No positions assigned</x-empty.heading>
                                     <x-empty.text>
                                         There aren’t any positions assigned to this department. Assign some positions to
@@ -102,7 +102,7 @@
                                     @endcan
                                 </x-empty>
                             @endforelse
-                        </x-panel.group>
+                        </x-spacing.group>
                     </x-panel>
                 </x-panel>
             </x-fieldset>

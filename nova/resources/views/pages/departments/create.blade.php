@@ -15,7 +15,7 @@
 
         <x-form :action="route('admin.departments.store')">
             <x-fieldset>
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <x-input label="Name" name="name" :value="old('name')" />
 
                     <x-textarea label="Description" name="description" rows="5">
@@ -32,23 +32,21 @@
                     >
                         {{ old('tags') }}
                     </x-textarea>
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>
-                <x-fieldset.heading>
-                    <x-icon :name="Tabler::Photo"></x-icon>
-                    <x-fieldset.legend>Header image</x-fieldset.legend>
-                    <x-fieldset.description>
+                <x-fieldset.heading :icon="Tabler::Photo" heading="Header image">
+                    <x-description>
                         Header images are used on the public-facing site to give you more control over the look and feel
                         of your manifest. Header images should be 4 times larger than the size you want to display it at
                         (for high resolution displays), but not more than 5MB in size.
-                    </x-fieldset.description>
+                    </x-description>
                 </x-fieldset.heading>
 
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <livewire:media-upload-image />
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset.controls>
