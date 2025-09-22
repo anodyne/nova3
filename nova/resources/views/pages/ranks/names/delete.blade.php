@@ -1,7 +1,7 @@
 <x-filament.modal-content :$action title="Delete rank name?">
     <x-text variant="strong">
         Are you sure you want to delete the
-        <strong class="font-semibold">{{ $record->name }}</strong>
+        <strong>{{ $record->name }}</strong>
         rank name? You won’t be able to recover it.
     </x-text>
 

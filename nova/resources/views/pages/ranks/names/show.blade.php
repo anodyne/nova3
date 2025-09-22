@@ -2,7 +2,17 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-header :heading="$name->name">
+            <x-slot name="description">
+                <x-metadata.group size="md" gap="lg">
+                    <x-metadata label="Status">
+                        <x-badge :color="$name->status->getColor()" size="md">
+                            {{ $name->status->getLabel() }}
+                        </x-badge>
+                    </x-metadata>
+                </x-metadata.group>
+            </x-slot>
+
             <x-slot name="actions">
                 @can('viewAny', $name::class)
                     <x-button :href="route('admin.ranks.names.index')" variant="ghost">
@@ -21,25 +31,11 @@
         </x-page-header>
 
         <x-form action="">
-            <x-fieldset>
-                <x-fieldset.fields constrained>
-                    <x-input.display label="Name">
-                        <x-text>{{ $name->name }}</x-text>
-                    </x-input.display>
-
-                    <x-input.display label="Status">
-                        <x-badge :color="$name->status->getColor()" size="md">
-                            {{ $name->status->getLabel() }}
-                        </x-badge>
-                    </x-input.display>
-                </x-fieldset.fields>
-            </x-fieldset>
-
             <x-panel variant="well">
                 <x-panel.header title="Ranks assigned this name"></x-panel.header>
 
                 <x-panel>
-                    <x-panel.group divided>
+                    <x-spacing.group divided>
                         @forelse ($name->ranks as $rank)
                             <x-panel.group.row>
                                 <div class="flex items-center gap-3">
@@ -78,7 +74,7 @@
                                 @endcan
                             </x-empty>
                         @endforelse
-                    </x-panel.group>
+                    </x-spacing.group>
                 </x-panel>
             </x-panel>
         </x-form>

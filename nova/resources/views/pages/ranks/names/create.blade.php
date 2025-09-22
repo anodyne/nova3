@@ -15,11 +15,11 @@
 
         <x-form :action="route('admin.ranks.names.store')">
             <x-fieldset>
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <x-input label="Name" name="name" :value="old('name')" />
 
                     <x-switch label="Active" name="status" :checked="old('status')" align="left" />
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset.controls>

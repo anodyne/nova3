@@ -13,7 +13,7 @@ class StoreRankNameRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'status' => ['required'],
+            'status' => ['sometimes'],
         ];
     }
 
