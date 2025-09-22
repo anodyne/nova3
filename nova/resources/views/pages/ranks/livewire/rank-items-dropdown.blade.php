@@ -1,51 +1,32 @@
-<x-dropdown max-height="15rem" width="md">
-    <x-slot name="selectTrigger">
-        @if (filled($selected))
-            <div class="flex items-center">
-                <x-rank :rank="$selected" />
-                <span class="ml-3">{{ $selected?->name?->name }}</span>
-            </div>
-        @else
-            Pick a rank
-        @endif
+<div>
+    <x-dropdown>
+        <x-slot name="trigger">
+            <x-button icon:trailing="chevron-down">
+                <div class="flex items-center gap-2">
+                    @if ($selectedRank)
+                        <x-rank :rank="$selectedRank" />
+                    @endif
 
-        <input type="hidden" name="rank_id" value="{{ $selected?->id }}" />
-    </x-slot>
+                    <x-heading>{{ $selectedRank->name?->name ?? 'Choose a rank' }}</x-heading>
+                </div>
+            </x-button>
+        </x-slot>
 
-    @if (! isset($items))
-        @if ($selected)
-            <x-dropdown.group>
-                <x-dropdown.item wire:click="selectRankItem(null)" :icon="Tabler::X">
-                    Clear selected rank
-                </x-dropdown.item>
-            </x-dropdown.group>
-        @endif
+        @foreach ($rankGroups as $group)
+            <flux:menu.submenu :heading="$group->name">
+                <flux:menu.radio.group wire:model.live="selected">
+                    @foreach ($group->ranks as $rank)
+                        <flux:menu.radio :value="$rank->id">
+                            <div class="flex items-center gap-2">
+                                <x-rank :$rank />
+                                <span>{{ $rank->name?->name }}</span>
+                            </div>
+                        </flux:menu.radio>
+                    @endforeach
+                </flux:menu.radio.group>
+            </flux:menu.submenu>
+        @endforeach
+    </x-dropdown>
 
-        <x-dropdown.group>
-            <x-dropdown.text>Pick a rank group</x-dropdown.text>
-            @foreach ($groups as $group)
-                <x-dropdown.item wire:click="selectRankGroup({{ $group->id }})">
-                    {{ $group->name }}
-                </x-dropdown.item>
-            @endforeach
-        </x-dropdown.group>
-    @else
-        <x-dropdown.group>
-            <x-dropdown.item wire:click="clearRankItems">
-                <span aria-hidden="true">←</span>
-                Change selected rank group
-            </x-dropdown.item>
-
-            @forelse ($items as $item)
-                <x-dropdown.item wire:click="selectRankItem({{ $item->id }})">
-                    <x-rank :rank="$item" />
-                    <span class="ml-3">{{ $item->name->name }}</span>
-                </x-dropdown.item>
-            @empty
-                <span class="block px-4 py-3 text-sm text-gray-600 dark:text-gray-400" role="menuitem">
-                    No rank items available for this rank group
-                </span>
-            @endforelse
-        </x-dropdown.group>
-    @endif
-</x-dropdown>
+    <input type="hidden" name="rank_id" value="{{ $selected }}" />
+</div>

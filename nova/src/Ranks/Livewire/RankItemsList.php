@@ -37,6 +37,7 @@ class RankItemsList extends TableComponent
     {
         return $table
             ->query(RankItem::query()->withRankName())
+            ->recordUrl(fn (RankItem $record): string => route('admin.ranks.items.show', $record))
             ->groups([
                 Group::make('group.name')->label('Rank group')->collapsible(),
                 Group::make('name.name')->label('Rank name')->collapsible(),

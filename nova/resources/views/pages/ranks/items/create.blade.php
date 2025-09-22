@@ -1,4 +1,3 @@
-@use('Illuminate\Support\Js')
 @use('Nova\Ranks\Models\RankGroup')
 @use('Nova\Ranks\Models\RankItem')
 @use('Nova\Ranks\Models\RankName')
@@ -24,21 +23,21 @@
 
         <x-form :action="route('admin.ranks.items.store')">
             <x-fieldset>
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <x-input.field>
-                        <x-input.label>Rank group</x-input.label>
+                        <x-label>Rank group</x-label>
                         <livewire:rank-groups-dropdown :group="old('group_id')" />
                     </x-input.field>
 
                     <x-input.field>
-                        <x-input.label>Rank name</x-input.label>
+                        <x-label>Rank name</x-label>
                         <livewire:rank-names-dropdown :name="old('name_id')" />
                     </x-input.field>
 
                     <x-switch label="Active" name="status" :checked="old('status')" align="left" />
 
                     <x-input.field>
-                        <x-input.label>Rank preview</x-input.label>
+                        <x-label>Rank preview</x-label>
 
                         <x-text x-show="overlay === '' && base === ''" class="h-10">
                             Make a selection below to see a live preview of your rank item
@@ -58,17 +57,15 @@
                             ></div>
                         </div>
                     </x-input.field>
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>
-                <x-fieldset.heading>
-                    <x-icon :name="Tabler::MilitaryRank"></x-icon>
-                    <x-fieldset.legend>Select your rank images</x-fieldset.legend>
-                    <x-fieldset.description>
+                <x-fieldset.heading :icon="Tabler::MilitaryRank" heading="Select your rank images">
+                    <x-description>
                         Ranks are comprised of a base image and an overlay image. This provides more flexibility with
                         creating ranks that precisely fit your game.
-                    </x-fieldset.description>
+                    </x-description>
                 </x-fieldset.heading>
 
                 <div class="mt-8">
