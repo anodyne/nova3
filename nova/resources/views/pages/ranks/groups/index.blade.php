@@ -4,8 +4,8 @@
     <x-page-header>
         @can('create', RankGroup::class)
             <x-slot name="actions">
-                <x-button :href="route('admin.ranks.groups.create')" color="primary">
-                    <x-icon :name="Tabler::Plus" size="sm"></x-icon>
+                <x-button :href="route('admin.ranks.groups.create')" variant="primary">
+                    <x-icon :name="Tabler::Plus" size="sm" />
                     Add
                 </x-button>
             </x-slot>

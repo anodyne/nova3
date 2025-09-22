@@ -16,7 +16,7 @@
 
         <x-form :action="route('admin.ranks.groups.update', $group)" method="PUT">
             <x-fieldset>
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <x-input label="Name" name="name" :value="old('name', $group->name)" />
 
                     <x-switch
@@ -25,7 +25,7 @@
                         :checked="old('status', $group->status === BasicStatus::Active)"
                         align="left"
                     />
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>
@@ -33,7 +33,7 @@
                     <x-panel.header title="Ranks assigned to this group"></x-panel.header>
 
                     <x-panel>
-                        <x-panel.group divided>
+                        <x-spacing.group divided>
                             @forelse ($group->ranks as $rank)
                                 <x-panel.group.row>
                                     <div class="flex items-center gap-3">
@@ -71,14 +71,14 @@
                                     @endcan
                                 </x-empty>
                             @endforelse
-                        </x-panel.group>
+                        </x-spacing.group>
                     </x-panel>
                 </x-panel>
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Update</x-button>
-                <x-button :href="route('admin.ranks.groups.index')" plain>Cancel</x-button>
+                <x-button type="submit" variant="primary">Update</x-button>
+                <x-button :href="route('admin.ranks.groups.index')" variant="ghost">Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>
