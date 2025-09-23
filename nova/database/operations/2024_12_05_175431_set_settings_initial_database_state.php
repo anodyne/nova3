@@ -50,8 +50,7 @@ return new class extends OneTimeOperation
                 theme: Randomize::theme(),
                 avatarShape: Randomize::avatarShape(),
                 avatarStyle: Randomize::avatarStyle(),
-                imagePath: null,
-                colorsGray: 'Gray',
+                colorsGray: 'Zinc',
                 colorsPrimary: 'Sky',
                 colorsDanger: 'Rose',
                 colorsWarning: 'Amber',
@@ -62,8 +61,7 @@ return new class extends OneTimeOperation
                     headerFamily: 'Inter',
                     bodyProvider: 'local',
                     bodyFamily: 'Inter'
-                ),
-                panda: false
+                )
             ),
             'characters' => Characters::from(
                 approvePrimary: true,
