@@ -8,6 +8,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
 use Nova\Themes\Models\Theme;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,12 +18,12 @@ class CheckAddonAndThemeVersions
     /**
      * Handle an incoming request.
      *
-     * @param Closure(Request):Response $next
+     * @param  Closure(Request):Response  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         if (Nova::isInstalled()) {
-            Cache::flexible('nova-addons-latest-versions', [86_400, 129_600], function () {
+            Cache::flexible(CacheKeys::AddonsLatestVersions->value, [86_400, 129_600], function () {
                 return Addon::query()
                     ->whereNotNull('repository')
                     ->get()
@@ -32,7 +33,7 @@ class CheckAddonAndThemeVersions
                     ->all();
             });
 
-            Cache::flexible('nova-themes-latest-versions', [86_400, 129_600], function () {
+            Cache::flexible(CacheKeys::ThemesLatestVersions->value, [86_400, 129_600], function () {
                 return Theme::query()
                     ->whereNotNull('repository')
                     ->get()

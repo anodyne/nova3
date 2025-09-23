@@ -53,14 +53,11 @@ use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Listeners\AuthenticationEventSubscriber;
 use Nova\Foundation\Listeners\SetEmailSubjectPrefix;
-use Nova\Foundation\Livewire\AdvancedColorPicker;
-use Nova\Foundation\Livewire\ColorShadePicker;
-use Nova\Foundation\Livewire\ConfirmationModal;
-use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconPicker;
 use Nova\Foundation\Livewire\Rating;
 use Nova\Foundation\Macros\ArrMacros;
@@ -80,7 +77,6 @@ use Nova\Foundation\View\Layouts\AuthLayout;
 use Nova\Foundation\View\Layouts\EmailLayout;
 use Nova\Foundation\View\Layouts\PublicLayout;
 use Nova\Menus\Models\MenuItem;
-use Nova\Navigation\Models\Navigation;
 use Nova\Pages\Models\Page;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
@@ -148,16 +144,6 @@ class AppServiceProvider extends ServiceProvider
         $this->configureBlade();
 
         if (Nova::isInstalled()) {
-            // cache()->rememberForever(
-            //     'nova.nav.admin',
-            //     fn () => Navigation::with('children.page', 'page', 'authorization')->admin()->topLevel()->get()
-            // );
-
-            // cache()->rememberForever(
-            //     'nova.nav.public',
-            //     fn () => Navigation::with('children.page', 'page', 'authorization')->public()->topLevel()->get()
-            // );
-
             $this->configureLivewireComponents();
             $this->configureResponseFilters();
             $this->configureFilament();
@@ -254,12 +240,8 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureLivewireComponents()
     {
-        // Livewire::component('nova:editor', Editor::class);
         Livewire::component('rating', Rating::class);
         Livewire::component('icon-picker', IconPicker::class);
-        Livewire::component('color-shade-picker', ColorShadePicker::class);
-        Livewire::component('advanced-color-picker', AdvancedColorPicker::class);
-        // Livewire::component('confirmation-modal', ConfirmationModal::class);
     }
 
     protected function configureResponseFilters(): void
@@ -381,9 +363,9 @@ class AppServiceProvider extends ServiceProvider
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Nova', [
                 'Version' => 'v'.Nova::filesVersion(),
-                'Extensions' => collect(data_get(cache('nova.addons'), 'extension', []))->join(', '),
-                'Genre' => collect(data_get(cache('nova.addons'), 'genre', []))->join(', '),
-                'Rank set' => collect(data_get(cache('nova.addons'), 'rank', []))->join(', '),
+                'Extensions' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))->join(', '),
+                'Genre' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'genre', []))->join(', '),
+                'Rank set' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'rank', []))->join(', '),
             ]);
         }
     }
@@ -413,7 +395,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureAddonProviders(): void
     {
-        collect(data_get(Cache::get('nova.addons'), 'extension', []))
+        collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))
             ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
             ->flatMap(fn ($addon) => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
             ->each(fn ($addon) => (new $addon($this->app))->boot());

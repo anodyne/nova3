@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Foundation\Actions\RecacheIcons;
+use Nova\Foundation\Enums\CacheKeys;
 
 class IconPicker extends Component
 {
@@ -19,7 +20,7 @@ class IconPicker extends Component
 
     public function mount()
     {
-        if (Cache::missing('tabler.icons.searchable')) {
+        if (Cache::missing(CacheKeys::SearchableIcons->value)) {
             RecacheIcons::run();
         }
     }
@@ -44,7 +45,7 @@ class IconPicker extends Component
             return [];
         }
 
-        $icons = Cache::get('tabler.icons.searchable', []);
+        $icons = Cache::get(CacheKeys::SearchableIcons->value, []);
 
         return collect($icons)
             ->filter(fn ($icon) => str_contains($icon['searchable'], $query))

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Fonts\BunnyFontProvider;
 use Nova\Foundation\Fonts\Contracts\FontProvider;
@@ -98,7 +99,7 @@ class NovaManager
 
     public function isUpdating(): bool
     {
-        return Cache::has('nova-latest-version');
+        return Cache::has(CacheKeys::LatestVersion->value);
     }
 
     public function databaseIsConfigured(?string $connection = null): bool

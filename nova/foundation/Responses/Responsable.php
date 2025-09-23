@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Nova\Foundation\Concerns\SetSEOValues;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Menus\Actions\RecacheMenus;
 use Nova\Menus\Models\Menu;
 use Nova\Pages\Models\Page;
@@ -158,6 +159,6 @@ abstract class Responsable implements LaravelResponsable
     {
         RecacheMenus::run();
 
-        return Cache::get('nova.basic-menu');
+        return Cache::get(CacheKeys::BasicMenu->value);
     }
 }

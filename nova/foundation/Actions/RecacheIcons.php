@@ -7,6 +7,7 @@ namespace Nova\Foundation\Actions;
 use Anodyne\TablerIcons\Tabler;
 use Illuminate\Support\Facades\Cache;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Enums\CacheKeys;
 
 class RecacheIcons
 {
@@ -14,7 +15,7 @@ class RecacheIcons
 
     public function handle(): void
     {
-        Cache::forget('tabler.icons.searchable');
+        Cache::forget(CacheKeys::SearchableIcons->value);
 
         $searchableIcons = collect(Tabler::cases())
             ->map(fn ($icon) => [
@@ -25,6 +26,6 @@ class RecacheIcons
             ->values()
             ->toArray();
 
-        Cache::put('tabler.icons.searchable', $searchableIcons);
+        Cache::put(CacheKeys::SearchableIcons->value, $searchableIcons);
     }
 }
