@@ -5,7 +5,10 @@ declare(strict_types=1);
 use Anodyne\TablerIcons\Tabler;
 use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Facade;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Facades\NovaView;
+use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Helpers\TimeHelper;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Nova;
 
@@ -146,11 +149,14 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'CacheKeys' => CacheKeys::class,
+        'DateHelper' => DateHelper::class,
         'Illustration' => Illustration::class,
         'Nova' => Nova::class,
         'NovaView' => NovaView::class,
         'SEO' => SEOTools::class,
         'Tabler' => Tabler::class,
+        'TimeHelper' => TimeHelper::class,
     ])->toArray(),
 
 ];
