@@ -13,16 +13,17 @@
 @endphp
 
 @if (filled($heading) || filled($description) || filled($intro))
-    <div {{ $attributes->class(['mb-8']) }} data-slot="header" data-cy="page-header">
+    <div {{ $attributes->class(['mb-8']) }} data-slot="header">
         <div class="md:flex md:items-center md:justify-between">
             <div class="min-w-0 flex-1">
-                <x-h1>{{ $heading ?? $slot }}</x-h1>
+                <x-h1>
+                    {{ $heading ?? $slot }}
+                </x-h1>
             </div>
 
             @if ($actions?->isNotEmpty())
                 <div
                     class="mt-4 inline-flex w-auto flex-row-reverse items-center space-x-4 space-x-reverse sm:flex-row sm:space-x-4 md:mt-0"
-                    data-cy="page-header-controls"
                 >
                     {{ $actions }}
                 </div>
@@ -30,15 +31,15 @@
         </div>
 
         @if (filled($description))
-            <div class="mt-1.5 w-full max-w-lg text-base text-gray-500 dark:text-gray-400 sm:text-sm/6">
+            <x-text class="w-full max-w-lg">
                 {{ $description }}
-            </div>
+            </x-text>
         @endif
 
         @if (filled($intro))
-            <div class="mt-6 w-full max-w-2xl text-base/7 text-gray-600 dark:text-gray-400">
+            <x-text size="lg" class="mt-6 w-full max-w-2xl">
                 {{ $intro }}
-            </div>
+            </x-text>
         @endif
     </div>
 @endif
