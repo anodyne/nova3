@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\Cache;
 use Mistralys\VersionParser\VersionParser;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
 
 if (! function_exists('__s')) {
@@ -114,7 +116,7 @@ if (! function_exists('get_class_name')) {
 if (! function_exists('external_content')) {
     function external_content($key, $default = null)
     {
-        $subject = data_get(cache('external-content'), $key, $default);
+        $subject = data_get(Cache::get(CacheKeys::ExternalContent->value), $key, $default);
 
         if (blank($subject)) {
             return null;
