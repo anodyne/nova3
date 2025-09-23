@@ -1,0 +1,10 @@
+@font-face {
+    font-family: "Monaspace Krypton";
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+    src: url("/dist/fonts/monaspace-krypton/Monaspace-Krypton-Var.woff2?v=1.3") format("woff2-variations"),
+        url("/dist/fonts/monaspace-krypton/Monaspace-Krypton-Var.woff2?v=1.3") format("woff2");
+    src: url("/dist/fonts/monaspace-krypton/Monaspace-Krypton-Var.woff2?v=1.3") format("woff2")
+        tech("variations");
+}
