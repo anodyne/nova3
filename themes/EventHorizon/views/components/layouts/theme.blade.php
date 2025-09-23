@@ -9,13 +9,13 @@
                 <img
                     src="{{ asset('dist/black-hole-3-vertical.png') }}"
                     alt=""
-                    class="absolute right-0 top-1/2 hidden -translate-y-1/2 opacity-35"
+                    class="absolute top-1/2 right-0 hidden -translate-y-1/2 opacity-35"
                 />
                 <div
                     class="absolute right-0 h-full w-px bg-gradient-to-b from-transparent via-white/10 to-transparent"
                 ></div>
                 <svg
-                    class="absolute -bottom-48 left-[-40%] h-[80rem] w-[180%] lg:-right-40 lg:bottom-auto lg:left-auto lg:top-[-40%] lg:h-[180%] lg:w-[80rem]"
+                    class="absolute -bottom-48 left-[-40%] h-[80rem] w-[180%] lg:top-[-40%] lg:-right-40 lg:bottom-auto lg:left-auto lg:h-[180%] lg:w-[80rem]"
                     aria-hidden="true"
                 >
                     <defs>
@@ -34,21 +34,21 @@
                     <rect width="100%" height="100%" fill="url(#:S1:-mobile)" class="lg:hidden"></rect>
                 </svg>
                 <div
-                    class="absolute inset-x-0 bottom-0 right-0 hidden h-px bg-white mix-blend-overlay lg:left-auto lg:top-0 lg:h-auto lg:w-px"
+                    class="absolute inset-x-0 right-0 bottom-0 hidden h-px bg-white mix-blend-overlay lg:top-0 lg:left-auto lg:h-auto lg:w-px"
                 ></div>
             </div>
 
             <div
                 class="relative z-10 mx-auto max-w-lg lg:flex lg:w-96 lg:max-w-none lg:flex-col lg:before:flex-1 lg:before:pt-6"
             >
-                <div class="pb-16 pt-20 sm:pb-20 sm:pt-32 lg:py-20">
+                <div class="pt-20 pb-16 sm:pt-32 sm:pb-20 lg:py-20">
                     <div class="relative">
                         <div>
                             <a href="/">
-                                @if (app('nova.settings')->getFirstMedia('logo'))
+                                @if (app('nova.settings')->getFirstMedia('logo-full'))
                                     <div>
                                         <img
-                                            src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
+                                            src="{{ app('nova.settings')->getFirstMediaUrl('logo-full') }}"
                                             alt="logo"
                                             class="inline-block h-8 w-auto"
                                         />
