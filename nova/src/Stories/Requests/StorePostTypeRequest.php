@@ -6,7 +6,6 @@ namespace Nova\Stories\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Nova\Foundation\Enums\BasicStatus;
 use Nova\Stories\Data\PostTypeData;
 use Nova\Stories\Enums\PostTypeVisibility;
 
@@ -23,7 +22,7 @@ class StorePostTypeRequest extends FormRequest
             'name' => ['required'],
             'options' => ['required'],
             'role_id' => ['nullable'],
-            'status' => ['required', Rule::enum(BasicStatus::class)],
+            'status' => ['sometimes'],
             'visibility' => ['required', Rule::enum(PostTypeVisibility::class)],
         ];
     }

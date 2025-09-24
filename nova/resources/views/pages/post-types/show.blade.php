@@ -2,174 +2,196 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
+            <x-slot name="heading">
+                <div class="flex items-center gap-2">
+                    @if (filled($postType->icon))
+                        <x-icon :name="$postType->icon" size="xl" />
+                    @endif
+
+                    {{ $postType->name }}
+                </div>
+            </x-slot>
+
+            <x-slot name="description">
+                <x-metadata.group size="md" gap="lg">
+                    <x-metadata label="Visibility">
+                        {{ $postType->visibility->getLabel() }}
+                    </x-metadata>
+
+                    <x-metadata label="Status">
+                        <x-badge :color="$postType->status->getColor()" size="md">
+                            {{ $postType->status->getLabel() }}
+                        </x-badge>
+                    </x-metadata>
+                </x-metadata.group>
+            </x-slot>
+
             <x-slot name="actions">
                 @can('viewAny', $postType::class)
-                    <x-button :href="route('admin.post-types.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.post-types.index')" variant="ghost">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
 
                 @can('update', $postType)
-                    <x-button :href="route('admin.post-types.edit', $postType)" color="primary">
-                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.post-types.edit', $postType)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <div class="space-y-12">
-            <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Name">
-                        <x-text>{{ $postType->name }}</x-text>
-                    </x-fieldset.field>
-
-                    @if (filled($postType->description))
-                        <x-fieldset.field label="Description">
-                            <x-text>{{ $postType->description }}</x-text>
-                        </x-fieldset.field>
-                    @endif
-
-                    <x-fieldset.field label="Visibility">
-                        <div data-slot="text">
-                            <x-badge>
-                                {{ $postType->visibility->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Status">
-                        <div data-slot="text">
-                            <x-badge :color="$postType->status->getColor()">
-                                {{ $postType->status->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
-            </x-fieldset>
-
             <x-panel variant="well">
                 <x-panel.header title="Details"></x-panel.header>
 
-                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                    @if (filled($postType->description))
+                <x-panel>
+                    <x-spacing.group divided>
+                        @if (filled($postType->description))
+                            <x-panel.group.row>
+                                <x-text size="lg">{{ $postType->description }}</x-text>
+                            </x-panel.group.row>
+                        @endif
+
                         <x-spacing size="md">
-                            <x-text size="lg">{{ $postType->description }}</x-text>
-                        </x-spacing>
-                    @endif
+                            <div class="grid grid-cols-1 lg:grid-cols-2">
+                                <x-panel.stat
+                                    label="Total published posts"
+                                    :value="$postType->published_posts_count"
+                                ></x-panel.stat>
 
-                    <x-spacing height="md">
-                        <div class="grid grid-cols-1 lg:grid-cols-3">
-                            <x-panel.stat
-                                label="Total published posts"
-                                :value="$postType->published_posts_count"
-                            ></x-panel.stat>
-                            <x-panel.stat label="Icon">
-                                @if (filled($postType->icon))
-                                    <x-icon :name="$postType->icon" size="h-11 w-11 md:h-10 md:w-10"></x-icon>
-                                @else
-                                    &mdash;
-                                @endif
-                            </x-panel.stat>
-                            <x-panel.stat label="Accent color">
-                                <span style="color: {{ $postType->color }}">{{ $postType->color }}</span>
-                            </x-panel.stat>
-                        </div>
-                    </x-spacing>
+                                <x-panel.stat label="Accent color">
+                                    <span style="color: {{ $postType->color }}">{{ $postType->color }}</span>
+                                </x-panel.stat>
+                            </div>
+                        </x-spacing>
+                    </x-spacing.group>
                 </x-panel>
             </x-panel>
 
             <x-panel variant="well">
-                <x-panel.header title="Fields"></x-panel.header>
+                <x-panel.header title="Fields" :icon="Tabler::Forms"></x-panel.header>
 
-                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                    @foreach (PostTypeField::cases() as $field)
-                        @if ($postType->fields->{$field->value}->enabled)
-                            <x-spacing size="row" class="flex items-center gap-x-3 font-medium">
-                                <div class="flex items-center">
-                                    <div class="bg-success-500 h-2 w-2 rounded-full"></div>
+                <x-panel>
+                    <x-spacing.group divided>
+                        @foreach (PostTypeField::cases() as $field)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3">
+                                    @if ($postType->fields->{$field->value}->enabled)
+                                        <x-icon :name="Tabler::CircleCheck" size="md" class="text-success-500" />
+                                    @else
+                                        <x-icon :name="Tabler::CircleX" size="md" class="text-danger-500" />
+                                    @endif
+
+                                    <x-heading level="4">{{ $field->getLabel() }} field</x-heading>
+
+                                    @if ($postType->fields->{$field->value}->required)
+                                        <x-badge size="md">Required</x-badge>
+                                    @endif
                                 </div>
-
-                                <span>{{ $field->getLabel() }} field</span>
-
-                                @if ($postType->fields->{$field->value}->required)
-                                    <x-badge>Required</x-badge>
-                                @endif
-                            </x-spacing>
-                        @endif
-                    @endforeach
+                            </x-panel.group.row>
+                        @endforeach
+                    </x-spacing.group>
                 </x-panel>
             </x-panel>
 
             <x-panel variant="well">
-                <x-panel.header title="Options"></x-panel.header>
+                <x-panel.header title="Options" :icon="Tabler::Adjustments"></x-panel.header>
 
-                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                    @if ($postType->options->notifiesUsers)
-                        <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon :name="Icon::Notification" size="md"></x-icon>
-                            <span>Sends notifications when published</span>
-                        </x-spacing>
-                    @else
-                        <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon :name="Icon::NotificationOff" size="md"></x-icon>
-                            <span>Does not send notifications when published</span>
-                        </x-spacing>
-                    @endif
-
-                    @if ($postType->options->includedInPostTracking)
-                        <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon :name="Icon::Chart" size="md"></x-icon>
-                            <span>Included in activity tracking stats</span>
-                        </x-spacing>
-                    @endif
-
-                    @if ($postType->options->allowsMultipleAuthors)
-                        <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon :name="Icon::Users" size="md"></x-icon>
-                            <span>Allows multiple authors</span>
-                        </x-spacing>
-                    @endif
-
-                    @if ($postType->options->allowsCharacterAuthors)
-                        <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon :name="Icon::Characters" size="md"></x-icon>
-                            <span>Allows characters as authors</span>
-                        </x-spacing>
-                    @endif
-
-                    @if ($postType->options->allowsUserAuthors)
-                        <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon :name="Icon::User" size="md"></x-icon>
-                            <span>Allows users as authors</span>
-                        </x-spacing>
-                    @endif
-
-                    @if ($postType->options->showContentInTimelineView)
-                        <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon :name="Icon::Timeline" size="md"></x-icon>
-                            <span>Show content in timeline view</span>
-                        </x-spacing>
-                    @endif
-
-                    @if ($postType->role)
-                        <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                            <x-icon :name="Icon::Shield" size="md"></x-icon>
-                            <span>Requires {{ $postType->role->display_name }} role</span>
-                        </x-spacing>
-                    @endif
-
-                    <x-spacing size="row" class="flex items-center gap-3 font-medium">
-                        @if ($postType->options->editTimeframe->value === 'never')
-                            <x-icon :name="Icon::EditOff" size="md"></x-icon>
-                            <span>{{ $postType->options->editTimeframe->getLabel() }}</span>
+                <x-panel>
+                    <x-spacing.group divided>
+                        @if ($postType->options->notifiesUsers)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::Notification" size="md" />
+                                    <x-heading level="4">Sends notifications when published</x-heading>
+                                </div>
+                            </x-panel.group.row>
                         @else
-                            <x-icon :name="Icon::Edit" size="md"></x-icon>
-                            <span>
-                                Can be edited for {{ $postType->options->editTimeframe->getLabel() }} after publishing
-                            </span>
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::NotificationOff" size="md" />
+                                    <x-heading level="4">Does not send notifications when published</x-heading>
+                                </div>
+                            </x-panel.group.row>
                         @endif
-                    </x-spacing>
+
+                        @if ($postType->options->includedInPostTracking)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::ChartBar" size="md" />
+                                    <x-heading level="4">Inlcuded in activity tracking stats</x-heading>
+                                </div>
+                            </x-panel.group.row>
+                        @endif
+
+                        @if ($postType->options->allowsMultipleAuthors)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::Users" size="md" />
+                                    <x-heading level="4">Allows multiple authors</x-heading>
+                                </div>
+                            </x-panel.group.row>
+                        @endif
+
+                        @if ($postType->options->allowsCharacterAuthors)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::MasksTheater" size="md" />
+                                    <x-heading level="4">Allows characters as authors</x-heading>
+                                </div>
+                            </x-panel.group.row>
+                        @endif
+
+                        @if ($postType->options->allowsUserAuthors)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::User" size="md" />
+                                    <x-heading level="4">Allows users as authors</x-heading>
+                                </div>
+                            </x-panel.group.row>
+                        @endif
+
+                        @if ($postType->options->showContentInTimelineView)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::TimelineEvent" size="md" />
+                                    <x-heading level="4">Shows content in the timeline view</x-heading>
+                                </div>
+                            </x-panel.group.row>
+                        @endif
+
+                        @if ($postType->role)
+                            <x-panel.group.row>
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::ShieldLock" size="md" />
+                                    <x-heading level="4">Requires {{ $postType->role->display_name }} role</x-heading>
+                                </div>
+                            </x-panel.group.row>
+                        @endif
+
+                        <x-panel.group.row>
+                            @if ($postType->options->editTimeframe->value === 'never')
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::PencilOff" size="md" />
+                                    <x-heading level="4">
+                                        {{ $postType->options->editTimeframe->getLabel() }}
+                                    </x-heading>
+                                </div>
+                            @else
+                                <div class="flex items-center gap-3 text-sm/6 font-medium">
+                                    <x-icon :name="Tabler::Pencil" size="md" />
+                                    <x-heading level="4">
+                                        Can be edited for {{ $postType->options->editTimeframe->getLabel() }} after
+                                        publishing
+                                    </x-heading>
+                                </div>
+                            @endif
+                        </x-panel.group.row>
+                    </x-spacing.group>
                 </x-panel>
             </x-panel>
         </div>

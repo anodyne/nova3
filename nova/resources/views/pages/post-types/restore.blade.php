@@ -1,7 +1,7 @@
 <x-filament.modal-content :$action title="Restore post type?">
-    <p>
+    <x-text variant="strong">
         Are you sure you want to restore the
-        <strong class="font-semibold">{{ $record->name }}</strong>
+        <strong>{{ $record->name }}</strong>
         post type?
-    </p>
+    </x-text>
 </x-filament.modal-content>
