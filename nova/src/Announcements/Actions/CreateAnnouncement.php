@@ -17,18 +17,14 @@ class CreateAnnouncement
     public function handle(AnnouncementData $data): Announcement
     {
         return DB::transaction(function () use ($data): Announcement {
-            if ($data->status === PublishStatus::Published && $data->user()->isModerated()) {
-                $data = $data->append(['status' => PublishStatus::Pending]);
-            }
+            $data = ApplyAnnouncementModeration::run($data);
 
             $announcement = $data->user()
                 ->announcements()
-                ->create([
-                    ...$data->toArray(),
-                    ...[
-                        'published_at' => $data->status === PublishStatus::Published ? now() : null,
-                    ],
-                ]);
+                ->create(array_merge(
+                    $data->toArray(),
+                    ['published_at' => $data->status === PublishStatus::Published ? now() : null]
+                ));
 
             NotifyUsers::runIf($data->status === PublishStatus::Published, $announcement);
 

@@ -25,7 +25,13 @@ readonly class AnnouncementData extends Bag
 
     public function user(): User
     {
-        return Auth::user();
+        $user = Auth::user();
+
+        if (! $user) {
+            throw new \RuntimeException('User must be authenticated to create announcements');
+        }
+
+        return $user;
     }
 
     #[Transforms(Request::class)]

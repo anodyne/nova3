@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Models;
 
-use Nova\Announcements\Events\AnnouncementCreated;
-use Nova\Announcements\Events\AnnouncementDeleted;
-use Nova\Announcements\Events\AnnouncementUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Date;
 use Laravel\Scout\Searchable;
-use Nova\Announcements\Events;
+use Nova\Announcements\Events\AnnouncementCreated;
+use Nova\Announcements\Events\AnnouncementDeleted;
+use Nova\Announcements\Events\AnnouncementUpdated;
 use Nova\Announcements\Models\Builders\AnnouncementBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\PublishStatus;
@@ -59,6 +60,13 @@ class Announcement extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function isPublished(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->published_at?->lte(Date::now()) ?? false,
+        );
     }
 
     public function unreadFor(User $user): bool

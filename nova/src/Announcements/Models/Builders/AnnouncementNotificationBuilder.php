@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AnnouncementNotificationBuilder extends Builder
 {
+    public function announcement(int $announcementId): self
+    {
+        return $this->where('announcement_id', $announcementId);
+    }
+
     public function read(): self
     {
         return $this->where('is_seen', true);
@@ -18,12 +23,7 @@ class AnnouncementNotificationBuilder extends Builder
         return $this->where('is_seen', false);
     }
 
-    public function whereAnnouncement(int $announcementId): self
-    {
-        return $this->where('announcement_id', $announcementId);
-    }
-
-    public function whereUser(int $userId): self
+    public function user(int $userId): self
     {
         return $this->where('user_id', $userId);
     }

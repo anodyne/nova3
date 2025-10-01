@@ -83,6 +83,7 @@ class AnnouncementsList extends TableComponent
                     ->label('Author')
                     ->toggleable(),
                 TextColumn::make('published_at')
+                    ->label('Published')
                     ->dateTime()
                     ->formatStateUsing(fn (Announcement $record): ?string => filled($record->published_at) ? DateHelper::formatDate($record->published_at) : null)
                     ->sortable()
