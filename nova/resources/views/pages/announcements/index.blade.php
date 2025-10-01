@@ -1,18 +1,18 @@
 @use('Nova\Announcements\Models\Announcement')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         @can('create', Announcement::class)
             <x-slot name="actions">
-                <x-button :href="route('admin.announcements.create')" color="primary">
-                    <x-icon :name="Tabler::Plus" size="sm"></x-icon>
+                <x-button :href="route('admin.announcements.create')" variant="primary">
+                    <x-icon :name="Tabler::Plus" size="sm" />
                     Add
                 </x-button>
             </x-slot>
         @endcan
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:announcements-list />
 
-    <x-tips section="announcements"></x-tips>
+    <x-tips section="announcements" />
 </x-admin-layout>

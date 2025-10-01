@@ -3,19 +3,20 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', Announcement::class)
                 <x-slot name="actions">
                     <x-button :href="route('admin.announcements.index')" variant="ghost" inset="right">
-                        &larr; Back
+                        <span aria-hidden="true">←</span>
+                        Back
                     </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.announcements.update', $announcement)" method="PUT">
             <x-fieldset>
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <x-input label="Title" name="title" :value="old('title', $announcement->title)" />
 
                     <flux:autocomplete
@@ -29,18 +30,16 @@
                         @endforeach
                     </flux:autocomplete>
 
-                    <x-select label="Status" name="status">
-                        <option value="">Choose a status</option>
+                    <x-radio.group label="Status" name="status" variant="segmented" class="max-w-fit">
                         @foreach (PublishStatus::options(withPending: $announcement->status === PublishStatus::Pending) as $status)
-                            <option
+                            <x-radio
+                                :label="$status->getLabel()"
                                 value="{{ $status->value }}"
-                                @selected($status->value === old('status', $announcement->status->value))
-                            >
-                                {{ $status->getLabel() }}
-                            </option>
+                                :checked="old('status', $announcement->status->value) === $status->value"
+                            />
                         @endforeach
-                    </x-select>
-                </x-fieldset.fields>
+                    </x-radio.group>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>

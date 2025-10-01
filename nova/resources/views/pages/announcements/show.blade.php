@@ -2,9 +2,12 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header :heading="$announcement->title">
+        <x-page-heading :heading="$announcement->title">
             <x-slot name="actions">
-                <x-button x-on:click="window.history.back()" variant="ghost">&larr; Back</x-button>
+                <x-button x-on:click="window.history.back()" variant="ghost">
+                    <span aria-hidden="true">←</span>
+                    Back
+                </x-button>
 
                 @can('update', $announcement)
                     <x-button :href="route('admin.announcements.edit', $announcement)" variant="primary">
@@ -13,9 +16,9 @@
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
-        <div class="my-4 flex items-center gap-x-8 text-sm">
+        <x-metadata.group gap="lg" class="my-4">
             <x-metadata label="Author" :value="$announcement->user->name"></x-metadata>
 
             @if (filled($announcement->category))
@@ -31,7 +34,7 @@
                     @endif
                 </x-slot>
             </x-metadata>
-        </div>
+        </x-metadata.group>
 
         <div class="prose dark:prose-invert max-w-none">
             {!! $announcement->content !!}
