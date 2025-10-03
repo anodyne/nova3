@@ -32,7 +32,7 @@ class AnnouncementBuilder extends Builder
 
     public function uniqueCategories(): self
     {
-        return $this->select('category')->distinct();
+        return $this->select('category')->whereNotNull('category')->distinct();
     }
 
     public function withReadNotificationsForUser(User $user): self

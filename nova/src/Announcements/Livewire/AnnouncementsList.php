@@ -67,9 +67,10 @@ class AnnouncementsList extends TableComponent
                         fn (Builder $query): Builder => $query->published(),
                     )
             )
-            ->defaultGroup('status')
+            ->defaultGroup(fn (): ?string => $user->can('manage', Announcement::class) ? 'status' : null)
             ->defaultSort('published_at', 'desc')
             ->groups(['status'])
+            ->groupingSettingsHidden($user->cannot('manage', Announcement::class))
             ->recordUrl(fn (Announcement $record): string => route('admin.announcements.show', $record))
             ->columns([
                 ViewColumn::make('title')

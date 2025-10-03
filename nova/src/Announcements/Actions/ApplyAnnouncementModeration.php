@@ -14,7 +14,7 @@ class ApplyAnnouncementModeration
 
     public function handle(AnnouncementData $data): AnnouncementData
     {
-        if ($data->status === PublishStatus::Published && $data->user()->isModerated()) {
+        if ($data->status === PublishStatus::Published && $data->user()->is_moderated) {
             return $data->append(['status' => PublishStatus::Pending]);
         }
 
