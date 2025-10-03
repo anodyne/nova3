@@ -7,6 +7,7 @@ namespace Nova\Announcements\Actions;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Announcements\Events\AnnouncementPublished;
 use Nova\Announcements\Models\Announcement;
 use Nova\Foundation\Enums\PublishStatus;
 
@@ -23,6 +24,8 @@ class ApproveAnnouncement
                 'status' => PublishStatus::Published,
                 'published_at' => Date::now(),
             ]);
+
+            AnnouncementPublished::dispatch($announcement);
 
             NotifyUsers::run($announcement);
 

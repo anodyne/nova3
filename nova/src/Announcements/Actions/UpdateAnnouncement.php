@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Data\AnnouncementData;
+use Nova\Announcements\Events\AnnouncementPublished;
 use Nova\Announcements\Models\Announcement;
 use Nova\Foundation\Enums\PublishStatus;
 
@@ -27,6 +28,8 @@ class UpdateAnnouncement
             $announcement->update($this->setUpdateData(announcement: $announcement, data: $data, wasPublishing: $wasPublishing));
 
             $announcement = $announcement->fresh();
+
+            AnnouncementPublished::dispatchIf($announcement->status === PublishStatus::Published, $announcement);
 
             NotifyUsers::runIf($announcement->status === PublishStatus::Published, $announcement);
 
