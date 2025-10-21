@@ -5,9 +5,8 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Foundation\Enums\BasicStatus;
 
-class CreateThemeTables extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -18,7 +17,7 @@ class CreateThemeTables extends Migration
             $table->string('version');
             $table->text('credits')->nullable();
             $table->text('preview')->nullable();
-            $table->string('status')->default(BasicStatus::Active)->index();
+            $table->string('status')->default('active')->index();
             $table->json('settings');
             $table->json('repository')->nullable();
             $table->datetimes();
@@ -29,4 +28,4 @@ class CreateThemeTables extends Migration
     {
         Schema::dropIfExists('themes');
     }
-}
+};

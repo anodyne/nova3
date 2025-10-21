@@ -5,9 +5,8 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Characters\Enums\CharacterType;
 
-class CreateCharacterTables extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -15,7 +14,7 @@ class CreateCharacterTables extends Migration
             $table->id();
             $table->prefixedId();
             $table->string('name')->index();
-            $table->string('type')->default(CharacterType::Support)->index();
+            $table->string('type')->default('support')->index();
             $table->string('status')->index();
             $table->foreignId('rank_id')->nullable();
             $table->datetimes();
@@ -43,4 +42,4 @@ class CreateCharacterTables extends Migration
         Schema::dropIfExists('character_user');
         Schema::dropIfExists('characters');
     }
-}
+};

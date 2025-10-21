@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSettingsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -30,4 +30,4 @@ class CreateSettingsTable extends Migration
     {
         Schema::dropIfExists('settings');
     }
-}
+};

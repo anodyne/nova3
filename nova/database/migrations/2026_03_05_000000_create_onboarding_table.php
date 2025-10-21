@@ -8,25 +8,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('upgrade', function (Blueprint $table) {
+        Schema::create('onboarding', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->unsignedBigInteger('old_id');
-            $table->unsignedBigInteger('new_id');
+            $table->string('process');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->dateTime('completed_at')->nullable();
+            $table->json('steps')->nullable();
             $table->datetimes();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('upgrade');
+        Schema::dropIfExists('onboarding');
     }
 };

@@ -10,18 +10,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('onboarding', function (Blueprint $table) {
+        Schema::create('upgrade', function (Blueprint $table) {
             $table->id();
-            $table->string('process');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->dateTime('completed_at')->nullable();
-            $table->json('steps')->nullable();
+            $table->string('type');
+            $table->unsignedBigInteger('old_id');
+            $table->unsignedBigInteger('new_id');
             $table->datetimes();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('onboarding');
+        Schema::dropIfExists('upgrade');
     }
 };

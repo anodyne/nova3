@@ -5,10 +5,8 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Foundation\Enums\BasicStatus;
-use Nova\Pages\Enums\PageVerb;
 
-class CreatePagesTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -18,7 +16,7 @@ class CreatePagesTable extends Migration
             $table->string('name');
             $table->string('uri');
             $table->string('key')->nullable()->index();
-            $table->string('verb')->default(PageVerb::Get);
+            $table->string('verb')->default('get');
             $table->string('resource')->nullable();
             $table->string('layout')->default('public');
             $table->text('middleware')->nullable();
@@ -27,7 +25,7 @@ class CreatePagesTable extends Migration
             $table->string('seo_title')->nullable();
             $table->text('seo_description')->nullable();
             $table->text('seo_keywords')->nullable();
-            $table->string('status')->default(BasicStatus::Active->value);
+            $table->string('status')->default('active');
             $table->dateTime('published_at')->nullable();
             $table->boolean('content_can_be_edited')->default(true);
             $table->text('heading')->nullable();
@@ -41,4 +39,4 @@ class CreatePagesTable extends Migration
     {
         Schema::dropIfExists('pages');
     }
-}
+};

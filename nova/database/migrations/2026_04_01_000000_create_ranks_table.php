@@ -5,16 +5,15 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Foundation\Enums\BasicStatus;
 
-class CreateRankTables extends Migration
+return new class extends Migration
 {
     public function up()
     {
         Schema::create('rank_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->string('status')->default(BasicStatus::Active)->index();
+            $table->string('status')->default('active')->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->datetimes();
         });
@@ -22,7 +21,7 @@ class CreateRankTables extends Migration
         Schema::create('rank_names', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
-            $table->string('status')->default(BasicStatus::Active)->index();
+            $table->string('status')->default('active')->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->datetimes();
         });
@@ -33,7 +32,7 @@ class CreateRankTables extends Migration
             $table->foreignId('name_id')->constrained('rank_names');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
-            $table->string('status')->default(BasicStatus::Active)->index();
+            $table->string('status')->default('active')->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->datetimes();
         });
@@ -45,4 +44,4 @@ class CreateRankTables extends Migration
         Schema::dropIfExists('rank_names');
         Schema::dropIfExists('rank_items');
     }
-}
+};

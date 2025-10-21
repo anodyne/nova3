@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActivityLogTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -32,4 +32,4 @@ class CreateActivityLogTable extends Migration
     {
         Schema::dropIfExists(config('activitylog.table_name'));
     }
-}
+};

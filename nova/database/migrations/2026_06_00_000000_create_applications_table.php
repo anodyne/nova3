@@ -5,8 +5,6 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Nova\Applications\Enums\ApplicationResult;
-use Nova\Applications\Enums\ReviewerType;
 
 return new class extends Migration
 {
@@ -18,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('character_id')->nullable()->constrained();
             $table->string('ip_address')->nullable();
-            $table->string('result')->default(ApplicationResult::Pending->value);
+            $table->string('result')->default('pending');
             $table->longText('decision_message')->nullable();
             $table->dateTime('decision_date')->nullable();
             $table->datetimes();
@@ -43,7 +41,7 @@ return new class extends Migration
         Schema::create('application_reviewers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('type')->default(ReviewerType::Conditional->value);
+            $table->string('type')->default('conditional');
             $table->json('conditions')->nullable();
             $table->datetimes();
 
