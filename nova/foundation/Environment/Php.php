@@ -7,7 +7,7 @@ namespace Nova\Foundation\Environment;
 class Php
 {
     public function __construct(
-        public readonly string $required = '8.3',
+        public readonly string $required = '8.4',
         public readonly string $version = PHP_VERSION
     ) {}
 

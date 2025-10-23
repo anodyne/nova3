@@ -1,4 +1,4 @@
-<x-setup::panel.row :icon="Tabler::BrandPhp" heading="PHP 8.3+">
+<x-setup::panel.row :icon="Tabler::BrandPhp" heading="PHP 8.4+">
     <p>
         Nova is web-based software written in PHP. To ensure the best possible experience, we recommend using the latest
         version of PHP.
