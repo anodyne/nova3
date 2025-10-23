@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Nova\Users\Models\User;
-use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Permission;
+use Nova\Roles\Models\Role;
 use Nova\Roles\Models\Team;
+use Nova\Users\Models\User;
 
 return [
 
@@ -256,7 +256,7 @@ return [
         | Please check the docs to see what you need to do in case you have the package already configured.
         |
         */
-        'enabled' => false,
+        'enabled' => true,
 
         /*
         |--------------------------------------------------------------------------
