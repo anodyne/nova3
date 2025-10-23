@@ -10,6 +10,7 @@ use Nova\Foundation\Facades\NovaView;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Helpers\TimeHelper;
 use Nova\Foundation\Icons\Illustration;
+use Nova\Foundation\Icons\NotificationIcon;
 use Nova\Foundation\Nova;
 
 return [
@@ -152,6 +153,7 @@ return [
         'CacheKeys' => CacheKeys::class,
         'DateHelper' => DateHelper::class,
         'Illustration' => Illustration::class,
+        'NotificationIcon' => NotificationIcon::class,
         'Nova' => Nova::class,
         'NovaView' => NovaView::class,
         'SEO' => SEOTools::class,
