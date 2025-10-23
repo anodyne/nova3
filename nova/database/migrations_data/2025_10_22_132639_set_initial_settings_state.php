@@ -98,7 +98,7 @@ return new class extends Migration
             'dashboard' => [
                 'leaderboard' => [
                     'title' => 'Top Contributors',
-                    'icon' => 'award',
+                    'icon' => 'tabler-award',
                     'target' => 'words',
                     'userSelectableTimeframe' => false,
                     'timeframe' => '30-days',
