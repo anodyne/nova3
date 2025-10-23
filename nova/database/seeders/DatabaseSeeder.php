@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             StorySeeder::class,
             CurrentStoriesPostSeeder::class,
             CompletedStoriesPostSeeder::class,
+
             FormSeeder::class,
 
             ApplicationSeeder::class,
@@ -47,6 +48,8 @@ class DatabaseSeeder extends Seeder
             AnnouncementSeeder::class,
 
             ChangelogSeeder::class,
+
+            NotificationSeeder::class,
         ]);
 
         StartOnboarding::run(OnboardingProcess::FreshInstall, User::find(1));

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Actions\TrackStatusUpdate;
@@ -16,66 +17,45 @@ use Nova\Users\Models\User;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
+        DB::disableQueryLog();
         activity()->disableLogging();
 
         $form = Form::key('userBio')->first();
+        $password = 'secret';
 
         $admin = User::factory()->active()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
+            'password' => $password,
         ]);
         $admin->addRoles(['owner', 'admin', 'active', 'writer', 'story-manager', 'webmaster']);
-        UpdateApplicationReviewers::run(ApplicationReviewers::from(
-            globalReviewers: [$admin->id],
-        ));
+        UpdateApplicationReviewers::run(ApplicationReviewers::from(globalReviewers: [$admin->id]));
         CreateFormSubmission::run($form, $admin);
         StartOnboarding::run(OnboardingProcess::NewUser, $admin);
 
-        for ($i = 1; $i <= 15; $i++) {
-            $activeUser = User::factory()
-                ->active()
-                ->create([
-                    'email' => "user{$i}@user.com",
-                ]);
-            $activeUser->addRoles(['active', 'writer']);
-            CreateFormSubmission::run($form, $activeUser);
-            StartOnboarding::run(OnboardingProcess::NewUser, $activeUser);
-        }
+        $actives = User::factory()
+            ->count(15)
+            ->active()
+            ->sequence(fn ($seq) => ['email' => 'user'.($seq->index + 1).'@user.com', 'password' => $password])
+            ->create();
 
-        $inactiveUser = User::factory()
-            ->inactive()
-            ->create([
-                'name' => 'inactive',
-                'email' => 'inactive@inactive.com',
-            ]);
-        CreateFormSubmission::run($form, $inactiveUser);
-        sleep(2);
-        TrackStatusUpdate::run($inactiveUser);
+        $actives->each(function ($user) use ($form) {
+            $user->addRoles(['active', 'writer']);
+            CreateFormSubmission::run($form, $user);
+            StartOnboarding::run(OnboardingProcess::NewUser, $user);
+        });
 
-        // foreach (['p', 'ps', 'pu', 'psu', 's', 'su', 'u'] as $item) {
-        //     $user = User::factory()->active()->create([
-        //         'name' => "user_{$item}",
-        //         'email' => "user_{$item}@user.com",
-        //     ]);
-
-        //     $str = str($item);
-
-        //     match (true) {
-        //         $str->contains('p') => $user->addRole('create-primary-characters'),
-        //         $str->contains('s') => $user->addRole('create-secondary-characters'),
-        //         $str->contains('u') => $user->addRole('create-support-characters'),
-        //         default => $user,
-        //     };
-
-        //     CreateFormSubmission::run($form, $user);
-        // }
+        $inactive = User::factory()->inactive()->create([
+            'name' => 'inactive',
+            'email' => 'inactive@inactive.com',
+            'password' => $password,
+            'created_at' => now()->subSeconds(2),
+            'updated_at' => now()->subSeconds(2),
+        ]);
+        CreateFormSubmission::run($form, $inactive);
+        TrackStatusUpdate::run($inactive);
 
         activity()->enableLogging();
     }

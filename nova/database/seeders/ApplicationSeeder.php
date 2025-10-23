@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
 use Nova\Characters\Models\Character;
@@ -18,118 +21,118 @@ use Nova\Users\Models\User;
 
 class ApplicationSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
+        DB::disableQueryLog();
         activity()->disableLogging();
 
-        $this->createAcceptedApplication();
-        $this->createDeniedApplication();
-        $this->createPendingApplication();
+        DB::transaction(function () {
+            $forms = Form::query()
+                ->whereIn('key', ['userBio', 'characterBio', 'applicationInfo'])
+                ->get()
+                ->keyBy('key');
+
+            $reviewerIds = User::query()->orderBy('id')->limit(3)->pluck('id')->all();
+
+            $positionIds = Position::query()->pluck('id')->all();
+
+            $this->makeApplication(
+                result: ApplicationResult::Accept,
+                forms: $forms,
+                reviewerIds: $reviewerIds,
+                positionIds: $positionIds
+            );
+
+            $this->makeApplication(
+                result: ApplicationResult::Deny,
+                forms: $forms,
+                reviewerIds: $reviewerIds,
+                positionIds: $positionIds
+            );
+
+            $this->makeApplication(
+                result: ApplicationResult::Pending,
+                forms: $forms,
+                reviewerIds: $reviewerIds,
+                positionIds: $positionIds
+            );
+        });
 
         activity()->enableLogging();
     }
 
-    protected function createAcceptedApplication(): void
-    {
+    /**
+     * Build a single application end-to-end (user + character + application + discussion).
+     */
+    protected function makeApplication(
+        ApplicationResult $result,
+        Collection $forms,
+        array $reviewerIds,
+        array $positionIds
+    ): void {
         $user = User::factory()->pending()->create();
         $user->addRoles(['active', 'writer']);
         PopulateAccountPreferences::run($user);
         PopulateNotificationPreferences::run($user);
-        CreateFormSubmission::run(Form::key('userBio')->first(), $user);
+        CreateFormSubmission::run($forms['userBio'], $user);
 
         $character = Character::factory()->primary()->pending()->create();
-        $character->users()->save($user);
-        $character->positions()->save(Position::query()->inRandomOrder()->first());
-        CreateFormSubmission::run(Form::key('characterBio')->first(), $character);
+        $character->users()->attach([$user->id => []]);
 
-        $application = Application::factory()
-            ->create([
-                'user_id' => $user,
-                'character_id' => $character,
-                'result' => ApplicationResult::Accept,
-                'decision_date' => now(),
-                'decision_message' => fake()->paragraph(),
-            ]);
-        CreateFormSubmission::run(Form::key('applicationInfo')->first(), $application);
+        if ($positionIds) {
+            $character->positions()->attach(collect($positionIds)->random());
+        }
+        CreateFormSubmission::run($forms['characterBio'], $character);
 
-        $discussion = $application->discussion()->create();
+        $appAttributes = [
+            'user_id' => $user->id,
+            'character_id' => $character->id,
+            'result' => $result,
+        ];
 
-        $application->reviews()->attach([1, 2, 3]);
+        if ($result !== ApplicationResult::Pending) {
+            $appAttributes['decision_date'] = Date::now()->setMicrosecond(0)->toDateTimeString();
+            $appAttributes['decision_message'] = fake()->paragraph();
+        }
 
-        $this->createDiscussionMessages($discussion, mt_rand(2, 10));
-    }
-
-    protected function createDeniedApplication(): void
-    {
-        $user = User::factory()->pending()->create();
-        $user->addRoles(['active', 'writer']);
-        PopulateAccountPreferences::run($user);
-        PopulateNotificationPreferences::run($user);
-        CreateFormSubmission::run(Form::key('userBio')->first(), $user);
-
-        $character = Character::factory()->primary()->pending()->create();
-        $character->users()->save($user);
-        $character->positions()->save(Position::query()->inRandomOrder()->first());
-        CreateFormSubmission::run(Form::key('characterBio')->first(), $character);
-
-        $application = Application::factory()
-            ->create([
-                'user_id' => $user,
-                'character_id' => $character,
-                'result' => ApplicationResult::Deny,
-                'decision_date' => now(),
-                'decision_message' => fake()->paragraph(),
-            ]);
-        CreateFormSubmission::run(Form::key('applicationInfo')->first(), $application);
+        $application = Application::factory()->create($appAttributes);
+        CreateFormSubmission::run($forms['applicationInfo'], $application);
 
         $discussion = $application->discussion()->create();
+        if (! empty($reviewerIds)) {
+            $application->reviews()->attach($reviewerIds);
+        }
 
-        $application->reviews()->attach([1, 2, 3]);
-
-        $this->createDiscussionMessages($discussion, mt_rand(2, 10));
+        $this->bulkCreateDiscussionMessages($discussion->id, mt_rand(2, 10), $reviewerIds);
     }
 
-    protected function createPendingApplication(): void
+    /**
+     * Bulk insert discussion messages for speed.
+     */
+    protected function bulkCreateDiscussionMessages(int $discussionId, int $count, array $authorPool): void
     {
-        $user = User::factory()->pending()->create();
-        $user->addRoles(['active', 'writer']);
-        PopulateAccountPreferences::run($user);
-        PopulateNotificationPreferences::run($user);
-        CreateFormSubmission::run(Form::key('userBio')->first(), $user);
+        if ($count <= 0) {
+            return;
+        }
 
-        $character = Character::factory()->primary()->pending()->create();
-        $character->users()->save($user);
-        $character->positions()->save(Position::query()->inRandomOrder()->first());
-        CreateFormSubmission::run(Form::key('characterBio')->first(), $character);
+        $authorIds = ! empty($authorPool)
+            ? $authorPool
+            : User::query()->orderBy('id')->limit(3)->pluck('id')->all();
 
-        $application = Application::factory()
-            ->create([
-                'user_id' => $user,
-                'character_id' => $character,
-                'result' => ApplicationResult::Pending,
-            ]);
-        CreateFormSubmission::run(Form::key('applicationInfo')->first(), $application);
+        $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 
-        $discussion = $application->discussion()->create();
-
-        $application->reviews()->attach([1, 2, 3]);
-
-        $this->createDiscussionMessages($discussion, mt_rand(2, 10));
-    }
-
-    protected function createDiscussionMessages(Discussion $discussion, int $count = 3): void
-    {
-        $messages = [];
-
+        $rows = [];
         for ($i = 0; $i < $count; $i++) {
-            $messages[] = [
-                'discussion_id' => $discussion->id,
+            $rows[] = [
+                'discussion_id' => $discussionId,
                 'content' => fake()->paragraph(),
-                'user_id' => mt_rand(1, 3),
+                'user_id' => $authorIds[array_rand($authorIds)],
                 'type' => 'text',
+                'created_at' => $now,
+                'updated_at' => $now,
             ];
         }
 
-        $discussion->messages()->createMany($messages);
+        DB::table('discussion_messages')->insert($rows);
     }
 }

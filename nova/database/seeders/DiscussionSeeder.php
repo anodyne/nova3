@@ -5,47 +5,45 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Nova\Discussions\Models\Discussion;
-use Nova\Discussions\Models\DiscussionMessage;
 
 class DiscussionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
+        DB::disableQueryLog();
         activity()->disableLogging();
 
-        $groupChat = Discussion::factory()->create(['subject' => 'Group message']);
+        $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 
-        $groupChat->allParticipants()->sync([1, 2, 3]);
+        $seedChat = function (array $discussionAttrs, array $participantIds, array $authorPool, int $count = 5) use ($now) {
+            /** @var \App\Models\Discussion $discussion */
+            $discussion = Discussion::factory()->create(
+                ['created_at' => $now, 'updated_at' => $now] + $discussionAttrs
+            );
+            $discussion->allParticipants()->sync($participantIds);
 
-        $groupChat->refresh();
+            if ($count > 0) {
+                $rows = [];
+                for ($i = 0; $i < $count; $i++) {
+                    $rows[] = [
+                        'discussion_id' => $discussion->id,
+                        'user_id' => $authorPool[array_rand($authorPool)],
+                        'type' => 'text',
+                        'content' => fake()->paragraph(),
+                        'created_at' => $now,
+                        'updated_at' => $now,
+                    ];
+                }
+                DB::table('discussion_messages')->insert($rows);
+            }
+        };
 
-        for ($i = 0; $i < 5; $i++) {
-            DiscussionMessage::factory()
-                ->text()
-                ->create([
-                    'discussion_id' => $groupChat->id,
-                    'user_id' => fake()->randomElement([1, 2, 3]),
-                ]);
-        }
+        $seedChat(['subject' => 'Group message'], [1, 2, 3], [1, 2, 3], 5);
 
-        $privateChat = Discussion::factory()->create();
-
-        $privateChat->allParticipants()->sync([1, 2]);
-
-        $privateChat->refresh();
-
-        for ($i = 0; $i < 5; $i++) {
-            DiscussionMessage::factory()
-                ->text()
-                ->create([
-                    'discussion_id' => $privateChat->id,
-                    'user_id' => fake()->randomElement([1, 2]),
-                ]);
-        }
+        $seedChat([], [1, 2], [1, 2], 5);
 
         activity()->enableLogging();
     }
