@@ -10,20 +10,6 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('post_author', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('post_id')->constrained();
-            $table->morphs('authorable');
-            $table->foreignId('user_id')->nullable()->constrained();
-            $table->text('as')->nullable();
-            $table->integer('word_count')->default(0);
-            $table->timestamps();
-
-            $table->index('user_id');
-            $table->index('post_id');
-            $table->index('updated_at');
-        });
-
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->prefixedId();
@@ -52,6 +38,20 @@ return new class extends Migration
             $table->softDeletesDatetime();
 
             $table->index('locked_at');
+        });
+
+        Schema::create('post_author', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('post_id')->constrained();
+            $table->morphs('authorable');
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->text('as')->nullable();
+            $table->integer('word_count')->default(0);
+            $table->timestamps();
+
+            $table->index('user_id');
+            $table->index('post_id');
+            $table->index('updated_at');
         });
     }
 
