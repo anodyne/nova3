@@ -86,6 +86,7 @@ class RankNamesList extends TableComponent
                             ->schema([
                                 TextInput::make('name')->label('New rank name'),
                             ])
+                            ->recordDisplayNameAttribute('name')
                             ->modalContentView('pages.ranks.names.duplicate')
                             ->action(function (RankName $record, array $data): void {
                                 $replica = DuplicateRankName::run(
