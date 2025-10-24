@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
@@ -14,6 +15,7 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Livewire\livewire;
 
 uses()->group('ranks');
+uses()->group('rank-groups');
 
 beforeEach(function () {
     $this->rankGroup = RankGroup::factory()->create();
@@ -30,11 +32,12 @@ test('an authorized user can duplicate a rank group', function () {
 
     $data = [
         'name' => 'New rank group',
-        'base_image' => 'silver.png',
+        'base_image' => 'red.png',
     ];
 
     livewire(RankGroupsList::class)
-        ->callTableAction(ReplicateAction::class, $this->rankGroup, data: $data)
+        ->callAction(TestAction::make(ReplicateAction::class)->table($this->rankGroup), data: $data)
+        ->assertHasNoFormErrors()
         ->assertNotified();
 
     assertDatabaseHas(RankGroup::class, Arr::only($data, 'name'));

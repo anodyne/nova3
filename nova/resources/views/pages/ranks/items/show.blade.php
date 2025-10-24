@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header :heading="$item->name->name">
+        <x-page-heading :heading="$item->name->name">
             <x-slot name="description">
                 <x-metadata.group size="md" gap="lg">
                     <x-metadata label="Rank group" :value="$item->group->name" />
@@ -28,7 +28,7 @@
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
             <x-fieldset>

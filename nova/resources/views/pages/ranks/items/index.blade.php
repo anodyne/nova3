@@ -1,7 +1,7 @@
 @use('Nova\Ranks\Models\RankItem')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         @can('create', RankItem::class)
             <x-slot name="actions">
                 <x-button :href="route('admin.ranks.items.create')" variant="primary">
@@ -10,7 +10,7 @@
                 </x-button>
             </x-slot>
         @endcan
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:rank-items-list />
 

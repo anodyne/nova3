@@ -7,6 +7,7 @@ use Nova\Ranks\Models\RankName;
 use function Pest\Laravel\get;
 
 uses()->group('ranks');
+uses()->group('rank-names');
 
 beforeEach(function () {
     $this->rankName = RankName::factory()->create();

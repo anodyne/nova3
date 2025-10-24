@@ -3,7 +3,7 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             <x-slot name="actions">
                 @can('viewAny', $group::class)
                     <x-button :href="route('admin.ranks.groups.index')" variant="ghost" inset="right">
@@ -12,7 +12,7 @@
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.ranks.groups.update', $group)" method="PUT">
             <x-fieldset>

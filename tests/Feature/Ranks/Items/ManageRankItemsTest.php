@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
@@ -13,6 +14,7 @@ use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 uses()->group('ranks');
+uses()->group('rank-items');
 
 beforeEach(function () {
     $this->rankItems = RankItem::factory()
@@ -81,9 +83,9 @@ describe('authorized user with rank create permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RankItemsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->rankItems->first())
-            ->assertTableActionHidden(EditAction::class, $this->rankItems->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->rankItems->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($this->rankItems->first()))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($this->rankItems->first()))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($this->rankItems->first()));
     });
 });
 
@@ -94,9 +96,9 @@ describe('authorized user with rank delete permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RankItemsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->rankItems->first())
-            ->assertTableActionHidden(EditAction::class, $this->rankItems->first())
-            ->assertTableActionVisible(DeleteAction::class, $this->rankItems->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($this->rankItems->first()))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($this->rankItems->first()))
+            ->assertActionVisible(TestAction::make(DeleteAction::class)->table($this->rankItems->first()));
     });
 });
 
@@ -107,9 +109,9 @@ describe('authorized user with rank update permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RankItemsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->rankItems->first())
-            ->assertTableActionVisible(EditAction::class, $this->rankItems->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->rankItems->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($this->rankItems->first()))
+            ->assertActionVisible(TestAction::make(EditAction::class)->table($this->rankItems->first()))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($this->rankItems->first()));
     });
 });
 
@@ -120,9 +122,9 @@ describe('authorized user with rank view permissions', function () {
 
     test('has the correct permissions', function () {
         livewire(RankItemsList::class)
-            ->assertTableActionVisible(ViewAction::class, $this->rankItems->first())
-            ->assertTableActionHidden(EditAction::class, $this->rankItems->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->rankItems->first());
+            ->assertActionVisible(TestAction::make(ViewAction::class)->table($this->rankItems->first()))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($this->rankItems->first()))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($this->rankItems->first()));
     });
 });
 

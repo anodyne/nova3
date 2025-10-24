@@ -12,6 +12,7 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
 uses()->group('ranks');
+uses()->group('rank-items');
 
 describe('authorized user', function () {
     beforeEach(function () {
@@ -25,16 +26,54 @@ describe('authorized user', function () {
     test('can create a rank item', function () {
         Event::fake();
 
-        $data = RankItem::factory()->make();
+        $data = RankItem::factory()->active()->forRequest();
 
         from(route('admin.ranks.items.create'))
             ->followingRedirects()
-            ->post(route('admin.ranks.items.store'), $data->toArray())
+            ->post(route('admin.ranks.items.store'), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(RankItem::class, $data->toArray());
+        assertDatabaseHas(RankItem::class, $data->model->only('group_id', 'name_id', 'base_image', 'overlay_image', 'status'));
 
         Event::assertDispatched(RankItemCreated::class);
+    });
+
+    test('can create an active rank item', function () {
+        Event::fake();
+
+        $data = RankItem::factory()->active()->forRequest();
+
+        from(route('admin.ranks.items.create'))
+            ->followingRedirects()
+            ->post(route('admin.ranks.items.store'), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(RankItem::class, [
+            'group_id' => $data->model->group_id,
+            'name_id' => $data->model->name_id,
+            'base_image' => $data->model->base_image,
+            'overlay_image' => $data->model->overlay_image,
+            'status' => 'active',
+        ]);
+    });
+
+    test('can create an inactive rank item', function () {
+        Event::fake();
+
+        $data = RankItem::factory()->inactive()->forRequest();
+
+        from(route('admin.ranks.items.create'))
+            ->followingRedirects()
+            ->post(route('admin.ranks.items.store'), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(RankItem::class, [
+            'group_id' => $data->model->group_id,
+            'name_id' => $data->model->name_id,
+            'base_image' => $data->model->base_image,
+            'overlay_image' => $data->model->overlay_image,
+            'status' => 'inactive',
+        ]);
     });
 });
 

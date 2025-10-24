@@ -94,6 +94,7 @@ class RankGroupsList extends TableComponent
                                     ->placeholder('Select a base image')
                                     ->options($this->getRankBaseImages()),
                             ])
+                            ->recordDisplayNameAttribute('name')
                             ->modalContentView('pages.ranks.groups.duplicate')
                             ->action(function (RankGroup $record, array $data): void {
                                 $replica = DuplicateRankGroup::run(

@@ -10,7 +10,7 @@
         }"
         constrained
     >
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', $item::class)
                 <x-slot name="actions">
                     <x-button :href="route('admin.ranks.items.index')" variant="ghost" inset="right">
@@ -19,7 +19,7 @@
                     </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.ranks.items.update', $item)" method="PUT">
             <x-fieldset>
@@ -85,7 +85,7 @@
                                 @foreach ($baseImages as $baseImage)
                                     <label
                                         for="base_{{ $baseImage }}"
-                                        class="has-checked:bg-primary-50 has-checked:text-primary-700 has-checked:ring-primary-200 dark:has-checked:bg-primary-950 dark:has-checked:text-primary-300 dark:has-checked:ring-primary-800 flex flex-col justify-center rounded-lg py-2 text-gray-600 ring-1 ring-transparent ring-inset hover:bg-gray-50 hover:ring-gray-200 has-checked:font-medium dark:text-gray-400 dark:hover:bg-gray-950 dark:hover:text-gray-300 dark:hover:ring-gray-800"
+                                        class="has-checked:bg-primary-50 has-checked:text-primary-700 has-checked:ring-primary-200 dark:has-checked:bg-primary-950 dark:has-checked:text-primary-300 dark:has-checked:ring-primary-800 flex flex-col justify-center rounded-lg py-2 text-gray-600 ring-1 ring-transparent ring-inset hover:bg-gray-50 hover:ring-gray-200 has-checked:font-medium dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-gray-300 dark:hover:ring-gray-800"
                                     >
                                         <input
                                             type="radio"
@@ -113,7 +113,7 @@
                                 @foreach ($overlayImages as $overlayImage)
                                     <label
                                         for="overlay_{{ $overlayImage }}"
-                                        class="has-checked:bg-primary-50 has-checked:text-primary-700 has-checked:ring-primary-200 dark:has-checked:bg-primary-950 dark:has-checked:text-primary-300 dark:has-checked:ring-primary-800 flex flex-col justify-center rounded-lg py-2 text-gray-600 ring-1 ring-transparent ring-inset hover:bg-gray-50 hover:ring-gray-200 has-checked:font-medium dark:text-gray-400 dark:hover:bg-gray-950 dark:hover:text-gray-300 dark:hover:ring-gray-800"
+                                        class="has-checked:bg-primary-50 has-checked:text-primary-700 has-checked:ring-primary-200 dark:has-checked:bg-primary-950 dark:has-checked:text-primary-300 dark:has-checked:ring-primary-800 flex flex-col justify-center rounded-lg py-2 text-gray-600 ring-1 ring-transparent ring-inset hover:bg-gray-50 hover:ring-gray-200 has-checked:font-medium dark:text-gray-400 dark:hover:bg-gray-900 dark:hover:text-gray-300 dark:hover:ring-gray-800"
                                     >
                                         <input
                                             type="radio"

@@ -2,7 +2,7 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header :heading="$name->name">
+        <x-page-heading :heading="$name->name">
             <x-slot name="description">
                 <x-metadata.group size="md" gap="lg">
                     <x-metadata label="Status">
@@ -28,7 +28,7 @@
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
             <x-panel variant="well">

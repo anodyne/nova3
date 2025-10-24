@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Ranks\Events\RankNameDuplicated;
@@ -12,6 +13,7 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Livewire\livewire;
 
 uses()->group('ranks');
+uses()->group('rank-names');
 
 beforeEach(function () {
     $this->rankName = RankName::factory()->create();
@@ -27,7 +29,8 @@ test('an authorized user can duplicate a rank name', function () {
     ];
 
     livewire(RankNamesList::class)
-        ->callTableAction(ReplicateAction::class, $this->rankName, data: $data)
+        ->callAction(TestAction::make(ReplicateAction::class)->table($this->rankName), data: $data)
+        ->assertHasNoFormErrors()
         ->assertNotified();
 
     assertDatabaseHas(RankName::class, $data);
