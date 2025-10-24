@@ -8,10 +8,12 @@ use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Filament\Actions\Concerns\CanSetRecordDisplayName;
 use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 
 class ReplicateAction extends \Filament\Actions\ReplicateAction
 {
+    use CanSetRecordDisplayName;
     use HasModalContentView;
 
     protected function setUp(): void
@@ -24,14 +26,14 @@ class ReplicateAction extends \Filament\Actions\ReplicateAction
 
         $this->successNotificationTitle(function (Model $record): string {
             return trans('messages.table.replicate-success', [
-                'title' => $record->title,
+                'title' => $record->{$this->getRecordDisplayNameAttribute()},
                 'label' => $this->getRecordTitle(),
             ]);
         });
 
         $this->failureNotificationTitle(function (Model $record): string {
             return trans('messages.table.replicate-failure', [
-                'title' => $record->title,
+                'title' => $record->{$this->getRecordDisplayNameAttribute()},
                 'label' => $this->getRecordTitle(),
             ]);
         });
