@@ -7,6 +7,7 @@ namespace Nova\Addons\Actions;
 use Illuminate\Support\Facades\Cache;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Enums\CacheKeys;
 
 class BustActiveAddonsCache
 {
@@ -14,9 +15,9 @@ class BustActiveAddonsCache
 
     public function handle(): void
     {
-        Cache::forget('nova.addons');
+        Cache::forget(CacheKeys::Addons->value);
 
-        Cache::rememberForever('nova.addons', function (): array {
+        Cache::rememberForever(CacheKeys::Addons->value, function (): array {
             $activeAddons = Addon::active()->get();
 
             return $activeAddons

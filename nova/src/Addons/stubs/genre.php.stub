@@ -32,7 +32,7 @@ class Addon extends Genre
         ];
     }
 
-    public function rankGroupAndItemsData(): array
+    public function rankGroupsAndItemsData(): array
     {
         return [
             [
@@ -46,7 +46,7 @@ class Addon extends Genre
         ];
     }
 
-    public function rankNameData(): array
+    public function rankNamesData(): array
     {
         return [
             ['name' => 'Captain'],

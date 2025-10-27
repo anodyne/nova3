@@ -3,13 +3,16 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', Addon::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.addons.index')" variant="ghost" inset="right">&larr; Back</x-button>
+                    <x-button :href="route('admin.addons.index')" variant="ghost" inset="right">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.addons.store')">
             <x-fieldset
@@ -20,11 +23,11 @@
                     }
                 })"
             >
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <x-input label="Name" name="name" x-model="name" />
 
                     <x-input.field>
-                        <x-input.label>Location</x-input.label>
+                        <x-label>Location</x-label>
 
                         <x-input.group>
                             <x-input.group.prefix>addons/</x-input.group.prefix>
@@ -50,8 +53,8 @@
                         {{ old('credits') }}
                     </x-textarea>
 
-                    <x-switch label="Active" name="status" :checked="old('status')" align="left"></x-switch>
-                </x-fieldset.fields>
+                    <x-switch label="Active" name="status" :checked="old('status')" align="left" />
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset.controls>

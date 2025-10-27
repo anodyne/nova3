@@ -3,21 +3,24 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             <x-slot name="actions">
                 @can('viewAny', $addon::class)
-                    <x-button :href="route('admin.addons.index')" variant="ghost" inset="right">&larr; Back</x-button>
+                    <x-button :href="route('admin.addons.index')" variant="ghost" inset="right">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.addons.update', $addon)" method="PUT">
             <x-fieldset>
-                <x-fieldset.fields constrained>
+                <x-fieldset.group constrained>
                     <x-input label="Name" name="name" :value="old('name', $addon->name)" />
 
                     <x-input.field>
-                        <x-input.label>Location</x-input.label>
+                        <x-label>Location</x-label>
 
                         <x-input.group>
                             <x-input.group.prefix>addons/</x-input.group.prefix>
@@ -57,8 +60,8 @@
                         name="status"
                         :checked="old('status', $addon->status === BasicStatus::Active)"
                         align="left"
-                    ></x-switch>
-                </x-fieldset.fields>
+                    />
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset.controls>

@@ -45,11 +45,11 @@ class AddonController extends Controller
 
     public function store(StoreAddonRequest $request)
     {
-        $theme = CreateAddonManager::run($request);
+        $addon = CreateAddonManager::run($request);
 
         return to_route('admin.addons.index')
             ->notify(
-                "{$theme->name} add-on was created",
+                "{$addon->name} add-on was created",
                 'A folder has been created in the addons directory to help you get started creating your add-on.'
             );
     }

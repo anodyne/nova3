@@ -319,6 +319,21 @@ class AddonsList extends TableComponent
                         ->title('Extension has been uninstalled')
                         ->send();
                 }),
+            Action::make('extensionUpdate')
+                ->color('gray')
+                ->size(Size::Small)
+                ->label('Update')
+                ->action(function (Addon $record) {
+                    LogBatch::startBatch();
+
+                    $record->runScript('update');
+
+                    LogBatch::endBatch();
+
+                    Notification::make()->success()
+                        ->title('Extension has been updated')
+                        ->send();
+                }),
             Action::make('extensionRunMigrations')
                 ->color('gray')
                 ->size(Size::Small)

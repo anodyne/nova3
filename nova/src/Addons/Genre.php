@@ -6,8 +6,8 @@ namespace Nova\Addons;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Storage;
 use Nova\Addons\Actions\EnsureSingularActiveGenre;
+use Nova\Addons\Concerns\MovesRankImages;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Ranks\Models\RankGroup;
@@ -16,16 +16,13 @@ use Nova\Ranks\Models\RankName;
 
 abstract class Genre extends BaseAddon
 {
+    use MovesRankImages;
+
     abstract public function departmentAndPositionsData(): array;
 
     abstract public function rankGroupsAndItemsData(): array;
 
     abstract public function rankNamesData(): array;
-
-    public function hasRankImages(): bool
-    {
-        return is_dir(addon_path($this->location.DIRECTORY_SEPARATOR.'assets'));
-    }
 
     public function install(): void
     {
@@ -74,6 +71,10 @@ abstract class Genre extends BaseAddon
             }
         }
 
+        if ($this->addonDisk()->exists('ranks')) {
+            $this->installRankImages();
+        }
+
         EnsureSingularActiveGenre::run($this->getModel());
     }
 
@@ -89,13 +90,7 @@ abstract class Genre extends BaseAddon
 
         Schema::enableForeignKeyConstraints();
 
-        if ($this->hasRankImages()) {
-            $disk = Storage::disk('ranks');
-
-            $disk->delete($disk->allFiles());
-
-            collect($disk->allDirectories())->each(fn (string $dir): bool => $disk->deleteDirectory($dir));
-        }
+        $this->uninstallRankImages();
     }
 
     final public function runScript(string $name): void
