@@ -27,7 +27,10 @@ class AnnouncementBuilder extends Builder
 
     public function searchFor($search): self
     {
-        return $this->whereFullText('title', $search.'*', ['mode' => 'boolean']);
+        return $this->where(function ($query) use ($search) {
+            $query->whereFullText('title', $search)
+                ->orWhereLike('title', "%{$search}%");
+        });
     }
 
     public function uniqueCategories(): self
@@ -39,7 +42,7 @@ class AnnouncementBuilder extends Builder
     {
         return $this->whereHas(
             'notifications',
-            fn (Builder $query): Builder => $query->whereUser($user->id)->read()
+            fn (Builder $query): Builder => $query->user($user->id)->read()
         );
     }
 
@@ -47,7 +50,7 @@ class AnnouncementBuilder extends Builder
     {
         return $this->whereHas(
             'notifications',
-            fn (Builder $query): Builder => $query->whereUser($user->id)->unread()
+            fn (Builder $query): Builder => $query->user($user->id)->unread()
         );
     }
 }
