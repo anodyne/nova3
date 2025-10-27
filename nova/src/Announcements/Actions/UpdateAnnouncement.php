@@ -20,8 +20,9 @@ class UpdateAnnouncement
     {
         return DB::transaction(function () use ($announcement, $data): Announcement {
             $wasPublishing = $announcement->status !== PublishStatus::Published && $data->status === PublishStatus::Published;
+            $isUpdatingPublished = $announcement->status === PublishStatus::Published && $data->status === PublishStatus::Published;
 
-            if ($wasPublishing) {
+            if ($wasPublishing || $isUpdatingPublished) {
                 $data = ApplyAnnouncementModeration::run($data);
             }
 
