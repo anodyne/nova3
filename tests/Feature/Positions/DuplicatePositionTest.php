@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\PositionDuplicated;
 use Nova\Departments\Livewire\PositionsList;
@@ -28,7 +29,8 @@ test('an authorized user can duplicate a position', function () {
     ];
 
     livewire(PositionsList::class)
-        ->callTableAction(ReplicateAction::class, $this->position, data: $data)
+        ->callAction(TestAction::make(ReplicateAction::class)->table($this->position), data: $data)
+        ->assertHasNoFormErrors()
         ->assertNotified();
 
     $newPosition = Position::latest('id')->first();

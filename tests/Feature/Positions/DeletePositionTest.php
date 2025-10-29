@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Departments\Events\PositionDeleted;
 use Nova\Departments\Livewire\PositionsList;
@@ -25,7 +26,7 @@ test('an authorized user can delete a position', function () {
     Event::fake();
 
     livewire(PositionsList::class)
-        ->callTableAction(DeleteAction::class, $this->positions->first())
+        ->callAction(TestAction::make(DeleteAction::class)->table($this->positions->first()))
         ->assertCanNotSeeTableRecords([$this->positions->first()])
         ->assertNotified();
 
@@ -38,7 +39,9 @@ test('an authorized user can bulk delete positions', function () {
     $positions = $this->positions->take(3);
 
     livewire(PositionsList::class)
-        ->callTableBulkAction(DeleteBulkAction::class, $positions)
+        ->selectTableRecords($positions)
+        ->callAction(TestAction::make(DeleteBulkAction::class)->table()->bulk())
+        ->assertCanNotSeeTableRecords($positions)
         ->assertNotified();
 
     foreach ($positions as $position) {

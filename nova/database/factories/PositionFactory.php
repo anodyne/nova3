@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\CanHandleDataForRequests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
@@ -11,6 +12,8 @@ use Nova\Foundation\Enums\BasicStatus;
 
 class PositionFactory extends Factory
 {
+    use CanHandleDataForRequests;
+
     protected $model = Position::class;
 
     public function definition()
@@ -22,6 +25,13 @@ class PositionFactory extends Factory
             'available' => $this->faker->numberBetween(1, 5),
             'department_id' => fn () => Department::factory(),
         ];
+    }
+
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
     }
 
     public function inactive()

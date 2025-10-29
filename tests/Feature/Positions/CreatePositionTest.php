@@ -26,16 +26,58 @@ describe('authorized user', function () {
     test('can create a position', function () {
         Event::fake();
 
-        $data = Position::factory()->make();
+        $data = Position::factory()->active()->forRequest();
 
         from(route('admin.positions.create'))
             ->followingRedirects()
-            ->post(route('admin.positions.store'), $data->toArray())
+            ->post(route('admin.positions.store'), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(Position::class, $data->toArray());
+        assertDatabaseHas(Position::class, [
+            'name' => $data->model->name,
+            'department_id' => $data->model->department_id,
+            'status' => 'active',
+        ]);
 
         Event::assertDispatched(PositionCreated::class);
+    });
+
+    test('inputs are validated', function () {
+        from(route('admin.positions.create'))
+            ->post(route('admin.positions.store'), [])
+            ->assertSessionHasErrors(['name', 'department_id', 'available']);
+
+        from(route('admin.positions.create'))
+            ->post(route('admin.positions.store'), [
+                'name' => '',
+                'department_id' => '',
+                'available' => '',
+            ])
+            ->assertSessionHasErrors(['name', 'department_id', 'available']);
+
+        from(route('admin.positions.create'))
+            ->post(route('admin.positions.store'), [
+                'name' => 'Test Position',
+                'department_id' => 999999,
+                'available' => 1,
+            ])
+            ->assertSessionHasErrors(['department_id']);
+
+        from(route('admin.positions.create'))
+            ->post(route('admin.positions.store'), [
+                'name' => 'Test Position',
+                'department_id' => 1,
+                'available' => 'not-a-number',
+            ])
+            ->assertSessionHasErrors(['available']);
+
+        from(route('admin.positions.create'))
+            ->post(route('admin.positions.store'), [
+                'name' => 'Test Position',
+                'department_id' => 1,
+                'available' => -1,
+            ])
+            ->assertSessionHasErrors(['available']);
     });
 });
 
@@ -51,7 +93,8 @@ describe('unauthorized user', function () {
     test('cannot create a position', function () {
         $data = Position::factory()->make();
 
-        post(route('admin.positions.store'), $data->toArray())->assertForbidden();
+        post(route('admin.positions.store'), $data->toArray())
+            ->assertForbidden();
     });
 });
 
