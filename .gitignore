@@ -10,6 +10,7 @@
 /storage/*.key
 /storage/*.index
 /vendor
+/.claude
 /.idea
 /.vscode
 /.vagrant
