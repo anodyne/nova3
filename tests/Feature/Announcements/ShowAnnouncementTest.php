@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Auth;
 use Nova\Announcements\Models\Announcement;
 use Nova\Announcements\Models\AnnouncementNotification;
+use Nova\Users\Actions\DeleteAccount;
 use Nova\Users\Models\User;
 
 use function Pest\Laravel\get;
@@ -21,7 +22,7 @@ describe('authorized user', function () {
     test('can view an announcement', function () {
         get(route('admin.announcements.show', $this->announcement))
             ->assertSuccessful()
-            ->assertSee($this->announcement->title);
+            ->assertSeeText($this->announcement->title);
     });
 
     test('viewing an announcement marks it as read', function () {
@@ -56,6 +57,20 @@ describe('authorized user', function () {
 
         get(route('admin.announcements.show', $this->announcement))
             ->assertSuccessful();
+    });
+
+    test('viewing an announcement from a deleted user does not error', function () {
+        $user = createUser();
+
+        $announcement = Announcement::factory()->published()->create([
+            'user_id' => $user->id,
+        ]);
+
+        DeleteAccount::run($user);
+
+        get(route('admin.announcements.show', $announcement))
+            ->assertSuccessful()
+            ->assertSeeText('Deleted user');
     });
 });
 

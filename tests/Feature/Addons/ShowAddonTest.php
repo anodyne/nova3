@@ -20,7 +20,7 @@ describe('authorized user', function () {
     test('can view an add-on', function () {
         get(route('admin.addons.show', $this->addon))
             ->assertSuccessful()
-            ->assertSee($this->addon->name);
+            ->assertSeeText($this->addon->name);
     });
 });
 
