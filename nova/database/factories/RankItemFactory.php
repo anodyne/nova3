@@ -4,15 +4,17 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\CanHandleDataForRequests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Foundation\Enums\BasicStatus;
-use Nova\Foundation\Support\FactoryRequestData;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 
 class RankItemFactory extends Factory
 {
+    use CanHandleDataForRequests;
+
     protected $model = RankItem::class;
 
     public function definition()
@@ -38,23 +40,5 @@ class RankItemFactory extends Factory
         return $this->state([
             'status' => BasicStatus::Inactive,
         ]);
-    }
-
-    public function forRequest(): FactoryRequestData
-    {
-        $model = $this->make();
-
-        $payload = [
-            'group_id' => $model->group_id,
-            'name_id' => $model->name_id,
-            'base_image' => $model->base_image,
-            'overlay_image' => $model->overlay_image,
-        ];
-
-        if ($model->status === BasicStatus::Active) {
-            $payload['status'] = 'true';
-        }
-
-        return FactoryRequestData::from(model: $model, payload: $payload);
     }
 }
