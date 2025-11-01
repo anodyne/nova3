@@ -2,7 +2,7 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', Department::class)
                 <x-slot name="actions">
                     <x-button :href="route('admin.departments.index')" variant="ghost" inset="right">
@@ -11,7 +11,7 @@
                     </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.departments.store')">
             <x-fieldset>

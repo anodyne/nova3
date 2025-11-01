@@ -1,7 +1,7 @@
 @use('Nova\Departments\Models\Position')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         @can('create', Position::class)
             <x-slot name="actions">
                 <x-button :href="route('admin.positions.create')" variant="primary">
@@ -10,7 +10,7 @@
                 </x-button>
             </x-slot>
         @endcan
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:positions-list />
 

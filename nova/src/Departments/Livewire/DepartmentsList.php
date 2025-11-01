@@ -122,7 +122,9 @@ class DepartmentsList extends TableComponent
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->schema([
-                                TextInput::make('name')->label('New department name'),
+                                TextInput::make('name')
+                                    ->label('New department name')
+                                    ->required(),
                             ])
                             ->modalContentView('pages.departments.duplicate')
                             ->action(function (Department $record, array $data): void {

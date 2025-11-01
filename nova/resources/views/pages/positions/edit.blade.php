@@ -3,7 +3,7 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', Position::class)
                 <x-slot name="actions">
                     <x-button
@@ -16,7 +16,7 @@
                     </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.positions.update', $position)" method="PUT">
             <x-fieldset>

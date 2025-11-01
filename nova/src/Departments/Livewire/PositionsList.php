@@ -51,10 +51,10 @@ class PositionsList extends TableComponent
                     ->select([
                         'available',
                         'department_id',
-                        'id',
-                        'name',
-                        'order_column',
-                        'status',
+                        'positions.id',
+                        'positions.name',
+                        'positions.order_column',
+                        'positions.status',
                     ])
             )
             ->recordUrl(fn (Position $record): string => route('admin.positions.show', $record))
@@ -85,9 +85,6 @@ class PositionsList extends TableComponent
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('active_users_count')
-                    ->counts([
-                        'activeUsers' => fn (Builder $query): Builder => $query->countDistinct(),
-                    ])
                     ->label('Playing users')
                     ->alignCenter()
                     ->sortable()
@@ -132,8 +129,12 @@ class PositionsList extends TableComponent
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->schema([
-                                TextInput::make('name')->label('New position name'),
-                                Select::make('department_id')->relationship('department', 'name'),
+                                TextInput::make('name')
+                                    ->label('New position name')
+                                    ->required(),
+                                Select::make('department_id')
+                                    ->relationship('department', 'name')
+                                    ->required(),
                             ])
                             ->modalContentView('pages.positions.duplicate')
                             ->action(function (Position $record, array $data): void {

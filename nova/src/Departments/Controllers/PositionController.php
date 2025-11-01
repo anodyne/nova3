@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Nova\Departments\Actions\CreatePosition;
 use Nova\Departments\Actions\UpdatePosition;
@@ -36,11 +35,8 @@ class PositionController extends Controller
 
     public function show(Position $position)
     {
-        $position->load('department', 'activeCharacters', 'activeUsers');
-        $position->loadCount([
-            'activeCharacters',
-            'activeUsers' => fn (Builder $query): Builder => $query->countDistinct(),
-        ]);
+        $position->load('department', 'activeCharacters.users', 'activeUsers');
+        $position->loadCount(['activeCharacters']);
 
         return ShowPositionResponse::sendWith([
             'position' => $position,

@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
-use Nova\Departments\Events\DepartmentCreated;
-use Nova\Departments\Events\DepartmentDeleted;
-use Nova\Departments\Events\DepartmentUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\States\Status\Active as CharacterActive;
-use Nova\Departments\Events;
+use Nova\Departments\Events\DepartmentCreated;
+use Nova\Departments\Events\DepartmentDeleted;
+use Nova\Departments\Events\DepartmentUpdated;
 use Nova\Departments\Models\Builders\DepartmentBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
@@ -56,12 +55,8 @@ class Department extends Model implements HasMedia, Sortable
 
     public function activeCharacters(): HasManyDeep
     {
-        return $this->characters()->whereState('characters.status', CharacterActive::class);
-    }
-
-    public function activeUsers(): HasManyDeep
-    {
-        return $this->users()->whereState('users.status', UserActive::class);
+        return $this->characters()
+            ->whereState(Character::column('status'), CharacterActive::class);
     }
 
     public function characters(): HasManyDeep
@@ -77,12 +72,19 @@ class Department extends Model implements HasMedia, Sortable
         return $this->hasMany(Position::class)->ordered();
     }
 
+    public function activeUsers(): HasManyDeep
+    {
+        return $this->users()
+            ->where(User::column('status'), UserActive::$name)
+            ->where(Character::column('status'), CharacterActive::$name);
+    }
+
     public function users(): HasManyDeep
     {
         return $this->hasManyDeep(
             User::class,
             [Position::class, 'character_position', Character::class, 'character_user']
-        )->distinct();
+        );
     }
 
     public function tagsAsString(): Attribute

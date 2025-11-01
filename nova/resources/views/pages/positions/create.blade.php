@@ -2,7 +2,7 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', Position::class)
                 <x-slot name="actions">
                     <x-button
@@ -15,7 +15,7 @@
                     </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.positions.store')">
             <x-fieldset>

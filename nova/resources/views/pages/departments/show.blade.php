@@ -2,7 +2,7 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header :heading="$department->name">
+        <x-page-heading :heading="$department->name">
             <x-slot name="description">
                 <x-metadata.group size="md" gap="lg">
                     <x-metadata label="Status">
@@ -34,7 +34,7 @@
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
             @if (filled($department->tags))
@@ -157,7 +157,7 @@
                     <x-panel>
                         <x-spacing size="md">
                             <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                                @forelse ($department->activeUsers as $user)
+                                @forelse ($department->activeUsers->unique() as $user)
                                     <div class="group flex items-center justify-between">
                                         <div class="flex items-center">
                                             <x-avatar.user :$user pronouns />
