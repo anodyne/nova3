@@ -103,6 +103,9 @@ class DatabaseSeeder extends Seeder
         if (Department::count() === 0 && Position::count() === 0) {
             $genre = Addon::location('St25')->first();
             $genre?->runScript('install');
+
+            $ranks = Addon::location('Picard2390')->first();
+            $ranks?->runScript('install');
         }
     }
 }
