@@ -1,10 +1,10 @@
 @use('Nova\Applications\Enums\ApplicationResult')
 
-<x-modal title="Review application" :icon="Icon::Progress">
+<x-modal title="Review application" :icon="Tabler::Progress">
     <x-form action="">
         <x-fieldset>
-            <x-fieldset.field-group>
-                <div data-slot="control" class="grid grid-cols-2 gap-8">
+            <x-fieldset.group>
+                <div class="grid grid-cols-2 gap-8">
                     <button
                         type="button"
                         wire:click="$set('form.result', 'accept')"
@@ -14,8 +14,8 @@
                             'text-gray-600 ring-gray-200 dark:text-gray-400 dark:ring-gray-700' => $form->result !== ApplicationResult::Accept,
                         ])
                     >
-                        <x-icon :name="Icon::ProgressCheck" size="xl"></x-icon>
-                        <div class="flex flex-col gap-y-1">
+                        <x-icon :name="Tabler::ProgressCheck" size="xl" />
+                        <div class="flex flex-col gap-1">
                             <div
                                 @class([
                                     'text-base/7 font-semibold',
@@ -37,8 +37,8 @@
                             'text-gray-600 ring-gray-200 dark:text-gray-400 dark:ring-gray-700' => $form->result !== ApplicationResult::Deny,
                         ])
                     >
-                        <x-icon :name="Icon::ProgressXmark" size="lg"></x-icon>
-                        <div class="flex flex-col gap-y-1">
+                        <x-icon :name="Tabler::ProgressX" size="xl" />
+                        <div class="flex flex-col gap-1">
                             <div
                                 @class([
                                     'text-base/7 font-semibold',
@@ -53,23 +53,21 @@
                     </button>
                 </div>
 
-                <x-fieldset.field label="Comments" id="comments" name="comments">
-                    <x-input.textarea rows="5" wire:model.live.debounce.500ms="form.comments"></x-input.textarea>
-                </x-fieldset.field>
-            </x-fieldset.field-group>
+                <x-textarea label="Comments" rows="5" wire:model.live.debounce="form.comments"></x-textarea>
+            </x-fieldset.group>
 
-            <x-fieldset.field-group>
+            <x-fieldset.group>
                 <x-form.dynamic :admin="true" :form="$applicationReviewForm" :$values>
                     {!! $applicationReviewForm->rendered_block_content !!}
                 </x-form.dynamic>
-            </x-fieldset.field-group>
+            </x-fieldset.group>
         </x-fieldset>
     </x-form>
 
     @if (filled($form->result))
         <x-slot name="footer">
-            <x-button type="button" wire:click="save" color="primary">Submit</x-button>
-            <x-button type="button" wire:click="close" plain>Cancel</x-button>
+            <x-button type="button" wire:click="save" variant="primary">Submit</x-button>
+            <x-button type="button" wire:click="close" variant="ghost" :loading="false">Cancel</x-button>
         </x-slot>
     @endif
 </x-modal>

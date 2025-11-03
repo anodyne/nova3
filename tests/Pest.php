@@ -90,7 +90,7 @@ function updateSettings(callable $callback)
 {
     $settings = settings();
 
-    $callback($settings);
+    $settings = $callback($settings);
 
     $settings->save();
 }

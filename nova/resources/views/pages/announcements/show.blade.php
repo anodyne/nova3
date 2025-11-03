@@ -19,10 +19,10 @@
         </x-page-heading>
 
         <x-metadata.group gap="lg" class="my-4">
-            <x-metadata label="Author" :value="$announcement->user->name"></x-metadata>
+            <x-metadata label="Author" :value="$announcement->user->display_name" />
 
             @if (filled($announcement->category))
-                <x-metadata label="Category" :value="$announcement->category"></x-metadata>
+                <x-metadata label="Category" :value="$announcement->category" />
             @endif
 
             <x-metadata label="Published">

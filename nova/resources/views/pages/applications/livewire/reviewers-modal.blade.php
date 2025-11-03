@@ -1,23 +1,12 @@
-<x-modal title="Manage application reviewers" :icon="Icon::Users">
-    <x-form action="">
-        <x-fieldset>
-            <x-checkbox.group class="*:rounded-lg *:px-3 *:py-1 *:odd:bg-gray-950/[.04] *:dark:odd:bg-white/[.07]">
-                @foreach ($users as $user)
-                    <x-checkbox.field>
-                        <x-checkbox
-                            wire:model.live="selectedReviewers"
-                            value="{{ $user->id }}"
-                            id="user_{{ $user->id }}"
-                        ></x-checkbox>
-                        <x-fieldset.label for="user_{{ $user->id }}">{{ $user->name }}</x-fieldset.label>
-                    </x-checkbox.field>
-                @endforeach
-            </x-checkbox.group>
-        </x-fieldset>
-    </x-form>
+<x-modal title="Manage application reviewers" :icon="Tabler::Users">
+    <x-checkbox.group wire:model="selectedReviewers">
+        @foreach ($users as $user)
+            <x-checkbox :value="$user->id" :label="$user->name" />
+        @endforeach
+    </x-checkbox.group>
 
     <x-slot name="footer">
-        <x-button type="button" wire:click="save" color="primary">Update</x-button>
-        <x-button type="button" wire:click="close" plain>Cancel</x-button>
+        <x-button type="button" wire:click="save" variant="primary">Update</x-button>
+        <x-button type="button" wire:click="close" variant="ghost" :loading="false">Cancel</x-button>
     </x-slot>
 </x-modal>

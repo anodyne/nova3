@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Schemas\Schema;
 use Livewire\Attributes\Locked;
 use Nova\Applications\Models\Application;
 use Nova\Foundation\Helpers\DateHelper;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\InfolistComponent;
 use Nova\Ranks\Models\RankItem;
 use Nova\Users\Models\User;
@@ -68,8 +68,8 @@ class ApplicationHistory extends InfolistComponent
                         ]),
                     ])
                     ->itemIcons([
-                        'accepted' => Icon::ProgressCheck->value,
-                        'denied' => Icon::ProgressXmark->value,
+                        'accepted' => Tabler::ProgressCheck->value,
+                        'denied' => Tabler::ProgressX->value,
                     ])
                     ->itemIconColors([
                         'accepted' => 'success',

@@ -1,21 +1,18 @@
 @use('Nova\Applications\Enums\ApplicationResult')
 
-<div class="space-y-8">
+<div class="flex flex-col gap-8">
     <div class="space-y-1">
-        <x-h4>Application review</x-h4>
-        <x-text>
-            Leave your review of the application for others to see and
-            contribute to the overall decision.
-        </x-text>
+        <x-heading size="lg">Application review</x-heading>
+        <x-text>Leave your review of the application for others to see and contribute to the overall decision.</x-text>
     </div>
 
-    <div class="space-y-2">
-        <x-h5>Reviewers</x-h5>
+    <div class="flex flex-col gap-2">
+        <x-heading>Reviewers</x-heading>
 
         <ul>
             @foreach ($application->reviews as $review)
                 <li
-                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
+                    class="flex items-center justify-between rounded-lg px-3 py-1 text-sm/6 font-medium odd:bg-gray-100 dark:odd:bg-gray-900"
                 >
                     <div>{{ $review->name }}</div>
 
@@ -37,23 +34,22 @@
             <div class="flex items-center px-3 py-1">
                 <x-button
                     wire:click="$dispatch('modal.open', {component: 'application-reviewers-modal', arguments: {'application': {{ $application->id }}}})"
-                    color="primary"
-                    text
+                    variant="ghost"
+                    inset="left"
                 >
                     Manage reviewers
+                    <span aria-hidden="true">→</span>
                 </x-button>
             </div>
         @endcan
     </div>
 
     @if (settings('applications.alwaysShowResults') || ! settings('applications.alwaysShowResults') && $currentUserHasReviewed)
-        <div class="flex h-2.5 gap-x-0.5 overflow-hidden rounded-full">
+        <div class="flex h-2.5 gap-0.5 overflow-hidden rounded-full">
             @if ($application->accepted_reviews_count > 0)
                 <div
                     class="bg-success-500"
-                    style="
-                        width: {{ ($application->accepted_reviews_count / $application->reviews_count) * 100 }}%;
-                    "
+                    style="width: {{ ($application->accepted_reviews_count / $application->reviews_count) * 100 }}%"
                 ></div>
             @endif
 
@@ -64,9 +60,7 @@
             @if ($application->denied_reviews_count > 0)
                 <div
                     class="bg-danger-500"
-                    style="
-                        width: {{ ($application->denied_reviews_count / $application->reviews_count) * 100 }}%;
-                    "
+                    style="width: {{ ($application->denied_reviews_count / $application->reviews_count) * 100 }}%"
                 ></div>
             @endif
         </div>
@@ -79,15 +73,13 @@
                     wire:click="$dispatch('modal.open', {component: 'application-review-modal', arguments: {'application': {{ $application->id }}, 'user': {{ auth()->id() }}}})"
                     class="w-full"
                 >
-                    <x-icon :name="Icon::Progress" size="sm"></x-icon>
                     {{ $currentUserHasReviewed ? 'Update review' : 'Add review' }}
                 </x-button>
             @endcan
 
             @cannot('vote', $application)
                 <x-text>
-                    Your review has been recorded, but admins do not allow
-                    changing your review after submitting it.
+                    Your review has been recorded, but admins do not allow changing your review after submitting it.
                 </x-text>
             @endcannot
         </div>
@@ -97,7 +89,7 @@
         <div>
             <x-button
                 wire:click="$dispatch('modal.open', {component: 'application-decision-modal', arguments: {'application': {{ $application->id }}}})"
-                color="primary"
+                variant="primary"
                 class="w-full"
             >
                 Make final decision

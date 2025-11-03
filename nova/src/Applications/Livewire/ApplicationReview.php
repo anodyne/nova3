@@ -27,7 +27,7 @@ class ApplicationReview extends Component
             ->where('user_id', Auth::id())
             ->first();
 
-        return filled($review->result);
+        return filled($review?->result);
     }
 
     public function hydrate()

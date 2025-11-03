@@ -41,4 +41,20 @@ class ApplicationFactory extends Factory
             'decision_message' => $this->faker->paragraphs(3, asText: true),
         ]);
     }
+
+    public function pending()
+    {
+        return $this->state([
+            'result' => ApplicationResult::Pending,
+            'decision_date' => null,
+            'decision_message' => null,
+        ]);
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Application $application) {
+            $application->discussion()->create();
+        });
+    }
 }

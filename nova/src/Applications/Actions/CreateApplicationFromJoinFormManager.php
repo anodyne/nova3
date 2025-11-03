@@ -81,7 +81,10 @@ class CreateApplicationFromJoinFormManager
             $user = CreateUser::run(
                 UserData::from(array_merge(
                     $request->input('userInfo'),
-                    ['pronouns' => ['value' => 'none']]
+                    [
+                        'pronouns' => ['value' => 'none'],
+                        'moderations' => ['announcements' => false, 'posts' => false],
+                    ],
                 ))
             );
 

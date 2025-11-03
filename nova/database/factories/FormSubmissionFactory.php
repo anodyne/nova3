@@ -24,6 +24,20 @@ class FormSubmissionFactory extends Factory
         ];
     }
 
+    public function applicationInfo()
+    {
+        return $this->state([
+            'form_id' => Form::key('applicationInfo')->first(),
+        ]);
+    }
+
+    public function applicationReview()
+    {
+        return $this->state([
+            'form_id' => Form::key('applicationReview')->first(),
+        ]);
+    }
+
     public function characterBio()
     {
         return $this->state([

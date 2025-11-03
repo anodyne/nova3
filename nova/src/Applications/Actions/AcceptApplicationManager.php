@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Actions;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Data\ApplicationDecisionData;
 use Nova\Applications\Events\ApplicationAccepted as ApplicationAcceptedEvent;
@@ -25,6 +27,8 @@ class AcceptApplicationManager
 
     public function handle(Application $application, ApplicationDecisionData $data): void
     {
+        Gate::forUser(Auth::user())->authorize('decide', $application);
+
         DB::transaction(function () use ($application, $data) {
             LogBatch::startBatch();
 

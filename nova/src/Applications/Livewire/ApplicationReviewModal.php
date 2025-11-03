@@ -62,10 +62,10 @@ class ApplicationReviewModal extends Modal
     #[Computed]
     public function owner(): User
     {
-        return $this->user ?? Auth::user();
+        return filled($this->user) ? $this->user : Auth::user();
     }
 
-    public function mount(Application $application, User $user)
+    public function mount(Application $application, ?User $user = null)
     {
         $this->authorize('vote', $application);
 
