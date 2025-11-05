@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
@@ -21,7 +22,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
-use Nova\Foundation\Icons\Icon;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\Ban;
 
@@ -65,7 +66,7 @@ class BansList extends TableComponent
                             ->authorize('view')
                             ->slideOver()
                             ->modalWidth(Width::Large)
-                            ->modalIcon(Icon::Hammer)
+                            ->modalIcon(Tabler::Hammer)
                             ->modalHeading('')
                             ->modalDescription(null)
                             ->modalContent(fn (Ban $record, ViewAction $action) => view('pages.bans.show', [
@@ -153,7 +154,7 @@ class BansList extends TableComponent
                         blank: fn (Builder $query): Builder => $query,
                     ),
             ])
-            ->emptyStateIcon(Icon::Forbid)
+            ->emptyStateIcon(Illustration::SecureMonitor)
             ->emptyStateHeading('No bans found')
             ->emptyStateDescription('')
             ->emptyStateActions([

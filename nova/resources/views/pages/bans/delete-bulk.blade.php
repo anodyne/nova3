@@ -3,7 +3,7 @@
 <x-filament.modal-content :$action>
     <x-slot name="title">Delete {{ $count }} selected {{ str('ban')->plural($count) }}?</x-slot>
 
-    <x-text>Are you sure you want to delete the following bans?</x-text>
+    <x-text variant="strong">Are you sure you want to delete the following bans?</x-text>
 
     <ul class="list-inside list-disc text-base/6 sm:text-sm/6">
         @foreach ($records as $record)
@@ -11,5 +11,5 @@
         @endforeach
     </ul>
 
-    <x-text>You won’t be able to recover {{ trans_choice('it|them', $count) }}.</x-text>
+    <x-text variant="strong">You won’t be able to recover {{ trans_choice('it|them', $count) }}.</x-text>
 </x-filament.modal-content>
