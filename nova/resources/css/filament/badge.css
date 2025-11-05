@@ -1,21 +1,11 @@
 .fi-badge {
-    @apply rounded-full font-medium ring-gray-200;
-}
-.fi-badge.fi-size-sm {
-    @apply px-2 py-0.5 text-xs tracking-normal;
-}
-.fi-badge.fi-color-danger {
-    @apply ring-danger-200;
-}
-.fi-badge.fi-color-info {
-    @apply ring-info-200;
-}
-.fi-badge.fi-color-primary {
-    @apply ring-primary-200;
-}
-.fi-badge.fi-color-success {
-    @apply ring-success-200;
-}
-.fi-badge.fi-color-warning {
-    @apply ring-warning-200;
+    @apply font-medium ring-gray-200 dark:bg-gray-900 dark:text-gray-300 dark:ring-gray-700;
+
+    &.fi-color {
+        @apply ring-color-200 dark:ring-color-800 bg-color-50 text-color-700 dark:bg-color-950 dark:text-color-300;
+    }
+
+    &.fi-size-sm {
+        @apply px-2 py-0.5 text-xs/5 tracking-normal;
+    }
 }

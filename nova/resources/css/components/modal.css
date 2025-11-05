@@ -9,5 +9,10 @@
 }
 
 .wep-modal-content {
-    @apply rounded-xl shadow-xl ring-1 ring-gray-950/5;
+    @apply rounded-xl bg-transparent ring-1 ring-gray-950/5 dark:ring-white/10;
+}
+
+.wep-modal-backdrop,
+.wep-slide-over-backdrop {
+    @apply backdrop-blur-xs;
 }

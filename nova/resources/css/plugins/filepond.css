@@ -1,11 +1,19 @@
-@reference "../../../../vendor/filament/support/resources/css/index.css";
-
 .filepond--root {
-    @apply rounded-lg shadow-sm ring-gray-950/10 dark:ring-white/10;
-}
-.filepond--drop-label {
-    @apply text-gray-500 dark:text-gray-400;
-}
-.filepond--label-action {
-    @apply text-primary-500 hover:text-primary-600 dark:hover:text-primary-400;
+    @apply rounded-lg font-sans shadow-xs;
+
+    & .filepond--panel-root {
+        @apply rounded-lg border border-gray-200 bg-white dark:border-white/10 dark:bg-white/10;
+    }
+
+    & .filepond--drop-label {
+        @apply text-sm/6 font-medium text-gray-600 dark:text-gray-300;
+    }
+
+    & .filepond--panel-top {
+        @apply after:bg-transparent;
+    }
+
+    & .filepond--panel-bottom {
+        @apply before:bg-transparent;
+    }
 }

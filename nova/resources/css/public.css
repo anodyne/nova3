@@ -1,4 +1,4 @@
-@import 'tailwindcss' source(none);
+@import "tailwindcss" source(none);
 @import "./components/icon.css" layer(components);
 @reference "../../../vendor/filament/support/resources/css/index.css";
 
@@ -14,8 +14,6 @@
 @source "../../src/Pages/Enums";
 @source "../../src/Stories/Models/States";
 
-@plugin "@tailwindcss/forms";
-
 @custom-variant dark (&:is(.dark *));
 
 /*
@@ -27,13 +25,13 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentcolor);
+    }
 }
 
 .nv-form-field-select {

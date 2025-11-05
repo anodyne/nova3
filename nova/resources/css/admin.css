@@ -1,6 +1,7 @@
 @import "tailwindcss" source("../views");
 @import "../../../vendor/livewire/flux/dist/flux.css";
 
+@source "../svg";
 @source "../../foundation/View/Components/*.php";
 @source "../../foundation/View/Layouts/*.php";
 @source "../../src/**/Enums/*.php";
@@ -22,13 +23,35 @@
 
 @import "./filament/index.css";
 
+@import "./components/button.css" layer(components);
+@import "./components/dropdown.css" layer(components);
+@import "./components/form.css" layer(components);
 @import "./components/icon.css" layer(components);
 @import "./components/modal.css" layer(components);
 
+@import "./plugins/filepond.css" layer(components);
+
 @import "./utilities/safelist.css";
+
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant mono-theme (&:where([data-theme="mono"] *));
+
+@theme {
+    --color-discord: #5865f2;
+
+    --animate-reverse-spin: reverseSpin 1s linear infinite;
+
+    @keyframes reverseSpin {
+        0% {
+            transform: rotate(0);
+        }
+        to {
+            transform: rotate(-1turn);
+        }
+    }
+}
 
 @theme inline {
     --color-zinc-50: var(--color-gray-50);
@@ -46,6 +69,13 @@
     --color-accent: var(--color-primary-500);
     --color-accent-content: var(--color-primary-600);
     --color-accent-foreground: var(--color-white);
+
+    --color-danger-25: var(--danger-25);
+    --color-info-25: var(--info-25);
+    --color-gray-25: var(--gray-25);
+    --color-primary-25: var(--primary-25);
+    --color-success-25: var(--success-25);
+    --color-warning-25: var(--warning-25);
 }
 
 @layer theme {
@@ -53,5 +83,11 @@
         --color-accent: var(--color-primary-500);
         --color-accent-content: var(--color-primary-400);
         --color-accent-foreground: var(--color-white);
+    }
+}
+
+@layer components {
+    strong {
+        @apply font-semibold;
     }
 }
