@@ -4,12 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
-use Nova\Characters\Models\Concerns\HasUsers;
-use Nova\Characters\Events\CharacterCreated;
-use Nova\Characters\Events\CharacterDeleted;
-use Nova\Characters\Events\CharacterUpdated;
-use Nova\Characters\Events\CharacterForceDeleted;
-use Nova\Characters\Events\CharacterRestored;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -22,10 +16,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Nova\Applications\Models\Application;
 use Nova\Characters\Enums\CharacterType;
-use Nova\Characters\Events;
+use Nova\Characters\Events\CharacterCreated;
+use Nova\Characters\Events\CharacterDeleted;
+use Nova\Characters\Events\CharacterForceDeleted;
+use Nova\Characters\Events\CharacterRestored;
+use Nova\Characters\Events\CharacterUpdated;
 use Nova\Characters\Models\Builders\CharacterBuilder;
+use Nova\Characters\Models\Concerns\HasUsers;
 use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\CharacterStatus;
+use Nova\Characters\Models\States\Status\Hidden;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
@@ -44,10 +44,10 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(CharacterBuilder::class)]
 class Character extends Model implements HasMedia
 {
-    use HasUsers;
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
+    use HasUsers;
     use InteractsWithMedia;
     use LogsActivity;
     use Searchable;
@@ -164,6 +164,13 @@ class Character extends Model implements HasMedia
     {
         return new Attribute(
             get: fn (): bool => $this->status->equals(Inactive::class)
+        );
+    }
+
+    public function isHidden(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Hidden::class)
         );
     }
 

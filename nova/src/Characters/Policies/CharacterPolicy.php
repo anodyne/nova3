@@ -69,6 +69,8 @@ class CharacterPolicy
 
     public function update(User $user, Character $character): Response
     {
+        $character->loadMissing('users');
+
         return $user->is_active && ($user->isAbleTo('character.update') || $character->users->contains('id', $user->id))
             ? $this->allow()
             : $this->deny();
@@ -214,10 +216,10 @@ class CharacterPolicy
             $user->isAbleTo('character.view') => $this->allow(),
             $this->create($user)->allowed() => $this->allow(),
             $user->isAbleTo('character.update') => $this->allow(),
-            $this->deleteAny($user, $character)->allowed() => $this->allow(),
-            $this->restoreAny($user, $character)->allowed() => $this->allow(),
-            $this->activateAny($user, $character)->allowed() => $this->allow(),
-            $this->deactivateAny($user, $character)->allowed() => $this->allow(),
+            $this->deleteAny($user)->allowed() => $this->allow(),
+            $this->restoreAny($user)->allowed() => $this->allow(),
+            $this->activateAny($user)->allowed() => $this->allow(),
+            $this->deactivateAny($user)->allowed() => $this->allow(),
             default => $this->deny()
         };
     }

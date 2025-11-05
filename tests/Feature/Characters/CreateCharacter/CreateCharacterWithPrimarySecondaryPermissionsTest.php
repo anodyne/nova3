@@ -20,8 +20,12 @@ beforeEach(function () {
 
 test('without primary and secondary approvals required user can create additional secondary characters by creating new primary character', function () {
     updateSettings(function ($settings) {
-        $settings->characters->approvePrimary = false;
-        $settings->characters->approveSecondary = false;
+        $settings->characters = $settings->characters->with(
+            approvePrimary: false,
+            approveSecondary: false
+        );
+
+        return $settings;
     });
 
     /** @var User $user */
@@ -37,8 +41,8 @@ test('without primary and secondary approvals required user can create additiona
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => true,
-        'assigned_users' => (string) auth()->id(),
-        'primary_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
+        'primary_users' => (string) Auth::id(),
     ];
 
     from(route('admin.characters.create'))
@@ -63,8 +67,12 @@ test('without primary and secondary approvals required user can create additiona
 
 test('with primary approval and secondary without approval user can create additional secondary characters by creating new primary character', function () {
     updateSettings(function ($settings) {
-        $settings->characters->approvePrimary = true;
-        $settings->characters->approveSecondary = false;
+        $settings->characters = $settings->characters->with(
+            approvePrimary: true,
+            approveSecondary: false
+        );
+
+        return $settings;
     });
 
     /** @var User $user */
@@ -80,8 +88,8 @@ test('with primary approval and secondary without approval user can create addit
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => true,
-        'assigned_users' => (string) auth()->id(),
-        'primary_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
+        'primary_users' => (string) Auth::id(),
     ];
 
     from(route('admin.characters.create'))
@@ -106,8 +114,12 @@ test('with primary approval and secondary without approval user can create addit
 
 test('with primary without approval and secondary with approval user can create additional secondary characters by creating new primary character', function () {
     updateSettings(function ($settings) {
-        $settings->characters->approvePrimary = false;
-        $settings->characters->approveSecondary = true;
+        $settings->characters = $settings->characters->with(
+            approvePrimary: false,
+            approveSecondary: true
+        );
+
+        return $settings;
     });
 
     /** @var User $user */
@@ -123,8 +135,8 @@ test('with primary without approval and secondary with approval user can create 
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => true,
-        'assigned_users' => (string) auth()->id(),
-        'primary_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
+        'primary_users' => (string) Auth::id(),
     ];
 
     from(route('admin.characters.create'))
@@ -149,8 +161,12 @@ test('with primary without approval and secondary with approval user can create 
 
 test('with primary and secondary approval user can create additional secondary characters by creating new primary character', function () {
     updateSettings(function ($settings) {
-        $settings->characters->approvePrimary = true;
-        $settings->characters->approveSecondary = true;
+        $settings->characters = $settings->characters->with(
+            approvePrimary: true,
+            approveSecondary: true
+        );
+
+        return $settings;
     });
 
     /** @var User $user */
@@ -166,8 +182,8 @@ test('with primary and secondary approval user can create additional secondary c
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => true,
-        'assigned_users' => (string) auth()->id(),
-        'primary_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
+        'primary_users' => (string) Auth::id(),
     ];
 
     from(route('admin.characters.create'))

@@ -1,9 +1,9 @@
 <x-filament.modal-content :$action title="Force delete character?">
     {{-- format-ignore-start --}}
-    <p>
+    <x-text variant="strong">
         Are you sure you want to force delete
-        <strong class="font-semibold">{{ $record->display_name }}</strong>?
+        <strong>{{ $record->display_name }}</strong>?
         This action is permanent and cannot be undone.
-    </p>
+    </x-text>
     {{-- format-ignore-end --}}
 </x-filament.modal-content>

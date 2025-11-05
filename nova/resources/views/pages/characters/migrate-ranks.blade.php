@@ -1,14 +1,14 @@
 <x-admin-layout>
     <x-spacing constrained-lg>
-        <x-page-header></x-page-header>
+        <x-page-heading></x-page-heading>
 
         <x-panel variant="well">
             <x-panel variant="inset">
-                <div class="divide-y divide-gray-950/5 dark:divide-white/5">
+                <x-spacing.group divided>
                     @foreach ($characters as $character)
                         <livewire:characters-migrate-ranks :$character :key="$character->id" />
                     @endforeach
-                </div>
+                </x-spacing.group>
             </x-panel>
         </x-panel>
 

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Events\CharacterRestored;
@@ -31,10 +32,10 @@ describe('authorized user', function () {
         $character = Character::factory()->active()->trashed()->create();
 
         livewire(CharactersList::class)
+            ->removeTableFilters()
             ->filterTable(TrashedFilter::class, false)
-            ->assertCountTableRecords(1)
-            ->assertTableActionVisible(RestoreAction::class, $character)
-            ->callTableAction(RestoreAction::class, $character)
+            ->assertCanSeeTableRecords([$character])
+            ->callAction(TestAction::make(RestoreAction::class)->table($character))
             ->assertNotified();
 
         assertNotSoftDeleted(Character::class, $character->only('id'));
@@ -46,9 +47,11 @@ describe('authorized user', function () {
         $characters = Character::factory(3)->trashed()->create();
 
         livewire(CharactersList::class)
+            ->removeTableFilters()
             ->filterTable(TrashedFilter::class, false)
-            ->assertCountTableRecords(3)
-            ->callTableBulkAction(RestoreBulkAction::class, $characters)
+            ->assertCanSeeTableRecords($characters)
+            ->selectTableRecords($characters)
+            ->callAction(TestAction::make(RestoreBulkAction::class)->table()->bulk())
             ->assertNotified();
 
         foreach ($characters as $character) {
@@ -62,28 +65,30 @@ describe('authorized user', function () {
         $deletedCharacter = Character::factory()->active()->trashed()->create();
 
         livewire(CharactersList::class)
+            ->removeTableFilters()
             ->filterTable(TrashedFilter::class, true)
-            ->assertTableActionHidden(ViewAction::class, $activeCharacter)
-            ->assertTableActionHidden(EditAction::class, $activeCharacter)
-            ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
-            ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
-            ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
-            ->assertTableActionHidden('activateCharacter', $activeCharacter)
-            ->assertTableActionHidden('deactivateCharacter', $activeCharacter)
-            ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
-            ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
-            ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
-            ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
-            ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
-            ->assertTableActionHidden('activateCharacter', $inactiveCharacter)
-            ->assertTableActionHidden('deactivateCharacter', $inactiveCharacter)
-            ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
-            ->assertTableActionHidden(EditAction::class, $deletedCharacter)
-            ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
-            ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
-            ->assertTableActionVisible(RestoreAction::class, $deletedCharacter)
-            ->assertTableActionHidden('activateCharacter', $deletedCharacter)
-            ->assertTableActionHidden('deactivateCharacter', $deletedCharacter);
+            ->assertCanSeeTableRecords([$activeCharacter, $inactiveCharacter, $deletedCharacter])
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($activeCharacter))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($activeCharacter))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($activeCharacter))
+            ->assertActionHidden(TestAction::make(ForceDeleteAction::class)->table($activeCharacter))
+            ->assertActionHidden(TestAction::make(RestoreAction::class)->table($activeCharacter))
+            ->assertActionHidden(TestAction::make('activateCharacter')->table($activeCharacter))
+            ->assertActionHidden(TestAction::make('deactivateCharacter')->table($activeCharacter))
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($inactiveCharacter))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($inactiveCharacter))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($inactiveCharacter))
+            ->assertActionHidden(TestAction::make(ForceDeleteAction::class)->table($inactiveCharacter))
+            ->assertActionHidden(TestAction::make(RestoreAction::class)->table($inactiveCharacter))
+            ->assertActionHidden(TestAction::make('activateCharacter')->table($inactiveCharacter))
+            ->assertActionHidden(TestAction::make('deactivateCharacter')->table($inactiveCharacter))
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($deletedCharacter))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($deletedCharacter))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($deletedCharacter))
+            ->assertActionHidden(TestAction::make(ForceDeleteAction::class)->table($deletedCharacter))
+            ->assertActionVisible(TestAction::make(RestoreAction::class)->table($deletedCharacter))
+            ->assertActionHidden(TestAction::make('activateCharacter')->table($deletedCharacter))
+            ->assertActionHidden(TestAction::make('deactivateCharacter')->table($deletedCharacter));
     });
 });
 
@@ -96,14 +101,14 @@ describe('unauthorized user', function () {
         $character = Character::factory()->active()->trashed()->create();
 
         livewire(CharactersList::class)
-            ->assertTableActionHidden(RestoreAction::class, $character);
+            ->assertCanNotSeeTableRecords([$character]);
     });
 
     test('cannot restore multiple soft deleted characters', function () {
         $characters = Character::factory(3)->active()->trashed()->create();
 
         livewire(CharactersList::class)
-            ->assertTableBulkActionHidden(RestoreBulkAction::class, $characters);
+            ->assertCanNotSeeTableRecords($characters);
     });
 
     test('has the correct permissions for list characters page', function () {
@@ -112,27 +117,9 @@ describe('unauthorized user', function () {
         $deletedCharacter = Character::factory()->active()->trashed()->create();
 
         livewire(CharactersList::class)
-            ->assertTableActionHidden(ViewAction::class, $activeCharacter)
-            ->assertTableActionHidden(EditAction::class, $activeCharacter)
-            ->assertTableActionHidden(DeleteAction::class, $activeCharacter)
-            ->assertTableActionHidden(ForceDeleteAction::class, $activeCharacter)
-            ->assertTableActionHidden(RestoreAction::class, $activeCharacter)
-            ->assertTableActionHidden('activateCharacter', $activeCharacter)
-            ->assertTableActionHidden('deactivateCharacter', $activeCharacter)
-            ->assertTableActionHidden(ViewAction::class, $inactiveCharacter)
-            ->assertTableActionHidden(EditAction::class, $inactiveCharacter)
-            ->assertTableActionHidden(DeleteAction::class, $inactiveCharacter)
-            ->assertTableActionHidden(ForceDeleteAction::class, $inactiveCharacter)
-            ->assertTableActionHidden(RestoreAction::class, $inactiveCharacter)
-            ->assertTableActionHidden('activateCharacter', $inactiveCharacter)
-            ->assertTableActionHidden('deactivateCharacter', $inactiveCharacter)
-            ->assertTableActionHidden(ViewAction::class, $deletedCharacter)
-            ->assertTableActionHidden(EditAction::class, $deletedCharacter)
-            ->assertTableActionHidden(DeleteAction::class, $deletedCharacter)
-            ->assertTableActionHidden(ForceDeleteAction::class, $deletedCharacter)
-            ->assertTableActionHidden(RestoreAction::class, $deletedCharacter)
-            ->assertTableActionHidden('activateCharacter', $deletedCharacter)
-            ->assertTableActionHidden('deactivateCharacter', $deletedCharacter);
+            ->removeTableFilters()
+            ->filterTable(TrashedFilter::class, true)
+            ->assertCanNotSeeTableRecords([$activeCharacter, $inactiveCharacter, $deletedCharacter]);
     });
 });
 

@@ -24,16 +24,20 @@ test('user can view the create characters page', function () {
 });
 
 test('with primary approval required user can create character', function () {
-    updateSettings(
-        fn ($settings) => $settings->characters->approvePrimary = true
-    );
+    updateSettings(function ($settings) {
+        $settings->characters = $settings->characters->with(
+            approvePrimary: true
+        );
+
+        return $settings;
+    });
 
     $postData = [
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => true,
-        'assigned_users' => (string) auth()->id(),
-        'primary_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
+        'primary_users' => (string) Auth::id(),
     ];
 
     from(route('admin.characters.create'))
@@ -49,16 +53,20 @@ test('with primary approval required user can create character', function () {
 });
 
 test('without approval required user can create character', function () {
-    updateSettings(
-        fn ($settings) => $settings->characters->approvePrimary = false
-    );
+    updateSettings(function ($settings) {
+        $settings->characters = $settings->characters->with(
+            approvePrimary: false
+        );
+
+        return $settings;
+    });
 
     $postData = [
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => true,
-        'assigned_users' => (string) auth()->id(),
-        'primary_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
+        'primary_users' => (string) Auth::id(),
     ];
 
     from(route('admin.characters.create'))
@@ -78,7 +86,7 @@ test('user cannot directly create secondary character', function () {
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => false,
-        'assigned_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
         'primary_users' => null,
     ];
 
@@ -114,9 +122,13 @@ test('user cannot directly create support character', function () {
 });
 
 test('with approval required user cannot create additional secondary characters by creating new primary character', function () {
-    updateSettings(
-        fn ($settings) => $settings->characters->approvePrimary = true
-    );
+    updateSettings(function ($settings) {
+        $settings->characters = $settings->characters->with(
+            approvePrimary: true
+        );
+
+        return $settings;
+    });
 
     /** @var User $user */
     $user = Auth::user();
@@ -131,8 +143,8 @@ test('with approval required user cannot create additional secondary characters 
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => true,
-        'assigned_users' => (string) auth()->id(),
-        'primary_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
+        'primary_users' => (string) Auth::id(),
     ];
 
     from(route('admin.characters.create'))
@@ -156,9 +168,13 @@ test('with approval required user cannot create additional secondary characters 
 });
 
 test('without approval required user cannot create additional secondary characters by creating new primary character', function () {
-    updateSettings(
-        fn ($settings) => $settings->characters->approvePrimary = false
-    );
+    updateSettings(function ($settings) {
+        $settings->characters = $settings->characters->with(
+            approvePrimary: false
+        );
+
+        return $settings;
+    });
 
     /** @var User $user */
     $user = Auth::user();
@@ -173,8 +189,8 @@ test('without approval required user cannot create additional secondary characte
         'name' => 'Liam Shaw',
         'link_to_user' => true,
         'assign_as_primary' => true,
-        'assigned_users' => (string) auth()->id(),
-        'primary_users' => (string) auth()->id(),
+        'assigned_users' => (string) Auth::id(),
+        'primary_users' => (string) Auth::id(),
     ];
 
     from(route('admin.characters.create'))

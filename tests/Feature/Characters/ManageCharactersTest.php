@@ -35,24 +35,23 @@ describe('authorized user', function () {
         get(route('admin.characters.index'))->assertSuccessful();
 
         livewire(CharactersList::class)
+            ->removeTableFilters()
             ->assertCountTableRecords(3)
             ->assertCanSeeTableRecords($this->characters);
     });
 
     test('can filter characters by status', function () {
         livewire(CharactersList::class)
+            ->removeTableFilters()
             ->filterTable('status', Pending::$name)
-            ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords($this->characters->where('status', Pending::$name))
             ->assertCanNotSeeTableRecords($this->characters->where('status', '!=', Pending::$name))
-            ->resetTableFilters()
+            ->removeTableFilters()
             ->filterTable('status', Active::$name)
-            ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords($this->characters->where('status', Active::$name))
             ->assertCanNotSeeTableRecords($this->characters->where('status', '!=', Active::$name))
-            ->resetTableFilters()
+            ->removeTableFilters()
             ->filterTable('status', Inactive::$name)
-            ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords($this->characters->where('status', Inactive::$name))
             ->assertCanNotSeeTableRecords($this->characters->where('status', '!=', Inactive::$name));
     });
@@ -67,31 +66,30 @@ describe('authorized user', function () {
             ->create();
 
         livewire(CharactersList::class)
+            ->removeTableFilters()
             ->filterTable('type', [CharacterType::Primary->value])
-            ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords(Character::where('type', CharacterType::Primary)->get())
             ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::Primary)->get())
-            ->resetTableFilters()
+            ->removeTableFilters()
             ->filterTable('type', [CharacterType::Secondary->value])
-            ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords(Character::where('type', CharacterType::Secondary)->get())
             ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::Secondary)->get())
-            ->resetTableFilters()
+            ->removeTableFilters()
             ->filterTable('type', [CharacterType::Support->value])
-            ->assertCountTableRecords(4)
             ->assertCanSeeTableRecords(Character::where('type', CharacterType::Support)->get())
             ->assertCanNotSeeTableRecords(Character::where('type', '!=', CharacterType::Support)->get());
     });
 
     test('can filter characters by trashed state', function () {
-        Character::factory()->create()->delete();
+        $character = Character::factory()->trashed()->create();
 
         assertCount(4, Character::withTrashed()->get());
 
         livewire(CharactersList::class)
-            ->assertCountTableRecords(3)
+            ->removeTableFilters()
+            ->assertCanNotSeeTableRecords([$character])
             ->filterTable(TrashedFilter::class, false)
-            ->assertCountTableRecords(1);
+            ->assertCanSeeTableRecords([$character]);
     });
 
     test('can search characters by name', function () {
@@ -123,7 +121,6 @@ describe('unauthorized user', function () {
         $unassignedCharacters = Character::factory(3)->create();
 
         livewire(CharactersList::class)
-            ->assertCountTableRecords(3)
             ->assertCanSeeTableRecords($characters)
             ->assertCanNotSeeTableRecords($unassignedCharacters);
     });

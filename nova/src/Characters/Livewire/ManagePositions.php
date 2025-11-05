@@ -14,20 +14,11 @@ use Nova\Departments\Models\Position;
 
 class ManagePositions extends Component
 {
-    public string $search = '';
-
     public ?Character $character = null;
 
     public Collection $assigned;
 
-    public function add(Position $position): void
-    {
-        $this->search = '';
-
-        $this->assigned->push($position);
-
-        $this->dispatch('positions-updated', positions: $this->assigned->pluck('id')->all());
-    }
+    public ?string $selected = null;
 
     public function remove(Position $position): void
     {
@@ -38,32 +29,11 @@ class ManagePositions extends Component
         $this->dispatch('positions-updated', positions: $this->assigned->pluck('id')->all());
     }
 
-    #[Computed]
-    public function positions(): Collection
+    public function updatedSelected(Position $value): void
     {
-        return $this->assigned;
-    }
+        $this->assigned->push($value);
 
-    #[Computed]
-    public function searchResults(): Collection
-    {
-        /** @var User */
-        $user = Auth::user();
-
-        return Position::query()
-            ->select(['id', 'department_id', 'available', 'name'])
-            ->unless($user?->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
-            ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
-            ->when(filled($this->search) && $this->search === '*', fn (Builder $query) => $query)
-            ->get();
-    }
-
-    #[Computed]
-    public function assignedPositions(): string
-    {
-        return $this->assigned
-            ->map(fn (Position $position) => $position->id)
-            ->join(',');
+        $this->selected = null;
     }
 
     public function mount(): void
@@ -75,8 +45,34 @@ class ManagePositions extends Component
     {
         return view('pages.characters.livewire.manage-positions', [
             'assignedPositions' => $this->assignedPositions,
-            'searchResults' => $this->searchResults,
+            'models' => $this->models,
             'positions' => $this->positions,
         ]);
+    }
+
+    #[Computed]
+    public function assignedPositions(): string
+    {
+        return $this->assigned
+            ->map(fn (Position $position) => $position->id)
+            ->join(',');
+    }
+
+    #[Computed]
+    public function models(): Collection
+    {
+        /** @var User */
+        $user = Auth::user();
+
+        return Position::query()
+            ->select(['id', 'department_id', 'available', 'name', 'status'])
+            ->unless($user?->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
+            ->get();
+    }
+
+    #[Computed]
+    public function positions(): Collection
+    {
+        return $this->assigned;
     }
 }
