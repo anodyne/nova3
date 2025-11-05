@@ -56,6 +56,7 @@ use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\NotificationIcon;
 use Nova\Foundation\Listeners\AuthenticationEventSubscriber;
 use Nova\Foundation\Listeners\SetEmailSubjectPrefix;
 use Nova\Foundation\Livewire\IconPicker;
@@ -279,10 +280,10 @@ class AppServiceProvider extends ServiceProvider
             TablesIconAlias::REORDER_HANDLE => Tabler::GripVertical,
             TablesIconAlias::SEARCH_FIELD => Tabler::Search,
 
-            NotificationsIconAlias::NOTIFICATION_DANGER => 'notis-danger',
-            NotificationsIconAlias::NOTIFICATION_INFO => 'notis-info',
-            NotificationsIconAlias::NOTIFICATION_SUCCESS => 'notis-success',
-            NotificationsIconAlias::NOTIFICATION_WARNING => 'notis-warning',
+            NotificationsIconAlias::NOTIFICATION_DANGER => NotificationIcon::XCircle,
+            NotificationsIconAlias::NOTIFICATION_INFO => NotificationIcon::InfoCircle,
+            NotificationsIconAlias::NOTIFICATION_SUCCESS => NotificationIcon::CheckCircle,
+            NotificationsIconAlias::NOTIFICATION_WARNING => NotificationIcon::AlertTriangle,
 
             SupportIconAlias::MODAL_CLOSE_BUTTON => Tabler::X,
             SupportIconAlias::PAGINATION_PREVIOUS_BUTTON => Tabler::ChevronLeft,

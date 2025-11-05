@@ -20,21 +20,11 @@ return [
             'prefix' => 'empty',
             'class' => '',
         ],
-        // 'notifications' => [
-        //     'path' => 'nova/resources/svg/notifications',
-        //     'prefix' => 'notis',
-        //     'class' => '',
-        // ],
         'neaticons' => [
             'path' => 'nova/resources/svg/neaticons',
             'prefix' => 'neat',
             'class' => '',
         ],
-        // 'untitled' => [
-        //     'path' => 'nova/resources/svg/untitled',
-        //     'prefix' => 'unt',
-        //     'class' => '',
-        // ],
     ],
 
     /*
