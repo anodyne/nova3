@@ -18,7 +18,6 @@ use Nova\Forms\Models\FormField;
 use Nova\Users\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\withoutExceptionHandling;
 
 uses()->group('applications');
 
@@ -43,8 +42,6 @@ test('can create a basic application', function () {
 });
 
 test('new applications are pending by default', function () {
-    withoutExceptionHandling();
-
     $user = User::factory()->pending()->create();
     $character = Character::factory()->pending()->create();
 
