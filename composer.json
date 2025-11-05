@@ -35,7 +35,7 @@
         "league/flysystem-path-prefixing": "^3.3",
         "livewire/flux": "^2.0",
         "livewire/flux-pro": "^2.0",
-        "livewire/livewire": "^3.4",
+        "livewire/livewire": "^3.7-beta",
         "lorisleiva/laravel-actions": "^2.1",
         "mailersend/laravel-driver": "^2.7",
         "mchev/banhammer": "^2.4",
@@ -105,7 +105,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Addons\\": "tests/fixtures/addons/"
         }
     },
     "scripts": {
