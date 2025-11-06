@@ -46,7 +46,7 @@ class MaintenanceModeSwitch extends Component
     public function render()
     {
         return <<<'blade'
-            <flux:switch wire:model.live="maintenance"></flux:switch>
+            <x-switch wire:model.live="maintenance"></x-switch>
         blade;
     }
 }

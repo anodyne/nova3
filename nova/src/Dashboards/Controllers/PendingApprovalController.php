@@ -15,7 +15,10 @@ class PendingApprovalController extends Controller
     {
         parent::__construct();
 
-        $this->middleware('auth');
+        $this->middleware([
+            'auth',
+            'permission:announcement.approve|post.approve',
+        ]);
     }
 
     public function __invoke()

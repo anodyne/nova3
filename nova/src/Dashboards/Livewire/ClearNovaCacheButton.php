@@ -22,8 +22,8 @@ class ClearNovaCacheButton extends Component
     public function render()
     {
         return <<<'blade'
-            <x-button type="button" color="neutral" wire:click="clear">
-                <x-icon :name="Icon::Eraser" size="sm"></x-icon>
+            <x-button type="button" wire:click="clear">
+                <x-icon :name="Tabler::Eraser" size="sm" />
                 Clear
             </x-button>
         blade;

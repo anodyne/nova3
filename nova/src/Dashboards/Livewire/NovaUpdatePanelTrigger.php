@@ -7,6 +7,7 @@ namespace Nova\Dashboards\Livewire;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Enums\ReleaseSeverity;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Values\LatestVersion;
@@ -28,19 +29,19 @@ class NovaUpdatePanelTrigger extends Component
     #[Computed]
     public function upstream(): LatestVersion
     {
-        return Cache::get('nova-latest-version');
+        return Cache::get(CacheKeys::LatestVersion->value);
     }
 
     #[Computed]
     public function hasUpdate(): bool
     {
-        return Cache::has('nova-update-available');
+        return Cache::has(CacheKeys::UpdateAvailable->value);
     }
 
     #[Computed]
     public function hasUpcomingUpdate(): bool
     {
-        return Cache::has('nova-update-upcoming');
+        return Cache::has(CacheKeys::UpdateUpcoming->value);
     }
 
     #[Computed]
@@ -72,17 +73,17 @@ class NovaUpdatePanelTrigger extends Component
     }
 
     #[Computed]
-    public function trailingText(): string
+    public function trailingText(): ?string
     {
         if ($this->needsFilesUpdate) {
             return "Update from {$this->filesVersion}";
         }
 
         if ($this->needsDatabaseUpdate) {
-            return "Your database needs to be updated from {$this->databaseVersion}";
+            return "Update your database from {$this->databaseVersion}";
         }
 
-        return 'Your site is up-to-date';
+        return null;
     }
 
     public function render()

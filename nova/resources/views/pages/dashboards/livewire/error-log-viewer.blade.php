@@ -5,7 +5,7 @@
 
 <div class="space-y-8">
     <div class="flex items-center gap-x-4">
-        <x-select wire:model.live="selectedLogFile">
+        <x-select wire:model.live="selectedLogFile" class="max-w-fit">
             <option value="">Choose a log file</option>
 
             @foreach ($files as $file)
@@ -16,18 +16,18 @@
         </x-select>
 
         @if (filled($selectedLogFile))
-            <x-button wire:click="downloadLogFile" text>
-                <x-icon :name="Icon::Download" size="sm"></x-icon>
-            </x-button>
+            <x-link role="button" wire:click="downloadLogFile">
+                <x-icon :name="Tabler::CloudDownload" size="sm" />
+            </x-link>
 
-            <x-button
+            <x-link
+                role="button"
                 wire:click="deleteLogFile"
                 wire:confirm="Are you sure you want to delete this log file?"
                 color="neutral-danger"
-                text
             >
-                <x-icon :name="Icon::Trash" size="sm"></x-icon>
-            </x-button>
+                <x-icon :name="Tabler::Trash" size="sm" />
+            </x-link>
         @endif
     </div>
 
@@ -44,11 +44,14 @@
                         };
                     @endphp
 
-                    <x-badge :color="$badgeColor" pill>
+                    <x-badge :color="$badgeColor" size="lg">
+                        <x-slot name="trailing">
+                            <x-badge :color="$badgeColor" variant="inset" size="lg">
+                                {{ $count->count }}
+                            </x-badge>
+                        </x-slot>
+
                         {{ $count->level->value }}
-                        <x-badge :color="$badgeColor" class="tabular-nums" pill>
-                            {{ $count->count }}
-                        </x-badge>
                     </x-badge>
                 @endforeach
             </div>
@@ -95,7 +98,7 @@
                             <div class="flex gap-x-2">
                                 {{--
                                     <button type="button" x-clipboard.raw="{{ $logLine->message }}">
-                                    <x-icon :name="Icon::Copy" size="size-5"></x-icon>
+                                    <x-icon :name="Tabler::Copy" size="size-5" />
                                     </button>
                                 --}}
 
@@ -150,7 +153,7 @@
 
                             <div class="flex items-center gap-x-2">
                                 <button type="button" x-clipboard.raw="{{ $logLine->message }}">
-                                    <x-icon :name="Icon::Copy" size="size-5"></x-icon>
+                                    <x-icon :name="Tabler::Copy" size="size-5" />
                                 </button>
 
                                 <button
@@ -170,57 +173,61 @@
                         </div>
                     </x-spacing>
 
-                    <x-panel
-                        class="divide-y divide-gray-950/5 dark:divide-white/5"
-                        x-show="expanded"
-                        x-collapse
-                        x-cloak
-                    >
-                        <x-spacing size="row">
-                            <x-h5>Context</x-h5>
+                    <x-panel x-show="expanded" x-collapse x-cloak>
+                        <x-spacing.group divided>
+                            <x-spacing size="row">
+                                <x-h5>Context</x-h5>
 
-                            <div class="mt-4 grid grid-cols-4 gap-4 text-sm/6">
-                                @foreach (Arr::except($logLine->context, 'exception') as $key => $contextLine)
-                                    @if (is_array($contextLine))
-                                        @foreach (Arr::except($contextLine, 'exception') as $cKey => $cLine)
-                                            <x-fieldset.field :label="$cKey">
+                                <div class="mt-4 grid grid-cols-4 gap-4 text-sm/6">
+                                    @foreach (Arr::except($logLine->context, 'exception') as $key => $contextLine)
+                                        @if (is_array($contextLine))
+                                            @foreach (Arr::except($contextLine, 'exception') as $cKey => $cLine)
+                                                <x-input.display :label="$cKey">
+                                                    <x-text>
+                                                        {{ $cLine }}
+                                                    </x-text>
+                                                </x-input.display>
+                                            @endforeach
+                                        @else
+                                            <x-input.display :label="$key">
                                                 <x-text>
-                                                    {{ $cLine }}
+                                                    {{ $contextLine }}
                                                 </x-text>
-                                            </x-fieldset.field>
-                                        @endforeach
-                                    @else
-                                        <x-fieldset.field :label="$key">
-                                            <x-text>
-                                                {{ $contextLine }}
-                                            </x-text>
-                                        </x-fieldset.field>
-                                    @endif
-                                @endforeach
-                            </div>
-                        </x-spacing>
-
-                        @if ($this->getStacktrace($logLine) !== null)
-                            <x-spacing size="row" x-data="{ showStacktrace: false }">
-                                <x-h5>Stacktrace</x-h5>
-
-                                <div class="mt-2 flex items-center gap-x-2">
-                                    <x-button x-on:click="showStacktrace = ! showStacktrace">Show stacktrace</x-button>
-
-                                    <livewire:copy-stacktrace-button
-                                        :stacktrace="$this->getStacktrace($logLine)"
-                                        wire:key="stacktrace-button-{{ $logLine->index.$logLine->filePosition }}"
-                                    />
-                                </div>
-
-                                <div class="mt-4" x-show="showStacktrace" x-collapse>
-                                    {{ $this->getStacktrace($logLine) }}
+                                            </x-input.display>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </x-spacing>
-                        @endif
+
+                            @if ($this->getStacktrace($logLine) !== null)
+                                <x-spacing size="row" x-data="{ showStacktrace: false }">
+                                    <x-h5>Stacktrace</x-h5>
+
+                                    <div class="mt-2 flex items-center gap-x-2">
+                                        <x-button x-on:click="showStacktrace = ! showStacktrace">
+                                            Show stacktrace
+                                        </x-button>
+
+                                        <livewire:copy-stacktrace-button
+                                            :stacktrace="$this->getStacktrace($logLine)"
+                                            wire:key="stacktrace-button-{{ $logLine->index.$logLine->filePosition }}"
+                                        />
+                                    </div>
+
+                                    <div class="mt-4" x-show="showStacktrace" x-collapse>
+                                        {{ $this->getStacktrace($logLine) }}
+                                    </div>
+                                </x-spacing>
+                            @endif
+                        </x-spacing.group>
                     </x-panel>
                 </x-panel>
             @endforeach
         </div>
+    @else
+        <x-empty variant="jumbo">
+            <x-illustration :name="Illustration::WebError" />
+            <x-empty.heading>Choose an error log</x-empty.heading>
+        </x-empty>
     @endif
 </div>

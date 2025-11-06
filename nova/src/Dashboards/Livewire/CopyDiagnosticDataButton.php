@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
+use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
 
 class CopyDiagnosticDataButton extends Component
@@ -36,9 +38,9 @@ class CopyDiagnosticDataButton extends Component
         $queueDriver = config('queue.default');
         $broadcastingDriver = config('broadcasting.default');
 
-        $activeExtensions = collect(data_get(cache('nova.addons'), 'extension', []))->join(', ');
-        $activeGenre = collect(data_get(cache('nova.addons'), 'genre', []))->join(', ');
-        $activeRankSet = collect(data_get(cache('nova.addons'), 'rank', []))->join(', ');
+        $activeExtensions = collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))->join(', ') ?: 'None';
+        $activeGenre = collect(data_get(Cache::get(CacheKeys::Addons->value), 'genre', []))->join(', ') ?: 'None';
+        $activeRankSet = collect(data_get(Cache::get(CacheKeys::Addons->value), 'rank', []))->join(', ') ?: 'None';
 
         return <<<EOT
         ```
@@ -88,26 +90,13 @@ class CopyDiagnosticDataButton extends Component
             >
                 <x-button
                     type="button"
-                    color="neutral"
                     x-clipboard.raw="{{ $this->codeToCopy }}"
                     x-on:click="copied = true"
                 >
                     Copy diagnostic data
+                    <x-icon :name="Tabler::Copy" size="sm" x-show="!copied" />
+                    <x-icon :name="Tabler::CopyCheck" size="sm" class="text-primary-500" x-show="copied" x-cloak />
                 </x-button>
-
-                <div
-                    class="text-success-500 dark:text-success-500 text-sm/6 font-medium"
-                    x-show="copied"
-                    x-transition:enter="duration-200 ease-out"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="duration-100 ease-in"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    x-cloak
-                >
-                    Copied!
-                </div>
             </div>
         blade;
     }

@@ -5,7 +5,7 @@
         <li class="relative flex gap-x-4">
             <div
                 @class([
-                    'absolute left-0 top-0 flex w-14 justify-center',
+                    'absolute top-0 left-0 flex w-14 justify-center',
                     '-bottom-6' => ! $loop->last,
                 ])
             >
@@ -16,7 +16,7 @@
                 :content="($loop->first || $loop->last || str($version->version)->endsWith('.0')) ? null : $version->version"
                 position="top"
             >
-                <div class="relative flex h-6 w-14 flex-none items-center justify-center bg-white dark:bg-gray-800">
+                <div class="relative flex h-6 w-14 flex-none items-center justify-center bg-white dark:bg-gray-950">
                     @if (str($version->version)->endsWith('.0'))
                         <div
                             class="rounded-lg bg-gray-950 px-2.5 text-xs/6 font-medium text-white dark:bg-white dark:text-gray-950"
@@ -45,27 +45,27 @@
                         {!! str($version->description)->markdown() !!}
                     </div>
                 @else
-                    <div class="text-sm/6 italic text-gray-500">
+                    <div class="text-sm/6 text-gray-500 italic">
                         This is a external dependency update that does not include any changes to Nova.
                     </div>
                 @endif
 
                 <div class="flex gap-2">
                     @if (version_compare($version->version, $filesVersion, '==') && version_compare($version->version, $databaseVersion, '=='))
-                        <x-badge size="sm" color="primary">Your installed version</x-badge>
+                        <x-badge color="primary">Your installed version</x-badge>
                     @else
                         @if (version_compare($version->version, $filesVersion, '=='))
-                            <x-badge size="sm" color="success">Your files version</x-badge>
+                            <x-badge color="success">Your files version</x-badge>
                         @endif
 
                         @if (version_compare($version->version, $databaseVersion, '=='))
-                            <x-badge size="sm" color="info">Your database version</x-badge>
+                            <x-badge color="info">Your database version</x-badge>
                         @endif
                     @endif
 
                     @if (count($version->tags) > 0)
                         @foreach ($version->tags as $tag)
-                            <x-badge size="sm">{{ str($tag)->ucfirst() }}</x-badge>
+                            <x-badge>{{ str($tag)->ucfirst() }}</x-badge>
                         @endforeach
                     @endif
                 </div>
@@ -75,6 +75,8 @@
             </time>
         </li>
     @empty
-        <li>No version history found</li>
+        <li>
+            <x-callout.success :icon="Tabler::CircleCheck">No version history found</x-callout.success>
+        </li>
     @endforelse
 </ul>

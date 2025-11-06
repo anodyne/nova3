@@ -30,7 +30,7 @@ return new class extends Migration
                 'role.create', 'role.delete', 'role.update', 'role.view',
                 'theme.create', 'theme.delete', 'theme.update', 'theme.view',
                 'addon.create', 'addon.delete', 'addon.update', 'addon.view',
-                'settings.update', 'site.update',
+                'settings.update', 'site.update', 'system.overview',
             ],
             'admin' => [
                 'user.create', 'user.delete', 'user.update', 'user.view', 'user.impersonate',
@@ -183,6 +183,7 @@ return new class extends Migration
 
             ['name' => 'system.activity', 'display_name' => 'View activity log', 'description' => 'Allows a user to view the activity log for the site'],
             ['name' => 'system.error-logs', 'display_name' => 'View error logs', 'description' => 'Allows a user to view the error logs for the site'],
+            ['name' => 'system.overview', 'display_name' => 'View system overview dashboard', 'description' => 'Allows a user to view the system overview dashboard for the site'],
 
             ['name' => 'menu.create', 'display_name' => 'Create menus', 'description' => 'Allows a user to add new menus'],
             ['name' => 'menu.delete', 'display_name' => 'Delete menus', 'description' => 'Allows a user to remove menus'],

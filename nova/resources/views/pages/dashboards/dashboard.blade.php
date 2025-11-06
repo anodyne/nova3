@@ -1,78 +1,7 @@
 <x-admin-layout>
-    <x-page-header></x-page-header>
+    <x-page-heading></x-page-heading>
 
     <div>
-        <section class="mb-8 hidden">
-            <div
-                @class([
-                    'rounded-2xl',
-                    'from-primary-900 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] to-gray-900 text-white' => false,
-
-                    'bg-gray-950 text-white',
-
-                    'dark:bg-white dark:text-gray-950',
-                ])
-            >
-                <x-spacing width="md" height="sm">
-                    <div class="flex items-center justify-between gap-8">
-                        <div class="flex-1">
-                            <h2 class="text-2xl font-extrabold text-white dark:text-gray-950">
-                                Welcome to {{ settings('general.gameName') }}
-                            </h2>
-
-                            <p class="text-sm/5 text-gray-400 dark:text-gray-600">
-                                Let’s work on getting your account setup.
-                            </p>
-                        </div>
-                        <div class="flex w-full max-w-xs items-center gap-4">
-                            <div
-                                class="relative h-3 w-full overflow-hidden rounded-full bg-white/25 dark:bg-gray-950/10"
-                            >
-                                <div
-                                    @class([
-                                        'bg-primary-500 absolute h-3 rounded-full ring-[3px] ring-gray-950 dark:ring-white',
-                                        'w-3' => false,
-                                    ])
-                                    @style([
-                                        'width:25%',
-                                    ])
-                                ></div>
-                            </div>
-
-                            <div class="flex items-center text-gray-500">
-                                <x-icon.chevron-right class="size-6"></x-icon.chevron-right>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid hidden grid-cols-1 gap-x-16 gap-y-8 xl:grid-cols-3">
-                        <div class="flex flex-col justify-between">
-                            <div>
-                                <div
-                                    class="bg-primary-400/10 text-primary-400 ring-primary-400/20 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ring-1 ring-inset"
-                                >
-                                    Welcome to Nova 3
-                                </div>
-                            </div>
-                            <div class="space-y-3">
-                                <h2
-                                    class="block font-(family-name:--font-header) text-xl/8 font-bold tracking-tight text-white dark:text-gray-900"
-                                >
-                                    Let’s get started
-                                </h2>
-                                <p class="text-sm/6">
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad, fugiat voluptatum! Rem
-                                    molestias amet unde eligendi possimus tenetur! Impedit itaque corporis quis error
-                                    ipsa exercitationem earum amet facere?
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-span-2 h-60">foo</div>
-                    </div>
-                </x-spacing>
-            </div>
-        </section>
-
         <!-- Main 3 column grid -->
         <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
             <!-- Left column -->
@@ -85,27 +14,25 @@
                         <x-panel>
                             <x-spacing size="md">
                                 <div class="flex flex-col items-center gap-8 md:flex-row md:justify-between">
-                                    <div class="flex items-center space-x-5">
+                                    <div class="flex items-center gap-4">
                                         <div class="shrink-0">
-                                            <x-avatar
-                                                size="lg"
-                                                :src="auth()->user()->avatar_url"
-                                                :tooltip="auth()->user()->name"
-                                            />
+                                            <x-avatar size="xl" :src="auth()->user()->avatar_url" />
                                         </div>
                                         <div>
-                                            <x-text>Welcome back,</x-text>
-                                            <x-h1>{{ auth()->user()->name }}</x-h1>
+                                            <div class="text-sm text-gray-500">Welcome back,</div>
+                                            <x-h1>
+                                                {{ auth()->user()->name }}
+                                            </x-h1>
                                         </div>
                                     </div>
 
                                     <div class="mt-5 md:mt-0">
                                         <div
                                             @class([
-                                                'flex items-center gap-x-2 rounded-full bg-gradient-to-b from-white py-1 pr-1 pl-3.5 shadow ring-1 ring-inset',
-                                                'to-success-50 text-success-600 shadow-success-600/10 ring-success-600/20' => $activityPercentage >= 100,
-                                                'to-warning-50 text-warning-600 shadow-warning-600/10 ring-warning-600/20' => $activityPercentage > 25 && $activityPercentage < 100,
-                                                'to-danger-50 text-danger-600 shadow-danger-600/10 ring-danger-600/20' => $activityPercentage <= 25,
+                                                'flex items-center gap-x-2 rounded-full bg-gradient-to-b from-white py-1 pr-1 pl-3.5 shadow ring-1 ring-inset dark:from-gray-950',
+                                                'to-success-50 dark:to-success-950 text-success-600 dark:text-success-400 shadow-success-600/10 ring-success-600/20 dark:ring-success-900' => $activityPercentage >= 100,
+                                                'to-warning-50 dark:to-warning-950 text-warning-600 dark:text-warning-400 shadow-warning-600/10 ring-warning-600/20 dark:ring-warning-900' => $activityPercentage > 25 && $activityPercentage < 100,
+                                                'to-danger-50 dark:to-danger-950 text-danger-600 dark:text-danger-400 shadow-danger-600/10 ring-danger-600/20 dark:ring-danger-900' => $activityPercentage <= 25,
                                             ])
                                         >
                                             <div class="flex items-center gap-x-4 text-sm/6 font-medium">
@@ -114,9 +41,9 @@
 
                                             <div class="shrink-0">
                                                 @if ($activityPercentage >= 100)
-                                                    <x-icon :name="Icon::CheckCircleFilled" size="size-7"></x-icon>
+                                                    <x-icon :name="Tabler::CircleCheckFilled" size="size-7" />
                                                 @else
-                                                    <x-icon :name="Icon::AlertCircleFilled" size="size-7"></x-icon>
+                                                    <x-icon :name="Tabler::AlertCircleFilled" size="size-7" />
                                                 @endif
                                             </div>
                                         </div>
@@ -127,25 +54,25 @@
 
                         <x-panel.footer>
                             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                                <x-button :href="route('admin.account.edit')" color="heavy-neutral" text>
-                                    <x-icon :name="Icon::UserProfile" size="sm"></x-icon>
+                                <x-button :href="route('admin.account.edit')" variant="ghost" inset="top bottom">
+                                    <x-icon :name="Tabler::UserCircle" size="sm" />
                                     My account
                                 </x-button>
 
                                 <x-button
                                     :href="route('admin.characters.index', ['only_my_characters' => true])"
-                                    color="heavy-neutral"
-                                    text
+                                    variant="ghost"
+                                    inset="top bottom"
                                 >
-                                    <x-icon :name="Icon::Characters" size="sm"></x-icon>
+                                    <x-icon :name="Tabler::MasksTheater" size="sm" />
                                     My characters
                                 </x-button>
 
-                                <x-button :href="route('admin.messages.index')" color="heavy-neutral" text>
-                                    <x-icon :name="Icon::Inbox" size="sm"></x-icon>
+                                <x-button :href="route('admin.messages.index')" variant="ghost" inset="top bottom">
+                                    <x-icon :name="Tabler::Inbox" size="sm" />
                                     My messages
                                     @if ($unreadMessagesCount = auth()->user()->unread_messages_count > 0)
-                                        <x-badge color="primary" class="tabular-nums">
+                                        <x-badge color="primary" type="square">
                                             {{ $unreadMessagesCount }}
                                         </x-badge>
                                     @endif
@@ -160,23 +87,27 @@
                     @php($firstOnboarding = $activeOnboardings->first())
 
                     <section
-                        class="group to-primary-50 ring-primary-500 hover:shadow-primary-500/25 hover:ring-primary-400 relative rounded-xl bg-gradient-to-b from-white via-white ring-2 transition ring-inset hover:shadow-lg"
+                        class="group to-primary-50 dark:to-primary-950 ring-primary-500 dark:ring-primary-700 hover:shadow-primary-500/25 hover:ring-primary-400 dark:hover:ring-primary-600 relative rounded-xl bg-gradient-to-b from-white via-white ring-2 transition ring-inset hover:shadow-lg dark:from-gray-950 dark:via-gray-950"
                     >
                         <div class="absolute top-0 left-4 -translate-y-1/2">
                             <label
-                                class="bg-primary-500 group-hover:bg-primary-400 rounded-lg px-2 py-1 text-sm/5 font-medium text-white ring-4 ring-white"
+                                class="bg-primary-500 dark:bg-primary-700 group-hover:bg-primary-400 dark:group-hover:bg-primary-600 rounded-lg px-2.5 py-1 text-sm/5 font-medium text-white ring-4 ring-white dark:ring-gray-950"
                             >
                                 {{ $firstOnboarding->ctaLabel }}
                             </label>
                         </div>
 
                         <x-spacing width="sm" height="md" class="space-y-4">
-                            <div class="divide-y divide-gray-950/5">
+                            <div class="divide-y divide-gray-950/5 dark:divide-white/10">
                                 @foreach ($activeOnboardings as $resource)
                                     <div class="flex items-start justify-between gap-8 py-3">
                                         <div>
-                                            <x-h4>{{ $resource->label }}</x-h4>
-                                            <x-text>{{ $resource->description }}</x-text>
+                                            <x-heading size="lg" level="3">
+                                                {{ $resource->label }}
+                                            </x-heading>
+                                            <x-text>
+                                                {{ $resource->description }}
+                                            </x-text>
                                         </div>
                                         <div class="flex w-1/4 items-center gap-2">
                                             <x-progress
@@ -196,14 +127,7 @@
                     </section>
                 @endif
 
-                <div class="space-y-4">
-                    <div>
-                        <x-h2>Recently published posts</x-h2>
-                        <x-text>Posts that have been published in the last 30 days</x-text>
-                    </div>
-
-                    <livewire:posts-recent-published-posts-list />
-                </div>
+                <livewire:posts-recent-published-posts-list />
             </div>
 
             <!-- Right column -->
@@ -230,30 +154,24 @@
                     </div>
 
                     <div class="mt-6">
-                        <div class="relative h-3 overflow-hidden rounded-full bg-gray-950/10 dark:bg-white/10">
-                            <div
-                                @class([
-                                    'bg-primary-500 absolute h-3 rounded-full ring-2 ring-white dark:ring-gray-800',
-                                    'w-3' => $postingLevelPercentage === 0,
-                                ])
-                                @style([
-                                    "width:{$postingLevelPercentage}%" => $postingLevelPercentage > 0,
-                                ])
-                            ></div>
-                        </div>
+                        <x-progress :percentage="$postingLevelPercentage" size="md" />
+
                         <div class="mt-1 flex justify-between px-0.5">
                             <x-text color="primary" class="font-medium">
-                                {{ Number::format($currentPostingMilestoneValue) }} {{ $postingMilestoneLabel }}
+                                {{ Number::format($currentPostingMilestoneValue) }}
+                                {{ $postingMilestoneLabel }}
                             </x-text>
-                            <x-text>{{ Number::format($nextPostingMilestone) }}</x-text>
+                            <x-text>
+                                {{ Number::format($nextPostingMilestone) }}
+                            </x-text>
                         </div>
                     </div>
                 </x-spacing>
 
                 <div class="space-y-8" data-tour="dashboard-writing-stats">
                     <div class="flex items-center gap-x-2">
-                        <x-icon :name="Icon::ChartInfographic" size="md" class="text-gray-500"></x-icon>
-                        <x-h2>My Contributions</x-h2>
+                        <x-icon :name="Tabler::ChartInfographic" size="md" class="text-gray-500" />
+                        <x-heading size="lg" level="2">My Contributions</x-heading>
                     </div>
 
                     <x-spacing width="2xs">
