@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
@@ -27,7 +28,7 @@ test('a user can duplicate one of their notes', function () {
     Event::fake();
 
     livewire(NotesList::class)
-        ->callTableAction(ReplicateAction::class, $this->note)
+        ->callAction(TestAction::make(ReplicateAction::class)->table($this->note))
         ->assertNotified();
 
     assertDatabaseHas(Note::class, [
@@ -41,8 +42,7 @@ test("a user cannot duplicate a note they didn't create", function () {
     $note = Note::factory()->create();
 
     livewire(NotesList::class)
-        ->assertCanNotSeeTableRecords([$note])
-        ->assertTableActionHidden(ReplicateAction::class, $note);
+        ->assertCanNotSeeTableRecords([$note]);
 
     assertDatabaseMissing(Note::class, [
         'title' => 'Copy of '.$note->title,

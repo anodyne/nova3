@@ -1,13 +1,13 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             <x-slot name="actions">
                 <x-button :href="route('admin.notes.index')" variant="ghost" inset="right">
                     <span aria-hidden="true">←</span>
                     Back
                 </x-button>
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.notes.store')">
             <x-fieldset>

@@ -15,12 +15,11 @@ use function Pest\Laravel\post;
 uses()->group('notes');
 
 describe('authenticated user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('can view the create note page', function () {
-        get(route('admin.notes.create'))->assertSuccessful();
+        get(route('admin.notes.create'))
+            ->assertSuccessful();
     });
 
     test('can create a note', function () {

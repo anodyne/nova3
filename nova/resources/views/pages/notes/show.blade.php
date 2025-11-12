@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header :heading="$note->title">
+        <x-page-heading :heading="$note->title">
             <x-slot name="actions">
                 <x-button :href="route('admin.notes.index')" variant="ghost">
                     <span aria-hidden="true">←</span>
@@ -12,7 +12,7 @@
                     Edit
                 </x-button>
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <div class="prose dark:prose-invert max-w-none">
             {!! $note->content !!}
