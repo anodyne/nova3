@@ -17,28 +17,28 @@ class FormPolicy
     {
         return $user->isAbleTo('form.*')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function view(User $user, Form $form): Response
     {
         return $user->isAbleTo('form.view')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function create(User $user): Response
     {
         return $user->isAbleTo('form.create')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function updateAny(User $user): Response
     {
         return $user->isAbleTo('form.update')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function update(User $user, Form $form): Response
@@ -50,26 +50,26 @@ class FormPolicy
     {
         return $user->isAbleTo('form.delete')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function delete(User $user, Form $form): Response
     {
         return $this->deleteAny($user)->allowed() && ! $form->is_locked
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function duplicate(User $user, Form $form): Response
     {
         return $user->isAbleTo('form.create') && $user->isAbleTo('form.update') && ! $form->is_locked
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function restore(User $user, Form $form): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound(418);
     }
 
     public function forceDelete(User $user, Form $form): Response

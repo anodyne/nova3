@@ -33,7 +33,7 @@ readonly class FormData extends Bag
             'type' => FormType::tryFrom($request->input('type')) ?? FormType::Basic,
             'description' => $request->input('description'),
             'options' => FormOptions::from($request),
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
         ];
     }
 }

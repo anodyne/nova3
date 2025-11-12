@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-use Nova\Departments\Livewire\DepartmentsList;
-use Nova\Departments\Models\Department;
+use Filament\Actions\Testing\TestAction;
+use Nova\Forms\Enums\FormType;
 use Nova\Forms\Livewire\FormsList;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 
@@ -19,9 +20,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'form.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'form.create'));
 
     test('can view the list forms page', function () {
         get(route('admin.forms.index'))->assertSuccessful();
@@ -30,100 +29,105 @@ describe('authorized user', function () {
             ->assertCanSeeTableRecords($this->forms);
     });
 
-    // test('can filter departments by status', function () {
-    //     livewire(DepartmentsList::class)
-    //         ->filterTable('status', BasicStatus::active->value)
-    //         ->assertCanSeeTableRecords($this->departments->where('status', BasicStatus::active))
-    //         ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', BasicStatus::active))
-    //         ->resetTableFilters()
-    //         ->filterTable('status', BasicStatus::inactive->value)
-    //         ->assertCanSeeTableRecords($this->departments->where('status', BasicStatus::inactive))
-    //         ->assertCanNotSeeTableRecords($this->departments->where('status', '!=', BasicStatus::inactive));
-    // });
-
-    // test('can filter departments by the presence of positions', function () {
-    //     Department::factory()->create();
-
-    //     livewire(DepartmentsList::class)
-    //         ->filterTable('has_positions', true)
-    //         ->assertCountTableRecords(5)
-    //         ->resetTableFilters()
-    //         ->filterTable('has_positions', false)
-    //         ->assertCountTableRecords(1);
-    // });
-
     test('can search forms by name', function () {
-        Form::factory()->create(['name' => 'A test form']);
+        $form = Form::factory()->create(['name' => 'A test form']);
+
+        $forms = $this->forms->push($form);
 
         livewire(FormsList::class)
             ->searchTable('banana')
-            ->assertCountTableRecords(0)
+            ->assertCanNotSeeTableRecords($forms)
             ->searchTable('test form')
-            ->assertCountTableRecords(1);
+            ->assertCanSeeTableRecords([$form]);
+    });
+
+    test('can filter forms by type', function () {
+        livewire(FormsList::class)
+            ->filterTable('type', FormType::Basic->value)
+            ->assertCanSeeTableRecords($this->forms->where('type', FormType::Basic))
+            ->assertCanNotSeeTableRecords($this->forms->where('type', '!=', FormType::Basic))
+            ->filterTable('type', FormType::Advanced->value)
+            ->assertCanSeeTableRecords($this->forms->where('type', FormType::Advanced))
+            ->assertCanNotSeeTableRecords($this->forms->where('type', '!=', FormType::Advanced));
+    });
+
+    test('can filter forms by status', function () {
+        livewire(FormsList::class)
+            ->filterTable('status', BasicStatus::Active->value)
+            ->assertCanSeeTableRecords($this->forms->where('status', BasicStatus::Active))
+            ->assertCanNotSeeTableRecords($this->forms->where('status', '!=', BasicStatus::Active))
+            ->filterTable('status', BasicStatus::Inactive->value)
+            ->assertCanSeeTableRecords($this->forms->where('status', BasicStatus::Inactive))
+            ->assertCanNotSeeTableRecords($this->forms->where('status', '!=', BasicStatus::Inactive));
     });
 });
 
 describe('authorized user with form create permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'form.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'form.create'));
 
     test('has the correct permissions', function () {
+        $form = $this->forms->first();
+
         livewire(FormsList::class)
-            ->assertTableActionHidden(EditAction::class, $this->forms->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->forms->first());
+            ->assertActionVisible(TestAction::make('preview')->table($form))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($form))
+            ->assertActionHidden(TestAction::make('design')->table($form))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($form));
     });
 });
 
 describe('authorized user with form delete permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'form.delete');
-    });
+    beforeEach(fn () => signIn(permissions: 'form.delete'));
 
     test('has the correct permissions', function () {
+        $form = $this->forms->first();
+
         livewire(FormsList::class)
-            ->assertTableActionHidden(EditAction::class, $this->forms->first())
-            ->assertTableActionVisible(DeleteAction::class, $this->forms->first());
+            ->assertActionVisible(TestAction::make('preview')->table($form))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($form))
+            ->assertActionHidden(TestAction::make('design')->table($form))
+            ->assertActionVisible(TestAction::make(DeleteAction::class)->table($form));
     });
 });
 
 describe('authorized user with form update permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'form.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'form.update'));
 
     test('has the correct permissions', function () {
+        $form = $this->forms->first();
+
         livewire(FormsList::class)
-            ->assertTableActionVisible(EditAction::class, $this->forms->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->forms->first());
+            ->assertActionVisible(TestAction::make('preview')->table($form))
+            ->assertActionVisible(TestAction::make(EditAction::class)->table($form))
+            ->assertActionVisible(TestAction::make('design')->table($form))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($form));
     });
 });
 
 describe('authorized user with form view permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'form.view');
-    });
+    beforeEach(fn () => signIn(permissions: 'form.view'));
 
     test('has the correct permissions', function () {
+        $form = $this->forms->first();
+
         livewire(FormsList::class)
-            ->assertTableActionHidden(EditAction::class, $this->forms->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->forms->first());
+            ->assertActionVisible(TestAction::make('preview')->table($form))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($form))
+            ->assertActionHidden(TestAction::make('design')->table($form))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($form));
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the manage forms page', function () {
-        get(route('admin.forms.index'))->assertForbidden();
+        get(route('admin.forms.index'))->assertNotFound();
     });
 });
 
 describe('unauthenticated user', function () {
     test('cannot view the manage forms page', function () {
-        get(route('admin.forms.index'))
-            ->assertRedirectToRoute('login');
+        get(route('admin.forms.index'))->assertRedirectToRoute('login');
     });
 });

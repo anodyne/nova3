@@ -17,9 +17,25 @@
             value="{{ $value }}"
             {{
                 $attributes->class([
-                    'nova-field-radio size-4',
-                    'border-gray-300 text-primary-600 focus:ring-primary-600',
-                    'dark:border-gray-700 dark:text-primary-400 dark:focus:ring-primary-400',
+                    'nova-field-radio',
+                    'relative size-4 appearance-none rounded-full',
+                    'border border-gray-300 bg-white',
+                    'before:absolute before:inset-1 before:rounded-full before:bg-white',
+
+                    // Hide the dot if not checked
+                    'not-checked:before:hidden',
+
+                    // Checked state
+                    'checked:border-blue-600 checked:bg-blue-600',
+
+                    // Focused state
+                    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600',
+
+                    // Disabled state
+                    'disabled:border-gray-300 disabled:bg-gray-100 disabled:before:bg-gray-400',
+
+                    // Dark
+                    'dark:border-white/10 dark:bg-white/5 dark:checked:border-indigo-500 dark:checked:bg-indigo-500 dark:focus-visible:outline-indigo-500 dark:disabled:border-white/5 dark:disabled:bg-white/10 dark:disabled:before:bg-white/20',
                 ])
             }}
         />

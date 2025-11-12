@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
-use Nova\Forms\Events\FormCreated;
-use Nova\Forms\Events\FormDeleted;
-use Nova\Forms\Events\FormUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +12,9 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Nova\Forms\Data\FormOptions;
 use Nova\Forms\Enums\FormType;
-use Nova\Forms\Events;
+use Nova\Forms\Events\FormCreated;
+use Nova\Forms\Events\FormDeleted;
+use Nova\Forms\Events\FormUpdated;
 use Nova\Forms\Models\Builders\FormBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;

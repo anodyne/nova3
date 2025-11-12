@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use BackedEnum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -23,7 +24,6 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
@@ -49,7 +49,7 @@ class FormsList extends TableComponent
                 TextColumn::make('name')
                     ->titleColumn()
                     ->label('Form name')
-                    ->icon(fn (Form $record): ?BackedEnum => $record->is_locked ? Icon::LockClosed : null)
+                    ->icon(fn (Form $record): ?BackedEnum => $record->is_locked ? Tabler::Lock : null)
                     ->iconPosition('after')
                     ->searchable()
                     ->sortable(),
@@ -96,17 +96,17 @@ class FormsList extends TableComponent
                     ActionGroup::make([
                         Action::make('design')
                             ->authorize('design')
-                            ->icon(Icon::Tools)
+                            ->icon(Tabler::Tools)
                             ->url(fn (Form $record): string => route('admin.forms.design', $record)),
                         Action::make('preview')
-                            ->icon(Icon::FormPreview)
+                            ->icon(Tabler::InputSearch)
                             ->label('Preview form')
                             ->url(fn (Form $record): string => route('admin.forms.preview', $record)),
                     ])->divided(),
 
                     ActionGroup::make([
                         Action::make('submissions')
-                            ->icon(Icon::Clipboard)
+                            ->icon(Tabler::Clipboard)
                             ->url(route('admin.form-submissions.index'))
                             ->visible(fn (Form $record): bool => $record->options?->collectResponses ?? false),
                     ])->divided(),
@@ -158,7 +158,7 @@ class FormsList extends TableComponent
                 SelectFilter::make('type')->options(FormType::class),
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
-            ->emptyStateIcon(Icon::List)
+            ->emptyStateIcon(Tabler::List)
             ->emptyStateHeading('No forms found')
             ->emptyStateDescription('Manage all of Nova’s forms.')
             ->emptyStateActions([

@@ -1,3 +1,3 @@
 <x-public::field.preview>
-    <x-form-fields.key-value :$details :$attrs></x-form-fields.key-value>
+    <x-form-fields.key-value :$details :$attrs />
 </x-public::field.preview>

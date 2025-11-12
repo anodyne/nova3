@@ -6,35 +6,37 @@
 @endPushOnce
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         <x-slot name="heading">Design form &mdash; {{ $form->name }}</x-slot>
 
         <x-slot name="actions">
             @can('viewAny', $form::class)
-                <x-button :href="route('admin.forms.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.forms.index')" variant="ghost">
+                    <span aria-hidden="true">←</span>
+                    Back
+                </x-button>
             @endcan
 
             <x-button :href="route('admin.forms.preview', $form)" target="_blank">
-                <x-icon :name="Icon::FormPreview" size="sm"></x-icon>
+                <x-icon :name="Tabler::InputSearch" size="sm" />
                 Preview form
             </x-button>
         </x-slot>
-    </x-page-header>
+    </x-page-heading>
 
     <div class="my-8 max-w-2xl space-y-8">
         @if (is_null($form->published_at))
-            <x-panel.warning
-                title="Unpublished changes"
-                :icon="Icon::Progress"
-                description="Your form field(s) have not been published yet. Nova only shows published form fields to users, so to ensure users are using the form with your latest changes, please publish your form."
-            ></x-panel.warning>
+            <x-callout.warning heading="Unpublished changes" :icon="Tabler::Progress">
+                Your form field(s) have not been published yet. Nova only shows published form fields to users, so to
+                ensure users are using the form with your latest changes, please publish your form.
+            </x-callout.warning>
         @else
             @if ($form->updated_at->gt($form->published_at))
-                <x-panel.warning
-                    title="Unpublished changes"
-                    :icon="Icon::Progress"
-                    description="Your form field(s) have been saved since you last published them. Nova only shows published form fields to users, so to ensure users are using the form with your latest changes, please publish your form."
-                ></x-panel.warning>
+                <x-callout.warning heading="Unpublished changes" :icon="Tabler::Progress">
+                    Your form field(s) have been saved since you last published them. Nova only shows published form
+                    fields to users, so to ensure users are using the form with your latest changes, please publish your
+                    form.
+                </x-callout.warning>
             @endif
         @endif
     </div>

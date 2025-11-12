@@ -9,7 +9,7 @@
     action="{{ $action }}"
     method="{{ $method === 'GET' ?: 'POST' }}"
     role="form"
-    {{ $attributes->merge(['data-cy' => 'form']) }}
+    {{ $attributes }}
 >
     @csrf
 

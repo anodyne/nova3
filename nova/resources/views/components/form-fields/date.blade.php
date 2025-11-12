@@ -39,23 +39,32 @@
 @if ($admin)
     @if ($static)
         @if (filled($value) || blank($value) && ! $hideWhenEmpty)
-            <x-fieldset.field :label="$label" :id="$uid">
+            <x-input.display :label="$label" :id="$uid">
                 <x-text>
                     {{ filled($value) ? $value : '—' }}
                 </x-text>
-            </x-fieldset.field>
+            </x-input.display>
         @endif
     @else
-        <x-fieldset.field
-            :label="$label"
-            :description="$description"
-            :id="$uid"
-            :name="$inputName"
-            :error="$error"
-            :required="$required"
-        >
-            <x-input type="date" :attributes="$attributesBag" wire:model.live.debounce="values.{{ $uid }}"></x-input>
-        </x-fieldset.field>
+        <x-field>
+            @if (filled($label))
+                <x-label>{{ $label }}</x-label>
+            @endif
+
+            @if (filled($description))
+                <x-description>{{ $description }}</x-description>
+            @endif
+
+            <x-input.date
+                :id="$uid"
+                :name="$inputName"
+                :attributes="$attributesBag"
+                wire:model.live.debounce="values.{{ $uid }}"
+                clearable
+            />
+
+            <x-field.error :name="$errorKey" />
+        </x-field>
     @endif
 @else
     @if ($static)
@@ -71,8 +80,7 @@
             :label="$label"
             :description="$description"
             :attributes="$attributesBag"
-            :required="$required"
             wire:model.live.debounce="values.{{ $uid }}"
-        ></x-public::field.date>
+        />
     @endif
 @endif

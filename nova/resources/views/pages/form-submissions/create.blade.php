@@ -1,33 +1,36 @@
+@use('Nova\Forms\Models\Form')
 @use('Nova\Forms\Models\FormSubmission')
 
 <x-admin-layout>
     @if (filled($form))
         <x-spacing constrained>
-            <x-page-header :heading="$form->name">
+            <x-page-heading :heading="$form->name" description="">
                 @can('viewAny', FormSubmission::class)
                     <x-slot name="actions">
-                        <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
+                        <x-button :href="route('admin.form-submissions.index')" variant="ghost" inset="right">
+                            <span aria-hidden="true">←</span>
+                            Back
+                        </x-button>
                     </x-slot>
                 @endcan
-            </x-page-header>
+            </x-page-heading>
 
             <x-fieldset>
-                <x-fieldset.field-group constrained>
+                <x-fieldset.group constrained>
                     <livewire:dynamic-form :form="$form" :owner="auth()->user()" :admin="true" />
-                </x-fieldset.field-group>
+                </x-fieldset.group>
             </x-fieldset>
         </x-spacing>
     @else
         <div class="mx-auto max-w-lg">
-            <x-page-header></x-page-header>
+            <x-page-heading></x-page-heading>
 
-            <ul
-                role="list"
-                class="mt-6 divide-y divide-gray-950/5 border-t border-b border-gray-950/5 dark:divide-white/5 dark:border-white/5"
-            >
+            <ul role="list" class="mt-6">
                 @forelse ($forms as $f)
                     <li>
-                        <div class="group relative flex items-center space-x-3 py-4">
+                        <div
+                            class="group relative flex items-center gap-3 rounded-lg px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-900"
+                        >
                             <div class="min-w-0 flex-1">
                                 <p class="text-sm/6 font-medium text-gray-900 dark:text-white">
                                     <a href="{{ route('admin.form-submissions.create', $f->id) }}">
@@ -37,47 +40,25 @@
                                 </p>
                                 <x-text>{{ $f->description }}</x-text>
                             </div>
-                            <div class="flex-shrink-0 self-center">
-                                <svg
-                                    class="h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
+                            <div class="shrink-0 self-center">
+                                <x-icon.chevron-right class="size-5 text-gray-400 group-hover:text-gray-500" />
                             </div>
                         </div>
                     </li>
                 @empty
                     <li>
-                        <div class="group relative flex items-center space-x-3 py-4">
-                            <div class="flex-shrink-0">
-                                <span
-                                    class="bg-success-500 inline-flex h-10 w-10 items-center justify-center rounded-lg"
-                                >
-                                    <x-icon :name="Icon::CheckCircle" class="text-white"></x-icon>
-                                </span>
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <div class="text-sm font-medium text-gray-900">
-                                    You don’t have any available forms that can be submitted
-                                </div>
-                            </div>
-                        </div>
+                        <x-callout.success :icon="Tabler::CircleCheck">
+                            You don’t have any available forms that can be submitted
+                        </x-callout.success>
                     </li>
                 @endforelse
             </ul>
 
             @can('create', Form::class)
-                <div class="mt-6 flex">
-                    <x-button :href="route('admin.forms.index')" color="primary" text>
+                <div class="mt-6">
+                    <x-button :href="route('admin.forms.index')">
                         Or create a new form
-                        <span aria-hidden="true">&rarr;</span>
+                        <span aria-hidden="true">→</span>
                     </x-button>
                 </div>
             @endcan

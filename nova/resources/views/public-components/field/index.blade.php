@@ -48,11 +48,13 @@
     @if (filled($error))
         <div data-slot="error" class="nova-field-error flex items-center gap-x-1">
             <x-icon
-                :name="Icon::AlertCircle"
+                :name="Tabler::AlertCircle"
                 size="sm"
                 class="nova-field-error-icon text-danger-400 dark:text-danger-600"
-            ></x-icon>
-            <div class="nova-field-error-message text-danger-500 text-sm/6 font-medium">{{ $error }}</div>
+            />
+            <div class="nova-field-error-message text-danger-500 text-sm/6 font-medium">
+                {{ $error }}
+            </div>
         </div>
     @endif
 </div>

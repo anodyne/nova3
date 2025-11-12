@@ -14,7 +14,19 @@
         $attrs['other'] ?? []
     );
 
-    $options = data_get($attrs, 'options') ?? [];
+    $options = collect(data_get($attrs, 'options') ?? []);
+
+    // If we received `[ ['key'=>'..','value'=>'..'], ... ]`, convert to assoc
+    if ($options->first() && is_array($options->first()) && array_key_exists('key', $options->first())) {
+        $options = $options->mapWithKeys(fn ($item) => [$item['key'] => $item['value']]);
+    }
+
+    // If we ever get a simple list like ['Male','Female'], make it key=>value
+    if (function_exists('array_is_list') && array_is_list($options->all())) {
+        $options = $options->mapWithKeys(fn ($v) => [$v => $v]);
+    }
+
+    $options = $options->all();
 
     unset($attrs['options']);
     unset($attrs['other']);
@@ -43,33 +55,41 @@
 @if ($admin)
     @if ($static)
         @if (filled($value) || blank($value) && ! $hideWhenEmpty)
-            <x-fieldset.field :label="$label" :id="$uid">
+            <x-input.display :label="$label" :id="$uid">
                 <x-text>
                     {{ filled($value) ? $value : '—' }}
                 </x-text>
-            </x-fieldset.field>
+            </x-input.display>
         @endif
     @else
-        <x-fieldset.field
-            :label="$label"
-            :description="$description"
-            :id="$uid"
-            :name="$inputName"
-            :error="$error"
-            :required="$required"
-        >
-            <x-select :attributes="$attributesBag" wire:model.live.debounce="values.{{ $uid }}">
+        <x-field>
+            @if (filled($label))
+                <x-label>{{ $label }}</x-label>
+            @endif
+
+            @if (filled($description))
+                <x-description>{{ $description }}</x-description>
+            @endif
+
+            <x-select
+                :id="$uid"
+                :name="$inputName"
+                :attributes="$attributesBag"
+                wire:model.live.debounce="values.{{ $uid }}"
+            >
                 @if ($attributesBag->has('placeholder'))
                     <option value="">{{ $attributesBag->get('placeholder') }}</option>
                 @endif
 
-                @foreach ((array) $options as $value => $text)
-                    <option value="{{ $value }}">
-                        {{ $text }}
+                @foreach ((array) $options as $key => $value)
+                    <option value="{{ $key }}">
+                        {{ $value }}
                     </option>
                 @endforeach
             </x-select>
-        </x-fieldset.field>
+
+            <x-field.error :name="$errorKey" />
+        </x-field>
     @endif
 @else
     @if ($static)
@@ -84,7 +104,6 @@
         <x-public::field.select
             :label="$label"
             :description="$description"
-            :required="$required"
             :attributes="$attributesBag"
             wire:model.live.debounce="values.{{ $uid }}"
         >
@@ -92,9 +111,9 @@
                 <option value="">{{ $attributesBag->get('placeholder') }}</option>
             @endif
 
-            @foreach ((array) $options as $value => $text)
-                <option value="{{ $value }}">
-                    {{ $text }}
+            @foreach ((array) $options as $key => $value)
+                <option value="{{ $key }}">
+                    {{ $value }}
                 </option>
             @endforeach
         </x-public::field.select>
