@@ -20,6 +20,10 @@ class DiscussionController extends Controller
 
     public function index(?Discussion $discussion = null): Responsable
     {
+        if ($discussion) {
+            $this->authorize('view', $discussion);
+        }
+
         return ListDiscussionsResponse::sendWith([
             'discussion' => $discussion,
         ]);

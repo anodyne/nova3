@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Livewire;
 
-use Throwable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +19,7 @@ use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Users\Models\User;
+use Throwable;
 
 #[On('message-sent')]
 class MessageHistory extends Component
@@ -90,7 +90,7 @@ class MessageHistory extends Component
 
     public function deleteMessage(DiscussionMessage $message): void
     {
-        $this->authorize('delete', $this->discussion);
+        $this->authorize('deleteMessage', [$this->discussion, $message]);
 
         DeleteDiscussionMessage::run($message);
 
@@ -133,6 +133,12 @@ class MessageHistory extends Component
                 ->title('Failed to leave discussion')
                 ->send();
         }
+    }
+
+    #[On('discussion-selected')]
+    public function resetMessageHistory(): void
+    {
+        $this->remainingMessagesLoaded = false;
     }
 
     public function render()

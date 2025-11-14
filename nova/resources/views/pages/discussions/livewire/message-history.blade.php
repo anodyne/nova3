@@ -9,7 +9,10 @@
         ])
     >
         <div>
-            <x-button wire:click="$parent.clearSelected()" text>&larr; Back to messages</x-button>
+            <x-link role="button" wire:click="$parent.clearSelected()">
+                <span aria-hidden="true">←</span>
+                Back to messages
+            </x-link>
         </div>
     </div>
 
@@ -19,7 +22,7 @@
                 <x-slot name="description">
                     <div class="mt-1 flex items-center gap-x-6">
                         @foreach ($discussion->allParticipants as $user)
-                            <x-avatar.user :$user size="2xs"></x-avatar.user>
+                            <x-avatar.user :$user size="xs"></x-avatar.user>
                         @endforeach
                     </div>
                 </x-slot>
@@ -27,24 +30,19 @@
 
             <x-panel>
                 <x-spacing size="row" class="flex items-center justify-between">
-                    <div class="flex items-center gap-x-2">
-                        <x-avatar :src="$latestMessage->user?->avatar_url" size="sm"></x-avatar>
-                        <div class="flex flex-col gap-y-0.5">
-                            <x-text>
-                                From:
-                                <x-text.strong>{{ $latestMessage->user?->name }}</x-text.strong>
-                            </x-text>
-                            <x-text size="sm">
-                                {{ DateHelper::formatShortDateWithTime($latestMessage->created_at) }}
-                            </x-text>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-x-4">
+                    <x-avatar
+                        :src="$latestMessage->user?->avatar_url"
+                        size="sm"
+                        :title="$latestMessage->user?->name"
+                        :subtitle="DateHelper::formatShortDateWithTime($latestMessage->created_at)"
+                    />
+
+                    <div class="flex items-center gap-2">
                         @can('leave', $discussion)
                             <x-dropdown placement="bottom end">
                                 <x-slot name="trigger">
-                                    <x-button color="neutral-danger" size="none" text>
-                                        <x-icon :name="Icon::Exit" size="sm"></x-icon>
+                                    <x-button variant="ghost" square>
+                                        <x-icon :name="Tabler::DoorExit" size="sm" />
                                     </x-button>
                                 </x-slot>
 
@@ -56,7 +54,7 @@
                                 <x-dropdown.group>
                                     <x-dropdown.item
                                         type="button"
-                                        :icon="Icon::Exit"
+                                        :icon="Tabler::DoorExit"
                                         wire:click="leaveDiscussion"
                                         variant="danger"
                                     >
@@ -64,7 +62,7 @@
                                     </x-dropdown.item>
                                     <x-dropdown.item
                                         type="button"
-                                        :icon="Icon::Ban"
+                                        :icon="Tabler::Ban"
                                         x-on:click.prevent="$dispatch('dropdown-close')"
                                     >
                                         Cancel
@@ -76,8 +74,8 @@
                         @can('delete', $discussion)
                             <x-dropdown placement="bottom end">
                                 <x-slot name="trigger">
-                                    <x-button type="button" color="neutral-danger" size="none" text>
-                                        <x-icon :name="Icon::MessageOff" size="sm"></x-icon>
+                                    <x-button variant="ghost" square>
+                                        <x-icon :name="Tabler::MessageOff" size="sm" />
                                     </x-button>
                                 </x-slot>
 
@@ -89,7 +87,7 @@
                                 <x-dropdown.group>
                                     <x-dropdown.item
                                         type="button"
-                                        :icon="Icon::MessageOff"
+                                        :icon="Tabler::MessageOff"
                                         wire:click="deleteMessage({{ $latestMessage }})"
                                         variant="danger"
                                     >
@@ -97,7 +95,7 @@
                                     </x-dropdown.item>
                                     <x-dropdown.item
                                         type="button"
-                                        :icon="Icon::Ban"
+                                        :icon="Tabler::Ban"
                                         x-on:click.prevent="$dispatch('dropdown-close')"
                                     >
                                         Cancel
@@ -107,8 +105,8 @@
 
                             <x-dropdown placement="bottom end">
                                 <x-slot name="trigger">
-                                    <x-button type="button" color="neutral-danger" size="none" text>
-                                        <x-icon :name="Icon::Trash" size="sm"></x-icon>
+                                    <x-button variant="ghost" square data-danger>
+                                        <x-icon :name="Tabler::Trash" size="sm" />
                                     </x-button>
                                 </x-slot>
 
@@ -118,17 +116,12 @@
                                     </x-dropdown.text>
                                 </x-dropdown.group>
                                 <x-dropdown.group>
-                                    <x-dropdown.item
-                                        type="button"
-                                        :icon="Icon::Trash"
-                                        wire:click="deleteDiscussion"
-                                        variant="danger"
-                                    >
+                                    <x-dropdown.item type="button" :icon="Tabler::Trash" wire:click="deleteDiscussion">
                                         Delete
                                     </x-dropdown.item>
                                     <x-dropdown.item
                                         type="button"
-                                        :icon="Icon::Ban"
+                                        :icon="Tabler::Ban"
                                         x-on:click.prevent="$dispatch('dropdown-close')"
                                     >
                                         Cancel
@@ -148,10 +141,13 @@
 
             <x-panel.footer class="flex items-center justify-between">
                 <x-button
+                    type="button"
                     wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'discussionId': {{ $discussion->id }}, 'mode': 'reply'}})"
-                    text
+                    :loading="false"
+                    variant="subtle"
+                    inset="left top bottom"
                 >
-                    <x-icon :name="Icon::MessageReply" size="sm"></x-icon>
+                    <x-icon :name="Tabler::MessageReply" size="sm" />
                     Reply
                 </x-button>
             </x-panel.footer>
@@ -165,7 +161,7 @@
                 <div class="relative flex justify-center">
                     <button
                         type="button"
-                        class="relative inline-flex items-center gap-x-1.5 rounded-full bg-white px-2 py-1.5 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-gray-950/10 ring-inset hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:ring-white/10 dark:before:absolute dark:before:inset-0 dark:before:rounded-full dark:before:bg-white/10"
+                        class="relative inline-flex items-center gap-x-1.5 rounded-full bg-white px-2 py-1.5 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-gray-950/10 ring-inset hover:bg-gray-50 dark:bg-gray-950 dark:text-white dark:ring-white/10 dark:before:absolute dark:before:inset-0 dark:before:rounded-full dark:before:bg-white/10 dark:hover:bg-gray-900"
                         wire:click="$toggle('remainingMessagesLoaded')"
                     >
                         <div
@@ -179,13 +175,9 @@
                             <span>Older messages</span>
 
                             @if ($remainingMessagesLoaded)
-                                <x-icon.chevron-down
-                                    class="size-4 text-gray-500 dark:text-gray-600"
-                                ></x-icon.chevron-down>
+                                <x-icon.chevron-down class="size-4 text-gray-500 dark:text-gray-600" />
                             @else
-                                <x-icon.chevron-right
-                                    class="size-4 text-gray-500 dark:text-gray-600"
-                                ></x-icon.chevron-right>
+                                <x-icon.chevron-right class="size-4 text-gray-500 dark:text-gray-600" />
                             @endif
                         </div>
                     </button>
@@ -197,24 +189,25 @@
                     @foreach ($remainingMessages as $message)
                         <x-panel variant="card" wire:key="{{ $message->id }}">
                             <x-spacing size="row" class="flex items-center justify-between">
-                                <div class="flex items-center gap-x-2">
-                                    <x-avatar :src="$message->user->avatar_url" size="sm"></x-avatar>
-                                    <div class="flex flex-col gap-y-0.5">
-                                        <x-text>
-                                            <x-text.strong>{{ $message->user->name }}</x-text.strong>
-                                        </x-text>
-                                        <x-text size="sm">
-                                            {{ DateHelper::formatShortDateWithTime($message->created_at) }}
-                                        </x-text>
-                                    </div>
-                                </div>
+                                <x-avatar
+                                    :src="$message->user?->avatar_url"
+                                    size="sm"
+                                    :title="$message->user?->name"
+                                    :subtitle="DateHelper::formatShortDateWithTime($message->created_at)"
+                                />
 
                                 @can('delete', $discussion)
                                     <div>
                                         <x-dropdown placement="bottom end">
                                             <x-slot name="trigger">
-                                                <x-button type="button" color="neutral-danger" size="none" text>
-                                                    <x-icon :name="Icon::MessageOff" size="sm"></x-icon>
+                                                <x-button
+                                                    type="button"
+                                                    variant="subtle"
+                                                    inset="right top"
+                                                    square
+                                                    data-danger
+                                                >
+                                                    <x-icon :name="Tabler::MessageOff" size="sm" />
                                                 </x-button>
                                             </x-slot>
 
@@ -226,7 +219,7 @@
                                             <x-dropdown.group>
                                                 <x-dropdown.item
                                                     type="button"
-                                                    :icon="Icon::MessageOff"
+                                                    :icon="Tabler::MessageOff"
                                                     wire:click="deleteMessage({{ $message }})"
                                                     variant="danger"
                                                 >
@@ -234,7 +227,7 @@
                                                 </x-dropdown.item>
                                                 <x-dropdown.item
                                                     type="button"
-                                                    :icon="Icon::Ban"
+                                                    :icon="Tabler::Ban"
                                                     x-on:click.prevent="$dispatch('dropdown-close')"
                                                 >
                                                     Cancel
@@ -257,18 +250,19 @@
         @endif
     @else
         <div class="hidden lg:block">
-            <x-empty-state variant="jumbo">
-                <x-illustration :name="Illustration::EmptyMessages"></x-illustration>
-                <x-h2>Select a conversation</x-h2>
-                <x-text>Choose a conversation or start a new one</x-text>
+            <x-empty>
+                <x-illustration :name="Illustration::Inbox" />
+                <x-empty.heading>Select a conversation</x-empty.heading>
+                <x-empty.text>Choose a conversation or start a new one</x-empty.text>
+
                 <x-button
                     type="button"
-                    color="primary"
+                    variant="primary"
                     wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'mode': 'new'}})"
                 >
                     Start a conversation
                 </x-button>
-            </x-empty-state>
+            </x-empty>
         </div>
     @endif
 </div>

@@ -42,7 +42,7 @@ class ComposeMessage extends Modal
     }
 
     #[Computed]
-    public function isChangingName(): bool
+    public function isChangingSubject(): bool
     {
         return filled($this->discussionId) && $this->mode === ComposeMode::ChangeGroupName;
     }
@@ -98,6 +98,8 @@ class ComposeMessage extends Modal
 
     public function reply(): void
     {
+        $this->authorize('reply', $this->discussion);
+
         $this->validateOnly('content');
 
         $data = DiscussionData::from(
@@ -126,6 +128,8 @@ class ComposeMessage extends Modal
 
     public function updateSubject(): void
     {
+        $this->authorize('update', $this->discussion);
+
         $this->validateOnly('subject');
 
         $this->discussion->update([
@@ -152,7 +156,7 @@ class ComposeMessage extends Modal
     {
         return view('pages.discussions.livewire.compose-message-modal', [
             'discussion' => $this->discussion,
-            'isChangingName' => $this->isChangingName,
+            'isChangingSubject' => $this->isChangingSubject,
             'isReplying' => $this->isReplying,
             'users' => $this->users,
         ]);
