@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
+use BackedEnum;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -19,7 +21,6 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Menus\Actions\DeleteMenuItem;
 use Nova\Menus\Enums\LinkTarget;
@@ -57,7 +58,7 @@ class MenuItemsList extends TableComponent
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('link')
-                    ->icon(fn (MenuItem $record): ?Icon => $record->target === LinkTarget::Blank ? Icon::External : null)
+                    ->icon(fn (MenuItem $record): ?BackedEnum => $record->target === LinkTarget::Blank ? Tabler::ExternalLink : null)
                     ->iconPosition(IconPosition::After)
                     ->sortable(),
                 TextColumn::make('link_type')
@@ -139,7 +140,7 @@ class MenuItemsList extends TableComponent
                 SelectFilter::make('link_type')->options(LinkType::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(Icon::Menu)
+            ->emptyStateIcon(Tabler::Menu2)
             ->emptyStateHeading('No menu items found')
             ->emptyStateActions([
                 CreateAction::make()

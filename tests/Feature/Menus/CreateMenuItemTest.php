@@ -14,9 +14,7 @@ use function Pest\Laravel\post;
 uses()->group('menus');
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.create'));
 
     test('can view the create menu item page', function () {
         get(route('admin.menu-items.create'))->assertSuccessful();
@@ -39,9 +37,7 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the create menu item page', function () {
         get(route('admin.menu-items.create'))->assertForbidden();

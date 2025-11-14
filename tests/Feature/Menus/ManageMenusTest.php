@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Menus\Livewire\MenuItemsList;
@@ -17,9 +18,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.create'));
 
     test('can view the list menu items page', function () {
         get(route('admin.menu-items.index'))->assertSuccessful();
@@ -40,57 +39,55 @@ describe('authorized user', function () {
 });
 
 describe('authorized user with menu create permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.create'));
 
     test('has the correct permissions', function () {
+        $menuItem = $this->menuItems->first();
+
         livewire(MenuItemsList::class)
-            ->assertTableActionHidden(EditAction::class, $this->menuItems->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->menuItems->first());
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($menuItem))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($menuItem));
     });
 });
 
 describe('authorized user with menu delete permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.delete');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.delete'));
 
     test('has the correct permissions', function () {
+        $menuItem = $this->menuItems->first();
+
         livewire(MenuItemsList::class)
-            ->assertTableActionHidden(EditAction::class, $this->menuItems->first())
-            ->assertTableActionVisible(DeleteAction::class, $this->menuItems->first());
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($menuItem))
+            ->assertActionVisible(TestAction::make(DeleteAction::class)->table($menuItem));
     });
 });
 
 describe('authorized user with menu update permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.update'));
 
     test('has the correct permissions', function () {
+        $menuItem = $this->menuItems->first();
+
         livewire(MenuItemsList::class)
-            ->assertTableActionVisible(EditAction::class, $this->menuItems->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->menuItems->first());
+            ->assertActionVisible(TestAction::make(EditAction::class)->table($menuItem))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($menuItem));
     });
 });
 
 describe('authorized user with menu view permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.view');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.view'));
 
     test('has the correct permissions', function () {
+        $menuItem = $this->menuItems->first();
+
         livewire(MenuItemsList::class)
-            ->assertTableActionHidden(EditAction::class, $this->menuItems->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->menuItems->first());
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($menuItem))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($menuItem));
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the manage menu items page', function () {
         get(route('admin.menu-items.index'))->assertForbidden();

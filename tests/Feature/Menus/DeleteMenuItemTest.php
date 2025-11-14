@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
@@ -26,7 +27,8 @@ test('an authorized user can delete a menu item', function () {
     $menuItem = $this->menuItems->first();
 
     livewire(MenuItemsList::class)
-        ->callTableAction(DeleteAction::class, $menuItem)
+        ->assertCanSeeTableRecords([$menuItem])
+        ->callAction(TestAction::make(DeleteAction::class)->table($menuItem))
         ->assertCanNotSeeTableRecords([$menuItem])
         ->assertNotified();
 
@@ -43,7 +45,7 @@ test('nested menu items are deleted when the parent is deleted', function () {
     ]);
 
     livewire(MenuItemsList::class)
-        ->callTableAction(DeleteAction::class, $menuItem)
+        ->callAction(TestAction::make(DeleteAction::class)->table($menuItem))
         ->assertCanNotSeeTableRecords([$menuItem, ...$nestedMenuItems])
         ->assertNotified();
 
@@ -56,7 +58,10 @@ test('an authorized user can bulk delete menu items', function () {
     $menuItems = $this->menuItems->take(3);
 
     livewire(MenuItemsList::class)
-        ->callTableBulkAction(DeleteBulkAction::class, $menuItems)
+        ->assertCanSeeTableRecords($menuItems)
+        ->selectTableRecords($menuItems)
+        ->callAction(TestAction::make(DeleteBulkAction::class)->table()->bulk())
+        ->assertCanNotSeeTableRecords($menuItems)
         ->assertNotified();
 
     foreach ($menuItems as $menuItem) {

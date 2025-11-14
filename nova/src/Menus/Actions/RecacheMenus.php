@@ -7,6 +7,7 @@ namespace Nova\Menus\Actions;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Menus\Models\Menu;
 
 class RecacheMenus
@@ -15,7 +16,7 @@ class RecacheMenus
 
     public function handle(): void
     {
-        Cache::rememberForever('nova.basic-menu', function () {
+        Cache::rememberForever(CacheKeys::BasicMenu->value, function () {
             return Menu::query()
                 ->with([
                     'items' => fn (Builder $query): Builder => $query->active(),

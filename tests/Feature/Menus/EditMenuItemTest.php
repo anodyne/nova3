@@ -18,9 +18,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.update'));
 
     test('can view the edit menu item page', function () {
         get(route('admin.menu-items.edit', $this->menuItem))->assertSuccessful();
@@ -43,9 +41,7 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the edit menu item page', function () {
         get(route('admin.menu-items.edit', $this->menuItem))
