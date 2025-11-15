@@ -9,12 +9,10 @@ use Nova\Roles\Models\Role;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
-uses()->group('roles');
+uses()->group('roles', 'permissions');
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.create'));
 
     test('can view the list permissions page', function () {
         get(route('admin.permissions.index'))->assertSuccessful();
@@ -48,12 +46,11 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the manage permissions page', function () {
-        get(route('admin.permissions.index'))->assertForbidden();
+        get(route('admin.permissions.index'))
+            ->assertNotFound();
     });
 });
 

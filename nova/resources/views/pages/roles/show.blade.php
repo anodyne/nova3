@@ -1,45 +1,36 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading :heading="$role->display_name">
+            @if ($role->is_default)
+                <x-slot name="description">
+                    <x-badge color="success" size="md">Assigned to new users</x-badge>
+                </x-slot>
+            @endif
+
+            @if (filled($role->description))
+                <x-slot name="intro">
+                    {{ $role->description }}
+                </x-slot>
+            @endif
+
             <x-slot name="actions">
                 @can('viewAny', $role::class)
-                    <x-button :href="route('admin.roles.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.roles.index')" variant="ghost">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
 
                 @can('update', $role)
-                    <x-button :href="route('admin.roles.edit', $role)" color="primary">
-                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.roles.edit', $role)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
-            <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Role name">
-                        <x-text>
-                            {{ $role->display_name }}
-                        </x-text>
-                    </x-fieldset.field>
-
-                    @if (filled($role->description))
-                        <x-fieldset.field label="Description">
-                            <x-text>
-                                {{ $role->description }}
-                            </x-text>
-                        </x-fieldset.field>
-                    @endif
-
-                    @if ($role->is_default)
-                        <div>
-                            <x-badge color="success" size="md">Assigned to new users</x-badge>
-                        </div>
-                    @endif
-                </x-fieldset.field-group>
-            </x-fieldset>
-
             <x-fieldset>
                 <x-panel variant="well">
                     <x-panel.header title="Permissions for this role"></x-panel.header>
@@ -49,18 +40,18 @@
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                                 @forelse ($role->permissions as $permission)
                                     <div>
-                                        <x-fieldset.legend>{{ $permission->display_name }}</x-fieldset.legend>
-                                        <x-fieldset.description>
+                                        <x-heading level="4">{{ $permission->display_name }}</x-heading>
+                                        <x-description>
                                             {{ $permission->description }}
-                                        </x-fieldset.description>
+                                        </x-description>
                                     </div>
                                 @empty
                                     <div class="lg:col-span-2">
-                                        <x-empty-state.small
-                                            :icon="Icon::Key"
-                                            title="No permissions assigned"
-                                            message="There are no permissions assigned this role"
-                                        ></x-empty-state.small>
+                                        <x-empty>
+                                            <x-illustration :name="Illustration::PadlockShield" />
+                                            <x-empty.heading>No permissions assigned</x-empty.heading>
+                                            <x-empty.text>There are no permissions assigned this role</x-empty.text>
+                                        </x-empty>
                                     </div>
                                 @endforelse
                             </div>
@@ -77,14 +68,14 @@
                         <x-spacing size="md">
                             <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
                                 @forelse ($role->user as $user)
-                                    <x-avatar.user :user="$user"></x-avatar.user>
+                                    <x-avatar.user :$user status></x-avatar.user>
                                 @empty
                                     <div class="lg:col-span-2">
-                                        <x-empty-state.small
-                                            :icon="Icon::Users"
-                                            title="No users assigned"
-                                            message="There are no users assigned this role"
-                                        ></x-empty-state.small>
+                                        <x-empty>
+                                            <x-illustration :name="Illustration::Users" />
+                                            <x-empty.heading>No users assigned</x-empty.heading>
+                                            <x-empty.text>There are no users assigned this role</x-empty.text>
+                                        </x-empty>
                                     </div>
                                 @endforelse
                             </div>

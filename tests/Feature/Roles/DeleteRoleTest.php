@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
@@ -15,9 +16,7 @@ use function Pest\Livewire\livewire;
 
 uses()->group('roles');
 
-beforeEach(function () {
-    signIn(permissions: 'role.delete');
-});
+beforeEach(fn () => signIn(permissions: 'role.delete'));
 
 test('an authorized user can delete a role', function () {
     Event::fake();
@@ -25,7 +24,8 @@ test('an authorized user can delete a role', function () {
     $role = Role::factory()->create();
 
     livewire(RolesList::class)
-        ->callTableAction(DeleteAction::class, $role)
+        ->assertCanSeeTableRecords([$role])
+        ->callAction(TestAction::make(DeleteAction::class)->table($role))
         ->assertCanNotSeeTableRecords([$role])
         ->assertNotified();
 
@@ -38,7 +38,9 @@ test('an authorized user cannot deleted a locked role', function () {
     $role = Role::factory()->locked()->create();
 
     livewire(RolesList::class)
-        ->assertTableActionHidden(DeleteAction::class, $role);
+        ->set('tableRecordsPerPage', 25)
+        ->assertCanSeeTableRecords([$role])
+        ->assertActionHidden(TestAction::make(DeleteAction::class)->table($role));
 });
 
 test('an authorized user can bulk delete roles that are not locked', function () {
@@ -51,7 +53,12 @@ test('an authorized user can bulk delete roles that are not locked', function ()
         ->create();
 
     livewire(RolesList::class)
-        ->callTableBulkAction(DeleteBulkAction::class, $roles)
+        ->set('tableRecordsPerPage', 25)
+        ->assertCanSeeTableRecords($roles)
+        ->selectTableRecords($roles)
+        ->callAction(TestAction::make(DeleteBulkAction::class)->table()->bulk())
+        ->assertCanSeeTableRecords([$roles[0]])
+        ->assertCanNotSeeTableRecords([$roles[1]])
         ->assertNotified();
 
     assertDatabaseHas(Role::class, $roles[0]->toArray());

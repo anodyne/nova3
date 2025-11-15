@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -22,9 +23,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.create'));
 
     test('can view the list roles page', function () {
         get(route('admin.roles.index'))->assertSuccessful();
@@ -84,64 +83,62 @@ describe('authorized user', function () {
 });
 
 describe('authorized user with role create permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.create'));
 
     test('has the correct permissions', function () {
+        $role = $this->roles->first();
+
         livewire(RolesList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->roles->first())
-            ->assertTableActionHidden(EditAction::class, $this->roles->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->roles->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($role))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($role))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($role));
     });
 });
 
 describe('authorized user with role delete permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.delete');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.delete'));
 
     test('has the correct permissions', function () {
+        $role = $this->roles->first();
+
         livewire(RolesList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->roles->first())
-            ->assertTableActionHidden(EditAction::class, $this->roles->first())
-            ->assertTableActionVisible(DeleteAction::class, $this->roles->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($role))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($role))
+            ->assertActionVisible(TestAction::make(DeleteAction::class)->table($role));
     });
 });
 
 describe('authorized user with role update permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.update'));
 
     test('has the correct permissions', function () {
+        $role = $this->roles->first();
+
         livewire(RolesList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->roles->first())
-            ->assertTableActionVisible(EditAction::class, $this->roles->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->roles->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($role))
+            ->assertActionVisible(TestAction::make(EditAction::class)->table($role))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($role));
     });
 });
 
 describe('authorized user with role view permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.view');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.view'));
 
     test('has the correct permissions', function () {
+        $role = $this->roles->first();
+
         livewire(RolesList::class)
-            ->assertTableActionVisible(ViewAction::class, $this->roles->first())
-            ->assertTableActionHidden(EditAction::class, $this->roles->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->roles->first());
+            ->assertActionVisible(TestAction::make(ViewAction::class)->table($role))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($role))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($role));
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the manage roles page', function () {
-        get(route('admin.roles.index'))->assertForbidden();
+        get(route('admin.roles.index'))->assertNotFound();
     });
 });
 

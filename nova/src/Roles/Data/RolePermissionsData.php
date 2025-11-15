@@ -21,7 +21,7 @@ readonly class RolePermissionsData extends Bag
     protected static function fromRequest(Request $request): array
     {
         return [
-            'permissions' => collect(explode(',', $request->input('assigned_permissions') ?? ''))->filter()->all(),
+            'permissions' => $request->array('assigned_permissions'),
         ];
     }
 }

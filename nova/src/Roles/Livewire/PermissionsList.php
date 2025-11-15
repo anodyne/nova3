@@ -25,6 +25,7 @@ class PermissionsList extends TableComponent
                         'name',
                     ])
             )
+            ->defaultPaginationPageOption(25)
             ->columns([
                 TextColumn::make('display_name')
                     ->titleColumn()

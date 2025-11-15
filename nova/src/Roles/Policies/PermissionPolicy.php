@@ -17,36 +17,36 @@ class PermissionPolicy
     {
         return $user->isAbleTo('role.*')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function view(User $user, Permission $permission): Response
     {
-        return $this->deny();
+        return $this->denyAsNotFound();
     }
 
     public function create(User $user): Response
     {
-        return $this->deny();
+        return $this->denyAsNotFound();
     }
 
     public function update(User $user, Permission $permission): Response
     {
-        return $this->deny();
+        return $this->denyAsNotFound();
     }
 
     public function delete(User $user, Permission $permission): Response
     {
-        return $this->deny();
+        return $this->denyAsNotFound();
     }
 
     public function restore(User $user, Permission $permission): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound();
     }
 
     public function forceDelete(User $user, Permission $permission): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound();
     }
 }

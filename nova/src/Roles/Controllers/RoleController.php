@@ -7,7 +7,6 @@ namespace Nova\Roles\Controllers;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Roles\Actions\CreateRoleManager;
 use Nova\Roles\Actions\UpdateRoleManager;
-use Nova\Roles\Models\Permission;
 use Nova\Roles\Models\Role;
 use Nova\Roles\Requests\StoreRoleRequest;
 use Nova\Roles\Requests\UpdateRoleRequest;
@@ -55,7 +54,6 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         return EditRoleResponse::sendWith([
-            'permissions' => Permission::get(),
             'role' => $role->load('user.media', 'permissions')->loadCount(['user', 'permissions']),
         ]);
     }

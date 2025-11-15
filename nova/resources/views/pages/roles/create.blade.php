@@ -2,13 +2,16 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', Role::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.roles.index')" color="neutral" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.roles.index')" variant="ghost" inset="right">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <div
             x-data="{
@@ -29,43 +32,36 @@
         >
             <x-form :action="route('admin.roles.store')">
                 <x-fieldset>
-                    <x-fieldset.field-group constrained>
-                        <x-fieldset.field
-                            label="Name"
-                            id="display_name"
-                            name="display_name"
-                            :error="$errors->first('display_name')"
-                        >
-                            <x-input.text x-model="displayName" data-cy="display_name" />
-                        </x-fieldset.field>
+                    <x-fieldset.group constrained>
+                        <x-input label="Name" name="display_name" x-model="displayName" />
 
-                        <x-fieldset.field label="Key" id="name" name="name" :error="$errors->first('name')">
-                            <x-input.text x-model="name" x-on:change="suggestName = false" data-cy="name" />
-                        </x-fieldset.field>
+                        <x-input label="Key" name="name" x-model="name" x-on:change="suggestName = false" />
 
-                        <x-fieldset.field label="Description" id="description" name="description">
-                            <x-input.textarea data-cy="description" rows="3">
-                                {{ old('description') }}
-                            </x-input.textarea>
-                        </x-fieldset.field>
+                        <x-textarea label="Description" name="description" rows="3">
+                            {{ old('description') }}
+                        </x-textarea>
 
-                        <div class="flex items-center gap-x-2.5">
-                            <x-switch name="is_default" :value="old('is_default')" id="is_default"></x-switch>
-                            <x-fieldset.label for="is_default">Assign this role to new users</x-fieldset.label>
-                        </div>
-                    </x-fieldset.field-group>
+                        <x-switch
+                            label="Assign this role to new users"
+                            name="is_default"
+                            :checked="old('is_default')"
+                            align="left"
+                        />
+                    </x-fieldset.group>
                 </x-fieldset>
 
                 <x-fieldset>
-                    <x-panel variant="well">
-                        <x-panel.header title="Permissions for this role">
-                            <x-slot name="description">
-                                These permissions will be added to the role when it’s created.
-                            </x-slot>
-                        </x-panel.header>
+                    <x-fieldset.group constrained>
+                        <x-field>
+                            <x-label>Permissions assigned to this role</x-label>
+                            <x-description>
+                                Our recommendation is to give roles as few permissions as possible and compose user
+                                authorization from multiple roles
+                            </x-description>
 
-                        <livewire:roles-manage-permissions />
-                    </x-panel>
+                            <livewire:roles-manage-permissions />
+                        </x-field>
+                    </x-fieldset.group>
                 </x-fieldset>
 
                 <x-fieldset>
@@ -81,12 +77,10 @@
                     </x-panel>
                 </x-fieldset>
 
-                <x-fieldset>
-                    <div class="flex gap-x-2 lg:flex-row-reverse">
-                        <x-button type="submit" color="primary">Add</x-button>
-                        <x-button :href="route('admin.roles.index')" plain>Cancel</x-button>
-                    </div>
-                </x-fieldset>
+                <x-fieldset.controls>
+                    <x-button type="submit" variant="primary">Add</x-button>
+                    <x-button :href="route('admin.roles.index')" variant="ghost">Cancel</x-button>
+                </x-fieldset.controls>
             </x-form>
         </div>
     </x-spacing>
