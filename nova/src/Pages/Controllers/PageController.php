@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Pages\Actions\CreatePageManager;
 use Nova\Pages\Actions\UpdatePageManager;
@@ -22,6 +23,8 @@ class PageController extends Controller
         parent::__construct();
 
         $this->middleware('auth');
+
+        $this->authorizeResource(Page::class);
     }
 
     public function index()
@@ -45,7 +48,7 @@ class PageController extends Controller
     {
         $page = CreatePageManager::run($request);
 
-        if ($page->is_basic) {
+        if (Gate::allows('design', $page) && $page->is_basic) {
             return redirect()
                 ->route('admin.pages.design', $page)
                 ->notify("{$page->name} page was created");

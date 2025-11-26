@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Features;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Repeater;
@@ -11,7 +12,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
-use Nova\Foundation\Icons\Icon;
 
 class GridFeatureBlock extends FeatureBlock
 {
@@ -27,7 +27,7 @@ class GridFeatureBlock extends FeatureBlock
             Section::make()
                 ->heading('Appearance')
                 ->description('Customize the appearance of the individual feature grid items')
-                ->icon(Icon::Palette)
+                ->icon(Tabler::Palette)
                 ->schema([
                     ColorPicker::make('block.heading-color')->label('Heading color'),
                     ColorPicker::make('block.description-color')->label('Description color'),
@@ -36,13 +36,13 @@ class GridFeatureBlock extends FeatureBlock
             Section::make()
                 ->heading('Features')
                 ->description('Define the features you want to highlight with this block')
-                ->icon(Icon::Sparkles)
+                ->icon(Tabler::Sparkles)
                 ->schema([
                     Repeater::make('block.features')->schema([
                         TextInput::make('heading'),
                         Textarea::make('description'),
                         Select::make('icon')
-                            ->options(Icon::class)
+                            ->options(Tabler::class)
                             ->searchable(),
                     ]),
                 ]),

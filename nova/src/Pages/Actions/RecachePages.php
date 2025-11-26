@@ -6,6 +6,7 @@ namespace Nova\Pages\Actions;
 
 use Illuminate\Support\Facades\Cache;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Pages\Models\Page;
 
 class RecachePages
@@ -14,8 +15,8 @@ class RecachePages
 
     public function handle(): void
     {
-        Cache::rememberForever('nova.basic-pages', fn () => Page::query()->basic()->active()->get());
+        Cache::rememberForever(CacheKeys::BasicPages->value, fn () => Page::query()->basic()->active()->get());
 
-        Cache::rememberForever('nova.advanced-pages', fn () => Page::query()->advanced()->get());
+        Cache::rememberForever(CacheKeys::AdvancedPages->value, fn () => Page::query()->advanced()->get());
     }
 }

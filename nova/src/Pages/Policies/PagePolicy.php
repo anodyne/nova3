@@ -17,65 +17,65 @@ class PagePolicy
     {
         return $user->isAbleTo('page.*')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function view(User $user, Page $page): Response
     {
         return $user->isAbleTo('page.view')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function create(User $user): Response
     {
         return $user->isAbleTo('page.create')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function update(User $user, Page $page): Response
     {
         return $user->isAbleTo('page.update')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('page.delete')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function delete(User $user, Page $page): Response
     {
         return $this->deleteAny($user)->allowed()
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function duplicate(User $user, Page $page): Response
     {
         return $user->isAbleTo('page.create') && $user->isAbleTo('page.update')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function restore(User $user, Page $page): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound();
     }
 
     public function forceDelete(User $user, Page $page): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound();
     }
 
     public function design(User $user, Page $page): Response
     {
         return $this->update($user, $page)->allowed() && $page->is_basic
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 }

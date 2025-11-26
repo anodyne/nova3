@@ -3,7 +3,7 @@
 
     <x-text>
         Are you sure you want to duplicate the
-        <x-text.strong>{{ $record->name }}</x-text.strong>
+        <strong>{{ $record->name }}</strong>
         page?
     </x-text>
 </x-filament.modal-content>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Stats;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Repeater;
@@ -12,7 +13,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
-use Nova\Foundation\Icons\Icon;
 use Nova\Pages\Blocks\Block as PageBuilderBlock;
 
 abstract class StatsBlock extends PageBuilderBlock
@@ -24,7 +24,7 @@ abstract class StatsBlock extends PageBuilderBlock
         return [
             Section::make()
                 ->heading('Appearance')
-                ->icon(Icon::Palette)
+                ->icon(Tabler::Palette)
                 ->schema([
                     Grid::make(2)->schema([
                         ColorPicker::make('block.appearance.stat-color')->rgba(),
@@ -34,7 +34,7 @@ abstract class StatsBlock extends PageBuilderBlock
 
             Section::make()
                 ->heading('Stats')
-                ->icon(Icon::ChartDots)
+                ->icon(Tabler::ChartDots)
                 ->schema([
                     Repeater::make('block.stats')
                         ->hiddenLabel()

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Builder;
 use Filament\Schemas\Schema;
@@ -11,8 +12,8 @@ use Filament\Support\Enums\IconSize;
 use Filament\Support\Enums\Width;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Locked;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\FormComponent;
 use Nova\Pages\Actions\PublishPage;
 use Nova\Pages\Actions\UpdatePage;
@@ -40,14 +41,14 @@ class PageDesigner extends FormComponent
                     ->addAction(function (Action $action): Action {
                         return $action
                             ->label('Add block')
-                            ->icon(Icon::Plus)
+                            ->icon(Tabler::Plus)
                             ->iconSize(IconSize::Medium)
                             ->slideOver()
                             ->modalWidth(Width::TwoExtraLarge);
                     })
                     ->editAction(function (Action $action): Action {
                         return $action
-                            ->icon(Icon::Settings)
+                            ->icon(Tabler::Settings)
                             ->slideOver()
                             ->modalWidth(Width::TwoExtraLarge);
                     })
@@ -59,6 +60,8 @@ class PageDesigner extends FormComponent
 
     public function save(): void
     {
+        $this->authorize('design', $this->page);
+
         UpdatePage::run($this->page, PageBlocksData::from($this->form->getState()));
 
         Notification::make()->success()
@@ -69,6 +72,8 @@ class PageDesigner extends FormComponent
 
     public function publish(): void
     {
+        $this->authorize('design', $this->page);
+
         PublishPage::run($this->page);
 
         Notification::make()->success()
@@ -79,7 +84,7 @@ class PageDesigner extends FormComponent
 
     public function mount(Page $page): void
     {
-        Cache::put('page-designer-page', $page->id);
+        Cache::put(CacheKeys::PageDesignerPage->value, $page->id);
 
         $this->form->fill($page->toArray());
     }

@@ -5,9 +5,9 @@
         </x-fieldset>
 
         <x-fieldset.controls>
-            <x-button type="submit" color="primary">Save</x-button>
+            <x-button type="submit" variant="primary">Save</x-button>
 
-            <x-button type="button" wire:click="publish" color="neutral">Publish</x-button>
+            <x-button type="button" wire:click="publish">Publish</x-button>
         </x-fieldset.controls>
     </form>
 

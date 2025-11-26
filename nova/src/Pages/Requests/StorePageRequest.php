@@ -6,7 +6,6 @@ namespace Nova\Pages\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Nova\Foundation\Enums\BasicStatus;
 use Nova\Pages\Data\PageData;
 use Nova\Pages\Enums\PageVerb;
 
@@ -23,7 +22,7 @@ class StorePageRequest extends FormRequest
             'seo_description' => ['nullable'],
             'seo_keywords' => ['nullable'],
             'seo_title' => ['nullable'],
-            'status' => ['required', Rule::enum(BasicStatus::class)],
+            'status' => ['sometimes'],
             'subheading' => ['nullable'],
             'uri' => ['required'],
             'verb' => ['required', Rule::enum(PageVerb::class)],

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Tables\Columns\TextColumn;
@@ -23,7 +24,6 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Pages\Actions\DeletePage;
 use Nova\Pages\Actions\DuplicatePage;
@@ -95,12 +95,12 @@ class PagesList extends TableComponent
                 ActionGroup::make([
                     ActionGroup::make([
                         Action::make('visit')
-                            ->icon(Icon::Www)
+                            ->icon(Tabler::WorldWww)
                             ->label('Live page')
                             ->url(fn (Page $record): string => url($record->uri))
                             ->visible(fn (Page $record): bool => $record->is_published),
                         Action::make('preview')
-                            ->icon(Icon::WwwPreview)
+                            ->icon(Tabler::WorldSearch)
                             ->label('Preview page')
                             ->url(fn (Page $record): string => route('preview-basic-page', $record->key)),
                     ])->divided(),
@@ -114,7 +114,7 @@ class PagesList extends TableComponent
                             ->url(fn (Page $record): string => route('admin.pages.edit', $record)),
                         Action::make('design')
                             ->authorize('design')
-                            ->icon(Icon::Tools)
+                            ->icon(Tabler::Tools)
                             ->url(fn (Page $record): string => route('admin.pages.design', $record)),
                     ])->divided(),
 
@@ -229,7 +229,7 @@ class PagesList extends TableComponent
                     ->label('HTTP verb')
                     ->options(PageVerb::class),
             ])
-            ->emptyStateIcon(Icon::List)
+            ->emptyStateIcon(Tabler::List)
             ->emptyStateHeading('No pages found')
             ->emptyStateDescription('Manage all of Nova’s pages.')
             ->emptyStateActions([

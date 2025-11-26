@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Models;
 
-use Nova\Pages\Events\PageCreated;
-use Nova\Pages\Events\PageDeleted;
-use Nova\Pages\Events\PageUpdated;
 use Illuminate\Database\Eloquent\Attributes\CollectedBy;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
@@ -20,7 +18,9 @@ use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Menus\Models\MenuItem;
 use Nova\Pages\Enums\PageVerb;
-use Nova\Pages\Events;
+use Nova\Pages\Events\PageCreated;
+use Nova\Pages\Events\PageDeleted;
+use Nova\Pages\Events\PageUpdated;
 use Nova\Pages\Models\Builders\PageBuilder;
 use Nova\Pages\Models\Collections\PagesCollection;
 use Nova\Pages\Observers\PageObserver;
@@ -33,6 +33,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(PageBuilder::class)]
 class Page extends Model implements HasMedia
 {
+    use HasFactory;
     use HasPrefixedId;
     use InteractsWithMedia;
     use LogsActivity {

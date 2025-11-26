@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Manifest;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Repeater;
@@ -13,7 +14,6 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
-use Nova\Foundation\Icons\Icon;
 use Nova\Pages\Blocks\Block as PageBuilderBlock;
 
 class ManifestBlock extends PageBuilderBlock
@@ -31,7 +31,7 @@ class ManifestBlock extends PageBuilderBlock
         return [
             Section::make()
                 ->heading('Layout')
-                ->icon(Icon::Layout)
+                ->icon(Tabler::Layout)
                 ->schema([
                     Select::make('block.layout')
                         ->options([
@@ -110,7 +110,7 @@ class ManifestBlock extends PageBuilderBlock
 
             Section::make()
                 ->heading('Departments')
-                ->icon(Icon::ListDetails)
+                ->icon(Tabler::ListDetails)
                 ->schema([
                     Toggle::make('block.showDepartments')
                         ->label('Show departments on the manifest')
@@ -176,7 +176,7 @@ class ManifestBlock extends PageBuilderBlock
 
             Section::make()
                 ->heading('Available positions')
-                ->icon(Icon::Enter)
+                ->icon(Tabler::DoorEnter)
                 ->schema([
                     Toggle::make('block.showAvailablePositions')
                         ->label('Show available positions on the manifest')
@@ -211,7 +211,7 @@ class ManifestBlock extends PageBuilderBlock
 
             Section::make()
                 ->heading('Characters')
-                ->icon(Icon::Characters)
+                ->icon(Tabler::MasksTheater)
                 ->schema([
                     Toggle::make('block.showCharacters')
                         ->label('Show characters on the manifest')

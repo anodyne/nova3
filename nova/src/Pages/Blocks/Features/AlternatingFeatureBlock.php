@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Features;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Components\Section;
-use Nova\Foundation\Icons\Icon;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\Radius;
 
@@ -28,7 +28,7 @@ class AlternatingFeatureBlock extends FeatureBlock
             Section::make()
                 ->heading('Features')
                 ->description('Define the features you want to highlight with this block')
-                ->icon(Icon::Sparkles)
+                ->icon(Tabler::Sparkles)
                 ->columns(2)
                 ->schema([
                     Select::make('block.image.radius')
