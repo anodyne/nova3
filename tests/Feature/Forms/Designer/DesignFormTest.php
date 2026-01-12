@@ -120,7 +120,7 @@ describe('unauthorized user', function () {
             ->assertNotNotified();
     });
 
-    test('can publish form design', function () {
+    test('cannot publish form design', function () {
         livewire(FormDesigner::class, ['novaForm' => $this->form])
             ->call('publish')
             ->assertStatus(404)

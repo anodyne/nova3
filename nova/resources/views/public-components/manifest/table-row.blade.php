@@ -62,7 +62,8 @@
                                 {{ $position->name }}
                             </div>
                             <div class="text-sm/6 text-gray-600 dark:text-gray-400">
-                                Position available; apply today &rarr;
+                                Position available; apply today
+                                <span aria-hidden="true">→</span>
                             </div>
                         </div>
                     </div>

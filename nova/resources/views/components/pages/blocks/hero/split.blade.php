@@ -22,7 +22,7 @@
     class="nv-hero nv-hero-split"
     inner-class="grid grid-cols-2 gap-8"
 >
-    <x-slot name="trailing">
+    <x-slot name="afterHeader">
         <div
             @class([
                 'relative mt-6 flex items-center gap-6',

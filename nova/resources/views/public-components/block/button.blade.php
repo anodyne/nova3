@@ -1,10 +1,12 @@
 @props(['button'])
 
 @use('Nova\Pages\Enums\BoxShadow')
+@use('Nova\Pages\Enums\ButtonDecoration')
 @use('Nova\Pages\Enums\ButtonSize')
 @use('Nova\Pages\Enums\Radius')
 
 @php
+    $buttonDecoration = ButtonDecoration::tryFrom(data_get($button, 'decoration') ?? 'none');
     $buttonSize = ButtonSize::tryFrom(data_get($button, 'size') ?? 'text');
     $radius = Radius::tryFrom(data_get($button, 'radius') ?? 'none');
     $shadow = BoxShadow::tryFrom(data_get($button, 'shadow') ?? 'none');
@@ -31,16 +33,8 @@
     >
         <span>{{ $slot }}</span>
 
-        @if (data_get($button, 'decoration') === 'arrow')
-            <span class="text-base/6" aria-hidden="true">&rarr;</span>
-        @endif
-
-        @if (data_get($button, 'decoration') === 'single-chevron')
-            <span class="text-base/6" aria-hidden="true">&rsaquo;</span>
-        @endif
-
-        @if (data_get($button, 'decoration') === 'double-chevron')
-            <span class="text-base/6" aria-hidden="true">&raquo;</span>
+        @if ($buttonDecoration !== ButtonDecoration::None)
+            <span class="text-base/6" aria-hidden="true">{!! $buttonDecoration->getHtml() !!}</span>
         @endif
     </a>
 </div>

@@ -10,6 +10,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\Radius;
@@ -48,6 +49,9 @@ class AlternatingFeatureBlock extends FeatureBlock
                                 ->disk('media-pages')
                                 ->directory((string) $this->getPageDesignerPage()),
                         ]),
+                    Toggle::make('block.dark')
+                        ->label('My block uses a dark background')
+                        ->helperText('This will ensure that the colors of each feature will be better tuned to the background'),
                 ]),
         ];
     }

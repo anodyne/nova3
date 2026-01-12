@@ -42,20 +42,13 @@
 
                     @if ($story->children_count > 0 && ! $expanded)
                         <div class="shrink-0">
-                            <span x-show="!expanded">
-                                <x-icon
-                                    :name="Icon::PlusCircle"
-                                    size="md"
-                                    class="text-gray-400 dark:text-gray-500"
-                                ></x-icon>
-                            </span>
-                            <span x-show="expanded">
-                                <x-icon
-                                    :name="Icon::MinusCircle"
-                                    size="md"
-                                    class="text-gray-400 dark:text-gray-500"
-                                ></x-icon>
-                            </span>
+                            <x-icon
+                                :name="Tabler::ChevronRight"
+                                size="md"
+                                class="dark:text-dark-500 text-gray-400 transition-transform duration-200"
+                                x-bind:class="{ 'rotate-90': expanded }"
+                                x-cloak
+                            />
                         </div>
                     @endif
                 </div>
@@ -79,7 +72,10 @@
                     </div>
 
                     <div class="mt-8">
-                        <x-public::button :href="route('public.story', $story)">Go to story &rarr;</x-public::button>
+                        <x-public::button :href="route('public.story', $story)">
+                            Go to story
+                            <span aria-hidden="true">→</span>
+                        </x-public::button>
                     </div>
 
                     @if ($story->children_count > 0)

@@ -4,6 +4,7 @@
 @php
     $imageShadow = BoxShadow::tryFrom(data_get($block, 'image.shadow') ?? 'none');
     $imageRadius = Radius::tryFrom(data_get($block, 'image.radius') ?? 'none');
+    $dark = data_get($block, 'dark', false);
 @endphp
 
 <x-public::block.container :$container :$content :$block class="nv-features nv-features-alternating">
@@ -28,7 +29,7 @@
                                 'prose-h2:font-(family-name:--font-header)',
                                 'prose-h3:font-(family-name:--font-header)',
                                 'prose-h4:font-(family-name:--font-header)',
-                                'dark:prose-invert',
+                                'prose-invert' => $dark,
                             ])
                         >
                             {!! data_get($feature, 'content') !!}
@@ -49,7 +50,7 @@
                             width="2432"
                             height="1442"
                             @class([
-                                'nv-hero-image w-[76rem]',
+                                'nv-feature-image w-[76rem]',
                                 $imageRadius?->getTailwindClasses(),
                                 $imageShadow?->getTailwindClasses(),
                             ])

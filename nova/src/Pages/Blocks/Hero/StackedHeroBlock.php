@@ -63,11 +63,12 @@ class StackedHeroBlock extends HeroBlock
                         ->label('Image')
                         ->disk('media-pages')
                         ->directory((string) $this->getPageDesignerPage())
-                        ->visible(fn (Get $get) => $get('block.media.type') === MediaType::Image->value),
+                        ->image()
+                        ->visible(fn (Get $get) => $get('block.media.type') === MediaType::Image),
                     TextInput::make('block.media.video')
                         ->label('Video URL')
                         ->url()
-                        ->visible(fn (Get $get) => $get('block.media.type') === MediaType::Video->value),
+                        ->visible(fn (Get $get) => $get('block.media.type') === MediaType::Video),
                 ]),
         ];
     }

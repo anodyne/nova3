@@ -23,8 +23,6 @@ class CharactersManifest extends Component
 
     public bool $showDepartments = false;
 
-    public bool $showPositions = false;
-
     public bool $showAvailablePositions = false;
 
     public array $columns = [];

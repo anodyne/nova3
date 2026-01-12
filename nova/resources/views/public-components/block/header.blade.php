@@ -78,15 +78,21 @@
                             <span>{{ data_get($callout, 'text') }}</span>
 
                             @if (data_get($callout, 'decoration') === 'arrow')
-                                <span class="text-base/6" aria-hidden="true">&rarr;</span>
+                                <span class="text-base/6" aria-hidden="true">
+                                    <span aria-hidden="true">→</span>
+                                </span>
                             @endif
 
                             @if (data_get($callout, 'decoration') === 'single-chevron')
-                                <span class="text-base/6" aria-hidden="true">&rsaquo;</span>
+                                <span class="text-base/6" aria-hidden="true">
+                                    &rsaquo;
+                                </span>
                             @endif
 
                             @if (data_get($callout, 'decoration') === 'double-chevron')
-                                <span class="text-base/6" aria-hidden="true">&raquo;</span>
+                                <span class="text-base/6" aria-hidden="true">
+                                    &raquo;
+                                </span>
                             @endif
                         </span>
                     </a>

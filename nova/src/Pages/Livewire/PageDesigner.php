@@ -46,13 +46,21 @@ class PageDesigner extends FormComponent
                             ->slideOver()
                             ->modalWidth(Width::TwoExtraLarge);
                     })
+                    ->addBetweenAction(function (Action $action): Action {
+                        return $action
+                            ->label('Insert between blocks')
+                            ->icon(Tabler::Plus)
+                            ->iconSize(IconSize::Medium)
+                            ->slideOver()
+                            ->modalWidth(Width::TwoExtraLarge);
+                    })
                     ->editAction(function (Action $action): Action {
                         return $action
                             ->icon(Tabler::Settings)
                             ->slideOver()
                             ->modalWidth(Width::TwoExtraLarge);
-                    })
-                    ->afterStateUpdated(fn () => $this->save()),
+                    }),
+                //                    ->afterStateUpdated(fn () => $this->save()),
             ])
             ->statePath('data')
             ->model($this->page);

@@ -17,7 +17,9 @@
                     </div>
 
                     <div class="mt-1.5">
-                        <x-feed.post-meta-fields :post="$post"></x-feed.post-meta-fields>
+                        <x-feed.post-meta-fields
+                            :post="$post"
+                        ></x-feed.post-meta-fields>
 
                         @if ($showContent)
                             <div
@@ -43,14 +45,17 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-feed.post-meta-data :post="$post"></x-feed.post-meta-data>
+                            <x-feed.post-meta-data
+                                :post="$post"
+                            ></x-feed.post-meta-data>
                         </div>
 
                         <div class="mt-8">
                             <x-public::button
                                 :href="route('public.story-post', ['story' => $post->story, 'post' => $post])"
                             >
-                                Read {{ str($post->postType->name)->lower() }} &rarr;
+                                Read {{ str($post->postType->name)->lower() }}
+                                <span aria-hidden="true">→</span>
                             </x-public::button>
                         </div>
                     </div>
@@ -58,15 +63,17 @@
             @endforeach
         </x-feed>
     @else
-        <x-empty-state variant="jumbo">
-            <x-icon :name="Icon::BookClosed"></x-icon>
-            <x-h2>No posts found</x-h2>
+        <x-empty variant="jumbo">
+            <x-illustration :name="Illustration::Book" />
+            <x-empty.heading>No posts found</x-empty.heading>
 
             @if (blank($storyId))
-                <x-text>Select a story to view the posts timeline</x-text>
+                <x-empty.text>
+                    Select a story to view the posts timeline
+                </x-empty.text>
             @else
-                <x-text>There are no posts in this story</x-text>
+                <x-empty.text>There are no posts in this story</x-empty.text>
             @endif
-        </x-empty-state>
+        </x-empty>
     @endif
 </x-spacing>

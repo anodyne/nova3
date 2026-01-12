@@ -241,7 +241,6 @@ class ManifestBlock extends PageBuilderBlock
                         ])
                         ->visible(fn (Get $get): bool => $get('block.showCharacters') === true),
                 ]),
-
         ];
     }
 }

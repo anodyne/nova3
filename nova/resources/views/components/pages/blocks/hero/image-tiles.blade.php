@@ -13,7 +13,7 @@
     class="nv-hero nv-hero-image-tiles"
     inner-class="flex flex-row gap-8"
 >
-    <x-slot name="trailing">
+    <x-slot name="afterHeader">
         <div
             @class([
                 'relative mt-6 flex items-center gap-6',

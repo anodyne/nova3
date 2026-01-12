@@ -85,6 +85,8 @@ class FormDesigner extends FormComponent
 
     public function unpublish(): void
     {
+        $this->authorize('design', $this->novaForm);
+
         UnpublishForm::run($this->novaForm);
 
         Notification::make()->success()

@@ -5,7 +5,7 @@
         </x-fieldset>
 
         <x-fieldset.controls>
-            <x-button type="submit" color="primary">Save</x-button>
+            <x-button type="submit" variant="primary">Save</x-button>
         </x-fieldset.controls>
     </form>
 
