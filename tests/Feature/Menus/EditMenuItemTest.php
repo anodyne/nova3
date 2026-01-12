@@ -38,6 +38,38 @@ describe('authorized user', function () {
 
         Event::assertDispatched(MenuItemUpdated::class);
     });
+
+    test('can update a menu item status from inactive to active', function () {
+        $menuItem = MenuItem::factory()->inactive()->create();
+
+        $data = MenuItem::factory()->active()->forRequest();
+
+        from(route('admin.menu-items.edit', $menuItem))
+            ->followingRedirects()
+            ->put(route('admin.menu-items.update', $menuItem), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(MenuItem::class, [
+            'id' => $menuItem->id,
+            'status' => 'active',
+        ]);
+    });
+
+    test('can update a menu item status from active to inactive', function () {
+        $menuItem = MenuItem::factory()->active()->create();
+
+        $data = MenuItem::factory()->inactive()->forRequest();
+
+        from(route('admin.menu-items.edit', $menuItem))
+            ->followingRedirects()
+            ->put(route('admin.menu-items.update', $menuItem), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(MenuItem::class, [
+            'id' => $menuItem->id,
+            'status' => 'inactive',
+        ]);
+    });
 });
 
 describe('unauthorized user', function () {

@@ -38,7 +38,7 @@ readonly class MenuItemData extends Bag
             'parent_id' => $request->filled('parent_id') ? $request->integer('parent_id') : null,
             'link_type' => LinkType::tryFrom($request->input('link_type')) ?? LinkType::Url,
             'target' => LinkTarget::tryFrom($request->input('target')) ?? LinkTarget::Blank,
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
         ];
     }
 }
