@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Support\Enums\Width;
@@ -32,7 +33,7 @@ use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\RestoreBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Actions\DeletePostType;
@@ -54,19 +55,24 @@ class PostTypesList extends TableComponent
         return $table
             ->query(
                 PostType::query()
-                    ->withCount('posts')
-                    ->withTrashed()
                     ->select([
                         'color',
                         'deleted_at',
+                        'description',
+                        'fields',
                         'icon',
                         'id',
                         'name',
+                        'options',
                         'order_column',
                         'role_id',
                         'status',
+                        'visibility',
                     ])
+                    ->withCount('posts')
+                    ->withTrashed()
             )
+            ->recordUrl(fn (PostType $record): string => route('admin.post-types.show', $record))
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
@@ -98,17 +104,15 @@ class PostTypesList extends TableComponent
                 IconColumn::make('includedInPostTracking')
                     ->label('Included in post tracking')
                     ->alignCenter()
-                    ->trueColor('success')
-                    ->trueIcon(Icon::CheckCircle)
-                    ->falseIcon('')
+                    ->trueIcon(Tabler::CircleCheck)
+                    ->falseIcon(Tabler::CircleX)
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 IconColumn::make('notifiesUsers')
                     ->label('Sends published notifications')
                     ->alignCenter()
-                    ->trueColor('success')
-                    ->trueIcon(Icon::CheckCircle)
-                    ->falseIcon('')
+                    ->trueIcon(Tabler::CircleCheck)
+                    ->falseIcon(Tabler::CircleX)
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
@@ -156,9 +160,14 @@ class PostTypesList extends TableComponent
                                 $postTypeData = PostTypeData::from([
                                     'name' => $name = data_get($data, 'name'),
                                     'key' => str($name)->slug(),
+                                    'description' => $record->description,
+                                    'status' => $record->status,
                                     'fields' => $record->fields,
                                     'options' => $record->options,
+                                    'role_id' => $record->role_id,
                                     'visibility' => $record->visibility,
+                                    'icon' => $record->icon?->value,
+                                    'color' => $record->color,
                                 ]);
 
                                 $replica = DuplicatePostType::run($record, $postTypeData);
@@ -360,7 +369,7 @@ class PostTypesList extends TableComponent
             ])
             ->columnManagerWidth(Width::Small)
             ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(Icon::List)
+            ->emptyStateIcon(Illustration::PenAndQuill)
             ->emptyStateHeading('No post types found')
             ->emptyStateDescription('Post types allow you to control the type of content users can create inside of stories.')
             ->emptyStateActions([

@@ -19,9 +19,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.update'));
 
     test('can view the edit post type page', function () {
         get(route('admin.post-types.edit', $this->postType))->assertSuccessful();
@@ -47,9 +45,7 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the edit post type page', function () {
         get(route('admin.post-types.edit', $this->postType))->assertForbidden();

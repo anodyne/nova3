@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Stories\Events\PostTypeDuplicated;
@@ -28,7 +29,7 @@ test('an authorized user can duplicate a post type', function () {
     ];
 
     livewire(PostTypesList::class)
-        ->callTableAction(ReplicateAction::class, $this->postType, data: $data)
+        ->callAction(TestAction::make(ReplicateAction::class)->table($this->postType), data: $data)
         ->assertNotified();
 
     assertDatabaseHas(PostType::class, $data);

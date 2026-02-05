@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Anodyne\TablerIcons\Tabler;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Models\Model;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Data\Fields;
@@ -57,7 +57,7 @@ class PostType extends Model implements Sortable
 
     protected $casts = [
         'fields' => Fields::class,
-        'icon' => Icon::class,
+        'icon' => Tabler::class,
         'options' => Options::class,
         'order_column' => 'integer',
         'status' => BasicStatus::class,
@@ -85,6 +85,13 @@ class PostType extends Model implements Sortable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => $this->name
+        );
     }
 
     /**

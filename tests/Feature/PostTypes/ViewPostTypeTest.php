@@ -14,9 +14,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.view');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.view'));
 
     test('can view the view post types page', function () {
         get(route('admin.post-types.show', $this->postType))->assertSuccessful();
@@ -24,9 +22,7 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the view post types page', function () {
         get(route('admin.post-types.show', $this->postType))->assertForbidden();

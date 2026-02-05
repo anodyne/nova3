@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
+use Nova\Characters\Models\Character;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Stories\Events\PostTypeDeleted;
@@ -23,13 +25,14 @@ beforeEach(function () {
     signIn(permissions: 'post-type.delete');
 });
 
-test('an authorized user can force delete a post type without posts', function () {
+test('a post type without posts is force deleted', function () {
     Event::fake();
 
     $postTypeToDelete = $this->postTypes->first();
 
     livewire(PostTypesList::class)
-        ->callTableAction(DeleteAction::class, $postTypeToDelete)
+        ->assertCanSeeTableRecords([$postTypeToDelete])
+        ->callAction(TestAction::make(DeleteAction::class)->table($postTypeToDelete))
         ->assertCanNotSeeTableRecords([$postTypeToDelete])
         ->assertNotified();
 
@@ -40,15 +43,18 @@ test('an authorized user can force delete a post type without posts', function (
     Event::assertDispatched(PostTypeDeleted::class);
 });
 
-test('an authorized user can soft delete a post type that has posts', function () {
+test('a post type with posts is soft deleted', function () {
     $postTypeToDelete = $this->postTypes->first();
+
+    Character::factory()->count(5)->create();
 
     Post::factory()->create([
         'post_type_id' => $postTypeToDelete->id,
     ]);
 
     livewire(PostTypesList::class)
-        ->callTableAction(DeleteAction::class, $postTypeToDelete)
+        ->assertCanSeeTableRecords([$postTypeToDelete])
+        ->callAction(TestAction::make(DeleteAction::class)->table($postTypeToDelete))
         ->assertCanNotSeeTableRecords([$postTypeToDelete])
         ->assertNotified();
 
@@ -57,11 +63,14 @@ test('an authorized user can soft delete a post type that has posts', function (
     ]);
 });
 
-test('an authorized user can bulk delete post types', function () {
+test('can bulk delete post types', function () {
     $postTypes = $this->postTypes->take(3);
 
     livewire(PostTypesList::class)
-        ->callTableBulkAction(DeleteBulkAction::class, $postTypes)
+        ->assertCanSeeTableRecords($postTypes)
+        ->selectTableRecords($postTypes)
+        ->callAction(TestAction::make(DeleteBulkAction::class)->table()->bulk())
+        ->assertCanNotSeeTableRecords($postTypes)
         ->assertNotified();
 
     foreach ($postTypes as $postType) {

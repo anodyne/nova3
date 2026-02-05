@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\RestoreBulkAction;
@@ -30,8 +31,8 @@ test('an authorized user can restore a soft deleted post type', function () {
 
     livewire(PostTypesList::class)
         ->filterTable('trashed', false)
-        ->assertTableActionVisible(RestoreAction::class, $postTypeToRestore)
-        ->callTableAction(RestoreAction::class, $postTypeToRestore)
+        ->assertActionVisible(TestAction::make(RestoreAction::class)->table($postTypeToRestore))
+        ->callAction(TestAction::make(RestoreAction::class)->table($postTypeToRestore))
         ->assertNotified();
 
     assertNotSoftDeleted(PostType::class, [
@@ -45,15 +46,19 @@ test('the restore action is not available for non-deleted records', function () 
     $postType = PostType::factory()->create();
 
     livewire(PostTypesList::class)
-        ->assertTableActionHidden(RestoreAction::class, $postType);
+        ->assertActionHidden(TestAction::make(RestoreAction::class)->table($postType));
 });
 
 test('an authorized user can bulk restore soft deleted post types', function () {
     $postTypesToRestore = PostType::onlyTrashed()->limit(3)->get();
 
     livewire(PostTypesList::class)
+        ->assertCanNotSeeTableRecords($postTypesToRestore)
         ->filterTable('trashed', false)
-        ->callTableBulkAction(RestoreBulkAction::class, $postTypesToRestore)
+        ->selectTableRecords($postTypesToRestore)
+        ->callAction(TestAction::make(RestoreBulkAction::class)->table()->bulk())
+        ->removeTableFilters()
+        ->assertCanSeeTableRecords($postTypesToRestore)
         ->assertNotified();
 
     foreach ($postTypesToRestore as $postType) {

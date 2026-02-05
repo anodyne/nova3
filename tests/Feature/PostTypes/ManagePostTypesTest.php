@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
@@ -28,9 +29,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.create'));
 
     test('can view the list post types page', function () {
         get(route('admin.post-types.index'))->assertSuccessful();
@@ -87,61 +86,59 @@ describe('authorized user', function () {
 });
 
 describe('authorized user with post type create permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.create'));
 
     test('has the correct permissions', function () {
+        $postType = $this->postTypes->first();
+
         livewire(PostTypesList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->postTypes->first())
-            ->assertTableActionHidden(EditAction::class, $this->postTypes->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->postTypes->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($postType))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($postType))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($postType));
     });
 });
 
 describe('authorized user with post type delete permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.delete');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.delete'));
 
     test('has the correct permissions', function () {
+        $postType = $this->postTypes->first();
+
         livewire(PostTypesList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->postTypes->first())
-            ->assertTableActionHidden(EditAction::class, $this->postTypes->first())
-            ->assertTableActionVisible(DeleteAction::class, $this->postTypes->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($postType))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($postType))
+            ->assertActionVisible(TestAction::make(DeleteAction::class)->table($postType));
     });
 });
 
 describe('authorized user with post type update permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.update'));
 
     test('has the correct permissions', function () {
+        $postType = $this->postTypes->first();
+
         livewire(PostTypesList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->postTypes->first())
-            ->assertTableActionVisible(EditAction::class, $this->postTypes->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->postTypes->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($postType))
+            ->assertActionVisible(TestAction::make(EditAction::class)->table($postType))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($postType));
     });
 });
 
 describe('authorized user with post type view permissions', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.view');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.view'));
 
     test('has the correct permissions', function () {
+        $postType = $this->postTypes->first();
+
         livewire(PostTypesList::class)
-            ->assertTableActionVisible(ViewAction::class, $this->postTypes->first())
-            ->assertTableActionHidden(EditAction::class, $this->postTypes->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->postTypes->first());
+            ->assertActionVisible(TestAction::make(ViewAction::class)->table($postType))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($postType))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($postType));
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the manage post types page', function () {
         get(route('admin.post-types.index'))->assertForbidden();
