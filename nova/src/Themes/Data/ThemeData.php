@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Data;
 
+use Bag\Attributes\Transforms;
 use Bag\Bag;
+use Illuminate\Http\Request;
 use Nova\Addons\Data\AddonRepository;
 use Nova\Foundation\Enums\BasicStatus;
 
@@ -23,4 +25,18 @@ readonly class ThemeData extends Bag
         public ?ThemeSettings $settings,
         public ?AddonRepository $repository
     ) {}
+
+    #[Transforms(Request::class)]
+    protected static function fromRequest(Request $request): array
+    {
+        return [
+            'name' => $request->input('name'),
+            'location' => $request->input('location'),
+            'version' => $request->input('version'),
+            'credits' => $request->input('credits'),
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
+            'preview' => $request->input('preview'),
+            'settings' => ThemeSettings::from(fonts: $request->array('settings.fonts'), settings: []),
+        ];
+    }
 }

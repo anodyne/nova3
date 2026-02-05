@@ -43,7 +43,11 @@ class ThemePolicy
 
     public function delete(User $user, Theme $theme): Response
     {
-        return $user->isAbleTo('theme.delete') && Theme::count() > 1 && settings('appearance.theme') !== $theme->location
+        if (Theme::count() <= 1) {
+            return $this->deny();
+        }
+
+        return $user->isAbleTo('theme.delete') && settings('appearance.theme') !== $theme->location
             ? $this->allow()
             : $this->deny();
     }

@@ -1,7 +1,7 @@
 <x-filament.modal-content :$action title="Delete theme?">
     <p>
         Are you sure you want to delete the
-        <strong class="font-semibold">{{ $record->name }}</strong>
+        <strong>{{ $record->name }}</strong>
         theme?
     </p>
 

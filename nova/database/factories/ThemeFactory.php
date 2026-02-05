@@ -25,6 +25,17 @@ class ThemeFactory extends Factory
             'location' => Str::slug($name),
             'status' => BasicStatus::Active,
             'preview' => 'preview.jpg',
+            'version' => '1.0',
+            'settings' => [
+                'fonts' => [
+                    'headerProvider' => '',
+                    'headerFamily' => '',
+                    'bodyProvider' => '',
+                    'bodyFamily' => '',
+                    'monoProvider' => 'local',
+                    'monoFamily' => 'Monaspace Neon',
+                ],
+            ],
         ];
     }
 

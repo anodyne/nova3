@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Livewire;
 
-use Filament\Actions\Action;
+use Anodyne\TablerIcons\Tabler;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -12,16 +12,15 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\HtmlString;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Actions\InstallTheme;
@@ -44,14 +43,12 @@ class ThemesList extends TableComponent
                     ->prefix('themes/')
                     ->searchable()
                     ->toggleable(),
-
-                // FIXME: This should be able to use null for the falseIcon
                 IconColumn::make('is_current_public_theme')
                     ->label('Current theme')
-                    ->trueIcon(Icon::CheckCircle)
-                    ->falseIcon(Icon::XmarkCircle)
+                    ->trueIcon(Tabler::CircleCheck)
+                    ->falseIcon('')
+                    ->alignCenter()
                     ->toggleable(),
-
                 TextColumn::make('repository.type')
                     ->label('Checking version from')
                     ->badge()
@@ -77,13 +74,14 @@ class ThemesList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('goToUpdate')
-                            ->icon(Icon::CloudShare)
+                            ->icon(Tabler::CloudShare)
                             ->url(fn (Theme $record): ?string => $record->update_url)
                             ->visible(fn (Theme $record): bool => $record->has_update),
                     ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.themes.delete')
                             ->successNotificationTitle(fn (Theme $record): string => $record->name.' theme was deleted')
                             ->using(fn (Theme $record): Theme => DeleteTheme::run($record)),
@@ -93,19 +91,14 @@ class ThemesList extends TableComponent
             ->filters([
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
-            ->headerActions([
+            ->toolbarActions([
                 Action::make('install')
                     ->authorize('create')
                     ->label('Themes available to install')
-                    ->icon(Icon::Sparkles)
+                    ->icon(Tabler::Sparkles)
                     ->color('gray')
                     ->visible(fn (): bool => Theme::hasInstallableThemes())
-                    ->modalWidth('xl')
-                    ->modalIcon(null)
-                    ->modalHeading('')
-                    ->modalDescription(null)
-                    ->modalSubmitActionLabel('Install')
-                    ->modalContent(fn (): View => view('pages.themes.pending-themes'))
+                    ->modalContentView('pages.themes.pending-themes')
                     ->schema([
                         CheckboxList::make('themes')
                             ->options(Theme::getInstallableThemes()->flatMap(fn ($theme): array => [$theme => $theme]))
@@ -152,7 +145,7 @@ class ThemesList extends TableComponent
                         $notification->send();
                     }),
             ])
-            ->emptyStateIcon(Icon::PaintBrush)
+            ->emptyStateIcon(Tabler::Brush)
             ->emptyStateHeading('No theme found')
             ->emptyStateDescription("Themes allow you to personalize your public-facing site to reflect your game's personality.")
             ->emptyStateActions([

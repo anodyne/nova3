@@ -94,3 +94,27 @@ function updateSettings(callable $callback)
 
     $settings->save();
 }
+
+function themePayload(array $overrides = []): array
+{
+    $data = [
+        'name' => 'Test Theme',
+        'location' => 'TestTheme',
+        'version' => '1.0',
+        'preview' => 'preview.png',
+        'credits' => 'Test credits',
+        'status' => 'true',
+        'settings' => [
+            'fonts' => [
+                'headerProvider' => 'local',
+                'headerFamily' => 'Inter',
+                'bodyProvider' => 'local',
+                'bodyFamily' => 'Inter',
+                'monoProvider' => 'local',
+                'monoFamily' => 'Monaspace Neon',
+            ],
+        ],
+    ];
+
+    return array_replace_recursive($data, $overrides);
+}
