@@ -4,41 +4,118 @@ on: ["push", "pull_request"]
 
 jobs:
   run-tests:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        php: [8.4]
-        laravel: [12]
+        php: [8.4, 8.5]
+        include:
+          # --- MySQL ---
+          - db_name: mysql
+            db_version: "8.0"
+            db_port: 3306
+            db_user: root
+            db_pass: password
+            db_database: test
+            db_image: "mysql:8.0"
+            db_health: "mysqladmin ping -h 127.0.0.1 -uroot -ppassword --silent"
+          - db_name: mysql
+            db_version: "8.4"
+            db_port: 3306
+            db_user: root
+            db_pass: password
+            db_database: test
+            db_image: "mysql:8.4"
+            db_health: "mysqladmin ping -h 127.0.0.1 -uroot -ppassword --silent"
+
+          # --- MariaDB (LTS + current GA) ---
+          - db_name: mariadb
+            db_version: "10.11"
+            db_port: 3306
+            db_user: root
+            db_pass: password
+            db_database: test
+            db_image: "mariadb:10.11"
+            db_health: "mysqladmin ping -h 127.0.0.1 -uroot -ppassword --silent"
+          - db_name: mariadb
+            db_version: "11.4"
+            db_port: 3306
+            db_user: root
+            db_pass: password
+            db_database: test
+            db_image: "mariadb:11.4"
+            db_health: "mysqladmin ping -h 127.0.0.1 -uroot -ppassword --silent"
+
+          # --- Postgres ---
+          - db_name: pgsql
+            db_version: "16"
+            db_port: 5432
+            db_user: postgres
+            db_pass: password
+            db_database: test
+            db_image: "postgres:16"
+            db_health: "pg_isready -h 127.0.0.1 -p 5432 -U postgres"
+          - db_name: pgsql
+            db_version: "17"
+            db_port: 5432
+            db_user: postgres
+            db_pass: password
+            db_database: test
+            db_image: "postgres:17"
+            db_health: "pg_isready -h 127.0.0.1 -p 5432 -U postgres"
+
+    name: PHP ${{ matrix.php }} • ${{ matrix.db_name }} ${{ matrix.db_version }}
+
+    env:
+      APP_ENV: testing
+      APP_KEY: base64:placeholderkeywillbeoverwritten=
+      CACHE_DRIVER: array
+      SESSION_DRIVER: array
+      QUEUE_CONNECTION: sync
+      BROADCAST_DRIVER: log
+      DB_HOST: 127.0.0.1
 
     services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: password
+      db:
+        image: ${{ matrix.db_image }}
         ports:
-          - 3306:3306
+          - ${{ matrix.db_port }}:${{ matrix.db_port }}
+        env:
+          # MySQL/MariaDB
+          MYSQL_DATABASE: ${{ matrix.db_database }}
+          MYSQL_ROOT_PASSWORD: ${{ matrix.db_pass }}
+          # Postgres
+          POSTGRES_DB: ${{ matrix.db_database }}
+          POSTGRES_USER: ${{ matrix.db_user }}
+          POSTGRES_PASSWORD: ${{ matrix.db_pass }}
         options: >-
-          --health-cmd="mysqladmin ping"
+          --health-cmd="${{ matrix.db_health }}"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=3
-
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.os }}
+          --health-retries=20
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          extensions: >
+            dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite,
+            bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo,
+            pdo_mysql, pdo_pgsql
           coverage: none
+          ini-values: opcache.enable_cli=1
+
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -53,13 +130,60 @@ jobs:
           php artisan key:generate
           php artisan key:generate --env=testing
 
+      - name: Set DB env
+        run: |
+          if [ "${{ matrix.db_name }}" = "pgsql" ]; then
+            echo "DB_CONNECTION=pgsql" >> $GITHUB_ENV
+            echo "DB_PORT=${{ matrix.db_port }}" >> $GITHUB_ENV
+            echo "DB_DATABASE=${{ matrix.db_database }}" >> $GITHUB_ENV
+            echo "DB_USERNAME=${{ matrix.db_user }}" >> $GITHUB_ENV
+            echo "DB_PASSWORD=${{ matrix.db_pass }}" >> $GITHUB_ENV
+          else
+            echo "DB_CONNECTION=mysql" >> $GITHUB_ENV
+            echo "DB_PORT=${{ matrix.db_port }}" >> $GITHUB_ENV
+            echo "DB_DATABASE=${{ matrix.db_database }}" >> $GITHUB_ENV
+            echo "DB_USERNAME=${{ matrix.db_user }}" >> $GITHUB_ENV
+            echo "DB_PASSWORD=${{ matrix.db_pass }}" >> $GITHUB_ENV
+          fi
+
       - name: Directory permissions
         run: chmod -R 777 storage nova/bootstrap/cache
 
-      - name: Run testsuite
+      - name: Wait for DB healthy
         run: |
-          php artisan migrate
-          ./vendor/bin/pest --parallel
+          for i in {1..90}; do
+            if [ "${{ matrix.db_name }}" = "pgsql" ]; then
+              pg_isready -h 127.0.0.1 -p ${{ matrix.db_port }} -U ${{ matrix.db_user }} && break
+            else
+              mysqladmin ping -h 127.0.0.1 -u${{ matrix.db_user }} -p${{ matrix.db_pass }} --silent && break
+            fi
+            sleep 1
+          done
+
+      - name: Run migrations
+        run: php artisan migrate --no-interaction --force
+
+      - name: Run testsuite
+        run: ./vendor/bin/pest --parallel
+
+      - name: Upload CI context (on failure)
+        if: failure()
+        run: |
+          php -v > php-version.txt
+          composer show > composer-show.txt
+          php artisan about > laravel-about.txt || true
+        shell: bash
+
+      - name: Upload context artifacts (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-context-${{ matrix.php }}-${{ matrix.db_name }}-${{ matrix.db_version }}
+          path: |
+            php-version.txt
+            composer-show.txt
+            laravel-about.txt
+          retention-days: 7
 
       - name: Deploy to Forge
         if: github.ref == 'refs/heads/dev'
