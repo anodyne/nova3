@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Filament\Actions\Testing\TestAction;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Facades\Storage;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -20,10 +21,11 @@ uses()->group('themes');
 beforeEach(function () {
     $this->themes = Theme::factory()
         ->count(6)
-        ->sequence(
-            ['status' => BasicStatus::Active],
-            ['status' => BasicStatus::Inactive],
-        )
+        ->sequence(fn (Sequence $sequence): array => [
+            'name' => 'Theme '.($sequence->index + 1),
+            'location' => 'theme-'.($sequence->index + 1),
+            'status' => $sequence->index % 2 === 0 ? BasicStatus::Active : BasicStatus::Inactive,
+        ])
         ->create();
 });
 
