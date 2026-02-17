@@ -16,8 +16,7 @@ use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Laravel\assertSoftDeleted;
 use function Pest\Livewire\livewire;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 beforeEach(function () {
     $this->postTypes = PostType::factory()->count(10)->create();

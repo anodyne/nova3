@@ -11,8 +11,7 @@ use function Pest\Laravel\from;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 describe('authorized user', function () {
     beforeEach(fn () => signIn(permissions: 'post-type.create'));

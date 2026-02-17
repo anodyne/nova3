@@ -15,8 +15,7 @@ use Nova\Stories\Models\PostType;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 beforeEach(function () {
     $this->postTypes = PostType::factory()

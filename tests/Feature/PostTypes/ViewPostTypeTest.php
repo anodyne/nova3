@@ -6,8 +6,7 @@ use Nova\Stories\Models\PostType;
 
 use function Pest\Laravel\get;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 beforeEach(function () {
     $this->postType = PostType::factory()->create();

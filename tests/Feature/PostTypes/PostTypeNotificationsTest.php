@@ -14,8 +14,7 @@ use Nova\Stories\Models\States\PostStatus\Draft;
 use Nova\Stories\Notifications\PostPublished;
 use Nova\Users\Models\User;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 test('publishing a post notifies active users when post type notifications are enabled', function () {
     Notification::fake();
