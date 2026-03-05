@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Actions\Action;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
@@ -13,7 +14,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Renderless;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Stories\Actions\UnlockPost;
 use Nova\Stories\Actions\UpdatePostPosition;
@@ -71,7 +71,7 @@ class PostPublish extends SlideOver
             ->actions([
                 Action::make('refresh')
                     ->color('gray')
-                    ->icon(Icon::Reload)
+                    ->icon(Tabler::Reload)
                     ->url(route('admin.posts.edit', $this->post)),
             ])
             ->send();

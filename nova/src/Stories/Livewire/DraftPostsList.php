@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Support\Enums\FontWeight;
 use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Filament\Actions\Action;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Models\Post;
 
@@ -52,12 +53,14 @@ class DraftPostsList extends TableComponent
                 Split::make([
                     Stack::make([
                         ViewColumn::make('title')
-                            ->view('filament.tables.columns.post-title', ['tight' => true, 'locked' => false]),
+                            ->view('filament.tables.columns.post-title', ['tight' => true, 'locked' => false])
+                            ->searchable(),
                         Split::make([
                             TextColumn::make('story.title')
                                 ->color('gray')
                                 ->weight(FontWeight::Medium)
-                                ->grow(false),
+                                ->grow(false)
+                                ->searchable(),
                             TextColumn::make('locationDayTime')
                                 ->size(TextSize::Small)
                                 ->color('gray')
@@ -83,19 +86,25 @@ class DraftPostsList extends TableComponent
                                 return null;
                             })
                             ->color('gray')
-                            ->icon(Icon::LockClosed)
+                            ->icon(Tabler::Lock)
                             ->alignEnd(),
                     ])->extraAttributes(['class' => 'gap-y-1.5'])->grow(false),
                 ]),
             ])
-            ->emptyStateIcon(Icon::Write)
+            ->filters([
+                SelectFilter::make('post_type_id')
+                    ->relationship('postType', 'name')
+                    ->multiple()
+                    ->preload(),
+            ])
+            ->emptyStateIcon(Tabler::Edit)
             ->emptyStateHeading('You don’t have any draft posts')
             ->emptyStateDescription('Start writing a post to join in on the fun.')
             ->emptyStateActions([
                 Action::make('write')
                     ->url(route('admin.posts.create'))
                     ->label('Start writing')
-                    ->icon(Icon::Write)
+                    ->icon(Tabler::Edit)
                     ->authorize('create'),
             ]);
     }

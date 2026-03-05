@@ -3,39 +3,25 @@
 <div>
     @if ($stories->count() > 0)
         <x-spacing>
-            <div class="flex items-center gap-x-8">
-                <div class="flex items-center">
-                    <x-input.field>
-                        <x-slot name="leading">
-                            <select
-                                aria-label="Story sort field"
-                                class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:ring-0 focus:outline-none sm:text-sm dark:text-white"
-                                wire:model.live="sortField"
-                            >
-                                <option value="order_column">Sort by timeline order</option>
-                                <option value="started_at">Sort by start date</option>
-                                <option value="ended_at">Sort by end date</option>
-                            </select>
-                        </x-slot>
+            <div class="flex items-center gap-8">
+                <x-input.group class="max-w-fit">
+                    <x-select wire:model.live="sortField" class="max-w-fit">
+                        <option value="order_column">Sort by timeline order</option>
+                        <option value="started_at">Sort by start date</option>
+                        <option value="ended_at">Sort by end date</option>
+                    </x-select>
 
-                        <select
-                            aria-label="Story sort direction"
-                            class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:ring-0 focus:outline-none sm:text-sm dark:text-white"
-                            wire:model.live="sortDirection"
-                        >
-                            <option value="desc">Newest first</option>
-                            <option value="asc">Oldest first</option>
-                        </select>
-                    </x-input.field>
-                </div>
+                    <x-select wire:model.live="sortDirection" class="max-w-fit">
+                        <option value="desc">Newest first</option>
+                        <option value="asc">Oldest first</option>
+                    </x-select>
+                </x-input.group>
 
                 @can('viewAny', Story::class)
-                    <div class="flex items-center">
-                        <x-button :href="route('admin.stories.index')" color="primary">
-                            <x-icon :name="Icon::Settings" size="sm"></x-icon>
-                            Manage stories
-                        </x-button>
-                    </div>
+                    <x-button :href="route('admin.stories.index')">
+                        <x-icon :name="Tabler::Settings" size="sm" />
+                        Manage stories
+                    </x-button>
                 @endcan
             </div>
 
@@ -44,13 +30,13 @@
             </div>
         </x-spacing>
     @else
-        <x-empty-state variant="jumbo">
-            <x-icon :name="Icon::BookClosed"></x-icon>
-            <x-h2>No stories found</x-h2>
+        <x-empty variant="jumbo">
+            <x-illustration :name="Illustration::Book" />
+            <x-empty.heading>No stories found</x-empty.heading>
 
             @can('create', Story::class)
-                <x-button :href="route('admin.stories.create')" color="primary">Add your first story</x-button>
+                <x-button :href="route('admin.stories.create')" variant="primary">Add your first story</x-button>
             @endcan
-        </x-empty-state>
+        </x-empty>
     @endif
 </div>

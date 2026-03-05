@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <x-page-header></x-page-header>
+    <x-page-heading></x-page-heading>
 
-    <livewire:posts-timeline />
+    <livewire:stories-published-posts-list :multi-story="true" />
 </x-admin-layout>

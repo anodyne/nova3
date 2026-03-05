@@ -48,7 +48,7 @@ class UpdatePostAuthors
     {
         $post->characterAuthors
             ->diff($data->originalCharacters)
-            ->each(fn (Character $character) => $character->pivot->user->notify(new CharacterAuthorAddedToPost($post, $character)));
+            ->each(fn (Character $character) => $character->pivot->user?->notify(new CharacterAuthorAddedToPost($post, $character)));
 
         $post->userAuthors
             ->diff($data->originalUsers)
@@ -59,7 +59,7 @@ class UpdatePostAuthors
     {
         $data->originalCharacters
             ->diff($post->characterAuthors)
-            ->each(fn (Character $character) => $character->pivot->user->notify(new CharacterAuthorRemovedFromPost($post, $character)));
+            ->each(fn (Character $character) => $character->pivot->user?->notify(new CharacterAuthorRemovedFromPost($post, $character)));
 
         $data->originalUsers
             ->diff($post->userAuthors)

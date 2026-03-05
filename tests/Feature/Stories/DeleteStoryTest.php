@@ -14,7 +14,7 @@ use function Pest\Laravel\from;
 use function Pest\Laravel\get;
 use function PHPUnit\Framework\assertCount;
 
-uses()->group('stories');
+uses()->group('stories', 'storytelling');
 
 beforeEach(function () {
     $this->story = Story::factory()

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Actions\Action;
 use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
@@ -21,7 +22,6 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\ApprovePost;
 use Nova\Stories\Actions\DeletePost;
@@ -126,7 +126,7 @@ class PostsList extends TableComponent
                             ->url(fn (Post $record): string => route('admin.posts.edit', $record)),
                         Action::make('approve')
                             ->authorize('approve')
-                            ->icon(Icon::CheckCircle)
+                            ->icon(Tabler::CircleCheck)
                             ->modalContent(fn (Post $record, Action $action): View => view('pages.posts.approve', [
                                 'record' => $record,
                                 'action' => $action,
@@ -148,16 +148,16 @@ class PostsList extends TableComponent
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
-                                    ->itemIcon('locked', Icon::LockClosed->value)
-                                    ->itemIcon('unlocked', Icon::LockOpen->value)
-                                    ->itemIcon('published', Icon::CheckCircle->value)
+                                    ->itemIcon('locked', Tabler::Lock->value)
+                                    ->itemIcon('unlocked', Tabler::LockOpen->value)
+                                    ->itemIcon('published', Tabler::CircleCheck->value)
                                     ->itemIconColor('published', 'primary');
                             }),
                     ])->divided(),
 
                     ActionGroup::make([
                         Action::make('unlock')
-                            ->icon(Icon::LockOpen)
+                            ->icon(Tabler::LockOpen)
                             ->label('Release lock')
                             ->successNotificationTitle(fn (Post $record): string => $record->title.' post has been unlocked')
                             ->action(fn (Post $record): mixed => ForceUnlockPost::run($record))
@@ -198,13 +198,13 @@ class PostsList extends TableComponent
                         blank: fn (Builder $query): Builder => $query
                     ),
             ])
-            ->emptyStateIcon(Icon::Write)
+            ->emptyStateIcon(Tabler::Edit)
             ->emptyStateHeading('No story posts found')
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Start writing')
-                    ->icon(Icon::Write)
+                    ->icon(Tabler::Edit)
                     ->url(route('admin.posts.create')),
             ]);
     }

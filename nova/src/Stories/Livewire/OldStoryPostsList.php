@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -15,7 +16,6 @@ use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Models\Post;
@@ -115,12 +115,12 @@ class StoryPostsList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('create-before')
-                            ->icon(Icon::MoveUp)
+                            ->icon(Tabler::ArrowUpSquare)
                             ->color('gray')
                             ->label('Before this post')
                             ->url(fn (Post $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'before'])),
                         Action::make('create-after')
-                            ->icon(Icon::MoveDown)
+                            ->icon(Tabler::ArrowDownSquare)
                             ->color('gray')
                             ->label('After this post')
                             ->url(fn (Post $record): string => route('admin.posts.create', ['neighbor' => $record, 'direction' => 'after'])),
@@ -147,7 +147,7 @@ class StoryPostsList extends TableComponent
                     ->preload()
                     ->visible(request()->route('story') === null),
             ])
-            ->emptyStateIcon(Icon::Write)
+            ->emptyStateIcon(Tabler::Edit)
             ->emptyStateHeading('No posts found');
     }
 }

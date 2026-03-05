@@ -19,7 +19,7 @@ use function Pest\Laravel\put;
 use function Pest\Livewire\livewire;
 use function PHPUnit\Framework\assertCount;
 
-uses()->group('stories');
+uses()->group('stories', 'storytelling');
 
 beforeEach(function () {
     $this->story = Story::factory()->create();

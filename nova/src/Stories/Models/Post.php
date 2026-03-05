@@ -4,17 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
-use Nova\Stories\Models\Concerns\HasContentRatings;
-use Nova\Stories\Events\PostCreating;
-use Nova\Stories\Events\PostCreated;
-use Nova\Stories\Events\PostDeleted;
-use Nova\Stories\Events\PostSaved;
-use Nova\Stories\Events\PostSaving;
-use Nova\Stories\Events\PostUpdated;
-use Nova\Stories\Models\States\PostStatus\Draft;
-use Nova\Stories\Models\States\PostStatus\Pending;
-use Nova\Stories\Models\States\PostStatus\Published;
-use Nova\Stories\Models\States\PostStatus\Started;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -31,9 +20,19 @@ use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Foundation\Helpers\TimeHelper;
 use Nova\Foundation\Models\Model;
 use Nova\Stories\Enums\ContentRatingValue;
-use Nova\Stories\Events;
+use Nova\Stories\Events\PostCreated;
+use Nova\Stories\Events\PostCreating;
+use Nova\Stories\Events\PostDeleted;
+use Nova\Stories\Events\PostSaved;
+use Nova\Stories\Events\PostSaving;
+use Nova\Stories\Events\PostUpdated;
 use Nova\Stories\Models\Builders\PostBuilder;
+use Nova\Stories\Models\Concerns\HasContentRatings;
 use Nova\Stories\Models\States\PostStatus;
+use Nova\Stories\Models\States\PostStatus\Draft;
+use Nova\Stories\Models\States\PostStatus\Pending;
+use Nova\Stories\Models\States\PostStatus\Published;
+use Nova\Stories\Models\States\PostStatus\Started;
 use Nova\Stories\Observers\PostObserver;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
@@ -95,9 +94,8 @@ class Post extends Model implements Sortable
     public function participatingUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'post_author')
-            // ->withPivot(['post_id', 'user_id', 'word_count'])
+            ->withTrashed()
             ->withPivot(['post_id', 'user_id', 'updated_at', 'word_count']);
-        // ->groupBy('pivot_user_id', 'pivot_post_id')
     }
 
     public function characterAuthors(): MorphToMany
@@ -112,6 +110,7 @@ class Post extends Model implements Sortable
     {
         return $this->morphedByMany(User::class, 'authorable', 'post_author')
             ->withPivot(['as', 'user_id'])
+            ->withTrashed()
             ->using(PostAuthor::class)
             ->withTimestamps();
     }
@@ -123,12 +122,18 @@ class Post extends Model implements Sortable
 
     public function postType(): BelongsTo
     {
-        return $this->belongsTo(PostType::class)->withTrashed();
+        /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
+        $relation = $this->belongsTo(PostType::class)->withTrashed();
+
+        return $relation;
     }
 
     public function lockOwner(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'locked_by');
+        /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
+        $relation = $this->belongsTo(User::class, 'locked_by')->withTrashed();
+
+        return $relation;
     }
 
     public function isDraft(): Attribute

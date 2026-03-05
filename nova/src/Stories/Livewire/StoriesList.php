@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Actions\Action;
+use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\Summarizers\Average;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,13 +20,11 @@ use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Filament\Forms\Components\DatePicker;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\UpdateStory;
-use Nova\Stories\Actions\UpdateStoryStatus;
+use Nova\Stories\Data\StoryData;
 use Nova\Stories\Models\Story;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
@@ -43,12 +44,17 @@ class StoriesList extends TableComponent
                         'id',
                         'order_column',
                         'parent_id',
+                        'summary',
                         'started_at',
                         'status',
                         'title',
                     ])
             )
+            ->recordUrl(fn (Story $record): string => route('admin.stories.show', $record))
             ->defaultSort('order_column', 'asc')
+            ->groups([
+                Group::make('status')->collapsible(),
+            ])
             ->columns([
                 TextColumn::make('title')
                     ->wrap()
@@ -64,10 +70,10 @@ class StoriesList extends TableComponent
                     ->counts('posts')
                     ->label('# of posts')
                     ->alignCenter()
-                    // ->summarize([
-                    //     Sum::make()->label('Total posts'),
-                    //     Average::make()->label('Avg posts / story'),
-                    // ])
+                    ->summarize([
+                        Sum::make()->label('Total posts'),
+                        Average::make()->label('Avg posts / story'),
+                    ])
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('recursive_posts_count')
@@ -83,12 +89,12 @@ class StoriesList extends TableComponent
                     ->label('# of words')
                     ->numeric()
                     ->alignCenter()
-                    // ->summarize([
-                    //     Sum::make()->label('Total words'),
-                    //     Average::make()
-                    //         ->label('Avg words / story')
-                    //         ->numeric(decimalPlaces: 2),
-                    // ])
+                    ->summarize([
+                        Sum::make()->label('Total words'),
+                        Average::make()
+                            ->label('Avg words / story')
+                            ->numeric(decimalPlaces: 2),
+                    ])
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('started_at')
@@ -119,15 +125,15 @@ class StoriesList extends TableComponent
                         Action::make('dates')
                             ->authorize('updateDates')
                             ->label('Update dates')
-                            ->icon(Icon::Calendar)
+                            ->icon(Tabler::Calendar)
                             ->color('gray')
                             ->fillForm(fn (Story $record): array => [
                                 'start_date' => $record->started_at->toIso8601String(),
                                 'end_date' => $record->ended_at->toIso8601String(),
                             ])
                             ->schema([
-                                DatePicker::make('start_date')->prefixIcon(Icon::Calendar),
-                                DatePicker::make('end_date')->prefixIcon(Icon::Calendar),
+                                DatePicker::make('start_date')->native(false),
+                                DatePicker::make('end_date')->native(false),
                             ])
                             ->modalWidth('lg')
                             ->modalIcon(null)
@@ -139,9 +145,14 @@ class StoriesList extends TableComponent
                                 'action' => $action,
                             ]))
                             ->action(function (Story $record, array $data): void {
-                                $storyData = $record->getData();
-                                $storyData->startedAt = data_get($data, 'start_date');
-                                $storyData->endedAt = data_get($data, 'end_date');
+                                $storyData = StoryData::from(
+                                    $record->title,
+                                    $record->description,
+                                    data_get($data, 'start_date'),
+                                    data_get($data, 'end_date'),
+                                    $record->parent_id,
+                                    $record->summary,
+                                );
 
                                 UpdateStory::run($record, $storyData);
 
@@ -150,87 +161,26 @@ class StoriesList extends TableComponent
                                     ->body('Any future status updates to the story will change the dates you have set.')
                                     ->send();
                             }),
-                        ActionGroup::make([
-                            Action::make('statusCurrent')
-                                ->authorize('update')
-                                ->close()
-                                ->color('gray')
-                                ->label('Mark as current')
-                                ->hidden(fn (Story $record): bool => $record->is_current)
-                                ->action(function (Story $record): void {
-                                    UpdateStoryStatus::run($record, 'current');
-
-                                    Notification::make()->success()
-                                        ->title("{$record->title} status has been updated")
-                                        ->body('The story is now marked as current and can be posted into.')
-                                        ->send();
-                                }),
-                            Action::make('statusOngoing')
-                                ->authorize('update')
-                                ->close()
-                                ->color('gray')
-                                ->label('Mark as ongoing')
-                                ->hidden(fn (Story $record): bool => $record->is_ongoing)
-                                ->action(function (Story $record): void {
-                                    UpdateStoryStatus::run($record, 'ongoing');
-
-                                    Notification::make()->success()
-                                        ->title("{$record->title} status has been updated")
-                                        ->body('The story is now marked as ongoing and can be used to contain other stories.')
-                                        ->send();
-                                }),
-                            Action::make('statusCompleted')
-                                ->authorize('update')
-                                ->close()
-                                ->color('gray')
-                                ->label('Mark as completed')
-                                ->hidden(fn (Story $record): bool => $record->is_completed)
-                                ->action(function (Story $record): void {
-                                    UpdateStoryStatus::run($record, 'completed');
-
-                                    Notification::make()->success()
-                                        ->title("{$record->title} status has been updated")
-                                        ->body('The story is now marked as completed and cannot be posted into.')
-                                        ->send();
-                                }),
-                            Action::make('statusUpcoming')
-                                ->authorize('update')
-                                ->close()
-                                ->color('gray')
-                                ->label('Mark as upcoming')
-                                ->hidden(fn (Story $record): bool => $record->is_upcoming)
-                                ->action(function (Story $record): void {
-                                    UpdateStoryStatus::run($record, 'upcoming');
-
-                                    Notification::make()->success()
-                                        ->title("{$record->title} status has been updated")
-                                        ->body('The story is now marked as upcoming.')
-                                        ->send();
-                                }),
-                        ])
-                            ->grouped()
-                            ->icon(Icon::StatusChange)
-                            ->label('Change status'),
                     ])->divided(),
 
                     ActionGroup::make([
                         Action::make('create-before')
                             ->authorize('create')
-                            ->icon(Icon::MoveUp)
+                            ->icon(Tabler::ArrowUpSquare)
                             ->color('gray')
-                            ->label('Before this story')
+                            ->label('Add before this story')
                             ->url(fn (Story $record): string => route('admin.stories.create', 'direction=before&neighbor='.$record->id)),
                         Action::make('create-after')
                             ->authorize('create')
-                            ->icon(Icon::MoveDown)
+                            ->icon(Tabler::ArrowDownSquare)
                             ->color('gray')
-                            ->label('After this story')
+                            ->label('Add after this story')
                             ->url(fn (Story $record): string => route('admin.stories.create', 'direction=after&neighbor='.$record->id)),
                         Action::make('create-inside')
                             ->authorize('create')
-                            ->icon(Icon::MoveRight)
+                            ->icon(Tabler::ArrowRightSquare)
                             ->color('gray')
-                            ->label('Inside this story')
+                            ->label('Add inside this story')
                             ->url(fn (Story $record): string => route('admin.stories.create', 'parent='.$record->id)),
                     ])->divided(),
 
@@ -258,7 +208,7 @@ class StoriesList extends TableComponent
                     ActionGroup::make([
                         Action::make('delete')
                             ->authorize('delete')
-                            ->icon(Icon::Trash)
+                            ->icon(Tabler::Trash)
                             ->color('danger')
                             ->url(fn (Story $record): string => route('admin.stories.delete', $record)),
                     ])->divided(),
@@ -277,7 +227,7 @@ class StoriesList extends TableComponent
                     ->nullable()
                     ->attribute('parent_id'),
             ])
-            ->emptyStateIcon(Icon::Books)
+            ->emptyStateIcon(Tabler::Books)
             ->emptyStateHeading('No stories found')
             ->emptyStateActions([
                 CreateAction::make()

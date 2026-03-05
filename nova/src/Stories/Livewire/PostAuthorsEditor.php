@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors;
-use Nova\Stories\Livewire\Concerns\InteractsWithPost;
-use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
-use Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,6 +11,10 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Livewire\SlideOver;
+use Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors;
 use Nova\Users\Models\User;
 
 #[On('post-authors-modified')]
@@ -25,7 +25,7 @@ class PostAuthorsEditor extends SlideOver
     use InteractsWithPostType;
     use InteractsWithUserAuthors;
 
-    public string $search = '';
+    public ?string $selected = null;
 
     public function canSave(): bool
     {
@@ -109,7 +109,6 @@ class PostAuthorsEditor extends SlideOver
         return Character::query()
             ->active()
             ->whereNotIn('id', array_keys($this->characterAuthorsPivotData))
-            ->when(filled($this->search), fn (Builder $query): Builder => $query->searchForWithoutUsers($this->search))
             ->get();
     }
 
@@ -123,7 +122,7 @@ class PostAuthorsEditor extends SlideOver
         return User::query()
             ->active()
             ->whereNotIn('id', array_keys($this->userAuthorsPivotData))
-            ->when(filled($this->search), fn (Builder $query): Builder => $query->searchForWithoutCharacters($this->search))
+            // ->when(filled($this->search), fn (Builder $query): Builder => $query->searchForWithoutCharacters($this->search))
             ->get();
     }
 

@@ -11,7 +11,7 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
-use Nova\Foundation\Icons\Icon;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Models\Post;
 
@@ -62,7 +62,9 @@ class RecentPublishedPostsList extends TableComponent
                     ]),
                 ]),
             ])
-            ->emptyStateIcon(Icon::Write)
-            ->emptyStateHeading('No published posts found');
+            ->emptyStateIcon(Illustration::InkPenDrawing)
+            ->emptyStateHeading('No published posts found')
+            ->heading('Recently published posts')
+            ->description('Posts that have been published in the last 30 days');
     }
 }

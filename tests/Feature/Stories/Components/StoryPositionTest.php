@@ -7,8 +7,7 @@ use Nova\Stories\Models\Story;
 
 use function Pest\Livewire\livewire;
 
-uses()->group('stories');
-uses()->group('components');
+uses()->group('stories', 'storytelling', 'components');
 
 beforeEach(function () {
     $this->story1 = Story::factory()
