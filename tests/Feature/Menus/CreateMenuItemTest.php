@@ -23,14 +23,17 @@ describe('authorized user', function () {
     test('can create a menu item', function () {
         Event::fake();
 
-        $data = MenuItem::factory()->make();
+        $data = MenuItem::factory()->forRequest();
 
         from(route('admin.menu-items.create'))
             ->followingRedirects()
-            ->post(route('admin.menu-items.store'), $data->toArray())
+            ->post(route('admin.menu-items.store'), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(MenuItem::class, $data->toArray());
+        assertDatabaseHas(MenuItem::class, [
+            'label' => $data->model->label,
+            'status' => 'active',
+        ]);
 
         Event::assertDispatched(MenuItemCreated::class);
     });

@@ -10,6 +10,7 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\from;
 use function Pest\Laravel\get;
 use function Pest\Laravel\put;
+use function Pest\Laravel\withoutExceptionHandling;
 
 uses()->group('menus');
 
@@ -27,14 +28,17 @@ describe('authorized user', function () {
     test('can update a menu item', function () {
         Event::fake();
 
-        $data = MenuItem::factory()->make();
+        $data = MenuItem::factory()->forRequest();
 
         from(route('admin.menu-items.edit', $this->menuItem))
             ->followingRedirects()
-            ->put(route('admin.menu-items.update', $this->menuItem), $data->toArray())
+            ->put(route('admin.menu-items.update', $this->menuItem), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(MenuItem::class, $data->toArray());
+        assertDatabaseHas(MenuItem::class, [
+            'label' => $data->model->label,
+            'status' => 'active',
+        ]);
 
         Event::assertDispatched(MenuItemUpdated::class);
     });
@@ -56,6 +60,8 @@ describe('authorized user', function () {
     });
 
     test('can update a menu item status from active to inactive', function () {
+        withoutExceptionHandling();
+
         $menuItem = MenuItem::factory()->active()->create();
 
         $data = MenuItem::factory()->inactive()->forRequest();
@@ -67,6 +73,7 @@ describe('authorized user', function () {
 
         assertDatabaseHas(MenuItem::class, [
             'id' => $menuItem->id,
+            'label' => data_get($data->payload, 'label'),
             'status' => 'inactive',
         ]);
     });
