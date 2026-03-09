@@ -14,7 +14,7 @@ use Nova\Settings\Enums\AvatarShape;
 use Nova\Settings\Enums\AvatarStyle;
 
 /**
- * @method static static from(string $theme, AvatarShape $avatarShape, AvatarStyle $avatarStyle, ?string $imagePath, string $colorsGray, string $colorsPrimary, string $colorsDanger, string $colorsWarning, string $colorsSuccess, string $colorsInfo, FontFamilies $adminFonts, bool $panda)
+ * @method static static from(string $theme, AvatarShape $avatarShape, AvatarStyle $avatarStyle, string $colorsGray, string $colorsPrimary, string $colorsDanger, string $colorsWarning, string $colorsSuccess, string $colorsInfo, FontFamilies $adminFonts)
  */
 #[MapInputName(SnakeCase::class)]
 readonly class Appearance extends Bag
@@ -23,15 +23,13 @@ readonly class Appearance extends Bag
         public string $theme,
         public AvatarShape $avatarShape,
         public AvatarStyle $avatarStyle,
-        public ?string $imagePath,
         public string $colorsGray,
         public string $colorsPrimary,
         public string $colorsDanger,
         public string $colorsWarning,
         public string $colorsSuccess,
         public string $colorsInfo,
-        public FontFamilies $adminFonts,
-        public bool $panda,
+        public FontFamilies $adminFonts
     ) {}
 
     public function getColors(): array
@@ -46,6 +44,15 @@ readonly class Appearance extends Bag
         ];
     }
 
+    public function getColorFromSemanticColor(string $semanticColor): string
+    {
+        $semanticColor = ucfirst($semanticColor);
+
+        $property = "colors{$semanticColor}";
+
+        return strtolower($this->{$property});
+    }
+
     protected function processColor(string $color): array
     {
         if (is_string($color) && str_starts_with($color, '#')) {
@@ -56,7 +63,9 @@ readonly class Appearance extends Bag
             return Color::generateV3Palette($color);
         }
 
-        return constant('Nova\Foundation\Colors\Color::'.$color);
+        return collect(constant('Nova\Foundation\Colors\Color::'.$color))
+            ->union(Color::additionalShades($color))
+            ->all();
     }
 
     #[Transforms(Request::class)]
@@ -64,9 +73,8 @@ readonly class Appearance extends Bag
     {
         return [
             'theme' => $request->input('theme'),
-            'avatarShape' => AvatarShape::tryFrom($request->input('avatar_shape')) ?? AvatarShape::None,
+            'avatarShape' => AvatarShape::tryFrom($request->input('avatar_shape')) ?? AvatarShape::Square,
             'avatarStyle' => AvatarStyle::tryFrom($request->input('avatar_style')) ?? AvatarStyle::BigEarsNeutral,
-            'imagePath' => $request->input('image_path'),
             'colorsGray' => $request->input('colors_gray'),
             'colorsPrimary' => $request->input('colors_primary'),
             'colorsDanger' => $request->input('colors_danger'),
@@ -74,7 +82,6 @@ readonly class Appearance extends Bag
             'colorsSuccess' => $request->input('colors_success'),
             'colorsInfo' => $request->input('colors_info'),
             'adminFonts' => FontFamilies::from($request),
-            'panda' => $request->boolean('panda', false),
         ];
     }
 }

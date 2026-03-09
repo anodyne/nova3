@@ -25,11 +25,11 @@ readonly class Applications extends Bag
     protected static function fromRequest(Request $request): array
     {
         return [
-            'enabled' => $request->boolean('enabled', true),
+            'enabled' => $request->boolean('enabled'),
             'disabledMessage' => $request->input('disabled_message'),
-            'alwaysShowResults' => $request->boolean('alwaysShowResults', false),
-            'allowVoteChanging' => $request->boolean('allowVoteChanging', false),
-            'showDecisionMessage' => $request->boolean('showDecisionMessage', true),
+            'alwaysShowResults' => $request->boolean('alwaysShowResults'),
+            'allowVoteChanging' => $request->boolean('allowVoteChanging'),
+            'showDecisionMessage' => $request->boolean('showDecisionMessage'),
         ];
     }
 }

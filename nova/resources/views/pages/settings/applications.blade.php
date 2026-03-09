@@ -1,90 +1,64 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             <x-slot name="actions">
-                <div x-data="{}">
-                    <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                        <x-icon :name="Icon::Search" size="sm"></x-icon>
-                        Find a setting
-                    </x-button>
-                </div>
+                <x-button.find-setting />
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.settings.applications.update')" method="PUT">
             <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-switch.group>
-                        <x-switch.field>
-                            <x-fieldset.label for="enabled">Applications enabled</x-fieldset.label>
-                            <x-fieldset.description>Allow new players to apply to join the game</x-fieldset.description>
-                            <x-switch
-                                name="enabled"
-                                :value="old('enabled', $settings->enabled ?? true)"
-                                id="enabled"
-                            ></x-switch>
-                        </x-switch.field>
+                <x-fieldset.group constrained>
+                    <x-switch
+                        label="Applications enabled"
+                        description="Allow new players to apply to join the game"
+                        name="enabled"
+                        :checked="old('enabled', $settings->enabled)"
+                    ></x-switch>
 
-                        <x-switch.field>
-                            <x-fieldset.label for="alwaysShowResults">Always show voting results</x-fieldset.label>
-                            <x-fieldset.description>
-                                Show the results of voting prior to a reviewer submitting their own vote
-                            </x-fieldset.description>
-                            <x-switch
-                                name="alwaysShowResults"
-                                :value="old('alwaysShowResults', $settings->alwaysShowResults ?? false)"
-                                id="alwaysShowResults"
-                            ></x-switch>
-                        </x-switch.field>
+                    <x-switch
+                        label="Always show voting results"
+                        description="Show the results of voting prior to a reviewer submitting their own vote"
+                        name="alwaysShowResults"
+                        :checked="old('alwaysShowResults', $settings->alwaysShowResults ?? false)"
+                    ></x-switch>
 
-                        <x-switch.field>
-                            <x-fieldset.label for="allowVoteChanging">Allow vote changes</x-fieldset.label>
-                            <x-fieldset.description>
-                                Allow reviewers to update their vote after submitting
-                            </x-fieldset.description>
-                            <x-switch
-                                name="allowVoteChanging"
-                                :value="old('allowVoteChanging', $settings->allowVoteChanging ?? false)"
-                                id="allowVoteChanging"
-                            ></x-switch>
-                        </x-switch.field>
+                    <x-switch
+                        label="Allow vote changes"
+                        description="Allow reviewers to update their vote after submitting"
+                        name="allowVoteChanging"
+                        :checked="old('allowVoteChanging', $settings->allowVoteChanging ?? false)"
+                    ></x-switch>
 
-                        <x-switch.field>
-                            <x-fieldset.label for="allowVoteChanging">Show decision message</x-fieldset.label>
-                            <x-fieldset.description>
-                                Allow all reviewers to see the final decision message sent to the applicant
-                            </x-fieldset.description>
-                            <x-switch
-                                name="showDecisionMessage"
-                                :value="old('showDecisionMessage', $settings->showDecisionMessage ?? false)"
-                                id="showDecisionMessage"
-                            ></x-switch>
-                        </x-switch.field>
-                    </x-switch.group>
-                </x-fieldset.field-group>
+                    <x-switch
+                        label="Show decision message"
+                        description="Allow all reviewers to see the final decision message sent to the applicant"
+                        name="showDecisionMessage"
+                        :checked="old('showDecisionMessage', $settings->showDecisionMessage ?? false)"
+                    ></x-switch>
+                </x-fieldset.group>
 
-                <x-fieldset.field-group>
-                    <x-fieldset.field
+                <x-fieldset.group>
+                    <x-textarea
                         label="Disabled message"
                         description="This is the message users will see when applications are disabled"
                         id="disabled_message"
                         name="disabled_message"
+                        rows="3"
                     >
-                        <x-input.textarea rows="3">{{ $settings->disabledMessage }}</x-input.textarea>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                        {{ $settings->disabledMessage }}
+                    </x-textarea>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>
-                <x-fieldset.heading>
-                    <x-icon :name="Icon::Users"></x-icon>
-                    <x-fieldset.legend>Reviewers</x-fieldset.legend>
-                    <x-fieldset.description>
+                <x-fieldset.heading :icon="Tabler::Users" heading="Reviewers">
+                    <x-description>
                         Control the users who are involved in reviewing new users and characters to join the game.
-                    </x-fieldset.description>
+                    </x-description>
                 </x-fieldset.heading>
 
-                <x-fieldset.field-group>
+                <x-fieldset.group>
                     <x-panel variant="well">
                         <x-panel.header
                             title="Global reviewers"
@@ -95,20 +69,20 @@
 
                         @if ($usersWithApprovePermissionsCount === 0)
                             <x-panel.footer>
-                                <x-fieldset.error-message>
+                                <x-description.danger>
                                     None of the global reviewers have permission to approve applications. Please make
                                     sure that at least one global reviewer has the
                                     <code class="font-semibold">application.approve</code>
                                     permission.
-                                </x-fieldset.error-message>
+                                </x-description.danger>
                             </x-panel.footer>
                         @endif
                     </x-panel>
-                </x-fieldset.field-group>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Update</x-button>
+                <x-button type="submit" variant="primary">Update</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

@@ -10,9 +10,7 @@ use function Pest\Laravel\put;
 uses()->group('settings');
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'settings.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'settings.update'));
 
     test('can view the general settings page', function () {
         get(route('admin.settings.general.edit'))
@@ -24,7 +22,6 @@ describe('authorized user', function () {
             ->followingRedirects()
             ->put(route('admin.settings.general.update'), [
                 'game_name' => 'Foo',
-                'dateFormatTags' => '[[{"value":"#year_long#","text":"Year, long (2024)","prefix":"#"}]]',
                 'contactFormEnabled' => 'true',
                 'contact_form_disabled_message' => 'Message',
             ])
@@ -33,8 +30,6 @@ describe('authorized user', function () {
         assertDatabaseHas('settings', [
             'key' => 'custom',
             'general->gameName' => 'Foo',
-            'general->dateFormat' => '#year_long#',
-            'general->dateFormatTags' => '[[{"value":"#year_long#","text":"Year, long (2024)","prefix":"#"}]]',
             'general->contactFormEnabled' => 'true',
             'general->contactFormDisabledMessage' => 'Message',
         ]);
@@ -42,9 +37,7 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the general settings page', function () {
         get(route('admin.settings.general.edit'))

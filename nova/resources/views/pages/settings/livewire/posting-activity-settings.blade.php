@@ -3,26 +3,23 @@
 
 <x-form action="" wire:submit="save">
     <x-fieldset>
-        <x-fieldset.heading>
-            <x-icon :name="Icon::Gavel"></x-icon>
-            <x-fieldset.legend>Activity requirements</x-fieldset.legend>
-            <x-fieldset.description>Set the game’s activity requirements for players.</x-fieldset.description>
+        <x-fieldset.heading :icon="Tabler::Gavel" heading="Activity requirements">
+            <x-description>Set the game’s activity requirements for players.</x-description>
         </x-fieldset.heading>
 
-        <x-fieldset.field-group constrained>
-            <x-fieldset.field
-                label="Posting requirements"
-                description="Players will be expected to meet these posting requirements at the activity timeframe specified below"
-                :error="$errors->first('form.requirement')"
-            >
-                <div class="flex items-center gap-x-4" data-slot="control">
-                    <x-input.text
-                        name="requirement"
-                        id="requirement"
-                        wire:model.numeric="form.requirement"
-                    ></x-input.text>
+        <x-fieldset.group constrained>
+            <x-field>
+                <x-label>Posting requirements</x-label>
 
-                    <x-select name="target" id="target" wire:model="form.target">
+                <x-description>
+                    Players will be expected to meet these posting requirements at the activity timeframe specified
+                    below
+                </x-description>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <x-input.number wire:model.numeric="form.requirement" />
+
+                    <x-select wire:model="form.target">
                         @foreach (PostingTarget::cases() as $target)
                             <option value="{{ $target->value }}">
                                 {{ $target->getLabel() }}
@@ -30,45 +27,31 @@
                         @endforeach
                     </x-select>
                 </div>
-            </x-fieldset.field>
+            </x-field>
 
-            <x-fieldset.field
+            <x-radio.group
                 label="Activity timeframe"
                 description="Players will be required to meet the above posting requirements at this interval"
+                wire:model.live="form.timeframe"
             >
-                <x-radio.group>
-                    @foreach (PostingTimeframe::cases() as $timeframe)
-                        <x-radio.field>
-                            <x-fieldset.label for="type_{{ $timeframe->value }}">
-                                {{ $timeframe->getLabel() }}
-                            </x-fieldset.label>
-                            <x-fieldset.description>
-                                {{ $timeframe->getDescription() }}
-                            </x-fieldset.description>
-                            <x-radio
-                                id="type_{{ $timeframe->value }}"
-                                :value="$timeframe->value"
-                                wire:model.live="form.timeframe"
-                            ></x-radio>
-                        </x-radio.field>
-                    @endforeach
-                </x-radio.group>
-            </x-fieldset.field>
+                @foreach (PostingTimeframe::cases() as $timeframe)
+                    <x-radio
+                        :label="$timeframe->getLabel()"
+                        :description="$timeframe->getDescription()"
+                        :value="$timeframe->value"
+                    />
+                @endforeach
+            </x-radio.group>
 
             @if ($form->timeframe === PostingTimeframe::Rolling)
-                <x-fieldset.field
-                    label="Number of days"
-                    name="rollingDays"
-                    id="rollingDays"
-                    :error="$errors->first('form.rollingDays')"
-                >
-                    <x-input.text wire:model.numeric="form.rollingDays"></x-input.text>
-                </x-fieldset.field>
+                <div class="w-full sm:w-1/2">
+                    <x-input.number label="Number of days" wire:model.numeric="form.rollingDays" />
+                </div>
             @endif
-        </x-fieldset.field-group>
+        </x-fieldset.group>
     </x-fieldset>
 
     <x-fieldset.controls>
-        <x-button type="submit" color="primary">Update</x-button>
+        <x-button type="submit" variant="primary">Update</x-button>
     </x-fieldset.controls>
 </x-form>

@@ -28,14 +28,14 @@ readonly class Characters extends Bag
     protected static function fromRequest(Request $request): array
     {
         return [
-            'approvePrimary' => $request->boolean('approve_primary', true),
-            'approveSecondary' => $request->boolean('approve_secondary', true),
-            'approveSupport' => $request->boolean('approve_support', true),
-            'enforceCharacterLimits' => $request->boolean('enforce_character_limits', true),
+            'approvePrimary' => $request->boolean('approve_primary'),
+            'approveSecondary' => $request->boolean('approve_secondary'),
+            'approveSupport' => $request->boolean('approve_support'),
+            'enforceCharacterLimits' => $request->boolean('enforce_character_limits'),
             'characterLimit' => $request->integer('character_limit', 5),
-            'autoAvailabilityForPrimary' => $request->boolean('auto_availability_primary', true),
-            'autoAvailabilityForSecondary' => $request->boolean('auto_availability_secondary', true),
-            'autoAvailabilityForSupport' => $request->boolean('auto_availability_support', false),
+            'autoAvailabilityForPrimary' => $request->boolean('auto_availability_primary'),
+            'autoAvailabilityForSecondary' => $request->boolean('auto_availability_secondary'),
+            'autoAvailabilityForSupport' => $request->boolean('auto_availability_support'),
         ];
     }
 }

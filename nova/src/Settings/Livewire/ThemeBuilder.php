@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\SlideOver;
 
 class ThemeBuilder extends SlideOver
@@ -57,7 +57,7 @@ class ThemeBuilder extends SlideOver
             ->actions([
                 Action::make('refresh')
                     ->color('gray')
-                    ->icon(Icon::Reload)
+                    ->icon(Tabler::Reload)
                     ->url(route('admin.settings.appearance.edit')),
             ])
             ->send();
@@ -92,30 +92,7 @@ class ThemeBuilder extends SlideOver
         ]);
     }
 
-    protected function colors(): array
-    {
-        return [
-            'Red',
-            'Orange',
-            'Amber',
-            'Yellow',
-            'Lime',
-            'Green',
-            'Emerald',
-            'Teal',
-            'Cyan',
-            'Sky',
-            'Blue',
-            'Indigo',
-            'Violet',
-            'Purple',
-            'Fuchsia',
-            'Pink',
-            'Rose',
-        ];
-    }
-
-    protected function getInBoundsColorsFor($color): array
+    public function getInBoundsColorsFor($color): array
     {
         $inBounds = [
             'danger' => [
@@ -139,6 +116,29 @@ class ThemeBuilder extends SlideOver
         ];
 
         return data_get($inBounds, $color) ?? [];
+    }
+
+    protected function colors(): array
+    {
+        return [
+            'Red',
+            'Orange',
+            'Amber',
+            'Yellow',
+            'Lime',
+            'Green',
+            'Emerald',
+            'Teal',
+            'Cyan',
+            'Sky',
+            'Blue',
+            'Indigo',
+            'Violet',
+            'Purple',
+            'Fuchsia',
+            'Pink',
+            'Rose',
+        ];
     }
 
     protected function grays(): array
@@ -219,7 +219,7 @@ class ThemeBuilder extends SlideOver
                 'warning' => 'Amber',
             ],
             'Sky' => [
-                'gray' => 'Gray',
+                'gray' => 'Zinc',
                 'danger' => 'Rose',
                 'info' => 'Purple',
                 'success' => 'Emerald',

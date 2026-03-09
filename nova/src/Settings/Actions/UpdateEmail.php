@@ -38,15 +38,6 @@ class UpdateEmail
             }
         }
 
-        if ($emailData->imagePath !== null) {
-            settings()->addMedia($emailData->imagePath)->toMediaCollection('email-logo');
-
-            activity()
-                ->performedOn(settings())
-                ->event('uploaded email image')
-                ->log('uploaded email image');
-        }
-
         return settings()->refresh();
     }
 }

@@ -1,14 +1,9 @@
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         <x-slot name="actions">
-            <div x-data="{}">
-                <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                    <x-icon :name="Icon::Search" size="sm"></x-icon>
-                    Find a setting
-                </x-button>
-            </div>
+            <x-button.find-setting />
         </x-slot>
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:settings-notification-types-list />
 </x-admin-layout>

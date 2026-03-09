@@ -22,6 +22,40 @@ class FontSelector extends Component
 
     public ?string $familyInputName = null;
 
+    public function updatedFamily($value): void
+    {
+        $this->dispatch('font-updated', data: [
+            'section' => $this->section,
+            'type' => $this->type,
+            'provider' => $this->provider,
+            'family' => $this->family,
+        ]);
+
+        // if ($this->provider === 'local') {
+        //     $this->dispatch('dropdown-close');
+        // }
+    }
+
+    // public function mount()
+    // {
+    //     $fonts = settings("appearance.{$this->section}Fonts");
+
+    //     $providerVariable = "{$this->type}Provider";
+    //     $familyVariable = "{$this->type}Family";
+
+    //     $this->provider = $fonts->{$providerVariable} ?? 'local';
+    //     $this->family = $fonts->{$familyVariable} ?? 'Inter';
+    // }
+
+    public function render()
+    {
+        return view('pages.settings.livewire.font-selector', [
+            'fontFamilyInputName' => $this->fontFamilyInputName,
+            'fontProviderInputName' => $this->fontProviderInputName,
+            'localFonts' => $this->localFonts,
+        ]);
+    }
+
     #[Computed]
     public function localFonts(): array
     {
@@ -53,39 +87,5 @@ class FontSelector extends Component
         }
 
         return sprintf('%s_fonts[%sProvider]', $this->section, $this->type);
-    }
-
-    public function updatedFamily($value): void
-    {
-        $this->dispatch('font-updated', data: [
-            'section' => $this->section,
-            'type' => $this->type,
-            'provider' => $this->provider,
-            'family' => $this->family,
-        ]);
-
-        if ($this->provider === 'local') {
-            $this->dispatch('dropdown-close');
-        }
-    }
-
-    // public function mount()
-    // {
-    //     $fonts = settings("appearance.{$this->section}Fonts");
-
-    //     $providerVariable = "{$this->type}Provider";
-    //     $familyVariable = "{$this->type}Family";
-
-    //     $this->provider = $fonts->{$providerVariable} ?? 'local';
-    //     $this->family = $fonts->{$familyVariable} ?? 'Inter';
-    // }
-
-    public function render()
-    {
-        return view('pages.settings.livewire.font-selector', [
-            'fontFamilyInputName' => $this->fontFamilyInputName,
-            'fontProviderInputName' => $this->fontProviderInputName,
-            'localFonts' => $this->localFonts,
-        ]);
     }
 }
