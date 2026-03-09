@@ -1,4 +1,4 @@
-<x-modal.slide-over title="Manage authors" :icon="Icon::Characters">
+<x-modal.slide-over title="Manage authors" :icon="Tabler::MasksTheater">
     <div class="space-y-6">
         <div class="space-y-3">
             <x-text size="lg">
@@ -18,62 +18,35 @@
                 <x-panel variant="well">
                     <x-panel variant="inset">
                         @if ($canAddAuthors)
-                            <x-spacing size="2xs">
-                                <x-panel.manage.search :search="$search" :placeholder="$authorSearchPlaceholder">
-                                    @if ($filteredCharacters->count() > 0)
-                                        <x-dropdown.group>
-                                            <x-dropdown.header>Characters</x-dropdown.header>
-
-                                            @foreach ($filteredCharacters as $character)
-                                                <x-dropdown.item
-                                                    type="button"
-                                                    wire:click="addCharacterAuthor({{ $character->id }})"
-                                                    wire:key="search-c-{{ $character->id }}"
-                                                >
-                                                    {{ $character->display_name }}
-                                                </x-dropdown.item>
-                                            @endforeach
-                                        </x-dropdown.group>
-                                    @endif
-
-                                    @if ($filteredUsers->count() > 0)
-                                        <x-dropdown.group>
-                                            <x-dropdown.header>Users</x-dropdown.header>
-
-                                            @foreach ($filteredUsers as $user)
-                                                <x-dropdown.item
-                                                    type="button"
-                                                    wire:click="addUserAuthor({{ $user->id }})"
-                                                >
-                                                    {{ $user->name }}
-                                                </x-dropdown.item>
-                                            @endforeach
-                                        </x-dropdown.group>
-                                    @endif
-
-                                    @if ($filteredCharacters->isEmpty() && $filteredUsers->isEmpty())
-                                        <x-empty-state.small
-                                            :icon="Icon::AlertCircle"
-                                            title="No author(s) found"
-                                        ></x-empty-state.small>
-                                    @endif
-                                </x-panel.manage.search>
+                            <x-spacing size="3xs" class="relative">
+                                <x-select
+                                    wire:model.live.debounce="selected"
+                                    variant="combobox"
+                                    :placeholder="$authorSearchPlaceholder"
+                                    clearable
+                                >
+                                    @foreach ($filteredCharacters as $model)
+                                        <x-select.option :value="$model->id">
+                                            {{ $model->display_name }}
+                                        </x-select.option>
+                                    @endforeach
+                                </x-select>
                             </x-spacing>
                         @endif
 
                         @if ($characterAuthors->count() > 0 || $userAuthors->count() > 0)
-                            <div class="divide-y divide-gray-950/5 dark:divide-white/5">
+                            <x-spacing.group divided>
                                 @foreach ($characterAuthors as $characterAuthor)
                                     <x-spacing
                                         size="row"
                                         class="flex items-center justify-between gap-6"
                                         wire:key="ca-{{ $characterAuthor->id }}"
                                     >
-                                        <x-avatar.meta
+                                        <x-avatar
                                             :src="$characterAuthor->avatar_url"
-                                            :primary="$characterAuthor->name"
-                                            size="xs"
-                                        ></x-avatar.meta>
+                                            size="sm"
+                                            :title="$characterAuthor->name"
+                                        />
 
                                         <div class="flex items-center gap-4">
                                             @if ($characterAuthor->type === 'support')
@@ -119,15 +92,21 @@
 
                                             <x-dropdown placement="bottom end">
                                                 <x-slot name="trigger">
-                                                    <x-button type="button" color="neutral-danger" size="none" text>
-                                                        <x-icon :name="Icon::Trash" size="md"></x-icon>
+                                                    <x-button
+                                                        type="button"
+                                                        variant="subtle"
+                                                        inset="right"
+                                                        square
+                                                        data-danger
+                                                    >
+                                                        <x-icon :name="Tabler::Trash" size="md" />
                                                     </x-button>
                                                 </x-slot>
 
                                                 <x-dropdown.group>
                                                     <x-dropdown.text>
                                                         Are you sure you want to remove
-                                                        <strong class="font-semibold">
+                                                        <strong>
                                                             {{ $characterAuthor->name }}
                                                         </strong>
                                                         as an author of this post?
@@ -137,7 +116,7 @@
                                                 <x-dropdown.group>
                                                     <x-dropdown.item
                                                         type="button"
-                                                        :icon="Icon::Trash"
+                                                        :icon="Tabler::Trash"
                                                         wire:click="removeCharacterAuthor({{ $characterAuthor->id }})"
                                                         variant="danger"
                                                     >
@@ -145,7 +124,7 @@
                                                     </x-dropdown.item>
                                                     <x-dropdown.item
                                                         type="button"
-                                                        :icon="Icon::Ban"
+                                                        :icon="Tabler::Ban"
                                                         x-on:click.prevent="$dispatch('dropdown-close')"
                                                     >
                                                         Cancel
@@ -159,11 +138,11 @@
                                 @foreach ($userAuthors as $userAuthor)
                                     <x-spacing size="row" class="flex items-center justify-between gap-6">
                                         <div class="w-1/2">
-                                            <x-input.text
+                                            <x-input
                                                 placeholder="Who is this user playing? (optional)"
                                                 wire:model.blur="userAuthorsPivotData.{{ $userAuthor->id }}.as"
                                                 wire:key="u-{{ $userAuthor->id }}-as"
-                                            ></x-input.text>
+                                            />
                                         </div>
 
                                         <div class="flex items-center gap-4">
@@ -171,15 +150,21 @@
 
                                             <x-dropdown placement="bottom end">
                                                 <x-slot name="trigger">
-                                                    <x-button type="button" color="neutral-danger" size="none" text>
-                                                        <x-icon :name="Icon::Trash" size="md"></x-icon>
+                                                    <x-button
+                                                        type="button"
+                                                        variant="subtle"
+                                                        inset="right"
+                                                        square
+                                                        data-danger
+                                                    >
+                                                        <x-icon :name="Tabler::Trash" size="md" />
                                                     </x-button>
                                                 </x-slot>
 
                                                 <x-dropdown.group>
                                                     <x-dropdown.text>
                                                         Are you sure you want to remove
-                                                        <strong class="font-semibold">
+                                                        <strong>
                                                             {{ $userAuthor->name }}
                                                         </strong>
                                                         as an author of this post?
@@ -188,7 +173,7 @@
                                                 <x-dropdown.group>
                                                     <x-dropdown.item
                                                         type="button"
-                                                        :icon="Icon::Trash"
+                                                        :icon="Tabler::Trash"
                                                         wire:click="removeUserAuthor({{ $userAuthor->id }})"
                                                         variant="danger"
                                                     >
@@ -196,7 +181,7 @@
                                                     </x-dropdown.item>
                                                     <x-dropdown.item
                                                         type="button"
-                                                        :icon="Icon::Ban"
+                                                        :icon="Tabler::Ban"
                                                         x-on:click.prevent="$dispatch('dropdown-close')"
                                                     >
                                                         Cancel
@@ -206,13 +191,13 @@
                                         </div>
                                     </x-spacing>
                                 @endforeach
-                            </div>
+                            </x-spacing.group>
                         @else
-                            <x-empty-state.small
-                                :icon="Icon::Users"
-                                title="No authors assigned"
-                                message="Add an author to continue writing your post"
-                            ></x-empty-state.small>
+                            <x-empty variant="compact">
+                                <x-icon :name="Tabler::Users" />
+                                <x-empty.heading>No authors assigned</x-empty.heading>
+                                <x-empty.text>Add an author to continue writing your post</x-empty.text>
+                            </x-empty>
                         @endif
                     </x-panel>
                 </x-panel>
@@ -221,7 +206,7 @@
     </div>
 
     <x-slot name="footer">
-        <x-button type="button" wire:click="save" color="primary" :disabled="! $canSave">Update</x-button>
-        <x-button type="button" wire:click="$dispatch('slide-over.close')" plain>Cancel</x-button>
+        <x-button type="button" wire:click="save" variant="primary" :disabled="! $canSave">Update</x-button>
+        <x-button type="button" wire:click="$dispatch('slide-over.close')" variant="ghost">Cancel</x-button>
     </x-slot>
 </x-modal.slide-over>

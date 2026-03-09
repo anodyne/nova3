@@ -1,9 +1,7 @@
-@use('Illuminate\Support\Js')
-
 <button
     type="button"
     wire:click="openForEditing"
-    class="flex items-center gap-x-3 rounded-lg px-3 py-2 hover:bg-gray-950/5"
+    class="flex items-center gap-3 rounded-xl p-1 hover:bg-gray-950/10 dark:hover:bg-white/10"
 >
     <x-rating.compact label="L" :value="$language"></x-rating.compact>
     <x-rating.compact label="S" :value="$sex"></x-rating.compact>

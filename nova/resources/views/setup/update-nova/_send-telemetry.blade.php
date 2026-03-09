@@ -1,4 +1,3 @@
-@use('Illuminate\Support\Number')
 @use('Nova\Setup\Telemetry')
 
 @php

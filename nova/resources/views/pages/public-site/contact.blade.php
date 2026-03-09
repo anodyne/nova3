@@ -23,7 +23,7 @@
                         id="name"
                         :error="$errors->first('name')"
                         value="{{ old('name') }}"
-                    ></x-public::field.text>
+                    />
 
                     <x-public::field.email
                         name="email"
@@ -31,7 +31,7 @@
                         id="email"
                         :error="$errors->first('email')"
                         value="{{ old('email') }}"
-                    ></x-public::field.email>
+                    />
 
                     <x-public::field.select
                         name="subject"

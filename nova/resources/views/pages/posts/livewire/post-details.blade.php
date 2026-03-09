@@ -13,7 +13,7 @@
             <div class="flex flex-col space-y-4 md:flex-row md:items-center md:space-y-0 md:space-x-4">
                 @if ($postType->fields->location->enabled)
                     <div class="flex flex-1 items-center gap-2">
-                        <x-icon :name="Icon::Location" size="sm" class="text-gray-500"></x-icon>
+                        <x-icon :name="Tabler::MapPin" size="sm" class="text-gray-500" />
                         <input
                             type="text"
                             wire:model.blur="location"
@@ -25,7 +25,7 @@
 
                 @if ($postType->fields->day->enabled)
                     <div class="flex flex-1 items-center gap-2">
-                        <x-icon :name="Icon::Calendar" size="sm" class="text-gray-500"></x-icon>
+                        <x-icon :name="Tabler::Calendar" size="sm" class="text-gray-500" />
                         <input
                             type="text"
                             wire:model.blur="day"
@@ -37,7 +37,7 @@
 
                 @if ($postType->fields->time->enabled)
                     <div class="flex flex-1 items-center gap-2">
-                        <x-icon :name="Icon::Clock" size="sm" class="text-gray-500"></x-icon>
+                        <x-icon :name="Tabler::Clock" size="sm" class="text-gray-500" />
                         <input
                             type="text"
                             wire:model.blur="time"

@@ -13,7 +13,7 @@
                     @if ($post->postType->fields->location->enabled && filled($post->location))
                         <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
                             <div class="text-gray-400 dark:text-gray-500">
-                                <x-icon :name="Icon::Location"></x-icon>
+                                <x-icon :name="Tabler::MapPin" />
                             </div>
                             <div>{{ $post->location }}</div>
                         </div>
@@ -22,7 +22,7 @@
                     @if ($post->postType->fields->day->enabled && filled($post->day))
                         <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
                             <div class="text-gray-400 dark:text-gray-500">
-                                <x-icon :name="Icon::Calendar"></x-icon>
+                                <x-icon :name="Tabler::Calendar" />
                             </div>
                             <div>{{ $post->day }}</div>
                         </div>
@@ -31,7 +31,7 @@
                     @if ($post->postType->fields->time->enabled && filled($post->time))
                         <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
                             <div class="text-gray-400 dark:text-gray-500">
-                                <x-icon :name="Icon::Clock"></x-icon>
+                                <x-icon :name="Tabler::Clock" />
                             </div>
                             <div>{{ $post->time }}</div>
                         </div>
@@ -39,7 +39,7 @@
 
                     <div class="flex items-center gap-2 font-medium text-gray-500 dark:text-gray-400">
                         <div class="text-gray-400 dark:text-gray-500">
-                            <x-icon :name="$post->postType->icon"></x-icon>
+                            <x-icon :name="$post->postType->icon" />
                         </div>
                         <div>{{ $post->postType->name }}</div>
                     </div>
@@ -71,11 +71,9 @@
                 </div>
 
                 <div class="relative mt-4">
-                    <x-button
-                        :href="route('admin.posts.show', ['story' => $post->story, 'post' => $post])"
-                        color="neutral"
-                    >
-                        Read post &rarr;
+                    <x-button :href="route('admin.posts.show', ['story' => $post->story, 'post' => $post])">
+                        Read post
+                        <span aria-hidden="true">→</span>
                     </x-button>
                 </div>
             </div>

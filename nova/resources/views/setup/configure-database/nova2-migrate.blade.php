@@ -38,9 +38,9 @@
     @if ($shouldShowDatabaseOptions)
         <div class="mx-auto max-w-2xl space-y-8">
             <div class="grid grid-cols-2 gap-8">
-                <x-button color="neutral" wire:click="useSameDatabaseForMigration">
+                <x-button wire:click="useSameDatabaseForMigration">
                     <x-spacing size="md" class="space-y-2 text-left">
-                        <x-icon :name="Tabler::Database" size="xl" class="text-gray-600"></x-icon>
+                        <x-icon :name="Tabler::Database" size="xl" class="text-gray-600" />
                         <x-h3>Use the same database</x-h3>
                         <p class="text-sm/6 font-normal text-gray-600">
                             Your Nova 2 database tables live in the same database that you are installing Nova 3 into.
@@ -48,9 +48,9 @@
                     </x-spacing>
                 </x-button>
 
-                <x-button color="neutral" wire:click="useDifferentDatabaseForMigration">
+                <x-button wire:click="useDifferentDatabaseForMigration">
                     <x-spacing size="md" class="space-y-2 text-left">
-                        <x-icon :name="Tabler::DatabaseExport" size="xl" class="text-gray-600"></x-icon>
+                        <x-icon :name="Tabler::DatabaseExport" size="xl" class="text-gray-600" />
                         <x-h3>Use a different database</x-h3>
                         <p class="text-sm/6 font-normal text-gray-600">
                             Your Nova 2 database tables live in a separate database from the one you are installing Nova
@@ -61,7 +61,7 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <x-button :href="url('setup/migrate')" color="neutral">Back to migration center</x-button>
+                <x-button :href="url('setup/migrate')">Back to migration center</x-button>
             </div>
         </div>
     @else
@@ -74,8 +74,8 @@
                 @endif
 
                 <x-fieldset>
-                    <x-fieldset.fields>
-                        <x-input.text label="Username" placeholder="Your database username" wire:model="username" />
+                    <x-fieldset.group>
+                        <x-input label="Username" placeholder="Your database username" wire:model="username" />
 
                         <x-input.password label="Password" placeholder="Your database password" wire:model="password" />
 
@@ -93,20 +93,18 @@
 
                             <x-input placeholder="The database table prefix (optional)" wire:model="prefix" />
                         </x-field>
-                    </x-fieldset.fields>
+                    </x-fieldset.group>
                 </x-fieldset>
 
                 <x-fieldset>
-                    <x-fieldset.heading>
-                        <x-icon :name="Tabler::DatabaseCog"></x-icon>
-                        <x-fieldset.legend>Advanced settings</x-fieldset.legend>
-                        <x-fieldset.description>
+                    <x-fieldset.heading :icon="Tabler::DatabaseCog" heading="Advanced settings">
+                        <x-description>
                             In most cases you won’t need to change these values unless your web host has provided you
                             different connection parameters.
-                        </x-fieldset.description>
+                        </x-description>
                     </x-fieldset.heading>
 
-                    <x-fieldset.fields>
+                    <x-fieldset.group>
                         <x-input label="Database host" wire:model="host" />
 
                         <x-input label="Database port" wire:model="port" />
@@ -116,7 +114,7 @@
                             placeholder="The UNIX socket path (generally not needed)"
                             wire:model="socket"
                         />
-                    </x-fieldset.fields>
+                    </x-fieldset.group>
                 </x-fieldset>
 
                 <div class="flex items-center justify-between">

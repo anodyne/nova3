@@ -1,3 +1,4 @@
+@use('Nova\Foundation\Enums\BasicStatus')
 @use('Nova\Menus\Enums\LinkTarget')
 @use('Nova\Menus\Enums\LinkType')
 @use('Nova\Menus\Models\MenuItem')
@@ -37,7 +38,7 @@
                         />
                     </x-radio.group>
 
-                    <x-input label="Label" name="label" :value="old('label', $menuItem->label)" />
+                    <x-input label="Label" name="label" :value="old('label', $menuItem->label)"/>
 
                     <x-select
                         label="Page"
@@ -59,7 +60,7 @@
 
                     <x-field x-show="linkType === 'url'" x-cloak>
                         <x-label>URL</x-label>
-                        <x-input name="url" :value="old('url', $menuItem->url)" />
+                        <x-input name="url" :value="old('url', $menuItem->url)"/>
                     </x-field>
 
                     <x-select label="Open in" name="target">
@@ -76,7 +77,7 @@
                     <x-field>
                         <x-label>Icon</x-label>
                         <div>
-                            <livewire:icon-picker :selected="old('icon', $menuItem->icon)" />
+                            <livewire:icon-picker :selected="old('icon', $menuItem->icon)"/>
                         </div>
                     </x-field>
 
@@ -96,16 +97,12 @@
                         @endforeach
                     </x-select>
 
-                    <div class="flex items-center gap-x-2.5">
-                        <x-switch
-                            name="status"
-                            :value="old('status', $menuItem->status->value ?? 'active')"
-                            on-value="active"
-                            off-value="inactive"
-                            id="status"
-                        ></x-switch>
-                        <x-label for="status">Active</x-label>
-                    </div>
+                    <x-switch
+                        label="Active"
+                        name="status"
+                        :checked="old('status', $menuItem->status === BasicStatus::Active)"
+                        align="left"
+                    />
                 </x-fieldset.group>
             </x-fieldset>
 

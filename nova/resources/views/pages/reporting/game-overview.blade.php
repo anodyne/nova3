@@ -1,12 +1,11 @@
-@use('Illuminate\Support\Number')
 @use('Nova\Stories\Models\PostType')
 
 <x-admin-layout>
-    <x-page-header heading="Game report">
+    <x-page-heading heading="Game report">
         <x-slot name="description">
             An overview of the game for {{ $settings->timeframe->getStatsDescription() }}
         </x-slot>
-    </x-page-header>
+    </x-page-heading>
 
     <div class="space-y-12">
         <div class="grid gap-8 lg:grid-cols-2">
@@ -30,7 +29,7 @@
                 <div class="mt-4 grid gap-8 lg:grid-cols-3">
                     <div class="flex gap-x-3">
                         <div class="shrink-0">
-                            <x-icon :name="Icon::CheckCircle" size="lg" class="text-gray-500"></x-icon>
+                            <x-icon :name="Tabler::CircleCheck" size="lg" class="text-gray-500" />
                         </div>
                         <div>
                             <x-text size="lg">Published posts</x-text>
@@ -45,7 +44,7 @@
 
                     <div class="flex gap-x-3">
                         <div class="shrink-0">
-                            <x-icon :name="Icon::CircleDashed" size="lg" class="text-gray-500"></x-icon>
+                            <x-icon :name="Tabler::CircleDashed" size="lg" class="text-gray-500" />
                         </div>
                         <div>
                             <x-text size="lg">Draft posts</x-text>
@@ -60,7 +59,7 @@
 
                     <div class="flex gap-x-3">
                         <div class="shrink-0">
-                            <x-icon :name="Icon::Abc" size="lg" class="text-gray-500"></x-icon>
+                            <x-icon :name="Tabler::Abc" size="lg" class="text-gray-500" />
                         </div>
                         <div>
                             <x-text size="lg">Post words</x-text>
@@ -80,16 +79,17 @@
             <div class="grid gap-8 lg:grid-cols-3">
                 <div class="flex gap-x-3">
                     <div class="shrink-0">
-                        <x-icon :name="Icon::Calendar" size="lg"></x-icon>
+                        <x-icon :name="Tabler::Calendar" size="lg" />
                     </div>
                     <div>
                         <x-text>
-                            <x-text.strong>Monthly summary</x-text.strong>
+                            <strong>Monthly summary</strong>
                         </x-text>
                         <x-text>A summary of activity for the current and previous months.</x-text>
                         <div class="mt-3">
-                            <x-button :href="route('admin.reporting.game-stats')" color="heavy-neutral" text>
-                                View summary &rarr;
+                            <x-button :href="route('admin.reporting.game-stats')" variant="subtle" inset="left">
+                                View summary
+                                <span aria-hidden="true">→</span>
                             </x-button>
                         </div>
                     </div>
@@ -97,16 +97,17 @@
 
                 <div class="flex gap-x-3">
                     <div class="shrink-0">
-                        <x-icon :name="Icon::ChartInfographic" size="lg"></x-icon>
+                        <x-icon :name="Tabler::ChartInfographic" size="lg" />
                     </div>
                     <div>
                         <x-text>
-                            <x-text.strong>Game stats</x-text.strong>
+                            <strong>Game stats</strong>
                         </x-text>
                         <x-text>A summary of major metrics over the game’s lifetime.</x-text>
                         <div class="mt-3">
-                            <x-button :href="route('admin.reporting.game-stats')" color="heavy-neutral" text>
-                                View stats &rarr;
+                            <x-button :href="route('admin.reporting.game-stats')" variant="subtle" inset="left">
+                                View stats
+                                <span aria-hidden="true">→</span>
                             </x-button>
                         </div>
                     </div>
@@ -114,16 +115,17 @@
 
                 <div class="flex gap-x-3">
                     <div class="shrink-0">
-                        <x-icon :name="Icon::EditSettings" size="lg"></x-icon>
+                        <x-icon :name="Tabler::PencilCog" size="lg" />
                     </div>
                     <div>
                         <x-text>
-                            <x-text.strong>Post types report</x-text.strong>
+                            <strong>Post types report</strong>
                         </x-text>
                         <x-text>A summary of post types and their stats for the game.</x-text>
                         <div class="mt-3">
-                            <x-button :href="route('admin.reporting.post-types')" color="heavy-neutral" text>
-                                View report &rarr;
+                            <x-button :href="route('admin.reporting.post-types')" variant="subtle" inset="left">
+                                View report
+                                <span aria-hidden="true">→</span>
                             </x-button>
                         </div>
                     </div>

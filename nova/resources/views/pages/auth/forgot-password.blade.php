@@ -14,30 +14,29 @@
                 <x-form :action="route('password.email')">
                     <x-fieldset>
                         @if (session('message'))
-                            <x-fieldset.warning-message>
+                            <x-description.warning>
                                 {{ session('message') }}
-                            </x-fieldset.warning-message>
+                            </x-description.warning>
                         @else
-                            <x-fieldset.description>
+                            <x-description>
                                 If you can’t remember your password, please provide your email address and we’ll send
                                 you instructions onw how to reset your password.
-                            </x-fieldset.description>
+                            </x-description>
                         @endif
 
-                        <x-fieldset.field-group>
-                            <x-fieldset.field label="Email" id="email" name="email" :error="$errors->first('email')">
-                                <x-input.email
-                                    :value="old('email')"
-                                    data-cy="email"
-                                    placeholder="john@example.com"
-                                    autocomplete="email"
-                                />
-                            </x-fieldset.field>
-                        </x-fieldset.field-group>
+                        <x-fieldset.group>
+                            <x-input.email
+                                label="Email"
+                                name="email"
+                                :value="old('email')"
+                                placeholder="john@example.com"
+                                autocomplete="email"
+                            />
+                        </x-fieldset.group>
                     </x-fieldset>
 
                     <x-fieldset>
-                        <x-button type="submit" class="w-full" color="primary">Send reset link</x-button>
+                        <x-button type="submit" class="w-full" variant="primary">Send reset link</x-button>
                     </x-fieldset>
                 </x-form>
             </x-spacing>
@@ -45,7 +44,7 @@
 
         <x-panel.footer>
             <div class="flex items-center justify-center">
-                <x-button href="/" text>Back home</x-button>
+                <x-link href="/">Back home</x-link>
             </div>
         </x-panel.footer>
     </x-panel>

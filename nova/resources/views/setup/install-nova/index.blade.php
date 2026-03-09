@@ -20,7 +20,7 @@
             @endif
 
             <x-fieldset>
-                <x-fieldset.fields>
+                <x-fieldset.group>
                     <x-input label="What’s the name of your game?" wire:model="name" />
 
                     <x-select label="What genre are you playing in?" wire:model="genre">
@@ -37,7 +37,7 @@
                             wire:model.live="shouldSeed"
                         />
                     @endenv
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-setup::button type="button" wire:click="install" size="sm">

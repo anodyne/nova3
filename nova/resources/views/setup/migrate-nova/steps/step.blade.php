@@ -1,5 +1,3 @@
-@use('Illuminate\Support\Number')
-
 <div
     class="col-span-3 grid grid-cols-subgrid items-center p-4"
     x-data="{

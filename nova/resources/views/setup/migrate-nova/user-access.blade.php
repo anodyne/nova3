@@ -13,7 +13,7 @@
         <x-setup::panel variant="well">
             <x-setup::panel variant="inset">
                 <x-spacing size="md">
-                    <x-fieldset.fields>
+                    <x-fieldset.group>
                         <x-select
                             label="Choose system administrator"
                             description="Select your user account and we will assign the necessary admin roles to ensure you can manage Nova"
@@ -30,7 +30,7 @@
                             description="Set your new account password"
                             wire:model.live="password"
                         />
-                    </x-fieldset.fields>
+                    </x-fieldset.group>
                 </x-spacing>
             </x-setup::panel>
         </x-setup::panel>

@@ -36,7 +36,7 @@
             @endif
 
             <x-fieldset>
-                <x-fieldset.fields>
+                <x-fieldset.group>
                     <x-radio.group
                         label="Driver"
                         wire:model.live="driver"
@@ -66,20 +66,18 @@
 
                         <x-input placeholder="The database table prefix (optional)" wire:model="prefix" />
                     </x-field>
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>
-                <x-fieldset.heading>
-                    <x-icon :name="Tabler::DatabaseCog"></x-icon>
-                    <x-fieldset.legend>Advanced settings</x-fieldset.legend>
-                    <x-fieldset.description>
+                <x-fieldset.heading :icon="Tabler::DatabaseCog" heading="Advanced settings">
+                    <x-description>
                         In most cases you won’t need to change these values unless your web host has provided you
                         different connection parameters.
-                    </x-fieldset.description>
+                    </x-description>
                 </x-fieldset.heading>
 
-                <x-fieldset.fields>
+                <x-fieldset.group>
                     <x-input label="Database host" wire:model="host" />
 
                     <x-input label="Database port" wire:model="port" />
@@ -89,7 +87,7 @@
                         placeholder="The UNIX socket path (generally not needed)"
                         wire:model="socket"
                     />
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <div class="flex items-center justify-between">

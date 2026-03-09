@@ -1,45 +1,31 @@
 <x-spacing>
-    <div class="flex items-center gap-x-8">
-        <div class="flex items-center">
-            <x-select wire:model.numeric.live="storyId" class="text-sm">
-                <option value="">Choose a story</option>
-                @foreach ($stories as $story)
-                    <option value="{{ $story->id }}">{{ $story->title }}</option>
-                @endforeach
+    <div class="flex items-center gap-4">
+        <x-select class="w-auto" wire:model.numeric.live="storyId">
+            <option value="">Choose a story</option>
+            @foreach ($stories as $story)
+                <option value="{{ $story->id }}">
+                    {{ $story->title }}
+                </option>
+            @endforeach
+        </x-select>
+
+        <x-input.group>
+            <x-select wire:model.live="sortField">
+                <option value="order_column">Sort by timeline order</option>
+                <option value="published_at">Sort by published date</option>
             </x-select>
-        </div>
 
-        <div class="flex items-center">
-            <x-input.field>
-                <x-slot name="leading">
-                    <select
-                        aria-label="Post sort field"
-                        class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:ring-0 focus:outline-none sm:text-sm dark:text-white"
-                        wire:model.live="sortField"
-                    >
-                        <option value="order_column">Sort by timeline order</option>
-                        <option value="published_at">Sort by published date</option>
-                    </select>
-                </x-slot>
-
-                <select
-                    aria-label="Post sort direction"
-                    class="form-select -ml-3 h-full border-none bg-transparent py-0 text-gray-900 focus:shadow-none focus:ring-0 focus:outline-none sm:text-sm dark:text-white"
-                    wire:model.live="sortDirection"
-                >
-                    <option value="desc">Newest first</option>
-                    <option value="asc">Oldest first</option>
-                </select>
-            </x-input.field>
-        </div>
+            <x-select wire:model.live="sortDirection">
+                <option value="desc">Newest first</option>
+                <option value="asc">Oldest first</option>
+            </x-select>
+        </x-input.group>
 
         @can('viewAny', $postClass)
-            <div class="flex items-center">
-                <x-button :href="route('admin.posts.index')" outline>
-                    <x-icon :name="Icon::Settings" size="sm"></x-icon>
-                    Manage posts
-                </x-button>
-            </div>
+            <x-button :href="route('admin.posts.index')" variant="filled">
+                <x-icon :name="Tabler::Settings" size="sm" />
+                Manage posts
+            </x-button>
         @endcan
     </div>
 
@@ -91,11 +77,9 @@
                         </div>
 
                         <div class="mt-8">
-                            <x-button
-                                :href="route('admin.posts.show', ['story' => $post->story, 'post' => $post])"
-                                color="neutral"
-                            >
-                                Read {{ str($post->postType->name)->lower() }} &rarr;
+                            <x-button :href="route('admin.posts.show', ['story' => $post->story, 'post' => $post])">
+                                Read {{ str($post->postType->name)->lower() }}
+                                <span aria-hidden="true">→</span>
                             </x-button>
                         </div>
                     </div>
@@ -103,15 +87,15 @@
             @endforeach
         </x-feed>
     @else
-        <x-empty-state variant="jumbo">
-            <x-icon :name="Icon::BookClosed"></x-icon>
-            <x-h2>No posts found</x-h2>
+        <x-empty variant="jumbo">
+            <x-illustration :name="Illustration::Book" />
+            <x-empty.heading>No posts found</x-empty.heading>
 
             @if (blank($storyId))
-                <x-text>Select a story to view the posts timeline</x-text>
+                <x-empty.text>Select a story to view the posts timeline</x-empty.text>
             @else
-                <x-text>There are no posts in this story</x-text>
+                <x-empty.text>There are no posts in this story</x-empty.text>
             @endif
-        </x-empty-state>
+        </x-empty>
     @endif
 </x-spacing>

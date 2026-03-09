@@ -30,13 +30,13 @@
         <div class="mt-6">
             <x-setup::callout.warning heading="A note about MariaDB">
                 <p>
-                    Nova does support using MariaDB instead of MySQL, however, a
+                    Nova supports using MariaDB in place of MySQL, however, MariaDB
                     {{-- format-ignore-start --}}
-                    <a href="https://jira.mariadb.org/browse/MDEV-19077" target="_blank" class="font-medium text-warning-800 underline hover:text-warning-900">known bug</a>
+                    <a href="https://jira.mariadb.org/browse/MDEV-19077" target="_blank" class="font-medium text-warning-800 underline hover:text-warning-900">doesn’t yet support</a>
                     {{-- format-ignore-end --}}
-                    in MariaDB prevents calculating values from nested resources. Due to this issue, Nova hides certain
-                    user interface elements with these problematic calculations if you are using MariaDB. For more
-                    information, please refer to the
+                    correlated CTEs in subqueries. This affects certain queries that Nova uses to calculate counts for
+                    nested resources. Due to this issue, Nova will hide certain user interface elements with these
+                    problematic calculations if you’re using MariaDB. For more information, please refer to the
                     {{-- format-ignore-start --}}
                     <a href="https://anodyne-productions.com/docs/3.0/database" target="_blank" class="font-medium text-warning-800 underline hover:text-warning-900">database documentation</a>.
                     {{-- format-ignore-end --}}

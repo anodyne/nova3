@@ -36,7 +36,7 @@
                 </x-fieldset.group>
 
                 <x-fieldset.group x-show="linkType !== null" x-cloak constrained>
-                    <x-input label="Label" name="label" :value="old('label')" />
+                    <x-input label="Label" name="label" :value="old('label')"/>
 
                     <x-select
                         label="Page"
@@ -53,7 +53,7 @@
 
                     <x-field x-show="linkType === 'url'" x-cloak>
                         <x-label>URL</x-label>
-                        <x-input name="url" :value="old('url')" />
+                        <x-input name="url" :value="old('url')"/>
                     </x-field>
 
                     <x-select label="Open in" name="target">
@@ -64,7 +64,7 @@
 
                     <x-field>
                         <x-label>Icon</x-label>
-                        <livewire:icon-picker :selected="old('icon')" />
+                        <livewire:icon-picker :selected="old('icon')"/>
                     </x-field>
 
                     <x-select
@@ -78,7 +78,12 @@
                         @endforeach
                     </x-select>
 
-                    <x-switch label="Active" name="status" :checked="old('status')" align="left" />
+                    <x-switch
+                        label="Active"
+                        name="status"
+                        :checked="old('status')"
+                        align="left"
+                    />
                 </x-fieldset.group>
             </x-fieldset>
 

@@ -23,7 +23,7 @@
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             <x-fieldset>
-                <x-fieldset.fields>
+                <x-fieldset.group>
                     <x-input
                         label="Name"
                         description="For privacy reasons, we recommend using a nickname or alias rather than your real name"
@@ -37,7 +37,7 @@
                         wire:model="password"
                         placeholder="Your password or a passphrase"
                     />
-                </x-fieldset.fields>
+                </x-fieldset.group>
             </x-fieldset>
 
             <div class="flex items-center justify-between">

@@ -4,46 +4,24 @@
 
 <div wire:poll.15s>
     @if ($application->result === ApplicationResult::Pending)
-        <div class="flex items-start gap-4">
-            <div class="min-w-0 flex-1">
-                <form action="#" class="relative">
-                    <div
-                        class="focus-within:border-primary-600 block w-full rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-700 placeholder-gray-400 shadow-xs disabled:text-gray-500 disabled:placeholder-gray-400/70 disabled:shadow-none sm:text-sm dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-400 dark:disabled:bg-white/[7%] dark:disabled:text-gray-400 dark:disabled:placeholder-gray-500"
-                    >
-                        <label for="comment" class="sr-only">Add a message to the application review</label>
-                        <textarea
-                            rows="3"
-                            class="block [field-sizing:content] max-h-60 w-full resize-none appearance-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 focus:outline-hidden sm:text-sm sm:leading-6 dark:text-white dark:placeholder:text-gray-500"
-                            placeholder="Add a message to the application review"
-                            wire:model.live="content"
-                        ></textarea>
+        <form wire:submit="addMessage">
+            <x-composer
+                wire:model="content"
+                label="Message"
+                label:sr-only
+                rows="3"
+                max-rows="10"
+                placeholder="Add a message to the application review"
+            >
+                <x-slot name="actionsLeading"></x-slot>
 
-                        <!-- Spacer element to match the height of the toolbar -->
-                        <div class="py-2" aria-hidden="true">
-                            <!-- Matches height of button in toolbar (1px border + 36px content height) -->
-                            <div class="py-px">
-                                <div class="h-9"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="absolute inset-x-0 bottom-0 flex justify-between px-2 py-2">
-                        <div class="ml-auto shrink-0">
-                            <x-button
-                                type="button"
-                                wire:click="addMessage"
-                                variant="subtle"
-                                size="sm"
-                                :loading="false"
-                            >
-                                <x-icon :name="Tabler::Send" size="sm" />
-                                Send
-                            </x-button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+                <x-slot name="actionsTrailing">
+                    <x-button type="submit" size="sm" variant="filled">
+                        Send
+                    </x-button>
+                </x-slot>
+            </x-composer>
+        </form>
     @endif
 
     <ul
@@ -201,7 +179,7 @@
         @empty
             @if ($application->result === ApplicationResult::Pending)
                 <x-empty>
-                    <x-illustration :name="Illustration::BubbleDiscuss" />
+                    <x-illustration :name="Illustration::BubbleDiscuss"/>
                     <x-empty.heading>No message history</x-empty.heading>
                     <x-empty.text>Go ahead, say something and get the conversation started.</x-empty.text>
                 </x-empty>

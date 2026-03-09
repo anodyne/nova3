@@ -14,7 +14,7 @@
                 :show-percent="false"
             ></x-progress.circular>
             <div>
-                <h2 class="shrink-0 text-6xl font-extrabold tabular-nums tracking-tight text-gray-950 dark:text-white">
+                <h2 class="shrink-0 text-6xl font-extrabold tracking-tight text-gray-950 tabular-nums dark:text-white">
                     {{ $stats->percentage() }}%
                 </h2>
                 <div class="flex items-center gap-x-2">
@@ -27,7 +27,10 @@
 
     @if ($showLink)
         <x-panel.footer>
-            <x-button :href="route('admin.reporting.player-activity')" text>View the activity report &rarr;</x-button>
+            <x-button :href="route('admin.reporting.player-activity')" variant="subtle" inset="left top bottom">
+                View the activity report
+                <span aria-hidden="true">→</span>
+            </x-button>
         </x-panel.footer>
     @endif
 </x-panel>

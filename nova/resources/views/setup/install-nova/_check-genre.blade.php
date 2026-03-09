@@ -5,7 +5,7 @@
     $isInstalled = Department::count() > 0 && Position::count() > 0;
 @endphp
 
-<x-setup::panel.row :name="Tabler::MasksTheater">
+<x-setup::panel.row :icon="Tabler::MasksTheater">
     <x-slot name="heading">Install {{ $this->genre }} genre data</x-slot>
 
     <x-slot name="trailing">

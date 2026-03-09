@@ -3,7 +3,7 @@
 <x-admin-layout>
     <x-page-heading>
         <x-slot name="actions">
-            <livewire:nova-update-panel-trigger />
+            <livewire:nova-update-panel-trigger/>
         </x-slot>
     </x-page-heading>
 
@@ -20,7 +20,7 @@
                 the support staff with resolving issues you may be having.
             </x-text>
             <div class="mt-6 flex items-center gap-x-4">
-                <livewire:copy-diagnostic-data-button />
+                <livewire:copy-diagnostic-data-button/>
             </div>
         </div>
 
@@ -99,7 +99,7 @@
                         </x-panel.group.row>
                         <x-panel.group.row height="2xs">
                             <x-heading>Maintenance mode</x-heading>
-                            <livewire:maintenance-mode-switch :maintenance="app()->isDownForMaintenance()" />
+                            <livewire:maintenance-mode-switch :maintenance="app()->isDownForMaintenance()"/>
 
                             @if (app()->isDownForMaintenance())
                                 <div class="flex gap-1.5 text-sm/6">
@@ -220,7 +220,7 @@
                                 </x-heading>
 
                                 @if (is_writable($path))
-                                    <x-icon :name="Tabler::CircleCheckFilled" size="sm" class="text-success-500" />
+                                    <x-icon :name="Tabler::CircleCheckFilled" size="sm" class="text-success-500"/>
                                 @else
                                     {{ substr(sprintf('%o', fileperms($path)), -4) }}
                                 @endif

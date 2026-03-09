@@ -12,7 +12,7 @@
 @endphp
 
 <x-admin-layout>
-    <x-page-header :description="$settings->getActivityDescription()"></x-page-header>
+    <x-page-heading :description="$settings->getActivityDescription()"></x-page-heading>
 
     <div class="grid gap-8 lg:grid-cols-2">
         <div>
@@ -22,29 +22,29 @@
         <div class="space-y-4">
             <div class="flex items-center gap-x-6 text-sm/6 font-medium">
                 <div class="flex items-center gap-x-1">
-                    <x-icon :name="Icon::CheckCircle" size="md" class="text-primary-500"></x-icon>
+                    <x-icon :name="Tabler::CircleCheck" size="md" class="text-primary-500" />
                     <p>Published post</p>
                 </div>
                 <div class="flex items-center gap-x-1">
-                    <x-icon :name="Icon::CircleDashed" size="md" class="text-gray-500"></x-icon>
+                    <x-icon :name="Tabler::CircleDashed" size="md" class="text-gray-500" />
                     <p>Draft post</p>
                 </div>
                 <div class="flex items-center gap-x-1">
-                    <x-icon :name="Icon::Abc" size="md" class="text-gray-500"></x-icon>
+                    <x-icon :name="Tabler::Abc" size="md" class="text-gray-500" />
                     <p>Post words</p>
                 </div>
             </div>
 
             <ul>
                 @foreach ($stats->results as $user)
-                    <li class="rounded-md px-3 py-1.5 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]">
+                    <li class="rounded-md px-3 py-1.5 odd:bg-gray-950/5 dark:odd:bg-white/[.07]">
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <div class="flex gap-x-2">
                                     @if ($meetsRequirements($user))
-                                        <x-icon :name="Icon::CheckCircle" size="md" class="text-success-500"></x-icon>
+                                        <x-icon :name="Tabler::CircleCheck" size="md" class="text-success-500" />
                                     @else
-                                        <x-icon :name="Icon::XmarkCircle" size="md" class="text-danger-500"></x-icon>
+                                        <x-icon :name="Tabler::CircleX" size="md" class="text-danger-500" />
                                     @endif
 
                                     <div>
@@ -62,15 +62,15 @@
 
                             <div class="grid shrink-0 grid-cols-3 gap-4 text-sm/6">
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon :name="Icon::CheckCircle" size="md" class="text-primary-500"></x-icon>
+                                    <x-icon :name="Tabler::CircleCheck" size="md" class="text-primary-500" />
                                     {{ $user->published_post_count }}
                                 </div>
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon :name="Icon::CircleDashed" size="md" class="text-gray-500"></x-icon>
+                                    <x-icon :name="Tabler::CircleDashed" size="md" class="text-gray-500" />
                                     {{ $user->draft_post_count }}
                                 </div>
                                 <div class="flex items-center gap-x-1 tabular-nums">
-                                    <x-icon :name="Icon::Abc" size="md" class="text-gray-500"></x-icon>
+                                    <x-icon :name="Tabler::Abc" size="md" class="text-gray-500" />
                                     {{ Number::format($user->total_word_count ?? 0) }}
                                 </div>
                             </div>

@@ -4,50 +4,37 @@
             <x-spacing size="md">
                 <x-form :action="route('password.update')">
                     <x-fieldset>
-                        <x-fieldset.field-group>
-                            <x-fieldset.field label="Email" id="email" name="email" :error="$errors->first('email')">
-                                <x-input.email
-                                    :value="old('email')"
-                                    placeholder="john@example.com"
-                                    data-cy="email"
-                                    required
-                                    autofocus
-                                    autocomplete="email"
-                                />
-                            </x-fieldset.field>
+                        <x-fieldset.group>
+                            <x-input.email
+                                label="Email"
+                                name="email"
+                                :value="old('email')"
+                                placeholder="john@example.com"
+                                required
+                                autofocus
+                                autocomplete="email"
+                            />
 
-                            <x-fieldset.field
+                            <x-input.password
                                 label="Password"
-                                id="password"
                                 name="password"
-                                :error="$errors->first('password')"
-                            >
-                                <x-input.password
-                                    placeholder="Password"
-                                    data-cy="password"
-                                    required
-                                    autocomplete="new-password"
-                                />
-                            </x-fieldset.field>
+                                placeholder="Password"
+                                required
+                                autocomplete="new-password"
+                            />
 
-                            <x-fieldset.field
+                            <x-input.password
                                 label="Confirm Password"
-                                id="password-confirm"
                                 name="password_confirmation"
-                                :error="$errors->first('password-confirm')"
-                            >
-                                <x-input.password
-                                    placeholder="Confirm your password"
-                                    data-cy="password-confirm"
-                                    required
-                                    autocomplete="off"
-                                />
-                            </x-fieldset.field>
-                        </x-fieldset.field-group>
+                                placeholder="Confirm your password"
+                                required
+                                autocomplete="off"
+                            />
+                        </x-fieldset.group>
                     </x-fieldset>
 
                     <x-fieldset>
-                        <x-button type="submit" class="w-full" color="primary">Reset password</x-button>
+                        <x-button type="submit" class="w-full" variant="primary">Reset password</x-button>
                         <input type="hidden" name="token" value="{{ request()->route('token') }}" />
                     </x-fieldset>
                 </x-form>
@@ -56,7 +43,7 @@
 
         <x-panel.footer>
             <div class="flex items-center justify-center">
-                <x-button href="/" text>Back home</x-button>
+                <x-link href="/">Back home</x-link>
             </div>
         </x-panel.footer>
     </x-panel>
