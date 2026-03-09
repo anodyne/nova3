@@ -25,6 +25,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\ApprovePost;
 use Nova\Stories\Actions\DeletePost;
+use Nova\Stories\Actions\DiscardPost;
 use Nova\Stories\Actions\ForceUnlockPost;
 use Nova\Stories\Models\Post;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
@@ -37,9 +38,10 @@ class PostsList extends TableComponent
         return $table
             ->query(
                 Post::query()
-                    ->with('characterAuthors', 'userAuthors')
+                    ->with('characterAuthors', 'userAuthors', 'participatingUsers')
                     ->select([
                         'day',
+                        'deleted_at',
                         'id',
                         'location',
                         'locked_at',
@@ -166,9 +168,18 @@ class PostsList extends TableComponent
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.posts.delete')
                             ->successNotificationTitle(fn (Post $record): string => $record->title.' post was deleted')
                             ->using(fn (Post $record): Model => DeletePost::run($record)),
+
+                        DeleteAction::make('discard')
+                            ->authorize('discard')
+                            ->label('Discard')
+                            ->icon(Tabler::TrashX)
+                            ->modalContentView('pages.posts.discard')
+                            ->successNotificationTitle(fn (Post $record): string => $record->title.' post was discarded')
+                            ->using(fn (Post $record): Model => DiscardPost::run($record)),
                     ])->divided(),
                 ]),
             ])

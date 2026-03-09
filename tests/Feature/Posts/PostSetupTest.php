@@ -10,8 +10,7 @@ use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
-uses()->group('stories');
-uses()->group('posts');
+uses()->group('posts', 'storytelling');
 
 beforeEach(function () {
     $this->post = new Post;

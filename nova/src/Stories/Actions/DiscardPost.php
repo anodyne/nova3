@@ -7,7 +7,7 @@ namespace Nova\Stories\Actions;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Models\Post;
 
-class DeletePost
+class DiscardPost
 {
     use AsAction;
 
@@ -17,6 +17,6 @@ class DeletePost
 
         $post->userAuthors()->detach();
 
-        return tap($post)->delete();
+        return tap($post)->forceDelete();
     }
 }

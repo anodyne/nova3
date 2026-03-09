@@ -12,18 +12,16 @@ use Nova\Stories\Models\Story;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
-uses()->group('stories');
-uses()->group('posts');
+uses()->group('posts', 'storytelling');
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'post.create'));
 
     it('can view the list posts page', function () {
         Post::factory(5)->published()->create();
 
-        get(route('admin.posts.index'))->assertSuccessful();
+        get(route('admin.posts.index'))
+            ->assertSuccessful();
 
         livewire(PostsList::class)
             ->assertCountTableRecords(5);
@@ -84,7 +82,7 @@ describe('authorized user', function () {
 
     it('can filter posts by published state', function () {
         Post::factory(2)->published()->create();
-        Post::factory(2)->create();
+        Post::factory(2)->draft()->create();
 
         livewire(PostsList::class)
             ->filterTable('published', true)
