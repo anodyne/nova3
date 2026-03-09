@@ -4,18 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Users\Providers;
 
-use Nova\Users\Listeners\CheckForForcedPasswordReset;
-use Nova\Users\Listeners\RecordLoginTime;
-use Nova\Users\Listeners\GeneratePassword;
-use Nova\Users\Listeners\LogImpersonationEnd;
-use Nova\Users\Listeners\LogImpersonationStart;
-use Nova\Users\Listeners\ClearForcedPasswordResetFlag;
-use Nova\Users\Spotlight\AddBan;
-use Nova\Users\Spotlight\AddUser;
-use Nova\Users\Spotlight\EditUser;
-use Nova\Users\Spotlight\ViewUser;
-use Nova\Users\Spotlight\ViewBans;
-use Nova\Users\Spotlight\ViewUsers;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\PasswordReset;
@@ -23,8 +11,14 @@ use Lab404\Impersonate\Events\LeaveImpersonation;
 use Lab404\Impersonate\Events\TakeImpersonation;
 use Nova\DomainServiceProvider;
 use Nova\Users\Events\UserCreatedByAdmin;
-use Nova\Users\Listeners;
+use Nova\Users\Listeners\CheckForForcedPasswordReset;
+use Nova\Users\Listeners\ClearForcedPasswordResetFlag;
+use Nova\Users\Listeners\GeneratePassword;
+use Nova\Users\Listeners\LogImpersonationEnd;
+use Nova\Users\Listeners\LogImpersonationStart;
+use Nova\Users\Listeners\RecordLoginTime;
 use Nova\Users\Livewire\ActivateUserButton;
+use Nova\Users\Livewire\AdminAppearance;
 use Nova\Users\Livewire\BansList;
 use Nova\Users\Livewire\DeactivateUserButton;
 use Nova\Users\Livewire\DeleteMyAccount;
@@ -37,7 +31,12 @@ use Nova\Users\Livewire\UserNotificationPreferencesList;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
-use Nova\Users\Spotlight;
+use Nova\Users\Spotlight\AddBan;
+use Nova\Users\Spotlight\AddUser;
+use Nova\Users\Spotlight\EditUser;
+use Nova\Users\Spotlight\ViewBans;
+use Nova\Users\Spotlight\ViewUser;
+use Nova\Users\Spotlight\ViewUsers;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -69,6 +68,7 @@ class UserServiceProvider extends DomainServiceProvider
     {
         return [
             'bans-list' => BansList::class,
+            'users-admin-appearance' => AdminAppearance::class,
             'users-list' => UsersList::class,
             'users-manage-characters' => ManageCharacters::class,
             'users-manage-roles' => ManageRoles::class,

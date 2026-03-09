@@ -1,153 +1,158 @@
+@use('Nova\Characters\Models\Character')
 @use('Nova\Departments\Models\Position')
 @use('Nova\Users\Models\User')
 
 <x-admin-layout>
     <x-spacing x-data="tabsList('info')" constrained>
-        <x-page-header>
+        <x-page-heading :heading="$user->name">
+            <x-slot name="description">
+                <x-metadata.group size="md" gap="lg">
+                    <x-metadata label="Status">
+                        <x-badge :color="$user->status->getColor()" size="md">
+                            {{ $user->status->getLabel() }}
+                        </x-badge>
+                    </x-metadata>
+                </x-metadata.group>
+            </x-slot>
+
             <x-slot name="actions">
                 @can('viewAny', User::class)
-                    <x-button :href="route('admin.users.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.users.index')" variant="ghost">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
 
                 @can('update', $user)
-                    <x-button :href="route('admin.users.edit', $user)" color="primary">
-                        <x-icon :name="Icon::Edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.users.edit', $user)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
-        <x-tab.group name="user" class="mb-12">
-            <x-tab.heading name="info">
-                <x-icon :name="Icon::Info" size="sm"></x-icon>
-                Basic info
-            </x-tab.heading>
-            <x-tab.heading name="stats">
-                <x-icon :name="Icon::Chart" size="sm"></x-icon>
-                Stats
-            </x-tab.heading>
+        <x-tab.group class="mb-12">
+            <x-slot name="tabs">
+                <x-tab name="info">
+                    <x-icon :name="Tabler::InfoCircle" size="sm" />
+                    Basic info
+                </x-tab>
+                <x-tab name="stats">
+                    <x-icon :name="Tabler::ChartBar" size="sm" />
+                    Stats
+                </x-tab>
 
-            @if (filled($form->published_fields))
-                <x-tab.heading name="bio">
-                    <x-icon :name="Icon::UserProfile" size="sm"></x-icon>
-                    Bio
-                </x-tab.heading>
-            @endif
+                @if (filled($form->published_fields))
+                    <x-tab name="bio">
+                        <x-icon :name="Tabler::UserCircle" size="sm" />
+                        Bio
+                    </x-tab>
+                @endif
+            </x-slot>
+
+            <x-tab.panel name="info" class="space-y-12">
+                <x-fieldset>
+                    <x-fieldset.group constrained>
+                        <x-input.display label="Email address">
+                            <x-text>{{ $user->email }}</x-text>
+                        </x-input.display>
+
+                        <x-input.display label="Pronouns">
+                            <x-text>{{ $user->pronouns }}</x-text>
+                        </x-input.display>
+                    </x-fieldset.group>
+                </x-fieldset>
+            </x-tab.panel>
+
+            <x-tab.panel name="stats" class="space-y-12">
+                <x-panel variant="well">
+                    <x-panel.header title="Characters"></x-panel.header>
+
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        <x-spacing size="md" class="grid lg:grid-cols-2">
+                            <x-panel.stat label="Active characters" :value="$user->active_characters_count" />
+                            <x-panel.stat label="Total characters" :value="$user->characters_count" />
+                        </x-spacing>
+
+                        <x-spacing size="md" class="grid grid-cols-2 gap-4">
+                            @forelse ($user->characters as $character)
+                                <x-avatar.character :$character positions />
+                            @empty
+                                <div class="lg:col-span-2">
+                                    <x-empty>
+                                        <x-illustration :name="Illustration::Vulcan" />
+                                        <x-empty.heading>No characters assigned</x-empty.heading>
+                                        <x-empty.text>
+                                            There aren’t any characters assigned to this user. Assign some characters to
+                                            this user to populate this list.
+                                        </x-empty.text>
+
+                                        @can('viewAny', Character::class)
+                                            <x-button :href="route('admin.characters.index')" variant="ghost">
+                                                Assign characters
+                                                <span aria-hidden="true">→</span>
+                                            </x-button>
+                                        @endcan
+                                    </x-empty>
+                                </div>
+                            @endforelse
+                        </x-spacing>
+                    </x-panel>
+                </x-panel>
+
+                <x-panel variant="well">
+                    <x-panel.header title="Posting"></x-panel.header>
+
+                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
+                        <x-spacing size="md" class="grid lg:grid-cols-2">
+                            <x-panel.stat label="Published posts" :value="$user->published_posts_count"></x-panel.stat>
+                            <x-panel.stat label="Last posted">
+                                {!! $user->latestPost->first()?->published_at?->diffForHumans() ?? '&ndash;' !!}
+                            </x-panel.stat>
+                        </x-spacing>
+
+                        <x-spacing size="md" class="grid gap-4 lg:grid-cols-2">
+                            @forelse ($publishedPosts as $post)
+                                {{ $post->title }}
+                            @empty
+                                <div class="lg:col-span-2">
+                                    <x-empty>
+                                        <x-illustration :name="Tabler::Book" />
+                                        <x-empty.heading>No published posts</x-empty.heading>
+                                        <x-empty.text>There aren’t any published posts by this user</x-empty.text>
+                                    </x-empty>
+                                </div>
+                            @endforelse
+                        </x-spacing>
+                    </x-panel>
+                </x-panel>
+
+                <x-panel class="lg:col-span-3" variant="well">
+                    <x-panel.header title="History / activity"></x-panel.header>
+
+                    <x-panel>
+                        <x-spacing size="md" class="grid lg:grid-cols-2">
+                            <x-panel.stat label="Joined">
+                                {{ $user->created_at->diffForHumans() }}
+                            </x-panel.stat>
+                            <x-panel.stat label="Last signed in">
+                                {!! $user->latestLogin?->created_at->diffForHumans() ?? '&ndash;' !!}
+                            </x-panel.stat>
+                        </x-spacing>
+                    </x-panel>
+                </x-panel>
+            </x-tab.panel>
+
+            <x-tab.panel name="bio" class="w-full max-w-md">
+                <livewire:dynamic-form
+                    :form="$form"
+                    :submission="$user->userFormSubmission"
+                    :owner="$user"
+                    :admin="true"
+                    :static="true"
+                />
+            </x-tab.panel>
         </x-tab.group>
-
-        <div class="space-y-12" x-show="isTab('info')" x-cloak>
-            <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <x-fieldset.field label="Name">
-                        <x-text>{{ $user->name }}</x-text>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Email address">
-                        <x-text>{{ $user->email }}</x-text>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Pronouns">
-                        <x-text>{{ $user->pronouns }}</x-text>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Status">
-                        <div data-slot="text">
-                            <x-badge :color="$user->status->getColor()">
-                                {{ $user->status->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
-            </x-fieldset>
-        </div>
-
-        <div class="space-y-12" x-show="isTab('stats')" x-cloak>
-            <x-panel variant="well">
-                <x-panel.header title="Characters"></x-panel.header>
-
-                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                    <x-spacing size="md" class="grid lg:grid-cols-2">
-                        <x-panel.stat label="Active characters" :value="$user->active_characters_count"></x-panel.stat>
-                        <x-panel.stat label="Total characters" :value="$user->characters_count"></x-panel.stat>
-                    </x-spacing>
-
-                    <x-spacing size="md" class="grid gap-4">
-                        @forelse ($user->characters as $character)
-                            <x-avatar.character :character="$character"></x-avatar.character>
-                        @empty
-                            <div class="lg:col-span-2">
-                                <x-empty-state>
-                                    <x-icon :name="Icon::Characters"></x-icon>
-                                    <x-h3>No characters assigned</x-h3>
-                                    <x-text>
-                                        There aren’t any positions assigned to this department. Assign some positions to
-                                        this department to populate this list.
-                                    </x-text>
-
-                                    @can('viewAny', Position::class)
-                                        <x-button :href="route('admin.positions.index')" plain>
-                                            Assign positions
-                                        </x-button>
-                                    @endcan
-                                </x-empty-state>
-                            </div>
-                        @endforelse
-                    </x-spacing>
-                </x-panel>
-            </x-panel>
-
-            <x-panel variant="well">
-                <x-panel.header title="Posting"></x-panel.header>
-
-                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                    <x-spacing size="md" class="grid lg:grid-cols-2">
-                        <x-panel.stat label="Published posts" :value="$user->published_posts_count"></x-panel.stat>
-                        <x-panel.stat label="Last posted">
-                            {!! $user->latestPost->first()?->published_at?->diffForHumans() ?? '&ndash;' !!}
-                        </x-panel.stat>
-                    </x-spacing>
-
-                    <x-spacing size="md" class="grid gap-4 lg:grid-cols-2">
-                        @forelse ($publishedPosts as $post)
-                            {{ $post->title }}
-                        @empty
-                            <div class="lg:col-span-2">
-                                <x-empty-state>
-                                    <x-icon :name="Icon::Books"></x-icon>
-                                    <x-h3>No published posts</x-h3>
-                                    <x-text>There aren’t any published posts by this user</x-text>
-                                </x-empty-state>
-                            </div>
-                        @endforelse
-                    </x-spacing>
-                </x-panel>
-            </x-panel>
-
-            <x-panel class="lg:col-span-3" variant="well">
-                <x-panel.header title="History / activity"></x-panel.header>
-
-                <x-panel>
-                    <x-spacing size="md" class="grid lg:grid-cols-2">
-                        <x-panel.stat label="Joined">
-                            {{ $user->created_at->diffForHumans() }}
-                        </x-panel.stat>
-                        <x-panel.stat label="Last signed in">
-                            {!! $user->latestLogin?->created_at->diffForHumans() ?? '&ndash;' !!}
-                        </x-panel.stat>
-                    </x-spacing>
-                </x-panel>
-            </x-panel>
-        </div>
-
-        <div class="w-full max-w-md" x-show="isTab('bio')">
-            <livewire:dynamic-form
-                :form="$form"
-                :submission="$user->userFormSubmission"
-                :owner="$user"
-                :admin="true"
-                :static="true"
-            />
-        </div>
     </x-spacing>
 </x-admin-layout>

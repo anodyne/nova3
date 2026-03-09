@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -11,7 +12,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Data\UserModerations;
 use Nova\Users\Models\User;
@@ -82,7 +82,7 @@ class UserModerationList extends TableComponent
                     ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
                     ->default(fn () => request()->query('status', ['active'])),
             ])
-            ->emptyStateIcon(Icon::User)
+            ->emptyStateIcon(Tabler::User)
             ->emptyStateHeading('No users found');
     }
 }

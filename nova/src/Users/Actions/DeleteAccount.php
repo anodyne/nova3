@@ -6,6 +6,10 @@ namespace Nova\Users\Actions;
 
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Announcements\Models\AnnouncementNotification;
+use Nova\Applications\Models\Application;
+use Nova\Discussions\Models\DiscussionNotification;
+use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
 class DeleteAccount
@@ -15,19 +19,23 @@ class DeleteAccount
     public function handle(User $user): void
     {
         DB::transaction(function () use ($user) {
-            // Detach any characters
+            $user->announcements()->where('status', '!=', PublishStatus::Published)->delete();
 
-            // Detach any story posts
+            AnnouncementNotification::query()->user($user->id)->delete();
 
-            // Detach any announcements
+            // Application::query()->user($user->id);
 
-            // Detach from any direct messages
+            DiscussionNotification::query()->user($user->id)->delete();
 
             $user->notes()->delete();
 
             $user->logins()->delete();
 
             $user->clearMediaCollection('avatar');
+
+            $user->onboardings()->delete();
+
+            $user->statusHistories()->delete();
 
             $user->delete();
         });

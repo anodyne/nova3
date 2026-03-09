@@ -8,8 +8,7 @@ use Nova\Users\Models\User;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Livewire\livewire;
 
-uses()->group('users');
-uses()->group('components');
+uses()->group('users', 'components');
 
 beforeEach(function () {
     signIn(permissions: 'user.update');

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Models\Character;
 use Nova\Users\Events\UserActivated;
@@ -29,7 +30,8 @@ describe('authorized user', function () {
         Event::fake();
 
         livewire(UsersList::class)
-            ->callTableAction('activate', $this->user, data: [
+            ->removeTableFilters()
+            ->callAction(TestAction::make('activate')->table($this->user), data: [
                 'activate_previous_character' => false,
             ]);
 
@@ -50,7 +52,8 @@ describe('authorized user', function () {
         Event::fake();
 
         livewire(UsersList::class)
-            ->callTableAction('activate', $this->user, data: [
+            ->removeTableFilters()
+            ->callAction(TestAction::make('activate')->table($this->user), data: [
                 'activate_previous_character' => true,
             ])
             ->assertNotified();

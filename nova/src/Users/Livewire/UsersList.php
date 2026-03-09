@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
+use BackedEnum;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\IconColumn;
@@ -28,7 +30,6 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\Icon;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Actions\ActivateUser;
 use Nova\Users\Actions\ActivateUserManager;
@@ -55,6 +56,7 @@ class UsersList extends TableComponent
                 User::with('media', 'latestLogin', 'latestPost', 'primaryCharacter', 'characters', 'activeCharacters', 'application', 'bans')
                     ->notHidden()
             )
+            ->recordUrl(fn (User $record): string => route('admin.users.show', $record))
             ->groups([
                 Group::make('status')->collapsible(),
             ])
@@ -75,20 +77,18 @@ class UsersList extends TableComponent
                     ->listWithLineBreaks()
                     ->toggleable()
                     ->toggledHiddenByDefault(),
-
-                // FIXME: This should be able to use null for the falseIcon
-                // IconColumn::make('moderations')
-                //     ->label('Is moderated')
-                //     ->icon(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
-                //         true => Icon::Forbid,
-                //         default => null,
-                //     })
-                //     ->color(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
-                //         true => 'danger',
-                //         default => null,
-                //     })
-                //     ->toggleable(),
-
+                IconColumn::make('moderations')
+                    ->label('Moderated')
+                    ->icon(fn (User $record): ?BackedEnum => match ($record->moderations?->isModerated()) {
+                        true => Tabler::Forbid2,
+                        default => null,
+                    })
+                    ->color(fn (User $record): ?string => match ($record->moderations?->isModerated()) {
+                        true => 'danger',
+                        default => null,
+                    })
+                    ->alignCenter()
+                    ->toggleable(),
                 TextColumn::make('updated_at')
                     ->label('Last activity')
                     ->since()
@@ -99,15 +99,12 @@ class UsersList extends TableComponent
                     ->label('Last sign in')
                     ->since()
                     ->toggleable(),
-
-                // FIXME: This should be able to use null
-                // TextColumn::make('latestPost.0.published_at')
-                //     ->label('Last post')
-                //     ->since()
-                //     ->toggleable()
-                //     ->color(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'danger' : null)
-                //     ->weight(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'semibold' : null),
-
+                TextColumn::make('latestPost.0.published_at')
+                    ->label('Last post')
+                    ->since()
+                    ->toggleable()
+                    ->color(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'danger' : null)
+                    ->weight(fn (mixed $state): ?string => $state->diffInDays(now()) > 14 ? 'semibold' : null),
                 TextColumn::make('status')
                     ->badge()
                     ->toggleable(),
@@ -127,7 +124,7 @@ class UsersList extends TableComponent
                         Action::make('application')
                             ->label('View application')
                             ->color('gray')
-                            ->icon(Icon::Progress)
+                            ->icon(Tabler::Progress)
                             ->url(fn (User $record): ?string => route('admin.applications.show', $record->application)),
                     ])->visible(fn (User $record): bool => filled($record->application))->divided(),
 
@@ -136,9 +133,9 @@ class UsersList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->withRelations(['characters'])
-                                    ->itemIcon('activated', Icon::CheckCircle->value)
+                                    ->itemIcon('activated', Tabler::CircleCheck->value)
                                     ->itemIconColor('activated', 'success')
-                                    ->itemIcon('deactivated', Icon::MinusCircle->value)
+                                    ->itemIcon('deactivated', Tabler::CircleMinus->value)
                                     ->itemIconColor('deactivated', 'warning')
                                     ->eventDescription('assigned', function (Activity $activity) {
                                         $characterIds = $activity->getExtraProperty('characterIds');
@@ -171,14 +168,14 @@ class UsersList extends TableComponent
                             ->modalContentView('pages.users.impersonate-warning')
                             ->modalSubmitActionLabel('Impersonate')
                             ->color('gray')
-                            ->icon(Icon::Spy)
+                            ->icon(Tabler::Spy)
                             ->action(fn (User $record) => to_route('impersonate', $record->id)),
                     ])->divided(),
 
                     ActionGroup::make([
                         Action::make('activate')
                             ->authorize('activate')
-                            ->icon(Icon::CheckCircle)
+                            ->icon(Tabler::CircleCheck)
                             ->color('gray')
                             ->modalContentView('pages.users.activate')
                             ->modalSubmitActionLabel('Activate')
@@ -201,7 +198,7 @@ class UsersList extends TableComponent
                             }),
                         Action::make('deactivate')
                             ->authorize('deactivate')
-                            ->icon(Icon::MinusCircle)
+                            ->icon(Tabler::CircleMinus)
                             ->color('gray')
                             ->modalContentView('pages.users.deactivate')
                             ->modalSubmitActionLabel('Deactivate')
@@ -219,7 +216,7 @@ class UsersList extends TableComponent
                     ActionGroup::make([
                         Action::make('banUser')
                             ->authorize('update')
-                            ->icon(Icon::Hammer)
+                            ->icon(Tabler::Hammer)
                             ->color('gray')
                             ->modalContentView('pages.users.ban')
                             ->successNotificationTitle('User was banned')
@@ -238,7 +235,7 @@ class UsersList extends TableComponent
                             ->visible(fn (User $record): bool => $record->isNotBanned()),
                         Action::make('unbanUser')
                             ->authorize('update')
-                            ->icon(Icon::HammerOff)
+                            ->icon(Tabler::HammerOff)
                             ->color('gray')
                             ->schema([
                                 Toggle::make('reactivate')->label('Re-activate their user account'),
@@ -285,11 +282,11 @@ class UsersList extends TableComponent
                 ]),
             ])
             ->groupedBulkActions([
-                BulkAction::make('force-password-reset')
+                BulkAction::make('forcePasswordReset')
                     ->authorize('updateAny')
                     ->modalContentView('pages.users.force-password-reset-bulk')
                     ->modalSubmitActionLabel('Force password reset')
-                    ->icon(Icon::Key)
+                    ->icon(Tabler::Key)
                     ->color('gray')
                     ->action(function (Collection $records): void {
                         $records = $records
@@ -307,7 +304,7 @@ class UsersList extends TableComponent
                     ->multiple()
                     ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
                     ->default(fn () => request()->query('status', ['active'])),
-                TernaryFilter::make('assigned_characters')
+                TernaryFilter::make('hasAssignedCharacters')
                     ->label('Has assigned characters')
                     ->queries(
                         true: fn (Builder $query): Builder => $query->whereHas('activeCharacters'),
@@ -319,7 +316,7 @@ class UsersList extends TableComponent
                         true: fn (Builder $query): Builder => $query->whereModerationHasTrue(),
                         false: fn (Builder $query): Builder => $query->whereModerationDoesntHaveTrue()
                     ),
-                SelectFilter::make('last_login')
+                SelectFilter::make('lastLogin')
                     ->label('Last signed in')
                     ->options([
                         '7 days' => 'Within 1 week',
@@ -341,7 +338,7 @@ class UsersList extends TableComponent
 
                         return 'Last signed in: within '.$data['value'];
                     }),
-                SelectFilter::make('last_post')
+                SelectFilter::make('lastPost')
                     ->label('Last posted')
                     ->options([
                         '7 days' => 'Within 1 week',
@@ -364,7 +361,7 @@ class UsersList extends TableComponent
                         return 'Last posted: within '.$data['value'];
                     }),
             ])
-            ->emptyStateIcon(Icon::Users)
+            ->emptyStateIcon(Tabler::Users)
             ->emptyStateHeading('No users found')
             ->emptyStateDescription('')
             ->emptyStateActions([

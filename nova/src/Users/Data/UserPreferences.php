@@ -6,14 +6,15 @@ namespace Nova\Users\Data;
 
 use Bag\Bag;
 use Nova\Stories\Enums\ContentRatingValue;
+use Nova\Users\Enums\Appearance;
 
 /**
- * @method static static from(?string $appearance, ?string $timezone, ?int $languageContentRatingWarningThreshold, ?int $sexContentRatingWarningThreshold, ?int $violenceContentRatingWarningThreshold)
+ * @method static static from(Appearance $appearance, ?string $timezone, ?int $languageContentRatingWarningThreshold, ?int $sexContentRatingWarningThreshold, ?int $violenceContentRatingWarningThreshold)
  */
 readonly class UserPreferences extends Bag
 {
     public function __construct(
-        public ?string $appearance,
+        public Appearance $appearance,
         public ?string $timezone,
         public ContentRatingValue $languageContentRatingWarningThreshold,
         public ContentRatingValue $sexContentRatingWarningThreshold,

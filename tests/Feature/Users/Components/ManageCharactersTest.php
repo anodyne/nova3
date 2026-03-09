@@ -9,8 +9,7 @@ use Nova\Users\Models\User;
 
 use function Pest\Livewire\livewire;
 
-uses()->group('users');
-uses()->group('components');
+uses()->group('users', 'characters', 'components');
 
 test('it can mount without a user', function () {
     livewire(ManageCharacters::class)
@@ -28,35 +27,14 @@ test('it can mount with a user', function () {
         ->assertSet('assigned', $user->roles);
 });
 
-test('it can search characters', function () {
-    signIn();
-
-    Character::factory()->active()->create(['name' => 'John Doe']);
-
-    livewire(ManageCharacters::class)
-        ->set('search', 'john')
-        ->assertSet('searchResults', $characters = Character::searchFor('john')->get())
-        ->assertCount('searchResults', $characters->count());
-});
-
-test('it can list all characters in the search results', function () {
-    signIn();
-
-    Character::factory()->active()->create(['name' => 'John Doe']);
-
-    livewire(ManageCharacters::class)
-        ->set('search', '*')
-        ->assertSet('searchResults', $characters = Character::get())
-        ->assertCount('searchResults', $characters->count());
-});
-
 test('it can add a character', function () {
     $character1 = Character::factory()->active()->create();
     $character2 = Character::factory()->active()->create();
 
     livewire(ManageCharacters::class)
-        ->call('add', $character1->id)
-        ->call('add', $character2->id)
+        ->set('selected', $character1->id)
+        ->assertSet('assignedCharacters', "{$character1->id}")
+        ->set('selected', $character2->id)
         ->assertSet('assignedCharacters', "{$character1->id},{$character2->id}");
 });
 
@@ -65,8 +43,8 @@ test('it can remove a character', function () {
     $character2 = Character::factory()->active()->create();
 
     livewire(ManageCharacters::class)
-        ->call('add', $character1->id)
-        ->call('add', $character2->id)
+        ->set('selected', $character1->id)
+        ->set('selected', $character2->id)
         ->assertSet('assignedCharacters', "{$character1->id},{$character2->id}")
         ->call('remove', $character1->id)
         ->assertSet('assignedCharacters', $character2->id);
@@ -77,8 +55,8 @@ test('it can set a character as the primary character', function () {
     $character2 = Character::factory()->active()->create();
 
     livewire(ManageCharacters::class)
-        ->call('add', $character1->id)
-        ->call('add', $character2->id)
+        ->set('selected', $character1->id)
+        ->set('selected', $character2->id)
         ->call('setAsPrimaryCharacter', $character2->id)
         ->assertSet('primaryCharacter', $character2->id);
 });
@@ -88,8 +66,8 @@ test('it can change the primary character after it has been set', function () {
     $character2 = Character::factory()->active()->create();
 
     livewire(ManageCharacters::class)
-        ->call('add', $character1->id)
-        ->call('add', $character2->id)
+        ->set('selected', $character1->id)
+        ->set('selected', $character2->id)
         ->call('setAsPrimaryCharacter', $character2->id)
         ->assertSet('primaryCharacter', $character2->id)
         ->call('setAsPrimaryCharacter', $character1->id)

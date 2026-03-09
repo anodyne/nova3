@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <x-page-header></x-page-header>
+    <x-page-heading></x-page-heading>
 
     <livewire:profile-notification-preferences />
 </x-admin-layout>

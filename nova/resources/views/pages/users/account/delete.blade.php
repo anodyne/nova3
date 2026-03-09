@@ -1,6 +1,6 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header></x-page-header>
+        <x-page-heading></x-page-heading>
 
         <livewire:delete-my-account />
     </x-spacing>

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Characters\Models\Character;
 use Nova\Users\Events\UserDeactivated;
@@ -29,7 +30,7 @@ describe('authorized user', function () {
         Event::fake();
 
         livewire(UsersList::class)
-            ->callTableAction('deactivate', $this->user);
+            ->callAction(TestAction::make('deactivate')->table($this->user));
 
         assertDatabaseHas(User::class, [
             'id' => $this->user->id,
@@ -50,7 +51,7 @@ describe('authorized user', function () {
         $user->characters()->attach($this->character->id);
 
         livewire(UsersList::class)
-            ->callTableAction('deactivate', $this->user)
+            ->callAction(TestAction::make('deactivate')->table($this->user))
             ->assertNotified();
 
         assertDatabaseHas(User::class, [
