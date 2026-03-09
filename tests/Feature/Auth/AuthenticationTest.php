@@ -42,12 +42,14 @@ describe('unauthenticated user', function () {
 
         $user = $user->fresh();
 
+        $recallerCookieValue = vsprintf('%s|%s|%s', [
+            $user->id,
+            $user->getRememberToken(),
+            Auth::guard()->hashPasswordForCookie($user->getAuthPassword()),
+        ]);
+
         $response->assertRedirectToRoute('admin.dashboard')
-            ->assertCookie(Auth::guard()->getRecallerName(), vsprintf('%s|%s|%s', [
-                $user->id,
-                $user->getRememberToken(),
-                $user->password,
-            ]));
+            ->assertCookie(Auth::guard()->getRecallerName(), $recallerCookieValue);
 
         assertAuthenticatedAs($user);
     });
