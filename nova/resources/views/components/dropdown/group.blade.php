@@ -1,3 +1,3 @@
-<div {{ $attributes->merge(['class' => 'p-1']) }}>
+<flux:menu.group {{ $attributes }}>
     {{ $slot }}
-</div>
+</flux:menu.group>

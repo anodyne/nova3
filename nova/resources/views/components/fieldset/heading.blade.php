@@ -1,18 +1,22 @@
-<div
-    data-slot="heading"
-    @class([
-        // Base layout
-        'grid grid-cols-[1.5rem_1fr] items-center gap-x-3 sm:grid-cols-[1.5rem_1fr]',
+@props([
+    'icon',
+    'heading',
+])
 
-        // Icon layout
-        '[&>[data-slot=icon]]:col-start-1 [&>[data-slot=icon]]:row-start-1 [&>[data-slot=icon]]:flex [&>[data-slot=icon]]:size-7 [&>[data-slot=icon]]:items-center [&>[data-slot=icon]]:justify-self-center [&>[data-slot=icon]]:text-gray-500',
+<div data-slot="heading" {{ $attributes->class(['grid grid-cols-[1.5rem_1fr] gap-2.5']) }}>
+    <div class="col-start-1 row-start-1 text-gray-500">
+        @if ($icon instanceof BackedEnum)
+            <x-icon :name="$icon" size="md" />
+        @else
+            {{ $icon }}
+        @endif
+    </div>
 
-        // Legend layout
-        '[&>[data-slot=legend]]:col-start-2 [&>[data-slot=legend]]:row-start-1 [&>[data-slot=legend]]:justify-self-start [&>[data-slot=legend]]:text-lg sm:[&>[data-slot=legend]]:text-base',
+    <div class="col-start-2 row-start-1">
+        <x-heading size="lg" level="3" class="leading-6">{{ $heading }}</x-heading>
 
-        // Description layout
-        '[&>[data-slot=description]]:col-start-2 [&>[data-slot=description]]:row-start-2',
-    ])
->
-    {{ $slot }}
+        <div class="space-y-4">
+            {{ $slot }}
+        </div>
+    </div>
 </div>

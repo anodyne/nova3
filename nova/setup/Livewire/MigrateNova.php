@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Setup\Enums\NovaMigrateStatus;
 use Nova\Setup\Enums\SetupType;
 
@@ -28,11 +29,11 @@ class MigrateNova extends Component
             $this->getLegacyNovaVersion();
         }
 
-        if (Cache::has('migration_complete')) {
+        if (Cache::has(CacheKeys::MigrationComplete->value)) {
             $this->status = NovaMigrateStatus::DataMigrated;
         }
 
-        if (Cache::has('migration_account_setup_complete')) {
+        if (Cache::has(CacheKeys::MigrationAccountSetupComplete->value)) {
             $this->status = NovaMigrateStatus::Success;
         }
 

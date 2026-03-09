@@ -9,12 +9,12 @@
     $iconClasses = \Illuminate\Support\Arr::toCssClasses([
         'fi-btn-icon transition duration-75 shrink-0',
         'h-5 w-5',
-        'text-gray-500 dark:text-gray-500' => ($color === 'gray'),
+        'text-gray-400' => ($color === 'gray'),
     ]);
 @endphp
 
 <div
-    class="fi-dropdown-list-item fi-dropdown-list-item-color-gray fi-color-gray fi-ac-action fi-ac-grouped-action fi-ac-text-action flex w-full gap-2 whitespace-normal p-2 text-sm/6 !font-normal"
+    class="fi-dropdown-list-item fi-ac-action fi-ac-grouped-action fi-ac-text-action items-start whitespace-normal hover:bg-transparent"
 >
     @if ($icon)
         <x-filament::icon
@@ -28,5 +28,7 @@
         />
     @endif
 
-    {{ $getLabel() }}
+    <span class="fi-dropdown-list-item-label whitespace-normal">
+        {{ $getLabel() }}
+    </span>
 </div>

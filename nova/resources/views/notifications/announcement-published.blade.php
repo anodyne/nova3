@@ -1,16 +1,11 @@
 @php(extract($notification['data']))
 
-<x-notification :notification="$notification">
+<x-notification :notification="$notification" :href="route('admin.announcements.show', $announcement_id)">
     <x-slot name="leading" class="text-primary-500">
-        <x-icon :name="Icon::Megaphone" size="xl"></x-icon>
+        <x-icon :name="NotificationIcon::Megaphone" size="lg" />
     </x-slot>
 
-    <strong class="font-semibold text-gray-900 dark:text-white">{{ $announcement_title }}</strong>
-    announcement has been published in the
-    <em>{{ $announcement_category }}</em>
-    category.
-
-    <x-slot name="actions">
-        <x-button :href="route('admin.announcements.show', $announcement_id)">Read &rarr;</x-button>
-    </x-slot>
+    {{-- format-ignore-start --}}
+    <strong>{{ $announcement_title }}</strong> announcement has been published
+    {{-- format-ignore-end --}}
 </x-notification>

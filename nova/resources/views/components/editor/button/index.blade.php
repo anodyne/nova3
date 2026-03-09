@@ -27,6 +27,6 @@
     @endif
     {{ $attributes }}
 >
-    <x-icon :name="$icon" size="md"></x-icon>
+    <x-icon :name="$icon" size="md" />
 </button>
 {{-- format-ignore-end --}}

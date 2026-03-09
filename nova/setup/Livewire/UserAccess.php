@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Onboarding\Actions\StartOnboarding;
 use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
@@ -42,7 +43,7 @@ class UserAccess extends Component
 
             StartOnboarding::run(OnboardingProcess::NewUser, $user);
 
-            Cache::put('migration_account_setup_complete', true, now()->addHour());
+            Cache::put(CacheKeys::MigrationAccountSetupComplete->value, true, now()->addHour());
 
             $this->redirect('/setup/migrate');
         }

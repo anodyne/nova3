@@ -42,7 +42,7 @@
                     },
                 ])
             >
-                <x-icon :name="$icon" :size="$iconSize" class="shrink-0"></x-icon>
+                <x-icon :name="$icon" :size="$iconSize" class="shrink-0" />
             </div>
         @endif
 

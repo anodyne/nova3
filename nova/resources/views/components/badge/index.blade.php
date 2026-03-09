@@ -33,96 +33,98 @@
     @if ($variant === 'inset')
         data-nova-badge-inset
     @endif
-    @class([
-        'inline-flex size-max items-center font-medium tracking-normal whitespace-nowrap tabular-nums ring-1 ring-inset',
+    {{
+        $attributes->class([
+            'inline-flex size-max items-center font-medium tracking-normal whitespace-nowrap tabular-nums ring-1 ring-inset',
 
-        match ($type) {
-            // Square badge
-            'square' => Arr::toCssClasses([
-                match ($variant) {
-                    'dot' => match ($size) {
-                        'md' => 'gap-1 px-2 py-0.5',
-                        'lg' => 'gap-1.5 px-2.5 py-1',
-                        default => 'gap-1 px-1.5 py-0.5',
+            match ($type) {
+                // Square badge
+                'square' => Arr::toCssClasses([
+                    match ($variant) {
+                        'dot' => match ($size) {
+                            'md' => 'gap-1 px-2 py-0.5',
+                            'lg' => 'gap-1.5 px-2.5 py-1',
+                            default => 'gap-1 px-1.5 py-0.5',
+                        },
+                        'icon' => match ($size) {
+                            'md' => 'p-1.5 *:data-[slot=icon]:size-4',
+                            'lg' => 'p-2 *:data-[slot=icon]:size-4',
+                            default => 'p-1.25 *:data-[slot=icon]:size-4',
+                        },
+                        default => match ($size) {
+                            'md' => 'px-2 py-0.5',
+                            'lg' => 'px-2.5 py-1',
+                            default => 'px-1.5 py-0.5',
+                        },
                     },
-                    'icon' => match ($size) {
-                        'md' => 'p-1.5 *:data-[slot=icon]:size-4',
-                        'lg' => 'p-2 *:data-[slot=icon]:size-4',
-                        default => 'p-1.25 *:data-[slot=icon]:size-4',
+                    match ($size) {
+                        'md' => 'rounded-md text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
+                        'lg' => 'rounded-lg text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-lg)-(--spacing(1)))]',
+                        default => 'rounded-md text-xs [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
                     },
-                    default => match ($size) {
-                        'md' => 'px-2 py-0.5',
-                        'lg' => 'px-2.5 py-1',
-                        default => 'px-1.5 py-0.5',
-                    },
-                },
-                match ($size) {
-                    'md' => 'rounded-md text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
-                    'lg' => 'rounded-lg text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-lg)-(--spacing(1)))]',
-                    default => 'rounded-md text-xs [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
-                },
-                $colorClasses,
-            ]),
+                    $colorClasses,
+                ]),
 
-            // Modern badge
-            'modern' => Arr::toCssClasses([
-                'shadow-xs',
-                match ($variant) {
-                    'dot' => match ($size) {
-                        'md' => 'gap-1 px-2 py-0.5',
-                        'lg' => 'gap-1.5 px-2.5 py-1',
-                        default => 'gap-1 px-1.5 py-0.5',
+                // Modern badge
+                'modern' => Arr::toCssClasses([
+                    'shadow-xs',
+                    match ($variant) {
+                        'dot' => match ($size) {
+                            'md' => 'gap-1 px-2 py-0.5',
+                            'lg' => 'gap-1.5 px-2.5 py-1',
+                            default => 'gap-1 px-1.5 py-0.5',
+                        },
+                        'icon' => match ($size) {
+                            'md' => 'p-1.5 *:data-[slot=icon]:size-4',
+                            'lg' => 'p-2 *:data-[slot=icon]:size-4',
+                            default => 'p-1.25 *:data-[slot=icon]:size-4',
+                        },
+                        default => match ($size) {
+                            'md' => 'px-2 py-0.5',
+                            'lg' => 'px-2.5 py-1',
+                            default => 'px-1.5 py-0.5',
+                        },
                     },
-                    'icon' => match ($size) {
-                        'md' => 'p-1.5 *:data-[slot=icon]:size-4',
-                        'lg' => 'p-2 *:data-[slot=icon]:size-4',
-                        default => 'p-1.25 *:data-[slot=icon]:size-4',
+                    match ($size) {
+                        'md' => 'rounded-md text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
+                        'lg' => 'rounded-lg text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-lg)-(--spacing(1)))]',
+                        default => 'rounded-md text-xs [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
                     },
-                    default => match ($size) {
-                        'md' => 'px-2 py-0.5',
-                        'lg' => 'px-2.5 py-1',
-                        default => 'px-1.5 py-0.5',
-                    },
-                },
-                match ($size) {
-                    'md' => 'rounded-md text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
-                    'lg' => 'rounded-lg text-sm [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-lg)-(--spacing(1)))]',
-                    default => 'rounded-md text-xs [&_[data-nova-badge-inset]]:rounded-[calc(var(--radius-md)-(--spacing(0.5)))]',
-                },
-                'bg-white text-gray-700 ring-gray-200',
-            ]),
+                    'bg-white text-gray-700 ring-gray-200',
+                ]),
 
-            // Pill badge
-            default => Arr::toCssClasses([
-                'rounded-full',
-                match ($variant) {
-                    'dot' => match ($size) {
-                        'md' => 'gap-1.5 py-0.5 pr-2.5 pl-2',
-                        'lg' => 'gap-1.5 py-1 pr-3 pl-2.5',
-                        default => 'gap-1 py-0.5 pr-2 pl-1.5',
+                // Pill badge
+                default => Arr::toCssClasses([
+                    'rounded-full',
+                    match ($variant) {
+                        'dot' => match ($size) {
+                            'md' => 'gap-1.5 py-0.5 pr-2.5 pl-2',
+                            'lg' => 'gap-1.5 py-1 pr-3 pl-2.5',
+                            default => 'gap-1 py-0.5 pr-2 pl-1.5',
+                        },
+                        'icon' => match ($size) {
+                            'md' => 'p-1.5 *:data-[slot=icon]:size-4',
+                            'lg' => 'p-2 *:data-[slot=icon]:size-4',
+                            default => 'p-1.25 *:data-[slot=icon]:size-4',
+                        },
+                        default => match ($size) {
+                            'md' => 'px-2.5 py-0.5',
+                            'lg' => 'px-3 py-1',
+                            default => 'px-2 py-0.5',
+                        },
                     },
-                    'icon' => match ($size) {
-                        'md' => 'p-1.5 *:data-[slot=icon]:size-4',
-                        'lg' => 'p-2 *:data-[slot=icon]:size-4',
-                        default => 'p-1.25 *:data-[slot=icon]:size-4',
+                    match ($size) {
+                        'md' => 'text-sm',
+                        'lg' => 'text-sm',
+                        default => 'text-xs',
                     },
-                    default => match ($size) {
-                        'md' => 'px-2.5 py-0.5',
-                        'lg' => 'px-3 py-1',
-                        default => 'px-2 py-0.5',
-                    },
-                },
-                match ($size) {
-                    'md' => 'text-sm',
-                    'lg' => 'text-sm',
-                    default => 'text-xs',
-                },
-                $colorClasses,
-            ]),
-        },
+                    $colorClasses,
+                ]),
+            },
 
-        '[&_[data-nova-badge-inset]]:bg-white',
-    ])
+            '[&_[data-nova-badge-inset]]:bg-white dark:[&_[data-nova-badge-inset]]:bg-gray-950',
+        ])
+    }}
 >
     @if ($leading)
         <div

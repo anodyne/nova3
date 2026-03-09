@@ -7,7 +7,7 @@
     $iconLeading ??= $icon;
 @endphp
 
-<flux:input data-slot="control" {{ $attributes }}>
+<flux:input {{ $attributes }}>
     @isset($iconLeading)
         <x-slot name="iconLeading">
             {{ $iconLeading }}

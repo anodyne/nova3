@@ -321,3 +321,16 @@ Route::get('onboarding', function () {
 
     return 'Done!';
 });
+
+Route::get('forms-test', function () {
+    dd(json_decode('[{"type":"short-text","data":{"details":{"label":"Label","description":"Cupidatat nulla ipsum est aliqua.","required":false,"hideWhenEmpty":false},"attrs":{"name":"label","id":"pVrlCJv8bDDw","placeholder":"Placeholder","other":[]}}}]', true));
+});
+
+Route::get('images', function () {
+    $disk = Storage::disk('media-pages');
+
+    dd(
+        $disk->exists('163/01KC4S0CH5YWAT3BA0J3ZBVP5A.jpg'),
+        $disk->url('163/01KC4S0CH5YWAT3BA0J3ZBVP5A.jpg')
+    );
+});

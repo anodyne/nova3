@@ -20,6 +20,7 @@ use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Discussions\Models\DiscussionNotification;
 use Nova\Discussions\Models\DiscussionParticipant;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Models\ExternalContent;
 use Nova\Foundation\Models\StatusHistory;
@@ -37,7 +38,7 @@ Artisan::command('inspire', function () {
 Artisan::command('nova:refresh', function () {
     $this->call('db:wipe');
     $this->call('migrate:fresh');
-    $this->call('operations:process');
+    $this->call('migrate-data');
     $this->call('db:seed');
 
     $this->call('nova:sync-external-content');
@@ -88,7 +89,7 @@ Artisan::command('nova:reset-migration', function () {
 
     Schema::enableForeignKeyConstraints();
 
-    Cache::forget('migration_complete');
+    Cache::forget(CacheKeys::MigrationComplete->value);
 
     $this->info('Migration reset complete');
 });

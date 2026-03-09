@@ -2,10 +2,9 @@
     'story',
 ])
 
-@use('Illuminate\Support\Number')
-
-<div
-    {{ $attributes->merge(['class' => 'inline-flex items-center gap-x-8 rounded-md bg-gray-800/5 dark:bg-white/10 px-3 py-1.5 text-sm ring-1 ring-inset ring-gray-950/5 dark:ring-white/5']) }}
+<x-metadata.group
+    gap="lg"
+    {{ $attributes->merge(['class' => 'inline-flex rounded-md bg-gray-800/5 dark:bg-white/10 px-3 py-1.5 ring-1 ring-inset ring-gray-950/5 dark:ring-white/5']) }}
 >
     <x-metadata
         :label="str('post')->plural($story->posts_count)->title()"
@@ -27,4 +26,4 @@
             ></x-metadata>
         @endif
     @endmysql
-</div>
+</x-metadata.group>

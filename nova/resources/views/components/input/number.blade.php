@@ -49,7 +49,7 @@
 
         <x-input.group>
             <x-button x-on:click.prevent="decrement()" x-bind:disabled="max !== null && value <= min" type="button">
-                <x-icon :name="Tabler::Minus" size="sm"></x-icon>
+                <x-icon :name="Tabler::Minus" size="sm" />
             </x-button>
 
             <x-input
@@ -72,7 +72,7 @@
             />
 
             <x-button x-on:click.prevent="increment()" x-bind:disabled="max !== null && value >= max" type="button">
-                <x-icon :name="Tabler::Plus" size="sm"></x-icon>
+                <x-icon :name="Tabler::Plus" size="sm" />
             </x-button>
         </x-input.group>
 

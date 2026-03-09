@@ -8,6 +8,12 @@
         $color = settings('appearance')->getColorFromSemanticColor($color);
     }
 
+    $textSize = match ($size) {
+        'xl' => 'text-lg',
+        'lg' => 'text-base',
+        default => 'text-sm',
+    };
+
     $leading = match ($size) {
         'xl' => 'leading-8',
         'lg' => 'leading-7',
@@ -15,6 +21,6 @@
     };
 @endphp
 
-<flux:text :$color {{ $attributes->class([$leading]) }}>
+<flux:text :$color {{ $attributes->class([$leading, $textSize]) }}>
     {{ $slot }}
 </flux:text>

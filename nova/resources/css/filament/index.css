@@ -2,5 +2,6 @@
 @import "./dropdown.css" layer(components);
 @import "./modal.css" layer(components);
 @import "./notification.css" layer(components);
+@import "./section.css" layer(components);
 @import "./table.css" layer(components);
 @import "./tabs.css" layer(components);

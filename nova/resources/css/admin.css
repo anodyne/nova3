@@ -34,6 +34,7 @@
 @import "./utilities/safelist.css";
 
 @plugin "@tailwindcss/typography";
+@plugin "@toolwind/corner-shape";
 
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant mono-theme (&:where([data-theme="mono"] *));

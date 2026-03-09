@@ -5,7 +5,7 @@
 {{ $message->content }}
 
 <x-mail::button :url="route('admin.discussions.index')">
-Go to messages &rarr;
+Go to messages <span aria-hidden="true">→</span>
 </x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}

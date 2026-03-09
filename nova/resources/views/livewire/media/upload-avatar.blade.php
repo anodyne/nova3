@@ -2,15 +2,15 @@
 @use('Nova\Foundation\Nova')
 @use('Nova\Settings\Enums\AvatarShape')
 
-<div data-slot="control" class="isolate flex items-center gap-x-4">
+<div class="isolate flex items-center gap-4">
     @if (filled($image))
         <img
             src="{{ $previewUrl }}"
             alt="user photo"
             @class([
-                'h-16 w-16 object-cover',
-                'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
-                'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
+            'h-16 w-16 object-cover',
+            'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
+            'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
             ])
         />
     @else
@@ -19,21 +19,21 @@
                 src="{{ $existingImage }}"
                 alt="user photo"
                 @class([
-                    'h-16 w-16 object-cover',
-                    'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
-                    'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
+                'h-16 w-16 object-cover',
+                'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
+                'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
                 ])
             />
         @else
             <div
                 @class([
-                    'flex h-16 w-16 items-center justify-center bg-gray-950/5 object-cover ring-1 ring-gray-950/5 ring-inset dark:bg-white/5 dark:ring-white/5',
-                    'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
-                    'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
+                'flex h-16 w-16 items-center justify-center bg-gray-950/5 object-cover ring-1 ring-gray-950/5 ring-inset dark:bg-white/5 dark:ring-white/5',
+                'rounded-[20%]' => settings('appearance.avatarShape') === AvatarShape::Square,
+                'rounded-full' => settings('appearance.avatarShape') === AvatarShape::Circle,
                 ])
             >
                 <div class="text-gray-500 dark:text-gray-400">
-                    <x-icon :name="Icon::User" size="2xl"></x-icon>
+                    <x-icon :name="Tabler::User" size="2xl" />
                 </div>
             </div>
         @endif
@@ -67,8 +67,8 @@
             </div>
 
             @if ($hasImage)
-                <x-button color="neutral-danger" wire:click="removeImage" text>
-                    <x-icon :name="Icon::Trash" size="sm"></x-icon>
+                <x-button type="button" variant="subtle" square wire:click="removeImage">
+                    <x-icon :name="Tabler::Trash" size="sm" />
                 </x-button>
             @endif
         </div>
@@ -77,13 +77,13 @@
 
         @error('image')
             <p class="text-danger-600 relative mt-2 ml-0.5 flex w-full items-center space-x-2 text-sm" role="alert">
-                <x-icon :name="Icon::AlertCircle" size="sm" class="text-danger-500 shrink-0"></x-icon>
+                <x-icon :name="Tabler::AlertCircle" size="sm" class="text-danger-500 shrink-0" />
                 <span>{{ $message }}</span>
             </p>
         @enderror
     </div>
 
-    <input type="hidden" name="image_path" value="{{ $path }}" />
+    <input type="hidden" name="{{ $fieldTempFile }}" value="{{ $imageTempPath }}" />
     <label for="remove_existing_image" class="sr-only">
         <div>Remove existing user photo</div>
         <input

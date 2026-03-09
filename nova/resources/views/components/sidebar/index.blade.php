@@ -1,3 +1,3 @@
-<nav class="flex h-full flex-col">
+<flux:sidebar collapsible sticky>
     {{ $slot }}
-</nav>
+</flux:sidebar>

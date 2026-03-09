@@ -13,11 +13,10 @@
         <meta name="theme-color" content="#0091ff" media="(prefers-color-scheme: light)" />
         <title>{{ config('app.name', 'Nova NextGen') }}</title>
 
-        <x-fonts section="admin" />
+        <x-fonts section="setup" />
         @filamentStyles
-        @fluxStyles
+        @fluxAppearance
         @novaAdminStyles
-        <x-flux-styles />
         @stack('styles')
         @stack('headScripts')
     </head>
@@ -70,16 +69,14 @@
 
                     <div class="px-6">
                         <div class="flex flex-col gap-4">
-                            <x-icon :name="Icon::Support" size="lg" class="text-gray-400"></x-icon>
+                            <x-icon :name="Tabler::Lifebuoy" size="lg" class="text-gray-400" />
                             <h4 class="text-sm font-medium text-gray-900">Need help?</h4>
                             <p class="text-sm/6 text-gray-600">
                                 {{ $type->getHelpIntro() }}
                             </p>
                             <div class="grid grid-cols-2 gap-4">
                                 {!! $type->getGuideButton() !!}
-                                <x-button :href="config('services.anodyne.links.discord')" color="neutral">
-                                    Join Discord
-                                </x-button>
+                                <x-button :href="config('services.anodyne.links.discord')">Join Discord</x-button>
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,7 @@
     @endif
 
     @if ($icon)
-        <x-icon :name="$icon" size="md" class="mr-2.5"></x-icon>
+        <x-icon :name="$icon" size="md" class="mr-2.5" />
     @endif
 
     <span class="w-full">{{ $slot }}</span>

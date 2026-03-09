@@ -3,10 +3,10 @@
 ])
 
 <div
-    {{ $attributes->class(['block px-4 py-2 text-sm text-white']) }}
+    {{ $attributes->class(['block px-2 py-1.5 text-sm text-white']) }}
 >
     @if ($icon)
-        <x-icon :name="$icon" size="sm" class="mr-3 text-gray-400"></x-icon>
+        <x-icon :name="$icon" size="sm" class="mr-3 text-gray-400" />
     @endif
 
     {{ $slot }}

@@ -1,15 +1,12 @@
 @php(extract($notification['data']))
 
-<x-notification :notification="$notification">
+<x-notification :notification="$notification" :href="route('admin.posts.edit', $post_id)">
     <x-slot name="leading" class="text-success-500">
-        <x-icon :name="Icon::Characters" size="xl"></x-icon>
+        <x-icon :name="NotificationIcon::UserPlus" size="lg" />
     </x-slot>
 
-    <strong class="font-semibold text-gray-900 dark:text-white">{{ $character_name }}</strong>
-    has been added as an author on the {{ str($post_type_name)->lower() }}
-    <em class="font-medium">{{ $post_title }}.</em>
-
-    <x-slot name="actions">
-        <x-button :href="route('admin.posts.edit', $post_id)" color="primary">Start writing &rarr;</x-button>
-    </x-slot>
+    {{-- format-ignore-start --}}
+    <strong>{{ $character_name }}</strong> has been added as an author on the
+    {{ str($post_type_name)->lower() }} <em>{{ $post_title }}</em>
+    {{-- format-ignore-end --}}
 </x-notification>

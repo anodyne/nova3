@@ -36,23 +36,20 @@
                     <div class="flex items-center gap-x-6">
                         <x-h2>{{ $story->title }}</x-h2>
 
-                        <x-badge :color="$story->status->getColor()">
+                        <x-badge :color="$story->status->getColor()" size="md">
                             {{ $story->status->getLabel() }}
                         </x-badge>
                     </div>
 
                     @if ($story->children_count > 0)
                         <div class="shrink-0">
-                            <span x-show="!expanded">
-                                <x-icon :name="Icon::Plus" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
-                            </span>
-                            <span x-show="expanded">
-                                <x-icon
-                                    :name="Icon::MinusCircle"
-                                    size="md"
-                                    class="text-gray-400 dark:text-gray-500"
-                                ></x-icon>
-                            </span>
+                            <x-icon
+                                :name="Tabler::ChevronRight"
+                                size="md"
+                                class="dark:text-dark-500 text-gray-400 transition-transform duration-200"
+                                x-bind:class="{ 'rotate-90': expanded }"
+                                x-cloak
+                            />
                         </div>
                     @endif
                 </div>
@@ -76,8 +73,9 @@
                     </div>
 
                     <div class="mt-8">
-                        <x-button :href="route('admin.stories.show', $story)" color="neutral">
-                            Go to story &rarr;
+                        <x-button :href="route('admin.stories.show', $story)">
+                            Go to story
+                            <span aria-hidden="true">→</span>
                         </x-button>
                     </div>
 

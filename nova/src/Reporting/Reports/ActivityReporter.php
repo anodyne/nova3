@@ -12,7 +12,6 @@ use Nova\Reporting\Data\ActivityReport;
 use Nova\Reporting\Repositories\ReportingRepositoryInterface;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Enums\PostingTarget;
-use Nova\Users\Models\Login;
 
 class ActivityReporter
 {

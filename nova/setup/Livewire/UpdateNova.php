@@ -11,6 +11,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Nova\Foundation\Actions\OptimizeOrRepairDatabase;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Models\ExternalContent;
 use Nova\Foundation\Models\SystemInfo;
@@ -90,7 +91,9 @@ class UpdateNova extends Component
             '--force' => true,
         ]);
 
-        Artisan::call('operations:process');
+        Artisan::call('migrate-data', [
+            '--force' => true,
+        ]);
 
         Artisan::call('optimize:clear');
         Artisan::call('package:discover');
@@ -103,9 +106,9 @@ class UpdateNova extends Component
 
     protected function runCacheCommands(): void
     {
-        Cache::forget('nova-update-available');
-        Cache::forget('nova-update-upcoming');
-        Cache::forget('nova-next-version');
+        Cache::forget(CacheKeys::UpdateAvailable->value);
+        Cache::forget(CacheKeys::UpdateUpcoming->value);
+        Cache::forget(CacheKeys::NextVersion->value);
 
         BustPagesCache::run();
         BustMenusCache::run();

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Foundation\Support;
 
 use Bag\Bag;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Nova\Foundation\Models\Model;
 
 /**
@@ -13,7 +14,7 @@ use Nova\Foundation\Models\Model;
 readonly class FactoryRequestData extends Bag
 {
     public function __construct(
-        public Model $model,
+        public Model|EloquentModel $model,
         public array $payload,
     ) {}
 }

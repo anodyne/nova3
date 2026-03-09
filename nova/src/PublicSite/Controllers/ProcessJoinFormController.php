@@ -15,6 +15,8 @@ class ProcessJoinFormController extends Controller
 {
     public function __invoke(StoreApplicationRequest $request)
     {
+        abort_unless(settings('applications.enabled'), 404);
+
         try {
             $executed = RateLimiter::attempt(
                 key: 'process-join:'.$request->input('userInfo.email'),
@@ -28,6 +30,8 @@ class ProcessJoinFormController extends Controller
             }
 
             return back()->with('join-submitted', 'yes');
+        } catch (ThrottleRequestsException $th) {
+            throw $th;
         } catch (Throwable $th) {
             report($th);
 

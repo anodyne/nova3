@@ -1,7 +1,7 @@
 @props([
     'height' => null,
     'width' => null,
-    'trailing' => null,
+    'trailing' => false,
 ])
 
 @aware(['striped'])
@@ -20,11 +20,13 @@
         ])
 }}
 >
-    <div {{
-        $attributes->class([
-            'flex items-center justify-between',
-        ])
-    }}>
+    <div
+        {{
+            $attributes->class([
+                'flex items-center justify-between',
+            ])
+        }}
+    >
         {{ $slot }}
     </div>
 

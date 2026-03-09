@@ -1,16 +1,13 @@
 @props([
-    'list',
-    'panels',
+    'tabs',
 ])
 
-<el-tab-group data-slot="tabs">
-    <el-tab-list
-        class="inline-flex h-10 rounded-[10px] bg-gray-800/5 p-[5px] shadow-[inset_0_0_1.5px_.5px_#0000001F] dark:bg-white/10"
+<flux:tab.group {{ $attributes }}>
+    <flux:tabs
+        class="group inline-flex h-auto gap-0.5! rounded-lg border-none bg-gray-50 ring-1 ring-gray-200 ring-inset dark:bg-gray-950 dark:ring-gray-800"
     >
-        {{ $list }}
-    </el-tab-list>
+        {{ $tabs }}
+    </flux:tabs>
 
-    <el-tab-panels>
-        {{ $panels }}
-    </el-tab-panels>
-</el-tab-group>
+    {{ $slot }}
+</flux:tab.group>

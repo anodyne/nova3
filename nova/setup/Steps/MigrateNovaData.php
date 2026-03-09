@@ -6,6 +6,7 @@ namespace Nova\Setup\Steps;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
+use Nova\Foundation\Enums\CacheKeys;
 
 class MigrateNovaData extends Step
 {
@@ -21,7 +22,7 @@ class MigrateNovaData extends Step
 
     public function isComplete(): bool
     {
-        return Cache::has('migration_complete') && Cache::has('migration_account_setup_complete');
+        return Cache::has(CacheKeys::MigrationComplete->value) && Cache::has(CacheKeys::MigrationAccountSetupComplete->value);
     }
 
     public function isCurrent(): bool

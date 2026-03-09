@@ -28,6 +28,31 @@ class AdminLayout extends Component
         $this->user = Auth::user();
     }
 
+    public function appearance(): ?string
+    {
+        return $this->user->preferences->appearance->getClasses();
+    }
+
+    public function logoDarkMode(): string
+    {
+        $settings = settings();
+
+        if ($settings->getFirstMedia('logo-sidebar-dark')) {
+            return $settings->getFirstMediaUrl('logo-sidebar-dark');
+        }
+
+        if ($settings->getFirstMedia('logo-sidebar-light')) {
+            return $settings->getFirstMediaUrl('logo-sidebar-light');
+        }
+
+        return asset('dist/images/nova-logo.svg');
+    }
+
+    public function logoLightMode(): string
+    {
+        return settings()->getFirstMediaUrl('logo-sidebar-light') ?: asset('dist/images/nova-logo.svg');
+    }
+
     public function themeDataAttribute(): ?string
     {
         $primaryColor = settings('appearance.colorsPrimary');
@@ -83,6 +108,8 @@ class AdminLayout extends Component
 
     public function render(): View
     {
+        return view('layouts.admin-flux');
+
         return view('layouts.admin');
     }
 }

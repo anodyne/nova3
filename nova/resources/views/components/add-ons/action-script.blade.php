@@ -28,7 +28,7 @@
                         },
                     ])
                 >
-                    <x-icon :name="$icon" size="sm"></x-icon>
+                    <x-icon :name="$icon" size="sm" />
                 </div>
                 <span class="bg-white px-3 text-sm/6 font-semibold text-gray-900">{{ $title }}</span>
             </div>

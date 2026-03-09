@@ -32,10 +32,10 @@
 
             <x-spacing size="xl" class="flex min-h-screen flex-col justify-center">
                 <div class="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
-                    @if (app('nova.settings')?->getFirstMedia('logo'))
+                    @if (settings()?->getFirstMedia('logo-full'))
                         <div>
                             <img
-                                src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
+                                src="{{ settings()->getFirstMediaUrl('logo-full') }}"
                                 alt="logo"
                                 class="mx-auto h-12 w-auto"
                             />

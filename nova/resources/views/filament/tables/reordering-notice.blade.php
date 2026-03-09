@@ -11,25 +11,23 @@
     $isColumnToggleFormVisible = $table->hasToggleableColumns();
     $bulkActions = array_filter(
         $table->getBulkActions(),
-        fn (\Filament\Tables\Actions\BulkAction|\Filament\Tables\Actions\ActionGroup $action): bool => $action->isVisible(),
+        fn (\Filament\Actions\BulkActionGroup $action): bool => $action->isVisible(),
     );
     $pluralModelLabel = $table->getPluralModelLabel();
 @endphp
 
 <x-spacing class="[&+.fi-ta-header-toolbar]:!border-t-0" size="px">
-    <x-panel.primary :icon="Icon::Reorder" icon-size="lg" title="Change sorting order">
-        <x-slot name="description">
-            <div class="space-y-4">
-                <p>
-                    {{ str($pluralModelLabel)->ucfirst() }} will appear in the order below whenever they're shown
-                    throughout Nova. To change the sorting of {{ $pluralModelLabel }}, drag them to the desired order.
-                    Click Finish to return to the management view.
-                </p>
+    <x-callout.primary :icon="Tabler::Reorder" heading="Change sorting order">
+        <div class="space-y-4">
+            <p>
+                {{ str($pluralModelLabel)->ucfirst() }} will appear in the order below whenever they're shown
+                throughout Nova. To change the sorting of {{ $pluralModelLabel }}, drag them to the desired order.
+                Click Finish to return to the management view.
+            </p>
 
-                <div>
-                    <x-button wire:click="toggleTableReordering" color="primary">Finish</x-button>
-                </div>
+            <div>
+                <x-button wire:click="toggleTableReordering" variant="primary">Finish</x-button>
             </div>
-        </x-slot>
-    </x-panel.primary>
+        </div>
+    </x-callout.primary>
 </x-spacing>

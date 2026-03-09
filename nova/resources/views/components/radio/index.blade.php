@@ -9,7 +9,9 @@
 <flux:radio {{ $attributes->merge(['data-slot' => 'control']) }}>
     @isset($novaIcon)
         <x-slot name="icon">
-            <x-icon :name="$novaIcon" size="sm"></x-icon>
+            <x-icon :name="$novaIcon" size="sm" />
         </x-slot>
     @endisset
+
+    {{ $slot }}
 </flux:radio>

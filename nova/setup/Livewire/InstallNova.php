@@ -141,7 +141,9 @@ class InstallNova extends Component
             '--force' => true,
         ]);
 
-        Artisan::call('operations:process');
+        Artisan::call('migrate-data', [
+            '--force' => true,
+        ]);
 
         Artisan::call('optimize:clear');
         Artisan::call('package:discover');

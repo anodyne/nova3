@@ -15,8 +15,6 @@ class UpdatePage
 
     public function handle(Page $page, PageData|PageBlocksData $data): Page
     {
-        dd($data);
-
         return tap($page)->update($data->toArray());
     }
 }

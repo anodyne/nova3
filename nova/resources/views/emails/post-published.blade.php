@@ -5,7 +5,7 @@
 **{{ $post->title }}** has been published in the *{{ $post->story->title }}* story.
 
 <x-mail::button :url="route('admin.posts.show', [$post->story, $post])">
-Read {{ str($post->postType->name)->lower() }} &rarr;
+Read {{ str($post->postType->name)->lower() }} <span aria-hidden="true">→</span>
 </x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}

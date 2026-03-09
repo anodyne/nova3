@@ -7,7 +7,7 @@
     role="menuitem"
 >
     @if ($icon)
-        <x-icon :name="$icon" size="sm" class="mr-3 text-gray-400 dark:text-gray-500"></x-icon>
+        <x-icon :name="$icon" size="sm" class="mr-3 text-gray-400 dark:text-gray-500" />
     @endif
 
     {{ $slot }}

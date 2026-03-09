@@ -7,7 +7,8 @@
 *Posted in {{ $announcement->category }}*
 
 <x-mail::button :url="route('admin.announcements.show', $announcement)">
-Read now &rarr;
+Read now
+<span aria-hidden="true">→</span>
 </x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}

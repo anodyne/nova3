@@ -1,55 +1,32 @@
 @props([
-    'type' => 'link',
     'icon' => false,
-    'buttonForm' => false,
-    'variant' => null,
+    'postToUrl' => null,
 ])
 
 @php
-    $parentClasses = [
-        'group flex w-full shrink-0 items-center rounded-[calc(var(--radius-xl))-(--spacing(1))] px-2 py-2 text-sm font-medium text-white',
-        'focus:bg-white/10 focus:outline-hidden', // Tailwind Elements uses focus rather than hover for some reason
-        match ($variant) {
-            'danger' => 'focus:text-danger-500',
-            default => 'focus:text-white',
-        },
+    // If posting, make a unique form id and wire the button to it.
+    $formId = $postToUrl ? ('btn-form-'.Str::uuid()) : null;
+
+    // Button attrs differ depending on whether we’re posting.
+    $menuAttrs = [
+        'type' => $postToUrl ? 'submit' : 'button',
     ];
 
-    $iconClasses = Arr::toCssClasses([
-        'mr-3 shrink-0 text-gray-400',
-        match ($variant) {
-            'danger' => 'group-focus:text-danger-500',
-            default => 'group-focus:text-gray-300',
-        },
-    ]);
+    if ($postToUrl) {
+        $menuAttrs['form'] = $formId;
+    }
 @endphp
 
-@if ($type === 'link')
-    <a {{ $attributes->merge(['href' => '#'])->class($parentClasses) }}>
-        @if ($icon)
-            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
-        @endif
-
-        {{ $slot }}
-    </a>
-@elseif ($type === 'button' || $type === 'submit')
-    <button {{ $attributes->merge(['type' => $type])->class($parentClasses) }}>
-        @if ($icon)
-            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
-        @endif
-
-        {{ $slot }}
-    </button>
-
-    @if ($buttonForm)
-        {{ $buttonForm }}
+<flux:menu.item {{ $attributes->merge($menuAttrs) }}>
+    @if ($icon)
+        <x-icon :name="$icon" size="sm" class="me-2" data-flux-menu-item-icon="data-flux-menu-item-icon" />
     @endif
-@else
-    <div {{ $attributes->class($parentClasses) }}>
-        @if ($icon)
-            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
-        @endif
 
-        {{ $slot }}
-    </div>
+    {{ $slot }}
+</flux:menu.item>
+
+@if ($postToUrl)
+    <form id="{{ $formId }}" action="{{ $postToUrl }}" method="POST" class="hidden">
+        @csrf
+    </form>
 @endif

@@ -9,7 +9,7 @@
 </x-mail::panel>
 
 <x-mail::button :url="route('admin.posts.create')">
-Start posting &rarr;
+Start posting <span aria-hidden="true">→</span>
 </x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}
