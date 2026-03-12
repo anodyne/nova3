@@ -159,6 +159,7 @@ class PostsList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('unlock')
+                            ->authorize('update')
                             ->icon(Tabler::LockOpen)
                             ->label('Release lock')
                             ->successNotificationTitle(fn (Post $record): string => $record->title.' post has been unlocked')

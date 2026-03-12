@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors;
-use Nova\Stories\Livewire\Concerns\InteractsWithPost;
-use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
-use Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Attributes\On;
@@ -16,6 +12,10 @@ use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Actions\UpdatePostAuthors;
 use Nova\Stories\Data\PostAuthorsData;
+use Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors;
 use Nova\Stories\Models\Post;
 
 class PostAuthors extends Component

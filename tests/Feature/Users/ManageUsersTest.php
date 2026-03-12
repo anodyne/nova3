@@ -18,14 +18,16 @@ uses()->group('users');
 
 describe('authorized user', function () {
     beforeEach(function () {
+        $this->tableScope = 'manage-users-'.str()->random(8);
+
         signIn(permissions: 'user.create');
 
         $this->users = User::factory()
             ->count(3)
             ->sequence(
-                ['status' => Pending::$name],
-                ['status' => Active::$name],
-                ['status' => Inactive::$name],
+                ['name' => "{$this->tableScope} pending", 'status' => Pending::$name],
+                ['name' => "{$this->tableScope} active", 'status' => Active::$name],
+                ['name' => "{$this->tableScope} inactive", 'status' => Inactive::$name],
             )
             ->create();
     });
@@ -35,23 +37,27 @@ describe('authorized user', function () {
 
         livewire(UsersList::class)
             ->removeTableFilters()
-            ->assertCountTableRecords(4)
+            ->searchTable($this->tableScope)
+            ->assertCountTableRecords(3)
             ->assertCanSeeTableRecords($this->users);
     });
 
     test('can filter users by status', function () {
         livewire(UsersList::class)
             ->removeTableFilters()
+            ->searchTable($this->tableScope)
             ->filterTable('status', Pending::$name)
             ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords($this->users->where('status', Pending::$name))
             ->assertCanNotSeeTableRecords($this->users->where('status', '!=', Pending::$name))
             ->resetTableFilters()
+            ->searchTable($this->tableScope)
             ->filterTable('status', Active::$name)
-            ->assertCountTableRecords(2)
+            ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords($this->users->where('status', Active::$name))
             ->assertCanNotSeeTableRecords($this->users->where('status', '!=', Active::$name))
             ->resetTableFilters()
+            ->searchTable($this->tableScope)
             ->filterTable('status', Inactive::$name)
             ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords($this->users->where('status', Inactive::$name))
@@ -63,22 +69,28 @@ describe('authorized user', function () {
 
         livewire(UsersList::class)
             ->removeTableFilters()
+            ->searchTable($this->tableScope)
             ->filterTable('hasAssignedCharacters', true)
             ->assertCountTableRecords(1)
             ->assertCanSeeTableRecords([$this->users->first()])
             ->removeTableFilters()
+            ->searchTable($this->tableScope)
             ->filterTable('hasAssignedCharacters', false)
-            ->assertCountTableRecords(3)
+            ->assertCountTableRecords(2)
             ->assertCanNotSeeTableRecords([$this->users->first()]);
     });
 
     describe('can filter by the timeframe of last sign in', function () {
         beforeEach(function () {
+            $this->tableScope = 'manage-users-login-'.str()->random(8);
+            $tableScope = $this->tableScope;
+
             signIn(permissions: 'user.create');
 
             $this->users = User::factory()
                 ->count(3)
                 ->active()
+                ->state(fn () => ['name' => "{$tableScope} ".str()->random(8)])
                 ->create();
         });
 
@@ -95,6 +107,7 @@ describe('authorized user', function () {
 
             livewire(UsersList::class)
                 ->removeTableFilters()
+                ->searchTable($this->tableScope)
                 ->filterTable('lastLogin', '7 days')
                 ->assertCountTableRecords(1)
                 ->assertCanSeeTableRecords([$user])
@@ -114,6 +127,7 @@ describe('authorized user', function () {
 
             livewire(UsersList::class)
                 ->removeTableFilters()
+                ->searchTable($this->tableScope)
                 ->filterTable('lastLogin', '14 days')
                 ->assertCountTableRecords(1)
                 ->assertCanSeeTableRecords([$user])
@@ -133,6 +147,7 @@ describe('authorized user', function () {
 
             livewire(UsersList::class)
                 ->removeTableFilters()
+                ->searchTable($this->tableScope)
                 ->filterTable('lastLogin', '30 days')
                 ->assertCountTableRecords(1)
                 ->assertCanSeeTableRecords([$user])
@@ -142,11 +157,15 @@ describe('authorized user', function () {
 
     describe('can filter by the timeframe of last published post', function () {
         beforeEach(function () {
+            $this->tableScope = 'manage-users-posts-'.str()->random(8);
+            $tableScope = $this->tableScope;
+
             signIn(permissions: 'user.create');
 
             $this->users = User::factory()
                 ->count(3)
                 ->active()
+                ->state(fn () => ['name' => "{$tableScope} ".str()->random(8)])
                 ->create();
         });
 
@@ -154,11 +173,15 @@ describe('authorized user', function () {
             $user = $this->users->first();
 
             $post = Post::factory()->published()->create();
+            $post->characterAuthors()->detach();
+            $post->userAuthors()->detach();
             $post->userAuthors()->attach($user->id, ['user_id' => $user->id]);
 
             livewire(UsersList::class)
                 ->removeTableFilters()
+                ->searchTable($this->tableScope)
                 ->filterTable('lastPost', '7 days')
+                ->assertCountTableRecords(1)
                 ->assertCanSeeTableRecords([$user])
                 ->assertCanNotSeeTableRecords([$this->users[1]]);
         });
@@ -169,12 +192,15 @@ describe('authorized user', function () {
             $post = Post::factory()->published()->create([
                 'published_at' => now()->subDays(10),
             ]);
+            $post->characterAuthors()->detach();
+            $post->userAuthors()->detach();
             $post->userAuthors()->attach($user->id, ['user_id' => $user->id]);
 
             livewire(UsersList::class)
                 ->removeTableFilters()
-                ->set('tableRecordsPerPage', 50)
+                ->searchTable($this->tableScope)
                 ->filterTable('lastPost', '14 days')
+                ->assertCountTableRecords(1)
                 ->assertCanSeeTableRecords([$user])
                 ->assertCanNotSeeTableRecords([$this->users[1]]);
         });
@@ -185,20 +211,26 @@ describe('authorized user', function () {
             $post = Post::factory()->published()->create([
                 'published_at' => now()->subDays(20),
             ]);
+            $post->characterAuthors()->detach();
+            $post->userAuthors()->detach();
             $post->userAuthors()->attach($user->id, ['user_id' => $user->id]);
 
             livewire(UsersList::class)
                 ->removeTableFilters()
+                ->searchTable($this->tableScope)
                 ->filterTable('lastPost', '30 days')
+                ->assertCountTableRecords(1)
                 ->assertCanSeeTableRecords([$user])
                 ->assertCanNotSeeTableRecords([$this->users[1]]);
         });
     });
 
     test('can search users by name or email', function () {
+        $token = str()->random(8);
+
         $user = User::factory()->create([
-            'name' => 'John Doe',
-            'email' => 'johndoe@example.com',
+            'name' => "ManageUsers {$token}",
+            'email' => "manage-users-{$token}@example.com",
         ]);
 
         livewire(UsersList::class)
@@ -206,10 +238,10 @@ describe('authorized user', function () {
             ->searchTable('banana')
             ->assertCountTableRecords(0)
             ->removeTableFilters()
-            ->searchTable('doe')
+            ->searchTable($token)
             ->assertCanSeeTableRecords([$user])
             ->removeTableFilters()
-            ->searchTable('johndoe')
+            ->searchTable("manage-users-{$token}")
             ->assertCanSeeTableRecords([$user]);
     });
 });

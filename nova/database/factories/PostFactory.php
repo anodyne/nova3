@@ -85,7 +85,8 @@ class PostFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Post $post) {
-            $numberOfAuthors = mt_rand(1, 5);
+            $maxAuthors = min(5, max(1, Character::with('users')->count()));
+            $numberOfAuthors = random_int(1, $maxAuthors);
 
             $distributedWords = $this->distributeWordsRandomly($post->word_count, $numberOfAuthors);
 

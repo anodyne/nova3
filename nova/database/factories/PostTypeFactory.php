@@ -72,6 +72,13 @@ class PostTypeFactory extends Factory
         ];
     }
 
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
+
     public function inactive()
     {
         return $this->state([

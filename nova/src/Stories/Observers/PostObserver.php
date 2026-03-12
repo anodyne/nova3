@@ -11,9 +11,8 @@ class PostObserver
 {
     public function saving(Post $post): void
     {
-        $post->word_count = str($post->content)->pipe('strip_tags')->wordCount();
-
         if ($post->isDirty('content')) {
+            $post->word_count = str($post->content)->pipe('strip_tags')->wordCount();
             $post->last_update_by = $id = Auth::id();
             $post->participants = filled($id) ? $this->getNewParticipants($post, Auth::id()) : null;
         }

@@ -25,7 +25,7 @@ class DeleteStoryPosts
 
             $story->allPosts()
                 ->whereKey($postIds)
-                ->delete();
+                ->forceDelete();
         }
 
         return $story->refresh();

@@ -86,6 +86,11 @@ function signIn(array $attributes = [], mixed $permissions = '', bool $admin = f
     );
 }
 
+function signInAs(User $user)
+{
+    return test()->actingAs($user);
+}
+
 function updateSettings(callable $callback)
 {
     $settings = settings();

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Nova\Stories\Livewire\PostsList;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\States\PostStatus\Draft;
@@ -9,6 +10,8 @@ use Nova\Stories\Models\States\PostStatus\Pending;
 use Nova\Stories\Models\States\PostStatus\Published;
 use Nova\Stories\Models\Story;
 
+use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
@@ -17,7 +20,7 @@ uses()->group('posts', 'storytelling');
 describe('authorized user', function () {
     beforeEach(fn () => signIn(permissions: 'post.create'));
 
-    it('can view the list posts page', function () {
+    test('can view the list posts page', function () {
         Post::factory(5)->published()->create();
 
         get(route('admin.posts.index'))
@@ -27,7 +30,7 @@ describe('authorized user', function () {
             ->assertCountTableRecords(5);
     });
 
-    it('can filter posts by status', function () {
+    test('can filter posts by status', function () {
         $posts = Post::factory(6)
             ->sequence(
                 ['status' => 'draft'],
@@ -53,7 +56,7 @@ describe('authorized user', function () {
             ->assertCanNotSeeTableRecords($posts->where('status', '!=', Pending::$name));
     });
 
-    it('can filter posts by post type', function () {
+    test('can filter posts by post type', function () {
         Post::factory(2)->storyPost()->published()->create();
         Post::factory(2)->personalPost()->published()->create();
         Post::factory(2)->markerPost()->published()->create();
@@ -66,7 +69,7 @@ describe('authorized user', function () {
             ->assertCanNotSeeTableRecords(Post::where('post_type_id', '!=', 1)->get());
     });
 
-    it('can filter posts by story', function () {
+    test('can filter posts by story', function () {
         $story = Story::factory()->current()->create();
 
         Post::factory(2)->published()->withStory($story)->create();
@@ -80,7 +83,7 @@ describe('authorized user', function () {
             ->assertCanNotSeeTableRecords(Post::where('story_id', '!=', $story->id)->get());
     });
 
-    it('can filter posts by published state', function () {
+    test('can filter posts by published state', function () {
         Post::factory(2)->published()->create();
         Post::factory(2)->draft()->create();
 
@@ -89,7 +92,7 @@ describe('authorized user', function () {
             ->assertCountTableRecords(2);
     });
 
-    it('can search posts by title', function () {
+    test('can search posts by title', function () {
         Post::factory(2)
             ->sequence(
                 ['title' => 'My post'],
@@ -104,15 +107,46 @@ describe('authorized user', function () {
             ->searchTable('My post')
             ->assertCountTableRecords(1);
     });
+
+    test('can unlock a locked post', function () {
+        signIn(permissions: 'post.update');
+
+        $post = Post::factory()->draft()->create();
+        $post->lock(Auth::user());
+
+        livewire(PostsList::class)
+            ->callAction(TestAction::make('unlock')->table($post))
+            ->assertNotified();
+
+        assertDatabaseHas(Post::class, [
+            'id' => $post->id,
+            'locked_at' => null,
+            'locked_by' => null,
+        ]);
+    });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
+    test('cannot view the manage posts page', function () {
         signIn();
+
+        get(route('admin.posts.index'))->assertForbidden();
     });
 
-    it('cannot view the manage posts page', function () {
-        get(route('admin.posts.index'))->assertForbidden();
+    test('cannot unlock a locked post', function () {
+        $post = Post::factory()->draft()->create();
+        $post->lock($post->participatingUsers->first());
+
+        signIn(permissions: 'post.create');
+
+        livewire(PostsList::class)
+            ->assertActionHidden(TestAction::make('unlock')->table($post));
+
+        assertDatabaseMissing(Post::class, [
+            'id' => $post->id,
+            'locked_at' => null,
+            'locked_by' => null,
+        ]);
     });
 });
 

@@ -189,7 +189,7 @@ class PostPublish extends SlideOver
     #[Computed]
     public function shouldShowParticipantsPanel(): bool
     {
-        return $this->post->characterAuthors()->count() + $this->post->userAuthors()->count() > 1;
+        return ($this->post->characterAuthors()->count() + $this->post->userAuthors()->count()) > 1;
     }
 
     #[Computed]
