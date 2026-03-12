@@ -11,7 +11,7 @@ use WireElements\Pro\Concerns\InteractsWithConfirmationModal;
 
 abstract class Modal extends BaseModal
 {
+    use InteractsWithConfirmationModal;
     use ModalAttributes;
     use ModalBehaviors;
-    use InteractsWithConfirmationModal;
 }

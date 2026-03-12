@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks;
 
-use Nova\Pages\Blocks\Manifest\ManifestBlock;
+use Nova\Pages\Blocks\Content\FreeformContentBlock;
 use Nova\Pages\Blocks\ContentRatings\CardsContentRatingsBlock;
 use Nova\Pages\Blocks\ContentRatings\GridContentRatingsBlock;
 use Nova\Pages\Blocks\ContentRatings\SplitContentRatingsBlock;
-use Nova\Pages\Blocks\Features\GridFeatureBlock;
-use Nova\Pages\Blocks\Features\CardsFeatureBlock;
 use Nova\Pages\Blocks\Features\AlternatingFeatureBlock;
-use Nova\Pages\Blocks\Content\FreeformContentBlock;
-use Nova\Pages\Blocks\Hero\StackedHeroBlock;
-use Nova\Pages\Blocks\Hero\SplitHeroBlock;
+use Nova\Pages\Blocks\Features\CardsFeatureBlock;
+use Nova\Pages\Blocks\Features\GridFeatureBlock;
 use Nova\Pages\Blocks\Hero\ImageTilesHeroBlock;
+use Nova\Pages\Blocks\Hero\SplitHeroBlock;
+use Nova\Pages\Blocks\Hero\StackedHeroBlock;
 use Nova\Pages\Blocks\ImageGallery\CarouselImageGalleryBlock;
 use Nova\Pages\Blocks\ImageGallery\ThumbnailImageGalleryBlock;
 use Nova\Pages\Blocks\Logos\SimpleLogosBlock;
 use Nova\Pages\Blocks\Logos\SplitLogosBlock;
+use Nova\Pages\Blocks\Manifest\ManifestBlock;
 use Nova\Pages\Blocks\Stats\SimpleStatsBlock;
 use Nova\Pages\Blocks\Stats\SplitStatsBlock;
 use Nova\Pages\Blocks\Stories\AlternatingStoriesBlock;

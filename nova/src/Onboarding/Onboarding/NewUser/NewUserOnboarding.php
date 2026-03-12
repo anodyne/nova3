@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Onboarding\Onboarding\NewUser;
 
-use Nova\Onboarding\Onboarding\OnboardingChecklistStep;
 use Nova\Onboarding\Onboarding\OnboardingChecklist;
+use Nova\Onboarding\Onboarding\OnboardingChecklistStep;
 
 class NewUserOnboarding extends OnboardingChecklist
 {

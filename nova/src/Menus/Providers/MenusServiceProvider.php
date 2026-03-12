@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Providers;
 
-use Nova\Menus\Spotlight\AddMenuItem;
-use Nova\Menus\Spotlight\EditMenuItem;
-use Nova\Menus\Spotlight\ViewMenuItems;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Events\ModelOrderChanged;
 use Nova\Menus\Listeners\RecacheAfterReordering;
 use Nova\Menus\Livewire\MenuItemsList;
 use Nova\Menus\Models\Menu;
 use Nova\Menus\Models\MenuItem;
-use Nova\Menus\Spotlight;
+use Nova\Menus\Spotlight\AddMenuItem;
+use Nova\Menus\Spotlight\EditMenuItem;
+use Nova\Menus\Spotlight\ViewMenuItems;
 
 class MenusServiceProvider extends DomainServiceProvider
 {

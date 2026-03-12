@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Models;
 
-use Nova\Themes\Events\ThemeCreated;
-use Nova\Themes\Events\ThemeDeleted;
-use Nova\Themes\Events\ThemeUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +16,9 @@ use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
 use Nova\Themes\BaseTheme;
 use Nova\Themes\Data\ThemeSettings;
-use Nova\Themes\Events;
+use Nova\Themes\Events\ThemeCreated;
+use Nova\Themes\Events\ThemeDeleted;
+use Nova\Themes\Events\ThemeUpdated;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 
 #[UseEloquentBuilder(ThemeBuilder::class)]

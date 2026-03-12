@@ -16,7 +16,7 @@ use function Pest\Livewire\livewire;
 
 uses()->group('messages');
 
-beforeEach(fn() => signIn());
+beforeEach(fn () => signIn());
 
 describe('creating discussion', function () {
     test('can create a new private discussion', function () {
@@ -37,7 +37,7 @@ describe('creating discussion', function () {
 
         assertDatabaseHas(Discussion::class, [
             'id' => $discussion->id,
-            'subject' => 'New private message'
+            'subject' => 'New private message',
         ]);
 
         assertDatabaseHas(DiscussionMessage::class, [
@@ -76,7 +76,7 @@ describe('creating discussion', function () {
 
         assertDatabaseHas(Discussion::class, [
             'id' => $discussion->id,
-            'subject' => 'New group message'
+            'subject' => 'New group message',
         ]);
 
         assertDatabaseHas(DiscussionMessage::class, [

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Nova\Foundation\Http\Middleware\VerifyCsrfToken;
-use Nova\Foundation\Http\Middleware\EncryptCookies;
 use Laravel\Sanctum\Sanctum;
+use Nova\Foundation\Http\Middleware\EncryptCookies;
+use Nova\Foundation\Http\Middleware\VerifyCsrfToken;
 
 return [
 

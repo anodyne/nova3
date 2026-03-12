@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Onboarding\Enums;
 
-use Nova\Onboarding\Onboarding\OnboardingChecklist;
-use Nova\Onboarding\Onboarding\FreshInstall\FreshInstallOnboarding;
-use Nova\Onboarding\Onboarding\NewUser\NewUserOnboarding;
-use Nova\Onboarding\Onboarding\NovaMigration\NovaMigrationOnboarding;
 use Filament\Support\Contracts\HasDescription;
 use Filament\Support\Contracts\HasLabel;
 use Nova\Onboarding\Models\Onboarding as OnboardingModel;
-use Nova\Onboarding\Onboarding;
+use Nova\Onboarding\Onboarding\FreshInstall\FreshInstallOnboarding;
+use Nova\Onboarding\Onboarding\NewUser\NewUserOnboarding;
+use Nova\Onboarding\Onboarding\NovaMigration\NovaMigrationOnboarding;
+use Nova\Onboarding\Onboarding\OnboardingChecklist;
 
 enum OnboardingProcess: string implements HasDescription, HasLabel
 {

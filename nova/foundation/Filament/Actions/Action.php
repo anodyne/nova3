@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 
 class Action extends \Filament\Actions\Action
 {

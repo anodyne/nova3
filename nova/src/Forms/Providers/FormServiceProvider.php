@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Providers;
 
-use Nova\Forms\Spotlight\DesignForm;
-use Nova\Forms\Spotlight\ViewForm;
-use Nova\Forms\Spotlight\ViewForms;
 use Nova\DomainServiceProvider;
 use Nova\Forms\Livewire\DynamicForm;
 use Nova\Forms\Livewire\FormDesigner;
@@ -16,7 +13,9 @@ use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormField;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Forms\Models\FormSubmissionResponse;
-use Nova\Forms\Spotlight;
+use Nova\Forms\Spotlight\DesignForm;
+use Nova\Forms\Spotlight\ViewForm;
+use Nova\Forms\Spotlight\ViewForms;
 
 class FormServiceProvider extends DomainServiceProvider
 {

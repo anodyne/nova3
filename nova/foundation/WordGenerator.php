@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation;
 
-use InvalidArgumentException;
 use Illuminate\Support\Facades\Storage;
+use InvalidArgumentException;
 
 class WordGenerator
 {

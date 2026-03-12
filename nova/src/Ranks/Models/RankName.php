@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Models;
 
-use Nova\Ranks\Events\RankNameCreated;
-use Nova\Ranks\Events\RankNameUpdated;
-use Nova\Ranks\Events\RankNameDeleted;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
-use Nova\Ranks\Events;
+use Nova\Ranks\Events\RankNameCreated;
+use Nova\Ranks\Events\RankNameDeleted;
+use Nova\Ranks\Events\RankNameUpdated;
 use Nova\Ranks\Models\Builders\RankNameBuilder;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;

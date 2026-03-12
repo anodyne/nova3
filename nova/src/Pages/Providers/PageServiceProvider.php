@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Providers;
 
-use Nova\Pages\Spotlight\DesignPage;
-use Nova\Pages\Spotlight\ViewPage;
-use Nova\Pages\Spotlight\ViewPages;
 use Nova\DomainServiceProvider;
 use Nova\Pages\Livewire\AlternatingStories;
 use Nova\Pages\Livewire\CharactersManifest;
@@ -15,7 +12,9 @@ use Nova\Pages\Livewire\PageDesigner;
 use Nova\Pages\Livewire\PagesList;
 use Nova\Pages\Livewire\StatWidget;
 use Nova\Pages\Models\Page;
-use Nova\Pages\Spotlight;
+use Nova\Pages\Spotlight\DesignPage;
+use Nova\Pages\Spotlight\ViewPage;
+use Nova\Pages\Spotlight\ViewPages;
 
 class PageServiceProvider extends DomainServiceProvider
 {

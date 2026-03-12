@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Stories\Enums\PositionDirection;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Models\Post;
 
 class PostPositionEditor extends SlideOver

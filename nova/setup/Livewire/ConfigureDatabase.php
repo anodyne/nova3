@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
-use Nova\Setup\Livewire\Concerns\HandlesMigration;
-use Nova\Setup\Livewire\Concerns\InteractsWithEnvFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -15,6 +13,8 @@ use Livewire\Component;
 use Nova\Foundation\Environment\Database;
 use Nova\Setup\Enums\DatabaseConfigStatus;
 use Nova\Setup\Enums\SetupType;
+use Nova\Setup\Livewire\Concerns\HandlesMigration;
+use Nova\Setup\Livewire\Concerns\InteractsWithEnvFile;
 use Nova\Stories\Livewire\Concerns\InteractsWithRoute;
 use PDO;
 use Throwable;

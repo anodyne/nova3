@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Models;
 
-use Nova\Roles\Events\RoleCreated;
-use Nova\Roles\Events\RoleDeleted;
-use Nova\Roles\Events\RoleUpdated;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laratrust\Models\Role as LaratrustRole;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Concerns\HasTableHelpers;
-use Nova\Roles\Events;
+use Nova\Roles\Events\RoleCreated;
+use Nova\Roles\Events\RoleDeleted;
+use Nova\Roles\Events\RoleUpdated;
 use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Users\Models\States\Status\Active;
 use Spatie\EloquentSortable\Sortable;

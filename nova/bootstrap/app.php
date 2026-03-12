@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-use Nova\Foundation\Http\Middleware\CheckInstallStatus;
-use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +13,7 @@ use Nova\Foundation\Actions\OptimizeOrRepairDatabase;
 use Nova\Foundation\Application;
 use Nova\Foundation\Http\Middleware\CheckAddonAndThemeVersions;
 use Nova\Foundation\Http\Middleware\CheckExternalContentCache;
+use Nova\Foundation\Http\Middleware\CheckInstallStatus;
 use Nova\Foundation\Http\Middleware\CheckNovaVersion;
 
 $app = Application::configure(basePath: dirname(__DIR__, 2))
