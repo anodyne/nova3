@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -26,7 +26,8 @@ jobs:
           coverage: none
 
       - name: Install Laravel Pint
-        run: composer global require laravel/pint
+        run: composer global require laravel/pint --no-interaction --no-progress
 
       - name: Check Coding Standards
-        run: pint --test
+        run: |
+          "$(composer config --global bin-dir --absolute 2>/dev/null)/pint" --test
