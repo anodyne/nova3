@@ -10,9 +10,11 @@ jobs:
       fail-fast: true
       matrix:
         php: [ 8.4, 8.5 ]
+        db: [ mysql80, mysql84, mariadb1011, mariadb114, pgsql16, pgsql17 ]
         include:
           # --- MySQL ---
-          - db_name: mysql
+          - db: mysql80
+            db_name: mysql
             db_version: "8.0"
             db_port: 3306
             db_user: root
@@ -20,7 +22,8 @@ jobs:
             db_database: test
             db_image: "mysql:8.0"
             db_health: "mysqladmin ping -h 127.0.0.1 -uroot -ppassword --silent"
-          - db_name: mysql
+          - db: mysql84
+            db_name: mysql
             db_version: "8.4"
             db_port: 3306
             db_user: root
@@ -30,7 +33,8 @@ jobs:
             db_health: "mysqladmin ping -h 127.0.0.1 -uroot -ppassword --silent"
 
           # --- MariaDB (LTS + current GA) ---
-          - db_name: mariadb
+          - db: mariadb1011
+            db_name: mariadb
             db_version: "10.11"
             db_port: 3306
             db_user: root
@@ -38,7 +42,8 @@ jobs:
             db_database: test
             db_image: "mariadb:10.11"
             db_health: "mysqladmin ping -h 127.0.0.1 -uroot -ppassword --silent"
-          - db_name: mariadb
+          - db: mariadb114
+            db_name: mariadb
             db_version: "11.4"
             db_port: 3306
             db_user: root
@@ -48,7 +53,8 @@ jobs:
             db_health: "mysqladmin ping -h 127.0.0.1 -uroot -ppassword --silent"
 
           # --- Postgres ---
-          - db_name: pgsql
+          - db: pgsql16
+            db_name: pgsql
             db_version: "16"
             db_port: 5432
             db_user: postgres
@@ -56,7 +62,8 @@ jobs:
             db_database: test
             db_image: "postgres:16"
             db_health: "pg_isready -h 127.0.0.1 -p 5432 -U postgres"
-          - db_name: pgsql
+          - db: pgsql17
+            db_name: pgsql
             db_version: "17"
             db_port: 5432
             db_user: postgres
@@ -194,6 +201,10 @@ jobs:
             laravel-about.txt
           retention-days: 7
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: run-tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    steps:
       - name: Deploy to Forge
-        if: github.ref == 'refs/heads/dev'
         run: curl "${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}"
