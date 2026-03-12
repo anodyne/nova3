@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Forms\Components\Toggle;
 use Nova\Pages\Blocks\ContentRatings\SplitContentRatingsBlock;
 use Nova\Pages\Blocks\PageBlockRegistry;
 use Nova\Pages\Models\Page;
@@ -57,7 +58,7 @@ describe('schema structure', function () {
         expect($blockSchema)->toBeArray()
             ->and($blockSchema)->toHaveCount(1);
 
-        expect($blockSchema[0])->toBeInstanceOf(\Filament\Forms\Components\Toggle::class);
+        expect($blockSchema[0])->toBeInstanceOf(Toggle::class);
     });
 
     test('container schema is empty (uses base schema only)', function () {

@@ -28,7 +28,7 @@ class DiscussionParticipant extends Pivot
 
     public function user(): BelongsTo
     {
-        /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
+        /** @var BelongsTo $relation */
         $relation = $this->belongsTo(User::class)->withTrashed();
 
         return $relation;

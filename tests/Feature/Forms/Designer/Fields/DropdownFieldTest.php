@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\Date;
 use Nova\Forms\Actions\SyncDatabaseFormFields;
 use Nova\Forms\Fields\DropdownField;
@@ -306,7 +308,7 @@ describe('schema structure', function () {
         $field = DropdownField::make('dropdown');
         $attributesSchema = $field->attributesSchema();
 
-        expect($attributesSchema[0])->toBeInstanceOf(\Filament\Forms\Components\TextInput::class)
+        expect($attributesSchema[0])->toBeInstanceOf(TextInput::class)
             ->and($attributesSchema[0]->getName())->toBe('attrs.placeholder')
             ->and($attributesSchema[0]->getLabel())->toBe('Placeholder');
     });
@@ -315,7 +317,7 @@ describe('schema structure', function () {
         $field = DropdownField::make('dropdown');
         $attributesSchema = $field->attributesSchema();
 
-        expect($attributesSchema[1])->toBeInstanceOf(\Filament\Forms\Components\KeyValue::class)
+        expect($attributesSchema[1])->toBeInstanceOf(KeyValue::class)
             ->and($attributesSchema[1]->getName())->toBe('attrs.options')
             ->and($attributesSchema[1]->getLabel())->toBe('Options');
     });

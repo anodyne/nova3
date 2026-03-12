@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
+use Nova\Characters\Models\Character;
 use Nova\Departments\Events\PositionDeleted;
 use Nova\Departments\Livewire\PositionsList;
 use Nova\Departments\Models\Position;
@@ -52,7 +53,7 @@ test('an authorized user can bulk delete positions', function () {
 test('can delete a position with assigned active characters', function () {
     Event::fake();
 
-    $character = \Nova\Characters\Models\Character::factory()->active()->create();
+    $character = Character::factory()->active()->create();
     $position = $this->positions->first();
     $character->positions()->sync([$position->id]);
 
@@ -69,7 +70,7 @@ test('can delete a position with assigned active characters', function () {
 test('can delete a position with assigned inactive characters', function () {
     Event::fake();
 
-    $character = \Nova\Characters\Models\Character::factory()->inactive()->create();
+    $character = Character::factory()->inactive()->create();
     $position = $this->positions->first();
     $character->positions()->sync([$position->id]);
 
@@ -87,7 +88,7 @@ test('can bulk delete positions with mixed character assignments', function () {
     $positionWithCharacter = $this->positions->first();
     $positionWithoutCharacter = $this->positions->get(1);
 
-    $character = \Nova\Characters\Models\Character::factory()->active()->create();
+    $character = Character::factory()->active()->create();
     $character->positions()->sync([$positionWithCharacter->id]);
 
     $positions = collect([$positionWithCharacter, $positionWithoutCharacter]);
@@ -104,7 +105,7 @@ test('can bulk delete positions with mixed character assignments', function () {
 });
 
 test('deleting a position removes character assignments', function () {
-    $character = \Nova\Characters\Models\Character::factory()->active()->create();
+    $character = Character::factory()->active()->create();
     $position = $this->positions->first();
     $character->positions()->sync([$position->id]);
 

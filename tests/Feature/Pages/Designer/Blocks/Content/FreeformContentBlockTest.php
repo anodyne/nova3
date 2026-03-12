@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Forms\Components\RichEditor;
 use Nova\Pages\Blocks\Content\FreeformContentBlock;
 use Nova\Pages\Blocks\PageBlockRegistry;
 use Nova\Pages\Models\Page;
@@ -35,7 +36,7 @@ describe('schema structure', function () {
         $block = FreeformContentBlock::make('content');
         $blockSchema = $block->blockSchema();
 
-        expect($blockSchema[1])->toBeInstanceOf(\Filament\Forms\Components\RichEditor::class)
+        expect($blockSchema[1])->toBeInstanceOf(RichEditor::class)
             ->and($blockSchema[1]->getName())->toBe('block.content')
             ->and($blockSchema[1]->getLabel())->toBe('Content');
     });

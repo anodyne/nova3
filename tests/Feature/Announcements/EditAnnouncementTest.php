@@ -66,7 +66,7 @@ describe('moderated user', function () {
     beforeEach(function () {
         signIn(permissions: 'announcement.update');
 
-        /** @var \Nova\Users\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         $user->update([

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Forms\Components\RichEditor;
 use Illuminate\Support\Facades\Date;
 use Nova\Forms\Actions\SyncDatabaseFormFields;
 use Nova\Forms\Fields\ContentField;
@@ -41,7 +42,7 @@ describe('schema structure', function () {
         $field = ContentField::make('content');
         $detailsSchema = $field->detailsSchema();
 
-        expect($detailsSchema[0])->toBeInstanceOf(\Filament\Forms\Components\RichEditor::class)
+        expect($detailsSchema[0])->toBeInstanceOf(RichEditor::class)
             ->and($detailsSchema[0]->getName())->toBe('details.content')
             ->and($detailsSchema[0]->getLabel())->toBe('Content');
     });

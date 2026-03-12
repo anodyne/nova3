@@ -15,6 +15,7 @@ use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\User;
 
 class ApplicationsList extends TableComponent
 {
@@ -25,7 +26,7 @@ class ApplicationsList extends TableComponent
 
     public function table(Table $table): Table
     {
-        /** @var \Nova\Users\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         return $table

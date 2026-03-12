@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Forms\Components\TextInput;
 use Illuminate\Support\Facades\Date;
 use Nova\Forms\Actions\SyncDatabaseFormFields;
 use Nova\Forms\Fields\DateField;
@@ -291,7 +292,7 @@ describe('schema structure', function () {
         $field = DateField::make('date');
         $attributesSchema = $field->attributesSchema();
 
-        expect($attributesSchema[0])->toBeInstanceOf(\Filament\Forms\Components\TextInput::class)
+        expect($attributesSchema[0])->toBeInstanceOf(TextInput::class)
             ->and($attributesSchema[0]->getName())->toBe('attrs.placeholder')
             ->and($attributesSchema[0]->getLabel())->toBe('Placeholder');
     });

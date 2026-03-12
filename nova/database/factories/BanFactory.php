@@ -6,11 +6,12 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Date;
+use Nova\Model;
 use Nova\Users\Models\Ban;
 use Nova\Users\Models\User;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Nova\Model>
+ * @extends Factory<Model>
  */
 class BanFactory extends Factory
 {

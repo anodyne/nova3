@@ -124,7 +124,7 @@ class Post extends Model implements Sortable
 
     public function postType(): BelongsTo
     {
-        /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
+        /** @var BelongsTo $relation */
         $relation = $this->belongsTo(PostType::class)->withTrashed();
 
         return $relation;
@@ -132,7 +132,7 @@ class Post extends Model implements Sortable
 
     public function lockOwner(): BelongsTo
     {
-        /** @var \Illuminate\Database\Eloquent\Relations\BelongsTo $relation */
+        /** @var BelongsTo $relation */
         $relation = $this->belongsTo(User::class, 'locked_by')->withTrashed();
 
         return $relation;

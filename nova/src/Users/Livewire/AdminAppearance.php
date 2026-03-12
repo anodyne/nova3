@@ -7,6 +7,7 @@ namespace Nova\Users\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Nova\Users\Enums\Appearance;
+use Nova\Users\Models\User;
 
 class AdminAppearance extends Component
 {
@@ -14,7 +15,7 @@ class AdminAppearance extends Component
 
     public function updatedAppearance($value): void
     {
-        /** @var \Nova\Users\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         $data = $user->preferences->with(appearance: $this->appearance);

@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Discussions\Enums\MessageType;
 use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Models\DiscussionMessage;
+use Nova\Model;
 use Nova\Users\Models\User;
 
 /**
- * @extends Factory<\Nova\Model>
+ * @extends Factory<Model>
  */
 class DiscussionMessageFactory extends Factory
 {

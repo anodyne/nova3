@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Models\User;
+use Tests\TestCase;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +18,14 @@ use Nova\Users\Models\User;
 |
 */
 
-pest()->extend(Tests\TestCase::class)
+pest()->extend(TestCase::class)
     ->in('Feature')
     ->beforeEach(function (): void {
         $this->withoutVite();
         $this->freezeTime();
     });
 
-pest()->extend(Tests\TestCase::class)->in('Unit');
+pest()->extend(TestCase::class)->in('Unit');
 
 /*
 |--------------------------------------------------------------------------

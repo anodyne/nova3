@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Model;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Models\Page;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Nova\Model>
+ * @extends Factory<Model>
  */
 class PageFactory extends Factory
 {

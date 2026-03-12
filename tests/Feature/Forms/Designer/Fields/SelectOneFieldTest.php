@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Forms\Components\Repeater;
 use Illuminate\Support\Facades\Date;
 use Nova\Forms\Actions\SyncDatabaseFormFields;
 use Nova\Forms\Fields\FormFieldRegistry;
@@ -206,7 +207,7 @@ describe('schema structure', function () {
         $field = SelectOneField::make('select-one');
         $attributesSchema = $field->attributesSchema();
 
-        expect($attributesSchema[0])->toBeInstanceOf(\Filament\Forms\Components\Repeater::class)
+        expect($attributesSchema[0])->toBeInstanceOf(Repeater::class)
             ->and($attributesSchema[0]->getName())->toBe('attrs.options')
             ->and($attributesSchema[0]->getLabel())->toBe('Options');
     });

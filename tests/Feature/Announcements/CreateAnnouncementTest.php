@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Nova\Announcements\Events\AnnouncementCreated;
 use Nova\Announcements\Models\Announcement;
+use Nova\Users\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\from;
@@ -64,7 +65,7 @@ describe('moderated user', function () {
     beforeEach(function () {
         signIn(permissions: 'announcement.create');
 
-        /** @var \Nova\Users\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         $user->update([

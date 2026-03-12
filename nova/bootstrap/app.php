@@ -37,7 +37,7 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
 
         $middleware->replace(
             PreventRequestsDuringMaintenance::class,
-            \Nova\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class
+            Nova\Foundation\Http\Middleware\PreventRequestsDuringMaintenance::class
         );
 
         $middleware->web(append: [
