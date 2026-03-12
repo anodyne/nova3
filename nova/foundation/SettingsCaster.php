@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Settings;
+namespace Nova\Foundation;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Contracts\Support\Jsonable;
