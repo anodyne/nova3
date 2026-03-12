@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laratrust\Models\Role as LaratrustRole;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Concerns\HasTableHelpers;
-use Nova\Roles\Events;
+use Nova\Roles\Events\RoleCreated;
+use Nova\Roles\Events\RoleDeleted;
+use Nova\Roles\Events\RoleUpdated;
 use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Users\Models\States\Status\Active;
 use Spatie\EloquentSortable\Sortable;
@@ -37,9 +39,9 @@ class Role extends LaratrustRole implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\RoleCreated::class,
-        'deleted' => Events\RoleDeleted::class,
-        'updated' => Events\RoleUpdated::class,
+        'created' => RoleCreated::class,
+        'deleted' => RoleDeleted::class,
+        'updated' => RoleUpdated::class,
     ];
 
     /**

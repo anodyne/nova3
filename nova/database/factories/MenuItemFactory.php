@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\CanHandleDataForRequests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Menus\Enums\LinkTarget;
@@ -12,6 +13,8 @@ use Nova\Menus\Models\MenuItem;
 
 class MenuItemFactory extends Factory
 {
+    use CanHandleDataForRequests;
+
     protected $model = MenuItem::class;
 
     public function definition()
@@ -26,5 +29,19 @@ class MenuItemFactory extends Factory
             'target' => $this->faker->randomElement(LinkTarget::cases()),
             'parent_id' => null,
         ];
+    }
+
+    public function active(): Factory
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
+
+    public function inactive(): Factory
+    {
+        return $this->state([
+            'status' => BasicStatus::Inactive,
+        ]);
     }
 }

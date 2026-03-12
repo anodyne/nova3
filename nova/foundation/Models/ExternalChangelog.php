@@ -7,6 +7,7 @@ namespace Nova\Foundation\Models;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Enums\ReleaseSeverity;
 
 class ExternalChangelog extends Model
@@ -35,7 +36,7 @@ class ExternalChangelog extends Model
                 );
             }
 
-            Cache::forget('external-changelog');
+            Cache::forget(CacheKeys::ExternalChangelog->value);
         }
     }
 }

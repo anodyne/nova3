@@ -7,7 +7,15 @@ namespace Nova\Settings\Models;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
-use Nova\Settings\Data;
+use Nova\Settings\Data\Appearance;
+use Nova\Settings\Data\Applications;
+use Nova\Settings\Data\Characters;
+use Nova\Settings\Data\ContentRatings;
+use Nova\Settings\Data\Dashboard;
+use Nova\Settings\Data\Discord;
+use Nova\Settings\Data\Email;
+use Nova\Settings\Data\General;
+use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Models\Builders\SettingsBuilder;
 use Spatie\MediaLibrary\HasMedia;
 
@@ -19,15 +27,15 @@ class Settings extends Model implements HasMedia
     protected $table = 'settings';
 
     protected $casts = [
-        'general' => Data\General::class,
-        'email' => Data\Email::class,
-        'appearance' => Data\Appearance::class,
-        'characters' => Data\Characters::class,
-        'discord' => Data\Discord::class,
-        'posting_activity' => Data\PostingActivity::class,
-        'ratings' => Data\ContentRatings::class,
-        'applications' => Data\Applications::class,
-        'dashboard' => Data\Dashboard::class,
+        'general' => General::class,
+        'email' => Email::class,
+        'appearance' => Appearance::class,
+        'characters' => Characters::class,
+        'discord' => Discord::class,
+        'posting_activity' => PostingActivity::class,
+        'ratings' => ContentRatings::class,
+        'applications' => Applications::class,
+        'dashboard' => Dashboard::class,
     ];
 
     protected $fillable = [
@@ -46,12 +54,22 @@ class Settings extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('logo')
+        $this->addMediaCollection('logo-full')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
             ->useDisk('media-settings');
 
-        $this->addMediaCollection('email-logo')
+        $this->addMediaCollection('logo-sidebar-dark')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
+            ->singleFile()
+            ->useDisk('media-settings');
+
+        $this->addMediaCollection('logo-sidebar-light')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
+            ->singleFile()
+            ->useDisk('media-settings');
+
+        $this->addMediaCollection('logo-email')
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
             ->useDisk('media-settings');

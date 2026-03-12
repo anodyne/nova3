@@ -21,12 +21,12 @@
                     --stat-label-color: {{ data_get($block, 'appearance.label-color') }};
                 "
             >
-                <dt class="nv-stat-heading text-base/7 text-[--stat-label-color]">
+                <dt class="nv-stat-heading text-base/7 text-(--stat-label-color)">
                     {{ data_get($stat, 'heading') }}
                 </dt>
 
                 <dd
-                    class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-[--stat-stat-color] sm:text-5xl"
+                    class="nv-stat-value order-first font-(family-name:--font-header) text-3xl font-semibold tracking-tight text-(--stat-stat-color) sm:text-5xl"
                 >
                     <livewire:pages-stat-widget
                         :identifier="data_get($stat, 'stat')"

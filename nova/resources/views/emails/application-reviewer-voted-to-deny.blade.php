@@ -11,7 +11,7 @@
 @endif
 
 <x-mail::button :url="route('admin.applications.show', $application)">
-View application &rarr;
+View application <span aria-hidden="true">→</span>
 </x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}

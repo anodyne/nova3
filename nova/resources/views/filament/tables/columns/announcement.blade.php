@@ -4,11 +4,11 @@
 @endphp
 
 <div class="flex items-center space-x-2 px-3">
-    @unless ($currentUserHasSeen)
-        <div class="size-2 rounded-full bg-primary-500"></div>
-    @endunless
+    @if (! $currentUserHasSeen && $announcement->is_published)
+        <div class="bg-primary-500 size-2 rounded-full"></div>
+    @endif
 
-    <div class="whitespace-normal text-base font-medium text-gray-950 sm:text-sm dark:text-white">
+    <div class="text-base font-medium whitespace-normal text-gray-950 sm:text-sm dark:text-white">
         {{ $announcement->title }}
     </div>
 </div>

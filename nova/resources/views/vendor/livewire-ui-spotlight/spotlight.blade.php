@@ -52,7 +52,7 @@
             <div class="mx-auto max-w-xl transform divide-y divide-gray-950/5 dark:divide-white/5 overflow-hidden rounded-xl bg-white dark:bg-gray-800 dark:highlight-white/10 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all">
                 <div class="relative flex items-center space-x-3 px-4 py-4">
                     <div class="shrink-0">
-                        <x-icon name="arrow-right" size="md" class="text-gray-400"></x-icon>
+                        <x-icon :name="Tabler::ArrowRight" size="md" class="text-gray-400" />
                     </div>
                     <input
                         x-on:keydown.tab.prevent=""
@@ -96,7 +96,7 @@
                 </ul>
 
                 <div x-show="input === ''" class="flex flex-col space-y-4 py-14 px-6 text-center text-base sm:px-14">
-                    <x-icon name="bulb" size="xl" class="text-gray-400 dark:text-gray-500"></x-icon>
+                    <x-icon :name="Tabler::Bulb" size="xl" class="text-gray-400 dark:text-gray-500" />
                     <p class="text-lg font-semibold text-gray-900 dark:text-gray-100">Move around Nova at warp speed</p>
                     <ul class="text-gray-500 dark:text-gray-400 space-y-4">
                         <li>Start typing any resource like <span class="text-primary-600 dark:text-primary-500 font-medium">story</span> or <span class="text-primary-600 dark:text-primary-500 font-medium">character</span> to see available actions you can take</li>

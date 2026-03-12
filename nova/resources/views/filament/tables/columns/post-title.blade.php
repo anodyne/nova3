@@ -13,13 +13,13 @@
 ])>
     <div class="mt-0.5 shrink-0" style="color: {{ $post->postType->color }}">
         @isset($post->postType->icon)
-            <x-icon :name="$post->postType->icon" size="md"></x-icon>
+            <x-icon :name="$post->postType->icon" size="md" />
         @else
             <div class="size-6"></div>
         @endisset
     </div>
 
-    <div class="whitespace-normal text-base font-medium sm:text-sm">
+    <div class="text-base font-medium whitespace-normal sm:text-sm">
         {{ $post->title ?? '(No title)' }}
     </div>
 

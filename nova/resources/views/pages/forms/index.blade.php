@@ -2,23 +2,23 @@
 @use('Nova\Forms\Models\FormSubmission')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         <x-slot name="actions">
             @can('viewAny', FormSubmission::class)
-                <x-button :href="route('admin.form-submissions.index')" color="neutral">
-                    <x-icon name="file-text" size="sm"></x-icon>
+                <x-button :href="route('admin.form-submissions.index')">
+                    <x-icon :name="Tabler::FileText" size="sm" />
                     View submissions
                 </x-button>
             @endcan
 
             @can('create', Form::class)
-                <x-button :href="route('admin.forms.create')" color="primary">
-                    <x-icon name="add" size="sm"></x-icon>
+                <x-button :href="route('admin.forms.create')" variant="primary">
+                    <x-icon :name="Tabler::Plus" size="sm" />
                     Add
                 </x-button>
             @endcan
         </x-slot>
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:forms-list />
 

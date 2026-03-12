@@ -1,8 +1,6 @@
 /* eslint-disable */
-import preset from './vendor/filament/support/tailwind.config.preset';
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
-const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
 
 const scale = Array.from({ length: 12 }, (_, i) => i + 1);
 
@@ -26,7 +24,6 @@ const createColorScale = (color) => ({
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    presets: [preset],
     content: [
         './nova/resources/**/*.{js,ts,blade.php,css,svg}',
         './nova/foundation/View/Components/*.php',
@@ -156,14 +153,14 @@ module.exports = {
         /* eslint-disable */
         require('@tailwindcss/typography'),
         require('@tailwindcss/container-queries'),
-        function ({ matchUtilities, theme }) {
-            matchUtilities(
-                {
-                    highlight: (value) => ({ boxShadow: `inset 0 1px 0 0 ${value}` }),
-                },
-                { values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
-            )
-        },
+        // function ({ matchUtilities, theme }) {
+        //     matchUtilities(
+        //         {
+        //             highlight: (value) => ({ boxShadow: `inset 0 1px 0 0 ${value}` }),
+        //         },
+        //         { values: flattenColorPalette(theme('backgroundColor')), type: 'color' }
+        //     )
+        // },
         /* eslint-enable */
     ],
 };

@@ -4,51 +4,43 @@
 
 <div class="mx-auto max-w-7xl space-y-16">
     <header class="mx-auto max-w-2xl space-y-6 text-center">
-        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Install Nova</h1>
+        <x-setup::page-heading>Install Nova</x-setup::page-heading>
 
-        <p class="text-lg/8 text-gray-600">Tell us a little bit about your game before installing Nova.</p>
+        <x-setup::page-subheading>
+            Tell us a little bit about your game before installing Nova.
+        </x-setup::page-subheading>
     </header>
 
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
-                <x-panel.danger title="Error installing Nova" icon="alert-circle">
+                <x-callout.danger heading="Error installing Nova" :icon="Tabler::AlertCircle">
                     {{ $errorMessage }}
-                </x-panel.danger>
+                </x-callout.danger>
             @endif
 
             <x-fieldset>
-                <x-fieldset.field-group>
-                    <x-fieldset.field
-                        label="What’s the name of your game?"
-                        id="game_name"
-                        name="game_name"
-                        :error="$errors->first('name')"
-                    >
-                        <x-input.text wire:model="name"></x-input.text>
-                    </x-fieldset.field>
+                <x-fieldset.group>
+                    <x-input label="What’s the name of your game?" wire:model="name" />
 
-                    <x-fieldset.field label="What genre are you playing in?" id="game_genre" name="game_genre">
-                        <x-select wire:model="genre">
-                            <option value="">Do not install any genre data</option>
-
-                            @foreach ($availableGenres as $genre => $name)
-                                <option value="{{ $genre }}">{{ $name }}</option>
-                            @endforeach
-                        </x-select>
-                    </x-fieldset.field>
+                    <x-select label="What genre are you playing in?" wire:model="genre">
+                        <option value="">Do not install any genre data</option>
+                        @foreach ($availableGenres as $genre => $name)
+                            <option value="{{ $genre }}">{{ $name }}</option>
+                        @endforeach
+                    </x-select>
 
                     @env('local')
-                        <flux:switch
-                            wire:model.live="shouldSeed"
+                        <x-switch
                             label="Install with demo data"
-                            description="Automatically create users, characters, stories, posts, and other game data to simulate how Nova would work with a fully operational game."
-                        ></flux:switch>
+                            description="Automatically create users, characters, stories, posts, and other game data to simulate how Nova would work with a fully operational game"
+                            wire:model.live="shouldSeed"
+                        />
                     @endenv
-                </x-fieldset.field-group>
+                </x-fieldset.group>
             </x-fieldset>
 
-            <x-button.setup type="button" wire:click="install" size="sm">
+            <x-setup::button type="button" wire:click="install" size="sm">
                 <div class="flex items-center gap-3">
                     <div>Start install</div>
                     <x-icon.loader
@@ -57,7 +49,7 @@
                         wire:target="install"
                     ></x-icon.loader>
                 </div>
-            </x-button.setup>
+            </x-setup::button>
         </div>
     @endif
 
@@ -76,16 +68,17 @@
 
         <div class="flex items-center justify-center gap-8">
             @if ($e->database->driver !== 'pgsql')
-                <x-button.setup href="{{ url('setup/migrate') }}" leading="forward-all">
+                <x-setup::button href="{{ url('setup/migrate') }}" :leading="Tabler::ArrowForwardUpDouble">
                     Migrate your Nova 2 data
-                </x-button.setup>
+                </x-setup::button>
 
-                <span class="text-sm font-semibold uppercase text-gray-500">or</span>
+                <span class="text-sm font-semibold text-gray-500 uppercase">or</span>
             @endif
 
-            <x-button.setup href="{{ url('setup/setup-account') }}" leading="arrow-right">
+            <x-setup::button href="{{ url('setup/setup-account') }}">
                 Continue as a fresh install
-            </x-button.setup>
+                <span aria-hidden="true">→</span>
+            </x-setup::button>
         </div>
     @endif
 </div>

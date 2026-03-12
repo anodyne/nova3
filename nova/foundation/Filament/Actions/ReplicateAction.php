@@ -4,24 +4,41 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\ReplicateAction as FilamentReplicateAction;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Filament\Actions\Concerns\CanSetRecordDisplayName;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 
-class ReplicateAction extends FilamentReplicateAction
+class ReplicateAction extends \Filament\Actions\ReplicateAction
 {
-    use Concerns\HasModalContentView;
+    use CanSetRecordDisplayName;
+    use HasModalContentView;
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(iconName('copy'));
+        $this->icon(Tabler::Copy);
         $this->label('Duplicate');
 
-        $this->modalWidth(MaxWidth::ExtraLarge);
+        $this->successNotificationTitle(function (Model $record): string {
+            return trans('messages.table.replicate-success', [
+                'title' => $record->{$this->getRecordDisplayNameAttribute()},
+                'label' => $this->getRecordTitle(),
+            ]);
+        });
+
+        $this->failureNotificationTitle(function (Model $record): string {
+            return trans('messages.table.replicate-failure', [
+                'title' => $record->{$this->getRecordDisplayNameAttribute()},
+                'label' => $this->getRecordTitle(),
+            ]);
+        });
+
+        $this->modalWidth(Width::ExtraLarge);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

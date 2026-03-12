@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -14,8 +13,6 @@ use Nova\Users\Models\User;
 
 class ManageCharacters extends Component
 {
-    public string $search = '';
-
     #[Locked]
     public ?User $user = null;
 
@@ -23,18 +20,15 @@ class ManageCharacters extends Component
 
     public ?Character $primary = null;
 
-    public function add(Character $character): void
-    {
-        $this->search = '';
-
-        $this->assigned->push($character);
-    }
+    public ?string $selected = null;
 
     public function remove(Character $character): void
     {
         $this->assigned = $this->assigned->reject(
             fn (Character $collectionCharacter) => $collectionCharacter->id === $character->id
         );
+
+        $this->dispatch('characters-updated', characters: $this->assigned->pluck('id')->all());
     }
 
     public function setAsPrimaryCharacter(Character $character): void
@@ -42,33 +36,11 @@ class ManageCharacters extends Component
         $this->primary = $character;
     }
 
-    #[Computed]
-    public function characters(): Collection
+    public function updatedSelected(Character $value): void
     {
-        return $this->assigned;
-    }
+        $this->assigned->push($value);
 
-    #[Computed]
-    public function searchResults(): Collection
-    {
-        return Character::query()
-            ->when(filled($this->search) && $this->search !== '*', fn (Builder $query) => $query->searchFor($this->search))
-            ->when(filled($this->search) && $this->search === '*', fn (Builder $query) => $query)
-            ->get();
-    }
-
-    #[Computed]
-    public function assignedCharacters(): string
-    {
-        return $this->assigned
-            ->map(fn (Character $character) => $character->id)
-            ->join(',');
-    }
-
-    #[Computed]
-    public function primaryCharacter(): string
-    {
-        return (string) $this->primary?->id;
+        $this->selected = null;
     }
 
     public function mount(): void
@@ -82,9 +54,35 @@ class ManageCharacters extends Component
     {
         return view('pages.users.livewire.manage-characters', [
             'assignedCharacters' => $this->assignedCharacters,
-            'searchResults' => $this->searchResults,
+            'models' => $this->models,
             'primaryCharacter' => $this->primaryCharacter,
             'characters' => $this->characters,
         ]);
+    }
+
+    #[Computed]
+    public function assignedCharacters(): string
+    {
+        return $this->assigned
+            ->map(fn (Character $character) => $character->id)
+            ->join(',');
+    }
+
+    #[Computed]
+    public function characters(): Collection
+    {
+        return $this->assigned;
+    }
+
+    #[Computed]
+    public function models(): Collection
+    {
+        return Character::get();
+    }
+
+    #[Computed]
+    public function primaryCharacter(): string
+    {
+        return (string) $this->primary?->id;
     }
 }

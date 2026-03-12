@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Themes;
 
+use Nova\Themes\Concerns\HasThemeSettings;
+use Nova\Themes\Concerns\InteractsWithModel;
+use Nova\Themes\Concerns\RendersTheme;
 use Nova\Themes\Models\Theme;
 use Throwable;
 
 abstract class BaseTheme
 {
-    use Concerns\HasThemeSettings;
-    use Concerns\InteractsWithModel;
-    use Concerns\RendersTheme;
+    use HasThemeSettings;
+    use InteractsWithModel;
+    use RendersTheme;
 
     public string $location;
 

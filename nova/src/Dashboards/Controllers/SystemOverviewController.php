@@ -13,7 +13,10 @@ class SystemOverviewController extends Controller
     {
         parent::__construct();
 
-        $this->middleware('auth');
+        $this->middleware([
+            'auth',
+            'permission:system.overview',
+        ]);
     }
 
     public function __invoke()

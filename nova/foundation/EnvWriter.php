@@ -45,7 +45,7 @@ class EnvWriter
 
     public function refreshEnvVars()
     {
-        DotEnv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
+        Dotenv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 
     public function set(string|array $key, mixed $value = null): bool

@@ -13,12 +13,14 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Actions\UpdateContributorWordCount;
 use Nova\Stories\Actions\UpdatePost;
 use Nova\Stories\Data\PostDetailsData;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Nova\Stories\Models\Post;
 
 class PostDetails extends Component
 {
-    use Concerns\InteractsWithPost;
-    use Concerns\InteractsWithPostType;
+    use InteractsWithPost;
+    use InteractsWithPostType;
 
     public ?string $title = null;
 

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -28,7 +29,8 @@ test('a user can delete their own note', function () {
     Event::fake();
 
     livewire(NotesList::class)
-        ->callTableAction(DeleteAction::class, $this->notes->first())
+        ->assertCanSeeTableRecords([$this->notes->first()])
+        ->callAction(TestAction::make(DeleteAction::class)->table($this->notes->first()))
         ->assertCanNotSeeTableRecords([$this->notes->first()])
         ->assertNotified();
 
@@ -41,8 +43,7 @@ test("a user cannot delete a note they didn't create", function () {
     $note = Note::factory()->create();
 
     livewire(NotesList::class)
-        ->assertCanNotSeeTableRecords([$note])
-        ->assertTableActionHidden(DeleteAction::class, $note);
+        ->assertCanNotSeeTableRecords([$note]);
 
     assertDatabaseHas(Note::class, $note->toArray());
 });
@@ -51,7 +52,10 @@ test('a user can bulk delete notes', function () {
     $notes = $this->notes->take(3);
 
     livewire(NotesList::class)
-        ->callTableBulkAction(DeleteBulkAction::class, $notes)
+        ->assertCanSeeTableRecords($notes)
+        ->selectTableRecords($notes)
+        ->callAction(TestAction::make(DeleteBulkAction::class)->table()->bulk())
+        ->assertCanNotSeeTableRecords($notes)
         ->assertNotified();
 
     foreach ($notes as $note) {

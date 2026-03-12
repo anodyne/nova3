@@ -13,9 +13,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.view');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.view'));
 
     test('can view the view role page', function () {
         get(route('admin.roles.show', $this->role))->assertSuccessful();
@@ -23,12 +21,10 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the view role page', function () {
-        get(route('admin.roles.show', $this->role))->assertForbidden();
+        get(route('admin.roles.show', $this->role))->assertNotFound();
     });
 });
 

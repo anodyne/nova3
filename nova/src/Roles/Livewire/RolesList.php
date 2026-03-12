@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
+use BackedEnum;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -13,7 +15,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -21,14 +22,14 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Roles\Actions\DeleteRole;
 use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Events\RoleDuplicated;
 use Nova\Roles\Models\Role;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 
 class RolesList extends TableComponent
 {
@@ -46,13 +47,14 @@ class RolesList extends TableComponent
                         'order_column',
                     ])
             )
+            ->recordUrl(fn (Role $record): string => route('admin.roles.show', $record))
             ->defaultSort('order_column')
             ->reorderable('order_column')
             ->columns([
                 TextColumn::make('display_name')
                     ->titleColumn()
                     ->label('Name')
-                    ->icon(fn (Role $record): ?string => $record->is_locked ? iconName('lock-closed') : null)
+                    ->icon(fn (Role $record): ?BackedEnum => $record->is_locked ? Tabler::Lock : null)
                     ->iconPosition('after')
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
                 TextColumn::make('user_count')
@@ -69,11 +71,10 @@ class RolesList extends TableComponent
                 IconColumn::make('is_default')
                     ->label('Assigned to new users')
                     ->alignCenter()
-                    ->trueColor('success')
-                    ->trueIcon(iconName('check'))
+                    ->trueIcon(Tabler::CircleCheck)
                     ->falseIcon(''),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -82,7 +83,7 @@ class RolesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Role $record): string => route('admin.roles.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make(),
@@ -92,7 +93,7 @@ class RolesList extends TableComponent
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->modalContentView('pages.roles.duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('display_name')->label('New role name'),
                             ])
                             ->action(function (Role $record, array $data): void {
@@ -100,19 +101,14 @@ class RolesList extends TableComponent
                                     $record,
                                     RoleData::from(
                                         displayName: $displayName = data_get($data, 'display_name'),
-                                        name: str($displayName)->slug(),
+                                        name: str($displayName)->slug()->toString(),
                                         isDefault: false
                                     )
                                 );
 
                                 RoleDuplicated::dispatch($replica, $record);
-
-                                Notification::make()->success()
-                                    ->title("{$replica->display_name} role has been created")
-                                    ->body('Any permissions assigned to the '.$record->display_name.' role have been added to your new role.')
-                                    ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -120,38 +116,15 @@ class RolesList extends TableComponent
                             ->modalContentView('pages.roles.delete')
                             ->successNotificationTitle(fn (Role $record): string => $record->display_name.' role was deleted')
                             ->using(fn (Role $record): Model => DeleteRole::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
                 DeleteBulkAction::make()
-                    ->authorize('deleteAny')
+                    ->authorizeIndividualRecords('delete')
                     ->modalContentView('pages.roles.delete-bulk')
                     ->action(function (Collection $records): void {
-                        $ignoredRecords = 0;
-
-                        $records = $records
-                            ->filter(function (Role $record) use (&$ignoredRecords): bool {
-                                if (Gate::allows('delete', $record)) {
-                                    return true;
-                                }
-
-                                $ignoredRecords += 1;
-
-                                return false;
-                            })
-                            ->each(fn (Role $record): Model => DeleteRole::run($record));
-
-                        Notification::make()->success()
-                            ->title(count($records).' '.trans_choice('role was|roles were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
-                            ->send();
+                        $records->each(fn (Role $record): Model => DeleteRole::run($record));
                     }),
             ])
             ->filters([
@@ -175,7 +148,7 @@ class RolesList extends TableComponent
                     ),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.roles-reordering-notice') : null)
-            ->emptyStateIcon(iconName('shield'))
+            ->emptyStateIcon(Illustration::PadlockShield)
             ->emptyStateHeading('No roles found')
             ->emptyStateDescription('Roles allow you to control what users can and cannot access throughout Nova.')
             ->emptyStateActions([

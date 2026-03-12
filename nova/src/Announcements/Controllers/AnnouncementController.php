@@ -45,7 +45,7 @@ class AnnouncementController extends Controller
     public function create()
     {
         return CreateAnnouncementResponse::sendWith([
-            'categories' => Announcement::uniqueCategories()->pluck('category'),
+            'categories' => Announcement::uniqueCategories()->pluck('category')->filter(),
         ]);
     }
 

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Filament\Notifications\Actions\Action;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Actions\Action;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,13 +21,15 @@ use Nova\Stories\Actions\UpdatePostStatus;
 use Nova\Stories\Data\PostPositionData;
 use Nova\Stories\Data\PostStatusData;
 use Nova\Stories\Enums\PositionDirection;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\States\PostStatus\Published;
 
 class PostPublish extends SlideOver
 {
-    use Concerns\InteractsWithPost;
-    use Concerns\InteractsWithPostType;
+    use InteractsWithPost;
+    use InteractsWithPostType;
 
     #[Locked]
     public Post $post;
@@ -68,7 +71,7 @@ class PostPublish extends SlideOver
             ->actions([
                 Action::make('refresh')
                     ->color('gray')
-                    ->icon(iconName('arrows-sync'))
+                    ->icon(Tabler::Reload)
                     ->url(route('admin.posts.edit', $this->post)),
             ])
             ->send();
@@ -186,7 +189,7 @@ class PostPublish extends SlideOver
     #[Computed]
     public function shouldShowParticipantsPanel(): bool
     {
-        return $this->post->characterAuthors()->count() + $this->post->userAuthors()->count() > 1;
+        return ($this->post->characterAuthors()->count() + $this->post->userAuthors()->count()) > 1;
     }
 
     #[Computed]

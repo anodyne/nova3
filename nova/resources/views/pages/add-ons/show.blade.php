@@ -1,20 +1,23 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header :heading="$addon->name" :description="'addons/'.$addon->location">
+        <x-page-heading :heading="$addon->name" :description="'addons/'.$addon->location">
             <x-slot name="actions">
-                <x-button x-on:click="window.history.back()" plain>&larr; Back</x-button>
+                <x-button x-on:click="window.history.back()" variant="ghost" inset="right">
+                    <span aria-hidden="true">←</span>
+                    Back
+                </x-button>
 
                 @can('update', $addon)
-                    <x-button :href="route('admin.addons.edit', $addon)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.addons.edit', $addon)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
-            @if (filled($addon->preview))
+            @if (filled($addon->preview) && Storage::disk('addons')->exists($addon->location.'/'.$addon->preview))
                 <x-panel variant="well">
                     <x-panel variant="inset">
                         <img
@@ -27,35 +30,29 @@
             @endif
 
             <x-fieldset>
-                <x-fieldset.field-group>
-                    <x-fieldset.field label="Version">
-                        <div data-slot="text">
-                            <x-text>{{ $addon->version }}</x-text>
-                        </div>
-                    </x-fieldset.field>
+                <x-fieldset.group>
+                    <x-input.display label="Version">
+                        <x-text>{{ $addon->version }}</x-text>
+                    </x-input.display>
 
-                    <x-fieldset.field label="Type">
-                        <div data-slot="text">
-                            <x-badge :color="$addon->type->getColor()">
-                                {{ $addon->type->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
+                    <x-input.display label="Type">
+                        <x-badge :color="$addon->type->getColor()" size="md">
+                            {{ $addon->type->getLabel() }}
+                        </x-badge>
+                    </x-input.display>
 
-                    <x-fieldset.field label="Status">
-                        <div data-slot="text">
-                            <x-badge :color="$addon->status->getColor()">
-                                {{ $addon->status->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
+                    <x-input.display label="Status">
+                        <x-badge :color="$addon->status->getColor()" size="md">
+                            {{ $addon->status->getLabel() }}
+                        </x-badge>
+                    </x-input.display>
 
                     @if (filled($addon->credits))
-                        <x-fieldset.field label="Credits">
+                        <x-input.field label="Credits">
                             <x-text>{{ $addon->credits }}</x-text>
-                        </x-fieldset.field>
+                        </x-input.field>
                     @endif
-                </x-fieldset.field-group>
+                </x-fieldset.group>
             </x-fieldset>
 
             @if (filled($addon->repository?->id))
@@ -63,52 +60,50 @@
                     <x-panel variant="well">
                         <x-panel.header
                             title="Version check info"
-                            icon="broadcast"
+                            :icon="Tabler::Broadcast"
                             description="Basic information about how the add-on checks for new versions"
                         ></x-panel.header>
 
-                        <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                            <x-spacing size="row" class="group flex items-center justify-between">
-                                <div class="flex items-center gap-x-3">
-                                    <x-text>
-                                        <x-text.strong>Latest version</x-text.strong>
-                                    </x-text>
+                        <x-panel>
+                            <x-spacing.group divided>
+                                <x-panel.group.row class="items-center">
+                                    <div class="flex items-center gap-3">
+                                        <x-heading>Latest version</x-heading>
 
-                                    @if ($addon->has_update)
-                                        <x-badge color="warning">Update available</x-badge>
-                                    @endif
-                                </div>
-                                <div>
+                                        @if ($addon->has_update)
+                                            <x-badge color="warning">Update available</x-badge>
+                                        @endif
+                                    </div>
                                     <x-text class="tabular-nums">{{ $addon->latest_version }}</x-text>
-                                </div>
-                            </x-spacing>
-                            <x-spacing size="row" class="group flex items-center justify-between">
-                                <div>
-                                    <x-text>
-                                        <x-text.strong>Checking version from</x-text.strong>
-                                    </x-text>
-                                </div>
-                                <div>
-                                    <x-text>
-                                        {{ $addon->repository?->type?->getLabel() }}
-                                    </x-text>
-                                </div>
-                            </x-spacing>
+                                </x-panel.group.row>
 
-                            @if (filled($addon->update_url))
-                                <x-spacing size="row" class="group flex items-center justify-between">
+                                <x-panel.group.row class="items-center">
+                                    <x-heading>Checking version from</x-heading>
+
                                     <div>
-                                        <x-text>
-                                            <x-text.strong>URL</x-text.strong>
-                                        </x-text>
+                                        <x-badge :color="$addon->repository?->type?->getColor()">
+                                            {{ $addon->repository?->type?->getLabel() }}
+                                        </x-badge>
                                     </div>
-                                    <div>
-                                        <x-button :href="$addon->update_url" color="heavy-neutral" text>
-                                            Go to add-on repository &rarr;
-                                        </x-button>
-                                    </div>
-                                </x-spacing>
-                            @endif
+                                </x-panel.group.row>
+
+                                @if (filled($addon->update_url))
+                                    <x-panel.group.row class="items-center">
+                                        <x-heading>URL</x-heading>
+
+                                        <div>
+                                            <x-button
+                                                :href="$addon->update_url"
+                                                variant="ghost"
+                                                inset="right top bottom"
+                                                icon:trailing="arrow-top-right-on-square"
+                                            >
+                                                Go to add-on repository
+                                            </x-button>
+                                        </div>
+                                    </x-panel.group.row>
+                                @endif
+                            </x-spacing.group>
                         </x-panel>
                     </x-panel>
                 </x-fieldset>

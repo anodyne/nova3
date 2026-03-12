@@ -1,7 +1,7 @@
 <x-filament.modal-content :$action title="Delete announcement?">
     <p>
         Are you sure you want to delete the
-        <strong class="font-semibold">{{ $record->title }}</strong>
+        <strong>{{ $record->title }}</strong>
         announcement? You won’t be able to recover it.
     </p>
 </x-filament.modal-content>

@@ -10,7 +10,7 @@ use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
 
 /**
- * @method static static from(Character $character, ?CharacterType $oldType, ?CharacterType $newType, ?Collection $oldPositions, ?Collection $newPositions)
+ * @method static static from(Character $character, ?CharacterType $oldType, ?CharacterType $newType, ?Collection $oldPositions, ?Collection $newPositions, ?string $oldStatus, ?string $newStatus)
  */
 readonly class CharacterPositionsData extends Bag
 {
@@ -19,7 +19,9 @@ readonly class CharacterPositionsData extends Bag
         public ?CharacterType $oldType = null,
         public ?CharacterType $newType = null,
         public ?Collection $oldPositions = null,
-        public ?Collection $newPositions = null
+        public ?Collection $newPositions = null,
+        public ?string $oldStatus = null,
+        public ?string $newStatus = null
     ) {}
 
     public function canAutoManageNewType(): bool
@@ -41,17 +43,17 @@ readonly class CharacterPositionsData extends Bag
     public function getNewActionableIds(): array
     {
         return $this->newPositions
-            ->when($this->oldPositions !== null, fn ($collection) => $collection->diff($this->oldPositions))
+            ?->when($this->oldPositions !== null, fn ($collection) => $collection->diff($this->oldPositions))
             ->pluck('id')
-            ->all();
+            ->all() ?? [];
     }
 
     public function getOldActionableIds(): array
     {
         return $this->oldPositions
-            ->when($this->newPositions !== null, fn ($collection) => $collection->diff($this->newPositions))
+            ?->when($this->newPositions !== null, fn ($collection) => $collection->diff($this->newPositions))
             ->pluck('id')
-            ->all();
+            ->all() ?? [];
     }
 
     public function hasPositionChanges(): bool

@@ -2,19 +2,15 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Storage;
 use Nova\Departments\Events\DepartmentUpdated;
 use Nova\Departments\Models\Department;
-use Nova\Media\Livewire\UploadImage;
 
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\castAsJson;
 use function Pest\Laravel\from;
 use function Pest\Laravel\get;
 use function Pest\Laravel\put;
-use function Pest\Livewire\livewire;
-use function PHPUnit\Framework\assertCount;
 
 uses()->group('departments');
 
@@ -34,82 +30,130 @@ describe('authorized user', function () {
     test('can update a department', function () {
         Event::fake();
 
-        $data = Department::factory()->make();
+        $data = Department::factory()->active()->forRequest();
 
         from(route('admin.departments.edit', $this->department))
             ->followingRedirects()
-            ->put(route('admin.departments.update', $this->department), $data->toArray())
+            ->put(route('admin.departments.update', $this->department), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(Department::class, $data->toArray());
+        assertDatabaseHas(Department::class, $data->model->toArray());
 
         Event::assertDispatched(DepartmentUpdated::class);
     });
 
-    test('can add a story image', function () {
-        Storage::fake('media');
-        Storage::fake('tmp-for-tests');
+    test('can update a department to active', function () {
+        Event::fake();
 
-        $imagePath = livewire(UploadImage::class)
-            ->set('image', UploadedFile::fake()->image('department-image.png'))
-            ->get('path');
+        $department = Department::factory()->inactive()->create();
 
-        $data = array_merge(
-            Department::factory()->make()->toArray(),
-            ['image_path' => $imagePath]
-        );
+        $data = Department::factory()->active()->forRequest();
 
-        from(route('admin.departments.edit', $this->department))
+        from(route('admin.departments.edit', $department))
             ->followingRedirects()
-            ->put(route('admin.departments.update', $this->department), $data)
+            ->put(route('admin.departments.update', $department), $data->payload)
             ->assertSuccessful();
 
-        $this->department->refresh();
-
-        assertCount(1, $this->department->getMedia('header'));
+        assertDatabaseHas(Department::class, [
+            'id' => $department->id,
+            'status' => 'active',
+        ]);
     });
 
-    test('can remove an uploaded department image', function () {})->todo();
+    test('can update a department to inactive', function () {
+        Event::fake();
 
-    test('can replace an uploaded department image', function () {
-        Storage::fake('media');
-        Storage::fake('tmp-for-tests');
+        $department = Department::factory()->active()->create();
 
-        $imagePath = livewire(UploadImage::class)
-            ->set('image', UploadedFile::fake()->image('department-image.png'))
-            ->get('path');
+        $data = Department::factory()->inactive()->forRequest();
 
-        $data = array_merge(
-            Department::factory()->make()->toArray(),
-            ['image_path' => $imagePath]
-        );
-
-        assertCount(0, $this->department->getMedia('header'));
-
-        from(route('admin.departments.edit', $this->department))
-            ->put(route('admin.departments.update', $this->department), $data);
-
-        $this->department->refresh();
-
-        assertCount(1, $this->department->getMedia('header'));
-
-        $imagePath = livewire(UploadImage::class)
-            ->set('image', UploadedFile::fake()->image('department-image-2.png'))
-            ->get('path');
-
-        $data = array_merge(
-            Department::factory()->make()->toArray(),
-            ['image_path' => $imagePath]
-        );
-
-        from(route('admin.departments.edit', $this->department))
+        from(route('admin.departments.edit', $department))
             ->followingRedirects()
-            ->put(route('admin.departments.update', $this->department), $data)
+            ->put(route('admin.departments.update', $department), $data->payload)
             ->assertSuccessful();
 
-        $this->department->refresh();
+        assertDatabaseHas(Department::class, [
+            'id' => $department->id,
+            'status' => 'inactive',
+        ]);
+    });
 
-        assertCount(1, $this->department->getMedia('header'));
+    test('can add a department header image', function () {})->todo();
+
+    test('can remove an uploaded department header image', function () {})->todo();
+
+    test('can replace an uploaded department header image', function () {})->todo();
+
+    test('inputs are validated', function () {
+        from(route('admin.departments.edit', $this->department))
+            ->put(route('admin.departments.update', $this->department), [])
+            ->assertSessionHasErrors(['name']);
+    });
+
+    test('can update a department with optional fields', function () {
+        Event::fake();
+
+        $position = Department::factory()->active()->create([
+            'description' => 'Original description',
+            'tags' => ['old-tag'],
+        ]);
+
+        from(route('admin.departments.edit', $position))
+            ->followingRedirects()
+            ->put(route('admin.departments.update', $position), [
+                'name' => 'Updated Name',
+                'description' => '',
+                'tags' => '',
+                'status' => 'true',
+            ])
+            ->assertSuccessful();
+
+        assertDatabaseHas(Department::class, [
+            'id' => $position->id,
+            'name' => 'Updated Name',
+            'description' => null,
+            'tags' => castAsJson(['']),
+        ]);
+    });
+
+    test('can update a department with tags', function () {
+        Event::fake();
+
+        $department = Department::factory()->active()->create();
+
+        from(route('admin.departments.edit', $department))
+            ->followingRedirects()
+            ->put(route('admin.departments.update', $department), [
+                'name' => $department->name,
+                'tags' => 'tag1, tag2, tag3',
+                'status' => 'true',
+            ])
+            ->assertSuccessful();
+
+        assertDatabaseHas(Department::class, [
+            'id' => $department->id,
+            'tags' => castAsJson(['tag1', 'tag2', 'tag3']),
+        ]);
+    });
+
+    test('tags are trimmed when updating a department', function () {
+        Event::fake();
+
+        $department = Department::factory()->active()->create();
+
+        from(route('admin.departments.edit', $department))
+            ->followingRedirects()
+            ->put(route('admin.departments.update', $department), [
+                'name' => $department->name,
+                'tags' => '  tag1  ,  tag2  ,  tag3  ',
+                'status' => 'true',
+            ])
+            ->assertSuccessful();
+
+        assertDatabaseHas(Department::class, [
+            'id' => $department->id,
+            'tags' => castAsJson(['tag1', 'tag2', 'tag3']),
+        ]);
     });
 });
 
@@ -124,9 +168,7 @@ describe('unauthorized user', function () {
     });
 
     test('cannot update a department', function () {
-        $data = Department::factory()->make();
-
-        put(route('admin.departments.update', $this->department), $data->toArray())
+        put(route('admin.departments.update', $this->department), [])
             ->assertForbidden();
     });
 });

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\Action;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Actions\Action;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -24,10 +25,11 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\ApprovePost;
 use Nova\Stories\Actions\DeletePost;
+use Nova\Stories\Actions\DiscardPost;
 use Nova\Stories\Actions\ForceUnlockPost;
 use Nova\Stories\Models\Post;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
 class PostsList extends TableComponent
 {
@@ -36,9 +38,10 @@ class PostsList extends TableComponent
         return $table
             ->query(
                 Post::query()
-                    ->with('characterAuthors', 'userAuthors')
+                    ->with('characterAuthors', 'userAuthors', 'participatingUsers')
                     ->select([
                         'day',
+                        'deleted_at',
                         'id',
                         'location',
                         'locked_at',
@@ -114,7 +117,7 @@ class PostsList extends TableComponent
                     ->toggleable()
                     ->toggledHiddenByDefault(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -125,13 +128,13 @@ class PostsList extends TableComponent
                             ->url(fn (Post $record): string => route('admin.posts.edit', $record)),
                         Action::make('approve')
                             ->authorize('approve')
-                            ->icon(iconName('check-circle'))
+                            ->icon(Tabler::CircleCheck)
                             ->modalContent(fn (Post $record, Action $action): View => view('pages.posts.approve', [
                                 'record' => $record,
                                 'action' => $action,
                             ]))
                             ->modalHeading('')
-                            ->modalWidth(MaxWidth::Large)
+                            ->modalWidth(Width::Large)
                             ->modalSubmitActionLabel('Yes, approve it')
                             ->action(function (Post $record): void {
                                 ApprovePost::run($record);
@@ -141,34 +144,44 @@ class PostsList extends TableComponent
                                     ->body('The post has been published and notifications have been sent.')
                                     ->send();
                             }),
-                    ])->authorizeAny(['view', 'update', 'approve'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
-                                    ->itemIcon('locked', iconName('lock-closed'))
-                                    ->itemIcon('unlocked', iconName('lock-open'))
-                                    ->itemIcon('published', iconName('check-circle'))
+                                    ->itemIcon('locked', Tabler::Lock->value)
+                                    ->itemIcon('unlocked', Tabler::LockOpen->value)
+                                    ->itemIcon('published', Tabler::CircleCheck->value)
                                     ->itemIconColor('published', 'primary');
                             }),
                     ])->divided(),
 
                     ActionGroup::make([
                         Action::make('unlock')
-                            ->icon(iconName('lock-open'))
+                            ->authorize('update')
+                            ->icon(Tabler::LockOpen)
                             ->label('Release lock')
                             ->successNotificationTitle(fn (Post $record): string => $record->title.' post has been unlocked')
                             ->action(fn (Post $record): mixed => ForceUnlockPost::run($record))
                             ->visible(fn (Post $record): bool => $record->isLocked()),
-                    ])->authorize('unlock')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.posts.delete')
                             ->successNotificationTitle(fn (Post $record): string => $record->title.' post was deleted')
                             ->using(fn (Post $record): Model => DeletePost::run($record)),
-                    ])->authorize('delete')->divided(),
+
+                        DeleteAction::make('discard')
+                            ->authorize('discard')
+                            ->label('Discard')
+                            ->icon(Tabler::TrashX)
+                            ->modalContentView('pages.posts.discard')
+                            ->successNotificationTitle(fn (Post $record): string => $record->title.' post was discarded')
+                            ->using(fn (Post $record): Model => DiscardPost::run($record)),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -197,13 +210,13 @@ class PostsList extends TableComponent
                         blank: fn (Builder $query): Builder => $query
                     ),
             ])
-            ->emptyStateIcon(iconName('write'))
+            ->emptyStateIcon(Tabler::Edit)
             ->emptyStateHeading('No story posts found')
             ->emptyStateActions([
                 CreateAction::make()
                     ->authorize('create')
                     ->label('Start writing')
-                    ->icon(iconName('write'))
+                    ->icon(Tabler::Edit)
                     ->url(route('admin.posts.create')),
             ]);
     }

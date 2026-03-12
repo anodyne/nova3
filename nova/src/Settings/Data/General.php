@@ -30,7 +30,7 @@ readonly class General extends Bag
     {
         return [
             'gameName' => $request->input('game_name'),
-            'contactFormEnabled' => $request->boolean('contactFormEnabled', true),
+            'contactFormEnabled' => $request->boolean('contactFormEnabled'),
             'contactFormDisabledMessage' => $request->input('contact_form_disabled_message'),
         ];
     }

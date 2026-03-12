@@ -1,54 +1,50 @@
 @use('Nova\Characters\Models\Character')
 
-<x-panel class="overflow-hidden">
-    <div class="divide-y divide-gray-950/5 dark:divide-white/5">
-        <x-spacing size="row" class="grid grid-cols-4 gap-4">
-            <div class="col-span-3">
-                <x-fieldset.field>
-                    <x-fieldset.label>Character type</x-fieldset.label>
-                </x-fieldset.field>
+<x-panel>
+    <x-spacing.group divided>
+        <x-panel.group.row>
+            <x-heading>Character type</x-heading>
+            <div>
+                <x-badge :color="$characterType->getColor()" size="md">
+                    {{ $characterType->getLabel() }}
+                </x-badge>
             </div>
-            <div class="flex items-start justify-end">
-                <x-badge :color="$characterType->getColor()">{{ $characterType->getLabel() }}</x-badge>
-            </div>
-        </x-spacing>
+        </x-panel.group.row>
 
-        <x-spacing size="row" class="grid grid-cols-4 gap-4">
-            <div class="col-span-3">
-                <x-fieldset.field>
-                    <x-fieldset.label>Character status</x-fieldset.label>
+        <x-panel.group.row class="items-start">
+            <div>
+                <x-heading>Character status</x-heading>
 
-                    @if ($hasReachedCharacterLimit)
-                        <x-fieldset.warning-message>
-                            You’ve reached the maximum allowed number of linked active characters
-                            ({{ settings('characters.characterLimit') }}). In order to be activated, this character
-                            will require approval by a game master.
-                        </x-fieldset.warning-message>
-                    @elseif ($characterStatus['label'] === 'Pending')
-                        <x-fieldset.warning-message>
-                            This character will require approval by a game master to be activated
-                        </x-fieldset.warning-message>
-                    @endif
-                </x-fieldset.field>
+                @if ($hasReachedCharacterLimit)
+                    <x-text color="warning">
+                        You’ve reached the maximum allowed number of linked active characters
+                        ({{ settings('characters.characterLimit') }}). In order to be activated, this character will
+                        require approval by a game master.
+                    </x-text>
+                @elseif ($characterStatus['label'] === 'Pending')
+                    <x-text color="warning">
+                        This character will require approval by a game master to be activated
+                    </x-text>
+                @endif
             </div>
-            <div class="flex items-start justify-end">
-                <x-badge :color="$characterStatus['color']">{{ $characterStatus['label'] }}</x-badge>
+            <div>
+                <x-badge :color="$characterStatus['color']" size="md">
+                    {{ $characterStatus['label'] }}
+                </x-badge>
             </div>
-        </x-spacing>
+        </x-panel.group.row>
 
-        <x-spacing size="row">
-            <x-switch.group>
-                <x-switch.field>
-                    <x-fieldset.label for="link_to_user">Link this character to me</x-fieldset.label>
+        <x-panel.group.row class="items-start">
+            <div class="flex-1 space-y-8">
+                <x-input.field variant="inline">
+                    <x-label>Link this character to me</x-label>
 
                     @cannot('selfAssign', Character::class)
-                        <x-fieldset.warning-message>
+                        <x-description.warning>
                             Contact the game master(s) to have this character assigned to your account
-                        </x-fieldset.warning-message>
+                        </x-description.warning>
                     @else
-                        <x-fieldset.description>
-                            This character will automatically be linked to your account
-                        </x-fieldset.description>
+                        <x-description>This character will automatically be linked to your account</x-description>
                     @endcannot
 
                     <x-switch
@@ -56,16 +52,16 @@
                         id="link_to_user"
                         wire:model.live="linkToUser"
                         :disabled="$linkToUserDisabled"
-                    ></x-switch>
-                </x-switch.field>
+                    />
+                </x-input.field>
 
-                <x-switch.field>
-                    <x-fieldset.label for="assign_as_primary">Set as my primary character</x-fieldset.label>
+                <x-input.field variant="inline">
+                    <x-label>Set as my primary character</x-label>
 
                     @cannot('assignAsPrimary', Character::class)
-                        <x-fieldset.warning-message>
+                        <x-description.warning>
                             Contact the game master(s) to set this character as your primary character
-                        </x-fieldset.warning-message>
+                        </x-description.warning>
                     @endcannot
 
                     <x-switch
@@ -73,9 +69,9 @@
                         id="assign_as_primary"
                         wire:model.live="assignAsPrimary"
                         :disabled="auth()->user()->cannot(['createSecondary', 'createPrimary'], Character::class)"
-                    ></x-switch>
-                </x-switch.field>
-            </x-switch.group>
-        </x-spacing>
-    </div>
+                    />
+                </x-input.field>
+            </div>
+        </x-panel.group.row>
+    </x-spacing.group>
 </x-panel>

@@ -1,21 +1,21 @@
 @use('Nova\Settings\Enums\LeaderboardTimeframe')
 
 <div class="space-y-4">
-    <div class="flex items-center justify-between">
-        <div class="flex items-center gap-x-2">
-            <x-icon :name="$settings->icon" size="md" class="text-gray-500"></x-icon>
-            <x-h2>{{ $settings->title }}</x-h2>
+    <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+            <x-icon :name="$settings->icon" size="md" class="text-gray-500" />
+            <x-heading size="lg" level="2">{{ $settings->title }}</x-heading>
         </div>
 
-        <div class="flex items-center gap-x-2 text-sm">
+        <div class="flex items-center gap-2">
             @if ($settings->userSelectableTimeframe)
-                <x-select.subtle wire:model.live="timeframe">
+                <x-select size="sm" wire:model.live="timeframe">
                     @foreach (LeaderboardTimeframe::cases() as $t)
                         <option value="{{ $t->value }}">
                             {{ $t->getLabel() }}
                         </option>
                     @endforeach
-                </x-select.subtle>
+                </x-select>
             @endif
         </div>
     </div>
@@ -36,15 +36,17 @@
                     >
                         <div class="flex flex-col items-center">
                             <x-avatar.user :$user size="xs"></x-avatar.user>
-                            <x-text>{{ Number::format((int) $user->author_count) }}</x-text>
+                            <x-text>
+                                {{ Number::format((int) $user->author_count) }}
+                            </x-text>
                         </div>
                         <div
                             @class([
-                                'flex w-full flex-col items-center justify-center rounded-t-lg text-lg font-bold tabular-nums text-white',
+                                'flex w-full flex-col items-center justify-center rounded-t-lg text-lg font-bold text-white tabular-nums',
                                 match ($loop->iteration) {
-                                    1 => 'h-24 bg-primary-500',
-                                    2 => 'h-16 bg-primary-400',
-                                    3 => 'h-8 bg-primary-300',
+                                    1 => 'bg-primary-500 h-24',
+                                    2 => 'bg-primary-400 h-16',
+                                    3 => 'bg-primary-300 h-8',
                                 },
                             ])
                         >
@@ -62,7 +64,7 @@
         <dl>
             @foreach ($leaderboardSliced as $index => $user)
                 <div
-                    class="flex items-center justify-between rounded-md px-3 py-2 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
+                    class="flex items-center justify-between rounded-md px-3 py-2 odd:bg-gray-100 dark:odd:bg-gray-900"
                 >
                     <dt
                         @class([
@@ -73,7 +75,7 @@
                         @if ($settings->showRankNumbers)
                             <div
                                 @class([
-                                    'text-sm/6 tabular-nums text-gray-500',
+                                    'text-sm/6 text-gray-500 tabular-nums',
                                     'w-9' => $leaderboard->count() >= 10,
                                 ])
                             >
@@ -81,18 +83,18 @@
                             </div>
                         @endif
 
-                        <x-avatar.user :$user size="xs"></x-avatar.user>
+                        <x-avatar.user :$user></x-avatar.user>
                     </dt>
-                    <dd class="font-semibold tabular-nums text-gray-950 dark:text-white">
+                    <dd class="font-semibold text-gray-950 tabular-nums dark:text-white">
                         {{ Number::format((int) $user->author_count) }}
                     </dd>
                 </div>
             @endforeach
         </dl>
     @else
-        <x-empty-state variant="jumbo">
-            <x-icon :name="$settings->icon"></x-icon>
-            <x-h3>No data available</x-h3>
-        </x-empty-state>
+        <x-empty>
+            <x-illustration :name="Illustration::LineBarChart" />
+            <x-empty.heading>No data available</x-empty.heading>
+        </x-empty>
     @endif
 </div>

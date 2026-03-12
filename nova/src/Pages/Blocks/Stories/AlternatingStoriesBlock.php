@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Stories;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\ButtonSize;
 use Nova\Pages\Enums\Radius;
@@ -30,7 +31,7 @@ class AlternatingStoriesBlock extends StoriesBlock
             Section::make()
                 ->heading('Stories')
                 ->description('Customize the types of stories and how they display')
-                ->icon(iconName('books'))
+                ->icon(Tabler::Books)
                 ->schema([
                     Select::make('block.storyType')
                         ->options([
@@ -52,7 +53,7 @@ class AlternatingStoriesBlock extends StoriesBlock
             Section::make()
                 ->heading('Appearance')
                 ->description('Customize the appearance of the stories displayed in the block')
-                ->icon(iconName('palette'))
+                ->icon(Tabler::Palette)
                 ->schema([
                     ColorPicker::make('block.primary-text-color')->label('Primary text color'),
                     ColorPicker::make('block.secondary-text-color')->label('Secondary text color'),
@@ -96,7 +97,7 @@ class AlternatingStoriesBlock extends StoriesBlock
                 ->columns(2),
             Section::make()
                 ->heading('Story image options')
-                ->icon(iconName('image'))
+                ->icon(Tabler::Photo)
                 ->schema([
                     Select::make('block.image.radius')
                         ->label('Corner radius')

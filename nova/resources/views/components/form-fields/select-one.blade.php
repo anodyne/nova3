@@ -32,44 +32,38 @@
 @if ($admin)
     @if ($static)
         @if (filled($value) || blank($value) && ! $hideWhenEmpty)
-            <x-fieldset.field :label="$label" :id="$uid">
+            <x-input.display :label="$label" :id="$uid">
                 <x-text>
                     {{ filled($value) ? $value : '—' }}
                 </x-text>
-            </x-fieldset.field>
+            </x-input.display>
         @endif
     @else
-        <x-fieldset.field :label="$label" :description="$description" :required="$required" :id="$uid">
-            <x-radio.group :error="$error">
+        <x-field>
+            <x-label>{{ $label }}</x-label>
+
+            <x-description>{{ $description }}</x-description>
+
+            <x-radio.group :error="$error" :required="$required" :id="$uid">
                 @foreach ((array) $options as $option)
                     @php
                         $attributesBag = new ComponentAttributeBag((array) data_get($option, 'attributes'));
                     @endphp
 
-                    <x-radio.field>
-                        @if (filled(data_get($option, 'label')))
-                            <x-fieldset.label for="{{ data_get($attrs, 'name') }}_{{ data_get($option, 'value') }}">
-                                {{ data_get($option, 'label') }}
-                            </x-fieldset.label>
-                        @endif
-
-                        @if (filled(data_get($option, 'description')))
-                            <x-fieldset.description>
-                                {{ data_get($option, 'description') }}
-                            </x-fieldset.description>
-                        @endif
-
-                        <x-radio
-                            id="{{ data_get($attrs, 'name') }}_{{ data_get($option, 'value') }}"
-                            :attributes="$attributesBag"
-                            wire:model.live.debounce="values.{{ $uid }}"
-                            :name="$inputName"
-                            :value="data_get($option, 'value')"
-                        ></x-radio>
-                    </x-radio.field>
+                    <x-radio
+                        id="{{ data_get($attrs, 'name') }}_{{ data_get($option, 'value') }}"
+                        :attributes="$attributesBag"
+                        wire:model.live.debounce="values.{{ $uid }}"
+                        :name="$inputName"
+                        :value="data_get($option, 'value')"
+                        :label="data_get($option, 'label')"
+                        :description="data_get($option, 'description')"
+                    />
                 @endforeach
             </x-radio.group>
-        </x-fieldset.field>
+
+            <x-field.error :name="$errorKey" />
+        </x-field>
     @endif
 @else
     @if ($static)
@@ -96,8 +90,9 @@
                     :label="data_get($option, 'label')"
                     :description="data_get($option, 'description')"
                     id="{{ $inputName }}_{{ data_get($option, 'value') }}"
+                    :name="$inputName"
                     :attributes="$attributesBag"
-                ></x-public::field.radio>
+                />
             @endforeach
         </x-public::field.radio-group>
     @endif

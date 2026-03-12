@@ -1,16 +1,11 @@
 @use('Nova\Foundation\Enums\ReleaseSeverity')
 
-<x-modal.slide-over title="Nova updates" icon="update">
+<x-modal.slide-over title="Nova updates" :color="$statusColor" :icon="Tabler::RefreshDot">
     <div class="space-y-8">
         @if (! $hasUpdate)
-            <x-panel variant="well" color="primary">
-                <x-panel.header
-                    title="Nova is up-to-date"
-                    icon="check-circle"
-                    icon-size="lg"
-                    description="You are running the latest available release of Nova."
-                ></x-panel.header>
-            </x-panel>
+            <x-callout.success :icon="Tabler::CircleCheck" icon:size="md">
+                You’re running the latest available release of Nova.
+            </x-callout.success>
         @endif
 
         @if ($hasUpdate)
@@ -20,8 +15,8 @@
 
                     @if ($hasCriticalUpdate)
                         <x-slot name="actions">
-                            <div class="flex items-center gap-x-1 text-sm/6 font-medium text-danger-500">
-                                <x-icon name="update-alert" size="sm"></x-icon>
+                            <div class="text-danger-500 flex items-center gap-x-1 text-sm/6 font-medium">
+                                <x-icon :name="Tabler::RefreshAlert" size="sm" />
                                 <p>Critical update</p>
                             </div>
                         </x-slot>
@@ -37,32 +32,34 @@
                         @endif
 
                         @if (filled($upstream->details))
-                            <div class="prose mt-4 dark:prose-invert">
+                            <div class="prose dark:prose-invert mt-4">
                                 {!! str($upstream->details)->markdown() !!}
                             </div>
                         @endif
-
-                        <div class="mt-8 flex items-center gap-2">
-                            @if ($needsFilesUpdate)
-                                <x-button :href="$upstream->downloadLink" color="primary">
-                                    Get the update files &rarr;
-                                </x-button>
-                            @endif
-
-                            @if ($needsDatabaseUpdate)
-                                <x-button :href="route('setup.start')" color="primary">Run the update &rarr;</x-button>
-                            @endif
-
-                            {{-- <x-button plain>Learn more</x-button> --}}
-                        </div>
                     </x-spacing>
                 </x-panel>
+
+                <x-panel.footer>
+                    @if ($needsFilesUpdate)
+                        <x-button :href="$upstream->downloadLink" variant="ghost" inset="left top bottom">
+                            Get the update files
+                            <span aria-hidden="true">→</span>
+                        </x-button>
+                    @endif
+
+                    @if ($needsDatabaseUpdate)
+                        <x-button :href="route('setup.start')" variant="ghost" inset="left top bottom">
+                            Run the update
+                            <span aria-hidden="true">→</span>
+                        </x-button>
+                    @endif
+                </x-panel.footer>
             </x-panel>
         @endif
 
         @if ($hasUpcomingUpdate)
             <x-panel variant="well" color="info">
-                <x-panel.header icon="calendar">
+                <x-panel.header :icon="Tabler::Calendar">
                     @if (is_null($upcoming->date))
                         <x-slot name="title">Upcoming Nova update planned</x-slot>
 
@@ -82,7 +79,7 @@
 
                 <x-panel color="info">
                     <x-spacing size="row">
-                        <div class="prose prose-sm">
+                        <div class="prose prose-sm dark:prose-invert">
                             {!! str("> {$upcoming->notes}")->markdown() !!}
                         </div>
                     </x-spacing>
@@ -91,7 +88,7 @@
         @endif
 
         <div class="space-y-6">
-            <x-h3>Version history</x-h3>
+            <x-heading size="lg" level="3">Version history</x-heading>
 
             <livewire:nova-version-history />
         </div>

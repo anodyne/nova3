@@ -2,35 +2,35 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', $submission::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.form-submissions.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.form-submissions.index')" variant="ghost" inset="right">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 </x-slot>
             @endcan
 
             <x-slot name="description">
-                <div class="flex items-center gap-x-8">
-                    <x-metadata label="Form" :value="$submission->form->name"></x-metadata>
-                    <x-metadata label="Submitted by" :value="$submission->owner->name"></x-metadata>
-                    <x-metadata
-                        label="Submitted on"
-                        :value="DateHelper::formatDate($submission->created_at)"
-                    ></x-metadata>
-                </div>
+                <x-metadata.group gap="lg">
+                    <x-metadata label="Form" :value="$submission->form->name" />
+                    <x-metadata label="Submitted by" :value="$submission->owner->name" />
+                    <x-metadata label="Submitted on" :value="DateHelper::formatDate($submission->created_at)" />
+                </x-metadata.group>
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
             <x-fieldset>
-                <x-fieldset.field-group>
+                <x-fieldset.group>
                     <livewire:dynamic-form
                         :form="$submission->form"
                         :submission="$submission"
                         :admin="true"
                         :static="true"
                     />
-                </x-fieldset.field-group>
+                </x-fieldset.group>
             </x-fieldset>
         </x-form>
     </x-spacing>

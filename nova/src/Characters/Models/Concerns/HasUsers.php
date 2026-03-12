@@ -33,6 +33,7 @@ trait HasUsers
     {
         return $this->belongsToMany(User::class)
             ->withPivot('primary')
+            ->withTrashed()
             ->withTimestamps()
             ->using(CharacterUser::class);
     }

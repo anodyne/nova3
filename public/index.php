@@ -11,7 +11,7 @@ if (str_contains($_SERVER['REQUEST_URI'], 'public/')) {
     exit();
 }
 
-if (version_compare(PHP_VERSION, '8.3', '<')) {
+if (version_compare(PHP_VERSION, '8.4', '<')) {
     require_once 'messages/php-version.php';
     exit();
 }

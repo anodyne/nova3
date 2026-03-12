@@ -12,6 +12,7 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
 uses()->group('ranks');
+uses()->group('rank-groups');
 
 describe('authorized user', function () {
     beforeEach(function () {
@@ -25,16 +26,48 @@ describe('authorized user', function () {
     test('can create a rank group', function () {
         Event::fake();
 
-        $data = RankGroup::factory()->make();
+        $data = RankGroup::factory()->active()->forRequest();
 
         from(route('admin.ranks.groups.create'))
             ->followingRedirects()
-            ->post(route('admin.ranks.groups.store'), $data->toArray())
+            ->post(route('admin.ranks.groups.store'), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(RankGroup::class, $data->toArray());
+        assertDatabaseHas(RankGroup::class, $data->model->only('name', 'status'));
 
         Event::assertDispatched(RankGroupCreated::class);
+    });
+
+    test('can create an active rank group', function () {
+        Event::fake();
+
+        $data = RankGroup::factory()->active()->forRequest();
+
+        from(route('admin.ranks.groups.create'))
+            ->followingRedirects()
+            ->post(route('admin.ranks.groups.store'), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(RankGroup::class, [
+            'name' => $data->model->name,
+            'status' => 'active',
+        ]);
+    });
+
+    test('can create an inactive rank group', function () {
+        Event::fake();
+
+        $data = RankGroup::factory()->inactive()->forRequest();
+
+        from(route('admin.ranks.groups.create'))
+            ->followingRedirects()
+            ->post(route('admin.ranks.groups.store'), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(RankGroup::class, [
+            'name' => $data->model->name,
+            'status' => 'inactive',
+        ]);
     });
 });
 

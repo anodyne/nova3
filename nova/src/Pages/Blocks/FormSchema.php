@@ -7,15 +7,16 @@ namespace Nova\Pages\Blocks;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Field;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Illuminate\Support\Facades\Cache;
+use Nova\Foundation\Enums\CacheKeys;
 
 class FormSchema
 {
@@ -38,7 +39,7 @@ class FormSchema
 
     public static function backgroundSection(): array
     {
-        $page = Cache::get('page-designer-page');
+        $page = Cache::get(CacheKeys::PageDesignerPage->value);
 
         return [
             Section::make('Background')->schema([
@@ -197,7 +198,7 @@ class FormSchema
 
     public static function mediaLeftRight(): array
     {
-        $page = Cache::get('page-designer-page');
+        $page = Cache::get(CacheKeys::PageDesignerPage->value);
 
         return [
             Section::make('Media')->schema([
@@ -231,7 +232,7 @@ class FormSchema
 
     public static function mediaTopBottom(): array
     {
-        $page = Cache::get('page-designer-page');
+        $page = Cache::get(CacheKeys::PageDesignerPage->value);
 
         return [
             Section::make('Media')->schema([

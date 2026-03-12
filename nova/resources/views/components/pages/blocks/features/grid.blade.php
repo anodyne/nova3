@@ -14,20 +14,19 @@
         >
             @foreach ($features as $feature)
                 @php
-                    $icon = data_get($feature, 'icon');
-                    $iconName = str($icon)->startsWith('tabler-') ? $icon : "tabler-{$icon}";
+                    $icon = Tabler::tryFrom(data_get($feature, 'icon'));
                 @endphp
 
                 <div class="flex flex-col">
                     <dt class="flex items-center gap-x-3 text-base/7 font-semibold">
                         @if ($icon)
-                            <x-icon :name="$iconName" size="lg" class="text-[--feature-icon-color]"></x-icon>
+                            <x-icon :name="$icon" size="lg" class="text-(--feature-icon-color)" />
                         @endif
 
-                        <span class="text-[--feature-heading-color]">{{ data_get($feature, 'heading') }}</span>
+                        <span class="text-(--feature-heading-color)">{{ data_get($feature, 'heading') }}</span>
                     </dt>
                     <dd class="mt-4 flex flex-auto flex-col text-base/7">
-                        <p class="flex-auto text-[--feature-description-color]">
+                        <p class="flex-auto text-(--feature-description-color)">
                             {{ data_get($feature, 'description') }}
                         </p>
                     </dd>

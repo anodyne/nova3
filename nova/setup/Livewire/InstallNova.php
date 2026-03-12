@@ -13,6 +13,7 @@ use Livewire\Component;
 use Nova\Addons\Actions\BustActiveAddonsCache;
 use Nova\Addons\Actions\InstallAddon;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Actions\RecacheIcons;
 use Nova\Foundation\EnvWriter;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Models\ExternalContent;
@@ -140,7 +141,9 @@ class InstallNova extends Component
             '--force' => true,
         ]);
 
-        Artisan::call('operations:process');
+        Artisan::call('migrate-data', [
+            '--force' => true,
+        ]);
 
         Artisan::call('optimize:clear');
         Artisan::call('package:discover');
@@ -165,6 +168,7 @@ class InstallNova extends Component
 
         RecachePages::run();
         RecacheMenus::run();
+        RecacheIcons::run();
     }
 
     protected function installThemes(): void

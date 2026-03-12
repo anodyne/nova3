@@ -1,0 +1,3 @@
+[data-flux-button][data-danger] {
+    @apply hover:text-danger-500!;
+}

@@ -16,7 +16,7 @@
 @endphp
 
 <x-public::block.container :$container :$content :$block class="nv-hero nv-hero-stacked" inner-class="flex flex-col">
-    <x-slot name="trailing">
+    <x-slot name="afterHeader">
         <div
             @class([
                 'relative mt-6 flex items-center gap-6',

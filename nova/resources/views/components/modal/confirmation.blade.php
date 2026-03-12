@@ -19,7 +19,7 @@
                 <div class="flex justify-between gap-6">
                     <div class="flex items-center gap-3">
                         @if ($icon)
-                            <x-icon :name="$icon" size="lg" class="text-gray-500"></x-icon>
+                            <x-icon :name="$icon" size="lg" class="text-gray-500" />
                         @endif
 
                         <x-h2>{{ $prompt['title'] }}</x-h2>
@@ -29,9 +29,9 @@
                         <button
                             x-on:click="Livewire.dispatch('modal.close')"
                             alt="Close modal"
-                            class="relative inline-flex h-8 w-8 items-center justify-center gap-2 whitespace-nowrap rounded-md bg-transparent text-sm font-medium text-gray-400 transition hover:bg-gray-800/5 hover:text-gray-800 dark:text-gray-500 dark:hover:bg-white/15 dark:hover:text-white"
+                            class="relative inline-flex h-8 w-8 items-center justify-center gap-2 rounded-md bg-transparent text-sm font-medium whitespace-nowrap text-gray-400 transition hover:bg-gray-800/5 hover:text-gray-800 dark:text-gray-500 dark:hover:bg-white/15 dark:hover:text-white"
                         >
-                            <x-icon name="x" size="sm"></x-icon>
+                            <x-icon :name="Tabler::X" size="sm" />
                         </button>
                     </div>
                 </div>
@@ -42,13 +42,12 @@
                     </div>
 
                     @if ($confirmPhrase)
-                        <x-fieldset.field
+                        <x-input
                             :label="__('wire-elements-pro::modal.confirmation.please_enter_phrase_to_continue', ['phrase' => $confirmPhrase])"
-                            id="confirm-phrase"
+                            wire:model.defer="confirmPhraseInput"
                             name="confirm-phrase"
-                        >
-                            <x-input.text wire:model.defer="confirmPhraseInput" required></x-input.text>
-                        </x-fieldset.field>
+                            required
+                        />
                     @endif
                 </div>
             </div>
@@ -60,7 +59,7 @@
             {{ $prompt['confirm'] }}
         </x-button>
 
-        <x-button wire:click="$dispatch('modal.close')" wire:loading.attr="disabled" plain>
+        <x-button wire:click="$dispatch('modal.close')" wire:loading.attr="disabled" variant="ghost">
             {{ $prompt['cancel'] }}
         </x-button>
     </x-panel.footer>

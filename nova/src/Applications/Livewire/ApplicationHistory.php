@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
-use Filament\Infolists\Infolist;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Schemas\Schema;
 use Livewire\Attributes\Locked;
 use Nova\Applications\Models\Application;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\InfolistComponent;
 use Nova\Ranks\Models\RankItem;
 use Nova\Users\Models\User;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class ApplicationHistory extends InfolistComponent
@@ -19,11 +20,11 @@ class ApplicationHistory extends InfolistComponent
     #[Locked]
     public Application $application;
 
-    public function infolist(Infolist $infolist): Infolist
+    public function infolist(Schema $schema): Schema
     {
-        return $infolist
+        return $schema
             ->record($this->application)
-            ->schema([
+            ->components([
                 Timeline::make()
                     ->hiddenLabel()
                     ->attributeLabels([
@@ -67,8 +68,8 @@ class ApplicationHistory extends InfolistComponent
                         ]),
                     ])
                     ->itemIcons([
-                        'accepted' => iconName('progress-check'),
-                        'denied' => iconName('progress-x'),
+                        'accepted' => Tabler::ProgressCheck->value,
+                        'denied' => Tabler::ProgressX->value,
                     ])
                     ->itemIconColors([
                         'accepted' => 'success',

@@ -37,9 +37,8 @@ readonly class PronounsData extends Bag
             default => 'they',
             'female' => 'she',
             'male' => 'he',
-            'neo' => 'ze',
             'none' => null,
-            'other' => strtolower($alternate),
+            'other' => $alternate ? strtolower($alternate) : null,
         };
     }
 
@@ -49,9 +48,8 @@ readonly class PronounsData extends Bag
             default => 'them',
             'female' => 'her',
             'male' => 'him',
-            'neo' => 'zir',
             'none' => null,
-            'other' => strtolower($alternate),
+            'other' => $alternate ? strtolower($alternate) : null,
         };
     }
 

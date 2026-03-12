@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\CanHandleDataForRequests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Nova\Roles\Models\Role;
 
 class RoleFactory extends Factory
 {
+    use CanHandleDataForRequests;
+
     protected $model = Role::class;
 
     public function definition()
@@ -28,6 +31,13 @@ class RoleFactory extends Factory
     {
         return $this->state([
             'is_default' => true,
+        ]);
+    }
+
+    public function notDefault()
+    {
+        return $this->state([
+            'is_default' => false,
         ]);
     }
 

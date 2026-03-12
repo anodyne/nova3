@@ -3,9 +3,9 @@
 <x-filament.modal-content :$action>
     <x-slot name="title">Force delete {{ $count }} selected {{ str('post type')->plural($count) }}?</x-slot>
 
-    <p>
+    <x-text variant="strong">
         Are you sure you want to force delete the following post types? This action is permanent and cannot be undone.
-    </p>
+    </x-text>
 
     <ul class="list-inside list-disc">
         @foreach ($records as $record)
@@ -13,9 +13,9 @@
         @endforeach
     </ul>
 
-    <p>
+    <x-text variant="strong">
         If you would like to move posts from {{ trans_choice('this|these', $count) }}
         {{ str('post type')->plural($count) }} to a new one, you will need to force delete
         {{ trans_choice('it|them', $count) }} individually.
-    </p>
+    </x-text>
 </x-filament.modal-content>

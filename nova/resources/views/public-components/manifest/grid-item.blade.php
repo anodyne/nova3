@@ -58,7 +58,10 @@
                         </x-badge>
                     @endif
                 @else
-                    <x-badge color="gray">Apply today &rarr;</x-badge>
+                    <x-badge color="gray">
+                        Apply today
+                        <span aria-hidden="true">→</span>
+                    </x-badge>
                 @endif
             </div>
         </div>

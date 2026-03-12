@@ -12,7 +12,9 @@ use Nova\Characters\Models\Character;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
-use Nova\Ranks\Events;
+use Nova\Ranks\Events\RankItemCreated;
+use Nova\Ranks\Events\RankItemDeleted;
+use Nova\Ranks\Events\RankItemUpdated;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -40,9 +42,9 @@ class RankItem extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\RankItemCreated::class,
-        'deleted' => Events\RankItemDeleted::class,
-        'updated' => Events\RankItemUpdated::class,
+        'created' => RankItemCreated::class,
+        'deleted' => RankItemDeleted::class,
+        'updated' => RankItemUpdated::class,
     ];
 
     public function characters(): HasMany

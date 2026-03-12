@@ -16,7 +16,7 @@ class StoreRankItemRequest extends FormRequest
             'name_id' => ['required', 'exists:rank_names,id'],
             'base_image' => ['required'],
             'overlay_image' => ['nullable'],
-            'status' => ['required'],
+            'status' => ['sometimes'],
         ];
     }
 

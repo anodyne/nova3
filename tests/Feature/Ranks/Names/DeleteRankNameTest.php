@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
@@ -13,6 +14,7 @@ use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Livewire\livewire;
 
 uses()->group('ranks');
+uses()->group('rank-names');
 
 beforeEach(function () {
     $this->rankNames = RankName::factory()->count(10)->create();
@@ -24,7 +26,7 @@ test('an authorized user can delete a rank name', function () {
     Event::fake();
 
     livewire(RankNamesList::class)
-        ->callTableAction(DeleteAction::class, $this->rankNames->first())
+        ->callAction(TestAction::make(DeleteAction::class)->table($this->rankNames->first()))
         ->assertCanNotSeeTableRecords([$this->rankNames->first()])
         ->assertNotified();
 
@@ -37,7 +39,8 @@ test('an authorized user can bulk delete rank names', function () {
     $rankNames = $this->rankNames->take(3);
 
     livewire(RankNamesList::class)
-        ->callTableBulkAction(DeleteBulkAction::class, $rankNames)
+        ->selectTableRecords($rankNames)
+        ->callAction(TestAction::make(DeleteBulkAction::class)->table()->bulk())
         ->assertNotified();
 
     foreach ($rankNames as $rankName) {

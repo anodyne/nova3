@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
+use Filament\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
-use Filament\Support\Enums\ActionSize;
-use Filament\Tables\Actions\Action;
+use Filament\Support\Enums\Size;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -30,9 +32,10 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\TextAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Facades\LogBatch;
 use Spatie\Activitylog\Models\Activity;
 
@@ -75,7 +78,7 @@ class AddonsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -85,10 +88,10 @@ class AddonsList extends TableComponent
                             ->authorize('update')
                             ->url(fn (Addon $record): string => route('admin.addons.edit', $record)),
                         TextAction::make('textNotice')
-                            ->icon(iconName('edit-off'))
+                            ->icon(Tabler::PencilOff)
                             ->label('This add-on was installed from a QuickInstall file and cannot be edited')
                             ->visible(fn (Addon $record): bool => filled($record->repository?->id)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -96,13 +99,13 @@ class AddonsList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->itemIcons([
-                                        'installed' => icon('add'),
-                                        'ran-append' => iconName('image-add'),
-                                        'ran-install' => iconName('bolt'),
-                                        'ran-migrations' => iconName('database'),
-                                        'ran-migrations-rollback' => iconName('database-off'),
-                                        'ran-replace' => iconName('image-alert'),
-                                        'ran-uninstall' => iconName('bolt-off'),
+                                        'installed' => Tabler::Plus->value,
+                                        'ran-append' => Tabler::PhotoPlus->value,
+                                        'ran-install' => Tabler::Bolt->value,
+                                        'ran-migrations' => Tabler::Database->value,
+                                        'ran-migrations-rollback' => Tabler::DatabaseOff->value,
+                                        'ran-replace' => Tabler::PhotoExclamation->value,
+                                        'ran-uninstall' => Tabler::BoltOff->value,
                                     ])
                                     ->itemIconColors([
                                         'installed' => 'success',
@@ -146,33 +149,28 @@ class AddonsList extends TableComponent
                                     ])
                                     ->modelLabel(Addon::class, 'add-on');
                             }),
-                    ])->authorize('view')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('addonSettings')
-                            ->authorize('update')
+                            ->authorize('updateSettings')
                             ->slideOver()
-                            ->icon(iconName('settings'))
-                            ->modalWidth('lg')
+                            ->icon(Tabler::Settings)
+                            ->modalWidth(Width::Large)
                             ->modalIcon(null)
                             ->modalHeading(fn (Addon $record): string => $record->name.' add-on settings')
                             ->modalDescription(null)
                             ->fillForm(fn (Addon $record): ?array => $record->settings?->settings ?? [])
-                            ->form(fn (Addon $record): ?array => $record->getAddonClass()->settingsForm())
+                            ->schema(fn (Addon $record): ?array => $record->getAddonClass()->settingsForm())
+                            ->successNotificationTitle('Add-on settings have been updated')
                             ->action(function (Addon $record, array $data) {
-                                $settingsData = new AddonSettings(settings: $data);
-
-                                UpdateAddonSettings::run($record, $settingsData);
-
-                                Notification::make()->success()
-                                    ->title('Add-on settings have been updated')
-                                    ->send();
+                                UpdateAddonSettings::run($record, new AddonSettings(settings: $data));
                             }),
                         Action::make('openActionsPanel')
                             ->authorize('runActions')
                             ->slideOver()
-                            ->icon(iconName('automation'))
-                            ->modalWidth('xl')
+                            ->icon(Tabler::Automation)
+                            ->modalWidth(Width::ExtraLarge)
                             ->modalIcon(null)
                             ->modalHeading('')
                             ->modalDescription(null)
@@ -183,21 +181,22 @@ class AddonsList extends TableComponent
                                 'action' => $action,
                             ]))
                             ->registerModalActions($this->actionPanelActions()),
-                    ])->authorizeAny(['runActions', 'updateSettings'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('goToUpdate')
-                            ->icon(iconName('cloud-share'))
+                            ->icon(Tabler::CloudShare)
                             ->url(fn (Addon $record): ?string => $record->update_url)
                             ->visible(fn (Addon $record): bool => $record->has_update),
-                    ])->authorizeAny(['create', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.add-ons.delete')
                             ->successNotificationTitle(fn (Addon $record): string => $record->name.' add-on was deleted')
                             ->using(fn (Addon $record): Addon => DeleteAddon::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -208,10 +207,10 @@ class AddonsList extends TableComponent
                 Action::make('install')
                     ->authorize('create')
                     ->label('Add-ons available to install')
-                    ->icon(iconName('sparkles'))
+                    ->icon(Tabler::Sparkles)
                     ->color('gray')
                     ->visible(fn (): bool => Addon::hasInstallableAddons())
-                    ->modalWidth('xl')
+                    ->modalWidth(Width::ExtraLarge)
                     ->modalIcon(null)
                     ->modalHeading('')
                     ->modalDescription(null)
@@ -219,7 +218,7 @@ class AddonsList extends TableComponent
                     ->modalContent(fn (Action $action): View => view('pages.add-ons.pending-addons', [
                         'action' => $action,
                     ]))
-                    ->form([
+                    ->schema([
                         CheckboxList::make('addons')
                             ->options(Addon::getInstallableAddons())
                             ->label('Select the pending add-on(s) you’d like to install:'),
@@ -265,7 +264,7 @@ class AddonsList extends TableComponent
                         $notification->send();
                     }),
             ])
-            ->emptyStateIcon(iconName('puzzle'))
+            ->emptyStateIcon(Illustration::Addons)
             ->emptyStateHeading('No add-ons found')
             ->emptyStateDescription('Add-ons allow you to personalize and extend Nova to work and behave the way you want.')
             ->emptyStateActions([
@@ -284,7 +283,7 @@ class AddonsList extends TableComponent
              */
             Action::make('extensionInstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
                     LogBatch::startBatch();
@@ -303,7 +302,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('extensionUninstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record) {
                     LogBatch::startBatch();
@@ -320,9 +319,24 @@ class AddonsList extends TableComponent
                         ->title('Extension has been uninstalled')
                         ->send();
                 }),
+            Action::make('extensionUpdate')
+                ->color('gray')
+                ->size(Size::Small)
+                ->label('Update')
+                ->action(function (Addon $record) {
+                    LogBatch::startBatch();
+
+                    $record->runScript('update');
+
+                    LogBatch::endBatch();
+
+                    Notification::make()->success()
+                        ->title('Extension has been updated')
+                        ->send();
+                }),
             Action::make('extensionRunMigrations')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Run')
                 ->action(function (Addon $record): void {
                     $record->runScript('runMigrations');
@@ -333,7 +347,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('extensionRollbackMigrations')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Rollback')
                 ->action(function (Addon $record): void {
                     $record->runScript('rollbackMigrations');
@@ -348,7 +362,7 @@ class AddonsList extends TableComponent
              */
             Action::make('rankSetInstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
                     $record->runScript('install');
@@ -360,7 +374,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('rankSetUninstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record): void {
                     $record->runScript('uninstall');
@@ -372,7 +386,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('rankSetReplace')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Replace')
                 ->action(function (Addon $record): void {
                     $record->runScript('replace');
@@ -384,7 +398,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('rankSetAppend')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Append')
                 ->action(function (Addon $record): void {
                     $record->runScript('append');
@@ -400,7 +414,7 @@ class AddonsList extends TableComponent
              */
             Action::make('genreInstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
                     $record->runScript('install');
@@ -412,7 +426,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('genreUpdate')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Update')
                 ->action(function (Addon $record): void {
                     $record->runScript('update');
@@ -424,7 +438,7 @@ class AddonsList extends TableComponent
                 }),
             Action::make('genreUninstall')
                 ->color('gray')
-                ->size(ActionSize::Small)
+                ->size(Size::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record): void {
                     $record->runScript('uninstall');

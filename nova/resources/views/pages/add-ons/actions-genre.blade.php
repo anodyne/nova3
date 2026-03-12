@@ -1,5 +1,5 @@
 <div class="space-y-12">
-    <x-add-ons.action-script :action="$action->getModalAction('genreInstall')" icon="bolt" title="Install">
+    <x-add-ons.action-script :action="$action->getModalAction('genreInstall')" :icon="Tabler::Bolt" title="Install">
         Generally you will only need to run the install script once, but there could be situations where you would want
         to run it multiple times. Consult with the add-on author before running the install script multiple times.
 
@@ -10,7 +10,7 @@
         </x-slot>
     </x-add-ons.action-script>
 
-    <x-add-ons.action-script :action="$action->getModalAction('genreUpdate')" icon="arrows-sync" title="Update">
+    <x-add-ons.action-script :action="$action->getModalAction('genreUpdate')" :icon="Tabler::Refresh" title="Update">
         This will attempt to update the genre data with the latest version from the add-on.
 
         <x-slot name="warning">
@@ -21,7 +21,7 @@
 
     <x-add-ons.action-script
         :action="$action->getModalAction('genreUninstall')"
-        icon="bolt-off"
+        :icon="Tabler::BoltOff"
         color="danger"
         title="Uninstall"
     >

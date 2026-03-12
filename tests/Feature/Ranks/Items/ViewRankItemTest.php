@@ -7,6 +7,7 @@ use Nova\Ranks\Models\RankItem;
 use function Pest\Laravel\get;
 
 uses()->group('ranks');
+uses()->group('rank-items');
 
 beforeEach(function () {
     $this->rankItem = RankItem::factory()->create();

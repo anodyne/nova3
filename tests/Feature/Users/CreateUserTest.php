@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Event;
@@ -32,9 +33,7 @@ use function PHPUnit\Framework\assertCount;
 uses()->group('users');
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'user.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'user.create'));
 
     test('can view the create user page', function () {
         get(route('admin.users.create'))->assertSuccessful();
@@ -61,25 +60,24 @@ describe('authorized user', function () {
         $inactiveUser = User::factory()->inactive()->create();
 
         livewire(UsersList::class)
-            ->assertTableActionHidden(ViewAction::class, $activeUser)
-            ->assertTableActionHidden(EditAction::class, $activeUser)
-            ->assertTableActionHidden(DeleteAction::class, $activeUser)
-            ->assertTableActionHidden('impersonate', $activeUser)
-            ->assertTableActionHidden('activate', $activeUser)
-            ->assertTableActionHidden('deactivate', $activeUser)
-            ->assertTableActionHidden(ViewAction::class, $inactiveUser)
-            ->assertTableActionHidden(EditAction::class, $inactiveUser)
-            ->assertTableActionHidden(DeleteAction::class, $inactiveUser)
-            ->assertTableActionHidden('impersonate', $inactiveUser)
-            ->assertTableActionHidden('activate', $inactiveUser)
-            ->assertTableActionHidden('deactivate', $inactiveUser);
+            ->removeTableFilters()
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($activeUser))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($activeUser))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($activeUser))
+            ->assertActionHidden(TestAction::make('impersonate')->table($activeUser))
+            ->assertActionHidden(TestAction::make('activate')->table($activeUser))
+            ->assertActionHidden(TestAction::make('deactivate')->table($activeUser))
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($inactiveUser))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($inactiveUser))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('impersonate')->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('activate')->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('deactivate')->table($inactiveUser));
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the create user page', function () {
         get(route('admin.users.create'))->assertForbidden();
@@ -103,9 +101,7 @@ describe('unauthenticated user', function () {
 });
 
 describe('user creation', function () {
-    beforeEach(function () {
-        signIn(permissions: 'user.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'user.create'));
 
     test('can send an email to the new user with their password', function () {
         Notification::fake();
@@ -126,7 +122,7 @@ describe('user creation', function () {
         $character = Character::factory()->create();
 
         $assignedCharacters = livewire(ManageCharacters::class)
-            ->call('add', $character->id)
+            ->set('selected', $character->id)
             ->get('assignedCharacters');
 
         $data = array_merge(
@@ -151,7 +147,7 @@ describe('user creation', function () {
         $character = Character::factory()->active()->create();
 
         $livewire = livewire(ManageCharacters::class)
-            ->call('add', $character->id)
+            ->set('selected', $character->id)
             ->call('setAsPrimaryCharacter', $character->id);
 
         $data = array_merge(
@@ -178,12 +174,12 @@ describe('user creation', function () {
         $role = Role::first();
 
         $assignedRoles = livewire(ManageRoles::class)
-            ->call('add', $role->id)
-            ->get('assignedRoles');
+            ->set('assigned', [$role->id])
+            ->get('assigned');
 
         $data = array_merge(
             User::factory()->make()->toArray(),
-            ['assigned_roles' => $assignedRoles]
+            ['assigned_roles' => implode(',', $assignedRoles)]
         );
 
         from(route('admin.users.create'))

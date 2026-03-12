@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
-use Nova\Notes\Events;
+use Nova\Notes\Events\NoteCreated;
+use Nova\Notes\Events\NoteDeleted;
+use Nova\Notes\Events\NoteUpdated;
 use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
@@ -27,9 +29,9 @@ class Note extends Model
     protected $fillable = ['user_id', 'title', 'content'];
 
     protected $dispatchesEvents = [
-        'created' => Events\NoteCreated::class,
-        'deleted' => Events\NoteDeleted::class,
-        'updated' => Events\NoteUpdated::class,
+        'created' => NoteCreated::class,
+        'deleted' => NoteDeleted::class,
+        'updated' => NoteUpdated::class,
     ];
 
     public function author(): BelongsTo

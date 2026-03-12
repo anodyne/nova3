@@ -7,7 +7,10 @@ namespace Nova\Onboarding\Enums;
 use Filament\Support\Contracts\HasDescription;
 use Filament\Support\Contracts\HasLabel;
 use Nova\Onboarding\Models\Onboarding as OnboardingModel;
-use Nova\Onboarding\Onboarding;
+use Nova\Onboarding\Onboarding\FreshInstall\FreshInstallOnboarding;
+use Nova\Onboarding\Onboarding\NewUser\NewUserOnboarding;
+use Nova\Onboarding\Onboarding\NovaMigration\NovaMigrationOnboarding;
+use Nova\Onboarding\Onboarding\OnboardingChecklist;
 
 enum OnboardingProcess: string implements HasDescription, HasLabel
 {
@@ -61,12 +64,12 @@ enum OnboardingProcess: string implements HasDescription, HasLabel
         };
     }
 
-    public function make(OnboardingModel $model): Onboarding\OnboardingChecklist
+    public function make(OnboardingModel $model): OnboardingChecklist
     {
         return match ($this) {
-            self::FreshInstall => new Onboarding\FreshInstall\FreshInstallOnboarding($model),
-            self::NewUser => new Onboarding\NewUser\NewUserOnboarding($model),
-            self::NovaMigration => new Onboarding\NovaMigration\NovaMigrationOnboarding($model),
+            self::FreshInstall => new FreshInstallOnboarding($model),
+            self::NewUser => new NewUserOnboarding($model),
+            self::NovaMigration => new NovaMigrationOnboarding($model),
         };
     }
 }

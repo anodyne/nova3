@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\CanHandleDataForRequests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
@@ -13,6 +14,8 @@ use Nova\Characters\Models\States\Status\Pending;
 
 class CharacterFactory extends Factory
 {
+    use CanHandleDataForRequests;
+
     protected $model = Character::class;
 
     public function definition()

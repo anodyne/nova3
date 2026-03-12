@@ -9,10 +9,13 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Url;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\User;
 
 class ApplicationsList extends TableComponent
 {
@@ -23,6 +26,9 @@ class ApplicationsList extends TableComponent
 
     public function table(Table $table): Table
     {
+        /** @var User $user */
+        $user = Auth::user();
+
         return $table
             ->query(
                 Application::with('character.positions', 'user')
@@ -35,6 +41,10 @@ class ApplicationsList extends TableComponent
                         'result',
                         'user_id',
                     ])
+                    ->unless(
+                        $user->isAbleTo('application.approve'),
+                        fn (Builder $query): Builder => $query->reviewedBy($user)
+                    )
             )
             ->defaultSort('created_at', 'desc')
             ->groups([
@@ -76,7 +86,7 @@ class ApplicationsList extends TableComponent
                     ->multiple()
                     ->options(ApplicationResult::class),
             ])
-            ->emptyStateIcon(iconName('progress'))
+            ->emptyStateIcon(Illustration::HandpickResume)
             ->emptyStateHeading('No applications found');
     }
 }

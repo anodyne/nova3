@@ -5,4 +5,6 @@
     'values' => [],
 ])
 
-{!! data_get($details, 'content') !!}
+@use('Filament\Forms\Components\RichEditor\RichContentRenderer')
+
+{{ RichContentRenderer::make(data_get($details, 'content')) }}

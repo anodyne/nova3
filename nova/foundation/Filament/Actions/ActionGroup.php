@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Tables\Actions\ActionGroup as FilamentActionGroup;
+use Anodyne\TablerIcons\Tabler;
 
-class ActionGroup extends FilamentActionGroup
+class ActionGroup extends \Filament\Actions\ActionGroup
 {
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(iconName('more'));
+        $this->icon(Tabler::DotsVertical);
         $this->dropdownPlacement('bottom-end');
     }
 

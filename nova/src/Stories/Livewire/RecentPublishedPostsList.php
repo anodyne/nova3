@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Nova\Stories\Livewire;
 
 use Filament\Support\Enums\FontWeight;
+use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\TextColumn\TextColumnSize;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Models\Post;
 
@@ -54,14 +55,16 @@ class RecentPublishedPostsList extends TableComponent
                             ->weight(FontWeight::Medium)
                             ->grow(false),
                         TextColumn::make('locationDayTime')
-                            ->size(TextColumnSize::Small)
+                            ->size(TextSize::Small)
                             ->color('gray')
                             ->extraAttributes(['class' => 'italic'])
                             ->grow(false),
                     ]),
                 ]),
             ])
-            ->emptyStateIcon(iconName('write'))
-            ->emptyStateHeading('No published posts found');
+            ->emptyStateIcon(Illustration::InkPenDrawing)
+            ->emptyStateHeading('No published posts found')
+            ->heading('Recently published posts')
+            ->description('Posts that have been published in the last 30 days');
     }
 }

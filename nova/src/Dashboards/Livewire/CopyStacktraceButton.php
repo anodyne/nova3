@@ -27,7 +27,6 @@ class CopyStacktraceButton extends Component
             >
                 <x-button
                     type="button"
-                    color="neutral"
                     x-clipboard.raw="{{ $this->codeToCopy }}"
                     x-on:click="copied = true"
                 >

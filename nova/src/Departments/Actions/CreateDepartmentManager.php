@@ -7,6 +7,7 @@ namespace Nova\Departments\Actions;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\StoreDepartmentRequest;
+use Nova\Media\Actions\UploadImage;
 
 class CreateDepartmentManager
 {
@@ -16,7 +17,12 @@ class CreateDepartmentManager
     {
         $department = CreateDepartment::run($request->getDepartmentData());
 
-        UploadDepartmentHeaderImage::run($department, $request->image_path);
+        UploadImage::run(
+            model: $department,
+            collection: 'header',
+            action: $request->getImageAction(),
+            tempPath: $request->getImageTempPath()
+        );
 
         return $department->refresh();
     }

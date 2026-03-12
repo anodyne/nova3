@@ -28,9 +28,9 @@
             ->merge(['style' => $style])
             ->class([
                 'relative pl-6 before:absolute before:left-0 before:top-2 before:z-10 before:h-2.5 before:w-2.5 before:-translate-x-1/2 before:rounded-full before:ring-8',
-                'before:bg-[--feed-item-dot-color]' => $dotColor,
+                'before:bg-(--feed-item-dot-color)' => $dotColor,
                 'before:bg-current' => ! $dotColor,
-                'before:ring-[--feed-item-dot-mask]' => $dotMask,
+                'before:ring-(--feed-item-dot-mask)' => $dotMask,
                 'before:ring-white dark:before:ring-gray-950' => ! $dotMask,
             ])
     }}

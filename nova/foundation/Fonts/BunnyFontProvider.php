@@ -6,8 +6,9 @@ namespace Nova\Foundation\Fonts;
 
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\HtmlString;
+use Nova\Foundation\Fonts\Contracts\FontProvider;
 
-class BunnyFontProvider implements Contracts\FontProvider
+class BunnyFontProvider implements FontProvider
 {
     public function getFontHtml(string $family, ?string $url = null): Htmlable
     {

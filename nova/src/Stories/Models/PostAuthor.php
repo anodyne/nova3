@@ -36,6 +36,9 @@ class PostAuthor extends MorphPivot
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        /** @var BelongsTo $relation */
+        $relation = $this->belongsTo(User::class)->withTrashed();
+
+        return $relation;
     }
 }

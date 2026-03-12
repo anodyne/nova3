@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Nova\Forms\Data\FormOptions;
 use Nova\Forms\Enums\FormType;
-use Nova\Forms\Events;
+use Nova\Forms\Events\FormCreated;
+use Nova\Forms\Events\FormDeleted;
+use Nova\Forms\Events\FormUpdated;
 use Nova\Forms\Models\Builders\FormBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
@@ -52,9 +54,9 @@ class Form extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\FormCreated::class,
-        'deleted' => Events\FormDeleted::class,
-        'updated' => Events\FormUpdated::class,
+        'created' => FormCreated::class,
+        'deleted' => FormDeleted::class,
+        'updated' => FormUpdated::class,
     ];
 
     public function formFields(): HasMany

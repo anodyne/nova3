@@ -32,9 +32,20 @@ use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Data\UserModerations;
 use Nova\Users\Data\UserPreferences;
-use Nova\Users\Events;
+use Nova\Users\Events\UserCreated;
+use Nova\Users\Events\UserDeleted;
+use Nova\Users\Events\UserUpdated;
 use Nova\Users\Models\Builders\UserBuilder;
+use Nova\Users\Models\Concerns\CanManageResources;
+use Nova\Users\Models\Concerns\HasAnnouncements;
+use Nova\Users\Models\Concerns\HasCharacters;
+use Nova\Users\Models\Concerns\HasFormSubmissions;
+use Nova\Users\Models\Concerns\HasLogins;
+use Nova\Users\Models\Concerns\HasNotes;
+use Nova\Users\Models\Concerns\HasOnboarding;
+use Nova\Users\Models\Concerns\HasPosts;
 use Nova\Users\Models\States\Status\Active;
+use Nova\Users\Models\States\Status\Hidden;
 use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\States\Status\UserStatus;
@@ -48,16 +59,16 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerifyEmail
 {
     use Bannable;
+    use CanManageResources;
     use CausesActivity;
-    use Concerns\CanManageResources;
-    use Concerns\HasAnnouncements;
-    use Concerns\HasCharacters;
-    use Concerns\HasFormSubmissions;
-    use Concerns\HasLogins;
-    use Concerns\HasNotes;
-    use Concerns\HasOnboarding;
-    use Concerns\HasPosts;
+    use HasAnnouncements;
+    use HasCharacters;
     use HasFactory;
+    use HasFormSubmissions;
+    use HasLogins;
+    use HasNotes;
+    use HasOnboarding;
+    use HasPosts;
     use HasPrefixedId;
     use HasRolesAndPermissions;
     use HasStates;
@@ -80,9 +91,9 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\UserCreated::class,
-        'updated' => Events\UserUpdated::class,
-        'deleted' => Events\UserDeleted::class,
+        'created' => UserCreated::class,
+        'updated' => UserUpdated::class,
+        'deleted' => UserDeleted::class,
     ];
 
     protected $fillable = [
@@ -127,6 +138,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    public function displayName(): Attribute
+    {
+        return new Attribute(
+            get: fn (): string => $this->trashed() ? 'Deleted user' : $this->name
+        );
+    }
+
     public function hasAvatar(): Attribute
     {
         return new Attribute(
@@ -152,6 +170,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     {
         return new Attribute(
             get: fn (): bool => $this->status->equals(Inactive::class)
+        );
+    }
+
+    public function isHidden(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Hidden::class)
         );
     }
 

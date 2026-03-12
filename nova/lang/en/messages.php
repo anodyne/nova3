@@ -12,4 +12,16 @@ return [
 
     'post-validation-errors' => 'To save your :type, please add a **:fields**',
 
+    'table' => [
+        'bulk-delete-failure' => ':success of :total :label deleted',
+        'bulk-delete-success' => ':count selected :label has been deleted|:count selected :label have been deleted',
+        'bulk-delete-total-failure' => 'Failed to delete any :label',
+
+        'delete-failure' => ':title :label could not be deleted',
+        'delete-success' => ':title :label was deleted',
+
+        'replicate-failure' => ':title :label could not be duplicated',
+        'replicate-success' => ':title :label was duplicated',
+    ],
+
 ];

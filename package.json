@@ -3,8 +3,10 @@
     "license": "MIT",
     "scripts": {
         "cleanup": "rm -rf ./node_modules",
+        "css:build-admin": "cross-env ENV_BUILD=dev postcss nova/resources/css/admin.css --base nova/resources --dir public/dist --verbose",
         "css:build-dev": "cross-env ENV_BUILD=dev postcss nova/resources/css/*.css --base nova/resources --dir public/dist --verbose",
         "css:build-maintenance": "cross-env ENV_BUILD=prod postcss nova/resources/css/maintenance.css --base nova/resources --dir public/dist --verbose",
+        "css:build-public": "cross-env ENV_BUILD=prod postcss nova/resources/css/public.css --base nova/resources --dir public/dist --verbose",
         "css:build-prod": "cross-env ENV_BUILD=prod postcss nova/resources/css/*.css --base nova/resources --dir public/dist --verbose",
         "css:build-themes": "concurrently \"npm run css:build-theme-celestial\" \"npm run css:build-theme-cerritos\" \"npm run css:build-theme-event-horizon\" \"npm run css:build-theme-pulsar\" \"npm run css:build-theme-titan\"",
         "css:build-theme-celestial": "cross-env ENV_BUILD=dev postcss \"themes/Celestial/resources/css/**/*.css\" --base themes/Celestial/resources/css --dir themes/Celestial/design --verbose",
@@ -28,6 +30,8 @@
         "@nextapps-be/livewire-sortablejs": "^0.2",
         "@ryangjchandler/alpine-clipboard": "^2.2",
         "@ryangjchandler/alpine-tooltip": "^2.0",
+        "@tailwindcss/postcss": "^4.1.11",
+        "@tailwindplus/elements": "^1.0.4",
         "@tiptap/core": "^2.0",
         "@tiptap/extension-character-count": "^2.0",
         "@tiptap/extension-link": "^2.0",
@@ -35,6 +39,7 @@
         "@tiptap/extension-underline": "^2.0",
         "@tiptap/pm": "^2.0",
         "@tiptap/starter-kit": "^2.0",
+        "@toolwind/corner-shape": "^0.0.8-3",
         "@yaireo/tagify": "^4.17",
         "alpinejs": "^3.10",
         "axios": "^1.8.2",
@@ -48,6 +53,7 @@
         "hex-to-rgba": "^2.0",
         "lodash": "^4.17",
         "numeral": "^2.0",
+        "playwright": "^1.56.1",
         "pluralize": "^8.0",
         "pretty": "^2.0",
         "resolve-url-loader": "^5.0",
@@ -77,8 +83,8 @@
         "postcss-import": "^16.0",
         "prettier": "^3.2",
         "prettier-plugin-blade": "^2.0",
-        "prettier-plugin-tailwindcss": "^0.5",
-        "tailwindcss": "^3.4",
+        "prettier-plugin-tailwindcss": "^0.6.14",
+        "tailwindcss": "^4.1.11",
         "tailwindcss-animation-delay": "^1.2"
     }
 }

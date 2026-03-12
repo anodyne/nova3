@@ -18,6 +18,7 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 
 class FormSubmissionsList extends TableComponent
@@ -40,6 +41,7 @@ class FormSubmissionsList extends TableComponent
                     ->whereRelation('form', 'type', '=', FormType::Basic)
                     ->unless($user->can('manage', new FormSubmission), fn (Builder $query): Builder => $query->ownerIsUser($user))
             )
+            ->recordUrl(fn (FormSubmission $record): string => route('admin.form-submissions.show', $record))
             ->defaultSort('created_at', 'desc')
             ->groups([
                 Group::make('form.name')->collapsible(),
@@ -64,7 +66,7 @@ class FormSubmissionsList extends TableComponent
                     ->toggleable()
                     ->sortable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -80,7 +82,7 @@ class FormSubmissionsList extends TableComponent
 
                                 Notification::make()->success()->title('Form submission was deleted');
                             }),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -92,7 +94,7 @@ class FormSubmissionsList extends TableComponent
                     ),
             ])
             ->defaultPaginationPageOption(25)
-            ->emptyStateIcon(iconName('file-text'))
+            ->emptyStateIcon(Illustration::SheetForm)
             ->emptyStateHeading('No form submissions found');
     }
 }

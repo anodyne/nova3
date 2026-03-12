@@ -7,7 +7,7 @@ namespace Nova\Foundation;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Nova\Foundation\NovaManager
+ * @see NovaManager
  */
 class Nova extends Facade
 {

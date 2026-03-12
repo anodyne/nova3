@@ -9,22 +9,20 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
-use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Notes\Actions\DeleteNote;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
 use Nova\Notes\Models\Note;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class NotesList extends TableComponent
@@ -42,6 +40,7 @@ class NotesList extends TableComponent
                     ])
                     ->currentUser()
             )
+            ->recordUrl(fn (Note $record): string => route('admin.notes.show', $record))
             ->defaultSort('updated_at', 'desc')
             ->columns([
                 TextColumn::make('title')
@@ -53,16 +52,21 @@ class NotesList extends TableComponent
                     ->since()
                     ->sortable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
-                        ViewAction::make()
-                            ->authorize('view')
-                            ->url(fn (Note $record): string => route('admin.notes.show', $record)),
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Note $record): string => route('admin.notes.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                        ReplicateAction::make()
+                            ->authorize('duplicate')
+                            ->modalContentView('pages.notes.duplicate')
+                            ->action(function (Note $record): void {
+                                $replica = DuplicateNote::run($record = Note::find($record->id));
+
+                                NoteDuplicated::dispatch($replica, $record);
+                            }),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -78,61 +82,23 @@ class NotesList extends TableComponent
                     ])->divided(),
 
                     ActionGroup::make([
-                        ReplicateAction::make()
-                            ->authorize('duplicate')
-                            ->modalContentView('pages.notes.duplicate')
-                            ->action(function (Note $record): void {
-                                $replica = DuplicateNote::run($record);
-
-                                NoteDuplicated::dispatch($replica, $record);
-
-                                Notification::make()->success()
-                                    ->title("{$record->title} note was duplicated")
-                                    ->send();
-                            }),
-                    ])->authorize('duplicate')->divided(),
-
-                    ActionGroup::make([
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.notes.delete')
                             ->successNotificationTitle('Note was deleted')
                             ->using(fn (Note $record): Model => DeleteNote::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
                 DeleteBulkAction::make()
-                    ->authorize('deleteAny')
+                    ->authorizeIndividualRecords('delete')
                     ->modalContentView('pages.notes.delete-bulk')
                     ->action(function (Collection $records): void {
-                        $ignoredRecords = 0;
-
-                        $records = $records
-                            ->filter(function (Note $record) use (&$ignoredRecords): bool {
-                                if (Gate::allows('delete', $record)) {
-                                    return true;
-                                }
-
-                                $ignoredRecords += 1;
-
-                                return false;
-                            })
-                            ->each(fn (Note $record): Model => DeleteNote::run($record));
-
-                        Notification::make()->success()
-                            ->title(count($records).' '.trans_choice('note was|notes were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
-                            ->send();
+                        $records->each(fn (Note $record): Model => DeleteNote::run($record));
                     }),
             ])
-            ->emptyStateIcon(iconName('note'))
+            ->emptyStateIcon(Illustration::Notes)
             ->emptyStateHeading('No notes found')
             ->emptyStateDescription('Notes help keep your thoughts organized about your game, a story idea, or even as a scratchpad for your next story post.')
             ->emptyStateActions([

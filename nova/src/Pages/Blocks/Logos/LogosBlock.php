@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Logos;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Nova\Pages\Blocks\Block as PageBuilderBlock;
 
 abstract class LogosBlock extends PageBuilderBlock
@@ -23,7 +24,7 @@ abstract class LogosBlock extends PageBuilderBlock
             Section::make()
                 ->heading('Logo(s)')
                 ->description('Upload the logo(s) you want to display in the block')
-                ->icon(iconName('image'))
+                ->icon(Tabler::Photo)
                 ->schema([
                     Repeater::make('block.logos')
                         ->hiddenLabel()

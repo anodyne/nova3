@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Anodyne\TablerIcons\Tabler;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +18,11 @@ use Nova\Roles\Models\Role;
 use Nova\Stories\Data\Fields;
 use Nova\Stories\Data\Options;
 use Nova\Stories\Enums\PostTypeVisibility;
-use Nova\Stories\Events;
+use Nova\Stories\Events\PostTypeCreated;
+use Nova\Stories\Events\PostTypeDeleted;
+use Nova\Stories\Events\PostTypeForceDeleted;
+use Nova\Stories\Events\PostTypeRestored;
+use Nova\Stories\Events\PostTypeUpdated;
 use Nova\Stories\Models\Builders\PostTypeBuilder;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -52,6 +57,7 @@ class PostType extends Model implements Sortable
 
     protected $casts = [
         'fields' => Fields::class,
+        'icon' => Tabler::class,
         'options' => Options::class,
         'order_column' => 'integer',
         'status' => BasicStatus::class,
@@ -59,11 +65,11 @@ class PostType extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\PostTypeCreated::class,
-        'deleted' => Events\PostTypeDeleted::class,
-        'updated' => Events\PostTypeUpdated::class,
-        'forceDeleted' => Events\PostTypeForceDeleted::class,
-        'restored' => Events\PostTypeRestored::class,
+        'created' => PostTypeCreated::class,
+        'deleted' => PostTypeDeleted::class,
+        'updated' => PostTypeUpdated::class,
+        'forceDeleted' => PostTypeForceDeleted::class,
+        'restored' => PostTypeRestored::class,
     ];
 
     public function posts(): HasMany
@@ -79,6 +85,13 @@ class PostType extends Model implements Sortable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => $this->name
+        );
     }
 
     /**

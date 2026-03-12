@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <x-page-header></x-page-header>
+    <x-page-heading></x-page-heading>
 
     <livewire:error-log-viewer />
 </x-admin-layout>

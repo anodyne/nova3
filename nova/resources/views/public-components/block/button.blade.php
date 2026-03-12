@@ -1,10 +1,12 @@
 @props(['button'])
 
 @use('Nova\Pages\Enums\BoxShadow')
+@use('Nova\Pages\Enums\ButtonDecoration')
 @use('Nova\Pages\Enums\ButtonSize')
 @use('Nova\Pages\Enums\Radius')
 
 @php
+    $buttonDecoration = ButtonDecoration::tryFrom(data_get($button, 'decoration') ?? 'none');
     $buttonSize = ButtonSize::tryFrom(data_get($button, 'size') ?? 'text');
     $radius = Radius::tryFrom(data_get($button, 'radius') ?? 'none');
     $shadow = BoxShadow::tryFrom(data_get($button, 'shadow') ?? 'none');
@@ -21,8 +23,8 @@
         href="{{ data_get($button, 'url') }}"
         target="{{ data_get($button, 'url-target') }}"
         @class([
-            'flex items-center gap-1.5 bg-[--bg-color] text-[--text-color] transition hover:brightness-110',
-            'ring-1 ring-[--border-color]' => data_get($button, 'border-style') !== 'none',
+            'flex items-center gap-1.5 bg-(--bg-color) text-(--text-color) transition hover:brightness-110',
+            'ring-1 ring-(--border-color)' => data_get($button, 'border-style') !== 'none',
             'ring-inset' => data_get($button, 'border-style') === 'inner',
             $buttonSize?->getTailwindClasses(),
             $radius?->getTailwindClasses(),
@@ -31,16 +33,8 @@
     >
         <span>{{ $slot }}</span>
 
-        @if (data_get($button, 'decoration') === 'arrow')
-            <span class="text-base/6" aria-hidden="true">&rarr;</span>
-        @endif
-
-        @if (data_get($button, 'decoration') === 'single-chevron')
-            <span class="text-base/6" aria-hidden="true">&rsaquo;</span>
-        @endif
-
-        @if (data_get($button, 'decoration') === 'double-chevron')
-            <span class="text-base/6" aria-hidden="true">&raquo;</span>
+        @if ($buttonDecoration !== ButtonDecoration::None)
+            <span class="text-base/6" aria-hidden="true">{!! $buttonDecoration->getHtml() !!}</span>
         @endif
     </a>
 </div>

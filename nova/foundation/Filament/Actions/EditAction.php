@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Tables\Actions\EditAction as FilamentEditAction;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Support\Enums\Size;
 
-class EditAction extends FilamentEditAction
+class EditAction extends \Filament\Actions\EditAction
 {
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->color('gray');
-        $this->icon(iconName('edit'));
-        $this->size('md');
+        $this->icon(Tabler::Pencil);
+        $this->size(Size::Medium);
     }
 }

@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Laravel\Sanctum\Sanctum;
+use Nova\Foundation\Http\Middleware\EncryptCookies;
+use Nova\Foundation\Http\Middleware\VerifyCsrfToken;
 
 return [
 
@@ -62,8 +64,8 @@ return [
     */
 
     'middleware' => [
-        'verify_csrf_token' => Nova\Foundation\Http\Middleware\VerifyCsrfToken::class,
-        'encrypt_cookies' => Nova\Foundation\Http\Middleware\EncryptCookies::class,
+        'verify_csrf_token' => VerifyCsrfToken::class,
+        'encrypt_cookies' => EncryptCookies::class,
     ],
 
 ];

@@ -31,7 +31,7 @@ readonly class PositionData extends Bag
             'description' => $request->input('description'),
             'available' => $request->integer('available'),
             'tags' => array_map('trim', explode(',', $request->input('tags') ?? '')),
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
             'department_id' => $request->integer('department_id'),
         ];
     }

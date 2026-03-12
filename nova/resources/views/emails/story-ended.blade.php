@@ -9,7 +9,7 @@
 </x-mail::panel>
 
 <x-mail::button :url="route('admin.stories.show', $story)">
-Review story &rarr;
+Review story <span aria-hidden="true">→</span>
 </x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}

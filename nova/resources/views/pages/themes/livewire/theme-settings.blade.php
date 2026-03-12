@@ -3,52 +3,54 @@
 
     <x-form action="">
         <x-fieldset>
-            <x-fieldset.heading>
-                <x-icon name="typography"></x-icon>
-                <x-fieldset.legend>Fonts</x-fieldset.legend>
-                <x-fieldset.description>Customize the theme by changing the fonts used.</x-fieldset.description>
+            <x-fieldset.heading :icon="Tabler::Typography" heading="Fonts">
+                <x-description>Customize the theme by changing the fonts used.</x-description>
             </x-fieldset.heading>
 
-            <x-fieldset.field-group constrained>
-                <x-fieldset.field label="Public headers font" id="public_font_header" name="public_font_header">
-                    <livewire:settings-font-selector
-                        section="public"
-                        type="header"
-                        :family="$theme->settings->fonts->headerFamily"
-                        :provider="$theme->settings->fonts->headerProvider"
-                        @font-updated="fontUpdated($event.detail.data)"
-                    />
-                </x-fieldset.field>
+            <x-fieldset.group constrained>
+                <x-field>
+                    <x-label>Public headers font</x-label>
+                    <div>
+                        <livewire:settings-font-selector
+                            section="public"
+                            type="header"
+                            :family="$theme->settings->fonts->headerFamily"
+                            :provider="$theme->settings->fonts->headerProvider"
+                            @font-updated="fontUpdated($event.detail.data)"
+                        />
+                    </div>
+                </x-field>
 
-                <x-fieldset.field label="Public body font" id="public_font_body" name="public_font_body">
-                    <livewire:settings-font-selector
-                        section="public"
-                        type="body"
-                        :family="$theme->settings->fonts->bodyFamily"
-                        :provider="$theme->settings->fonts->bodyProvider"
-                        @font-updated="fontUpdated($event.detail.data)"
-                    />
-                </x-fieldset.field>
-            </x-fieldset.field-group>
+                <x-field>
+                    <x-label>Public body font</x-label>
+                    <div>
+                        <livewire:settings-font-selector
+                            section="public"
+                            type="body"
+                            :family="$theme->settings->fonts->bodyFamily"
+                            :provider="$theme->settings->fonts->bodyProvider"
+                            @font-updated="fontUpdated($event.detail.data)"
+                        />
+                    </div>
+                </x-field>
+            </x-fieldset.group>
         </x-fieldset>
 
         @if ($theme->settings->hasSettings())
             <x-fieldset>
-                <x-fieldset.heading>
-                    <x-icon name="preferences"></x-icon>
-                    <x-fieldset.legend>Additional theme settings</x-fieldset.legend>
-                    <x-fieldset.description>Customize various options for the theme.</x-fieldset.description>
+                <x-fieldset.heading :icon="Tabler::Adjustments" heading="Additional theme settings">
+                    <x-description>Customize various options for the theme.</x-description>
                 </x-fieldset.heading>
 
-                <x-fieldset.field-group constrained>
+                <x-fieldset.group constrained>
                     {{ $this->form }}
-                </x-fieldset.field-group>
+                </x-fieldset.group>
             </x-fieldset>
         @endif
     </x-form>
 
     <x-slot name="footer">
-        <x-button type="button" wire:click="save" color="primary">Update</x-button>
-        <x-button type="button" wire:click="close" plain>Cancel</x-button>
+        <x-button type="button" wire:click="save" variant="primary">Update</x-button>
+        <x-button type="button" wire:click="close" variant="ghost">Cancel</x-button>
     </x-slot>
 </x-modal.slide-over>

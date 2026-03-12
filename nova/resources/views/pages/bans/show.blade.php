@@ -1,1 +1,1 @@
-<x-filament.modal-content :$action title="View ban" icon="hammer"></x-filament.modal-content>
+<x-filament.modal-content :$action title="View ban" :icon="Tabler::Hammer"></x-filament.modal-content>

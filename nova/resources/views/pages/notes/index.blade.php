@@ -1,16 +1,16 @@
 @use('Nova\Notes\Models\Note')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         @can('create', Note::class)
             <x-slot name="actions">
-                <x-button :href="route('admin.notes.create')" color="primary">
-                    <x-icon name="add" size="sm"></x-icon>
+                <x-button :href="route('admin.notes.create')" variant="primary">
+                    <x-icon :name="Tabler::Plus" size="sm" />
                     Add
                 </x-button>
             </x-slot>
         @endcan
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:notes-list />
 

@@ -1,11 +1,38 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
+@import "tailwindcss" source(none);
+@import "./components/icon.css" layer(components);
+@reference "../../../vendor/filament/support/resources/css/index.css";
 
-@import "components/icon.css";
+@source "../views/components/avatar";
+@source "../views/components/badge.blade.php";
+@source "../views/components/empty-state";
+@source "../views/components/feed";
+@source "../views/components/pages";
+@source "../views/components/rank.blade.php";
+@source "../views/pages/pages";
+@source "../views/pages/public-site";
+@source "../views/public-components";
+@source "../../src/Pages/Enums";
+@source "../../src/Stories/Models/States";
 
-@import "tailwindcss/utilities";
+@custom-variant dark (&:is(.dark *));
 
-@config "./tailwind.public.config.js";
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentcolor);
+    }
+}
 
 .nv-form-field-select {
     background-image: none !important;

@@ -43,7 +43,7 @@ class AddonPolicy
 
     public function updateSettings(User $user, Addon $addon): Response
     {
-        return $this->update($user, $addon)->allowed() && $addon->settings?->hasSettings()
+        return $user->isAbleTo('addon.update') && $addon->getAddonClass()?->hasSettings()
             ? $this->allow()
             : $this->deny();
     }

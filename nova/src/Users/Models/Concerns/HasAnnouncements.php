@@ -24,7 +24,7 @@ trait HasAnnouncements
     public function unreadAnnouncementsCount(): Attribute
     {
         return new Attribute(
-            get: fn (): int => once(fn () => AnnouncementNotification::whereUser($this->id)->unread()->count()),
+            get: fn (): int => once(fn () => AnnouncementNotification::query()->user($this->id)->unread()->count()),
         );
     }
 }

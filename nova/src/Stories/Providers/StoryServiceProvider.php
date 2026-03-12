@@ -10,10 +10,10 @@ use Nova\Stories\Events\StoryStarted;
 use Nova\Stories\Listeners\SendStoryEndedNotificationToDiscord;
 use Nova\Stories\Listeners\SendStoryStartedNotificationToDiscord;
 use Nova\Stories\Livewire\DeleteStories;
+use Nova\Stories\Livewire\PublishedPostsList;
 use Nova\Stories\Livewire\StoriesList;
 use Nova\Stories\Livewire\StoriesTimeline;
 use Nova\Stories\Livewire\StoryPosition;
-use Nova\Stories\Livewire\StoryPostsList;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Spotlight\AddStory;
 use Nova\Stories\Spotlight\EditStory;
@@ -40,7 +40,7 @@ class StoryServiceProvider extends DomainServiceProvider
             'stories-delete' => DeleteStories::class,
             'stories-position' => StoryPosition::class,
             'stories-list' => StoriesList::class,
-            'stories-posts-list' => StoryPostsList::class,
+            'stories-published-posts-list' => PublishedPostsList::class,
             'stories-timeline' => StoriesTimeline::class,
         ];
     }

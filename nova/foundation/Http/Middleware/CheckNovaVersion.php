@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Values\LatestVersion;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,12 +19,12 @@ class CheckNovaVersion
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  Closure(Request):Response  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         if (Nova::isInstalled()) {
-            Cache::flexible('nova-latest-version', [86_400, 129_600], function () {
+            Cache::flexible(CacheKeys::LatestVersion->value, [86_400, 129_600], function () {
                 // TODO: remove this for the 3.0 release
                 $latestVersion = Http::get(config('services.anodyne.api.latest-version'))->json();
 
@@ -41,7 +42,7 @@ class CheckNovaVersion
                 return LatestVersion::fromGithub($githubVersion);
             });
 
-            Cache::flexible('nova-next-version', [86_400, 129_600], function () {
+            Cache::flexible(CacheKeys::NextVersion->value, [86_400, 129_600], function () {
                 $nextVersion = Http::get(config('services.anodyne.api.next-version'))->json();
 
                 if (is_null($nextVersion)) {
@@ -51,8 +52,8 @@ class CheckNovaVersion
                 return LatestVersion::fromAnodyne($nextVersion);
             });
 
-            Cache::flexible('nova-update-available', [86_400, 129_600], function () {
-                $latestVersion = Cache::get('nova-latest-version');
+            Cache::flexible(CacheKeys::UpdateAvailable->value, [86_400, 129_600], function () {
+                $latestVersion = Cache::get(CacheKeys::LatestVersion->value);
 
                 if (version_compare(Nova::filesVersion(), $latestVersion->version, '<')) {
                     return $latestVersion->severity;
@@ -61,8 +62,8 @@ class CheckNovaVersion
                 return null;
             });
 
-            Cache::flexible('nova-update-upcoming', [86_400, 129_600], function () {
-                $nextVersion = Cache::get('nova-next-version');
+            Cache::flexible(CacheKeys::UpdateUpcoming->value, [86_400, 129_600], function () {
+                $nextVersion = Cache::get(CacheKeys::NextVersion->value);
 
                 if (is_null($nextVersion)) {
                     return null;

@@ -2,89 +2,73 @@
 
 <x-form action="" wire:submit="save">
     <x-fieldset>
-        <x-fieldset.heading>
-            <x-icon name="mature"></x-icon>
-            <x-fieldset.legend>Default {{ $category }} rating</x-fieldset.legend>
-            <x-fieldset.description>
+        <x-fieldset.heading :icon="Tabler::Rating18Plus">
+            <x-slot name="heading">Default {{ $category }} rating</x-slot>
+            <x-description>
                 This is the default {{ $category }} content rating for your game. This is a good way to show current
                 and interested players the type and level of content they can expect from your game.
-            </x-fieldset.description>
+            </x-description>
         </x-fieldset.heading>
 
-        <x-fieldset.field-group constrained>
-            <x-fieldset.field label="Rating" id="rating" name="rating">
+        <x-fieldset.group constrained>
+            <x-field>
+                <x-label>Rating</x-label>
                 <livewire:rating :area="$category" wire:model.live="form.rating" />
-            </x-fieldset.field>
-        </x-fieldset.field-group>
+            </x-field>
+        </x-fieldset.group>
     </x-fieldset>
 
     <x-fieldset>
-        <x-fieldset.heading>
-            <x-icon name="warning"></x-icon>
-            <x-fieldset.legend>Rating threshold warning</x-fieldset.legend>
-            <x-fieldset.description>
+        <x-fieldset.heading :icon="Tabler::AlertTriangle" heading="Rating threshold warning">
+            <x-description>
                 You can choose to warn readers about potentially offensive content in a story post if that post meets
                 certain thresholds.
-            </x-fieldset.description>
+            </x-description>
         </x-fieldset.heading>
 
-        <x-fieldset.field-group constrained>
-            <x-fieldset.field
-                label="Warn readers when the post rating is at or above"
-                id="warningThreshold"
-                name="warningThreshold"
-            >
-                @if (filled($form->warningThreshold) && $form->warningThreshold < $form->rating)
-                    <x-fieldset.warning-message>
+        <x-fieldset.group constrained>
+            <x-field>
+                <x-label>Warn readers when the post rating is at or above</x-label>
+
+                @if (filled($form->warningThreshold) && $form->warningThreshold->value < $form->rating->value)
+                    <x-callout.warning data-flux-description>
                         You have chosen to warn readers about this content, but your threshold is set below the default
                         rating for this category. This means that readers will have to manually agree to a warning
                         before being allowed to read every story post unless an author specifically sets the category
                         rating lower for their post.
-                    </x-fieldset.warning-message>
+                    </x-callout.warning>
                 @endif
 
-                <flux:radio.group wire:model.live="form.warningThreshold" variant="segmented" data-slot="control">
+                <x-radio.group wire:model.numeric.live="form.warningThreshold" variant="segmented">
                     @foreach (ContentRatingValue::casesForGameThreshold() as $rating)
-                        <flux:radio :value="$rating->value" :label="$rating->getLabelForThreshold()" />
+                        <x-radio :value="$rating->value" :label="$rating->getLabelForThreshold()" />
                     @endforeach
-                </flux:radio.group>
-            </x-fieldset.field>
+                </x-radio.group>
+            </x-field>
 
-            <x-fieldset.field label="Warning message" id="warningThresholdMessage" name="warningThresholdMessage">
-                <x-input.text wire:model.live="form.warningThresholdMessage"></x-input.text>
-            </x-fieldset.field>
-        </x-fieldset.field-group>
+            <x-input label="Warning message" wire:model.blur="form.warningThresholdMessage" />
+        </x-fieldset.group>
     </x-fieldset>
 
     <x-fieldset>
-        <x-fieldset.heading>
-            <x-icon name="blockquote"></x-icon>
-            <x-fieldset.legend>Rating level descriptions</x-fieldset.legend>
-            <x-fieldset.description>
+        <x-fieldset.heading :icon="Tabler::Blockquote" heading="Rating level descriptions">
+            <x-description>
                 Customize the descriptions of what is permitted at each level of the rating scale.
-            </x-fieldset.description>
+            </x-description>
         </x-fieldset.heading>
 
-        <x-fieldset.field-group constrained>
-            <x-fieldset.field label="Level 0" id="description0" name="description0">
-                <x-input.textarea rows="1" wire:model.live="form.description0"></x-input.textarea>
-            </x-fieldset.field>
+        <x-fieldset.group constrained>
+            <x-textarea label="Level 0" wire:model.blur="form.description0" rows="auto"></x-textarea>
 
-            <x-fieldset.field label="Level 1" id="description1" name="description1">
-                <x-input.textarea rows="1" wire:model.live="form.description1"></x-input.textarea>
-            </x-fieldset.field>
+            <x-textarea label="Level 1" wire:model.blur="form.description1" rows="auto"></x-textarea>
 
-            <x-fieldset.field label="Level 2" id="description2" name="description2">
-                <x-input.textarea rows="1" wire:model.live="form.description2"></x-input.textarea>
-            </x-fieldset.field>
+            <x-textarea label="Level 2" wire:model.blur="form.description2" rows="auto"></x-textarea>
 
-            <x-fieldset.field label="Level 3" id="description3" name="description3">
-                <x-input.textarea rows="1" wire:model.live="form.description3"></x-input.textarea>
-            </x-fieldset.field>
-        </x-fieldset.field-group>
+            <x-textarea label="Level 3" wire:model.blur="form.description3" rows="auto"></x-textarea>
+        </x-fieldset.group>
     </x-fieldset>
 
     <x-fieldset.controls>
-        <x-button type="submit" color="primary">Update</x-button>
+        <x-button type="submit" variant="primary">Update</x-button>
     </x-fieldset.controls>
 </x-form>

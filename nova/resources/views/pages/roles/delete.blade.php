@@ -1,7 +1,7 @@
 <x-filament.modal-content :$action title="Delete role?">
     <x-text>
         Are you sure you want to delete the
-        <x-text.strong>{{ $record->display_name }}</x-text.strong>
+        <strong>{{ $record->display_name }}</strong>
         role? You won’t be able to recover it.
     </x-text>
 

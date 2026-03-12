@@ -4,33 +4,22 @@ declare(strict_types=1);
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\Cache;
 use Mistralys\VersionParser\VersionParser;
-use Nova\Foundation\Icons\Icon;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
+
+if (! function_exists('__s')) {
+    function __s(string $key): Stringable
+    {
+        return str(trans($key));
+    }
+}
 
 if (! function_exists('gate')) {
     function gate()
     {
         return app(GateContract::class);
-    }
-}
-
-if (! function_exists('icon')) {
-    function icon(string $name, string $size = 'md', string $class = '', array $attributes = [])
-    {
-        return app(Icon::class)->make(
-            name: $name,
-            size: $size,
-            class: $class,
-            attributes: $attributes
-        );
-    }
-}
-
-if (! function_exists('iconName')) {
-    function iconName(string $name)
-    {
-        return icon($name)->name();
     }
 }
 
@@ -127,7 +116,7 @@ if (! function_exists('get_class_name')) {
 if (! function_exists('external_content')) {
     function external_content($key, $default = null)
     {
-        $subject = data_get(cache('external-content'), $key, $default);
+        $subject = data_get(Cache::get(CacheKeys::ExternalContent->value), $key, $default);
 
         if (blank($subject)) {
             return null;

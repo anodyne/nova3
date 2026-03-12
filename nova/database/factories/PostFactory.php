@@ -85,7 +85,8 @@ class PostFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function (Post $post) {
-            $numberOfAuthors = mt_rand(1, 5);
+            $maxAuthors = min(5, max(1, Character::with('users')->count()));
+            $numberOfAuthors = random_int(1, $maxAuthors);
 
             $distributedWords = $this->distributeWordsRandomly($post->word_count, $numberOfAuthors);
 
@@ -94,7 +95,23 @@ class PostFactory extends Factory
             for ($i = 0; $i < $numberOfAuthors; $i++) {
                 $character = Character::with('users')->inRandomOrder()->first();
 
-                $user = $character->users->first() ?? User::active()->inRandomOrder()->first();
+                if (! $character) {
+                    $character = Character::factory()->create();
+                }
+
+                $user = $character->users->first();
+
+                if (! $user) {
+                    $user = User::active()->inRandomOrder()->first();
+
+                    if (! $user) {
+                        $user = User::factory()->active()->create();
+                    }
+
+                    $character->users()->attach($user->id, [
+                        'primary' => true,
+                    ]);
+                }
 
                 $users[] = $user->id;
 
@@ -107,6 +124,14 @@ class PostFactory extends Factory
             $post->participants = collect($users)->filter()->unique()->values()->all();
             $post->save();
         });
+    }
+
+    public function draft()
+    {
+        return $this->state([
+            'status' => Draft::class,
+            'published_at' => null,
+        ]);
     }
 
     public function pending()

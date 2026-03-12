@@ -4,11 +4,14 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             <x-slot name="actions">
-                <x-button :href="route('admin.users.index')" plain>&larr; Back</x-button>
+                <x-button :href="route('admin.users.index')" variant="ghost" inset="right">
+                    <span aria-hidden="true">←</span>
+                    Back
+                </x-button>
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <div
             x-data="{
@@ -31,95 +34,90 @@
             <x-form :action="route('admin.users.update', $user)" method="PUT">
                 @if (filled($form->published_fields))
                     <x-tab.group name="user">
-                        <x-tab.heading name="info">
-                            <x-icon name="info" size="sm"></x-icon>
+                        <x-tab name="info">
+                            <x-icon :name="Tabler::InfoCircle" size="sm" />
                             Basic info
                             @if ($errors->hasAny(['email', 'name', 'pronouns']))
-                                <span class="shrink-0 text-danger-500">
+                                <span class="text-danger-500 shrink-0">
                                     <x-icon.micro.alert />
                                 </span>
                             @endif
-                        </x-tab.heading>
-                        <x-tab.heading name="bio">
-                            <x-icon name="user-profile" size="sm"></x-icon>
+                        </x-tab>
+                        <x-tab name="bio">
+                            <x-icon :name="Tabler::UserCircle" size="sm" />
                             Bio
                             @if ($errors->has('userBio.*'))
-                                <span class="shrink-0 text-danger-500">
+                                <span class="text-danger-500 shrink-0">
                                     <x-icon.micro.alert />
                                 </span>
                             @endif
-                        </x-tab.heading>
+                        </x-tab>
                     </x-tab.group>
                 @endif
 
                 <div class="space-y-12" x-show="isTab('info')">
                     <x-fieldset>
-                        <x-fieldset.field-group constrained>
-                            <x-fieldset.field
+                        <x-fieldset.group constrained>
+                            <x-input
                                 label="Name"
                                 description="For privacy reasons, consider using a nickname rather than a user’s real name."
-                                id="name"
                                 name="name"
-                                :error="$errors->first('name')"
-                            >
-                                <x-input.text :value="old('name', $user->name)" data-cy="name" />
-                            </x-fieldset.field>
+                                :value="old('name', $user->name)"
+                            />
 
-                            <x-fieldset.field
-                                label="Email address"
-                                id="email"
-                                name="email"
-                                :error="$errors->first('email')"
-                            >
-                                <x-input.email :value="old('email', $user->email)" data-cy="email" />
-                            </x-fieldset.field>
+                            <x-input.email label="Email address" name="email" :value="old('email', $user->email)" />
 
-                            <x-fieldset.field
-                                label="Password"
-                                description="Only users can update their current password. If a user is unable to sign in, they can use the reset password page or an admin can force a password reset."
-                                id="password"
-                                name="password"
-                            ></x-fieldset.field>
+                            <x-field>
+                                <x-label>Password</x-label>
+                                <x-text>
+                                    Only users can update their current password. If a user is unable to sign in, they
+                                    can use the reset password page or an admin can force a password reset.
+                                </x-text>
+                            </x-field>
 
-                            <x-fieldset.field
-                                label="Pronouns"
-                                id="pronouns"
-                                name="pronouns[value]"
-                                :error="$errors->first('pronouns.value')"
-                            >
-                                <x-select class="w-auto" x-model="pronouns">
-                                    <option value="none">Prefer not to share</option>
-                                    <option value="male">He/Him</option>
-                                    <option value="female">She/Her</option>
-                                    <option value="neutral">They/Them</option>
-                                    <option value="other">Other pronouns not listed (please specify)</option>
-                                </x-select>
-                            </x-fieldset.field>
+                            <x-select label="Pronouns" name="pronouns[value]" class="w-auto" x-model="pronouns">
+                                <option value="none">Prefer not to share</option>
+                                <option value="male">He/Him</option>
+                                <option value="female">She/Her</option>
+                                <option value="neutral">They/Them</option>
+                                <option value="other">Other pronouns not listed (please specify)</option>
+                            </x-select>
 
                             <div x-show="pronouns === 'other'" class="space-y-6" x-cloak>
-                                <x-fieldset.field
+                                <x-input
                                     label="What is your subject pronoun?"
-                                    id="pronouns_subject"
                                     name="pronouns[subject]"
-                                    :error="$errors->first('pronouns.subject')"
-                                >
-                                    <x-input.text x-model="pronounSubject" placeholder="He, she, they, ze, etc." />
-                                </x-fieldset.field>
+                                    x-model="pronounSubject"
+                                    placeholder="He, she, they, ze, etc."
+                                />
 
-                                <x-fieldset.field
+                                <x-input
                                     label="What is your object pronoun?"
-                                    id="pronouns_object"
                                     name="pronouns[object]"
-                                    :error="$errors->first('pronouns.object')"
-                                >
-                                    <x-input.text x-model="pronounObject" placeholder="Him, her, them, zir, etc." />
-                                </x-fieldset.field>
+                                    x-model="pronounObject"
+                                    placeholder="Him, her, them, zir, etc."
+                                />
                             </div>
 
-                            <x-fieldset.field label="User photo" id="avatar" name="avatar">
+                            <x-field>
+                                <x-label>User photo</x-label>
                                 <livewire:media-upload-avatar :model="$user" />
-                            </x-fieldset.field>
-                        </x-fieldset.field-group>
+                            </x-field>
+                        </x-fieldset.group>
+                    </x-fieldset>
+
+                    <x-fieldset>
+                        <x-fieldset.group constrained>
+                            <x-field>
+                                <x-label>Role(s) assigned to this user</x-label>
+                                <x-description>
+                                    Roles control what users can do inside of Nova. You can assign as many roles as
+                                    needed to users.
+                                </x-description>
+
+                                <livewire:users-manage-roles :$user />
+                            </x-field>
+                        </x-fieldset.group>
                     </x-fieldset>
 
                     <x-fieldset>
@@ -130,17 +128,6 @@
                             ></x-panel.header>
 
                             <livewire:users-manage-characters :user="$user" />
-                        </x-panel>
-                    </x-fieldset>
-
-                    <x-fieldset>
-                        <x-panel variant="well">
-                            <x-panel.header
-                                title="Roles assigned to this user"
-                                description="Roles control what users can do inside of Nova. You can assign as many roles as needed to users"
-                            ></x-panel.header>
-
-                            <livewire:users-manage-roles :user="$user" />
                         </x-panel>
                     </x-fieldset>
 
@@ -196,7 +183,11 @@
                                         <x-spacing size="md" class="grid grid-cols-3 gap-6">
                                             <div class="col-span-2">
                                                 <div class="flex items-center gap-2">
-                                                    <x-icon name="check" size="md" class="text-gray-500"></x-icon>
+                                                    <x-icon
+                                                        :name="Tabler::CircleCheck"
+                                                        size="md"
+                                                        class="text-gray-500"
+                                                    />
                                                     <x-h3>Activate character</x-h3>
                                                 </div>
                                                 <x-text class="mt-2">
@@ -215,7 +206,11 @@
                                         <x-spacing size="md" class="grid grid-cols-3 gap-6">
                                             <div class="col-span-2">
                                                 <div class="flex items-center gap-2">
-                                                    <x-icon name="remove" size="md" class="text-gray-500"></x-icon>
+                                                    <x-icon
+                                                        :name="Tabler::CircleMinus"
+                                                        size="md"
+                                                        class="text-gray-500"
+                                                    />
                                                     <x-h3>Deactivate user</x-h3>
                                                 </div>
                                                 <x-text class="mt-2">
@@ -234,7 +229,7 @@
                                         <x-spacing size="md" class="grid grid-cols-3 gap-6">
                                             <div class="col-span-2">
                                                 <div class="flex items-center gap-2">
-                                                    <x-icon name="lock-closed" size="md" class="text-gray-500"></x-icon>
+                                                    <x-icon :name="Tabler::Lock" size="md" class="text-gray-500" />
                                                     <x-h3>Force password reset</x-h3>
                                                 </div>
                                                 <x-text class="mt-2">
@@ -264,8 +259,8 @@
                 </div>
 
                 <x-fieldset.controls>
-                    <x-button type="submit" color="primary">Update</x-button>
-                    <x-button :href="route('admin.users.index')" plain>Cancel</x-button>
+                    <x-button type="submit" variant="primary">Update</x-button>
+                    <x-button :href="route('admin.users.index')" variant="ghost">Cancel</x-button>
                 </x-fieldset.controls>
             </x-form>
         </div>

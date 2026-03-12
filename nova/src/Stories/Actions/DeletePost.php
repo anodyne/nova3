@@ -13,6 +13,10 @@ class DeletePost
 
     public function handle(Post $post): Post
     {
+        $post->characterAuthors()->detach();
+
+        $post->userAuthors()->detach();
+
         return tap($post)->delete();
     }
 }

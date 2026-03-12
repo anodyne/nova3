@@ -4,47 +4,53 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
-use Nova\Foundation\Icons\IconSets;
+use Nova\Foundation\Actions\RecacheIcons;
+use Nova\Foundation\Enums\CacheKeys;
 
 class IconPicker extends Component
 {
     public string $field = 'icon';
 
-    public string $search = '';
+    public string $query = '';
 
-    public string $selected = '';
+    public ?string $selected = null;
 
-    public function selectIcon(string $icon): void
+    public function mount()
     {
-        $this->selected = $icon;
-
-        $this->dispatch('dropdown-close');
-
-        $this->reset('search');
-    }
-
-    #[Computed]
-    public function filteredIcons(): array
-    {
-        $allIcons = app(IconSets::class)->getDefault()->map();
-        ksort($allIcons);
-
-        if (blank($this->search)) {
-            return $allIcons;
+        if (Cache::missing(CacheKeys::SearchableIcons->value)) {
+            RecacheIcons::run();
         }
-
-        return collect($allIcons)
-            ->filter(fn ($value, $key) => Str::contains($key, trim(strtolower($this->search))))
-            ->all();
     }
 
     public function render()
     {
         return view('livewire.icon-picker', [
-            'icons' => $this->filteredIcons,
+            'filteredIcons' => $this->filteredIcons,
         ]);
+    }
+
+    #[Computed]
+    public function filteredIcons(): array
+    {
+        $query = strtolower($this->query);
+
+        if (blank($query)) {
+            if (filled($this->selected)) {
+                return [$this->selected];
+            }
+
+            return [];
+        }
+
+        $icons = Cache::get(CacheKeys::SearchableIcons->value, []);
+
+        return collect($icons)
+            ->filter(fn ($icon) => str_contains($icon['searchable'], $query))
+            ->take(25)
+            ->map(fn ($icon) => $icon['value'])
+            ->toArray();
     }
 }

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Features;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
 
 class GridFeatureBlock extends FeatureBlock
 {
@@ -26,7 +27,7 @@ class GridFeatureBlock extends FeatureBlock
             Section::make()
                 ->heading('Appearance')
                 ->description('Customize the appearance of the individual feature grid items')
-                ->icon(iconName('palette'))
+                ->icon(Tabler::Palette)
                 ->schema([
                     ColorPicker::make('block.heading-color')->label('Heading color'),
                     ColorPicker::make('block.description-color')->label('Description color'),
@@ -35,20 +36,14 @@ class GridFeatureBlock extends FeatureBlock
             Section::make()
                 ->heading('Features')
                 ->description('Define the features you want to highlight with this block')
-                ->icon(iconName('sparkles'))
+                ->icon(Tabler::Sparkles)
                 ->schema([
                     Repeater::make('block.features')->schema([
                         TextInput::make('heading'),
                         Textarea::make('description'),
-                        TextInput::make('icon')
-                            ->helperText('You have access to the full Tabler icon set for these icons')
-                            ->hintAction(
-                                Action::make('goToTabler')
-                                    ->icon(iconName('external'))
-                                    ->label('View Tabler Icons')
-                                    ->link()
-                                    ->url('https://tabler-icons.io')
-                            ),
+                        Select::make('icon')
+                            ->options(Tabler::class)
+                            ->searchable(),
                     ]),
                 ]),
         ];

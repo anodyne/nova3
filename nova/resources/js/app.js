@@ -1,7 +1,9 @@
 import axios from 'axios';
+import '@tailwindplus/elements';
 import '../../../vendor/wire-elements/pro/resources/js/overlay-component';
 
 import Clipboard from '@ryangjchandler/alpine-clipboard';
+import CharacterCount from '@tiptap/extension-character-count';
 import Carousel from './components/carousel';
 import ColorPicker from './components/color-picker';
 import Cropper from './components/cropper';
@@ -28,13 +30,21 @@ document.addEventListener('alpine:init', () => {
     window.Alpine.data('ratings', Ratings);
     window.Alpine.data('tabsList', TabsList);
     window.Alpine.data('tailwindScaleRange', TailwindScaleRange);
-    window.Alpine.data('tiptap', TipTap);
+    // window.Alpine.data('tiptap', TipTap);
     window.Alpine.data('switchToggle', SwitchToggle);
     window.Alpine.data('wordCount', WordCount);
 
     window.Alpine.plugin(Clipboard);
 
     registerFilepond();
+});
+
+document.addEventListener('flux:editor', (e) => {
+    e.detail.registerExtension(
+        CharacterCount.configure({
+            wordCounter: (text) => text.split(/\s+/).filter((word) => word !== '').length,
+        }),
+    );
 });
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

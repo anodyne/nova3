@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Nova\Forms\Fields;
 
 use Closure;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Text;
 
 class EmailField extends Field
 {
@@ -22,8 +23,13 @@ class EmailField extends Field
             TextInput::make('attrs.placeholder')
                 ->label('Placeholder'),
 
-            Placeholder::make('additionalAttributes')
-                ->content(str('Email fields will include an `inputmode` of **email** to ensure software keyboards display the correct options.')->markdown()->toHtmlString()),
+            Section::make()
+                ->schema([
+                    Text::make(str('Email fields will include an `inputmode` of **email** to ensure software keyboards display the correct options.')->markdown()->toHtmlString())
+                        ->color('gray'),
+                ])
+                ->compact()
+                ->secondary(),
         ];
     }
 

@@ -40,13 +40,13 @@
 @if ($admin)
     @if ($static)
         @if (filled($value) || blank($value) && ! $hideWhenEmpty)
-            <x-fieldset.field :label="$label" :id="$uid">
+            <x-input.display :label="$label" :id="$uid">
                 @if (filled($value))
                     <div class="not-prose" data-slot="control">
                         <dl>
                             @foreach ($value as $item)
                                 <div
-                                    class="rounded-lg px-4 py-2 odd:bg-gray-950/[.04] sm:grid sm:grid-cols-3 sm:gap-4 dark:odd:bg-white/[.07]"
+                                    class="rounded-lg px-4 py-2 odd:bg-gray-950/5 sm:grid sm:grid-cols-3 sm:gap-4 dark:odd:bg-white/[.07]"
                                 >
                                     <dt class="text-sm/6 font-medium text-gray-900 dark:text-white">
                                         {{ data_get($item, 'key') }}
@@ -61,24 +61,29 @@
                 @else
                     <x-text>—</x-text>
                 @endif
-            </x-fieldset.field>
+            </x-input.display>
         @endif
     @else
-        <x-fieldset.field
-            :label="$label"
-            :description="$description"
-            :id="$uid"
-            :name="$inputName"
-            :error="$error"
-            :required="$required"
-        >
+        <x-field>
+            @if (filled($label))
+                <x-label>{{ $label }}</x-label>
+            @endif
+
+            @if (filled($description))
+                <x-description>{{ $description }}</x-description>
+            @endif
+
             <x-input.key-value
                 :attributes="$attributesBag"
                 :$defaults
                 :$value
+                :id="$uid"
+                :name="$inputName"
                 wire:model.live.debounce="values.{{ $uid }}"
-            ></x-input.key-value>
-        </x-fieldset.field>
+            />
+
+            <x-field.error :name="$errorKey" />
+        </x-field>
     @endif
 @else
     @if ($static)
@@ -89,7 +94,7 @@
                         <dl>
                             @foreach ($value as $item)
                                 <div
-                                    class="rounded-lg px-4 py-2 odd:bg-gray-950/[.04] sm:grid sm:grid-cols-3 sm:gap-4 dark:odd:bg-white/[.07]"
+                                    class="rounded-lg px-4 py-2 odd:bg-gray-950/5 sm:grid sm:grid-cols-3 sm:gap-4 dark:odd:bg-white/[.07]"
                                 >
                                     <dt class="text-sm/6 font-medium text-gray-900 dark:text-white">
                                         {{ data_get($item, 'key') }}
@@ -110,11 +115,10 @@
         <x-public::field.key-value
             :label="$label"
             :description="$description"
-            :required="$required"
             :attributes="$attributesBag"
             :$defaults
             :$value
             wire:model.live.debounce="values.{{ $uid }}"
-        ></x-public::field.key-value>
+        />
     @endif
 @endif

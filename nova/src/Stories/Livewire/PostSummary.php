@@ -11,11 +11,12 @@ use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Actions\UpdatePost;
 use Nova\Stories\Data\PostSummaryData;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Models\Post;
 
 class PostSummary extends Component
 {
-    use Concerns\InteractsWithPost;
+    use InteractsWithPost;
 
     public ?string $summary = null;
 

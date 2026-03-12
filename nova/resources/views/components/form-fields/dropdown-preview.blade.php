@@ -1,3 +1,3 @@
 <x-public::field.preview>
-    <x-form-fields.dropdown :$details :$attrs></x-form-fields.dropdown>
+    <x-form-fields.dropdown :$details :$attrs />
 </x-public::field.preview>

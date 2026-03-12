@@ -7,6 +7,7 @@ namespace Nova\Departments\Models\Builders;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Departments\Models\Concerns\QueriesUniqueTags;
 use Nova\Departments\Models\Department;
+use Nova\Departments\Models\Position;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 class PositionBuilder extends Builder
@@ -26,7 +27,7 @@ class PositionBuilder extends Builder
 
     public function searchFor($search): self
     {
-        return $this->where('name', 'like', "%{$search}%")
+        return $this->where(Position::column('name'), 'like', "%{$search}%")
             ->orWhereRelation('department', Department::column('name'), 'like', "%{$search}%");
     }
 }

@@ -14,9 +14,7 @@ use function Pest\Laravel\post;
 uses()->group('menus');
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.create'));
 
     test('can view the create menu item page', function () {
         get(route('admin.menu-items.create'))->assertSuccessful();
@@ -25,23 +23,24 @@ describe('authorized user', function () {
     test('can create a menu item', function () {
         Event::fake();
 
-        $data = MenuItem::factory()->make();
+        $data = MenuItem::factory()->forRequest();
 
         from(route('admin.menu-items.create'))
             ->followingRedirects()
-            ->post(route('admin.menu-items.store'), $data->toArray())
+            ->post(route('admin.menu-items.store'), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(MenuItem::class, $data->toArray());
+        assertDatabaseHas(MenuItem::class, [
+            'label' => $data->model->label,
+            'status' => 'active',
+        ]);
 
         Event::assertDispatched(MenuItemCreated::class);
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the create menu item page', function () {
         get(route('admin.menu-items.create'))->assertForbidden();

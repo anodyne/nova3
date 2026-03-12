@@ -6,9 +6,9 @@ namespace Nova\Pages\Blocks\Content;
 
 use Closure;
 use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Grid;
 use Nova\Pages\Blocks\Block as PageBuilderBlock;
 use Nova\Pages\Enums\ProseSize;
 

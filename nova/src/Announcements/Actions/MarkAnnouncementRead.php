@@ -16,8 +16,8 @@ class MarkAnnouncementRead
     public function handle(Announcement $announcement, User $user): void
     {
         AnnouncementNotification::query()
-            ->whereAnnouncement($announcement->id)
-            ->whereUser($user->id)
+            ->announcement($announcement->id)
+            ->user($user->id)
             ->update(['is_seen' => true]);
     }
 }

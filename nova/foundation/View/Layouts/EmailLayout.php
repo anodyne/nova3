@@ -18,7 +18,7 @@ class EmailLayout extends Component
 
     protected function getBase64EncodedLogo(): ?string
     {
-        $userUploadedLogo = settings()->getFirstMedia('email-logo');
+        $userUploadedLogo = settings()?->getFirstMedia('logo-email');
 
         return match (filled($userUploadedLogo)) {
             true => base64_encode(file_get_contents($userUploadedLogo->getPath())),

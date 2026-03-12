@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
@@ -31,25 +32,24 @@ describe('authorized user', function () {
         $inactiveUser = User::factory()->inactive()->create();
 
         livewire(UsersList::class)
-            ->assertTableActionVisible(ViewAction::class, $activeUser)
-            ->assertTableActionHidden(EditAction::class, $activeUser)
-            ->assertTableActionHidden(DeleteAction::class, $activeUser)
-            ->assertTableActionHidden('impersonate', $activeUser)
-            ->assertTableActionHidden('activate', $activeUser)
-            ->assertTableActionHidden('deactivate', $activeUser)
-            ->assertTableActionVisible(ViewAction::class, $inactiveUser)
-            ->assertTableActionHidden(EditAction::class, $inactiveUser)
-            ->assertTableActionHidden(DeleteAction::class, $inactiveUser)
-            ->assertTableActionHidden('impersonate', $inactiveUser)
-            ->assertTableActionHidden('activate', $inactiveUser)
-            ->assertTableActionHidden('deactivate', $inactiveUser);
+            ->removeTableFilters()
+            ->assertActionVisible(TestAction::make(ViewAction::class)->table($activeUser))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($activeUser))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($activeUser))
+            ->assertActionHidden(TestAction::make('impersonate')->table($activeUser))
+            ->assertActionHidden(TestAction::make('activate')->table($activeUser))
+            ->assertActionHidden(TestAction::make('deactivate')->table($activeUser))
+            ->assertActionVisible(TestAction::make(ViewAction::class)->table($inactiveUser))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($inactiveUser))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('impersonate')->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('activate')->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('deactivate')->table($inactiveUser));
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the view user page', function () {
         $activeUser = User::factory()->active()->create();

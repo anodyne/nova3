@@ -28,7 +28,7 @@
                         },
                     ])
                 >
-                    <x-icon :name="$icon" size="sm"></x-icon>
+                    <x-icon :name="$icon" size="sm" />
                 </div>
                 <span class="bg-white px-3 text-sm/6 font-semibold text-gray-900">{{ $title }}</span>
             </div>
@@ -44,7 +44,7 @@
 
         @if (filled($warning))
             <x-text color="warning">
-                <strong class="font-semibold">Warning:</strong>
+                <strong>Warning:</strong>
                 {{ $warning }}
             </x-text>
         @endif
@@ -57,7 +57,7 @@
 
         @if (filled($alert))
             <x-text color="danger">
-                <strong class="font-semibold">Danger:</strong>
+                <strong>Danger:</strong>
                 {{ $alert }}
             </x-text>
         @endif

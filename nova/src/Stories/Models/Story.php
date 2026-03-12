@@ -16,9 +16,15 @@ use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
-use Nova\Stories\Events;
+use Nova\Stories\Events\StoryCreated;
+use Nova\Stories\Events\StoryDeleted;
+use Nova\Stories\Events\StoryUpdated;
 use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\States\StoryStatus;
+use Nova\Stories\Models\States\StoryStatus\Completed;
+use Nova\Stories\Models\States\StoryStatus\Current;
+use Nova\Stories\Models\States\StoryStatus\Ongoing;
+use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Spatie\Activitylog\LogOptions;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\MediaLibrary\HasMedia;
@@ -56,9 +62,9 @@ class Story extends Model implements HasMedia, Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\StoryCreated::class,
-        'deleted' => Events\StoryDeleted::class,
-        'updated' => Events\StoryUpdated::class,
+        'created' => StoryCreated::class,
+        'deleted' => StoryDeleted::class,
+        'updated' => StoryUpdated::class,
     ];
 
     public function allPosts(): HasMany
@@ -98,7 +104,7 @@ class Story extends Model implements HasMedia, Sortable
     public function canPost(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(StoryStatus\Current::class)
+            get: fn (): bool => $this->status->equals(Current::class)
         );
     }
 
@@ -112,28 +118,28 @@ class Story extends Model implements HasMedia, Sortable
     public function isCompleted(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(StoryStatus\Completed::class)
+            get: fn (): bool => $this->status->equals(Completed::class)
         );
     }
 
     public function isCurrent(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(StoryStatus\Current::class)
+            get: fn (): bool => $this->status->equals(Current::class)
         );
     }
 
     public function isOngoing(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(StoryStatus\Ongoing::class)
+            get: fn (): bool => $this->status->equals(Ongoing::class)
         );
     }
 
     public function isUpcoming(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->status->equals(StoryStatus\Upcoming::class)
+            get: fn (): bool => $this->status->equals(Upcoming::class)
         );
     }
 

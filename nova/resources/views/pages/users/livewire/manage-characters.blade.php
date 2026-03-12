@@ -1,38 +1,30 @@
 @use('Nova\Characters\Models\Character')
 
 <x-panel>
-    <x-spacing size="2xs">
-        <x-panel.manage.search :$search placeholder="Find a character to assign (type * to see all characters)">
-            @if ($searchResults->count() === 0)
-                <x-empty-state.small icon="characters" title="No character(s) found"></x-empty-state.small>
-            @else
-                <x-dropdown.group>
-                    @foreach ($searchResults as $character)
-                        <x-panel.manage.result-item
-                            :value="$character->id"
-                            :text="$character->name"
-                        ></x-panel.manage.result-item>
-                    @endforeach
-                </x-dropdown.group>
-
-                @can('viewAny', Character::class)
-                    <x-dropdown.group>
-                        <x-dropdown.text>Don’t see the character you’re looking for?</x-dropdown.text>
-                        <x-dropdown.item :href="route('admin.characters.index')">
-                            Go to character management &rarr;
-                        </x-dropdown.item>
-                    </x-dropdown.group>
-                @endcan
-            @endif
-        </x-panel.manage.search>
+    <x-spacing size="3xs" class="relative">
+        <x-select
+            wire:model.live.debounce="selected"
+            variant="combobox"
+            placeholder="Find a character to assign..."
+            clearable
+        >
+            @foreach ($models as $model)
+                <x-select.option :value="$model->id">
+                    <div class="flex items-center gap-2.5">
+                        <x-status :status="$model->status" />
+                        {{ $model->display_name }}
+                    </div>
+                </x-select.option>
+            @endforeach
+        </x-select>
     </x-spacing>
 
     @if ($characters->count() > 0)
-        <div class="divide-y divide-gray-950/5 dark:divide-white/5">
+        <x-spacing.group divided>
             @foreach ($characters as $character)
                 <x-spacing class="flex items-center justify-between" size="row" wire:key="row-{{ $character->id }}">
                     <div>
-                        <x-avatar.character :character="$character"></x-avatar.character>
+                        <x-avatar.character :$character positions />
                     </div>
 
                     <div class="flex items-center justify-end space-x-3">
@@ -40,40 +32,42 @@
                             <x-badge color="primary">Primary</x-badge>
                         @else
                             <x-button
-                                tag="button"
                                 size="xs"
                                 wire:click="setAsPrimaryCharacter({{ $character->id }})"
-                                outline
+                                variant="filled"
                             >
                                 Make primary
                             </x-button>
                         @endif
 
-                        <x-dropdown placement="bottom-end">
-                            <x-slot name="trigger" color="neutral-danger">
-                                <x-icon name="trash" size="sm"></x-icon>
+                        <x-dropdown placement="bottom end">
+                            <x-slot name="trigger">
+                                <x-button type="button" variant="subtle" square>
+                                    <x-icon :name="Tabler::Trash" size="sm" />
+                                </x-button>
                             </x-slot>
 
                             <x-dropdown.group>
                                 <x-dropdown.text>
                                     Are you sure you want to unassign
-                                    <strong class="font-semibold text-gray-700 dark:text-gray-200">
+                                    <strong>
                                         {{ $character->name }}
                                     </strong>
                                     from this user?
                                 </x-dropdown.text>
                             </x-dropdown.group>
                             <x-dropdown.group>
-                                <x-dropdown.item-danger
-                                    type="button"
-                                    icon="trash"
-                                    wire:click="remove({{ $character->id }})"
-                                >
-                                    Unassign
-                                </x-dropdown.item-danger>
                                 <x-dropdown.item
                                     type="button"
-                                    icon="prohibited"
+                                    :icon="Tabler::Trash"
+                                    wire:click="remove({{ $character->id }})"
+                                    variant="danger"
+                                >
+                                    Unassign
+                                </x-dropdown.item>
+                                <x-dropdown.item
+                                    type="button"
+                                    :icon="Tabler::Ban"
                                     x-on:click.prevent="$dispatch('dropdown-close')"
                                 >
                                     Cancel
@@ -83,13 +77,13 @@
                     </div>
                 </x-spacing>
             @endforeach
-        </div>
+        </x-spacing.group>
     @else
-        <x-panel.manage.empty
-            icon="characters"
-            heading="No character(s) assigned"
-            description="Get started by assigning a character to this user"
-        ></x-panel.manage.empty>
+        <x-empty>
+            <x-illustration :name="Illustration::Vulcan" />
+            <x-empty.heading>No characters assigned</x-empty.heading>
+            <x-empty.text>Get started by assigning a character to this user</x-empty.text>
+        </x-empty>
     @endif
 
     <input type="hidden" name="assigned_characters" value="{{ $assignedCharacters }}" />

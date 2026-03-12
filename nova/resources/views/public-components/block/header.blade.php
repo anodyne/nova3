@@ -69,8 +69,8 @@
                     >
                         <span
                             @class([
-                                'flex items-center gap-1.5 text-sm/6 font-semibold text-[--content-callout-text-color]',
-                                'bg-[--content-callout-bg-color] px-3 py-1 ring-1 ring-[--content-callout-border-color]' => $calloutType === CalloutType::Badge,
+                                'flex items-center gap-1.5 text-sm/6 font-semibold text-(--content-callout-text-color)',
+                                'bg-(--content-callout-bg-color) px-3 py-1 ring-1 ring-(--content-callout-border-color)' => $calloutType === CalloutType::Badge,
                                 $calloutRadius->getTailwindClasses() => $calloutType === CalloutType::Badge,
                                 $calloutShadow->getTailwindClasses() => $calloutType === CalloutType::Badge,
                             ])
@@ -78,15 +78,21 @@
                             <span>{{ data_get($callout, 'text') }}</span>
 
                             @if (data_get($callout, 'decoration') === 'arrow')
-                                <span class="text-base/6" aria-hidden="true">&rarr;</span>
+                                <span class="text-base/6" aria-hidden="true">
+                                    <span aria-hidden="true">→</span>
+                                </span>
                             @endif
 
                             @if (data_get($callout, 'decoration') === 'single-chevron')
-                                <span class="text-base/6" aria-hidden="true">&rsaquo;</span>
+                                <span class="text-base/6" aria-hidden="true">
+                                    &rsaquo;
+                                </span>
                             @endif
 
                             @if (data_get($callout, 'decoration') === 'double-chevron')
-                                <span class="text-base/6" aria-hidden="true">&raquo;</span>
+                                <span class="text-base/6" aria-hidden="true">
+                                    &raquo;
+                                </span>
                             @endif
                         </span>
                     </a>
@@ -96,8 +102,8 @@
             @if (filled(data_get($heading, 'text')))
                 <h1
                     @class([
-                        'font-[family-name:--font-header] font-bold tracking-tight @xs:text-4xl @md:text-6xl',
-                        'text-[--content-heading-color]',
+                        'font-(family-name:--font-header) font-bold tracking-tight @xs:text-4xl @md:text-6xl',
+                        'text-(--content-heading-color)',
                         $headingTextShadow->getTailwindClasses(),
                     ])
                 >
@@ -109,7 +115,7 @@
                 <x-public::lead
                     @class([
                         'mt-6' => filled($heading),
-                        'text-[--content-message-color]',
+                        'text-(--content-message-color)',
                         $messageTextShadow->getTailwindClasses(),
                     ])
                     markdown

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Nova\Applications\Enums\ApplicationResult;
-use Nova\Applications\Events;
+use Nova\Applications\Events\ApplicationCreated;
 use Nova\Applications\Models\Builders\ApplicationBuilder;
 use Nova\Characters\Models\Character;
 use Nova\Discussions\Concerns\Discussable;
@@ -43,7 +43,7 @@ class Application extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\ApplicationAccepted::class,
+        'created' => ApplicationCreated::class,
     ];
 
     public function acceptedReviews(): BelongsToMany
@@ -75,12 +75,16 @@ class Application extends Model
     public function reviews(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'application_review')
-            ->withPivot(['result', 'comments'])
+            ->withPivot(['result', 'comments', 'id'])
+            ->withTrashed()
             ->using(ApplicationReview::class);
     }
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        /** @var BelongsTo $relation */
+        $relation = $this->belongsTo(User::class)->withTrashed();
+
+        return $relation;
     }
 }

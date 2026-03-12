@@ -4,24 +4,39 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\DeleteAction as FilamentDeleteAction;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 
-class DeleteAction extends FilamentDeleteAction
+class DeleteAction extends \Filament\Actions\DeleteAction
 {
-    use Concerns\HasModalContentView;
+    use HasModalContentView;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->icon(iconName('trash'));
+        $this->icon(Tabler::Trash);
 
         $this->requiresConfirmation(false);
 
-        $this->modalWidth(MaxWidth::Large);
+        $this->successNotificationTitle(function (Model $record): string {
+            return trans('messages.table.delete-success', [
+                'title' => $record->title,
+                'label' => $this->getRecordTitle(),
+            ]);
+        });
+
+        $this->failureNotificationTitle(function (Model $record): string {
+            return trans('messages.table.delete-failure', [
+                'title' => $record->title,
+                'label' => $this->getRecordTitle(),
+            ]);
+        });
+
+        $this->modalWidth(Width::Large);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

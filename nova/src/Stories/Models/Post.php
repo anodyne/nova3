@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Scout\Searchable;
 use Nova\Characters\Models\Character;
@@ -20,9 +21,19 @@ use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Foundation\Helpers\TimeHelper;
 use Nova\Foundation\Models\Model;
 use Nova\Stories\Enums\ContentRatingValue;
-use Nova\Stories\Events;
+use Nova\Stories\Events\PostCreated;
+use Nova\Stories\Events\PostCreating;
+use Nova\Stories\Events\PostDeleted;
+use Nova\Stories\Events\PostSaved;
+use Nova\Stories\Events\PostSaving;
+use Nova\Stories\Events\PostUpdated;
 use Nova\Stories\Models\Builders\PostBuilder;
+use Nova\Stories\Models\Concerns\HasContentRatings;
 use Nova\Stories\Models\States\PostStatus;
+use Nova\Stories\Models\States\PostStatus\Draft;
+use Nova\Stories\Models\States\PostStatus\Pending;
+use Nova\Stories\Models\States\PostStatus\Published;
+use Nova\Stories\Models\States\PostStatus\Started;
 use Nova\Stories\Observers\PostObserver;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
@@ -34,7 +45,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(PostBuilder::class)]
 class Post extends Model implements Sortable
 {
-    use Concerns\HasContentRatings;
+    use HasContentRatings;
     use HasFactory;
     use HasPrefixedId;
     use HasStates;
@@ -42,6 +53,7 @@ class Post extends Model implements Sortable
         LogsActivity::getActivitylogOptions as baseActivitylogOptions;
     }
     use Searchable;
+    use SoftDeletes;
     use SortableTrait;
 
     public $sortable = [
@@ -73,20 +85,19 @@ class Post extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'creating' => Events\PostCreating::class,
-        'created' => Events\PostCreated::class,
-        'deleted' => Events\PostDeleted::class,
-        'saved' => Events\PostSaved::class,
-        'saving' => Events\PostSaving::class,
-        'updated' => Events\PostUpdated::class,
+        'creating' => PostCreating::class,
+        'created' => PostCreated::class,
+        'deleted' => PostDeleted::class,
+        'saved' => PostSaved::class,
+        'saving' => PostSaving::class,
+        'updated' => PostUpdated::class,
     ];
 
     public function participatingUsers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'post_author')
-            // ->withPivot(['post_id', 'user_id', 'word_count'])
+            ->withTrashed()
             ->withPivot(['post_id', 'user_id', 'updated_at', 'word_count']);
-        // ->groupBy('pivot_user_id', 'pivot_post_id')
     }
 
     public function characterAuthors(): MorphToMany
@@ -101,6 +112,7 @@ class Post extends Model implements Sortable
     {
         return $this->morphedByMany(User::class, 'authorable', 'post_author')
             ->withPivot(['as', 'user_id'])
+            ->withTrashed()
             ->using(PostAuthor::class)
             ->withTimestamps();
     }
@@ -112,32 +124,38 @@ class Post extends Model implements Sortable
 
     public function postType(): BelongsTo
     {
-        return $this->belongsTo(PostType::class)->withTrashed();
+        /** @var BelongsTo $relation */
+        $relation = $this->belongsTo(PostType::class)->withTrashed();
+
+        return $relation;
     }
 
     public function lockOwner(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'locked_by');
+        /** @var BelongsTo $relation */
+        $relation = $this->belongsTo(User::class, 'locked_by')->withTrashed();
+
+        return $relation;
     }
 
     public function isDraft(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->status->equals(PostStatus\Draft::class)
+            get: fn (): bool => $this->status->equals(Draft::class)
         );
     }
 
     public function isPending(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->status->equals(PostStatus\Pending::class)
+            get: fn (): bool => $this->status->equals(Pending::class)
         );
     }
 
     public function isPublished(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->status->equals(PostStatus\Published::class)
+            get: fn (): bool => $this->status->equals(Published::class)
         );
     }
 
@@ -151,7 +169,7 @@ class Post extends Model implements Sortable
     public function isStarted(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => $this->status->equals(PostStatus\Started::class)
+            get: fn (): bool => $this->status->equals(Started::class)
         );
     }
 
@@ -257,7 +275,7 @@ class Post extends Model implements Sortable
     {
         return static::query()
             ->story($this->story)
-            ->whereNotState('status', PostStatus\Started::class);
+            ->whereNotState('status', Started::class);
     }
 
     public function shouldSortWhenCreating(): bool

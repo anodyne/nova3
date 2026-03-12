@@ -1,7 +1,7 @@
 <h2
     {{
         $attributes->class([
-            'font-[family-name:--font-header] font-bold tracking-tight @xs:text-3xl @md:text-4xl',
+            'font-(family-name:--font-header) font-bold tracking-tight @xs:text-3xl @md:text-4xl',
         ])
     }}
 >

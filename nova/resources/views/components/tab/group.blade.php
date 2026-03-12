@@ -1,21 +1,13 @@
 @props([
-    'name' => '',
-    'color' => 'blue',
+    'tabs',
 ])
 
-@php
-    $name = preg_replace('/[\s]/', '-', $name);
-    if ($name == '') {
-        exit('you need to specify the name property of the tab');
-    }
-@endphp
+<flux:tab.group {{ $attributes }}>
+    <flux:tabs
+        class="group inline-flex h-auto gap-0.5! rounded-lg border-none bg-gray-50 ring-1 ring-gray-200 ring-inset dark:bg-gray-950 dark:ring-gray-800"
+    >
+        {{ $tabs }}
+    </flux:tabs>
 
-<div
-    data-slot="tabs"
-    @class([
-        'inline-flex items-center gap-x-1.5 overflow-x-scroll rounded-full bg-gray-950/[.08] px-[5px] py-1 text-sm/6 dark:bg-white/5',
-        $attributes->get('class') => $attributes->has('class'),
-    ])
->
     {{ $slot }}
-</div>
+</flux:tab.group>

@@ -15,11 +15,11 @@ class StoreApplicationRequest extends FormRequest
     {
         $rules = [
             'userInfo.name' => ['required'],
-            'userInfo.email' => ['required', 'email'],
+            'userInfo.email' => ['required', 'email:rfc'],
             'userInfo.password' => ['required'],
 
             'characterInfo.name' => ['required'],
-            'characterInfo.position' => ['nullable'],
+            'characterInfo.assigned_positions' => ['nullable'],
         ];
 
         $userBioForm = Form::key('userBio')->first();

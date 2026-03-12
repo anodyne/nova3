@@ -16,7 +16,9 @@ use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
 use Nova\Themes\BaseTheme;
 use Nova\Themes\Data\ThemeSettings;
-use Nova\Themes\Events;
+use Nova\Themes\Events\ThemeCreated;
+use Nova\Themes\Events\ThemeDeleted;
+use Nova\Themes\Events\ThemeUpdated;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 
 #[UseEloquentBuilder(ThemeBuilder::class)]
@@ -39,9 +41,9 @@ class Theme extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\ThemeCreated::class,
-        'deleted' => Events\ThemeDeleted::class,
-        'updated' => Events\ThemeUpdated::class,
+        'created' => ThemeCreated::class,
+        'deleted' => ThemeDeleted::class,
+        'updated' => ThemeUpdated::class,
     ];
 
     public function isCurrentPublicTheme(): Attribute

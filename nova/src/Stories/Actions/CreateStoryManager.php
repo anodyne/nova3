@@ -6,6 +6,7 @@ namespace Nova\Stories\Actions;
 
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Media\Actions\UploadImage;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\StoreStoryRequest;
 use Spatie\Activitylog\Facades\LogBatch;
@@ -25,7 +26,12 @@ class CreateStoryManager
 
             UpdateStoryStatus::run($story, $request->status);
 
-            UploadStoryImages::run($story, $request->image_path);
+            UploadImage::run(
+                model: $story,
+                collection: 'story-image',
+                action: $request->getImageAction(),
+                tempPath: $request->getImageTempPath(),
+            );
 
             LogBatch::endBatch();
 

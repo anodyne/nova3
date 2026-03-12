@@ -12,14 +12,18 @@ use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Actions\UpdatePostAuthors;
 use Nova\Stories\Data\PostAuthorsData;
+use Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors;
 use Nova\Stories\Models\Post;
 
 class PostAuthors extends Component
 {
-    use Concerns\InteractsWithCharacterAuthors;
-    use Concerns\InteractsWithPost;
-    use Concerns\InteractsWithPostType;
-    use Concerns\InteractsWithUserAuthors;
+    use InteractsWithCharacterAuthors;
+    use InteractsWithPost;
+    use InteractsWithPostType;
+    use InteractsWithUserAuthors;
 
     public function hasAuthors(): bool
     {

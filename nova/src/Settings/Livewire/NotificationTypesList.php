@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
@@ -63,11 +64,11 @@ class NotificationTypesList extends TableComponent
                     ->alignCenter()
                     ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary'),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         Action::make('auditNotification')
-                            ->icon(iconName('show'))
+                            ->icon(Tabler::Eye)
                             ->label('User preferences')
                             ->size('lg')
                             ->color('gray')
@@ -78,7 +79,7 @@ class NotificationTypesList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('userDefaults')
-                            ->icon(iconName('preferences'))
+                            ->icon(Tabler::Adjustments)
                             ->label('Default values')
                             ->size('lg')
                             ->color('gray')
@@ -88,7 +89,7 @@ class NotificationTypesList extends TableComponent
                                 'database_default' => $record->database_default,
                                 'mail_default' => $record->mail_default,
                             ])
-                            ->form([
+                            ->schema([
                                 Toggle::make('database_default')
                                     ->label('In-app')
                                     ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
@@ -114,7 +115,7 @@ class NotificationTypesList extends TableComponent
 
                         Action::make('discordSettings')
                             ->label('Discord settings')
-                            ->icon(iconName('brand-discord'))
+                            ->icon(Tabler::BrandDiscord)
                             ->size('lg')
                             ->modalWidth('xl')
                             ->color('gray')
@@ -124,7 +125,7 @@ class NotificationTypesList extends TableComponent
                                 'webhook' => $record->discord_settings?->webhook,
                                 'color' => $record->discord_settings?->color,
                             ])
-                            ->form([
+                            ->schema([
                                 Toggle::make('use_global')
                                     ->label('Use global settings')
                                     ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
@@ -165,7 +166,7 @@ class NotificationTypesList extends TableComponent
             ->headerActions([
                 Action::make('globalDiscordSettings')
                     ->label('Global Discord settings')
-                    ->icon(iconName('brand-discord'))
+                    ->icon(Tabler::BrandDiscord)
                     ->color('gray')
                     ->modalWidth('xl')
                     ->modalSubmitActionLabel('Update')
@@ -174,18 +175,8 @@ class NotificationTypesList extends TableComponent
                         'webhook' => settings('discord.webhook'),
                         'color' => settings('discord.color'),
                     ])
-                    ->form([
-                        TextInput::make('webhook')
-                            ->label('Discord webhook')
-                            ->helperText(
-                                Html::element('ol')
-                                    ->class('list-decimal list-inside space-y-1 px-1')
-                                    ->children([
-                                        Html::element('li')->text('From your Discord server, go to Server Settings > Integrations > Webhooks'),
-                                        Html::element('li')->text('Add a webhook and select the channel notifications should be sent to'),
-                                        Html::element('li')->text('Copy the webhook URL and paste it in the field above'),
-                                    ])
-                            ),
+                    ->schema([
+                        TextInput::make('webhook')->label('Discord webhook'),
                         ColorPicker::make('color')->label('Accent color'),
                     ])
                     ->action(function (?array $data): void {
@@ -196,7 +187,7 @@ class NotificationTypesList extends TableComponent
                             ->send();
                     }),
             ])
-            ->emptyStateIcon(iconName('write'))
-            ->emptyStateHeading('No draft posts found');
+            ->emptyStateIcon(Tabler::Bell)
+            ->emptyStateHeading('No notification types found');
     }
 }

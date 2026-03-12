@@ -10,7 +10,9 @@ use Nova\Menus\Listeners\RecacheAfterReordering;
 use Nova\Menus\Livewire\MenuItemsList;
 use Nova\Menus\Models\Menu;
 use Nova\Menus\Models\MenuItem;
-use Nova\Menus\Spotlight;
+use Nova\Menus\Spotlight\AddMenuItem;
+use Nova\Menus\Spotlight\EditMenuItem;
+use Nova\Menus\Spotlight\ViewMenuItems;
 
 class MenusServiceProvider extends DomainServiceProvider
 {
@@ -41,9 +43,9 @@ class MenusServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\AddMenuItem::class,
-            Spotlight\EditMenuItem::class,
-            Spotlight\ViewMenuItems::class,
+            AddMenuItem::class,
+            EditMenuItem::class,
+            ViewMenuItems::class,
         ];
     }
 }

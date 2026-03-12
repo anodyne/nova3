@@ -1,7 +1,7 @@
 <x-filament.modal-content :$action title="Duplicate rank group?">
-    <p>
+    <x-text variant="strong">
         Are you sure you want to duplicate the
-        <strong class="font-semibold">{{ $record->name }}</strong>
+        <strong>{{ $record->name }}</strong>
         rank group and all of its ranks?
-    </p>
+    </x-text>
 </x-filament.modal-content>

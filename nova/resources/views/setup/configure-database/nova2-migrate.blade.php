@@ -2,45 +2,45 @@
 
 <div class="mx-auto max-w-7xl space-y-16">
     <header class="mx-auto max-w-2xl space-y-6 text-center">
-        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Migrate from Nova 2</h1>
+        <x-setup::page-heading>Migrate from Nova 2</x-setup::page-heading>
 
         @if ($status === DatabaseConfigStatus::AlreadyConfigured)
-            <p class="text-lg/8 text-gray-600">
+            <x-setup::page-subheading>
                 It looks like you’ve already configured your database connection. Next we’ll migrate your Nova 2 data to
                 the new format.
-            </p>
+            </x-setup::page-subheading>
         @elseif ($status === DatabaseConfigStatus::FailedToWriteEnv)
-            <p class="text-lg/8 text-gray-600">
+            <x-setup::page-subheading>
                 We weren’t able to write your database credentials to the config file. Follow the instructions below to
                 ensure Nova can connect to the database where Nova 2 is installed.
-            </p>
+            </x-setup::page-subheading>
         @elseif ($status === DatabaseConfigStatus::FailedToVerify)
-            <p class="text-lg/8 text-gray-600">
+            <x-setup::page-subheading>
                 We weren’t able to verify your database connection using the values we saved to the config file. Either
                 the file was not saved correctly or your database is unavailable right now.
-            </p>
+            </x-setup::page-subheading>
         @else
-            <p class="text-lg/8 text-gray-600">
+            <x-setup::page-subheading>
                 When migrating from Nova 2, you can pull your data from the same database where Nova 3 is installed or
                 you can specify a different database where your Nova 2 data lives.
-            </p>
+            </x-setup::page-subheading>
         @endif
     </header>
 
     @if ($status === DatabaseConfigStatus::AlreadyConfigured)
         <div class="flex items-center justify-center">
-            <x-button.setup href="{{ url('setup/migrate') }}" leading="database-import">
+            <x-setup::button href="{{ url('setup/migrate') }}" :leading="Tabler::DatabaseImport">
                 Continue migration
-            </x-button.setup>
+            </x-setup::button>
         </div>
     @endif
 
     @if ($shouldShowDatabaseOptions)
         <div class="mx-auto max-w-2xl space-y-8">
             <div class="grid grid-cols-2 gap-8">
-                <x-button color="neutral" wire:click="useSameDatabaseForMigration">
+                <x-button wire:click="useSameDatabaseForMigration">
                     <x-spacing size="md" class="space-y-2 text-left">
-                        <x-icon name="database" size="xl" class="text-gray-600"></x-icon>
+                        <x-icon :name="Tabler::Database" size="xl" class="text-gray-600" />
                         <x-h3>Use the same database</x-h3>
                         <p class="text-sm/6 font-normal text-gray-600">
                             Your Nova 2 database tables live in the same database that you are installing Nova 3 into.
@@ -48,9 +48,9 @@
                     </x-spacing>
                 </x-button>
 
-                <x-button color="neutral" wire:click="useDifferentDatabaseForMigration">
+                <x-button wire:click="useDifferentDatabaseForMigration">
                     <x-spacing size="md" class="space-y-2 text-left">
-                        <x-icon name="database-export" size="xl" class="text-gray-600"></x-icon>
+                        <x-icon :name="Tabler::DatabaseExport" size="xl" class="text-gray-600" />
                         <x-h3>Use a different database</x-h3>
                         <p class="text-sm/6 font-normal text-gray-600">
                             Your Nova 2 database tables live in a separate database from the one you are installing Nova
@@ -61,112 +61,64 @@
             </div>
 
             <div class="flex flex-col items-center">
-                <x-button :href="url('setup/migrate')" color="neutral">Back to migration center</x-button>
+                <x-button :href="url('setup/migrate')">Back to migration center</x-button>
             </div>
         </div>
     @else
         @if ($shouldShowForm)
             <div class="mx-auto max-w-lg space-y-12">
                 @if ($errorMessage)
-                    <x-panel.danger title="Error connecting to your database" icon="alert-circle">
+                    <x-callout.danger heading="Error connecting to your database" :icon="Tabler::AlertCircle">
                         {{ $errorMessage }}
-                    </x-panel.danger>
+                    </x-callout.danger>
                 @endif
 
                 <x-fieldset>
-                    <x-fieldset.field-group>
-                        <x-fieldset.field
-                            label="Username"
-                            id="db_username"
-                            name="db_username"
-                            :error="$errors->first('username')"
-                        >
-                            <x-input.text placeholder="Your database username" wire:model="username"></x-input.text>
-                        </x-fieldset.field>
+                    <x-fieldset.group>
+                        <x-input label="Username" placeholder="Your database username" wire:model="username" />
 
-                        <x-fieldset.field
-                            label="Password"
-                            id="db_password"
-                            name="db_password"
-                            :error="$errors->first('password')"
-                        >
-                            <x-input.password
-                                placeholder="Your database password"
-                                wire:model="password"
-                            ></x-input.password>
-                        </x-fieldset.field>
+                        <x-input.password label="Password" placeholder="Your database password" wire:model="password" />
 
-                        <x-fieldset.field
-                            label="Database name"
-                            id="db_name"
-                            name="db_name"
-                            :error="$errors->first('database')"
-                        >
-                            <x-input.text placeholder="The name of your database" wire:model="database"></x-input.text>
-                        </x-fieldset.field>
+                        <x-input label="Database name" placeholder="The name of your database" wire:model="database" />
 
-                        <x-fieldset.field label="Database table prefix" id="db_prefix" name="db_prefix">
-                            <x-slot name="description">
+                        <x-field>
+                            <x-label>Database table prefix</x-label>
+                            <x-description>
                                 If you’re planning to install other applications into the same database
-                                <strong class="font-semibold text-gray-600">or</strong>
+                                <strong class="text-gray-600">or</strong>
                                 you’re migrating from Nova 2 and using the same database, you’ll want to add a table
                                 prefix such as
-                                <strong class="font-semibold text-gray-600">nova3_</strong>
-                            </x-slot>
+                                <strong class="text-gray-600">nova3_</strong>
+                            </x-description>
 
-                            <x-input.text
-                                placeholder="The database table prefix (optional)"
-                                wire:model="prefix"
-                            ></x-input.text>
-                        </x-fieldset.field>
-                    </x-fieldset.field-group>
+                            <x-input placeholder="The database table prefix (optional)" wire:model="prefix" />
+                        </x-field>
+                    </x-fieldset.group>
                 </x-fieldset>
 
                 <x-fieldset>
-                    <x-fieldset.heading>
-                        <x-icon name="database-settings"></x-icon>
-                        <x-fieldset.legend>Advanced settings</x-fieldset.legend>
-                        <x-fieldset.description>
+                    <x-fieldset.heading :icon="Tabler::DatabaseCog" heading="Advanced settings">
+                        <x-description>
                             In most cases you won’t need to change these values unless your web host has provided you
                             different connection parameters.
-                        </x-fieldset.description>
+                        </x-description>
                     </x-fieldset.heading>
 
-                    <x-fieldset.field-group>
-                        <x-fieldset.field
-                            label="Database host"
-                            id="db_host"
-                            name="db_host"
-                            :error="$errors->first('host')"
-                        >
-                            <x-input.text wire:model="host"></x-input.text>
-                        </x-fieldset.field>
+                    <x-fieldset.group>
+                        <x-input label="Database host" wire:model="host" />
 
-                        <x-fieldset.field
-                            label="Database port"
-                            id="db_port"
-                            name="db_port"
-                            :error="$errors->first('port')"
-                        >
-                            <x-input.text wire:model="port"></x-input.text>
-                        </x-fieldset.field>
+                        <x-input label="Database port" wire:model="port" />
 
-                        <x-fieldset.field
+                        <x-input
                             label="Database socket"
-                            id="db_socket"
-                            name="db_socket"
-                            :error="$errors->first('socket')"
-                        >
-                            <x-input.text
-                                placeholder="The UNIX socket path (generally not needed)"
-                                wire:model="socket"
-                            ></x-input.text>
-                        </x-fieldset.field>
-                    </x-fieldset.field-group>
+                            placeholder="The UNIX socket path (generally not needed)"
+                            wire:model="socket"
+                        />
+                    </x-fieldset.group>
                 </x-fieldset>
 
                 <div class="flex items-center justify-between">
-                    <x-button.setup type="button" wire:click="connectToDatabase" size="sm">
+                    <x-setup::button type="button" wire:click="connectToDatabase" size="sm">
                         <div class="flex items-center gap-3">
                             <div>Connect</div>
                             <x-icon.loader
@@ -175,11 +127,11 @@
                                 wire:target="connectToDatabase"
                             ></x-icon.loader>
                         </div>
-                    </x-button.setup>
+                    </x-setup::button>
 
                     <a
                         href="{{ url('setup/migrate') }}"
-                        class="text-sm font-semibold leading-6 text-gray-900 hover:text-primary-600"
+                        class="hover:text-primary-600 text-sm leading-6 font-semibold text-gray-900"
                     >
                         Back to migration center
                     </a>
@@ -189,20 +141,20 @@
 
         @if ($shouldShowSuccessTable)
             <div class="mx-auto max-w-lg space-y-8">
-                <x-panel variant="well">
-                    <x-panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
+                <x-setup::panel variant="well">
+                    <x-setup::panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
                         @include('setup.configure-database._verify-temp-connection')
                         @include('setup.configure-database._verify-write-env')
                         @include('setup.configure-database._verify-connection')
-                    </x-panel>
-                </x-panel>
+                    </x-setup::panel>
+                </x-setup::panel>
             </div>
 
             @if ($status === DatabaseConfigStatus::Success)
                 <div class="flex items-center justify-center">
-                    <x-button.setup href="{{ url('setup/migrate') }}" leading="database-import">
+                    <x-setup::button href="{{ url('setup/migrate') }}" :leading="Tabler::DatabaseImport">
                         Continue migration
-                    </x-button.setup>
+                    </x-setup::button>
                 </div>
             @endif
         @endif
@@ -214,7 +166,7 @@
 
                 <div
                     x-data="{
-                        text: @js($codeForEnv),
+                        text: {{ Js::from($codeForEnv) }},
                         copied: false,
                         copyToClipboard() {
                             this.copied = true
@@ -224,7 +176,7 @@
                     x-init="$watch('copied', (c) => c && window.setTimeout(() => (copied = false), 2000))"
                 >
                     {{-- format-ignore-start --}}
-                    <div class="relative flex flex-col gap-0.5 font-mono rounded-lg bg-gray-800 p-4 text-white cursor-pointer" x-on:click="copyToClipboard">
+                    <div class="relative flex flex-col gap-0.5 font-mono rounded-xl bg-gray-900 p-4 text-white cursor-pointer text-sm/6" x-on:click="copyToClipboard">
                         <div class="absolute top-4 right-4 text-xs text-gray-500 font-medium">
                             <span class="text" x-show="!copied">Click to copy</span>
                             <span class="text-success-600" x-show="copied" x-cloak>Copied!</span>

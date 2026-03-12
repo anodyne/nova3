@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
@@ -49,7 +50,7 @@ class UserNotificationPreferencesList extends TableComponent
                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
                     ->disabled(fn (Model $record): bool => ! $record->notificationType->mail),
             ])
-            ->emptyStateIcon(iconName('notification'))
+            ->emptyStateIcon(Tabler::Notification)
             ->emptyStateHeading('No notification preferences found');
     }
 }

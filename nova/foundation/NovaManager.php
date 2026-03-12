@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Nova\Foundation;
 
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Fonts\BunnyFontProvider;
 use Nova\Foundation\Fonts\Contracts\FontProvider;
@@ -97,7 +99,7 @@ class NovaManager
 
     public function isUpdating(): bool
     {
-        return Cache::has('nova-latest-version');
+        return Cache::has(CacheKeys::LatestVersion->value);
     }
 
     public function databaseIsConfigured(?string $connection = null): bool
@@ -190,7 +192,7 @@ class NovaManager
     /**
      * Provide data from the backend for the frontend to use.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function provideScriptVariables()
     {
@@ -207,7 +209,7 @@ class NovaManager
     protected function cssAdminAssets()
     {
         $appUrl = url('');
-        $appStylesPath = "{$appUrl}/dist/css/app.css";
+        $appStylesPath = "{$appUrl}/dist/css/admin.css";
 
         return <<<HTML
 <link href="{$appStylesPath}" rel="stylesheet">

@@ -1,0 +1,28 @@
+.fi-modal {
+    &.fi-modal-slide-over,
+    &.fi-width-screen {
+        & > .fi-modal-window-ctn > .fi-modal-window {
+            @apply h-[calc(100dvh-(--spacing(8)))];
+        }
+
+        & .fi-modal-window {
+            @apply h-[calc(100dvh-(--spacing(8)))];
+        }
+    }
+
+    &.fi-modal-slide-over {
+        & .fi-modal-window {
+            @apply top-2 right-4 rounded-xl ring-1 ring-gray-950/5 dark:ring-white/5;
+        }
+    }
+
+    & > .fi-modal-close-overlay {
+        @apply backdrop-blur-xs;
+    }
+
+    & > .fi-modal-window-ctn > .fi-modal-window {
+        & .fi-modal-heading {
+            @apply font-(family-name:--font-header) text-xl font-bold tracking-tight;
+        }
+    }
+}

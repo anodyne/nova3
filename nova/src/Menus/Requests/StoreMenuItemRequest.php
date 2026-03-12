@@ -20,7 +20,7 @@ class StoreMenuItemRequest extends FormRequest
             'link_type' => ['required', Rule::enum(LinkType::class)],
             'page_id' => ['required_if:link_type,page'],
             'parent_id' => ['nullable'],
-            'status' => ['required'],
+            'status' => ['sometimes'],
             'target' => ['required', Rule::enum(LinkTarget::class)],
             'url' => ['required_if:link_type,url'],
         ];

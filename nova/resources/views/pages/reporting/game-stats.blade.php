@@ -1,15 +1,14 @@
-@use('Illuminate\Support\Number')
 @use('Nova\Settings\Enums\PostingTimeframe')
 
 <x-admin-layout>
-    <x-page-header></x-page-header>
+    <x-page-heading></x-page-heading>
 
     <!-- xs to lg -->
     <div class="mx-auto mt-12 max-w-md space-y-8 sm:mt-16 lg:hidden">
-        <flux:accordion transition>
+        <x-accordion transition>
             @foreach ($timeframes as $key => $timeframeLabel)
-                <flux:accordion.item :heading="$timeframeLabel">
-                    <flux:accordion.content>
+                <x-accordion.item :heading="$timeframeLabel">
+                    <x-accordion.content>
                         <ul role="list" class="space-y-4 text-sm/6 text-gray-900 dark:text-white">
                             @foreach ($stats as $category)
                                 <li>
@@ -26,13 +25,13 @@
                                     <ul role="list">
                                         @foreach ($category->stats as $line)
                                             <li
-                                                class="flex items-center justify-between rounded-md px-2 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
+                                                class="flex items-center justify-between rounded-md px-2 odd:bg-gray-950/5 dark:odd:bg-white/[.07]"
                                             >
                                                 <div class="py-2 text-sm/6 font-medium text-gray-900 dark:text-white">
                                                     {{ $line->label }}
                                                 </div>
                                                 <div
-                                                    class="text-sm/6 font-semibold tabular-nums text-gray-600 dark:text-gray-300"
+                                                    class="text-sm/6 font-semibold text-gray-600 tabular-nums dark:text-gray-300"
                                                 >
                                                     @if (filled($line->{$key}))
                                                         {{ $line->{$key} }}
@@ -58,10 +57,10 @@
                                 </li>
                             @endforeach
                         </ul>
-                    </flux:accordion.content>
-                </flux:accordion.item>
+                    </x-accordion.content>
+                </x-accordion.item>
             @endforeach
-        </flux:accordion>
+        </x-accordion>
     </div>
 
     <!-- lg+ -->
@@ -167,7 +166,7 @@
                                 @unless ($settings->isMonthlyTimeframe())
                                     <td class="px-6 py-4 xl:px-8">
                                         <div
-                                            class="text-center text-sm/6 font-medium tabular-nums text-gray-600 dark:text-gray-300"
+                                            class="text-center text-sm/6 font-medium text-gray-600 tabular-nums dark:text-gray-300"
                                         >
                                             @if (filled($line->currentTimeframe))
                                                 {{ $line->currentTimeframe }}
@@ -192,7 +191,7 @@
 
                                 <td class="px-6 py-4 xl:px-8">
                                     <div
-                                        class="text-center text-sm/6 font-medium tabular-nums text-gray-600 dark:text-gray-300"
+                                        class="text-center text-sm/6 font-medium text-gray-600 tabular-nums dark:text-gray-300"
                                     >
                                         @if (filled($line->lastMonth))
                                             {{ $line->lastMonth }}
@@ -215,7 +214,7 @@
                                 </td>
                                 <td class="px-6 py-4 xl:px-8">
                                     <div
-                                        class="text-center text-sm/6 font-medium tabular-nums text-gray-600 dark:text-gray-300"
+                                        class="text-center text-sm/6 font-medium text-gray-600 tabular-nums dark:text-gray-300"
                                     >
                                         @if (filled($line->thisMonth))
                                             {{ $line->thisMonth }}
@@ -238,7 +237,7 @@
                                 </td>
                                 <td class="px-6 py-4 xl:px-8">
                                     <div
-                                        class="text-center text-sm/6 font-medium tabular-nums text-gray-600 dark:text-gray-300"
+                                        class="text-center text-sm/6 font-medium text-gray-600 tabular-nums dark:text-gray-300"
                                     >
                                         @if (filled($line->lifetime))
                                             {{ $line->lifetime }}

@@ -10,6 +10,7 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\from;
 use function Pest\Laravel\get;
 use function Pest\Laravel\put;
+use function Pest\Laravel\withoutExceptionHandling;
 
 uses()->group('menus');
 
@@ -18,9 +19,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'menu.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'menu.update'));
 
     test('can view the edit menu item page', function () {
         get(route('admin.menu-items.edit', $this->menuItem))->assertSuccessful();
@@ -29,23 +28,59 @@ describe('authorized user', function () {
     test('can update a menu item', function () {
         Event::fake();
 
-        $data = MenuItem::factory()->make();
+        $data = MenuItem::factory()->forRequest();
 
         from(route('admin.menu-items.edit', $this->menuItem))
             ->followingRedirects()
-            ->put(route('admin.menu-items.update', $this->menuItem), $data->toArray())
+            ->put(route('admin.menu-items.update', $this->menuItem), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(MenuItem::class, $data->toArray());
+        assertDatabaseHas(MenuItem::class, [
+            'label' => $data->model->label,
+            'status' => 'active',
+        ]);
 
         Event::assertDispatched(MenuItemUpdated::class);
+    });
+
+    test('can update a menu item status from inactive to active', function () {
+        $menuItem = MenuItem::factory()->inactive()->create();
+
+        $data = MenuItem::factory()->active()->forRequest();
+
+        from(route('admin.menu-items.edit', $menuItem))
+            ->followingRedirects()
+            ->put(route('admin.menu-items.update', $menuItem), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(MenuItem::class, [
+            'id' => $menuItem->id,
+            'status' => 'active',
+        ]);
+    });
+
+    test('can update a menu item status from active to inactive', function () {
+        withoutExceptionHandling();
+
+        $menuItem = MenuItem::factory()->active()->create();
+
+        $data = MenuItem::factory()->inactive()->forRequest();
+
+        from(route('admin.menu-items.edit', $menuItem))
+            ->followingRedirects()
+            ->put(route('admin.menu-items.update', $menuItem), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(MenuItem::class, [
+            'id' => $menuItem->id,
+            'label' => data_get($data->payload, 'label'),
+            'status' => 'inactive',
+        ]);
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the edit menu item page', function () {
         get(route('admin.menu-items.edit', $this->menuItem))

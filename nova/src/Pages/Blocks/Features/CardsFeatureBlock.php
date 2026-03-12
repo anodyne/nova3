@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Features;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\Radius;
 
@@ -31,7 +32,7 @@ class CardsFeatureBlock extends FeatureBlock
             Section::make()
                 ->heading('Appearance')
                 ->description('Customize the appearance of the individual feature grid items')
-                ->icon(iconName('palette'))
+                ->icon(Tabler::Palette)
                 ->schema([
                     ColorPicker::make('block.heading-color')->label('Heading color'),
                     ColorPicker::make('block.description-color')->label('Description color'),
@@ -76,7 +77,7 @@ class CardsFeatureBlock extends FeatureBlock
             Section::make()
                 ->heading('Grid rows and columns')
                 ->description('Customize the number of rows and columns in the grid')
-                ->icon(iconName('table'))
+                ->icon(Tabler::Table)
                 ->schema([
                     Repeater::make('block.rows')->schema([
                         Select::make('layout')

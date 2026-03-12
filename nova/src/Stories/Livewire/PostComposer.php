@@ -14,9 +14,13 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Actions\DeletePost;
+use Nova\Stories\Actions\DiscardPost;
 use Nova\Stories\Actions\UnlockPost;
 use Nova\Stories\Data\Field;
 use Nova\Stories\Enums\PostTypeField;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostLocks;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Nova\Stories\Livewire\Concerns\InteractsWithStories;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Notifications\PostSaved;
 use Nova\Users\Models\User;
@@ -24,10 +28,10 @@ use WireElements\Pro\Concerns\InteractsWithConfirmationModal;
 
 class PostComposer extends Component
 {
-    use Concerns\InteractsWithPostLocks;
-    use Concerns\InteractsWithPostType;
-    use Concerns\InteractsWithStories;
     use InteractsWithConfirmationModal;
+    use InteractsWithPostLocks;
+    use InteractsWithPostType;
+    use InteractsWithStories;
 
     #[Locked]
     public Post $post;
@@ -71,7 +75,7 @@ class PostComposer extends Component
 
         $this->askForConfirmation(
             callback: function (): void {
-                DeletePost::run($this->post);
+                DiscardPost::run($this->post);
 
                 Notification::make()->success()
                     ->title($this->postType->name.' draft has been discarded')

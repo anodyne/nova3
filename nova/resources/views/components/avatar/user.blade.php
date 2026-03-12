@@ -1,24 +1,34 @@
 @props([
     'user',
-    'secondaryStatus' => false,
-    'secondaryPronouns' => false,
-    'secondary' => false,
+    'status' => false,
+    'pronouns' => false,
+    'subtitle' => false,
 ])
 
-<x-avatar.meta :src="$user->avatar_url" :primary="$user->name" {{ $attributes }}>
-    @if ($secondaryStatus || $secondaryPronouns || $secondary)
-        <x-slot name="secondary">
-            @if ($secondaryStatus)
-                <x-badge :color="$user->status->getColor()">{{ $user->status->getLabel() }}</x-badge>
+@php
+    $badgeColor = settings('appearance')->getColorFromSemanticColor($user->status->getColor());
+@endphp
+
+<x-avatar
+    :src="$user->avatar_url"
+    :title="$user->name"
+    :badge="$status"
+    badge:color="{{ $badgeColor }}"
+    {{ $attributes }}
+>
+    @if ($status || $pronouns || $subtitle)
+        <x-slot name="subtitle" class="flex items-center gap-2 truncate">
+            @if ($status)
+                <x-badge :color="$user->status->getColor()">
+                    {{ $user->status->getLabel() }}
+                </x-badge>
             @endif
 
-            @if ($secondaryPronouns)
-                <div class="flex items-center space-x-1 text-xs text-gray-500 dark:text-gray-400">
-                    {{ $user->pronouns }}
-                </div>
+            @if ($pronouns)
+                {{ $user->pronouns }}
             @endif
 
-            {{ $secondary }}
+            {{ $subtitle }}
         </x-slot>
     @endif
-</x-avatar.meta>
+</x-avatar>

@@ -1,0 +1,16 @@
+[data-flux-menu] {
+    @apply rounded-xl! p-1! shadow-lg!;
+}
+
+[data-flux-menu-item="data-flux-menu-item"],
+[data-flux-menu-radio],
+[data-flux-menu-checkbox] {
+    @apply data-variant-danger:text-danger-400! rounded-[calc(var(--radius-xl)-(--spacing(1)))]!;
+}
+
+[data-flux-menu-separator] {
+    @apply -mx-1! my-2!;
+}
+[data-flux-separator] {
+    @apply bg-gray-100! dark:bg-white/10!;
+}

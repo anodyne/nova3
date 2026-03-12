@@ -1,15 +1,11 @@
 @php(extract($notification['data']))
 
-<x-notification :notification="$notification">
+<x-notification :notification="$notification" :href="route('admin.posts.create')">
     <x-slot name="leading" class="text-success-500">
-        <x-icon name="books" size="xl"></x-icon>
+        <x-icon :name="NotificationIcon::BookOpen" size="lg" />
     </x-slot>
 
-    <strong class="font-semibold text-gray-900 dark:text-white">{{ $story_title }}</strong>
-    has been started and is now available to post into.
-
-    <x-slot name="actions">
-        <x-button :href="route('admin.posts.create')" color="primary">Start writing &rarr;</x-button>
-        <x-button :href="route('admin.stories.show', $story_id)" color="neutral">Go to story</x-button>
-    </x-slot>
+    {{-- format-ignore-start --}}
+    <strong>{{ $story_title }}</strong> has been started and is now available to post into
+    {{-- format-ignore-end --}}
 </x-notification>

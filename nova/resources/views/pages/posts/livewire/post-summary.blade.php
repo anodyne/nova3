@@ -1,6 +1,7 @@
 <div>
-    <x-button type="button" wire:click="openForEditing" plain>
+    <x-button type="button" wire:click="openForEditing" variant="ghost">
         {{ filled($summary) ? 'Update' : 'Add' }}
-        summary &rarr;
+        summary
+        <span aria-hidden="true">→</span>
     </x-button>
 </div>

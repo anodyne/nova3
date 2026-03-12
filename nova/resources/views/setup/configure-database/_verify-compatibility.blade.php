@@ -3,44 +3,38 @@
     use Nova\Setup\Enums\DatabaseConfigStatus;
 
     $e = Environment::make();
+
+    $heading = 'Verify database compatibility';
+
+    if ($status === DatabaseConfigStatus::IncompatibleVersion) {
+        $heading = 'Incompatible database version';
+    }
+
+    if ($status === DatabaseConfigStatus::IncompatibleDriver) {
+        $heading = 'Incompatible database driver';
+    }
 @endphp
 
-<x-spacing size="sm" class="col-span-3 grid grid-cols-subgrid">
-    <div class="mr-4 shrink-0">
-        <x-icon name="database-settings" size="xl" class="text-gray-500"></x-icon>
-    </div>
+<x-setup::panel.row :icon="Tabler::DatabaseCog" :$heading>
+    @if ($status === DatabaseConfigStatus::IncompatibleVersion)
+        <p>
+            Your database server is running {{ $e->database->platform() }}, but Nova requires
+            {{ $e->database->driverName() }} {{ $e->database->versionFor($e->database->driver) }}. Please contact your
+            web host for assistance with fixing this issue.
+        </p>
+    @elseif ($status === DatabaseConfigStatus::IncompatibleDriver)
+        <p>
+            Your database server is running {{ $e->database->driverName() }}, but Nova requires MySQL, MariaDB, or
+            PostgreSQL. Please contact your web host for assistance with fixing this issue.
+        </p>
+    @endif
 
-    <div class="col-start-2">
-        @if ($status === DatabaseConfigStatus::IncompatibleVersion)
-            <x-h4 class="leading-8">Incompatible database version</x-h4>
-
-            <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
-                <p>
-                    Your database server is running {{ $e->database->platform() }}, but Nova requires
-                    {{ $e->database->driverName() }} {{ $e->database->versionFor($e->database->driver) }}. Please
-                    contact your web host for assistance with fixing this issue.
-                </p>
-            </div>
-        @elseif ($status === DatabaseConfigStatus::IncompatibleDriver)
-            <x-h4 class="leading-8">Incompatible database driver</x-h4>
-
-            <div class="mt-2 space-y-4 text-sm/6 font-normal text-gray-500">
-                <p>
-                    Your database server is running {{ $e->database->driverName() }}, but Nova requires MySQL, MariaDB,
-                    or PostgreSQL. Please contact your web host for assistance with fixing this issue.
-                </p>
-            </div>
-        @else
-            <x-h4 class="leading-8">Verify database compatibility</x-h4>
-        @endif
-    </div>
-
-    <div class="col-start-3 ml-4 flex shrink-0 justify-end">
+    <x-slot name="trailing">
         @if ($status === DatabaseConfigStatus::IncompatibleVersion ||
              $status === DatabaseConfigStatus::IncompatibleDriver)
-            <x-icon name="x-circle" class="text-danger-500" size="xl"></x-icon>
+            <x-icon :name="Tabler::CircleX" class="text-danger-500" size="lg" />
         @else
-            <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
+            <x-icon :name="Tabler::CircleCheck" class="text-primary-500" size="lg" />
         @endif
-    </div>
-</x-spacing>
+    </x-slot>
+</x-setup::panel.row>

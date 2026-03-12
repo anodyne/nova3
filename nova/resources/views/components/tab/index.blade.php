@@ -1,15 +1,16 @@
-<li data-slot="tab">
-    <button
-        type="button"
-        class="shrink-0 rounded-full px-4 py-0.5 text-sm/6 font-semibold"
-        x-bind:class="{
-            'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white':
-                ! isTab('base'),
-            'bg-gradient-to-b from-white dark:from-primary-900 dark:to-primary-950 to-primary-50 text-primary-600 dark:text-primary-100 shadow shadow-primary-600/10 dark:shadow-md ring-1 ring-inset ring-primary-600/20 dark:ring-primary-500/20':
-                isTab('base'),
-        }"
-        x-on:click.prevent="switchTab('base')"
-    >
-        {{ $slot }}
-    </button>
-</li>
+<flux:tab
+    {{
+        $attributes->class([
+            'z-10 mb-0! flex h-max cursor-pointer items-center justify-center gap-2 rounded-lg border-none px-3 py-2 text-sm font-semibold! whitespace-nowrap transition duration-100 ease-linear',
+            'text-gray-500! hover:text-gray-700! dark:text-gray-400! dark:hover:text-gray-300!',
+
+            // Selected (light mode)
+            'data-selected:bg-white data-selected:text-gray-700! data-selected:shadow-xs data-selected:ring-1 data-selected:ring-gray-300 data-selected:ring-inset hover:data-selected:text-gray-700',
+
+            // Selected (dark mode)
+            'dark:data-selected:bg-gray-900 dark:data-selected:text-gray-300! dark:data-selected:shadow-xs dark:data-selected:ring-1 dark:data-selected:ring-gray-700 dark:data-selected:ring-inset dark:hover:data-selected:text-gray-300',
+        ])
+    }}
+>
+    {{ $slot }}
+</flux:tab>

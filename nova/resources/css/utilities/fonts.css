@@ -1,0 +1,4 @@
+@theme inline {
+    --font-header: var(--font-header);
+    --font-body: var(--font-body);
+}

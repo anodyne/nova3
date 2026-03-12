@@ -7,6 +7,8 @@ namespace Nova\Settings\Livewire;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Nova\Media\Actions\UploadImage;
+use Nova\Media\Enums\ImageAction;
 use Nova\Settings\Actions\UpdateEmail;
 use Nova\Settings\Actions\UpdateSettings;
 use Nova\Settings\Data\Email;
@@ -16,8 +18,6 @@ use Nova\Settings\Enums\Mailer;
 class EmailSettingsForm extends Form
 {
     public Mailer $mailer;
-
-    public ?string $imagePath;
 
     #[Validate('required')]
     public string $fromAddress;
@@ -59,14 +59,25 @@ class EmailSettingsForm extends Form
 
     public ?string $smtpEncryption;
 
+    public ImageAction $imageAction;
+
+    public ?string $imageTempPath = null;
+
     public function save(): void
     {
         $this->validate();
 
         DB::transaction(function () {
-            UpdateSettings::run('email', $data = Email::from($this->all()));
+            UpdateSettings::run('email', $data = Email::from($this->except(['imageAction', 'imageTempPath'])));
 
-            UpdateEmail::run($data, EmailConfiguration::from($this->all()));
+            UpdateEmail::run($data, EmailConfiguration::from($this->except(['imageAction', 'imageTempPath'])));
+
+            UploadImage::run(
+                model: settings(),
+                collection: 'logo-email',
+                action: $this->imageAction,
+                tempPath: $this->imageTempPath
+            );
         });
     }
 
@@ -79,7 +90,6 @@ class EmailSettingsForm extends Form
         $this->fromName = config('mail.from.name');
         $this->subjectPrefix = $settings->subjectPrefix;
         $this->replyTo = $settings->replyTo;
-        $this->imagePath = $settings->imagePath;
 
         $this->sendmailPath = config('mail.mailers.sendmail.path', '/usr/sbin/sendmail -bs -i');
 
@@ -98,9 +108,12 @@ class EmailSettingsForm extends Form
         $this->awsDefaultRegion = config('services.ses.region');
 
         $this->smtpHost = config('mail.mailers.smtp.host');
-        $this->smtpPort = config('mail.mailers.smtp.port');
+        $this->smtpPort = (string) config('mail.mailers.smtp.port');
         $this->smtpUsername = config('mail.mailers.smtp.username');
         $this->smtpPassword = config('mail.mailers.smtp.password');
         $this->smtpEncryption = config('mail.mailers.smtp.encryption') ?? '';
+
+        $this->imageAction = ImageAction::Unchanged;
+        $this->imageTempPath = null;
     }
 }

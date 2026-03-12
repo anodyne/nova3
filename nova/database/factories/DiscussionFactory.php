@@ -6,9 +6,10 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Discussions\Models\Discussion;
+use Nova\Model;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Nova\Model>
+ * @extends Factory<Model>
  */
 class DiscussionFactory extends Factory
 {

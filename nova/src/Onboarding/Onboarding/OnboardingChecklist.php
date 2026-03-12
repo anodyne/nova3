@@ -50,7 +50,7 @@ abstract class OnboardingChecklist
     }
 
     /**
-     * @return array<\Nova\Onboarding\Onboarding\OnboardingChecklistStep>
+     * @return array<OnboardingChecklistStep>
      */
     protected function buildSteps(array $stepClasses): array
     {

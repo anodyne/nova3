@@ -24,9 +24,7 @@ beforeEach(function () {
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.update'));
 
     test('can view the edit role page', function () {
         get(route('admin.roles.edit', $this->role))->assertSuccessful();
@@ -51,7 +49,7 @@ describe('authorized user', function () {
         $user = User::factory()->create();
 
         $assignedUsers = livewire(ManageUsers::class, ['role' => $this->role])
-            ->call('add', $user->id)
+            ->set('selected', (string) $user->id)
             ->get('assignedUsers');
 
         $data = array_merge(
@@ -76,8 +74,8 @@ describe('authorized user', function () {
         $permission = Permission::first();
 
         $assignedPermissions = livewire(ManagePermissions::class, ['role' => $this->role])
-            ->call('add', $permission->id)
-            ->get('assignedPermissions');
+            ->set('assigned', [$permission->id])
+            ->get('assigned');
 
         $data = array_merge(
             Role::factory()->make()->toArray(),
@@ -96,19 +94,53 @@ describe('authorized user', function () {
             'permission_id' => $permission->id,
         ]);
     });
+
+    test('can update a department to be a default role', function () {
+        Event::fake();
+
+        $role = Role::factory()->notDefault()->create();
+
+        $data = Role::factory()->default()->forRequest();
+
+        from(route('admin.roles.edit', $role))
+            ->followingRedirects()
+            ->put(route('admin.roles.update', $role), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(Role::class, [
+            'id' => $role->id,
+            'is_default' => true,
+        ]);
+    });
+
+    test('can update a role to not be a default role', function () {
+        Event::fake();
+
+        $role = Role::factory()->default()->create();
+
+        $data = Role::factory()->notDefault()->forRequest();
+
+        from(route('admin.roles.edit', $role))
+            ->followingRedirects()
+            ->put(route('admin.roles.update', $role), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(Role::class, [
+            'id' => $role->id,
+            'is_default' => false,
+        ]);
+    });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the edit role page', function () {
-        get(route('admin.roles.edit', $this->role))->assertForbidden();
+        get(route('admin.roles.edit', $this->role))->assertNotFound();
     });
 
     test('cannot update a role', function () {
-        put(route('admin.roles.update', $this->role), [])->assertForbidden();
+        put(route('admin.roles.update', $this->role), [])->assertNotFound();
     });
 });
 

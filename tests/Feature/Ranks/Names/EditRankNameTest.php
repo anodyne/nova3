@@ -12,6 +12,7 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\put;
 
 uses()->group('ranks');
+uses()->group('rank-names');
 
 beforeEach(function () {
     $this->rankName = RankName::factory()->create();
@@ -29,16 +30,52 @@ describe('authorized user', function () {
     test('can update a rank name', function () {
         Event::fake();
 
-        $data = RankName::factory()->make();
+        $data = RankName::factory()->inactive()->forRequest();
 
         from(route('admin.ranks.names.edit', $this->rankName))
             ->followingRedirects()
-            ->put(route('admin.ranks.names.update', $this->rankName), $data->toArray())
+            ->put(route('admin.ranks.names.update', $this->rankName), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(RankName::class, $data->toArray());
+        assertDatabaseHas(RankName::class, $data->model->only('name', 'status'));
 
         Event::assertDispatched(RankNameUpdated::class);
+    });
+
+    test('can update a rank name to active', function () {
+        Event::fake();
+
+        $rankName = RankName::factory()->inactive()->create();
+
+        $data = RankName::factory()->active()->forRequest();
+
+        from(route('admin.ranks.names.edit', $rankName))
+            ->followingRedirects()
+            ->put(route('admin.ranks.names.update', $rankName), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(RankName::class, [
+            'id' => $rankName->id,
+            'status' => 'active',
+        ]);
+    });
+
+    test('can update a rank name to inactive', function () {
+        Event::fake();
+
+        $rankName = RankName::factory()->active()->create();
+
+        $data = RankName::factory()->inactive()->forRequest();
+
+        from(route('admin.ranks.names.edit', $rankName))
+            ->followingRedirects()
+            ->put(route('admin.ranks.names.update', $rankName), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(RankName::class, [
+            'id' => $rankName->id,
+            'status' => 'inactive',
+        ]);
     });
 });
 

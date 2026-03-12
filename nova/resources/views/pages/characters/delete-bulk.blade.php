@@ -3,7 +3,7 @@
 <x-filament.modal-content :$action>
     <x-slot name="title">Delete {{ $count }} selected {{ str('character')->plural($count) }}?</x-slot>
 
-    <p>Are you sure you want to delete the following characters?</p>
+    <x-text variant="strong">Are you sure you want to delete the following characters?</x-text>
 
     <ul class="list-inside list-disc">
         @foreach ($records as $record)

@@ -15,7 +15,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Url;
 use Nova\Departments\Actions\DeletePosition;
 use Nova\Departments\Actions\DuplicatePosition;
@@ -31,10 +30,10 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class PositionsList extends TableComponent
@@ -52,12 +51,13 @@ class PositionsList extends TableComponent
                     ->select([
                         'available',
                         'department_id',
-                        'id',
-                        'name',
-                        'order_column',
-                        'status',
+                        'positions.id',
+                        'positions.name',
+                        'positions.order_column',
+                        'positions.status',
                     ])
             )
+            ->recordUrl(fn (Position $record): string => route('admin.positions.show', $record))
             ->groups([
                 Group::make('department.name')->label('Department name')->collapsible(),
                 Group::make('department.order_column')
@@ -85,9 +85,6 @@ class PositionsList extends TableComponent
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('active_users_count')
-                    ->counts([
-                        'activeUsers' => fn (Builder $query): Builder => $query->countDistinct(),
-                    ])
                     ->label('Playing users')
                     ->alignCenter()
                     ->sortable()
@@ -96,7 +93,7 @@ class PositionsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -105,7 +102,7 @@ class PositionsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Position $record): string => route('admin.positions.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -131,9 +128,13 @@ class PositionsList extends TableComponent
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
-                            ->form([
-                                TextInput::make('name')->label('New position name'),
-                                Select::make('department_id')->relationship('department', 'name'),
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('New position name')
+                                    ->required(),
+                                Select::make('department_id')
+                                    ->relationship('department', 'name')
+                                    ->required(),
                             ])
                             ->modalContentView('pages.positions.duplicate')
                             ->action(function (Position $record, array $data): void {
@@ -152,13 +153,8 @@ class PositionsList extends TableComponent
                                 );
 
                                 PositionDuplicated::dispatch($replica, $position);
-
-                                Notification::make()->success()
-                                    ->title("{$replica->name} has been created")
-                                    ->body("All of the data from {$position->name} has been duplicated into your new position.")
-                                    ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -166,38 +162,15 @@ class PositionsList extends TableComponent
                             ->modalContentView('pages.positions.delete')
                             ->successNotificationTitle(fn (Position $record): string => $record->name.' position was deleted')
                             ->using(fn (Position $record): Model => DeletePosition::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
                 DeleteBulkAction::make()
-                    ->authorize('deleteAny')
+                    ->authorizeIndividualRecords('delete')
                     ->modalContentView('pages.positions.delete-bulk')
                     ->action(function (Collection $records): void {
-                        $ignoredRecords = 0;
-
-                        $records = $records
-                            ->filter(function (Position $record) use (&$ignoredRecords): bool {
-                                if (Gate::allows('delete', $record)) {
-                                    return true;
-                                }
-
-                                $ignoredRecords += 1;
-
-                                return false;
-                            })
-                            ->each(fn (Position $record): Model => DeletePosition::run($record));
-
-                        Notification::make()->success()
-                            ->title(count($records).' '.trans_choice('position was|positions were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
-                            ->send();
+                        $records->each(fn (Position $record): Model => DeletePosition::run($record));
                     }),
             ])
             ->filters([
@@ -222,7 +195,7 @@ class PositionsList extends TableComponent
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.positions-reordering-notice') : null)
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Illustration::HandpickResume)
             ->emptyStateHeading('No positions found')
             ->emptyStateDescription('Positions are the jobs or stations that characters can be assigned to for display on your manifests.')
             ->emptyStateActions([

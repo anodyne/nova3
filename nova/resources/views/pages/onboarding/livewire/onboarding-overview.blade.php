@@ -9,10 +9,10 @@
             @endforeach
         </div>
     @else
-        <x-empty-state>
-            <x-illustration name="empty-onboarding" size="2xl"></x-illustration>
-            <x-h2>No active onboardings</x-h2>
-            <x-text>Congrats, everything has been setup.</x-text>
-        </x-empty-state>
+        <x-empty variant="jumbo">
+            <x-illustration :name="Illustration::RocketCog" />
+            <x-empty.heading>No active onboardings</x-empty.heading>
+            <x-empty.text>Congrats, everything has been setup.</x-empty.text>
+        </x-empty>
     @endif
 </div>

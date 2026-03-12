@@ -1,10 +1,18 @@
 @use('Nova\Applications\Models\Application')
 @use('Nova\Foundation\Enums\ReleaseSeverity')
 @use('Nova\Pages\Models\Page')
+@use('Nova\Settings\Enums\AvatarShape')
 @use('Nova\Stories\Models\Post')
 
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
+<html
+    lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    @class([
+        'h-full',
+        $appearance(),
+    ])
+    {{ $themeDataAttribute() }}
+>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -17,9 +25,7 @@
 
         <x-fonts section="admin" />
         @filamentStyles
-        @fluxStyles
         @novaAdminStyles
-        <x-flux-styles />
         @stack('styles')
 
         {{ NovaView::renderHook('admin::styles.after') }}
@@ -30,8 +36,8 @@
         {{ NovaView::renderHook('admin::head-scripts.after') }}
     </head>
     <body
-        {{-- class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-900 dark:text-gray-400 dark:xl:bg-gray-900" --}}
-        class="h-svh min-w-[1024px] bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-900 dark:text-gray-400 dark:xl:bg-gray-900"
+        {{-- class="h-full bg-white font-(family-name:--font-body) text-gray-600 antialiased xl:bg-gray-100 dark:bg-gray-900 dark:text-gray-400 dark:xl:bg-gray-900" --}}
+        class="h-svh min-w-[1024px] bg-(--bg-color) font-(family-name:--font-body) text-gray-600 antialiased [--bg-color:var(--color-white)] xl:[--bg-color:var(--color-gray-50)] dark:text-gray-400 dark:[--bg-color:color-mix(in_oklab,var(--color-gray-950),white_10%)]"
         @if (settings('appearance.panda')) data-panda @endif
     >
         {{ NovaView::renderHook('admin::body.start') }}
@@ -39,10 +45,7 @@
         <div id="nova">
             {{ NovaView::renderHook('admin::page.start') }}
 
-            <div
-                class="relative flex min-h-svh w-full bg-white max-lg:flex-col lg:bg-gray-100 dark:bg-gray-900 dark:lg:bg-gray-900"
-                x-data="{ open: false }"
-            >
+            <div class="relative flex min-h-svh w-full bg-(--bg-color) max-lg:flex-col" x-data="{ open: false }">
                 @if (app('impersonate')->isImpersonating())
                     <div
                         class="pointer-events-none absolute inset-x-0 top-[var(--banner-height)] z-[49] h-9 overflow-hidden drop-shadow-md"
@@ -63,7 +66,7 @@
                                 class="group pointer-events-auto relative mx-auto flex h-9 w-auto cursor-default items-center rounded-b-2xl bg-[#151718] pt-1 text-white"
                             >
                                 <svg
-                                    class="absolute -left-4 top-1 size-4 text-[#151718]"
+                                    class="absolute top-1 -left-4 size-4 text-[#151718]"
                                     viewBox="0 0 6 6"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +75,7 @@
                                 </svg>
 
                                 <svg
-                                    class="absolute -right-4 top-1 size-4 text-[#151718]"
+                                    class="absolute top-1 -right-4 size-4 text-[#151718]"
                                     viewBox="0 0 6 6"
                                     fill="none"
                                     xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +101,7 @@
                                 </div>
 
                                 <div
-                                    class="relative flex h-6 items-center overflow-hidden pl-1 pr-1 text-white transition-all duration-500 ease-in-out group-hover:pl-3 group-hover:pr-4"
+                                    class="relative flex h-6 items-center overflow-hidden pr-1 pl-1 text-white transition-all duration-500 ease-in-out group-hover:pr-4 group-hover:pl-3"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -120,7 +123,7 @@
 
                                     <a
                                         href="{{ route('impersonate.leave') }}"
-                                        class="max-w-0 overflow-hidden whitespace-nowrap text-sm/6 font-medium text-white transition-all duration-700 ease-in-out group-hover:ml-2 group-hover:max-w-sm"
+                                        class="max-w-0 overflow-hidden text-sm/6 font-medium whitespace-nowrap text-white transition-all duration-700 ease-in-out group-hover:ml-2 group-hover:max-w-sm"
                                     >
                                         Impersonating {{ auth()->user()->name }}. Click to exit.
                                     </a>
@@ -152,245 +155,242 @@
                             </x-sidebar.section>
 
                             <x-sidebar.section>
-                                <x-sidebar.item
-                                    type="button"
-                                    x-on:click="$dispatch('toggle-search')"
-                                    data-tour="dashboard-search"
-                                >
-                                    <x-icon name="search"></x-icon>
-                                    <x-sidebar.label>Search</x-sidebar.label>
-                                </x-sidebar.item>
+                                <flux:modal.trigger name="global-search">
+                                    <x-sidebar.old-item type="button" data-tour="dashboard-search">
+                                        <x-icon :name="Tabler::Search" />
+                                        <x-sidebar.label>Search</x-sidebar.label>
+                                    </x-sidebar.old-item>
+                                </flux:modal.trigger>
 
                                 @if (Nova::userCount() > 1)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.messages.index')"
                                         :active="request()->routeIs('admin.messages.*')"
                                         data-tour="dashboard-messages"
                                     >
-                                        <x-icon name="inbox"></x-icon>
+                                        <x-icon :name="Tabler::Inbox" />
                                         <x-sidebar.label>Messages</x-sidebar.label>
 
                                         @if ($unreadMessagesCount() > 0)
                                             <x-slot name="trailing">
-                                                <x-badge color="primary" class="tabular-nums">
+                                                <x-badge type="square" color="primary">
                                                     {{ $unreadMessagesCount() }}
                                                 </x-badge>
                                             </x-slot>
                                         @endif
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endif
 
-                                <x-sidebar.item
+                                <x-sidebar.old-item
                                     x-on:click="Livewire.dispatch('slide-over.open', {component: 'users-notifications'})"
                                     data-tour="dashboard-notifications"
                                 >
-                                    <x-icon name="bell"></x-icon>
+                                    <x-icon :name="Tabler::Bell" />
                                     <x-sidebar.label>Notifications</x-sidebar.label>
 
                                     @if ($unreadNotificationsCount() > 0)
                                         <x-slot name="trailing">
-                                            <x-badge color="primary" class="tabular-nums">
+                                            <x-badge type="square" color="primary">
                                                 {{ $unreadNotificationsCount() }}
                                             </x-badge>
                                         </x-slot>
                                     @endif
-                                </x-sidebar.item>
+                                </x-sidebar.old-item>
 
                                 @if (Nova::userCount() > 1)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.announcements.index')"
                                         :active="request()->routeIs('admin.announcements.*')"
                                     >
-                                        <x-icon name="megaphone"></x-icon>
+                                        <x-icon :name="Tabler::Speakerphone" />
                                         <x-sidebar.label>Announcements</x-sidebar.label>
 
                                         @if ($unreadAnnouncementsCount() > 0)
                                             <x-slot name="trailing">
-                                                <x-badge color="primary" class="tabular-nums">
+                                                <x-badge type="square" color="primary">
                                                     {{ $unreadAnnouncementsCount() }}
                                                 </x-badge>
                                             </x-slot>
                                         @endif
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endif
 
                                 @if ($pendingApprovalsCount() > 0)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.pending-approval')"
                                         :active="request()->routeIs('admin.pending-approval')"
                                     >
-                                        <x-icon name="check-circle"></x-icon>
+                                        <x-icon :name="Tabler::CircleCheck" />
                                         <x-sidebar.label>Pending approval</x-sidebar.label>
 
                                         <x-slot name="trailing">
-                                            <x-badge color="warning" class="tabular-nums">
+                                            <x-badge type="square" color="warning">
                                                 {{ $pendingApprovalsCount() }}
                                             </x-badge>
                                         </x-slot>
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endif
                             </x-sidebar.section>
                         </x-sidebar.header>
 
                         <x-sidebar.body>
                             <x-sidebar.section>
-                                <x-sidebar.item
+                                <x-sidebar.old-item
                                     :href="route('admin.dashboard')"
                                     :active="request()->routeIs('admin.dashboard')"
                                     data-tour="dashboard"
                                 >
-                                    <x-icon name="home" size="sm"></x-icon>
+                                    <x-icon :name="Tabler::Home" />
                                     <x-sidebar.label>Dashboard</x-sidebar.label>
-                                </x-sidebar.item>
+                                </x-sidebar.old-item>
 
                                 @if (auth()->user()->can_write)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.writing-overview')"
                                         :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                                         data-tour="writing"
                                     >
-                                        <x-icon name="write" size="sm"></x-icon>
+                                        <x-icon :name="Tabler::Edit" />
                                         <x-sidebar.label>Write</x-sidebar.label>
 
                                         @if ($draftPostsNeedingAttentionCount() > 0)
                                             <x-slot name="trailing">
-                                                <x-badge color="warning" class="tabular-nums">
+                                                <x-badge type="square" color="warning">
                                                     {{ $draftPostsNeedingAttentionCount() }}
                                                 </x-badge>
                                             </x-slot>
                                         @endif
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endif
 
-                                <x-sidebar.item
+                                <x-sidebar.old-item
                                     :href="route('admin.stories.posts-timeline')"
                                     :active="request()->routeIs('admin.stories.*-timeline')"
                                 >
-                                    <x-icon name="timeline" size="sm"></x-icon>
+                                    <x-icon :name="Tabler::TimelineEvent" />
                                     <x-sidebar.label>Timeline</x-sidebar.label>
-                                </x-sidebar.item>
-                                <x-sidebar.item
+                                </x-sidebar.old-item>
+                                <x-sidebar.old-item
                                     :href="route('admin.notes.index')"
                                     :active="request()->routeIs('admin.notes.*')"
                                 >
-                                    <x-icon name="note" size="sm"></x-icon>
+                                    <x-icon :name="Tabler::Note" />
                                     <x-sidebar.label>Notes</x-sidebar.label>
-                                </x-sidebar.item>
-                                <x-sidebar.item
+                                </x-sidebar.old-item>
+                                <x-sidebar.old-item
                                     :href="route('admin.characters.index')"
                                     :active="$meta->subnavSection === 'characters'"
                                     data-tour="characters"
                                 >
-                                    <x-icon name="characters" size="sm"></x-icon>
+                                    <x-icon :name="Tabler::MasksTheater" />
                                     <x-sidebar.label>Characters</x-sidebar.label>
-                                </x-sidebar.item>
+                                </x-sidebar.old-item>
 
                                 @if (auth()->user()->can_manage_users)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.users.index')"
                                         :active="$meta->subnavSection === 'users'"
                                         data-tour="users"
                                     >
-                                        <x-icon name="users" size="sm"></x-icon>
+                                        <x-icon :name="Tabler::Users" />
                                         <x-sidebar.label>Users</x-sidebar.label>
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endif
 
                                 @can('viewAny', Application::class)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.applications.index', ['tableFilters' => ['result' => ['values' => ['pending']]]])"
                                         :active="request()->routeIs('admin.applications.*')"
                                     >
-                                        <x-icon name="progress-check" size="sm"></x-icon>
+                                        <x-icon :name="Tabler::ProgressCheck" />
                                         <x-sidebar.label>Applications</x-sidebar.label>
 
                                         @if ($pendingApplicationsCount() > 0)
                                             <x-slot name="trailing">
-                                                <x-badge color="warning" class="tabular-nums">
+                                                <x-badge type="square" color="warning">
                                                     {{ $pendingApplicationsCount() }}
                                                 </x-badge>
                                             </x-slot>
                                         @endif
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endcan
 
                                 @can('viewAny', Page::class)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.pages.index', ['pageType' => 0])"
                                         :active="request()->routeIs('admin.pages.*')"
                                         data-tour="pages"
                                     >
-                                        <x-icon name="www" size="sm"></x-icon>
+                                        <x-icon :name="Tabler::WorldWww" />
                                         <x-sidebar.label>Pages</x-sidebar.label>
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endcan
 
                                 @if (auth()->user()->can_manage_forms)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.forms.index')"
                                         :active="$meta->subnavSection === 'forms'"
                                         data-tour="forms"
                                     >
-                                        <x-icon name="form"></x-icon>
+                                        <x-icon :name="Tabler::Forms" />
                                         <x-sidebar.label>Forms</x-sidebar.label>
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @else
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.form-submissions.index')"
                                         :active="$meta->subnavSection === 'forms'"
                                     >
-                                        <x-icon name="form"></x-icon>
+                                        <x-icon :name="Tabler::Forms" />
                                         <x-sidebar.label>Forms</x-sidebar.label>
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endif
 
                                 @permission('report.view')
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.reporting.game-overview')"
                                         :active="$meta->subnavSection === 'reporting'"
                                         data-tour="reporting"
                                     >
-                                        <x-icon name="chart-dots"></x-icon>
+                                        <x-icon :name="Tabler::ChartDots" />
                                         <x-sidebar.label>Reporting</x-sidebar.label>
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endpermission
 
                                 @can('update', $settings)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.settings.general.edit')"
                                         :active="$meta->subnavSection === 'settings'"
                                         data-tour="settings"
                                     >
-                                        <x-icon name="settings" size="sm"></x-icon>
+                                        <x-icon :name="Tabler::Settings" />
                                         <x-sidebar.label>Settings</x-sidebar.label>
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endcan
 
                                 @if (auth()->user()->can_manage_system)
-                                    <x-sidebar.item
+                                    <x-sidebar.old-item
                                         :href="route('admin.system-overview')"
                                         :active="$meta->subnavSection === 'system'"
                                         data-tour="system"
                                     >
-                                        <x-icon name="server" size="sm"></x-icon>
+                                        <x-icon :name="Tabler::Server" />
                                         <x-sidebar.label>System</x-sidebar.label>
 
-                                        @if (! is_null(cache('nova-update-available')))
+                                        @if (! is_null(cache(CacheKeys::UpdateAvailable->value)))
                                             <x-slot name="trailing">
                                                 <div
                                                     @class([
-                                                        'text-warning-500' => cache('nova-update-available') !== ReleaseSeverity::Critical,
-                                                        'text-danger-500' => cache('nova-update-available') === ReleaseSeverity::Critical,
+                                                        'text-warning-500' => cache(CacheKeys::UpdateAvailable->value) !== ReleaseSeverity::Critical,
+                                                        'text-danger-500' => cache(CacheKeys::UpdateAvailable->value) === ReleaseSeverity::Critical,
                                                     ])
                                                 >
                                                     <x-icon
-                                                        :name="cache('nova-update-available') === ReleaseSeverity::Critical ? 'update-alert' : 'update'"
-                                                        size="sm"
-                                                    ></x-icon>
+                                                        :name="cache(CacheKeys::UpdateAvailable->value) === ReleaseSeverity::Critical ? Tabler::RefreshAlert : Tabler::RefreshDot"
+                                                    />
                                                 </div>
                                             </x-slot>
                                         @endif
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endif
                             </x-sidebar.section>
 
@@ -398,77 +398,113 @@
 
                             <x-sidebar.section>
                                 @if (request()->routeIs('admin.dashboard'))
-                                    <x-sidebar.item onclick="window.TourManager.start('dashboard-tour')">
-                                        <x-icon name="directions" size="sm"></x-icon>
+                                    <x-sidebar.old-item onclick="window.TourManager.start('dashboard-tour')">
+                                        <x-icon :name="Tabler::Directions" />
                                         <x-sidebar.label>Take a tour</x-sidebar.label>
-                                    </x-sidebar.item>
+                                    </x-sidebar.old-item>
                                 @endif
 
-                                <x-sidebar.item
+                                <x-sidebar.old-item
                                     :href="external_content('discord')"
                                     target="_blank"
                                     data-tour="dashboard-help"
                                 >
-                                    <x-icon name="help" size="sm"></x-icon>
+                                    <x-icon :name="Tabler::HelpCircle" />
                                     <x-sidebar.label>Get help</x-sidebar.label>
                                     <x-slot name="trailing">
                                         <x-icon
-                                            name="external"
+                                            :name="Tabler::ExternalLink"
                                             size="xs"
                                             class="text-gray-400 dark:text-gray-600"
-                                        ></x-icon>
+                                        />
                                     </x-slot>
-                                </x-sidebar.item>
+                                </x-sidebar.old-item>
                             </x-sidebar.section>
                         </x-sidebar.body>
 
                         <x-sidebar.footer>
                             <x-sidebar.section>
-                                <x-dropdown placement="bottom-end" class="w-full">
-                                    <x-slot name="emptyTrigger">
-                                        <x-sidebar.item>
-                                            <x-avatar
-                                                :src="auth()->user()->avatar_url"
-                                                :tooltip="auth()->user()->name"
-                                            />
-                                            <x-sidebar.label>{{ auth()->user()->name }}</x-sidebar.label>
-                                            <x-icon.chevron-up-down></x-icon.chevron-up-down>
-                                        </x-sidebar.item>
+                                <x-dropdown placement="top start" class="w-56">
+                                    <x-slot name="trigger">
+                                        <flux:profile
+                                            :name="auth()->user()->name"
+                                            :avatar="auth()->user()->avatar_url"
+                                            :circle="settings('appearance.avatarShape') === AvatarShape::Circle"
+                                            icon:trailing="chevron-up-down"
+                                            class="w-full"
+                                        ></flux:profile>
                                     </x-slot>
 
-                                    <x-dropdown.group>
-                                        <x-dropdown.item :href="route('admin.account.edit')" icon="user">
-                                            My account
-                                        </x-dropdown.item>
-                                        <x-dropdown.item :href="route('admin.account.notifications')" icon="bell">
-                                            My notifications
-                                        </x-dropdown.item>
-                                        <x-dropdown.item type="div" icon="moon">
-                                            <div class="flex w-full items-center justify-between">
-                                                <div class="flex-1 font-medium">Dark mode</div>
-                                                <flux:switch x-data x-model="$flux.dark" />
-                                            </div>
-                                        </x-dropdown.item>
-                                    </x-dropdown.group>
+                                    <x-dropdown.item :href="route('admin.account.edit')" :icon="Tabler::User">
+                                        My account
+                                    </x-dropdown.item>
+                                    <x-dropdown.item
+                                        :href="route('admin.account.notifications')"
+                                        :icon="Tabler::Bell"
+                                    >
+                                        My notifications
+                                    </x-dropdown.item>
 
-                                    <x-dropdown.group>
+                                    <flux:menu.separator />
+
+                                    <div class="dark">
+                                        <livewire:users-admin-appearance />
+                                    </div>
+
+                                    <flux:menu.separator />
+
+                                    <x-dropdown.item
+                                        :href="route('admin.characters.index', ['only_my_characters' => true])"
+                                        :icon="Tabler::MasksTheater"
+                                    >
+                                        My characters
+                                    </x-dropdown.item>
+
+                                    <flux:menu.separator />
+
+                                    <x-dropdown.item :post-to-url="route('logout')" :icon="Tabler::Logout">
+                                        Sign out
+                                    </x-dropdown.item>
+
+                                    {{--
+                                        <x-dropdown.group>
+                                        
+                                        <x-dropdown.item type="div" :icon="Tabler::Moon">
+                                        <div class="dark flex w-full items-center justify-between">
+                                        <div class="flex-1 font-medium">Dark mode</div>
+                                        <flux:switch x-data x-model="$flux.dark" />
+                                        </div>
+                                        </x-dropdown.item>
+                                        
+                                        </x-dropdown.group>
+                                        
+                                        <x-dropdown.group class="dark">
+                                        <x-radio.group x-data variant="segmented" x-model="$flux.appearance">
+                                        <x-radio value="light" icon="sun" />
+                                        <x-radio value="dark" icon="moon" />
+                                        <x-radio value="system" icon="computer-desktop" />
+                                        </x-radio.group>
+                                        </x-dropdown.group>
+                                        
+                                        <x-dropdown.group>
                                         <x-dropdown.item
-                                            :href="route('admin.characters.index', ['only_my_characters' => true])"
-                                            icon="characters"
+                                        :href="route('admin.characters.index', ['only_my_characters' => true])"
+                                        :icon="Tabler::MasksTheater"
                                         >
-                                            My characters
+                                        My characters
                                         </x-dropdown.item>
-                                    </x-dropdown.group>
-
-                                    <x-dropdown.group>
-                                        <x-dropdown.item type="submit" icon="logout" form="logout-form">
-                                            <span>Sign out</span>
-
-                                            <x-slot name="buttonForm">
-                                                <x-form :action="route('logout')" class="hidden" id="logout-form" />
-                                            </x-slot>
+                                        </x-dropdown.group>
+                                        
+                                        <x-dropdown.group>
+                                        <x-dropdown.item type="submit" :icon="Tabler::Logout" form="logout-form">
+                                        <span>Sign out</span>
+                                        
+                                        <x-slot name="buttonForm">
+                                        <x-form :action="route('logout')" class="hidden" id="logout-form" />
+                                        </x-slot>
                                         </x-dropdown.item>
-                                    </x-dropdown.group>
+                                        </x-dropdown.group>
+                                    --}}
                                 </x-dropdown>
                             </x-sidebar.section>
                         </x-sidebar.footer>
@@ -516,10 +552,10 @@
                                                 aria-label="Close navigation"
                                                 type="button"
                                                 x-on:click="open = false"
-                                                class="relative flex min-w-0 cursor-default items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-gray-950 data-[active]:bg-gray-950/5 data-[hover]:bg-gray-950/5 data-[slot=avatar]:*:-m-0.5 data-[slot=avatar]:*:size-7 data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:data-[active]:fill-gray-950 data-[slot=icon]:*:data-[hover]:fill-gray-950 data-[slot=icon]:*:fill-gray-500 data-[slot=avatar]:*:[--avatar-radius:theme(borderRadius.DEFAULT)] data-[slot=avatar]:*:[--ring-opacity:10%] sm:text-sm/5 sm:data-[slot=avatar]:*:size-6 sm:data-[slot=icon]:*:size-5 dark:text-white dark:data-[active]:bg-white/5 dark:data-[hover]:bg-white/5 dark:data-[slot=icon]:*:data-[active]:fill-white dark:data-[slot=icon]:*:data-[hover]:fill-white dark:data-[slot=icon]:*:fill-gray-400 data-[slot=icon]:last:[&:not(:nth-child(2))]:*:ml-auto data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-5 sm:data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-4"
+                                                class="relative flex min-w-0 cursor-default items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-gray-950 data-[active]:bg-gray-950/5 data-[hover]:bg-gray-950/5 data-[slot=avatar]:*:-m-0.5 data-[slot=avatar]:*:size-7 data-[slot=avatar]:*:[--avatar-radius:theme(borderRadius.DEFAULT)] data-[slot=avatar]:*:[--ring-opacity:10%] data-[slot=icon]:*:size-6 data-[slot=icon]:*:shrink-0 data-[slot=icon]:*:fill-gray-500 data-[slot=icon]:*:data-[active]:fill-gray-950 data-[slot=icon]:*:data-[hover]:fill-gray-950 sm:text-sm/5 sm:data-[slot=avatar]:*:size-6 sm:data-[slot=icon]:*:size-5 dark:text-white dark:data-[active]:bg-white/5 dark:data-[hover]:bg-white/5 dark:data-[slot=icon]:*:fill-gray-400 dark:data-[slot=icon]:*:data-[active]:fill-white dark:data-[slot=icon]:*:data-[hover]:fill-white data-[slot=icon]:last:[&:not(:nth-child(2))]:*:ml-auto data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-5 sm:data-[slot=icon]:last:[&:not(:nth-child(2))]:*:size-4"
                                             >
                                                 <span
-                                                    class="absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
+                                                    class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
                                                     aria-hidden="true"
                                                 ></span>
                                                 <x-icon.x></x-icon.x>
@@ -548,171 +584,173 @@
 
                                         <x-sidebar.body>
                                             <x-sidebar.section>
-                                                <x-sidebar.item
+                                                <x-sidebar.old-item
                                                     :href="route('admin.dashboard')"
                                                     :active="request()->routeIs('admin.dashboard')"
                                                 >
-                                                    <x-icon name="home" size="sm"></x-icon>
+                                                    <x-icon :name="Tabler::Home" />
                                                     <x-sidebar.label>Dashboard</x-sidebar.label>
-                                                </x-sidebar.item>
+                                                </x-sidebar.old-item>
 
                                                 @if (auth()->user()->can_write)
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.writing-overview')"
                                                         :active="$meta->subnavSection === 'writing' || $meta->subnavSection === 'posting'"
                                                     >
-                                                        <x-icon name="write" size="sm"></x-icon>
+                                                        <x-icon :name="Tabler::Edit" />
                                                         <x-sidebar.label>Write</x-sidebar.label>
 
                                                         @if ($draftPostsNeedingAttentionCount() > 0)
                                                             <x-slot name="trailing">
-                                                                <x-badge color="warning" class="tabular-nums">
+                                                                <x-badge type="square" color="warning">
                                                                     {{ $draftPostsNeedingAttentionCount() }}
                                                                 </x-badge>
                                                             </x-slot>
                                                         @endif
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @endif
 
-                                                <x-sidebar.item
+                                                <x-sidebar.old-item
                                                     :href="route('admin.stories.posts-timeline')"
                                                     :active="request()->routeIs('admin.stories.*-timeline')"
                                                 >
-                                                    <x-icon name="timeline" size="sm"></x-icon>
+                                                    <x-icon :name="Tabler::TimelineEvent" />
                                                     <x-sidebar.label>Timeline</x-sidebar.label>
-                                                </x-sidebar.item>
-                                                <x-sidebar.item
+                                                </x-sidebar.old-item>
+                                                <x-sidebar.old-item
                                                     :href="route('admin.notes.index')"
                                                     :active="request()->routeIs('admin.notes.*')"
                                                 >
-                                                    <x-icon name="note" size="sm"></x-icon>
+                                                    <x-icon :name="Tabler::Note" />
                                                     <x-sidebar.label>Notes</x-sidebar.label>
-                                                </x-sidebar.item>
-                                                <x-sidebar.item
+                                                </x-sidebar.old-item>
+                                                <x-sidebar.old-item
                                                     :href="route('admin.characters.index')"
                                                     :active="$meta->subnavSection === 'characters'"
                                                 >
-                                                    <x-icon name="characters" size="sm"></x-icon>
+                                                    <x-icon :name="Tabler::MasksTheater" />
                                                     <x-sidebar.label>Characters</x-sidebar.label>
-                                                </x-sidebar.item>
+                                                </x-sidebar.old-item>
 
                                                 @if (auth()->user()->can_manage_users)
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.users.index')"
                                                         :active="$meta->subnavSection === 'users'"
                                                     >
-                                                        <x-icon name="users" size="sm"></x-icon>
+                                                        <x-icon :name="Tabler::Users" />
                                                         <x-sidebar.label>Users</x-sidebar.label>
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @endif
 
                                                 @can('viewAny', Application::class)
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.applications.index', ['tableFilters' => ['result' => ['values' => ['pending']]]])"
                                                         :active="request()->routeIs('admin.applications.*')"
                                                     >
-                                                        <x-icon name="progress-check" size="sm"></x-icon>
+                                                        <x-icon :name="Tabler::ProgressCheck" />
                                                         <x-sidebar.label>Applications</x-sidebar.label>
 
                                                         @if ($pendingApplicationsCount() > 0)
                                                             <x-slot name="trailing">
-                                                                <x-badge color="warning">
+                                                                <x-badge type="square" color="warning">
                                                                     {{ $pendingApplicationsCount() }}
                                                                 </x-badge>
                                                             </x-slot>
                                                         @endif
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @endcan
 
                                                 @can('viewAny', Page::class)
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.pages.index', ['pageType' => 0])"
                                                         :active="request()->routeIs('admin.pages.*')"
                                                     >
-                                                        <x-icon name="www" size="sm"></x-icon>
+                                                        <x-icon :name="Tabler::WorldWww" />
                                                         <x-sidebar.label>Pages</x-sidebar.label>
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @endcan
 
                                                 @if (auth()->user()->can_manage_forms)
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.forms.index')"
                                                         :active="$meta->subnavSection === 'forms'"
                                                     >
-                                                        <x-icon name="form"></x-icon>
+                                                        <x-icon :name="Tabler::Forms" />
                                                         <x-sidebar.label>Forms</x-sidebar.label>
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @else
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.form-submissions.index')"
                                                         :active="$meta->subnavSection === 'forms'"
                                                     >
-                                                        <x-icon name="form"></x-icon>
+                                                        <x-icon :name="Tabler::Forms" />
                                                         <x-sidebar.label>Forms</x-sidebar.label>
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @endif
 
                                                 @permission('report.view')
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.reporting.game-overview')"
                                                         :active="$meta->subnavSection === 'reporting'"
                                                     >
-                                                        <x-icon name="chart-dots"></x-icon>
+                                                        <x-icon :name="Tabler::ChartDots" />
                                                         <x-sidebar.label>Reporting</x-sidebar.label>
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @endpermission
 
                                                 @can('update', $settings)
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.settings.general.edit')"
                                                         :active="$meta->subnavSection === 'settings'"
                                                     >
-                                                        <x-icon name="settings" size="sm"></x-icon>
+                                                        <x-icon :name="Tabler::Settings" />
                                                         <x-sidebar.label>Settings</x-sidebar.label>
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @endcan
 
                                                 @if (auth()->user()->can_manage_system)
-                                                    <x-sidebar.item
+                                                    <x-sidebar.old-item
                                                         :href="route('admin.system-overview')"
                                                         :active="$meta->subnavSection === 'system'"
                                                     >
-                                                        <x-icon name="server" size="sm"></x-icon>
+                                                        <x-icon :name="Tabler::Server" />
                                                         <x-sidebar.label>System</x-sidebar.label>
 
-                                                        @if (! is_null(cache('nova-update-available')))
+                                                        @if (! is_null(cache(CacheKeys::UpdateAvailable->value)))
                                                             <x-slot name="trailing">
                                                                 <div
                                                                     @class([
-                                                                        'text-warning-500' => cache('nova-update-available') !== ReleaseSeverity::Critical,
-                                                                        'text-danger-500' => cache('nova-update-available') === ReleaseSeverity::Critical,
+                                                                        'text-warning-500' => cache(CacheKeys::UpdateAvailable->value) !== ReleaseSeverity::Critical,
+                                                                        'text-danger-500' => cache(CacheKeys::UpdateAvailable->value) === ReleaseSeverity::Critical,
                                                                     ])
                                                                 >
                                                                     <x-icon
-                                                                        :name="cache('nova-update-available') === ReleaseSeverity::Critical ? 'update-alert' : 'update'"
-                                                                        size="sm"
-                                                                    ></x-icon>
+                                                                        :name="cache(CacheKeys::UpdateAvailable->value) === ReleaseSeverity::Critical ? 'update-alert' : 'update'"
+                                                                    />
                                                                 </div>
                                                             </x-slot>
                                                         @endif
-                                                    </x-sidebar.item>
+                                                    </x-sidebar.old-item>
                                                 @endif
                                             </x-sidebar.section>
 
                                             <x-sidebar.spacer></x-sidebar.spacer>
 
                                             <x-sidebar.section>
-                                                <x-sidebar.item :href="external_content('discord')" target="_blank">
-                                                    <x-icon name="help" size="sm"></x-icon>
+                                                <x-sidebar.old-item
+                                                    :href="external_content('discord')"
+                                                    target="_blank"
+                                                >
+                                                    <x-icon :name="Tabler::HelpCircle" />
                                                     <x-sidebar.label>Get help</x-sidebar.label>
                                                     <x-slot name="trailing">
                                                         <x-icon
-                                                            name="external"
+                                                            :name="Tabler::ExternalLink"
                                                             size="xs"
                                                             class="text-gray-400 dark:text-gray-600"
-                                                        ></x-icon>
+                                                        />
                                                     </x-slot>
-                                                </x-sidebar.item>
+                                                </x-sidebar.old-item>
                                             </x-sidebar.section>
                                         </x-sidebar.body>
                                     </x-sidebar>
@@ -738,17 +776,17 @@
                         <x-navbar.spacer></x-navbar.spacer>
 
                         <x-navbar.section>
-                            <x-navbar.item type="button" x-on:click="$dispatch('toggle-search')">
-                                <x-icon name="search"></x-icon>
+                            <x-navbar.item type="button" command="show-modal" commandfor="search-dialog">
+                                <x-icon :name="Tabler::Search" />
                             </x-navbar.item>
 
                             @if (Nova::userCount() > 1)
                                 <x-navbar.item :href="route('admin.messages.index')" class="relative">
                                     @if ($unreadMessagesCount() > 0)
-                                        <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
+                                        <div class="bg-primary-500 absolute top-2 right-0 size-2 rounded-full"></div>
                                     @endif
 
-                                    <x-icon name="inbox"></x-icon>
+                                    <x-icon :name="Tabler::Inbox" />
                                 </x-navbar.item>
                             @endif
 
@@ -758,46 +796,53 @@
                                 aria-label="Notifications"
                             >
                                 @if ($unreadNotificationsCount() > 0)
-                                    <div class="absolute right-1 top-2 size-2 rounded-full bg-danger-500"></div>
+                                    <div class="bg-danger-500 absolute top-2 right-1 size-2 rounded-full"></div>
                                 @endif
 
-                                <x-icon name="bell"></x-icon>
+                                <x-icon :name="Tabler::Bell" />
                             </x-navbar.item>
 
                             @if (Nova::userCount() > 1)
                                 <x-navbar.item :href="route('admin.announcements.index')">
                                     @if ($unreadAnnouncementsCount() > 0)
-                                        <div class="absolute right-0 top-2 size-2 rounded-full bg-primary-500"></div>
+                                        <div class="bg-primary-500 absolute top-2 right-0 size-2 rounded-full"></div>
                                     @endif
 
-                                    <x-icon name="megaphone"></x-icon>
+                                    <x-icon :name="Tabler::Speakerphone" />
                                 </x-navbar.item>
                             @endif
 
                             @if ($pendingApprovalsCount() > 0)
                                 <x-navbar.item :href="route('admin.pending-approval')">
-                                    <div class="absolute right-0 top-2 size-2 rounded-full bg-warning-500"></div>
+                                    <div class="bg-warning-500 absolute top-2 right-0 size-2 rounded-full"></div>
 
-                                    <x-icon name="check-circle"></x-icon>
+                                    <x-icon :name="Tabler::CircleCheck" />
                                 </x-navbar.item>
                             @endif
 
-                            <x-dropdown placement="bottom-end" class="w-full">
-                                <x-slot name="emptyTrigger">
-                                    <x-navbar.item>
-                                        <x-avatar :src="auth()->user()->avatar_url"></x-avatar>
+                            <x-dropdown placement="bottom end">
+                                <x-slot name="trigger">
+                                    <x-navbar.item type="button">
+                                        <flux:profile
+                                            :avatar="auth()->user()->avatar_url"
+                                            :circle="settings('appearance.avatarShape') === AvatarShape::Circle"
+                                            icon:trailing="chevron-up-down"
+                                        ></flux:profile>
                                     </x-navbar.item>
                                 </x-slot>
 
                                 <x-dropdown.group>
-                                    <x-dropdown.item :href="route('admin.account.edit')" icon="user">
+                                    <x-dropdown.item :href="route('admin.account.edit')" :icon="Tabler::User">
                                         My account
                                     </x-dropdown.item>
-                                    <x-dropdown.item :href="route('admin.account.notifications')" icon="notification">
+                                    <x-dropdown.item
+                                        :href="route('admin.account.notifications')"
+                                        :icon="Tabler::Notification"
+                                    >
                                         My notifications
                                     </x-dropdown.item>
-                                    <x-dropdown.item type="div" icon="moon">
-                                        <div class="flex w-full items-center justify-between">
+                                    <x-dropdown.item type="div" :icon="Tabler::Moon">
+                                        <div class="dark flex w-full items-center justify-between">
                                             <div class="flex-1 font-medium">Dark mode</div>
                                             <flux:switch x-data x-model="$flux.dark" />
                                         </div>
@@ -807,19 +852,15 @@
                                 <x-dropdown.group>
                                     <x-dropdown.item
                                         :href="route('admin.characters.index', ['only_my_characters' => true])"
-                                        icon="characters"
+                                        :icon="Tabler::MasksTheater"
                                     >
                                         My characters
                                     </x-dropdown.item>
                                 </x-dropdown.group>
 
                                 <x-dropdown.group>
-                                    <x-dropdown.item type="submit" icon="logout" form="logout-form">
-                                        <span>Sign out</span>
-
-                                        <x-slot name="buttonForm">
-                                            <x-form :action="route('logout')" class="hidden" id="logout-form" />
-                                        </x-slot>
+                                    <x-dropdown.item :post-to-url="route('logout')" :icon="Tabler::Logout">
+                                        Sign out
                                     </x-dropdown.item>
                                 </x-dropdown.group>
                             </x-dropdown>
@@ -827,14 +868,16 @@
                     </x-navbar>
                 </header>
 
-                <main class="flex flex-1 flex-col pb-2 lg:min-w-0 lg:pl-64 lg:pr-2 lg:pt-2">
+                <main class="flex flex-1 flex-col pb-2 lg:min-w-0 lg:pt-2 lg:pr-2 lg:pl-64">
                     <div
-                        class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-950 dark:lg:ring-white/10"
+                        class="relative grow p-6 lg:rounded-lg lg:bg-white lg:p-10 lg:shadow-sm lg:ring-1 lg:ring-gray-950/5 dark:lg:bg-gray-950 dark:lg:ring-white/5"
                     >
                         <div class="relative z-[2] mx-auto max-w-6xl">
                             @if ($errors->has('global'))
                                 <div class="mb-8">
-                                    <x-panel.danger :title="$errors->first('global')" icon="alert"></x-panel.danger>
+                                    <x-callout.danger :icon="Tabler::AlertCircle" icon:size="md">
+                                        {{ $errors->first('global') }}
+                                    </x-callout.danger>
                                 </div>
                             @endif
 

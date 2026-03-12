@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Nova\Users\Models\Ban;
+
 return [
 
     /*
@@ -25,7 +27,7 @@ return [
     |
      */
 
-    'model' => Nova\Users\Models\Ban::class,
+    'model' => Ban::class,
 
     /*
     |--------------------------------------------------------------------------

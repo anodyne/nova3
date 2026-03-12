@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
@@ -27,7 +28,7 @@ describe('authorized user', function () {
         Event::fake();
 
         livewire(UsersList::class)
-            ->callTableAction(DeleteAction::class, $this->users->first())
+            ->callAction(TestAction::make(DeleteAction::class)->table($this->users->first()))
             ->assertCanNotSeeTableRecords([$this->users->first()]);
 
         assertDatabaseMissing(User::class, $this->users->first()->toArray());
@@ -37,7 +38,7 @@ describe('authorized user', function () {
 
     test('cannot delete their own account', function () {
         livewire(UsersList::class)
-            ->assertTableActionHidden(DeleteAction::class, auth()->user());
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table(Auth::user()));
     });
 
     test('has the correct permissions for list users page', function () {
@@ -45,25 +46,24 @@ describe('authorized user', function () {
         $inactiveUser = User::factory()->inactive()->create();
 
         livewire(UsersList::class)
-            ->assertTableActionHidden(ViewAction::class, $activeUser)
-            ->assertTableActionHidden(EditAction::class, $activeUser)
-            ->assertTableActionVisible(DeleteAction::class, $activeUser)
-            ->assertTableActionHidden('impersonate', $activeUser)
-            ->assertTableActionHidden('activate', $activeUser)
-            ->assertTableActionHidden('deactivate', $activeUser)
-            ->assertTableActionHidden(ViewAction::class, $inactiveUser)
-            ->assertTableActionHidden(EditAction::class, $inactiveUser)
-            ->assertTableActionVisible(DeleteAction::class, $inactiveUser)
-            ->assertTableActionHidden('impersonate', $inactiveUser)
-            ->assertTableActionHidden('activate', $inactiveUser)
-            ->assertTableActionHidden('deactivate', $inactiveUser);
+            ->removeTableFilters()
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($activeUser))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($activeUser))
+            ->assertActionVisible(TestAction::make(DeleteAction::class)->table($activeUser))
+            ->assertActionHidden(TestAction::make('impersonate')->table($activeUser))
+            ->assertActionHidden(TestAction::make('activate')->table($activeUser))
+            ->assertActionHidden(TestAction::make('deactivate')->table($activeUser))
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($inactiveUser))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($inactiveUser))
+            ->assertActionVisible(TestAction::make(DeleteAction::class)->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('impersonate')->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('activate')->table($inactiveUser))
+            ->assertActionHidden(TestAction::make('deactivate')->table($inactiveUser));
     });
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot delete a user', function () {
         get(route('admin.users.index'))->assertForbidden();

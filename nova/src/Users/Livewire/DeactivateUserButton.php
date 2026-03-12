@@ -29,7 +29,7 @@ class DeactivateUserButton extends Component
     public function render()
     {
         return <<<'blade'
-            <x-button type="button" color="neutral" wire:click="deactivate">Deactivate</x-button>
+            <x-button type="button" wire:click="deactivate">Deactivate</x-button>
         blade;
     }
 }

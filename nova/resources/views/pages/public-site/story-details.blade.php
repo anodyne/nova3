@@ -1,4 +1,3 @@
-@use('Illuminate\Support\Number')
 @use('Nova\Foundation\Helpers\DateHelper')
 
 <x-dynamic-component component="layouts.theme">

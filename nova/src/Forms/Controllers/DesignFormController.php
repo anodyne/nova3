@@ -19,6 +19,8 @@ class DesignFormController extends Controller
 
     public function __invoke(Form $form)
     {
+        $this->authorize('design', $form);
+
         return DesignFormResponse::sendWith([
             'form' => $form,
         ]);

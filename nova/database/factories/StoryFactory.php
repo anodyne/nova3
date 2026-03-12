@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\CanAddMedia;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Stories\Models\States\StoryStatus\Completed;
 use Nova\Stories\Models\States\StoryStatus\Current;
@@ -16,7 +17,7 @@ use Nova\Stories\Models\Story;
  */
 class StoryFactory extends Factory
 {
-    use Concerns\CanAddMedia;
+    use CanAddMedia;
 
     protected $model = Story::class;
 

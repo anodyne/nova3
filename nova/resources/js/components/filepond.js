@@ -39,9 +39,17 @@ export default function registerFilepond() {
                     process: (fieldName, file, metadata, load, error, progress) => {
                         wire.upload('image', file, load, error, progress);
                     },
+                    remove: async (file, load) => {
+                        await wire.removeImage();
+                        load();
+
+                        this.$dispatch('filepond-upload-file-removed');
+                    },
                     revert: async (filename, load) => {
                         wire.set('image', null);
                         wire.removeUpload('image', filename, load);
+
+                        this.$dispatch('filepond-upload-reverted');
                     },
                 },
             };

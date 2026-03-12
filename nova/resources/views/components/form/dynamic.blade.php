@@ -5,6 +5,6 @@
     'values' => [],
 ])
 
-<div class="prose space-y-8 dark:prose-invert">
+<div class="space-y-8">
     {{ $slot }}
 </div>

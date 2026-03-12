@@ -1,17 +1,25 @@
 <div class="space-y-12">
-    <x-add-ons.action-script :action="$action->getModalAction('extensionInstall')" icon="bolt" title="Install">
+    <x-add-ons.action-script
+        :action="$action->getModalAction('extensionInstall')"
+        :icon="Tabler::Bolt"
+        title="Install"
+    >
         Generally you will only need to run the install script once, but there could be situations where you would want
         to run it multiple times. Consult with the add-on author before running the install script multiple times.
     </x-add-ons.action-script>
 
-    <x-add-ons.action-script :action="$action->getModalAction('extensionUpdate')" icon="arrows-sync" title="Update">
+    <x-add-ons.action-script
+        :action="$action->getModalAction('extensionUpdate')"
+        :icon="Tabler::Refresh"
+        title="Update"
+    >
         In some cases, an add-on may require additional scripts to be run as part of a version update. Consult with the
         add-on author about any steps that need to be taken before running the update script.
     </x-add-ons.action-script>
 
     <x-add-ons.action-script
         :action="$action->getModalAction('extensionUninstall')"
-        icon="bolt-off"
+        :icon="Tabler::BoltOff"
         color="danger"
         title="Uninstall"
     >
@@ -22,7 +30,7 @@
     @if ($addonClass->hasMigrations())
         <x-add-ons.action-script
             :action="$action->getModalAction('extensionRunMigrations')"
-            icon="database"
+            :icon="Tabler::Database"
             title="Database migrations"
         >
             This will run the migrations to ensure any database structures are up-to-date.
@@ -30,7 +38,7 @@
 
         <x-add-ons.action-script
             :action="$action->getModalAction('extensionRollbackMigrations')"
-            icon="database-off"
+            :icon="Tabler::DatabaseOff"
             color="danger"
             title="Rollback database migrations"
         >

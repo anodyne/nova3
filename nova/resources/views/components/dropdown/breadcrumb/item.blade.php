@@ -4,8 +4,7 @@
 
 <button
     type="button"
-    class="flex w-full items-center justify-between gap-x-6 rounded-md px-2 py-1 text-left hover:bg-gray-950/5"
-    x-on:click="open = false"
+    class="group flex w-full items-center justify-between gap-x-6 rounded-[calc(var(--radius-xl)-(--spacing(1)))] px-2 py-2 text-left font-medium text-white focus:bg-white/10 focus:text-white focus:outline-hidden"
     {{ $attributes }}
 >
     {{ $slot }}

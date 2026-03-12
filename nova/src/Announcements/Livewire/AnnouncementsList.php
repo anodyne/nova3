@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Livewire;
 
-use Filament\Support\Enums\MaxWidth;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -26,9 +27,10 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
 class AnnouncementsList extends TableComponent
 {
@@ -65,9 +67,10 @@ class AnnouncementsList extends TableComponent
                         fn (Builder $query): Builder => $query->published(),
                     )
             )
-            ->defaultGroup('status')
+            ->defaultGroup(fn (): ?string => $user->can('manage', Announcement::class) ? 'status' : null)
             ->defaultSort('published_at', 'desc')
             ->groups(['status'])
+            ->groupingSettingsHidden($user->cannot('manage', Announcement::class))
             ->recordUrl(fn (Announcement $record): string => route('admin.announcements.show', $record))
             ->columns([
                 ViewColumn::make('title')
@@ -81,6 +84,7 @@ class AnnouncementsList extends TableComponent
                     ->label('Author')
                     ->toggleable(),
                 TextColumn::make('published_at')
+                    ->label('Published')
                     ->dateTime()
                     ->formatStateUsing(fn (Announcement $record): ?string => filled($record->published_at) ? DateHelper::formatDate($record->published_at) : null)
                     ->sortable()
@@ -89,24 +93,24 @@ class AnnouncementsList extends TableComponent
                     ->badge()
                     ->visible($user->can('manage', Announcement::class)),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Announcement $record): string => route('admin.announcements.edit', $record)),
-                    ])->authorize('update')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         Action::make('approve')
                             ->authorize('approve')
-                            ->icon(iconName('check-circle'))
+                            ->icon(Tabler::CircleCheck)
                             ->modalContent(fn (Announcement $record, Action $action): View => view('pages.announcements.approve', [
                                 'record' => $record,
                                 'action' => $action,
                             ]))
                             ->modalHeading('')
-                            ->modalWidth(MaxWidth::Large)
+                            ->modalWidth(Width::Large)
                             ->modalSubmitActionLabel('Yes, approve it')
                             ->action(function (Announcement $record): void {
                                 ApproveAnnouncement::run($record);
@@ -116,7 +120,7 @@ class AnnouncementsList extends TableComponent
                                     ->body('The announcement has been published and notifications have been sent.')
                                     ->send();
                             }),
-                    ])->authorize('approve')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -134,7 +138,7 @@ class AnnouncementsList extends TableComponent
                             ->modalContentView('pages.announcements.delete')
                             ->successNotificationTitle(fn (Announcement $record): string => $record->title.' announcement was deleted')
                             ->using(fn (Announcement $record): Model => DeleteAnnouncement::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
@@ -160,7 +164,7 @@ class AnnouncementsList extends TableComponent
                 SelectFilter::make('category')
                     ->options(Announcement::query()->uniqueCategories()->pluck('category', 'category')->all()),
             ])
-            ->emptyStateIcon(iconName('megaphone'))
+            ->emptyStateIcon(Illustration::Megaphone)
             ->emptyStateHeading('No announcements')
             ->emptyStateDescription(null)
             ->emptyStateActions([

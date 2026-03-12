@@ -23,8 +23,7 @@
         {{ NovaView::renderHook('auth::head-scripts.after') }}
     </head>
     <body
-        class="h-full bg-white font-[family-name:--font-body] text-gray-600 antialiased xl:bg-gray-50 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
-        @if (settings('appearance.panda')) data-panda @endif
+        class="h-full bg-white font-(family-name:--font-body) text-gray-600 antialiased xl:bg-gray-50 dark:bg-gray-950 dark:text-gray-400 dark:xl:bg-gray-950"
     >
         {{ NovaView::renderHook('auth::body.start') }}
 
@@ -33,10 +32,10 @@
 
             <x-spacing size="xl" class="flex min-h-screen flex-col justify-center">
                 <div class="relative z-10 sm:mx-auto sm:w-full sm:max-w-md">
-                    @if (app('nova.settings')?->getFirstMedia('logo'))
+                    @if (settings()?->getFirstMedia('logo-full'))
                         <div>
                             <img
-                                src="{{ app('nova.settings')->getFirstMediaUrl('logo') }}"
+                                src="{{ settings()->getFirstMediaUrl('logo-full') }}"
                                 alt="logo"
                                 class="mx-auto h-12 w-auto"
                             />
@@ -65,6 +64,7 @@
         {{ NovaView::renderHook('auth::scripts.before') }}
 
         @filamentScripts(withCore: true)
+        @fluxScripts
         @novaAdminScripts
         @stack('scripts')
 

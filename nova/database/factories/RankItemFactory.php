@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Database\Factories\Concerns\CanHandleDataForRequests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Ranks\Models\RankGroup;
@@ -12,6 +13,8 @@ use Nova\Ranks\Models\RankName;
 
 class RankItemFactory extends Factory
 {
+    use CanHandleDataForRequests;
+
     protected $model = RankItem::class;
 
     public function definition()
@@ -23,6 +26,13 @@ class RankItemFactory extends Factory
             'overlay_image' => 'overlay.png',
             'status' => BasicStatus::Active,
         ];
+    }
+
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
     }
 
     public function inactive()

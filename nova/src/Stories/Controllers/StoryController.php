@@ -83,10 +83,11 @@ class StoryController extends Controller
     {
         $this->authorize('delete', new Story);
 
-        $stories = Story::with('parent')
+        $story = Story::with('parent')
             ->ordered()
-            ->find($id)
-            ->descendantsAndSelf;
+            ->findOrFail($id);
+
+        $stories = $story->descendantsAndSelf;
 
         return DeleteStoryResponse::sendWith([
             'storiesToDelete' => $stories,

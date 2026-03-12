@@ -1,5 +1,9 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss' source(none);
+@source "../views/maintenance.blade.php";
+@custom-variant dark (&:is(.dark *));
 
-@config "./tailwind.maintenance.config.js";
+@theme {
+  --font-*: initial;
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-title: Geist, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}

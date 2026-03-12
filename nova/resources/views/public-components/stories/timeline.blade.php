@@ -40,14 +40,15 @@
                         </x-badge>
                     </div>
 
-                    @if ($story->children_count > 0)
+                    @if ($story->children_count > 0 && ! $expanded)
                         <div class="shrink-0">
-                            <span x-show="!expanded">
-                                <x-icon name="add" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
-                            </span>
-                            <span x-show="expanded">
-                                <x-icon name="remove" size="md" class="text-gray-400 dark:text-gray-500"></x-icon>
-                            </span>
+                            <x-icon
+                                :name="Tabler::ChevronRight"
+                                size="md"
+                                class="dark:text-dark-500 text-gray-400 transition-transform duration-200"
+                                x-bind:class="{ 'rotate-90': expanded }"
+                                x-cloak
+                            />
                         </div>
                     @endif
                 </div>
@@ -61,7 +62,7 @@
                     @endif
                 >
                     <div
-                        class="prose max-w-4xl dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400"
+                        class="prose dark:prose-invert prose-a:text-primary-500 hover:prose-a:text-primary-600 dark:hover:prose-a:text-primary-400 max-w-4xl"
                     >
                         {!! $story->description !!}
                     </div>
@@ -71,7 +72,10 @@
                     </div>
 
                     <div class="mt-8">
-                        <x-public::button :href="route('public.story', $story)">Go to story &rarr;</x-public::button>
+                        <x-public::button :href="route('public.story', $story)">
+                            Go to story
+                            <span aria-hidden="true">→</span>
+                        </x-public::button>
                     </div>
 
                     @if ($story->children_count > 0)

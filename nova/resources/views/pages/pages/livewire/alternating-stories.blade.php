@@ -21,12 +21,12 @@
                     '@5xl:order-last' => $loop->even,
                 ])
             >
-                <x-public::h2 class="text-[--primary-text-color]">
+                <x-public::h2 class="text-(--primary-text-color)">
                     {{ $story?->title }}
                 </x-public::h2>
 
                 @if ($showDescription && filled($story?->description))
-                    <x-public::lead class="mt-4 text-[--secondary-text-color]" markdown>
+                    <x-public::lead class="mt-4 text-(--secondary-text-color)" markdown>
                         {{ $story?->description }}
                     </x-public::lead>
                 @endif
@@ -47,19 +47,19 @@
                 @if ($showStats)
                     <div class="nv-stories-story-stats @lg:grid-cols-2 mt-8 grid gap-y-8">
                         <div class="nv-stories-story-stat py-2">
-                            <h3 class="text-base/7 text-[--secondary-text-color]">Total posts</h3>
+                            <h3 class="text-base/7 text-(--secondary-text-color)">Total posts</h3>
 
                             <div
-                                class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-[--primary-text-color] sm:text-5xl"
+                                class="nv-stat-value order-first font-(family-name:--font-header) text-3xl font-semibold tracking-tight text-(--primary-text-color) sm:text-5xl"
                             >
                                 {{ $story->posts_count }}
                             </div>
                         </div>
                         <div class="nv-stories-story-stat py-2">
-                            <h3 class="text-base/7 text-[--secondary-text-color]">Total words</h3>
+                            <h3 class="text-base/7 text-(--secondary-text-color)">Total words</h3>
 
                             <div
-                                class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-[--primary-text-color] sm:text-5xl"
+                                class="nv-stat-value order-first font-(family-name:--font-header) text-3xl font-semibold tracking-tight text-(--primary-text-color) sm:text-5xl"
                             >
                                 {{ number_format($story->posts_sum_word_count ?? 0) }}
                             </div>
@@ -68,23 +68,23 @@
                         @mysql
                             @if ($story->children->count() > 0)
                                 <div class="nv-stories-story-stat py-2">
-                                    <h3 class="text-base/7 text-[--primary-text-color]">
+                                    <h3 class="text-base/7 text-(--primary-text-color)">
                                         Total posts (all stories within)
                                     </h3>
 
                                     <div
-                                        class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-[--secondary-text-color] sm:text-5xl"
+                                        class="nv-stat-value order-first font-(family-name:--font-header) text-3xl font-semibold tracking-tight text-(--secondary-text-color) sm:text-5xl"
                                     >
                                         {{ $story->recursive_posts_count }}
                                     </div>
                                 </div>
                                 <div class="nv-stories-story-stat py-2">
-                                    <h3 class="text-base/7 text-[--primary-text-color]">
+                                    <h3 class="text-base/7 text-(--primary-text-color)">
                                         Total words (all stories within)
                                     </h3>
 
                                     <div
-                                        class="nv-stat-value order-first font-[family-name:--font-header] text-3xl font-semibold tracking-tight text-[--secondary-text-color] sm:text-5xl"
+                                        class="nv-stat-value order-first font-(family-name:--font-header) text-3xl font-semibold tracking-tight text-(--secondary-text-color) sm:text-5xl"
                                     >
                                         {{ number_format($story->recursive_posts_sum_word_count ?? 0) }}
                                     </div>

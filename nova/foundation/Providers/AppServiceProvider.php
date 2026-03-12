@@ -4,15 +4,22 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Providers;
 
+use Anodyne\TablerIcons\Tabler;
 use Carbon\CarbonImmutable;
+use Filament\Actions\Action;
+use Filament\Forms\View\FormsIconAlias;
 use Filament\Notifications\Livewire\Notifications;
 use Filament\Notifications\Notification as FilamentNotification;
+use Filament\Notifications\View\NotificationsIconAlias;
 use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\Size;
 use Filament\Support\Enums\VerticalAlignment;
 use Filament\Support\Facades\FilamentColor;
 use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\View\SupportIconAlias;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\View\TablesIconAlias;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
@@ -46,20 +53,20 @@ use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Environment\Environment;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Icons\IconSets;
-use Nova\Foundation\Icons\TablerIconSet;
+use Nova\Foundation\Icons\NotificationIcon;
 use Nova\Foundation\Listeners\AuthenticationEventSubscriber;
 use Nova\Foundation\Listeners\SetEmailSubjectPrefix;
-use Nova\Foundation\Livewire\AdvancedColorPicker;
-use Nova\Foundation\Livewire\ColorShadePicker;
-use Nova\Foundation\Livewire\ConfirmationModal;
-use Nova\Foundation\Livewire\Editor;
 use Nova\Foundation\Livewire\IconPicker;
 use Nova\Foundation\Livewire\Rating;
-use Nova\Foundation\Macros;
+use Nova\Foundation\Macros\ArrMacros;
 use Nova\Foundation\Macros\CreateUpdateOrDelete;
+use Nova\Foundation\Macros\NotificationMacros;
+use Nova\Foundation\Macros\StrMacros;
+use Nova\Foundation\Macros\TextColumnMacros;
+use Nova\Foundation\Macros\ViewMacros;
 use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
@@ -71,7 +78,6 @@ use Nova\Foundation\View\Layouts\AuthLayout;
 use Nova\Foundation\View\Layouts\EmailLayout;
 use Nova\Foundation\View\Layouts\PublicLayout;
 use Nova\Menus\Models\MenuItem;
-use Nova\Navigation\Models\Navigation;
 use Nova\Pages\Models\Page;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
@@ -83,8 +89,8 @@ use Nova\Settings\Models\Settings;
 use Nova\Stories\Models\PostType;
 use Nova\Themes\Models\Theme;
 use Nova\Users\Models\User;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
@@ -136,20 +142,9 @@ class AppServiceProvider extends ServiceProvider
         $this->configureMacros();
         $this->configureAboutCommand();
         $this->configureDatabaseFactories();
-        $this->configureIconManager();
         $this->configureBlade();
 
         if (Nova::isInstalled()) {
-            // cache()->rememberForever(
-            //     'nova.nav.admin',
-            //     fn () => Navigation::with('children.page', 'page', 'authorization')->admin()->topLevel()->get()
-            // );
-
-            // cache()->rememberForever(
-            //     'nova.nav.public',
-            //     fn () => Navigation::with('children.page', 'page', 'authorization')->public()->topLevel()->get()
-            // );
-
             $this->configureLivewireComponents();
             $this->configureResponseFilters();
             $this->configureFilament();
@@ -165,12 +160,12 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureMacros()
     {
-        Arr::mixin(new Macros\ArrMacros);
-        Redirector::mixin(new Macros\NotificationMacros);
-        RedirectResponse::mixin(new Macros\NotificationMacros);
-        Str::mixin(new Macros\StrMacros);
-        TextColumn::mixin(new Macros\TextColumnMacros);
-        ViewFactory::mixin(new Macros\ViewMacros);
+        Arr::mixin(new ArrMacros);
+        Redirector::mixin(new NotificationMacros);
+        RedirectResponse::mixin(new NotificationMacros);
+        Str::mixin(new StrMacros);
+        TextColumn::mixin(new TextColumnMacros);
+        ViewFactory::mixin(new ViewMacros);
 
         Route::macro('findPageFromRoute', function () {
             /** @var Route */
@@ -216,14 +211,6 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    protected function configureIconManager()
-    {
-        $iconSets = new IconSets;
-        $iconSets->addDefault('tabler', new TablerIconSet);
-
-        $this->app->scoped(IconSets::class, fn () => $iconSets);
-    }
-
     protected function configureBlade(): void
     {
         Blade::anonymousComponentPath(resource_path('views/public-components'), 'public');
@@ -254,12 +241,8 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureLivewireComponents()
     {
-        // Livewire::component('nova:editor', Editor::class);
         Livewire::component('rating', Rating::class);
         Livewire::component('icon-picker', IconPicker::class);
-        Livewire::component('color-shade-picker', ColorShadePicker::class);
-        Livewire::component('advanced-color-picker', AdvancedColorPicker::class);
-        // Livewire::component('confirmation-modal', ConfirmationModal::class);
     }
 
     protected function configureResponseFilters(): void
@@ -281,43 +264,43 @@ class AppServiceProvider extends ServiceProvider
     {
         FilamentColor::register($this->app['nova.settings']?->appearance?->getColors() ?? []);
 
-        FilamentColor::addShades('badge', [200, 300, 400, 700, 800, 950]);
-        FilamentColor::addShades('tables::columns.toggle-column.on', [500, 900]);
-        FilamentColor::addShades('forms::components.toggle.on', [500, 900]);
-
         FilamentIcon::register([
-            'forms::components.builder.actions.delete' => iconName('trash'),
-            'forms::components.builder.actions.reorder' => iconName('arrows-sort'),
-            'forms::components.key-value.actions.delete' => iconName('trash'),
-            'forms::components.repeater.actions.delete' => iconName('trash'),
-            'forms::components.repeater.actions.reorder' => iconName('arrows-sort'),
-            'tables::actions.disable-reordering' => iconName('check'),
-            'tables::actions.enable-reordering' => iconName('arrows-sort'),
-            'tables::actions.filter' => iconName('filter'),
-            'tables::actions.group' => iconName('group'),
-            'tables::actions.toggle-columns' => iconName('columns'),
-            'tables::reorder.handle' => iconName('drag-handle'),
-            'tables::search-field' => iconName('search'),
-            'modal.close-button' => iconName('x'),
-            'notifications::notification.danger' => 'notis-danger',
-            'notifications::notification.info' => 'notis-info',
-            'notifications::notification.success' => 'notis-success',
-            'notifications::notification.warning' => 'notis-warning',
-            'pagination.previous-button' => iconName('chevron-left'),
-            'pagination.next-button' => iconName('chevron-right'),
+            FormsIconAlias::COMPONENTS_BUILDER_ACTIONS_DELETE => Tabler::Trash,
+            FormsIconAlias::COMPONENTS_BUILDER_ACTIONS_REORDER => Tabler::ArrowsSort,
+            FormsIconAlias::COMPONENTS_KEY_VALUE_ACTIONS_DELETE => Tabler::Trash,
+            FormsIconAlias::COMPONENTS_REPEATER_ACTIONS_DELETE => Tabler::Trash,
+            FormsIconAlias::COMPONENTS_REPEATER_ACTIONS_REORDER => Tabler::ArrowsSort,
+
+            TablesIconAlias::ACTIONS_COLUMN_MANAGER => Tabler::Columns3,
+            TablesIconAlias::ACTIONS_DISABLE_REORDERING => Tabler::Check,
+            TablesIconAlias::ACTIONS_ENABLE_REORDERING => Tabler::ArrowsSort,
+            TablesIconAlias::ACTIONS_FILTER => Tabler::Filter,
+            TablesIconAlias::ACTIONS_GROUP => Tabler::BoxMultiple,
+            TablesIconAlias::ACTIONS_OPEN_BULK_ACTIONS => Tabler::DotsVertical,
+            TablesIconAlias::REORDER_HANDLE => Tabler::GripVertical,
+            TablesIconAlias::SEARCH_FIELD => Tabler::Search,
+
+            NotificationsIconAlias::NOTIFICATION_DANGER => NotificationIcon::XCircle,
+            NotificationsIconAlias::NOTIFICATION_INFO => NotificationIcon::InfoCircle,
+            NotificationsIconAlias::NOTIFICATION_SUCCESS => NotificationIcon::CheckCircle,
+            NotificationsIconAlias::NOTIFICATION_WARNING => NotificationIcon::AlertTriangle,
+
+            SupportIconAlias::MODAL_CLOSE_BUTTON => Tabler::X,
+            SupportIconAlias::PAGINATION_PREVIOUS_BUTTON => Tabler::ChevronLeft,
+            SupportIconAlias::PAGINATION_NEXT_BUTTON => Tabler::ChevronRight,
         ]);
 
         Table::configureUsing(function (Table $table) {
             $table
-                ->filtersTriggerAction(function ($action) {
-                    return $action->size('lg')->color('gray');
+                ->filtersTriggerAction(function (Action $action) {
+                    return $action->size(Size::Large)->color('gray');
                 })
-                ->toggleColumnsTriggerAction(function ($action) {
-                    return $action->size('lg')->color('gray');
+                ->columnManagerTriggerAction(function (Action $action) {
+                    return $action->size(Size::Large)->color('gray');
                 })
-                ->reorderRecordsTriggerAction(function ($action, bool $isReordering) {
+                ->reorderRecordsTriggerAction(function (Action $action, bool $isReordering) {
                     return $action
-                        ->size('lg')
+                        ->size(Size::Large)
                         ->color($isReordering ? 'primary' : 'gray');
                 });
         });
@@ -345,8 +328,8 @@ class AppServiceProvider extends ServiceProvider
                 ->causerName(null, 'System')
                 ->itemDateTimeTimezone(fn () => Auth::user()?->preferences?->timezone ?? 'UTC')
                 ->itemIcons([
-                    'created' => iconName('add'),
-                    'duplicated' => iconName('copy'),
+                    'created' => Tabler::Plus->value,
+                    'duplicated' => Tabler::Copy->value,
                 ])
                 ->itemIconColors([
                     'created' => 'success',
@@ -366,7 +349,7 @@ class AppServiceProvider extends ServiceProvider
 
         TimelineAction::configureUsing(function (TimelineAction $action) {
             $action
-                ->icon(iconName('history'))
+                ->icon(Tabler::History)
                 ->label('Activity history');
         }, isImportant: true);
 
@@ -381,9 +364,9 @@ class AppServiceProvider extends ServiceProvider
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Nova', [
                 'Version' => 'v'.Nova::filesVersion(),
-                'Extensions' => collect(data_get(cache('nova.addons'), 'extension', []))->join(', '),
-                'Genre' => collect(data_get(cache('nova.addons'), 'genre', []))->join(', '),
-                'Rank set' => collect(data_get(cache('nova.addons'), 'rank', []))->join(', '),
+                'Extensions' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))->join(', '),
+                'Genre' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'genre', []))->join(', '),
+                'Rank set' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'rank', []))->join(', '),
             ]);
         }
     }
@@ -413,7 +396,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureAddonProviders(): void
     {
-        collect(data_get(Cache::get('nova.addons'), 'extension', []))
+        collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))
             ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
             ->flatMap(fn ($addon) => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
             ->each(fn ($addon) => (new $addon($this->app))->boot());

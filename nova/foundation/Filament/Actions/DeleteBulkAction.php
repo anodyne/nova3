@@ -4,24 +4,46 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\DeleteBulkAction as FilamentDeleteBulkAction;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 
-class DeleteBulkAction extends FilamentDeleteBulkAction
+class DeleteBulkAction extends \Filament\Actions\DeleteBulkAction
 {
-    use Concerns\HasModalContentView;
+    use HasModalContentView;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->icon(iconName('trash'));
+        $this->icon(Tabler::Trash);
 
         $this->requiresConfirmation(false);
 
-        $this->modalWidth(MaxWidth::Large);
+        $this->successNotificationTitle(function (Collection $records): string {
+            return trans_choice('messages.table.bulk-delete-success', $records->count(), [
+                'count' => $records->count(),
+                'label' => str($this->getRecordTitle())->plural($records->count()),
+            ]);
+        });
+
+        $this->failureNotificationTitle(function (int $successCount, int $totalCount): string {
+            if ($successCount) {
+                return trans_choice('messages.table.bulk-delete-failure', $totalCount, [
+                    'success' => $successCount,
+                    'total' => $totalCount,
+                    'label' => str($this->getRecordTitle())->plural($totalCount),
+                ]);
+            }
+
+            return trans_choice('messages.table.bulk-delete-total-failure', $totalCount, [
+                'label' => str($this->getRecordTitle())->plural($totalCount),
+            ]);
+        });
+
+        $this->modalWidth(Width::Large);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

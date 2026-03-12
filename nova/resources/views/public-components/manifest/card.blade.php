@@ -9,7 +9,7 @@
     {{
         $attributes->class([
             'nv-manifest-card',
-            'flex flex-col rounded-lg bg-white px-4 py-6 shadow ring-1 ring-gray-950/5 transition hover:shadow-lg dark:bg-gray-900 dark:ring-inset dark:ring-white/5 dark:hover:ring-white/10',
+            'flex flex-col rounded-lg bg-white px-4 py-6 shadow ring-1 ring-gray-950/5 transition hover:shadow-lg dark:bg-gray-900 dark:ring-white/5 dark:ring-inset dark:hover:ring-white/10',
             'items-center' => $orientation === 'center',
         ])
     }}
@@ -61,7 +61,10 @@
                     </x-badge>
                 @endif
             @else
-                <x-badge color="gray">Apply today &rarr;</x-badge>
+                <x-badge color="gray">
+                    Apply today
+                    <span aria-hidden="true">→</span>
+                </x-badge>
             @endif
         </div>
     </div>

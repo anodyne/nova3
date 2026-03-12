@@ -83,7 +83,7 @@
         />
         <div
             @class([
-                'nv-overlay absolute inset-0 bg-white dark:bg-black',
+                'nv-overlay absolute inset-0',
                 $intensity->getTailwindClasses(),
             ])
         ></div>

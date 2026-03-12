@@ -12,6 +12,7 @@ use function Pest\Laravel\get;
 use function Pest\Laravel\put;
 
 uses()->group('ranks');
+uses()->group('rank-groups');
 
 beforeEach(function () {
     $this->rankGroup = RankGroup::factory()->create();
@@ -29,16 +30,52 @@ describe('authorized user', function () {
     test('can update a rank group', function () {
         Event::fake();
 
-        $data = RankGroup::factory()->make();
+        $data = RankGroup::factory()->inactive()->forRequest();
 
         from(route('admin.ranks.groups.edit', $this->rankGroup))
             ->followingRedirects()
-            ->put(route('admin.ranks.groups.update', $this->rankGroup), $data->toArray())
+            ->put(route('admin.ranks.groups.update', $this->rankGroup), $data->payload)
             ->assertSuccessful();
 
-        assertDatabaseHas(RankGroup::class, $data->toArray());
+        assertDatabaseHas(RankGroup::class, $data->model->only('name', 'status'));
 
         Event::assertDispatched(RankGroupUpdated::class);
+    });
+
+    test('can update a rank group to active', function () {
+        Event::fake();
+
+        $rankGroup = RankGroup::factory()->inactive()->create();
+
+        $data = RankGroup::factory()->active()->forRequest();
+
+        from(route('admin.ranks.groups.edit', $rankGroup))
+            ->followingRedirects()
+            ->put(route('admin.ranks.groups.update', $rankGroup), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(RankGroup::class, [
+            'id' => $rankGroup->id,
+            'status' => 'active',
+        ]);
+    });
+
+    test('can update a rank group to inactive', function () {
+        Event::fake();
+
+        $rankGroup = RankGroup::factory()->active()->create();
+
+        $data = RankGroup::factory()->inactive()->forRequest();
+
+        from(route('admin.ranks.groups.edit', $rankGroup))
+            ->followingRedirects()
+            ->put(route('admin.ranks.groups.update', $rankGroup), $data->payload)
+            ->assertSuccessful();
+
+        assertDatabaseHas(RankGroup::class, [
+            'id' => $rankGroup->id,
+            'status' => 'inactive',
+        ]);
     });
 });
 

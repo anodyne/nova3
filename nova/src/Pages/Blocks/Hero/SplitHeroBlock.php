@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Hero;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Nova\Pages\Enums\BoxShadow;
 use Nova\Pages\Enums\MediaType;
 use Nova\Pages\Enums\Radius;
@@ -31,7 +32,7 @@ class SplitHeroBlock extends HeroBlock
             Section::make('block.media')
                 ->heading('Media')
                 ->description('Customize the media that you want displayed for the block')
-                ->icon(iconName('image'))
+                ->icon(Tabler::PhotoVideo)
                 ->schema([
                     ToggleButtons::make('block.media.type')
                         ->label('Media type')

@@ -6,7 +6,7 @@ namespace Nova\Departments\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Nova\Departments\Data\DepartmentData;
-use Nova\Media\Rules\MaxFileSize;
+use Nova\Media\Enums\ImageAction;
 
 class StoreDepartmentRequest extends FormRequest
 {
@@ -15,8 +15,7 @@ class StoreDepartmentRequest extends FormRequest
         return [
             'name' => ['required'],
             'description' => ['nullable'],
-            'image' => ['nullable', 'mimes:jpg,jpeg,png,gif,webp,svg', new MaxFileSize],
-            'status' => ['required'],
+            'status' => ['sometimes'],
             'tags' => ['nullable'],
         ];
     }
@@ -24,5 +23,15 @@ class StoreDepartmentRequest extends FormRequest
     public function getDepartmentData(): DepartmentData
     {
         return DepartmentData::from($this);
+    }
+
+    public function getImageAction(): ImageAction
+    {
+        return $this->enum('image_action', ImageAction::class) ?? ImageAction::Unchanged;
+    }
+
+    public function getImageTempPath(): ?string
+    {
+        return $this->string('image_temp_path')->toString() ?: null;
     }
 }

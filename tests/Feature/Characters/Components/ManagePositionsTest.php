@@ -31,29 +31,13 @@ it('can mount with a character', function () {
         ->assertSet('assigned', $character->positions);
 });
 
-it('can search positions', function () {
-    Position::factory()->create(['name' => 'Test position']);
-
-    livewire(ManagePositions::class)
-        ->set('search', 'test')
-        ->assertSet('searchResults', $positions = Position::searchFor('test')->get())
-        ->assertCount('searchResults', $positions->count());
-});
-
-it('can list all positions in the search results', function () {
-    livewire(ManagePositions::class)
-        ->set('search', '*')
-        ->assertSet('searchResults', $positions = Position::get())
-        ->assertCount('searchResults', $positions->count());
-});
-
 it('can add a position', function () {
     $position1 = Position::factory()->create();
     $position2 = Position::factory()->create();
 
     livewire(ManagePositions::class)
-        ->call('add', $position1->id)
-        ->call('add', $position2->id)
+        ->set('selected', (string) $position1->id)
+        ->set('selected', (string) $position2->id)
         ->assertSet('assignedPositions', "{$position1->id},{$position2->id}");
 });
 
@@ -62,9 +46,8 @@ it('can remove a position', function () {
     $position2 = Position::factory()->create();
 
     livewire(ManagePositions::class)
-        ->call('add', $position1->id)
-        ->call('add', $position2->id)
-        ->assertSet('assignedPositions', "{$position1->id},{$position2->id}")
+        ->set('selected', (string) $position1->id)
+        ->set('selected', (string) $position2->id)
         ->call('remove', $position1->id)
         ->assertSet('assignedPositions', "{$position2->id}");
 });

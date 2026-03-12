@@ -22,7 +22,7 @@ class FormSubmissionPolicy
     public function view(User $user, FormSubmission $submission): Response
     {
         if ($submission->form->type !== FormType::Basic) {
-            return $this->deny();
+            return $this->denyAsNotFound();
         }
 
         if ($user->isAbleTo('form-submission.view-all')) {
@@ -33,7 +33,7 @@ class FormSubmissionPolicy
             return $this->allow();
         }
 
-        return $this->deny();
+        return $this->denyAsNotFound();
     }
 
     public function create(User $user): Response
@@ -43,35 +43,35 @@ class FormSubmissionPolicy
 
     public function update(User $user, FormSubmission $submission): Response
     {
-        return $this->deny();
+        return $this->denyAsNotFound();
     }
 
     public function delete(User $user, FormSubmission $submission): Response
     {
         return $user->isAbleTo('form-submission.delete')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 
     public function duplicate(User $user, FormSubmission $submission): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound();
     }
 
     public function restore(User $user, FormSubmission $submission): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound();
     }
 
     public function forceDelete(User $user, FormSubmission $submission): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound();
     }
 
     public function manage(User $user): Response
     {
-        return $user->isAbleTo('form-submission.view-all')
+        return $user->isAbleTo('form-submission.view-all') || $user->isAbleTo('form-submission.delete')
             ? $this->allow()
-            : $this->deny();
+            : $this->denyAsNotFound();
     }
 }

@@ -22,9 +22,9 @@
         {{
             $attributes->class([
                 'nv-form-field-textarea',
-                'rounded-lg border',
-                'border-gray-300 bg-white text-gray-900',
-                'dark:border-gray-700 dark:bg-gray-800 dark:text-white',
+                'block w-full rounded-lg bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 sm:text-sm/6 ',
+                'focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600',
+                'dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-blue-500',
             ])
         }}
     ></textarea>

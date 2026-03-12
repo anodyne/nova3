@@ -35,6 +35,9 @@ class ApplicationReviewer extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        /** @var BelongsTo $relation */
+        $relation = $this->belongsTo(User::class)->withTrashed();
+
+        return $relation;
     }
 }

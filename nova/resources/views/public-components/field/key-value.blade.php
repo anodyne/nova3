@@ -39,13 +39,14 @@
                 </div>
 
                 <x-public::button type="button" x-on:click="remove(index)" class="nv-form-field-kv-delete">
-                    <x-icon name="trash" size="sm"></x-icon>
+                    <x-icon :name="Tabler::Trash" size="sm" />
                 </x-public::button>
             </div>
         </template>
 
         <x-public::button type="button" x-on:click="add()" class="nv-form-field-kv-add">
-            Add row &plus;
+            Add row
+            <span aria-hidden="true">&plus;</span>
         </x-public::button>
 
         <input type="hidden" name="{{ data_get($attributes, 'name') }}" x-bind:value="json" />

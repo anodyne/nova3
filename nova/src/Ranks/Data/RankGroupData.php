@@ -25,7 +25,7 @@ readonly class RankGroupData extends Bag
     {
         return [
             'name' => $request->input('name'),
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
             'base_image' => $request->input('base_image'),
         ];
     }

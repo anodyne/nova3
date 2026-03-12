@@ -6,17 +6,14 @@ use Nova\Stories\Models\PostType;
 
 use function Pest\Laravel\get;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 beforeEach(function () {
     $this->postType = PostType::factory()->create();
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.view');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.view'));
 
     test('can view the view post types page', function () {
         get(route('admin.post-types.show', $this->postType))->assertSuccessful();
@@ -24,9 +21,7 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the view post types page', function () {
         get(route('admin.post-types.show', $this->postType))->assertForbidden();

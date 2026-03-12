@@ -5,15 +5,20 @@
 
 <x-sidebar.subnav>
     <x-sidebar.subnav.group>
-        <x-sidebar.subnav.item
-            href="{{ route('admin.system-overview') }}"
-            :active="request()->routeIs('admin.system-overview')"
-        >
-            Overview
-        </x-sidebar.subnav.item>
+        @permission('system.overview')
+            <x-sidebar.subnav.item
+                href="{{ route('admin.system-overview') }}"
+                :current="request()->routeIs('admin.system-overview')"
+            >
+                Overview
+            </x-sidebar.subnav.item>
+        @endpermission
 
         @can('viewAny', Addon::class)
-            <x-sidebar.subnav.item :href="route('admin.addons.index')" :active="request()->routeIs('admin.addons.*')">
+            <x-sidebar.subnav.item
+                :href="route('admin.addons.index')"
+                :current="request()->routeIs('admin.addons.*')"
+            >
                 Add-ons
             </x-sidebar.subnav.item>
         @endcan
@@ -21,14 +26,17 @@
         @can('viewAny', MenuItem::class)
             <x-sidebar.subnav.item
                 :href="route('admin.menu-items.index')"
-                :active="request()->routeIs('admin.menu-items.*')"
+                :current="request()->routeIs('admin.menu-items.*')"
             >
                 Menu items
             </x-sidebar.subnav.item>
         @endcan
 
         @can('viewAny', Theme::class)
-            <x-sidebar.subnav.item :href="route('admin.themes.index')" :active="request()->routeIs('admin.themes.*')">
+            <x-sidebar.subnav.item
+                :href="route('admin.themes.index')"
+                :current="request()->routeIs('admin.themes.*')"
+            >
                 Themes
             </x-sidebar.subnav.item>
         @endcan
@@ -36,7 +44,7 @@
         @permission('system.error-logs')
             <x-sidebar.subnav.item
                 :href="route('admin.error-logs.index')"
-                :active="request()->routeIs('admin.error-logs.*')"
+                :current="request()->routeIs('admin.error-logs.*')"
             >
                 Error logs
             </x-sidebar.subnav.item>

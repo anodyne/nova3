@@ -1,51 +1,36 @@
 @use('Nova\Foundation\Helpers\DateHelper')
 
 <div class="relative">
-    <aside @class([
-        'w-full shrink-0 lg:fixed lg:w-96',
-        'max-md:hidden' => filled($selected),
-    ])>
-        <x-page-header :heading="$pageHeading" :description="$pageSubheading" :intro="$pageIntro">
+    <aside
+        @class([
+            'w-full shrink-0 lg:fixed lg:w-96',
+            'max-md:hidden' => filled($selected),
+        ])
+    >
+        <x-page-heading :heading="$pageHeading" :description="$pageSubheading" :intro="$pageIntro">
             <x-slot name="actions">
                 <x-button
                     type="button"
-                    color="primary"
+                    variant="primary"
                     wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'mode': 'new'}})"
                 >
-                    <x-icon name="write" size="sm"></x-icon>
+                    <x-icon :name="Tabler::Edit" size="sm" />
                     <span class="block lg:hidden">New message</span>
                 </x-button>
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <div class="mb-6 space-y-4">
-            <flux:radio.group class="w-full" wire:model.live="filter" variant="segmented">
-                <flux:radio value="all" label="All" />
-                <flux:radio value="unread" label="Unread" />
-            </flux:radio.group>
+            <x-radio.group class="w-full" wire:model.live="filter" variant="segmented">
+                <x-radio value="all" label="All" />
+                <x-radio value="unread" label="Unread" />
+            </x-radio.group>
 
-            <div
-                class="group relative flex w-full items-center gap-x-2 rounded-lg bg-gray-950/[.02] px-3 py-2 ring-1 ring-inset ring-gray-950/5 dark:bg-white/[.04] dark:ring-white/5"
-            >
-                <div
-                    class="shrink-0 text-gray-400 group-focus-within:text-gray-600 dark:text-gray-600 dark:group-focus-within:text-gray-400"
-                >
-                    <x-icon name="search" size="sm"></x-icon>
-                </div>
-
-                <input
-                    type="text"
-                    wire:model.live.debounce.500ms="search"
-                    class="w-full appearance-none border-none bg-transparent p-0 text-sm/6 placeholder-gray-500 focus:outline-none focus:ring-0"
-                    placeholder="Find messages..."
-                />
-
-                @if ($search)
-                    <x-button tag="button" color="neutral" wire:click="$set('search', '')" text class="leading-none">
-                        <x-icon name="x" size="sm"></x-icon>
-                    </x-button>
-                @endif
-            </div>
+            <x-input wire:model.live.debounce="search" placeholder="Find messages..." variant="filled" clearable>
+                <x-slot name="iconLeading">
+                    <x-icon :name="Tabler::Search" size="sm" />
+                </x-slot>
+            </x-input>
         </div>
 
         <ul
@@ -66,8 +51,8 @@
                     wire:click="selectDiscussion({{ $discussion->id }})"
                 >
                     @if (! $hasSeen)
-                        <div class="col-start-1 row-start-1 -ml-0.5 mr-3.5 mt-1 sm:mr-3">
-                            <div class="size-2.5 rounded-full bg-primary-500"></div>
+                        <div class="col-start-1 row-start-1 mt-1 mr-3.5 -ml-0.5 sm:mr-3">
+                            <div class="bg-primary-500 size-2.5 rounded-full"></div>
                         </div>
                     @endif
 
@@ -94,11 +79,11 @@
                 </li>
             @empty
                 <li class="col-span-full">
-                    <x-empty-state>
-                        <x-icon name="messages"></x-icon>
-                        <x-h3>No messages</x-h3>
-                        <x-text>Get started by creating a new conversation</x-text>
-                    </x-empty-state>
+                    <x-empty>
+                        <x-illustration :name="Illustration::Inbox" />
+                        <x-empty.heading>No messages</x-empty.heading>
+                        <x-empty.text>Get started by creating a new conversation</x-empty.text>
+                    </x-empty>
                 </li>
             @endforelse
         </ul>

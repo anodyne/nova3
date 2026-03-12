@@ -12,66 +12,57 @@
     x-on:confetti.window="celebrate()"
 >
     <header class="mx-auto max-w-2xl space-y-6 text-center">
-        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Setup your account</h1>
+        <x-setup::page-heading>Setup your account</x-setup::page-heading>
 
-        <p class="text-lg/8 text-gray-600">
+        <x-setup::page-subheading>
             The last step is to setup your account. Once your account is created, you’ll be able to sign in to Nova,
             create your character(s), and configure Nova.
-        </p>
+        </x-setup::page-subheading>
     </header>
 
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             <x-fieldset>
-                <x-fieldset.field-group>
-                    <x-fieldset.field
+                <x-fieldset.group>
+                    <x-input
                         label="Name"
                         description="For privacy reasons, we recommend using a nickname or alias rather than your real name"
-                        id="name"
-                        name="name"
-                        :error="$errors->first('name')"
-                    >
-                        <x-input.text wire:model="name"></x-input.text>
-                    </x-fieldset.field>
+                        wire:model="name"
+                    />
 
-                    <x-fieldset.field label="Email address" id="email" name="email" :error="$errors->first('email')">
-                        <x-input.email wire:model="email" placeholder="me@example.com"></x-input.email>
-                    </x-fieldset.field>
+                    <x-input.email label="Email address" wire:model="email" placeholder="me@example.com" />
 
-                    <x-fieldset.field
+                    <x-input.password
                         label="Password"
-                        id="password"
-                        name="password"
-                        :error="$errors->first('password')"
-                    >
-                        <x-input.password
-                            wire:model="password"
-                            placeholder="Your password or a passphrase"
-                        ></x-input.password>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                        wire:model="password"
+                        placeholder="Your password or a passphrase"
+                    />
+                </x-fieldset.group>
             </x-fieldset>
 
             <div class="flex items-center justify-between">
-                <x-button.setup type="button" wire:click="createUserAccount" size="sm">Create account</x-button.setup>
+                <x-setup::button type="button" wire:click="createUserAccount" size="sm">Create account</x-setup::button>
             </div>
         </div>
     @endif
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel variant="well">
-                <x-panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
+            <x-setup::panel variant="well">
+                <x-setup::panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
                     @include('setup.account._user-created')
                     @include('setup.account._roles-assigned')
                     @include('setup.account._send-telemetry')
                     @include('setup.account._signin')
-                </x-panel>
-            </x-panel>
+                </x-setup::panel>
+            </x-setup::panel>
         </div>
 
         <div class="flex items-center justify-center">
-            <x-button.setup :href="route('admin.dashboard')">Get started with Nova &rarr;</x-button.setup>
+            <x-setup::button :href="route('admin.dashboard')">
+                Get started with Nova
+                <span aria-hidden="true">→</span>
+            </x-setup::button>
         </div>
     @endif
 </div>

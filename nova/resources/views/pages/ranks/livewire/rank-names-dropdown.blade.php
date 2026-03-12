@@ -1,16 +1,16 @@
 @use('Nova\Ranks\Models\RankName')
 
-<div data-slot="control">
-    <div class="flex w-full items-center gap-x-3">
-        <flux:select variant="listbox" wire:model.live="name" placeholder="Select a rank name" searchable>
+<div>
+    <div class="flex w-full items-center gap-2">
+        <x-select variant="listbox" wire:model.live="name" placeholder="Select a rank name" searchable>
             @foreach ($rankNames as $rankName)
-                <flux:option value="{{ $rankName->id }}">{{ $rankName->name }}</flux:option>
+                <x-select.option :value="$rankName->id">{{ $rankName->name }}</x-select.option>
             @endforeach
-        </flux:select>
+        </x-select>
 
         @can('create', RankName::class)
-            <x-button :href="route('admin.ranks.names.index')" color="neutral" text>
-                <x-icon name="settings" size="md"></x-icon>
+            <x-button :href="route('admin.ranks.names.index')" variant="subtle" square>
+                <x-icon :name="Tabler::Settings" size="md" />
             </x-button>
         @endcan
     </div>

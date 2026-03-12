@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Livewire;
 
-use Filament\Forms\Components\Actions\Action;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Builder;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Support\Enums\IconSize;
-use Filament\Support\Enums\MaxWidth;
+use Filament\Support\Enums\Width;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -18,6 +19,7 @@ use Nova\Forms\Actions\UpdateForm;
 use Nova\Forms\Data\FormFieldsData;
 use Nova\Forms\Fields\FormFieldRegistry;
 use Nova\Forms\Models\Form as NovaForm;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
 
@@ -28,10 +30,10 @@ class FormDesigner extends FormComponent
 
     protected string $view = 'pages.forms.livewire.form-designer';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Builder::make('fields')
                     ->hiddenLabel()
                     ->blockPreviews(areInteractive: true)
@@ -40,16 +42,16 @@ class FormDesigner extends FormComponent
                     ->addAction(function (Action $action): Action {
                         return $action
                             ->label('Add field')
-                            ->icon(iconName('add'))
+                            ->icon(Tabler::Plus)
                             ->iconSize(IconSize::Medium)
                             ->slideOver()
-                            ->modalWidth(MaxWidth::ExtraLarge);
+                            ->modalWidth(Width::ExtraLarge);
                     })
                     ->editAction(function (Action $action): Action {
                         return $action
-                            ->icon(iconName('settings'))
+                            ->icon(Tabler::Settings)
                             ->slideOver()
-                            ->modalWidth(MaxWidth::ExtraLarge);
+                            ->modalWidth(Width::ExtraLarge);
                     })
                     ->afterStateUpdated(fn () => $this->save()),
             ])
@@ -59,6 +61,8 @@ class FormDesigner extends FormComponent
 
     public function save(): void
     {
+        $this->authorize('design', $this->novaForm);
+
         UpdateForm::run($this->novaForm, FormFieldsData::from($this->form->getState()));
 
         Notification::make()->success()
@@ -69,6 +73,8 @@ class FormDesigner extends FormComponent
 
     public function publish(): void
     {
+        $this->authorize('design', $this->novaForm);
+
         PublishFormManager::run($this->novaForm);
 
         Notification::make()->success()
@@ -79,6 +85,8 @@ class FormDesigner extends FormComponent
 
     public function unpublish(): void
     {
+        $this->authorize('design', $this->novaForm);
+
         UnpublishForm::run($this->novaForm);
 
         Notification::make()->success()
@@ -89,7 +97,7 @@ class FormDesigner extends FormComponent
 
     public function mount(NovaForm $novaForm): void
     {
-        Cache::put('form-designer-form', $novaForm->id);
+        Cache::put(CacheKeys::FormDesignerForm->value, $novaForm->id);
 
         $this->form->fill($novaForm->toArray());
     }

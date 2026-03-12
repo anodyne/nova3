@@ -11,8 +11,14 @@ use Lab404\Impersonate\Events\LeaveImpersonation;
 use Lab404\Impersonate\Events\TakeImpersonation;
 use Nova\DomainServiceProvider;
 use Nova\Users\Events\UserCreatedByAdmin;
-use Nova\Users\Listeners;
+use Nova\Users\Listeners\CheckForForcedPasswordReset;
+use Nova\Users\Listeners\ClearForcedPasswordResetFlag;
+use Nova\Users\Listeners\GeneratePassword;
+use Nova\Users\Listeners\LogImpersonationEnd;
+use Nova\Users\Listeners\LogImpersonationStart;
+use Nova\Users\Listeners\RecordLoginTime;
 use Nova\Users\Livewire\ActivateUserButton;
+use Nova\Users\Livewire\AdminAppearance;
 use Nova\Users\Livewire\BansList;
 use Nova\Users\Livewire\DeactivateUserButton;
 use Nova\Users\Livewire\DeleteMyAccount;
@@ -25,7 +31,12 @@ use Nova\Users\Livewire\UserNotificationPreferencesList;
 use Nova\Users\Livewire\UserNotifications;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
-use Nova\Users\Spotlight;
+use Nova\Users\Spotlight\AddBan;
+use Nova\Users\Spotlight\AddUser;
+use Nova\Users\Spotlight\EditUser;
+use Nova\Users\Spotlight\ViewBans;
+use Nova\Users\Spotlight\ViewUser;
+use Nova\Users\Spotlight\ViewUsers;
 
 class UserServiceProvider extends DomainServiceProvider
 {
@@ -33,22 +44,22 @@ class UserServiceProvider extends DomainServiceProvider
     {
         return [
             Authenticated::class => [
-                Listeners\CheckForForcedPasswordReset::class,
+                CheckForForcedPasswordReset::class,
             ],
             Login::class => [
-                Listeners\RecordLoginTime::class,
+                RecordLoginTime::class,
             ],
             UserCreatedByAdmin::class => [
-                Listeners\GeneratePassword::class,
+                GeneratePassword::class,
             ],
             LeaveImpersonation::class => [
-                Listeners\LogImpersonationEnd::class,
+                LogImpersonationEnd::class,
             ],
             TakeImpersonation::class => [
-                Listeners\LogImpersonationStart::class,
+                LogImpersonationStart::class,
             ],
             PasswordReset::class => [
-                Listeners\ClearForcedPasswordResetFlag::class,
+                ClearForcedPasswordResetFlag::class,
             ],
         ];
     }
@@ -57,6 +68,7 @@ class UserServiceProvider extends DomainServiceProvider
     {
         return [
             'bans-list' => BansList::class,
+            'users-admin-appearance' => AdminAppearance::class,
             'users-list' => UsersList::class,
             'users-manage-characters' => ManageCharacters::class,
             'users-manage-roles' => ManageRoles::class,
@@ -88,12 +100,12 @@ class UserServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\AddBan::class,
-            Spotlight\AddUser::class,
-            Spotlight\EditUser::class,
-            Spotlight\ViewUser::class,
-            Spotlight\ViewBans::class,
-            Spotlight\ViewUsers::class,
+            AddBan::class,
+            AddUser::class,
+            EditUser::class,
+            ViewUser::class,
+            ViewBans::class,
+            ViewUsers::class,
         ];
     }
 }

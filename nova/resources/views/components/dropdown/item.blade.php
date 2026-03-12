@@ -1,41 +1,32 @@
 @props([
-    'type' => 'link',
     'icon' => false,
-    'buttonForm' => false,
+    'postToUrl' => null,
 ])
 
 @php
-    $parentClasses = 'group flex w-full shrink-0 items-center rounded-md px-4 py-2 text-base font-medium text-gray-700 transition hover:bg-gray-100 focus:outline-none md:text-sm dark:text-gray-300 dark:hover:bg-gray-600/50';
+    // If posting, make a unique form id and wire the button to it.
+    $formId = $postToUrl ? ('btn-form-'.Str::uuid()) : null;
 
-    $iconClasses = 'mr-3 shrink-0 text-gray-500 dark:text-gray-400';
+    // Button attrs differ depending on whether we’re posting.
+    $menuAttrs = [
+        'type' => $postToUrl ? 'submit' : 'button',
+    ];
+
+    if ($postToUrl) {
+        $menuAttrs['form'] = $formId;
+    }
 @endphp
 
-@if ($type === 'link')
-    <a {{ $attributes->merge(['href' => '#', 'class' => $parentClasses]) }} role="menuitem">
-        @if ($icon)
-            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
-        @endif
-
-        {{ $slot }}
-    </a>
-@elseif ($type === 'button' || $type === 'submit')
-    <button {{ $attributes->merge(['type' => $type, 'class' => $parentClasses]) }} role="menuitem">
-        @if ($icon)
-            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
-        @endif
-
-        {{ $slot }}
-    </button>
-
-    @if ($buttonForm)
-        {{ $buttonForm }}
+<flux:menu.item {{ $attributes->merge($menuAttrs) }}>
+    @if ($icon)
+        <x-icon :name="$icon" size="sm" class="me-2" data-flux-menu-item-icon="data-flux-menu-item-icon" />
     @endif
-@else
-    <div {{ $attributes->merge(['class' => $parentClasses]) }} role="menuitem">
-        @if ($icon)
-            <x-icon :name="$icon" size="sm" :class="$iconClasses"></x-icon>
-        @endif
 
-        {{ $slot }}
-    </div>
+    {{ $slot }}
+</flux:menu.item>
+
+@if ($postToUrl)
+    <form id="{{ $formId }}" action="{{ $postToUrl }}" method="POST" class="hidden">
+        @csrf
+    </form>
 @endif

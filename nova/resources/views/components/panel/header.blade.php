@@ -11,12 +11,12 @@
 @aware(['color'])
 
 <x-spacing
-    @class([
+    {{
+    $attributes->merge(['size' => 'row'])->class([
         'flex justify-between gap-x-8',
         'items-center' => blank($description),
-        $attributes->get('class') => $attributes->has('class'),
     ])
-    {{ $attributes->merge(['size' => 'row']) }}
+}}
 >
     <div
         @class([
@@ -42,20 +42,17 @@
                     },
                 ])
             >
-                <x-icon :name="$icon" :size="$iconSize"></x-icon>
+                <x-icon :name="$icon" :size="$iconSize" class="shrink-0" />
             </div>
         @endif
 
         <div class="flex flex-col gap-y-0.5">
             @if (filled($title))
                 <div class="flex items-center gap-x-3">
-                    <h3
+                    <x-heading
+                        size="lg"
                         @class([
-                            'font-[family-name:--font-header]',
-                            match ($size) {
-                                'sm' => 'text-sm/6 font-semibold',
-                                default => 'text-base/6 font-semibold',
-                            },
+                            'font-(family-name:--font-header)',
                             match ($color) {
                                 'danger' => 'text-danger-700 dark:text-danger-300',
                                 'info' => 'text-info-700 dark:text-info-300',
@@ -63,12 +60,12 @@
                                 'success' => 'text-success-700 dark:text-success-300',
                                 'warning' => 'text-warning-700 dark:text-warning-300',
                                 'gray' => 'text-gray-600 dark:text-gray-400',
-                                default => 'text-gray-950 dark:text-white',
+                                default => 'text-gray-800 dark:text-white',
                             },
                         ])
                     >
                         {{ $title }}
-                    </h3>
+                    </x-heading>
 
                     @if ($badge?->isNotEmpty())
                         {{ $badge }}
@@ -79,7 +76,7 @@
             @if (filled($description))
                 <div
                     @class([
-                        'text-pretty text-sm/6',
+                        'text-sm/6 text-pretty',
                         match ($color) {
                             'danger' => 'text-danger-600 dark:text-danger-400',
                             'info' => 'text-info-600 dark:text-info-400',

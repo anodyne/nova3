@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Notifications\Discord;
 
+use Closure;
+
 class DiscordMessage
 {
     /**
@@ -98,7 +100,7 @@ class DiscordMessage
      *
      * @return $this
      */
-    public function embed(\Closure $callback)
+    public function embed(Closure $callback)
     {
         $this->embeds[] = $embed = new DiscordEmbed;
 

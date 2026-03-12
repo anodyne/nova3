@@ -6,11 +6,13 @@ namespace Nova\Users\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Nova\Stories\Enums\ContentRatingValue;
 use Nova\Users\Actions\UploadUserAvatar;
 use Nova\Users\Data\PronounsData;
+use Nova\Users\Enums\Appearance;
 use Nova\Users\Models\User;
 
 class MyAccountForm extends Form
@@ -50,6 +52,9 @@ class MyAccountForm extends Form
 
     public ContentRatingValue $violenceContentRatingWarningThreshold;
 
+    #[Validate]
+    public Appearance $appearance;
+
     public ?string $croppedImage = null;
 
     public function rules(): array
@@ -57,12 +62,13 @@ class MyAccountForm extends Form
         return [
             'name' => ['required'],
             'email' => ['required', 'email'],
-            'currentPassword' => ['nullable', 'required_with:form.newPassword', 'current_password'],
+            'currentPassword' => ['nullable', 'required_with:newPassword', 'current_password'],
             'newPassword' => ['sometimes'],
-            'newPasswordConfirmation' => ['required_with:form.newPassword', 'same:newPassword'],
-            'pronounSubject' => ['required_if:form.pronouns,other'],
-            'pronounObject' => ['required_if:form.pronouns,other'],
+            'newPasswordConfirmation' => ['required_with:newPassword', 'same:newPassword'],
+            'pronounSubject' => ['required_if:pronouns,other'],
+            'pronounObject' => ['required_if:pronouns,other'],
             'timezone' => ['required'],
+            'appearance' => ['required', Rule::enum(Appearance::class)],
         ];
     }
 
@@ -82,11 +88,13 @@ class MyAccountForm extends Form
         $this->pronounSubject = $user->pronouns->subject;
         $this->pronounObject = $user->pronouns->object;
 
+        $this->appearance = $user->preferences->appearance ?? Appearance::Light;
+
         $this->timezone = $user->preferences->timezone ?? 'UTC';
 
-        $this->languageContentRatingWarningThreshold = $user->preferences->languageContentRatingWarningThreshold;
-        $this->sexContentRatingWarningThreshold = $user->preferences->sexContentRatingWarningThreshold;
-        $this->violenceContentRatingWarningThreshold = $user->preferences->violenceContentRatingWarningThreshold;
+        $this->languageContentRatingWarningThreshold = $user->preferences->languageContentRatingWarningThreshold ?? ContentRatingValue::Game;
+        $this->sexContentRatingWarningThreshold = $user->preferences->sexContentRatingWarningThreshold ?? ContentRatingValue::Game;
+        $this->violenceContentRatingWarningThreshold = $user->preferences->violenceContentRatingWarningThreshold ?? ContentRatingValue::Game;
     }
 
     public function setProfilePhoto($path): void
@@ -112,12 +120,13 @@ class MyAccountForm extends Form
 
         $data['preferences'] = $this->only([
             'timezone',
+            'appearance',
             'languageContentRatingWarningThreshold',
             'sexContentRatingWarningThreshold',
             'violenceContentRatingWarningThreshold',
         ]);
 
-        /** @var \Nova\Users\Models\User $user */
+        /** @var User $user */
         $user = Auth::user();
 
         $user->update($data);
@@ -133,5 +142,11 @@ class MyAccountForm extends Form
         UploadUserAvatar::run($user, $path);
 
         $this->reset('currentPassword', 'newPassword', 'newPasswordConfirmation');
+    }
+
+    public function updatedPronouns($value): void
+    {
+        $this->pronounSubject = PronounsData::getSubjectPronouns($value, null);
+        $this->pronounObject = PronounsData::getObjectPronouns($value, null);
     }
 }

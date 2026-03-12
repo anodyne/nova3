@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
-use Nova\Ranks\Events;
+use Nova\Ranks\Events\RankGroupCreated;
+use Nova\Ranks\Events\RankGroupDeleted;
+use Nova\Ranks\Events\RankGroupUpdated;
 use Nova\Ranks\Models\Builders\RankGroupBuilder;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -34,9 +36,9 @@ class RankGroup extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\RankGroupCreated::class,
-        'updated' => Events\RankGroupUpdated::class,
-        'deleted' => Events\RankGroupDeleted::class,
+        'created' => RankGroupCreated::class,
+        'updated' => RankGroupUpdated::class,
+        'deleted' => RankGroupDeleted::class,
     ];
 
     public function ranks(): HasMany

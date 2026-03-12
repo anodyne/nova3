@@ -2,99 +2,89 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             <x-slot name="actions">
                 @can('viewAny', $page::class)
-                    <x-button :href="route('admin.pages.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.pages.index')" variant="ghost">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
 
                 @can('update', $page)
-                    <x-button :href="route('admin.pages.design', $page)" color="neutral">
-                        <x-icon name="tools" size="sm"></x-icon>
+                    <x-button :href="route('admin.pages.design', $page)">
+                        <x-icon :name="Tabler::Tools" size="sm" />
                         Design
                     </x-button>
 
-                    <x-button :href="route('admin.pages.edit', $page)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.pages.edit', $page)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
             <x-fieldset>
-                <x-fieldset.field-group>
-                    <x-fieldset.field>
-                        <x-fieldset.label>Name</x-fieldset.label>
+                <x-fieldset.group>
+                    <x-input.display label="Name">
                         <x-text>{{ $page->name }}</x-text>
-                    </x-fieldset.field>
+                    </x-input.display>
 
-                    <x-fieldset.field>
-                        <x-fieldset.label>Type</x-fieldset.label>
-                        <div data-slot="text">
-                            <x-badge :color="$page->is_basic ? 'info' : 'primary'">
-                                {{ $page->is_basic ? 'Basic page' : 'Advanced page' }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
+                    <x-input.display label="Type">
+                        <x-badge :color="$page->is_basic ? 'info' : 'primary'" size="md">
+                            {{ $page->is_basic ? 'Basic page' : 'Advanced page' }}
+                        </x-badge>
+                    </x-input.display>
 
-                    <x-fieldset.field>
-                        <x-fieldset.label>URL</x-fieldset.label>
+                    <x-input.display label="URL">
                         <x-text>{{ url($page->uri) }}</x-text>
-                    </x-fieldset.field>
+                    </x-input.display>
 
-                    <x-fieldset.field>
-                        <x-fieldset.label>Key</x-fieldset.label>
+                    <x-input.display label="Key">
                         <x-text>{{ $page->key }}</x-text>
-                    </x-fieldset.field>
+                    </x-input.display>
 
-                    <x-fieldset.field>
-                        <x-fieldset.label>HTTP Verb</x-fieldset.label>
-                        <div data-slot="description">
-                            <x-badge :color="$page->verb->getColor()">{{ $page->verb->getLabel() }}</x-badge>
-                        </div>
-                    </x-fieldset.field>
+                    <x-input.display label="HTTP Verb">
+                        <x-badge :color="$page->verb->getColor()" size="md">
+                            {{ $page->verb->getLabel() }}
+                        </x-badge>
+                    </x-input.display>
 
-                    <x-fieldset.field>
-                        <x-fieldset.label>Status</x-fieldset.label>
-                        <div data-slot="text">
-                            <x-badge :color="$page->status->getColor()">
-                                {{ $page->status->getLabel() }}
-                            </x-badge>
-                        </div>
-                    </x-fieldset.field>
+                    <x-input.display label="Status">
+                        <x-badge :color="$page->status->getColor()" size="md">
+                            {{ $page->status->getLabel() }}
+                        </x-badge>
+                    </x-input.display>
 
                     @if (filled($page->resource))
-                        <x-fieldset.field>
-                            <x-fieldset.label>Resource</x-fieldset.label>
+                        <x-input.display label="Resource">
                             <x-text>{{ $page->resource }}</x-text>
-                        </x-fieldset.field>
+                        </x-input.display>
                     @endif
 
                     @if ($page->is_basic)
-                        <x-fieldset.field>
-                            <x-fieldset.label>Last updated</x-fieldset.label>
+                        <x-input.display label="Last updated">
                             <x-text>{{ $page->updated_at?->diffForHumans() ?? 'Never' }}</x-text>
-                        </x-fieldset.field>
+                        </x-input.display>
 
-                        <x-fieldset.field>
-                            <x-fieldset.label>Last published</x-fieldset.label>
+                        <x-input.display label="Last published">
                             <x-text>{{ $page->published_at?->diffForHumans() ?? 'Never' }}</x-text>
-                        </x-fieldset.field>
+                        </x-input.display>
                     @endif
-                </x-fieldset.field-group>
+                </x-fieldset.group>
             </x-fieldset>
 
             @if ($page->is_basic)
                 <x-fieldset.controls>
                     <x-button :href="url($page->uri)">
-                        <x-icon name="www" size="sm"></x-icon>
+                        <x-icon :name="Tabler::WorldWww" size="sm" />
                         Visit live page
                     </x-button>
 
                     <x-button :href="route('preview-basic-page', $page->key)">
-                        <x-icon name="www-preview" size="sm"></x-icon>
+                        <x-icon :name="Tabler::WorldSearch" size="sm" />
                         Preview page
                     </x-button>
                 </x-fieldset.controls>

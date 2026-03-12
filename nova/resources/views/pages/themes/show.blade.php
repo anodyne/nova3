@@ -1,17 +1,20 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header :heading="$theme->name" :description="'themes/'.$theme->location">
+        <x-page-heading :heading="$theme->name" :description="'themes/'.$theme->location">
             <x-slot name="actions">
-                <x-button x-on:click="window.history.back()" plain>&larr; Back</x-button>
+                <x-button x-on:click="window.history.back()" variant="ghost">
+                    <span aria-hidden="true">←</span>
+                    Back
+                </x-button>
 
                 @can('update', $theme)
-                    <x-button :href="route('admin.themes.edit', $theme)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.themes.edit', $theme)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm"/>
                         Edit
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
             <x-panel variant="well">
@@ -25,77 +28,76 @@
             </x-panel>
 
             <x-fieldset>
-                <x-fieldset.field-group>
-                    <x-fieldset.field label="Version">
+                <x-fieldset.group>
+                    <x-input.display label="Version">
                         <x-text>{{ $theme->version }}</x-text>
-                    </x-fieldset.field>
+                    </x-input.display>
 
                     @if (filled($theme->credits))
-                        <x-fieldset.field label="Credits">
+                        <x-input.display label="Credits">
                             <x-text>{{ $theme->credits }}</x-text>
-                        </x-fieldset.field>
+                        </x-input.display>
                     @endif
 
                     @if (settings('appearance.theme') === $theme->location)
                         <div>
-                            <x-badge color="primary">Currently selected theme for public site</x-badge>
+                            <x-badge color="primary" size="md">Currently selected theme for public site</x-badge>
                         </div>
                     @endif
-                </x-fieldset.field-group>
+                </x-fieldset.group>
             </x-fieldset>
 
-            @if (filled($theme->repository->type) && filled($theme->repository->id))
+            @if (filled($theme->repository?->type) && filled($theme->repository?->id))
                 <x-fieldset>
                     <x-panel variant="well">
                         <x-panel.header
                             title="Version check info"
-                            icon="broadcast"
+                            :icon="Tabler::Broadcast"
                             description="Basic information about how the theme checks for new versions"
                         ></x-panel.header>
 
-                        <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                            <x-spacing size="row" class="group flex items-center justify-between">
-                                <div>
-                                    <x-text>
-                                        <x-text.strong>Latest version</x-text.strong>
-                                    </x-text>
+                        <x-panel>
+                            <x-spacing.group divided>
+                                <x-panel.group.row>
+                                    <div>
+                                        <x-heading>Latest version</x-heading>
 
-                                    @if ($theme->has_update)
-                                        <x-fieldset.warning-message>Update available</x-fieldset.warning-message>
-                                    @endif
-                                </div>
-                                <div>
-                                    <x-text class="tabular-nums">{{ $theme->latest_version }}</x-text>
-                                </div>
-                            </x-spacing>
+                                        @if ($theme->has_update)
+                                            <x-description.warning>Update available</x-description.warning>
+                                        @endif
+                                    </div>
+                                    <div>
+                                        <x-text class="tabular-nums">{{ $theme->latest_version }}</x-text>
+                                    </div>
+                                </x-panel.group.row>
 
-                            <x-spacing size="row" class="group flex items-center justify-between">
-                                <div>
-                                    <x-text>
-                                        <x-text.strong>Checking version from</x-text.strong>
-                                    </x-text>
-                                </div>
-                                <div>
-                                    <x-text>
-                                        {{ $theme->repository->type->getLabel() }}
-                                    </x-text>
-                                </div>
-                            </x-spacing>
+                                <x-panel.group.row>
+                                    <x-heading>Checking version from</x-heading>
 
-                            @if (filled($theme->update_url))
-                                <x-spacing size="row" class="group flex items-center justify-between">
                                     <div>
                                         <x-text>
-                                            <x-text.strong>URL</x-text.strong>
+                                            {{ $theme->repository->type->getLabel() }}
                                         </x-text>
                                     </div>
-                                    <div>
-                                        <x-button :href="$theme->update_url" color="heavy-neutral" text>
-                                            Go to theme repository &rarr;
-                                        </x-button>
-                                    </div>
-                                </x-spacing>
-                            @endif
+                                </x-panel.group.row>
+
+                                @if (filled($theme->update_url))
+                                    <x-panel.group.row>
+                                        <x-heading>URL</x-heading>
+
+                                        <div>
+                                            <x-button
+                                                :href="$theme->update_url"
+                                                variant="ghost"
+                                                inset="right top bottom"
+                                            >
+                                                Go to theme repository
+                                                <span aria-hidden="true">→</span>
+                                            </x-button>
+                                        </div>
+                                    </x-panel.group.row>
+                                @endif
+                            </x-spacing.group>
                         </x-panel>
                     </x-panel>
                 </x-fieldset>

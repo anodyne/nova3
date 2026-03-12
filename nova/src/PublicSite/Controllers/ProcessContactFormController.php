@@ -10,6 +10,7 @@ use Nova\Foundation\Controllers\Controller;
 use Nova\PublicSite\Actions\HandleContactForm;
 use Nova\PublicSite\Requests\ContactRequest;
 use Spatie\Honeypot\ProtectAgainstSpam;
+use Throwable;
 
 class ProcessContactFormController extends Controller
 {
@@ -22,17 +23,27 @@ class ProcessContactFormController extends Controller
 
     public function __invoke(ContactRequest $request)
     {
-        $executed = RateLimiter::attempt(
-            key: 'process-contact:'.$request->ip(),
-            maxAttempts: 1,
-            callback: fn () => HandleContactForm::run($request),
-            decaySeconds: 15 * 60
-        );
+        abort_unless(settings('general.contactFormEnabled'), 404);
 
-        if (! $executed) {
-            throw new ThrottleRequestsException;
+        try {
+            $executed = RateLimiter::attempt(
+                key: 'process-contact:'.$request->ip(),
+                maxAttempts: 1,
+                callback: fn () => HandleContactForm::run($request),
+                decaySeconds: 15 * 60
+            );
+
+            if (! $executed) {
+                throw new ThrottleRequestsException;
+            }
+
+            return back()->with('contact-submitted', 'yes');
+        } catch (ThrottleRequestsException $th) {
+            throw $th;
+        } catch (Throwable $th) {
+            report($th);
+
+            return back()->with('contact-submitted', 'no');
         }
-
-        return back()->with('contact-submitted', 'yes');
     }
 }

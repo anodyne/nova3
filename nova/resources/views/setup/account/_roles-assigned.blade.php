@@ -1,13 +1,5 @@
-<x-spacing size="sm" class="col-span-3 grid grid-cols-subgrid">
-    <div class="mr-4 shrink-0">
-        <x-icon name="shield-lock" size="xl" class="text-gray-500"></x-icon>
-    </div>
-
-    <div class="col-start-2">
-        <x-h4 class="leading-8">Assign admin roles</x-h4>
-    </div>
-
-    <div class="col-start-3 ml-4 flex shrink-0 justify-end">
-        <x-icon name="check-circle" class="text-primary-500" size="xl"></x-icon>
-    </div>
-</x-spacing>
+<x-setup::panel.row :icon="Tabler::ShieldLock" heading="Assign admin roles">
+    <x-slot name="trailing">
+        <x-icon :name="Tabler::CircleCheck" class="text-primary-500" size="lg" />
+    </x-slot>
+</x-setup::panel.row>

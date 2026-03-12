@@ -52,8 +52,8 @@ class Discussion extends Model
     public function allParticipants(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'discussion_participant')
-            ->using(DiscussionParticipant::class)
-            ->withTrashed();
+            ->withTrashed()
+            ->using(DiscussionParticipant::class);
     }
 
     public function participants(): BelongsToMany

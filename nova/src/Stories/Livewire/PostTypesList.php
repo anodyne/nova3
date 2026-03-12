@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -31,6 +33,7 @@ use Nova\Foundation\Filament\Actions\RestoreAction;
 use Nova\Foundation\Filament\Actions\RestoreBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Actions\DeletePostType;
@@ -42,8 +45,8 @@ use Nova\Stories\Data\PostTypeData;
 use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Events\PostTypeDuplicated;
 use Nova\Stories\Models\PostType;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
 class PostTypesList extends TableComponent
 {
@@ -52,19 +55,24 @@ class PostTypesList extends TableComponent
         return $table
             ->query(
                 PostType::query()
-                    ->withCount('posts')
-                    ->withTrashed()
                     ->select([
                         'color',
                         'deleted_at',
+                        'description',
+                        'fields',
                         'icon',
                         'id',
                         'name',
+                        'options',
                         'order_column',
                         'role_id',
                         'status',
+                        'visibility',
                     ])
+                    ->withCount('posts')
+                    ->withTrashed()
             )
+            ->recordUrl(fn (PostType $record): string => route('admin.post-types.show', $record))
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
@@ -96,17 +104,15 @@ class PostTypesList extends TableComponent
                 IconColumn::make('includedInPostTracking')
                     ->label('Included in post tracking')
                     ->alignCenter()
-                    ->trueColor('success')
-                    ->trueIcon(iconName('check'))
-                    ->falseIcon('')
+                    ->trueIcon(Tabler::CircleCheck)
+                    ->falseIcon(Tabler::CircleX)
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 IconColumn::make('notifiesUsers')
                     ->label('Sends published notifications')
                     ->alignCenter()
-                    ->trueColor('success')
-                    ->trueIcon(iconName('check'))
-                    ->falseIcon('')
+                    ->trueIcon(Tabler::CircleCheck)
+                    ->falseIcon(Tabler::CircleX)
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
@@ -115,7 +121,7 @@ class PostTypesList extends TableComponent
                     ->formatStateUsing(fn (PostType $record): string => $record->trashed() ? 'Deleted' : $record->status->getLabel())
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -124,7 +130,7 @@ class PostTypesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (PostType $record): string => route('admin.post-types.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -147,16 +153,21 @@ class PostTypesList extends TableComponent
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->modalContentView('pages.post-types.duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')->label('Post type name'),
                             ])
                             ->action(function (PostType $record, array $data): void {
                                 $postTypeData = PostTypeData::from([
                                     'name' => $name = data_get($data, 'name'),
                                     'key' => str($name)->slug(),
+                                    'description' => $record->description,
+                                    'status' => $record->status,
                                     'fields' => $record->fields,
                                     'options' => $record->options,
+                                    'role_id' => $record->role_id,
                                     'visibility' => $record->visibility,
+                                    'icon' => $record->icon?->value,
+                                    'color' => $record->color,
                                 ]);
 
                                 $replica = DuplicatePostType::run($record, $postTypeData);
@@ -167,7 +178,7 @@ class PostTypesList extends TableComponent
                                     ->title("{$replica->name} post type has been created")
                                     ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         RestoreAction::make()
@@ -183,7 +194,7 @@ class PostTypesList extends TableComponent
                         DeleteAction::make()
                             ->authorize('delete')
                             ->modalContentView('pages.post-types.delete')
-                            ->form(function (PostType $record): ?array {
+                            ->schema(function (PostType $record): ?array {
                                 if ($record->posts_count === 0) {
                                     return null;
                                 }
@@ -216,7 +227,7 @@ class PostTypesList extends TableComponent
                         ForceDeleteAction::make()
                             ->authorize('forceDelete')
                             ->modalContentView('pages.post-types.force-delete')
-                            ->form(function (PostType $record): ?array {
+                            ->schema(function (PostType $record): ?array {
                                 if ($record->posts_count === 0) {
                                     return null;
                                 }
@@ -244,7 +255,7 @@ class PostTypesList extends TableComponent
                                         fn (Notification $notification) => $notification->body('All posts have been re-assigned to the '.$newPostType->name.' post type.')
                                     );
                             }),
-                    ])->authorizeAny(['delete', 'restore', 'forceDelete'])->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -356,9 +367,9 @@ class PostTypesList extends TableComponent
                 SelectFilter::make('visibility')->options(PostTypeVisibility::class),
                 TrashedFilter::make()->label('Deleted post types'),
             ])
-            ->columnToggleFormWidth('sm')
+            ->columnManagerWidth(Width::Small)
             ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Illustration::PenAndQuill)
             ->emptyStateHeading('No post types found')
             ->emptyStateDescription('Post types allow you to control the type of content users can create inside of stories.')
             ->emptyStateActions([

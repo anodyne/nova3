@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
+use BackedEnum;
 use Filament\Support\Enums\IconPosition;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -25,8 +27,8 @@ use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
 use Nova\Menus\Models\MenuItem;
 use Nova\Pages\Models\Page;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
 class MenuItemsList extends TableComponent
 {
@@ -56,7 +58,7 @@ class MenuItemsList extends TableComponent
                     ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('link')
-                    ->icon(fn (MenuItem $record): ?string => $record->target === LinkTarget::Blank ? iconName('external') : null)
+                    ->icon(fn (MenuItem $record): ?BackedEnum => $record->target === LinkTarget::Blank ? Tabler::ExternalLink : null)
                     ->iconPosition(IconPosition::After)
                     ->sortable(),
                 TextColumn::make('link_type')
@@ -68,13 +70,13 @@ class MenuItemsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (MenuItem $record): string => route('admin.menu-items.edit', $record)),
-                    ])->authorize('update')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -99,7 +101,7 @@ class MenuItemsList extends TableComponent
                             ->modalContentView('pages.menu-items.delete')
                             ->successNotificationTitle(fn (MenuItem $record): string => $record->label.' menu item was deleted')
                             ->using(fn (MenuItem $record): MenuItem => DeleteMenuItem::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -138,7 +140,7 @@ class MenuItemsList extends TableComponent
                 SelectFilter::make('link_type')->options(LinkType::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(iconName('menu'))
+            ->emptyStateIcon(Tabler::Menu2)
             ->emptyStateHeading('No menu items found')
             ->emptyStateActions([
                 CreateAction::make()

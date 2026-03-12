@@ -13,6 +13,8 @@ use Livewire\Component;
 use Nova\Foundation\Environment\Database;
 use Nova\Setup\Enums\DatabaseConfigStatus;
 use Nova\Setup\Enums\SetupType;
+use Nova\Setup\Livewire\Concerns\HandlesMigration;
+use Nova\Setup\Livewire\Concerns\InteractsWithEnvFile;
 use Nova\Stories\Livewire\Concerns\InteractsWithRoute;
 use PDO;
 use Throwable;
@@ -20,8 +22,8 @@ use Throwable;
 #[Layout('layouts.setup', ['type' => SetupType::Install])]
 class ConfigureDatabase extends Component
 {
-    use Concerns\HandlesMigration;
-    use Concerns\InteractsWithEnvFile;
+    use HandlesMigration;
+    use InteractsWithEnvFile;
     use InteractsWithRoute;
 
     public string $driver = 'mysql';

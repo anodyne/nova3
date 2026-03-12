@@ -3,7 +3,7 @@
 @endphp
 
 <x-admin-layout>
-    <x-page-header :description="$settings->getParticipationDescription()"></x-page-header>
+    <x-page-heading :description="$settings->getParticipationDescription()"></x-page-heading>
 
     <div class="grid gap-8 lg:grid-cols-2">
         <div>
@@ -16,14 +16,14 @@
         <div>
             <ul>
                 @foreach ($stats->results as $user)
-                    <li class="rounded-md px-3 py-1.5 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]">
+                    <li class="rounded-md px-3 py-1.5 odd:bg-gray-950/5 dark:odd:bg-white/[.07]">
                         <div class="flex items-center justify-between gap-x-3">
                             <div>
                                 <div class="flex gap-x-2">
                                     @if ($user->total_word_count > 0)
-                                        <x-icon name="check-circle" size="md" class="text-success-500"></x-icon>
+                                        <x-icon :name="Tabler::CircleCheck" size="md" class="text-success-500" />
                                     @else
-                                        <x-icon name="x-circle" size="md" class="text-danger-500"></x-icon>
+                                        <x-icon :name="Tabler::CircleX" size="md" class="text-danger-500" />
                                     @endif
 
                                     <div class="font-semibold">{{ $user->name }}</div>

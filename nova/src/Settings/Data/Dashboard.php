@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Data;
 
+use Anodyne\TablerIcons\Tabler;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ readonly class Dashboard extends Bag
         return [
             'leaderboard' => Leaderboard::from(
                 title: $request->input('leaderboard.title'),
-                icon: $request->input('leaderboard.icon'),
+                icon: Tabler::tryFrom($request->input('leaderboard.icon')) ?? null,
                 onlyActiveUsers: $request->boolean('leaderboard.onlyActiveUsers', true),
                 target: PostingTarget::tryFrom($request->input('leaderboard.target')) ?? PostingTarget::Words,
                 userSelectableTimeframe: $request->boolean('leaderboard.userSelectableTimeframe', false),

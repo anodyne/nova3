@@ -1,30 +1,26 @@
 @props([
-    'size' => 'base',
-    'tag' => 'p',
     'color' => null,
+    'size' => 'sm',
 ])
 
-<{{ $tag }}
-    data-slot="text"
-    {{
-        $attributes->class([
-            match ($color) {
-                'danger' => 'text-danger-600 dark:text-danger-400',
-                'info' => 'text-info-600 dark:text-info-400',
-                'primary' => 'text-primary-600 dark:text-primary-400',
-                'success' => 'text-success-600 dark:text-success-400',
-                'warning' => 'text-warning-600 dark:text-warning-400',
-                'subtle' => 'text-gray-500 dark:text-gray-400',
-                default => 'text-gray-600 dark:text-gray-300',
-            },
-            match ($size) {
-                'sm' => 'text-sm/5 sm:text-xs/5',
-                'lg' => 'text-lg/7 sm:text-base/7',
-                'xl' => 'text-xl/8 sm:text-lg/8',
-                default => 'text-base/6 sm:text-sm/6',
-            },
-        ])
-    }}
->
+@php
+    if ($color !== null) {
+        $color = settings('appearance')->getColorFromSemanticColor($color);
+    }
+
+    $textSize = match ($size) {
+        'xl' => 'text-lg',
+        'lg' => 'text-base',
+        default => 'text-sm',
+    };
+
+    $leading = match ($size) {
+        'xl' => 'leading-8',
+        'lg' => 'leading-7',
+        default => 'leading-6',
+    };
+@endphp
+
+<flux:text :$color {{ $attributes->class([$leading, $textSize]) }}>
     {{ $slot }}
-</{{ $tag }}>
+</flux:text>

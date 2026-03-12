@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Discussions\Models\Discussion;
-use Nova\Discussions\Models\DiscussionMessage;
 
 class DeleteDiscussion
 {
@@ -14,8 +14,14 @@ class DeleteDiscussion
 
     public function handle(Discussion $discussion): void
     {
-        DiscussionMessage::where('discussion_id', $discussion->id)->delete();
+        DB::transaction(function () use ($discussion) {
+            $discussion->notifications()->delete();
 
-        $discussion->delete();
+            $discussion->messages()->delete();
+
+            $discussion->allParticipants()->detach();
+
+            $discussion->delete();
+        });
     }
 }

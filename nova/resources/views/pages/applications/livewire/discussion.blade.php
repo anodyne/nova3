@@ -4,45 +4,32 @@
 
 <div wire:poll.15s>
     @if ($application->result === ApplicationResult::Pending)
-        <div class="flex items-start gap-x-4">
-            <div class="min-w-0 flex-1">
-                <form action="#" class="relative">
-                    <div
-                        class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-950/10 focus-within:ring-2 focus-within:ring-primary-500 dark:ring-white/10 dark:focus-within:ring-primary-500"
-                    >
-                        <label for="comment" class="sr-only">Add your message</label>
-                        <textarea
-                            rows="3"
-                            class="block max-h-60 w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 [field-sizing:content] placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 dark:text-white dark:placeholder:text-gray-500"
-                            placeholder="Add a message to the application review"
-                            wire:model.live="content"
-                        ></textarea>
+        <form wire:submit="addMessage">
+            <x-composer
+                wire:model="content"
+                label="Message"
+                label:sr-only
+                rows="3"
+                max-rows="10"
+                placeholder="Add a message to the application review"
+            >
+                <x-slot name="actionsLeading"></x-slot>
 
-                        <!-- Spacer element to match the height of the toolbar -->
-                        <div class="py-2" aria-hidden="true">
-                            <!-- Matches height of button in toolbar (1px border + 36px content height) -->
-                            <div class="py-px">
-                                <div class="h-9"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="absolute inset-x-0 bottom-0 flex justify-between py-2 pl-3 pr-2">
-                        <div class="ml-auto shrink-0">
-                            <x-button type="button" wire:click="addMessage" plain>
-                                <x-icon name="send" size="sm"></x-icon>
-                            </x-button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+                <x-slot name="actionsTrailing">
+                    <x-button type="submit" size="sm" variant="filled">
+                        Send
+                    </x-button>
+                </x-slot>
+            </x-composer>
+        </form>
     @endif
 
-    <ul @class([
-        'grid grid-cols-1 space-y-6',
-        'mt-8' => ApplicationResult::Pending,
-    ])>
+    <ul
+        @class([
+            'grid grid-cols-1 space-y-6',
+            'mt-8' => ApplicationResult::Pending,
+        ])
+    >
         @if ($application->result !== ApplicationResult::Pending)
             <div class="space-y-1">
                 <div
@@ -56,9 +43,9 @@
                         <x-spacing size="md">
                             <div class="flex items-center gap-x-3">
                                 <x-icon
-                                    :name="$application->result === ApplicationResult::Accept ? 'progress-check' : 'progress-x'"
+                                    :name="$application->result === ApplicationResult::Accept ? Tabler::ProgressCheck : Tabler::ProgressX"
                                     size="lg"
-                                ></x-icon>
+                                />
                                 <div class="text-base/7 font-semibold">
                                     Application has been
                                     {{ str($application->result->getLabel())->lower() }}
@@ -121,10 +108,14 @@
                             <div class="flex flex-col gap-y-2" x-data="{ expanded: false }">
                                 <x-spacing size="md">
                                     <div class="flex items-center gap-x-3">
-                                        <x-icon :name="$accepted ? 'progress-check' : 'progress-x'" size="lg"></x-icon>
+                                        <x-icon
+                                            :name="$accepted ? Tabler::ProgressCheck : Tabler::ProgressX"
+                                            size="lg"
+                                        />
                                         <div class="text-base/7 font-semibold">
                                             {{ $message->user->name }} has voted to
-                                            {{ str($message->result->getShortLabel())->lower() }} this application
+                                            {{ str($message->result->getShortLabel())->lower() }}
+                                            this application
                                         </div>
                                     </div>
 
@@ -178,19 +169,20 @@
                             'flex-row-reverse pe-1 text-right' => $isMe,
                         ])
                     >
-                        <div class="font-medium text-gray-500 dark:text-gray-400">{{ $message->user->name }}</div>
+                        <div class="font-medium text-gray-500 dark:text-gray-400">
+                            {{ $message->user->name }}
+                        </div>
                         <div>{{ $message->updated_at?->diffForHumans() }}</div>
                     </div>
                 </div>
             </div>
         @empty
             @if ($application->result === ApplicationResult::Pending)
-                <x-empty-state.small
-                    icon="message-dots"
-                    message="Go ahead, say something and get the conversation started."
-                >
-                    <x-slot name="title">No discussion messages</x-slot>
-                </x-empty-state.small>
+                <x-empty>
+                    <x-illustration :name="Illustration::BubbleDiscuss"/>
+                    <x-empty.heading>No message history</x-empty.heading>
+                    <x-empty.text>Go ahead, say something and get the conversation started.</x-empty.text>
+                </x-empty>
             @endif
         @endforelse
     </ul>

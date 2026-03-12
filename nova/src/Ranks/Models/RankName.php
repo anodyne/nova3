@@ -10,7 +10,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
-use Nova\Ranks\Events;
+use Nova\Ranks\Events\RankNameCreated;
+use Nova\Ranks\Events\RankNameDeleted;
+use Nova\Ranks\Events\RankNameUpdated;
 use Nova\Ranks\Models\Builders\RankNameBuilder;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -32,9 +34,9 @@ class RankName extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\RankNameCreated::class,
-        'updated' => Events\RankNameUpdated::class,
-        'deleted' => Events\RankNameDeleted::class,
+        'created' => RankNameCreated::class,
+        'updated' => RankNameUpdated::class,
+        'deleted' => RankNameDeleted::class,
     ];
 
     public function ranks(): HasMany

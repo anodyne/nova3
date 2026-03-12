@@ -1,4 +1,3 @@
-@use('Illuminate\Support\Number')
 @use('Nova\Foundation\Helpers\DateHelper')
 
 <div wire:poll.300s.keep-alive="checkLock" wire:cloak>
@@ -6,58 +5,67 @@
         <section class="space-y-12 lg:col-span-2">
             <div class="space-y-6">
                 <div class="relative z-10 flex items-center gap-x-2">
-                    <div class="-ml-2 shrink text-sm/6 font-medium">
-                        <x-dropdown.breadcrumb>
-                            @if ($currentStories->count() >= 2)
+                    <div class="shrink text-sm/6 font-medium">
+                        @if ($currentStories->count() >= 2)
+                            <x-dropdown>
                                 <x-slot name="trigger">
-                                    <x-metadata label="Story" :value="$story->title"></x-metadata>
+                                    <x-button variant="ghost" size="sm">
+                                        <x-metadata label="Story" :value="$story->title" />
+                                        <x-icon.micro.chevron-up-down class="size-4 text-gray-400 dark:text-gray-600" />
+                                    </x-button>
                                 </x-slot>
-                            @else
-                                <x-slot name="placeholder">
-                                    <x-metadata label="Story" :value="$story->title"></x-metadata>
-                                </x-slot>
-                            @endif
 
-                            @foreach ($currentStories as $currentStory)
-                                <x-dropdown.breadcrumb.item wire:click="changeStory({{ $currentStory->id }})">
-                                    {{ $currentStory->title }}
-                                </x-dropdown.breadcrumb.item>
-                            @endforeach
-                        </x-dropdown.breadcrumb>
+                                @foreach ($currentStories as $currentStory)
+                                    <x-dropdown.item wire:click="changeStory({{ $currentStory->id }})">
+                                        <div class="flex w-full items-center justify-between">
+                                            <div class="flex flex-1 items-center gap-3">
+                                                {{ $currentStory->title }}
+                                            </div>
+
+                                            @if ($currentStory->id === $story->id)
+                                                <x-icon.micro.check class="size-4 shrink-0" />
+                                            @endif
+                                        </div>
+                                    </x-dropdown.item>
+                                @endforeach
+                            </x-dropdown>
+                        @else
+                            <x-metadata label="Story" :value="$story->title" />
+                        @endif
                     </div>
 
                     <div class="text-sm/6 font-medium text-gray-400 dark:text-gray-600">/</div>
 
                     <div class="shrink text-sm/6 font-medium">
                         @if ($post->is_draft)
-                            <x-dropdown.breadcrumb>
-                                @if ($availablePostTypes->count() >= 2)
-                                    <x-slot name="trigger">
-                                        <x-metadata label="Post type" :value="$postType->name"></x-metadata>
-                                    </x-slot>
-                                @else
-                                    <x-slot name="placeholder">
-                                        <x-metadata label="Post type" :value="$postType->name"></x-metadata>
-                                    </x-slot>
-                                @endif
+                            <x-dropdown>
+                                <x-slot name="trigger">
+                                    <x-button variant="ghost" size="sm">
+                                        <x-metadata label="Post type" :value="$postType->name" />
+                                        <x-icon.micro.chevron-up-down class="size-4 text-gray-400 dark:text-gray-600" />
+                                    </x-button>
+                                </x-slot>
 
                                 @foreach ($availablePostTypes as $availablePostType)
-                                    <x-dropdown.breadcrumb.item
-                                        wire:click="startPostTypeChange({{ $availablePostType->id }})"
-                                        :selected="$availablePostType->id === $postTypeId"
-                                    >
-                                        <div class="flex items-center gap-x-1.5">
-                                            <div class="shrink-0 text-gray-400 dark:text-gray-600">
-                                                <x-icon :name="$availablePostType->icon" size="sm"></x-icon>
+                                    <x-dropdown.item wire:click="startPostTypeChange({{ $availablePostType->id }})">
+                                        <div class="flex w-full items-center justify-between">
+                                            <div class="flex flex-1 items-center gap-3">
+                                                <div class="shrink-0 text-gray-400 group-focus:text-gray-300">
+                                                    <x-icon :name="$availablePostType->icon" size="sm" />
+                                                </div>
+
+                                                <div>{{ $availablePostType->name }}</div>
                                             </div>
 
-                                            <div>{{ $availablePostType->name }}</div>
+                                            @if ($availablePostType->id === $postType->id)
+                                                <x-icon.micro.check class="size-4 shrink-0" />
+                                            @endif
                                         </div>
-                                    </x-dropdown.breadcrumb.item>
+                                    </x-dropdown.item>
                                 @endforeach
-                            </x-dropdown.breadcrumb>
+                            </x-dropdown>
                         @else
-                            <x-metadata label="Post type" :value="$postType->name"></x-metadata>
+                            <x-metadata label="Post type" :value="$postType->name" />
                         @endif
                     </div>
 
@@ -90,7 +98,9 @@
 
                     @if ($shouldUsePostLock)
                         <div class="shrink-0">
-                            <x-button wire:click="saveAndFinish(true)" plain>I’m done editing</x-button>
+                            <x-button wire:click="saveAndFinish(true)" variant="ghost" inset="right">
+                                I’m done editing
+                            </x-button>
                         </div>
                     @endif
                 </div>
@@ -104,7 +114,7 @@
                         <x-button
                             wire:click="openForPublishing"
                             class="w-full"
-                            color="primary"
+                            variant="primary"
                             :disabled="! $canPublish"
                         >
                             Publish
@@ -112,120 +122,122 @@
                     </div>
 
                     @if (! $canPublish)
-                        <div
-                            class="rounded-lg bg-danger-50 px-3 py-1.5 text-sm/6 text-danger-600 ring-1 ring-danger-200 dark:bg-danger-950 dark:text-danger-400 dark:ring-danger-800"
-                        >
+                        <x-callout.danger>
                             {!! $validationErrors !!}
-                        </div>
+                        </x-callout.danger>
                     @endif
                 @endcan
 
                 @if ($post->is_published)
                     <div>
-                        <x-button wire:click="save" class="w-full" color="primary">Update</x-button>
+                        <x-button wire:click="save" class="w-full" variant="primary">Update</x-button>
                     </div>
                 @endif
 
                 @can('delete', $post)
                     <div>
-                        <x-button class="w-full" wire:click="delete" color="neutral-danger" text>
-                            <x-icon name="trash" size="sm"></x-icon>
-                            Delete post
+                        <x-button class="w-full" wire:click="delete" variant="ghost" data-danger>
+                            <div class="flex items-center gap-2">
+                                <x-icon :name="Tabler::Trash" size="sm" />
+                                Delete post
+                            </div>
                         </x-button>
                     </div>
                 @endcan
 
                 @can('discard', $post)
                     <div>
-                        <x-button class="w-full" wire:click="discard" color="neutral-danger" text>
-                            <x-icon name="trash" size="sm"></x-icon>
-                            Discard draft
+                        <x-button class="w-full" wire:click="discard" variant="ghost" data-danger>
+                            <div class="flex items-center gap-2">
+                                <x-icon :name="Tabler::Trash" size="sm" />
+                                Discard draft
+                            </div>
                         </x-button>
                     </div>
                 @endcan
             </div>
 
-            <flux:accordion>
-                <flux:accordion.item expanded transition>
-                    <flux:accordion.heading>
+            <x-accordion>
+                <x-accordion.item expanded transition>
+                    <x-accordion.heading>
                         <div class="flex items-center gap-x-2">
-                            <x-icon name="characters" size="sm"></x-icon>
+                            <x-icon :name="Tabler::MasksTheater" size="sm" />
                             <span>Authors</span>
                         </div>
-                    </flux:accordion.heading>
+                    </x-accordion.heading>
 
-                    <flux:accordion.content>
+                    <x-accordion.content>
                         <livewire:posts-authors :$post @post-updated="handleUpdateFromChild" />
-                    </flux:accordion.content>
-                </flux:accordion.item>
+                    </x-accordion.content>
+                </x-accordion.item>
 
                 @if ($post?->postType?->fields?->rating?->enabled ?? false)
-                    <flux:accordion.item expanded transition>
-                        <flux:accordion.heading>
+                    <x-accordion.item expanded transition>
+                        <x-accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon name="mature" size="sm"></x-icon>
+                                <x-icon :name="Tabler::Rating18Plus" size="sm" />
                                 <span>Content ratings</span>
                             </div>
-                        </flux:accordion.heading>
+                        </x-accordion.heading>
 
-                        <flux:accordion.content>
+                        <x-accordion.content>
                             <livewire:posts-ratings :$post @post-updated="handleUpdateFromChild" />
-                        </flux:accordion.content>
-                    </flux:accordion.item>
+                        </x-accordion.content>
+                    </x-accordion.item>
                 @endif
 
                 @if ($post?->postType?->fields?->summary?->enabled ?? false)
-                    <flux:accordion.item expanded transition>
-                        <flux:accordion.heading>
+                    <x-accordion.item expanded transition>
+                        <x-accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon name="blockquote" size="sm"></x-icon>
+                                <x-icon :name="Tabler::Blockquote" size="sm" />
                                 <span>Summary</span>
                             </div>
-                        </flux:accordion.heading>
+                        </x-accordion.heading>
 
-                        <flux:accordion.content>
+                        <x-accordion.content>
                             <livewire:posts-summary :$post @post-updated="handleUpdateFromChild" />
-                        </flux:accordion.content>
-                    </flux:accordion.item>
+                        </x-accordion.content>
+                    </x-accordion.item>
                 @endif
 
                 @if ($post->exists)
-                    <flux:accordion.item expanded transition>
-                        <flux:accordion.heading>
+                    <x-accordion.item expanded transition>
+                        <x-accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon name="timeline" size="sm"></x-icon>
+                                <x-icon :name="Tabler::TimelineEvent" size="sm" />
                                 <span>Post position</span>
                             </div>
-                        </flux:accordion.heading>
+                        </x-accordion.heading>
 
-                        <flux:accordion.content>
+                        <x-accordion.content>
                             <livewire:posts-position :$post @post-updated="handleUpdateFromChild" />
-                        </flux:accordion.content>
-                    </flux:accordion.item>
+                        </x-accordion.content>
+                    </x-accordion.item>
                 @endif
 
-                <flux:accordion.item expanded transition>
-                    <flux:accordion.heading>
+                <x-accordion.item expanded transition>
+                    <x-accordion.heading>
                         <div class="flex items-center gap-x-2">
-                            <x-icon name="info" size="sm"></x-icon>
+                            <x-icon :name="Tabler::InfoCircle" size="sm" />
                             <span>Post info</span>
                         </div>
-                    </flux:accordion.heading>
+                    </x-accordion.heading>
 
-                    <flux:accordion.content>
+                    <x-accordion.content>
                         <dl class="text-sm/6">
                             <div
-                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
+                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/5 dark:odd:bg-white/[.07]"
                             >
                                 <dt class="flex-1 font-medium text-gray-950 dark:text-white">Status</dt>
                                 <dd>
-                                    <x-badge :color="$post->status->getColor()" size="sm">
+                                    <x-badge :color="$post->status->getColor()">
                                         {{ $post->status->getLabel() }}
                                     </x-badge>
                                 </dd>
                             </div>
                             <div
-                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
+                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/5 dark:odd:bg-white/[.07]"
                             >
                                 <dt class="flex-1 font-medium text-gray-950 dark:text-white">Word count</dt>
                                 <dd>
@@ -233,7 +245,7 @@
                                 </dd>
                             </div>
                             <div
-                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
+                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/5 dark:odd:bg-white/[.07]"
                             >
                                 <dt class="flex-1 font-medium text-gray-950 dark:text-white">Reading time</dt>
                                 <dd>
@@ -241,13 +253,13 @@
                                 </dd>
                             </div>
                             <div
-                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
+                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/5 dark:odd:bg-white/[.07]"
                             >
                                 <dt class="flex-1 font-medium text-gray-950 dark:text-white">Last update</dt>
                                 <dd>{{ DateHelper::formatShortDateWithTime($post->updated_at) }}</dd>
                             </div>
                             <div
-                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/[.04] dark:odd:bg-white/[.07]"
+                                class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/5 dark:odd:bg-white/[.07]"
                             >
                                 <dt class="flex-1 font-medium text-gray-950 dark:text-white">Published</dt>
 
@@ -258,9 +270,9 @@
                                 @endif
                             </div>
                         </dl>
-                    </flux:accordion.content>
-                </flux:accordion.item>
-            </flux:accordion>
+                    </x-accordion.content>
+                </x-accordion.item>
+            </x-accordion>
         </aside>
     </div>
 </div>

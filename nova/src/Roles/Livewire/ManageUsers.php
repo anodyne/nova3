@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Livewire;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -14,48 +13,27 @@ use Nova\Users\Models\User;
 
 class ManageUsers extends Component
 {
-    public string $search = '';
-
     #[Locked]
     public ?Role $role = null;
 
     public Collection $assigned;
 
-    public function add(User $user): void
-    {
-        $this->search = '';
-
-        $this->assigned->push($user);
-    }
+    public ?string $selected = null;
 
     public function remove(User $user): void
     {
         $this->assigned = $this->assigned->reject(
             fn (User $collectionUser) => $collectionUser->id === $user->id
         );
+
+        $this->dispatch('users-updated', users: $this->assigned->pluck('id')->all());
     }
 
-    #[Computed]
-    public function users(): Collection
+    public function updatedSelected(User $value): void
     {
-        return $this->assigned;
-    }
+        $this->assigned->push($value);
 
-    #[Computed]
-    public function searchResults(): Collection
-    {
-        return User::query()
-            ->when(filled($this->search) && $this->search !== '*', fn (Builder $query): Builder => $query->searchFor($this->search))
-            ->when(filled($this->search) && $this->search === '*', fn (Builder $query): Builder => $query)
-            ->get();
-    }
-
-    #[Computed]
-    public function assignedUsers(): string
-    {
-        return $this->assigned
-            ->map(fn (User $user) => $user->id)
-            ->join(',');
+        $this->selected = null;
     }
 
     public function mount(): void
@@ -67,8 +45,28 @@ class ManageUsers extends Component
     {
         return view('pages.roles.livewire.manage-users', [
             'assignedUsers' => $this->assignedUsers,
-            'searchResults' => $this->searchResults,
+            'models' => $this->models,
             'users' => $this->users,
         ]);
+    }
+
+    #[Computed]
+    public function assignedUsers(): string
+    {
+        return $this->assigned
+            ->map(fn (User $user) => $user->id)
+            ->join(',');
+    }
+
+    #[Computed]
+    public function models(): Collection
+    {
+        return User::get();
+    }
+
+    #[Computed]
+    public function users(): Collection
+    {
+        return $this->assigned;
     }
 }

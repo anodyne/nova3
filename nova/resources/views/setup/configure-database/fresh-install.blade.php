@@ -2,143 +2,96 @@
 
 <div class="mx-auto max-w-7xl space-y-16">
     <header class="mx-auto max-w-2xl space-y-6 text-center">
-        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Connect to your database</h1>
+        <x-setup::page-heading>Connect to your database</x-setup::page-heading>
 
         @if ($status === DatabaseConfigStatus::AlreadyConfigured)
-            <p class="text-lg/8 text-gray-600">
+            <x-setup::page-subheading>
                 It looks like you’ve already configured your database connection. Next we’ll install Nova and all of its
                 data.
-            </p>
+            </x-setup::page-subheading>
         @elseif ($status === DatabaseConfigStatus::FailedToWriteEnv)
-            <p class="text-lg/8 text-gray-600">
+            <x-setup::page-subheading>
                 We weren’t able to write your database credentials to the config file. Follow the instructions below to
                 ensure Nova can connect to your database.
-            </p>
+            </x-setup::page-subheading>
         @elseif ($status === DatabaseConfigStatus::FailedToVerify)
-            <p class="text-lg/8 text-gray-600">
+            <x-setup::page-subheading>
                 We weren’t able to verify your database connection using the values we saved to the config file. Either
                 the file was not saved correctly or your database is unavailable right now.
-            </p>
+            </x-setup::page-subheading>
         @else
-            <p class="text-lg/8 text-gray-600">
+            <x-setup::page-subheading>
                 Using the credentials your web host provided you when you signed up, configure your connection to the
                 database here.
-            </p>
+            </x-setup::page-subheading>
         @endif
     </header>
 
     @if ($shouldShowForm)
         <div class="mx-auto max-w-lg space-y-12">
             @if ($errorMessage)
-                <x-panel.danger title="Error connecting to your database" icon="alert-circle">
-                    <x-slot name="description">{{ $errorMessage }}</x-slot>
-                </x-panel.danger>
+                <x-setup::callout.danger heading="Error connecting to your database" icon="exclamation-circle">
+                    {{ $errorMessage }}
+                </x-setup::callout.danger>
             @endif
 
             <x-fieldset>
-                <x-fieldset.field-group>
-                    <x-fieldset.field label="Driver" id="db_driver" name="db_driver">
-                        <flux:radio.group
-                            wire:model.live="driver"
-                            variant="cards"
-                            :indicator="false"
-                            class="max-sm:flex-col"
-                            data-slot="control"
-                        >
-                            <flux:radio value="mysql" label="MySQL / MariaDB" />
-                            <flux:radio value="pgsql" label="PostgreSQL" />
-                        </flux:radio.group>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field
-                        label="Username"
-                        id="db_username"
-                        name="db_username"
-                        :error="$errors->first('username')"
+                <x-fieldset.group>
+                    <x-radio.group
+                        label="Driver"
+                        wire:model.live="driver"
+                        variant="cards"
+                        :indicator="false"
+                        class="max-sm:flex-col"
                     >
-                        <x-input.text placeholder="Your database username" wire:model="username"></x-input.text>
-                    </x-fieldset.field>
+                        <x-radio value="mysql" label="MySQL / MariaDB" />
+                        <x-radio value="pgsql" label="PostgreSQL" />
+                    </x-radio.group>
 
-                    <x-fieldset.field
-                        label="Password"
-                        id="db_password"
-                        name="db_password"
-                        :error="$errors->first('password')"
-                    >
-                        <x-input.password placeholder="Your database password" wire:model="password"></x-input.password>
-                    </x-fieldset.field>
+                    <x-input label="Username" placeholder="Your database username" wire:model="username" />
 
-                    <x-fieldset.field
-                        label="Database name"
-                        id="db_name"
-                        name="db_name"
-                        :error="$errors->first('database')"
-                    >
-                        <x-input.text placeholder="The name of your database" wire:model="database"></x-input.text>
-                    </x-fieldset.field>
+                    <x-input label="Password" placeholder="Your database password" wire:model="password" />
 
-                    <x-fieldset.field label="Database table prefix" id="db_prefix" name="db_prefix">
-                        <x-slot name="description">
+                    <x-input label="Database name" placeholder="The name of your database" wire:model="database" />
+
+                    <x-field>
+                        <x-label>Database table prefix</x-label>
+                        <x-description>
                             If you’re planning to install other applications into the same database
                             <strong class="font-semibold text-gray-600">or</strong>
                             you’re migrating from Nova 2 and using the same database, you’ll want to add a table prefix
                             such as
                             <strong class="font-semibold text-gray-600">nova3_</strong>
-                        </x-slot>
+                        </x-description>
 
-                        <x-input.text
-                            placeholder="The database table prefix (optional)"
-                            wire:model="prefix"
-                        ></x-input.text>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                        <x-input placeholder="The database table prefix (optional)" wire:model="prefix" />
+                    </x-field>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>
-                <x-fieldset.heading>
-                    <x-icon name="database-settings"></x-icon>
-                    <x-fieldset.legend>Advanced settings</x-fieldset.legend>
-                    <x-fieldset.description>
+                <x-fieldset.heading :icon="Tabler::DatabaseCog" heading="Advanced settings">
+                    <x-description>
                         In most cases you won’t need to change these values unless your web host has provided you
                         different connection parameters.
-                    </x-fieldset.description>
+                    </x-description>
                 </x-fieldset.heading>
 
-                <x-fieldset.field-group>
-                    <x-fieldset.field
-                        label="Database host"
-                        id="db_host"
-                        name="db_host"
-                        :error="$errors->first('host')"
-                    >
-                        <x-input.text wire:model="host"></x-input.text>
-                    </x-fieldset.field>
+                <x-fieldset.group>
+                    <x-input label="Database host" wire:model="host" />
 
-                    <x-fieldset.field
-                        label="Database port"
-                        id="db_port"
-                        name="db_port"
-                        :error="$errors->first('port')"
-                    >
-                        <x-input.text wire:model="port"></x-input.text>
-                    </x-fieldset.field>
+                    <x-input label="Database port" wire:model="port" />
 
-                    <x-fieldset.field
+                    <x-input
                         label="Database socket"
-                        id="db_socket"
-                        name="db_socket"
-                        :error="$errors->first('socket')"
-                    >
-                        <x-input.text
-                            placeholder="The UNIX socket path (generally not needed)"
-                            wire:model="socket"
-                        ></x-input.text>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                        placeholder="The UNIX socket path (generally not needed)"
+                        wire:model="socket"
+                    />
+                </x-fieldset.group>
             </x-fieldset>
 
             <div class="flex items-center justify-between">
-                <x-button.setup type="button" wire:click="connectToDatabase" size="sm">
+                <x-setup::button type="button" wire:click="connectToDatabase" size="sm">
                     <div class="flex items-center gap-3">
                         <div>Connect</div>
                         <x-icon.loader
@@ -147,27 +100,27 @@
                             wire:target="connectToDatabase"
                         ></x-icon.loader>
                     </div>
-                </x-button.setup>
+                </x-setup::button>
             </div>
         </div>
     @endif
 
     @if ($shouldShowSuccessTable)
         <div class="mx-auto max-w-lg space-y-8">
-            <x-panel variant="well">
-                <x-panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
+            <x-setup::panel variant="well">
+                <x-setup::panel class="grid grid-cols-[auto_1fr_auto] divide-y divide-gray-950/5" variant="inset">
                     @include('setup.configure-database._verify-temp-connection')
                     @include('setup.configure-database._verify-write-env')
                     @include('setup.configure-database._verify-connection')
                     @include('setup.configure-database._verify-compatibility')
-                </x-panel>
-            </x-panel>
+                </x-setup::panel>
+            </x-setup::panel>
         </div>
     @endif
 
     @if ($status === DatabaseConfigStatus::Success || $status === DatabaseConfigStatus::AlreadyConfigured)
         <div class="flex items-center justify-center">
-            <x-button.setup :href="url('setup/install')" leading="sparkles">Install Nova</x-button.setup>
+            <x-setup::button :href="url('setup/install')" :leading="Tabler::Sparkles">Install Nova</x-setup::button>
         </div>
     @endif
 
@@ -178,7 +131,7 @@
 
             <div
                 x-data="{
-                    text: @js($codeForEnv),
+                    text: {{ Js::from($codeForEnv) }},
                     copied: false,
                     copyToClipboard() {
                         this.copied = true
@@ -188,7 +141,7 @@
                 x-init="$watch('copied', (c) => c && window.setTimeout(() => (copied = false), 2000))"
             >
                 {{-- format-ignore-start --}}
-                <div class="relative flex flex-col gap-0.5 font-mono rounded-lg bg-gray-800 p-4 text-white cursor-pointer" x-on:click="copyToClipboard">
+                <div class="relative flex flex-col gap-0.5 font-mono rounded-xl bg-gray-900 p-4 text-white cursor-pointer text-sm/6" x-on:click="copyToClipboard">
                     <div class="absolute top-4 right-4 text-xs text-gray-500 font-medium">
                         <span class="text" x-show="!copied">Click to copy</span>
                         <span class="text-success-600" x-show="copied" x-cloak>Copied!</span>

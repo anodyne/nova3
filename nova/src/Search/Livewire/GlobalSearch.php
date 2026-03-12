@@ -7,38 +7,53 @@ namespace Nova\Search\Livewire;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
-use Livewire\Component;
 use Nova\Announcements\Models\Announcement;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Livewire\Modal;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
-class GlobalSearch extends Component
+class GlobalSearch extends Modal
 {
     public ?string $search = null;
+
+    public array $categories = [
+        'announcements',
+        'characters',
+        'stories',
+        'posts',
+    ];
 
     #[Computed]
     public function results(): Collection
     {
         $results = Collection::make();
 
-        $results->put('Announcements', Announcement::search($this->search)->get());
+        $results
+            ->when(in_array('announcements', $this->categories))
+            ->put('Announcements', Announcement::search($this->search)->get());
 
-        $results->put(
-            'Characters',
-            Character::search($this->search)
-                ->query(fn (Builder $query): Builder => $query->with(['positions', 'rank.name']))
-                ->get()
-        );
+        $results
+            ->when(in_array('characters', $this->categories))
+            ->put(
+                'Characters',
+                Character::search($this->search)
+                    ->query(fn (Builder $query): Builder => $query->with(['positions', 'rank.name']))
+                    ->get()
+            );
 
-        $results->put(
-            'Story posts',
-            Post::search($this->search)
-                ->query(fn (Builder $query): Builder => $query->with('story'))
-                ->get()
-        );
+        $results
+            ->when(in_array('posts', $this->categories))
+            ->put(
+                'Story posts',
+                Post::search($this->search)
+                    ->query(fn (Builder $query): Builder => $query->with('story'))
+                    ->get()
+            );
 
-        $results->put('Stories', Story::search($this->search)->get());
+        $results
+            ->when(in_array('stories', $this->categories))
+            ->put('Stories', Story::search($this->search)->get());
 
         return $results;
     }
@@ -57,5 +72,10 @@ class GlobalSearch extends Component
             'numberOfResults' => $this->numberOfResults,
             'results' => $this->results,
         ]);
+    }
+
+    public static function size(): string
+    {
+        return '2xl';
     }
 }

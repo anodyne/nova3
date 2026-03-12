@@ -3,17 +3,19 @@
 
 <x-admin-layout>
     <x-spacing>
-        <x-page-header>
+        <x-page-heading>
             <x-slot name="heading">
-                <div class="flex items-center gap-x-4">
+                <div class="flex items-center gap-4">
                     <span>{{ $application->character->name }}</span>
-                    <x-badge :color="$application->result->getColor()">
+
+                    <x-badge :color="$application->result->getColor()" size="md">
                         {{ $application->result->getLabel() }}
                     </x-badge>
                 </div>
             </x-slot>
+
             <x-slot name="description">
-                <div class="flex items-center max-md:gap-y-4 lg:gap-x-8">
+                <x-metadata.group gap="md">
                     @if (filled($application->character->positions))
                         <x-metadata
                             label="Position"
@@ -22,149 +24,141 @@
                     @endif
 
                     <x-metadata label="Applied" :value="$application->created_at->diffForHumans()"></x-metadata>
-                </div>
+                </x-metadata.group>
             </x-slot>
 
             @can('viewAny', $application::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.applications.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.applications.index')" variant="ghost">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <div class="grid gap-12 lg:grid-cols-3">
-            <div class="lg:col-span-2" x-data="tabsList('app')">
-                <flux:tab.group class="mb-12">
-                    <flux:tabs>
-                        <flux:tab name="app">Application</flux:tab>
-                        <flux:tab name="review">Review</flux:tab>
-                        <flux:tab name="history">History</flux:tab>
-                    </flux:tabs>
+            <div class="lg:col-span-2">
+                <x-tab.group class="mb-12">
+                    <x-slot name="tabs">
+                        <x-tab name="application">
+                            <x-icon :name="Tabler::Progress" size="sm" />
+                            Application
+                        </x-tab>
 
-                    <flux:tab.panel name="app">
-                        <div class="space-y-6">
-                            {{-- User details --}}
-                            <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: true }" x-cloak>
-                                <x-panel.header
-                                    title="User details"
-                                    icon="user-profile"
-                                    class="cursor-pointer"
-                                    x-on:click="expanded = !expanded"
-                                >
-                                    <x-slot name="badge">
-                                        <x-badge :color="$application->user->status->getColor()">
-                                            {{ $application->user->status->simple() }}
-                                        </x-badge>
-                                    </x-slot>
+                        <x-tab name="review">
+                            <x-icon :name="Tabler::Messages" size="sm" />
+                            Review
+                        </x-tab>
 
-                                    <x-slot name="actions">
-                                        <div
-                                            class="shrink-0 text-gray-400 transition-transform duration-200 dark:text-gray-500"
-                                            x-bind:class="{
-                                                'rotate-90': expanded,
-                                            }"
-                                        >
-                                            <x-icon name="chevron-right" size="md"></x-icon>
-                                        </div>
-                                    </x-slot>
-                                </x-panel.header>
+                        <x-tab name="history">
+                            <x-icon :name="Tabler::History" size="sm" />
+                            History
+                        </x-tab>
+                    </x-slot>
 
-                                <x-panel
-                                    class="divide-y divide-gray-950/5 dark:divide-white/5"
-                                    x-show="expanded"
-                                    x-collapse
-                                    x-cloak
-                                >
+                    <x-tab.panel name="application" class="space-y-6">
+                        {{-- User details --}}
+                        <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: true }" x-cloak>
+                            <x-panel.header
+                                title="User details"
+                                :icon="Tabler::UserCircle"
+                                class="cursor-pointer"
+                                x-on:click="expanded = !expanded"
+                            >
+                                <x-slot name="badge">
+                                    <x-badge :color="$application->user->status->getColor()" size="md">
+                                        {{ $application->user->status->simple() }}
+                                    </x-badge>
+                                </x-slot>
+
+                                <x-slot name="actions">
+                                    <div
+                                        class="shrink-0 text-gray-400 transition-transform duration-200 dark:text-gray-500"
+                                        x-bind:class="{
+                                            'rotate-90': expanded,
+                                        }"
+                                    >
+                                        <x-icon :name="Tabler::ChevronRight" size="md" />
+                                    </div>
+                                </x-slot>
+                            </x-panel.header>
+
+                            <x-panel x-show="expanded" x-collapse x-cloak>
+                                <x-spacing.group divided>
                                     <x-spacing size="md">
                                         <x-fieldset>
-                                            <x-fieldset.field-group class="w-full">
-                                                <x-fieldset.field label="Name" id="user_name" name="user_name">
-                                                    <x-text>{{ $application->user->name }}</x-text>
-                                                </x-fieldset.field>
+                                            <x-fieldset.group>
+                                                <x-input.display label="Name">
+                                                    <x-text>{{ $application->user->display_name }}</x-text>
+                                                </x-input.display>
 
-                                                <x-fieldset.field
-                                                    label="Email address"
-                                                    id="user_email"
-                                                    name="user_email"
-                                                >
+                                                <x-input.display label="Email address" copyable>
                                                     <x-text>{{ $application->user->email }}</x-text>
-                                                </x-fieldset.field>
-                                            </x-fieldset.field-group>
+                                                </x-input.display>
+                                            </x-fieldset.group>
                                         </x-fieldset>
                                     </x-spacing>
 
                                     @if ($userBioForm->has_published_fields)
                                         <x-spacing size="md">
-                                            <div>
-                                                <livewire:dynamic-form
-                                                    :form="$userBioForm"
-                                                    :submission="$application->user->userFormSubmission"
-                                                    :admin="true"
-                                                    :static="true"
-                                                />
-                                            </div>
+                                            <livewire:dynamic-form
+                                                :form="$userBioForm"
+                                                :submission="$application->user->userFormSubmission"
+                                                :admin="true"
+                                                :static="true"
+                                            />
                                         </x-spacing>
                                     @endif
-                                </x-panel>
+                                </x-spacing.group>
                             </x-panel>
+                        </x-panel>
 
-                            {{-- Character details --}}
-                            <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: false }">
-                                <x-panel.header
-                                    title="Character details"
-                                    icon="characters"
-                                    class="cursor-pointer"
-                                    x-on:click="expanded = !expanded"
-                                >
-                                    <x-slot name="badge">
-                                        <x-badge :color="$application->character->type->getColor()">
-                                            {{ $application->character->type->getLabel() }}
-                                        </x-badge>
-                                    </x-slot>
+                        {{-- Character details --}}
+                        <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: false }">
+                            <x-panel.header
+                                title="Character details"
+                                :icon="Tabler::MasksTheater"
+                                class="cursor-pointer"
+                                x-on:click="expanded = !expanded"
+                            >
+                                <x-slot name="badge">
+                                    <x-badge :color="$application->character->type->getColor()" size="md">
+                                        {{ $application->character->type->getLabel() }}
+                                    </x-badge>
+                                </x-slot>
 
-                                    <x-slot name="actions">
-                                        <div
-                                            class="shrink-0 text-gray-400 transition-transform duration-200 dark:text-gray-500"
-                                            x-bind:class="{
-                                                'rotate-90': expanded,
-                                            }"
-                                        >
-                                            <x-icon name="chevron-right" size="md"></x-icon>
-                                        </div>
-                                    </x-slot>
-                                </x-panel.header>
+                                <x-slot name="actions">
+                                    <div
+                                        class="shrink-0 text-gray-400 transition-transform duration-200 dark:text-gray-500"
+                                        x-bind:class="{
+                                            'rotate-90': expanded,
+                                        }"
+                                    >
+                                        <x-icon :name="Tabler::ChevronRight" size="md" />
+                                    </div>
+                                </x-slot>
+                            </x-panel.header>
 
-                                <x-panel
-                                    class="divide-y divide-gray-950/5 dark:divide-white/5"
-                                    x-show="expanded"
-                                    x-collapse
-                                    x-cloak
-                                >
+                            <x-panel x-show="expanded" x-collapse x-cloak>
+                                <x-spacing.group divided>
                                     <x-spacing size="md">
                                         <x-fieldset>
-                                            <x-fieldset.field-group class="w-full max-w-md">
-                                                <x-fieldset.field
-                                                    label="Character name"
-                                                    id="character_name"
-                                                    name="character_name"
-                                                >
+                                            <x-fieldset.group>
+                                                <x-input.display label="Character name">
                                                     <x-text>
                                                         {{ $application->character->name }}
                                                     </x-text>
-                                                </x-fieldset.field>
+                                                </x-input.display>
 
                                                 @if (filled($application->character->positions))
-                                                    <x-fieldset.field
-                                                        label="Position"
-                                                        id="character_position"
-                                                        name="character_position"
-                                                    >
+                                                    <x-input.display label="Position">
                                                         <x-text>
                                                             {{ $application->character->positions->first()->name }}
                                                         </x-text>
-                                                    </x-fieldset.field>
+                                                    </x-input.display>
                                                 @endif
-                                            </x-fieldset.field-group>
+                                            </x-fieldset.group>
                                         </x-fieldset>
                                     </x-spacing>
 
@@ -178,62 +172,53 @@
                                             />
                                         </x-spacing>
                                     @endif
-                                </x-panel>
+                                </x-spacing.group>
                             </x-panel>
+                        </x-panel>
 
-                            {{-- Application details --}}
-                            <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: false }">
-                                <x-panel.header
-                                    title="Application details"
-                                    icon="progress"
-                                    class="cursor-pointer"
-                                    x-on:click="expanded = !expanded"
-                                >
-                                    <x-slot name="actions">
-                                        <div
-                                            class="shrink-0 text-gray-400 transition-transform duration-200 dark:text-gray-500"
-                                            x-bind:class="{
-                                                'rotate-90': expanded,
-                                            }"
-                                        >
-                                            <x-icon name="chevron-right" size="md"></x-icon>
-                                        </div>
-                                    </x-slot>
-                                </x-panel.header>
+                        {{-- Application details --}}
+                        <x-panel class="overflow-hidden" variant="well" x-data="{ expanded: false }">
+                            <x-panel.header
+                                title="Application details"
+                                :icon="Tabler::Progress"
+                                class="cursor-pointer"
+                                x-on:click="expanded = !expanded"
+                            >
+                                <x-slot name="actions">
+                                    <div
+                                        class="shrink-0 text-gray-400 transition-transform duration-200 dark:text-gray-500"
+                                        x-bind:class="{
+                                            'rotate-90': expanded,
+                                        }"
+                                    >
+                                        <x-icon :name="Tabler::ChevronRight" size="md" />
+                                    </div>
+                                </x-slot>
+                            </x-panel.header>
 
-                                <x-panel
-                                    class="divide-y divide-gray-950/5 dark:divide-white/5"
-                                    x-show="expanded"
-                                    x-collapse
-                                    x-cloak
-                                >
+                            <x-panel x-show="expanded" x-collapse x-cloak>
+                                <x-spacing.group divided>
                                     <x-spacing size="md">
                                         <x-fieldset>
-                                            <x-fieldset.field-group class="w-full max-w-md">
-                                                <x-fieldset.field
-                                                    label="Application date"
-                                                    id="app_date"
-                                                    name="app_date"
-                                                >
+                                            <x-fieldset.group>
+                                                <x-input.display label="Application date">
                                                     <x-text>
                                                         {{ DateHelper::formatShortDateWithTime($application->created_at) }}
                                                     </x-text>
-                                                </x-fieldset.field>
+                                                </x-input.display>
 
-                                                <x-fieldset.field label="IP address" id="app_ip" name="app_ip">
+                                                <x-input.display label="IP address" copyable>
                                                     <x-text class="tabular-nums">
                                                         {{ $application->ip_address ?? 'None available' }}
                                                     </x-text>
-                                                </x-fieldset.field>
+                                                </x-input.display>
 
-                                                <x-fieldset.field label="Status" id="app_status" name="app_status">
-                                                    <div data-slot="text">
-                                                        <x-badge :color="$application->result->getColor()">
-                                                            {{ $application->result->getLabel() }}
-                                                        </x-badge>
-                                                    </div>
-                                                </x-fieldset.field>
-                                            </x-fieldset.field-group>
+                                                <x-input.display label="Status">
+                                                    <x-badge :color="$application->result->getColor()" size="md">
+                                                        {{ $application->result->getLabel() }}
+                                                    </x-badge>
+                                                </x-input.display>
+                                            </x-fieldset.group>
                                         </x-fieldset>
                                     </x-spacing>
 
@@ -247,108 +232,78 @@
                                             />
                                         </x-spacing>
                                     @endif
-                                </x-panel>
+                                </x-spacing.group>
                             </x-panel>
+                        </x-panel>
 
-                            {{-- Review details --}}
-                            @if ($application->result !== ApplicationResult::Pending)
-                                <div x-data="{ expanded: true }">
-                                    <x-panel variant="well">
-                                        <x-spacing size="sm">
-                                            <button
-                                                type="button"
-                                                class="flex w-full appearance-none items-center justify-between"
-                                                x-on:click="expanded = !expanded"
-                                            >
-                                                <div class="flex items-center space-x-1">
-                                                    <x-fieldset.legend>Review details</x-fieldset.legend>
-                                                </div>
-                                                <div class="ml-8 flex shrink-0 items-center space-x-3">
-                                                    <div x-show="!expanded">
-                                                        <x-icon
-                                                            name="add"
-                                                            size="md"
-                                                            class="text-gray-400 dark:text-gray-500"
-                                                        ></x-icon>
-                                                    </div>
-                                                    <div x-show="expanded">
-                                                        <x-icon
-                                                            name="remove"
-                                                            size="md"
-                                                            class="text-gray-400 dark:text-gray-500"
-                                                        ></x-icon>
-                                                    </div>
-                                                </div>
-                                            </button>
+                        {{-- Review details --}}
+                        @if ($application->result !== ApplicationResult::Pending)
+                            <x-panel variant="well" x-data="{ expanded: true }">
+                                <x-panel.header
+                                    title="Review details"
+                                    :icon="$application->result === ApplicationResult::Accept ? Tabler::ProgressCheck : Tabler::ProgressX"
+                                    class="cursor-pointer"
+                                    x-on:click="expanded = !expanded"
+                                >
+                                    <x-slot name="actions">
+                                        <div
+                                            class="shrink-0 text-gray-400 transition-transform duration-200 dark:text-gray-500"
+                                            x-bind:class="{
+                                                'rotate-90': expanded,
+                                            }"
+                                        >
+                                            <x-icon :name="Tabler::ChevronRight" size="md" />
+                                        </div>
+                                    </x-slot>
+                                </x-panel.header>
+
+                                <x-panel x-show="expanded" x-collapse x-cloak>
+                                    <x-spacing.group divided>
+                                        <x-spacing size="md">
+                                            <x-fieldset>
+                                                <x-fieldset.group>
+                                                    <x-input.display label="Decision date">
+                                                        <x-text>
+                                                            {{ DateHelper::formatShortDateWithTime($application->decision_date) }}
+                                                        </x-text>
+                                                    </x-input.display>
+
+                                                    <x-input.display label="Decision">
+                                                        <x-badge :color="$application->result->getColor()" size="md">
+                                                            {{ $application->result->getLabel() }}
+                                                        </x-badge>
+                                                    </x-input.display>
+                                                </x-fieldset.group>
+                                            </x-fieldset>
                                         </x-spacing>
 
-                                        <div x-show="expanded" x-collapse x-cloak>
-                                            <x-spacing size="2xs">
-                                                <x-panel class="divide-y divide-gray-950/5 dark:divide-white/5">
-                                                    <x-spacing size="sm">
-                                                        <x-fieldset>
-                                                            <x-fieldset.field-group>
-                                                                <x-fieldset.field
-                                                                    label="Decision date"
-                                                                    id="result_date"
-                                                                    name="result_date"
-                                                                >
-                                                                    <x-text>
-                                                                        {{ DateHelper::formatShortDateWithTime($application->decision_date) }}
-                                                                    </x-text>
-                                                                </x-fieldset.field>
-
-                                                                <x-fieldset.field
-                                                                    label="Decision"
-                                                                    id="result_decision"
-                                                                    name="result_decision"
-                                                                >
-                                                                    <div data-slot="text">
-                                                                        <x-badge
-                                                                            :color="$application->result->getColor()"
-                                                                        >
-                                                                            {{ $application->result->getLabel() }}
-                                                                        </x-badge>
-                                                                    </div>
-                                                                </x-fieldset.field>
-                                                            </x-fieldset.field-group>
-                                                        </x-fieldset>
-                                                    </x-spacing>
-
-                                                    @if (settings('applications.showDecisionMessage'))
-                                                        <x-spacing size="sm">
-                                                            <x-fieldset>
-                                                                <x-fieldset.field-group>
-                                                                    <x-fieldset.field
-                                                                        label="Response message"
-                                                                        id="result_message"
-                                                                        name="result_message"
-                                                                    >
-                                                                        <x-text tag="div" class="space-y-6">
-                                                                            {!! str($application->decision_message)->markdown() !!}
-                                                                        </x-text>
-                                                                    </x-fieldset.field>
-                                                                </x-fieldset.field-group>
-                                                            </x-fieldset>
-                                                        </x-spacing>
-                                                    @endif
-                                                </x-panel>
+                                        @if (settings('applications.showDecisionMessage'))
+                                            <x-spacing size="md">
+                                                <x-fieldset>
+                                                    <x-fieldset.group>
+                                                        <x-input.display label="Response message">
+                                                            <x-text class="space-y-6">
+                                                                {!! str($application->decision_message)->markdown() !!}
+                                                            </x-text>
+                                                        </x-input.display>
+                                                    </x-fieldset.group>
+                                                </x-fieldset>
                                             </x-spacing>
-                                        </div>
-                                    </x-panel>
-                                </div>
-                            @endif
-                        </div>
-                    </flux:tab.panel>
+                                        @endif
+                                    </x-spacing.group>
+                                </x-panel>
+                            </x-panel>
+                        @endif
+                    </x-tab.panel>
 
-                    <flux:tab.panel name="review">
+                    <x-tab.panel name="review">
                         <livewire:application-discussion :$application />
-                    </flux:tab.panel>
+                    </x-tab.panel>
 
-                    <flux:tab.panel name="history">
+                    <x-tab.panel name="history">
                         <livewire:application-history :$application />
-                    </flux:tab.panel>
-                </flux:tab.group>
+                    </x-tab.panel>
+                </x-tab.group>
             </div>
 
             <div>

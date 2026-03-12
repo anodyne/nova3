@@ -15,7 +15,7 @@ use Nova\Foundation\Fonts\GoogleFontProvider;
 use Nova\Foundation\Fonts\LocalFontProvider;
 
 /**
- * @method static static from(string $headerProvider, string $headerFamily, string $bodyProvider, string $bodyFamily)
+ * @method static static from(string $headerProvider, string $headerFamily, string $bodyProvider, string $bodyFamily, string $monoProvider, string $monoFamily)
  */
 readonly class FontFamilies extends Bag
 {
@@ -23,7 +23,9 @@ readonly class FontFamilies extends Bag
         public string $headerProvider,
         public string $headerFamily,
         public string $bodyProvider,
-        public string $bodyFamily
+        public string $bodyFamily,
+        public string $monoProvider = 'local',
+        public string $monoFamily = 'Monaspace Neon'
     ) {}
 
     public function getFontHtml(): Htmlable

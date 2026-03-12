@@ -1,6 +1,8 @@
-@tailwind utilities;
-
-@config "./tailwind.cerritos.config.js";
+@import "tailwindcss" source("../");
+@import "../../../../nova/resources/css/utilities/safelist.css";
+@import "../../../../nova/resources/css/utilities/fonts.css";
+@reference "../../../../vendor/filament/support/resources/css/index.css";
+@plugin "@tailwindcss/typography";
 
 main#nova {
     @apply flex min-h-full flex-col bg-gray-950;

@@ -7,6 +7,7 @@ namespace Nova\Announcements\Actions;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Data\AnnouncementData;
+use Nova\Announcements\Events\AnnouncementPublished;
 use Nova\Announcements\Models\Announcement;
 use Nova\Foundation\Enums\PublishStatus;
 
@@ -17,18 +18,16 @@ class CreateAnnouncement
     public function handle(AnnouncementData $data): Announcement
     {
         return DB::transaction(function () use ($data): Announcement {
-            if ($data->user()->isModerated()) {
-                $data = $data->append(['status' => PublishStatus::Pending]);
-            }
+            $data = ApplyAnnouncementModeration::run($data);
 
             $announcement = $data->user()
                 ->announcements()
-                ->create([
-                    ...$data->toArray(),
-                    ...[
-                        'published_at' => $data->status === PublishStatus::Published ? now() : null,
-                    ],
-                ]);
+                ->create(array_merge(
+                    $data->toArray(),
+                    ['published_at' => $data->status === PublishStatus::Published ? now() : null]
+                ));
+
+            AnnouncementPublished::dispatchIf($data->status === PublishStatus::Published, $announcement);
 
             NotifyUsers::runIf($data->status === PublishStatus::Published, $announcement);
 

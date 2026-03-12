@@ -2,35 +2,29 @@
 
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             @can('viewAny', RankGroup::class)
                 <x-slot name="actions">
-                    <x-button :href="route('admin.ranks.groups.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.groups.index')" variant="ghost" inset="right">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 </x-slot>
             @endcan
-        </x-page-header>
+        </x-page-heading>
 
         <x-form :action="route('admin.ranks.groups.store')">
             <x-fieldset>
-                <x-fieldset.field-group constrained>
-                    <flux:input label="Name" name="name" :value="old('name')"></flux:input>
+                <x-fieldset.group constrained>
+                    <x-input label="Name" name="name" :value="old('name')" />
 
-                    <div class="flex items-center gap-x-2.5">
-                        <x-switch
-                            name="status"
-                            :value="old('status', 'active')"
-                            on-value="active"
-                            off-value="inactive"
-                            id="status"
-                        ></x-switch>
-                        <x-fieldset.label for="status">Active</x-fieldset.label>
-                    </div>
-                </x-fieldset.field-group>
+                    <x-switch label="Active" name="status" :checked="old('status')" align="left" />
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset.controls>
-                <x-button type="submit" color="primary">Add</x-button>
-                <x-button :href="route('admin.ranks.groups.index')" plain>Cancel</x-button>
+                <x-button type="submit" variant="primary">Add</x-button>
+                <x-button :href="route('admin.ranks.groups.index')" variant="ghost">Cancel</x-button>
             </x-fieldset.controls>
         </x-form>
     </x-spacing>

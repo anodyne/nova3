@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -27,8 +28,8 @@ use Nova\Ranks\Actions\DeleteRankItemManager;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
 class RankItemsList extends TableComponent
 {
@@ -36,6 +37,7 @@ class RankItemsList extends TableComponent
     {
         return $table
             ->query(RankItem::query()->withRankName())
+            ->recordUrl(fn (RankItem $record): string => route('admin.ranks.items.show', $record))
             ->groups([
                 Group::make('group.name')->label('Rank group')->collapsible(),
                 Group::make('name.name')->label('Rank name')->collapsible(),
@@ -58,7 +60,7 @@ class RankItemsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -67,7 +69,7 @@ class RankItemsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (RankItem $record): string => route('admin.ranks.items.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -90,7 +92,7 @@ class RankItemsList extends TableComponent
                             ->modalContentView('pages.ranks.items.delete')
                             ->successNotificationTitle(fn (RankItem $record): string => $record->name->name.' rank item was deleted')
                             ->using(fn (RankItem $record): Model => DeleteRankItemManager::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -136,7 +138,7 @@ class RankItemsList extends TableComponent
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(iconName('rank'))
+            ->emptyStateIcon(Tabler::MilitaryRank)
             ->emptyStateHeading('No ranks found')
             ->emptyStateDescription('Rank items bring the rank group, rank name, and images together in a simple and easy-to-use rank experience.')
             ->emptyStateActions([

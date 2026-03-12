@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
+use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -14,7 +15,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Gate;
 use Nova\Departments\Actions\DeleteDepartment;
 use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Data\DepartmentData;
@@ -29,10 +29,9 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class DepartmentsList extends TableComponent
@@ -49,6 +48,7 @@ class DepartmentsList extends TableComponent
                         'status',
                     ])
             )
+            ->recordUrl(fn (Department $record): string => route('admin.departments.show', $record))
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
@@ -81,7 +81,7 @@ class DepartmentsList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -90,7 +90,7 @@ class DepartmentsList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Department $record): string => route('admin.departments.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -114,15 +114,17 @@ class DepartmentsList extends TableComponent
                     ActionGroup::make([
                         Action::make('positions')
                             ->authorize('viewAny', Position::class)
-                            ->icon(iconName('list'))
+                            ->icon(Tabler::List)
                             ->url(fn (Department $record): string => route('admin.positions.index', ['tableFilters' => ['department_id' => ['values' => [$record->id]]]])),
-                    ])->authorize('viewAny', Position::class)->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
-                            ->form([
-                                TextInput::make('name')->label('New department name'),
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('New department name')
+                                    ->required(),
                             ])
                             ->modalContentView('pages.departments.duplicate')
                             ->action(function (Department $record, array $data): void {
@@ -139,13 +141,8 @@ class DepartmentsList extends TableComponent
                                 );
 
                                 DepartmentDuplicated::dispatch($replica, $department);
-
-                                Notification::make()->success()
-                                    ->title("{$replica->name} department has been created")
-                                    ->body("All of the positions from the {$department->name} department have been duplicated into your new department.")
-                                    ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -153,38 +150,15 @@ class DepartmentsList extends TableComponent
                             ->modalContentView('pages.departments.delete')
                             ->successNotificationTitle(fn (Department $record): string => $record->name.' department was deleted')
                             ->using(fn (Department $record): Model => DeleteDepartment::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
                 DeleteBulkAction::make()
-                    ->authorize('deleteAny')
+                    ->authorizeIndividualRecords('delete')
                     ->modalContentView('pages.departments.delete-bulk')
                     ->action(function (Collection $records): void {
-                        $ignoredRecords = 0;
-
-                        $records = $records
-                            ->filter(function (Department $record) use (&$ignoredRecords): bool {
-                                if (Gate::allows('delete', $record)) {
-                                    return true;
-                                }
-
-                                $ignoredRecords += 1;
-
-                                return false;
-                            })
-                            ->each(fn (Department $record): Model => DeleteDepartment::run($record));
-
-                        Notification::make()->success()
-                            ->title(count($records).' '.trans_choice('department was|departments were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
-                            ->send();
+                        $records->each(fn (Department $record): Model => DeleteDepartment::run($record));
                     }),
             ])
             ->filters([
@@ -196,7 +170,7 @@ class DepartmentsList extends TableComponent
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Tabler::List)
             ->emptyStateHeading('No departments found')
             ->emptyStateDescription('Departments allow you to organize character positions into logical groups that you can display on your manifests.')
             ->emptyStateActions([

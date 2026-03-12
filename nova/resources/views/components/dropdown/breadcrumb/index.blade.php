@@ -3,18 +3,14 @@
     'placeholder' => null,
 ])
 
-<div class="relative isolate" x-data="{ open: false }" x-on:click.away="open = false">
+<el-dropdown>
     @if ($trigger?->isNotEmpty())
         <button
             type="button"
-            class="flex items-center gap-x-2 rounded-lg px-2.5 py-1 hover:bg-gray-950/5"
-            x-bind:class="{
-                'bg-gray-950/5': open,
-            }"
-            x-on:click="open = !open"
+            class="flex items-center gap-2 rounded-lg px-2.5 py-1 hover:bg-gray-950/5 dark:hover:bg-white/10 [&:has(+el-menu:popover-open)]:bg-gray-950/5 dark:[&:has(+el-menu:popover-open)]:bg-white/10"
         >
             {{ $trigger }}
-            <x-icon.micro.chevron-up-down class="text-gray-400 dark:text-gray-600" />
+            <x-icon.micro.chevron-up-down class="text-gray-400" />
         </button>
     @endif
 
@@ -24,13 +20,22 @@
         </div>
     @endif
 
-    <div
-        class="absolute z-50 mt-1.5 w-screen max-w-[14rem] origin-top-left transform rounded-lg bg-white px-1 py-1 shadow-lg ring-1 ring-gray-950/5 transition dark:bg-gray-800 dark:ring-white/20"
-        x-show="open"
-        x-transition:enter-start="opacity-0"
-        x-transition:leave-end="opacity-0"
-        x-cloak
+    <el-menu
+        anchor="bottom start"
+        popover
+        {{
+            $attributes->class([
+                '[--anchor-gap:--spacing(1.5)]',
+                'rounded-xl bg-gray-950 p-1 shadow-lg ring-1 ring-black dark:bg-gray-900 dark:ring-gray-950',
+                'w-screen max-w-[14rem] origin-top-left',
+                'focus:outline-hidden',
+                'transition transition-discrete',
+                'data-closed:scale-95 data-closed:transform data-closed:opacity-0',
+                'data-enter:duration-100 data-enter:ease-out',
+                'data-leave:duration-75 data-leave:ease-in',
+            ])
+        }}
     >
         {{ $slot }}
-    </div>
-</div>
+    </el-menu>
+</el-dropdown>

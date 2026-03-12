@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Livewire\PositionsList;
 use Nova\Departments\Models\Position;
@@ -100,6 +101,57 @@ describe('authorized user', function () {
             ->searchTable('test position')
             ->assertCountTableRecords(1);
     });
+
+    test('table displays available slots column', function () {
+        $position = Position::factory()->create(['available' => 7]);
+
+        livewire(PositionsList::class)
+            ->assertCanSeeTableRecords([$position])
+            ->assertTableColumnExists('available');
+    });
+
+    test('table displays active characters count column', function () {
+        $position = Position::factory()->create();
+        $character = Character::factory()->active()->create();
+        $character->positions()->sync([$position->id]);
+
+        livewire(PositionsList::class)
+            ->assertCanSeeTableRecords([$position])
+            ->assertTableColumnExists('active_characters_count');
+    });
+
+    test('table displays active users count column', function () {
+        livewire(PositionsList::class)
+            ->assertTableColumnExists('active_users_count');
+    });
+
+    test('table displays status badge', function () {
+        $activePosition = Position::factory()->active()->create();
+        $inactivePosition = Position::factory()->inactive()->create();
+
+        livewire(PositionsList::class)
+            ->assertCanSeeTableRecords([$activePosition, $inactivePosition])
+            ->assertTableColumnExists('status');
+    });
+
+    test('table can be sorted by name', function () {
+        livewire(PositionsList::class)
+            ->sortTable('name')
+            ->assertCanSeeTableRecords($this->positions, inOrder: true);
+    });
+
+    test('table can be sorted by available slots', function () {
+        livewire(PositionsList::class)
+            ->sortTable('available')
+            ->assertSuccessful();
+    });
+
+    test('table displays empty state when no positions', function () {
+        Position::query()->delete();
+
+        livewire(PositionsList::class)
+            ->assertSeeText('No positions found');
+    });
 });
 
 describe('authorized user with department create permissions', function () {
@@ -108,11 +160,14 @@ describe('authorized user with department create permissions', function () {
     });
 
     test('has the correct permissions', function () {
+        $position = $this->positions->first();
+
         livewire(PositionsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->positions->first())
-            ->assertTableActionHidden(EditAction::class, $this->positions->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->positions->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($position))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($position))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($position));
     });
+
 });
 
 describe('authorized user with department delete permissions', function () {
@@ -121,10 +176,12 @@ describe('authorized user with department delete permissions', function () {
     });
 
     test('has the correct permissions', function () {
+        $position = $this->positions->first();
+
         livewire(PositionsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->positions->first())
-            ->assertTableActionHidden(EditAction::class, $this->positions->first())
-            ->assertTableActionVisible(DeleteAction::class, $this->positions->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($position))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($position))
+            ->assertActionVisible(TestAction::make(DeleteAction::class)->table($position));
     });
 });
 
@@ -134,10 +191,12 @@ describe('authorized user with department update permissions', function () {
     });
 
     test('has the correct permissions', function () {
+        $position = $this->positions->first();
+
         livewire(PositionsList::class)
-            ->assertTableActionHidden(ViewAction::class, $this->positions->first())
-            ->assertTableActionVisible(EditAction::class, $this->positions->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->positions->first());
+            ->assertActionHidden(TestAction::make(ViewAction::class)->table($position))
+            ->assertActionVisible(TestAction::make(EditAction::class)->table($position))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($position));
     });
 });
 
@@ -147,10 +206,12 @@ describe('authorized user with department view permissions', function () {
     });
 
     test('has the correct permissions', function () {
+        $position = $this->positions->first();
+
         livewire(PositionsList::class)
-            ->assertTableActionVisible(ViewAction::class, $this->positions->first())
-            ->assertTableActionHidden(EditAction::class, $this->positions->first())
-            ->assertTableActionHidden(DeleteAction::class, $this->positions->first());
+            ->assertActionVisible(TestAction::make(ViewAction::class)->table($position))
+            ->assertActionHidden(TestAction::make(EditAction::class)->table($position))
+            ->assertActionHidden(TestAction::make(DeleteAction::class)->table($position));
     });
 });
 

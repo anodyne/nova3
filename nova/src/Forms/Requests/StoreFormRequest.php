@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Nova\Forms\Data\FormData;
 use Nova\Forms\Enums\FormType;
-use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Rules\Boolean;
 
 class StoreFormRequest extends FormRequest
 {
@@ -20,7 +20,7 @@ class StoreFormRequest extends FormRequest
             'type' => ['required', Rule::enum(FormType::class)],
             'description' => ['nullable'],
             'options' => ['sometimes'],
-            'status' => ['required', Rule::enum(BasicStatus::class)],
+            'status' => ['sometimes', new Boolean],
         ];
     }
 

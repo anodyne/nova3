@@ -6,8 +6,8 @@ namespace Nova\Addons\Actions;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemAdapter;
-use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Data\AddonData;
 use Nova\Addons\Enums\AddonType;
@@ -30,14 +30,11 @@ class SetupAddonDirectory
 
     protected AddonData $data;
 
-    public function __construct(FilesystemManager $files)
-    {
-        $this->files = $files->disk('addons');
-    }
-
     public function handle(AddonData $data): void
     {
         $this->data = $data;
+
+        $this->files = Storage::disk('addons');
 
         try {
             $this->createAddonDirectory();

@@ -10,38 +10,36 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
+        "anodyne/blade-hugeicons": "^3.1",
         "anodyne/blade-tabler-icons": "^3.0",
         "artesaos/seotools": "^1.3",
         "aws/aws-sdk-php": "^3.293",
+        "beacon-hq/bag": "^2.0",
         "blade-ui-kit/blade-icons": "^1.0",
-        "cohensive/oembed": "^0.18.1",
-        "dshafik/bag": "^2.0",
-        "filament/forms": "^3.0-stable",
-        "filament/notifications": "^3.0-stable",
-        "filament/spatie-laravel-media-library-plugin": "^3.2",
-        "filament/support": "^3.0-stable",
-        "filament/tables": "^3.0-stable",
+        "cohensive/oembed": "^0.18",
+        "filament/filament": "^4.0",
         "flowframe/laravel-trend": "^0.4",
         "guzzlehttp/guzzle": "^7.2",
-        "hosmelq/name-of-person": "^0.1.0",
+        "hosmelq/name-of-person": "^0.1",
+        "jlorente/laravel-data-migrations": "^2.0",
         "lab404/laravel-impersonate": "^1.7",
         "laravel/fortify": "^1.16",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^12.31",
         "laravel/sanctum": "^4.0",
         "laravel/scout": "^10.11",
-        "laravel/tinker": "^2.10.1",
-        "league/flysystem-path-prefixing": "^3.0",
-        "livewire/flux": "^1.1",
-        "livewire/flux-pro": "^1.1",
-        "livewire/livewire": "^3.4",
+        "laravel/tinker": "^2.10",
+        "league/flysystem-path-prefixing": "^3.3",
+        "livewire/flux": "^2.0",
+        "livewire/flux-pro": "^2.0",
+        "livewire/livewire": "^3.7",
         "lorisleiva/laravel-actions": "^2.1",
         "mailersend/laravel-driver": "^2.7",
         "mchev/banhammer": "^2.4",
         "mistralys/version-parser": "^2.1",
         "opcodesio/log-viewer": "^3.11",
-        "ralphjsmit/laravel-filament-activitylog": "^1.8",
-        "resend/resend-laravel": "^0.16.0",
+        "ralphjsmit/laravel-filament-activitylog": "^2.0",
+        "resend/resend-laravel": "^1.0",
         "santigarcor/laratrust": "^8.0",
         "spatie/eloquent-sortable": "^4.0",
         "spatie/laravel-activitylog": "^4.0",
@@ -58,26 +56,28 @@
         "symfony/mailgun-mailer": "^7.0",
         "symfony/postmark-mailer": "^7.0",
         "teamtnt/laravel-scout-tntsearch-driver": "^15.0",
-        "timokoerber/laravel-one-time-operations": "^1.4",
         "vlucas/phpdotenv": "^5.6",
-        "wire-elements/pro": "^4.0",
+        "wire-elements/pro": "^5.0",
         "wire-elements/spotlight": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",
-        "brianium/paratest": "^7.0",
+        "brianium/paratest": "^7.14",
         "fakerphp/faker": "^1.14",
         "itsgoingd/clockwork": "^5.0",
-        "laravel/pail": "^1.2.2",
+        "larastan/larastan": "^3.8",
+        "laravel/boost": "^2.0",
+        "laravel/pail": "^1.2",
         "laravel/pint": "^1.21",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^8.6",
-        "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-arch": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0",
-        "pestphp/pest-plugin-livewire": "^3.0",
-        "pestphp/pest-plugin-stressless": "^3.1",
-        "pestphp/pest-plugin-type-coverage": "^3.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-arch": "^4.0",
+        "pestphp/pest-plugin-browser": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "pestphp/pest-plugin-livewire": "^4.0",
+        "pestphp/pest-plugin-stressless": "^4.0",
+        "pestphp/pest-plugin-type-coverage": "^4.0",
         "rector/rector": "^2.0"
     },
     "extra": {
@@ -91,6 +91,7 @@
     "autoload": {
         "psr-4": {
             "Nova\\": "nova/src/",
+            "Nova\\Filament\\": "nova/filament/",
             "Nova\\Foundation\\": "nova/foundation/",
             "Nova\\Setup\\": "nova/setup/",
             "Addons\\": "addons/",
@@ -104,7 +105,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Addons\\": "tests/fixtures/addons/"
         }
     },
     "scripts": {
@@ -112,6 +114,18 @@
             "rm -f ./nova/bootstrap/cache/blade-icons.php",
             "rm -f ./nova/bootstrap/cache/packages.php",
             "rm -f ./nova/bootstrap/cache/services.php"
+        ],
+        "clean-logs": [
+            "find ./storage/logs -mindepth 1 ! -name '.gitignore' -delete"
+        ],
+        "clean-media": [
+            "find ./media/characters -mindepth 1 ! -name '.gitignore' -delete",
+            "find ./media/departments -mindepth 1 ! -name '.gitignore' -delete",
+            "find ./media/pages -mindepth 1 ! -name '.gitignore' -delete",
+            "find ./media/samples -mindepth 1 ! -name '.gitignore' -delete",
+            "find ./media/settings -mindepth 1 ! -name '.gitignore' -delete",
+            "find ./media/stories -mindepth 1 ! -name '.gitignore' -delete",
+            "find ./media/users -mindepth 1 ! -name '.gitignore' -delete"
         ],
         "lint": [
             "pint"
@@ -150,16 +164,14 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan optimize:clear --ansi",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ],
-        "post-update-cmd": [
-            "@php artisan filament:upgrade"
         ]
     },
     "config": {

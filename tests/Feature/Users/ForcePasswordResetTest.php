@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
 
@@ -23,7 +24,9 @@ describe('authorized user', function () {
 
     test('can force a password reset for an active user', function () {
         livewire(UsersList::class)
-            ->callTableBulkAction('force-password-reset', [$this->activeUser])
+            ->removeTableFilters()
+            ->selectTableRecords([$this->activeUser])
+            ->callAction(TestAction::make('forcePasswordReset')->table()->bulk())
             ->assertNotified();
 
         assertDatabaseHas(User::class, [
@@ -34,7 +37,9 @@ describe('authorized user', function () {
 
     test('can force a password reset for an inactive user', function () {
         livewire(UsersList::class)
-            ->callTableBulkAction('force-password-reset', [$this->inactiveUser])
+            ->removeTableFilters()
+            ->selectTableRecords([$this->inactiveUser])
+            ->callAction(TestAction::make('forcePasswordReset')->table()->bulk())
             ->assertNotified();
 
         assertDatabaseHas(User::class, [
@@ -45,7 +50,9 @@ describe('authorized user', function () {
 
     test('cannot force a password reset for a pending user', function () {
         livewire(UsersList::class)
-            ->callTableBulkAction('force-password-reset', [$this->pendingUser])
+            ->removeTableFilters()
+            ->selectTableRecords([$this->pendingUser])
+            ->callAction(TestAction::make('forcePasswordReset')->table()->bulk())
             ->assertNotified();
 
         assertDatabaseHas(User::class, [
@@ -56,10 +63,9 @@ describe('authorized user', function () {
 
     test('can force a password reset for multiple users', function () {
         livewire(UsersList::class)
-            ->callTableBulkAction('force-password-reset', [
-                $this->activeUser,
-                $this->inactiveUser,
-            ])
+            ->removeTableFilters()
+            ->selectTableRecords([$this->activeUser, $this->inactiveUser])
+            ->callAction(TestAction::make('forcePasswordReset')->table()->bulk())
             ->assertNotified();
 
         assertDatabaseHas(User::class, [

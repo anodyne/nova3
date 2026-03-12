@@ -1,16 +1,16 @@
 @use('Nova\Roles\Models\Role')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         @can('viewAny', Role::class)
             <x-slot name="actions">
-                <x-button :href="route('admin.roles.index')" color="neutral">
-                    <x-icon name="shield" size="sm"></x-icon>
+                <x-button :href="route('admin.roles.index')">
+                    <x-icon :name="Tabler::ShieldLock" size="sm" />
                     View roles
                 </x-button>
             </x-slot>
         @endcan
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:permissions-list />
 

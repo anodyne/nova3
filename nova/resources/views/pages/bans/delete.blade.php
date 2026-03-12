@@ -1,9 +1,8 @@
 <x-filament.modal-content :$action title="Delete ban?">
     {{-- format-ignore-start --}}
-    <p>
-        Are you sure you want to delete
-        <strong class="font-semibold">{{ $record->name }}</strong>’s
-        ban?
-    </p>
+    <x-text variant="strong">
+        Are you sure you want to delete the ban for
+        <strong>{{ $record->bannable?->name ?? $record->ip }}</strong>?
+    </x-text>
     {{-- format-ignore-end --}}
 </x-filament.modal-content>

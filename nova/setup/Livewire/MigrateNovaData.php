@@ -10,7 +10,24 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Setup\Enums\SetupType;
+use Nova\Setup\Livewire\Migrations\MigrateApplications;
+use Nova\Setup\Livewire\Migrations\MigrateBans;
+use Nova\Setup\Livewire\Migrations\MigrateCharacterForm;
+use Nova\Setup\Livewire\Migrations\MigrateCharacters;
+use Nova\Setup\Livewire\Migrations\MigrateDepartments;
+use Nova\Setup\Livewire\Migrations\MigrateMissionGroups;
+use Nova\Setup\Livewire\Migrations\MigrateMissions;
+use Nova\Setup\Livewire\Migrations\MigrateNewsItems;
+use Nova\Setup\Livewire\Migrations\MigratePersonalLogs;
+use Nova\Setup\Livewire\Migrations\MigratePositions;
+use Nova\Setup\Livewire\Migrations\MigratePosts;
+use Nova\Setup\Livewire\Migrations\MigratePrivateMessages;
+use Nova\Setup\Livewire\Migrations\MigrateSettings;
+use Nova\Setup\Livewire\Migrations\MigrateUserForm;
+use Nova\Setup\Livewire\Migrations\MigrateUsers;
+use Nova\Setup\Livewire\Migrations\UpdatePostOrdering;
 
 #[Layout('layouts.setup', ['type' => SetupType::Migrate])]
 class MigrateNovaData extends Component
@@ -22,22 +39,22 @@ class MigrateNovaData extends Component
     public array $errors = [];
 
     public array $migrators = [
-        Migrations\MigrateUsers::class,
-        Migrations\MigrateUserForm::class,
-        Migrations\MigrateDepartments::class,
-        Migrations\MigratePositions::class,
-        Migrations\MigrateCharacters::class,
-        Migrations\MigrateCharacterForm::class,
-        Migrations\MigrateApplications::class,
-        Migrations\MigrateMissionGroups::class,
-        Migrations\MigrateMissions::class,
-        Migrations\MigratePosts::class,
-        Migrations\MigratePersonalLogs::class,
-        Migrations\UpdatePostOrdering::class,
-        Migrations\MigrateNewsItems::class,
-        Migrations\MigratePrivateMessages::class,
-        Migrations\MigrateSettings::class,
-        Migrations\MigrateBans::class,
+        MigrateUsers::class,
+        MigrateUserForm::class,
+        MigrateDepartments::class,
+        MigratePositions::class,
+        MigrateCharacters::class,
+        MigrateCharacterForm::class,
+        MigrateApplications::class,
+        MigrateMissionGroups::class,
+        MigrateMissions::class,
+        MigratePosts::class,
+        MigratePersonalLogs::class,
+        UpdatePostOrdering::class,
+        MigrateNewsItems::class,
+        MigratePrivateMessages::class,
+        MigrateSettings::class,
+        MigrateBans::class,
     ];
 
     public int $currentStep = 0;
@@ -48,7 +65,7 @@ class MigrateNovaData extends Component
 
     public function startMigration(): void
     {
-        Cache::forget('migration_complete');
+        Cache::forget(CacheKeys::MigrationComplete->value);
 
         $this->startTime = microtime(true);
 
@@ -86,7 +103,7 @@ class MigrateNovaData extends Component
 
         $this->endTime = microtime(true);
 
-        Cache::put('migration_complete', true, Date::now()->addHour());
+        Cache::put(CacheKeys::MigrationComplete->value, true, Date::now()->addHour());
     }
 
     #[On('migrationStepFinished')]

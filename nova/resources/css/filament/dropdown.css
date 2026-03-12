@@ -1,0 +1,7 @@
+& .fi-dropdown-panel {
+    @apply rounded-xl;
+}
+
+.fi-dropdown-list-item {
+    @apply rounded-[calc(var(--radius-xl)-(--spacing(1)))] font-medium;
+}

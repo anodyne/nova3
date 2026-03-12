@@ -16,7 +16,7 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         __DIR__.'/nova/database/migrations',
-        __DIR__.'/nova/database/operations',
+        __DIR__.'/nova/database/migrations_data',
     ])
     ->withPreparedSets(
         deadCode: true,

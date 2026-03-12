@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -13,8 +15,9 @@ use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Nova\Foundation\Events\ModelOrderChanged;
 
-abstract class TableComponent extends Component implements HasForms, HasTable
+abstract class TableComponent extends Component implements HasActions, HasForms, HasTable
 {
+    use InteractsWithActions;
     use InteractsWithForms;
     use InteractsWithTable;
     use InteractsWithTable {
@@ -27,10 +30,9 @@ abstract class TableComponent extends Component implements HasForms, HasTable
 
     abstract public function table(Table $table): Table;
 
-    // FIXME: this will break with Filament v4 due to the signature changing
-    public function reorderTable(array $order): void
+    public function reorderTable(array $order, int|string|null $draggedRecordKey = null): void
     {
-        $this->filamentReorderTable($order);
+        $this->filamentReorderTable($order, $draggedRecordKey);
 
         $model = $this->getTable()->getModel();
 

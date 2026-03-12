@@ -12,7 +12,9 @@ use Nova\Pages\Livewire\PageDesigner;
 use Nova\Pages\Livewire\PagesList;
 use Nova\Pages\Livewire\StatWidget;
 use Nova\Pages\Models\Page;
-use Nova\Pages\Spotlight;
+use Nova\Pages\Spotlight\DesignPage;
+use Nova\Pages\Spotlight\ViewPage;
+use Nova\Pages\Spotlight\ViewPages;
 
 class PageServiceProvider extends DomainServiceProvider
 {
@@ -45,9 +47,9 @@ class PageServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\DesignPage::class,
-            Spotlight\ViewPage::class,
-            Spotlight\ViewPages::class,
+            DesignPage::class,
+            ViewPage::class,
+            ViewPages::class,
         ];
     }
 }

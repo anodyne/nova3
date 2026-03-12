@@ -2,7 +2,16 @@
 
 declare(strict_types=1);
 
+use Anodyne\TablerIcons\Tabler;
+use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Facade;
+use Nova\Foundation\Enums\CacheKeys;
+use Nova\Foundation\Facades\NovaView;
+use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Helpers\TimeHelper;
+use Nova\Foundation\Icons\Illustration;
+use Nova\Foundation\Icons\NotificationIcon;
+use Nova\Foundation\Nova;
 
 return [
 
@@ -141,9 +150,15 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Nova' => Nova\Foundation\Nova::class,
-        'NovaView' => Nova\Foundation\Facades\NovaView::class,
-        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'CacheKeys' => CacheKeys::class,
+        'DateHelper' => DateHelper::class,
+        'Illustration' => Illustration::class,
+        'NotificationIcon' => NotificationIcon::class,
+        'Nova' => Nova::class,
+        'NovaView' => NovaView::class,
+        'SEO' => SEOTools::class,
+        'Tabler' => Tabler::class,
+        'TimeHelper' => TimeHelper::class,
     ])->toArray(),
 
 ];

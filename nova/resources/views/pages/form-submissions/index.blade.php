@@ -1,21 +1,21 @@
 @use('Nova\Forms\Models\Form')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         <x-slot name="actions">
             @can('viewAny', Form::class)
-                <x-button :href="route('admin.forms.index')" color="neutral">
-                    <x-icon name="form" size="sm"></x-icon>
+                <x-button :href="route('admin.forms.index')">
+                    <x-icon :name="Tabler::Forms" size="sm" />
                     Manage forms
                 </x-button>
             @endcan
 
-            <x-button :href="route('admin.form-submissions.create')" color="primary">
-                <x-icon name="write" size="sm"></x-icon>
+            <x-button :href="route('admin.form-submissions.create')" variant="primary">
+                <x-icon :name="Tabler::Edit" size="sm" />
                 Submit a form
             </x-button>
         </x-slot>
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:forms-submissions-list />
 

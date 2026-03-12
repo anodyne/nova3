@@ -1,45 +1,42 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading :heading="$item->name->name">
+            <x-slot name="description">
+                <x-metadata.group size="md" gap="lg">
+                    <x-metadata label="Rank group" :value="$item->group->name" />
+
+                    <x-metadata label="Status">
+                        <x-badge :color="$item->status->getColor()" size="md">
+                            {{ $item->status->getLabel() }}
+                        </x-badge>
+                    </x-metadata>
+                </x-metadata.group>
+            </x-slot>
+
             <x-slot name="actions">
                 @can('viewAny', $item::class)
-                    <x-button :href="route('admin.ranks.items.index')" plain>&larr; Back</x-button>
+                    <x-button :href="route('admin.ranks.items.index')" variant="ghost">
+                        <span aria-hidden="true">←</span>
+                        Back
+                    </x-button>
                 @endcan
 
                 @can('update', $item)
-                    <x-button :href="route('admin.ranks.items.edit', $item)" color="primary">
-                        <x-icon name="edit" size="sm"></x-icon>
+                    <x-button :href="route('admin.ranks.items.edit', $item)" variant="primary">
+                        <x-icon :name="Tabler::Pencil" size="sm" />
                         Edit
                     </x-button>
                 @endcan
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
         <x-form action="">
             <x-fieldset>
-                <x-fieldset.field-group>
-                    <x-fieldset.field>
-                        <x-fieldset.label>Rank group</x-fieldset.label>
-                        <x-text>{{ $item?->group?->name }}</x-text>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field>
-                        <x-fieldset.label>Rank name</x-fieldset.label>
-                        <x-text>{{ $item?->name?->name }}</x-text>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Rank image">
-                        <div data-slot="text">
-                            <x-rank :rank="$item"></x-rank>
-                        </div>
-                    </x-fieldset.field>
-
-                    <x-fieldset.field label="Status">
-                        <div data-slot="text">
-                            <x-badge :color="$item->status->getColor()">{{ $item->status->getLabel() }}</x-badge>
-                        </div>
-                    </x-fieldset.field>
-                </x-fieldset.field-group>
+                <x-fieldset.group>
+                    <x-input.display label="Rank image">
+                        <x-rank :rank="$item" />
+                    </x-input.display>
+                </x-fieldset.group>
             </x-fieldset>
 
             <x-fieldset>
@@ -47,42 +44,35 @@
                     <x-panel.header title="Characters assigned this rank"></x-panel.header>
 
                     <x-panel>
-                        <x-spacing size="md">
-                            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                                @forelse ($item->characters as $character)
-                                    <div class="group flex items-center justify-between">
-                                        <div class="flex items-center">
-                                            <x-avatar.character
-                                                :character="$character"
-                                                :primary-status="true"
-                                                :primary-rank="false"
-                                                :secondary-positions="false"
-                                                :secondary-type="true"
-                                            ></x-avatar.character>
-                                        </div>
+                        <x-spacing.group divided>
+                            @forelse ($item->characters as $character)
+                                <x-panel.group.row>
+                                    <div class="flex items-center">
+                                        <x-avatar.character :$character status type />
+                                    </div>
 
-                                        @can('update', $character)
-                                            <x-button
-                                                :href="route('admin.characters.edit', $character)"
-                                                color="neutral"
-                                                class="group-hover:visible sm:invisible"
-                                                text
-                                            >
-                                                <x-icon name="edit" size="sm"></x-icon>
-                                            </x-button>
-                                        @endcan
-                                    </div>
-                                @empty
-                                    <div class="col-span-2">
-                                        <x-empty-state.small
-                                            icon="characters"
-                                            title="No characters assigned"
-                                            message="There aren’t any characters assigned to this rank item. Assign some characters to this rank item to populate this list."
-                                        ></x-empty-state.small>
-                                    </div>
-                                @endforelse
-                            </div>
-                        </x-spacing>
+                                    @can('update', $character)
+                                        <x-button
+                                            :href="route('admin.characters.edit', $character)"
+                                            variant="subtle"
+                                            inset="right top bottom"
+                                            square
+                                        >
+                                            <x-icon :name="Tabler::Pencil" size="sm" />
+                                        </x-button>
+                                    @endcan
+                                </x-panel.group.row>
+                            @empty
+                                <x-empty>
+                                    <x-illustration :name="Illustration::Vulcan" />
+                                    <x-empty.heading>No characters assigned</x-empty.heading>
+                                    <x-empty.text>
+                                        There aren’t any characters assigned to this rank item. Assign some characters
+                                        to this rank item to populate this list.
+                                    </x-empty.text>
+                                </x-empty>
+                            @endforelse
+                        </x-spacing.group>
                     </x-panel>
                 </x-panel>
             </x-fieldset>

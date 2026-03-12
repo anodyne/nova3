@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Roles\Events\RoleDuplicated;
@@ -13,9 +14,7 @@ use function Pest\Livewire\livewire;
 
 uses()->group('roles');
 
-beforeEach(function () {
-    signIn(permissions: ['role.create', 'role.update']);
-});
+beforeEach(fn () => signIn(permissions: ['role.create', 'role.update']));
 
 test('an authorized user can duplicate a role', function () {
     Event::fake();
@@ -27,7 +26,9 @@ test('an authorized user can duplicate a role', function () {
     ];
 
     livewire(RolesList::class)
-        ->callTableAction(ReplicateAction::class, $role, data: $data)
+        ->set('tableRecordsPerPage', 25)
+        ->assertCanSeeTableRecords([$role])
+        ->callAction(TestAction::make(ReplicateAction::class)->table($role), data: $data)
         ->assertNotified();
 
     assertDatabaseHas(Role::class, $data);
@@ -39,5 +40,7 @@ test('an authorized user cannot duplicate a locked role', function () {
     $role = Role::factory()->locked()->create();
 
     livewire(RolesList::class)
-        ->assertTableActionHidden(ReplicateAction::class, $role);
+        ->set('tableRecordsPerPage', 25)
+        ->assertCanSeeTableRecords([$role])
+        ->assertActionHidden(TestAction::make(ReplicateAction::class)->table($role));
 });

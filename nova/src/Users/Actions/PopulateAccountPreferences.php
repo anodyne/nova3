@@ -7,6 +7,7 @@ namespace Nova\Users\Actions;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Enums\ContentRatingValue;
 use Nova\Users\Data\UserPreferences;
+use Nova\Users\Enums\Appearance;
 use Nova\Users\Models\User;
 
 class PopulateAccountPreferences
@@ -16,7 +17,7 @@ class PopulateAccountPreferences
     public function handle(User $user): User
     {
         $user->preferences = UserPreferences::from(
-            appearance: 'light',
+            appearance: Appearance::Light,
             timezone: 'UTC',
             languageContentRatingWarningThreshold: ContentRatingValue::Game,
             sexContentRatingWarningThreshold: ContentRatingValue::Game,

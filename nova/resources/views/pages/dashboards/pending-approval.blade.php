@@ -3,84 +3,98 @@
 
 <x-admin-layout>
     <x-spacing constrained-lg>
-        <x-page-header></x-page-header>
+        <x-page-heading></x-page-heading>
 
         <div class="space-y-12">
             @can('approveAny', Announcement::class)
                 <x-panel variant="well">
-                    <x-panel.header title="Announcements" icon="megaphone"></x-panel.header>
+                    <x-panel.header title="Announcements" :icon="Tabler::Speakerphone"></x-panel.header>
 
-                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/10">
-                        @forelse ($announcements as $announcement)
-                            <x-spacing class="flex items-center justify-between" size="row">
-                                <div class="flex flex-col gap-1">
-                                    <x-h4 class="truncate">{{ $announcement->title }}</x-h4>
+                    <x-panel>
+                        <x-spacing.group divided>
+                            @forelse ($announcements as $announcement)
+                                <x-panel.group.row>
+                                    <div class="flex flex-col gap-1">
+                                        <x-heading>{{ $announcement->title }}</x-heading>
 
-                                    <div class="flex items-center gap-x-4 text-sm/6">
-                                        <x-metadata label="Author" :value="$announcement->user->name"></x-metadata>
-                                        <x-metadata label="Category" :value="$announcement->category"></x-metadata>
+                                        <x-metadata.group>
+                                            <x-metadata label="Author" :value="$announcement->user->name"></x-metadata>
+                                            <x-metadata label="Category" :value="$announcement->category"></x-metadata>
+                                        </x-metadata.group>
                                     </div>
-                                </div>
 
-                                <div class="flex shrink-0 items-center gap-2">
-                                    <flux:button
-                                        :href="route('admin.announcements.show', $announcement)"
-                                        variant="subtle"
-                                        square
-                                    >
-                                        <x-icon name="show" size="sm"></x-icon>
-                                    </flux:button>
-                                    <flux:button :href="route('admin.announcements.index')" variant="subtle" square>
-                                        <x-icon name="settings" size="sm"></x-icon>
-                                    </flux:button>
-                                </div>
-                            </x-spacing>
-                        @empty
-                            <x-spacing size="row">
-                                <x-text><x-text.strong>No pending announcements</x-text.strong></x-text>
-                            </x-spacing>
-                        @endforelse
+                                    <div class="flex shrink-0 items-center gap-2">
+                                        <x-button
+                                            :href="route('admin.announcements.show', $announcement)"
+                                            variant="subtle"
+                                            inset="top bottom"
+                                            square
+                                        >
+                                            <x-icon :name="Tabler::Eye" size="sm" />
+                                        </x-button>
+
+                                        <x-button
+                                            :href="route('admin.announcements.index')"
+                                            variant="subtle"
+                                            inset="right top bottom"
+                                            square
+                                        >
+                                            <x-icon :name="Tabler::Settings" size="sm" />
+                                        </x-button>
+                                    </div>
+                                </x-panel.group.row>
+                            @empty
+                                <x-spacing size="row">
+                                    <x-text><strong>No pending announcements</strong></x-text>
+                                </x-spacing>
+                            @endforelse
+                        </x-spacing.group>
                     </x-panel>
                 </x-panel>
             @endcan
 
             @can('approveAny', Post::class)
                 <x-panel variant="well">
-                    <x-panel.header title="Posts" icon="write"></x-panel.header>
+                    <x-panel.header title="Posts" :icon="Tabler::Edit"></x-panel.header>
 
-                    <x-panel class="divide-y divide-gray-950/5 dark:divide-white/10">
-                        @forelse ($posts as $post)
-                            <x-spacing class="flex items-center justify-between" size="row">
-                                <div class="flex flex-col gap-1">
-                                    <x-h4 class="truncate">{{ $post->title }}</x-h4>
+                    <x-panel>
+                        <x-spacing.group divided>
+                            @forelse ($posts as $post)
+                                <x-panel.group.row>
+                                    <div class="flex flex-col gap-1">
+                                        <x-heading>{{ $post->title }}</x-heading>
 
-                                    <div class="flex items-center gap-x-4 text-sm/6">
-                                        <x-metadata label="Post type" :value="$post->postType->name"></x-metadata>
+                                        <div class="flex items-center gap-4 text-sm/6">
+                                            <x-metadata label="Post type" :value="$post->postType->name"></x-metadata>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="flex shrink-0 items-center">
-                                    <flux:button
-                                        :href="route('admin.posts.show', ['story' => $post->story_id, 'post' => $post])"
-                                        variant="subtle"
-                                        square
-                                    >
-                                        <x-icon name="show" size="sm"></x-icon>
-                                    </flux:button>
-                                    <flux:button
-                                        :href="route('admin.posts.index', 'status[]=pending')"
-                                        variant="subtle"
-                                        square
-                                    >
-                                        <x-icon name="settings" size="sm"></x-icon>
-                                    </flux:button>
-                                </div>
-                            </x-spacing>
-                        @empty
-                            <x-spacing size="row">
-                                <x-text><x-text.strong>No pending posts</x-text.strong></x-text>
-                            </x-spacing>
-                        @endforelse
+                                    <div class="flex shrink-0 items-center">
+                                        <x-button
+                                            :href="route('admin.posts.show', ['story' => $post->story_id, 'post' => $post])"
+                                            variant="subtle"
+                                            inset="top bottom"
+                                            square
+                                        >
+                                            <x-icon :name="Tabler::Eye" size="sm" />
+                                        </x-button>
+
+                                        <x-button
+                                            :href="route('admin.posts.index', 'status[]=pending')"
+                                            variant="subtle"
+                                            inset="right top bottom"
+                                            square
+                                        >
+                                            <x-icon :name="Tabler::Settings" size="sm" />
+                                        </x-button>
+                                    </div>
+                                </x-panel.group.row>
+                            @empty
+                                <x-spacing size="row">
+                                    <x-text><strong>No pending posts</strong></x-text>
+                                </x-spacing>
+                            @endforelse
+                        </x-spacing.group>
                     </x-panel>
                 </x-panel>
             @endcan

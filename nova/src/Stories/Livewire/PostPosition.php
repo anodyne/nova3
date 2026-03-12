@@ -13,13 +13,14 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Actions\UpdatePostPosition;
 use Nova\Stories\Data\PostPositionData;
 use Nova\Stories\Enums\PositionDirection;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\States\PostStatus\Published;
 
 #[On('save-post-completed')]
 class PostPosition extends Component
 {
-    use Concerns\InteractsWithPost;
+    use InteractsWithPost;
 
     public ?string $title = null;
 

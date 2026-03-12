@@ -11,6 +11,7 @@ use Nova\Forms\Responses\EditFormSubmissionResponse;
 use Nova\Forms\Responses\ListFormSubmissionsResponse;
 use Nova\Forms\Responses\ShowFormSubmissionResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Enums\BasicStatus;
 
 class FormSubmissionController extends Controller
 {
@@ -37,6 +38,8 @@ class FormSubmissionController extends Controller
 
     public function create(?Form $form = null)
     {
+        abort_if($form && $form->status === BasicStatus::Inactive, 404);
+
         return CreateFormSubmissionResponse::sendWith([
             'form' => $form,
             'forms' => Form::query()->active()->submissible()->get(),

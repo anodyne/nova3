@@ -11,17 +11,14 @@ use function Pest\Laravel\from;
 use function Pest\Laravel\get;
 use function Pest\Laravel\put;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 beforeEach(function () {
     $this->postType = PostType::factory()->create();
 });
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.update');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.update'));
 
     test('can view the edit post type page', function () {
         get(route('admin.post-types.edit', $this->postType))->assertSuccessful();
@@ -47,9 +44,7 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the edit post type page', function () {
         get(route('admin.post-types.edit', $this->postType))->assertForbidden();

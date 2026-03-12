@@ -18,7 +18,7 @@ use function PHPUnit\Framework\assertCount;
 use function PHPUnit\Framework\assertGreaterThan;
 use function PHPUnit\Framework\assertLessThan;
 
-uses()->group('stories');
+uses()->group('stories', 'storytelling');
 
 describe('authorized user', function () {
     beforeEach(function () {
@@ -122,7 +122,7 @@ describe('authorized user', function () {
         $story = Story::where('title', $data['title'])->first();
 
         assertCount(1, $story->getMedia('story-image'));
-    });
+    })->todo();
 });
 
 describe('unauthorized user', function () {

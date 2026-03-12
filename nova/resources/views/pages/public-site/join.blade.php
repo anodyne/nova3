@@ -35,7 +35,7 @@
 
                                 @if ($errors->has('userInfo.*') || $errors->has('userBio.*'))
                                     <span class="text-danger-500">
-                                        <x-icon name="alert" size="sm"></x-icon>
+                                        <x-icon :name="Tabler::AlertCircle" size="sm" />
                                     </span>
                                 @endif
                             </div>
@@ -48,7 +48,7 @@
 
                                     @if ($errors->has('characterInfo.*') || $errors->has('characterBio.*'))
                                         <span class="text-danger-500">
-                                            <x-icon name="alert" size="sm"></x-icon>
+                                            <x-icon :name="Tabler::AlertCircle" size="sm" />
                                         </span>
                                     @endif
                                 </div>
@@ -62,7 +62,7 @@
 
                                     @if ($errors->has('applicationInfo.*'))
                                         <span class="text-danger-500">
-                                            <x-icon name="alert" size="sm"></x-icon>
+                                            <x-icon :name="Tabler::AlertCircle" size="sm" />
                                         </span>
                                     @endif
                                 </div>
@@ -78,7 +78,7 @@
                                 id="user_name"
                                 :error="$errors->first('userInfo.name')"
                                 value="{{ old('userInfo.name') }}"
-                            ></x-public::field.text>
+                            />
 
                             <x-public::field.email
                                 name="userInfo[email]"
@@ -86,14 +86,14 @@
                                 id="user_email"
                                 :error="$errors->first('userInfo.email')"
                                 value="{{ old('userInfo.email') }}"
-                            ></x-public::field.email>
+                            />
 
                             <x-public::field.password
                                 name="userInfo[password]"
                                 label="Password"
                                 id="user_password"
                                 :error="$errors->first('userInfo.password')"
-                            ></x-public::field.password>
+                            />
                         </div>
 
                         @if ($userBioForm->has_published_fields)
@@ -109,10 +109,10 @@
                                 id="character_name"
                                 :error="$errors->first('characterInfo.name')"
                                 value="{{ old('characterInfo.name') }}"
-                            ></x-public::field.text>
+                            />
 
                             <x-public::field.select
-                                name="characterInfo[position]"
+                                name="characterInfo[positions][]"
                                 label="Position"
                                 id="character_position"
                             >

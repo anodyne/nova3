@@ -9,8 +9,7 @@ use Nova\Users\Models\User;
 
 use function Pest\Livewire\livewire;
 
-uses()->group('roles');
-uses()->group('components');
+uses()->group('roles', 'components');
 
 test('it can mount without a role', function () {
     livewire(ManageUsers::class)
@@ -33,30 +32,13 @@ test('it can mount with a role', function () {
         ->assertNotSet('assigned', Collection::make(), strict: true);
 });
 
-test('it can search users', function () {
-    User::factory()->create(['name' => 'John']);
-    User::factory()->count(4)->create();
-
-    livewire(ManageUsers::class)
-        ->set('search', 'John')
-        ->assertSet('searchResults', $users = User::searchFor('John')->get())
-        ->assertCount('searchResults', $users->count());
-});
-
-test('it can list all users in the search results', function () {
-    livewire(ManageUsers::class)
-        ->set('search', '*')
-        ->assertSet('searchResults', $users = User::get())
-        ->assertCount('searchResults', $users->count());
-});
-
 test('it can assign a user', function () {
     $user1 = User::factory()->create();
     $user2 = User::factory()->create();
 
     livewire(ManageUsers::class)
-        ->call('add', $user1->id)
-        ->call('add', $user2->id)
+        ->set('selected', (string) $user1->id)
+        ->set('selected', (string) $user2->id)
         ->assertSet('assignedUsers', "{$user1->id},{$user2->id}");
 });
 
@@ -65,8 +47,8 @@ test('it can unassign a user', function () {
     $user2 = User::factory()->create();
 
     livewire(ManageUsers::class)
-        ->call('add', $user1->id)
-        ->call('add', $user2->id)
+        ->set('selected', (string) $user1->id)
+        ->set('selected', (string) $user2->id)
         ->assertSet('assignedUsers', "{$user1->id},{$user2->id}")
         ->call('remove', $user1->id)
         ->assertSet('assignedUsers', "{$user2->id}");

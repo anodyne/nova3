@@ -32,8 +32,11 @@ class AddonBuilder extends Builder
         return $this->where('type', AddonType::Rank);
     }
 
-    public function searchFor($columns, $search): self
+    public function searchFor($column, $search): self
     {
-        return $this->whereFullText($columns, $search.'*', ['mode' => 'boolean']);
+        return $this->where(function ($query) use ($column, $search) {
+            $query->whereFullText($column, $search)
+                ->orWhereLike($column, "%{$search}%");
+        });
     }
 }

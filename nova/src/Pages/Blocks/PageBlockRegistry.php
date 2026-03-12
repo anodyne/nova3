@@ -4,38 +4,58 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks;
 
+use Nova\Pages\Blocks\Content\FreeformContentBlock;
+use Nova\Pages\Blocks\ContentRatings\CardsContentRatingsBlock;
+use Nova\Pages\Blocks\ContentRatings\GridContentRatingsBlock;
+use Nova\Pages\Blocks\ContentRatings\SplitContentRatingsBlock;
+use Nova\Pages\Blocks\Features\AlternatingFeatureBlock;
+use Nova\Pages\Blocks\Features\CardsFeatureBlock;
+use Nova\Pages\Blocks\Features\GridFeatureBlock;
+use Nova\Pages\Blocks\Hero\ImageTilesHeroBlock;
+use Nova\Pages\Blocks\Hero\SplitHeroBlock;
+use Nova\Pages\Blocks\Hero\StackedHeroBlock;
+use Nova\Pages\Blocks\ImageGallery\CarouselImageGalleryBlock;
+use Nova\Pages\Blocks\ImageGallery\ThumbnailImageGalleryBlock;
+use Nova\Pages\Blocks\Logos\SimpleLogosBlock;
+use Nova\Pages\Blocks\Logos\SplitLogosBlock;
+use Nova\Pages\Blocks\Manifest\ManifestBlock;
+use Nova\Pages\Blocks\Stats\SimpleStatsBlock;
+use Nova\Pages\Blocks\Stats\SplitStatsBlock;
+use Nova\Pages\Blocks\Stories\AlternatingStoriesBlock;
+use Nova\Pages\Blocks\Stories\StoriesTimelineBlock;
+
 class PageBlockRegistry
 {
     public static function blocks(): array
     {
         return [
-            Manifest\ManifestBlock::make(Manifest\ManifestBlock::component),
+            ManifestBlock::make(ManifestBlock::component),
 
-            ContentRatings\CardsContentRatingsBlock::make(ContentRatings\CardsContentRatingsBlock::component),
-            ContentRatings\GridContentRatingsBlock::make(ContentRatings\GridContentRatingsBlock::component),
-            ContentRatings\SplitContentRatingsBlock::make(ContentRatings\SplitContentRatingsBlock::component),
+            CardsContentRatingsBlock::make(CardsContentRatingsBlock::component),
+            GridContentRatingsBlock::make(GridContentRatingsBlock::component),
+            SplitContentRatingsBlock::make(SplitContentRatingsBlock::component),
 
-            Features\GridFeatureBlock::make(Features\GridFeatureBlock::component),
-            Features\CardsFeatureBlock::make(Features\CardsFeatureBlock::component),
-            Features\AlternatingFeatureBlock::make(Features\AlternatingFeatureBlock::component),
+            GridFeatureBlock::make(GridFeatureBlock::component),
+            CardsFeatureBlock::make(CardsFeatureBlock::component),
+            AlternatingFeatureBlock::make(AlternatingFeatureBlock::component),
 
-            Content\FreeformContentBlock::make(Content\FreeformContentBlock::component),
+            FreeformContentBlock::make(FreeformContentBlock::component),
 
-            Hero\StackedHeroBlock::make(Hero\StackedHeroBlock::component),
-            Hero\SplitHeroBlock::make(Hero\SplitHeroBlock::component),
-            Hero\ImageTilesHeroBlock::make(Hero\ImageTilesHeroBlock::component),
+            StackedHeroBlock::make(StackedHeroBlock::component),
+            SplitHeroBlock::make(SplitHeroBlock::component),
+            ImageTilesHeroBlock::make(ImageTilesHeroBlock::component),
 
-            ImageGallery\CarouselImageGalleryBlock::make(ImageGallery\CarouselImageGalleryBlock::component),
-            ImageGallery\ThumbnailImageGalleryBlock::make(ImageGallery\ThumbnailImageGalleryBlock::component),
+            CarouselImageGalleryBlock::make(CarouselImageGalleryBlock::component),
+            ThumbnailImageGalleryBlock::make(ThumbnailImageGalleryBlock::component),
 
-            Logos\SimpleLogosBlock::make(Logos\SimpleLogosBlock::component),
-            Logos\SplitLogosBlock::make(Logos\SplitLogosBlock::component),
+            SimpleLogosBlock::make(SimpleLogosBlock::component),
+            SplitLogosBlock::make(SplitLogosBlock::component),
 
-            Stats\SimpleStatsBlock::make(Stats\SimpleStatsBlock::component),
-            Stats\SplitStatsBlock::make(Stats\SplitStatsBlock::component),
+            SimpleStatsBlock::make(SimpleStatsBlock::component),
+            SplitStatsBlock::make(SplitStatsBlock::component),
 
-            Stories\AlternatingStoriesBlock::make(Stories\AlternatingStoriesBlock::component),
-            Stories\StoriesTimelineBlock::make(Stories\StoriesTimelineBlock::component),
+            AlternatingStoriesBlock::make(AlternatingStoriesBlock::component),
+            StoriesTimelineBlock::make(StoriesTimelineBlock::component),
         ];
     }
 }

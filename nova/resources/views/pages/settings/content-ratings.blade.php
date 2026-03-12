@@ -1,34 +1,29 @@
 <x-admin-layout>
     <x-spacing constrained>
-        <x-page-header>
+        <x-page-heading>
             <x-slot name="actions">
-                <div x-data="{}">
-                    <x-button x-on:click="$dispatch('toggle-spotlight')" color="neutral">
-                        <x-icon name="search" size="sm"></x-icon>
-                        Find a setting
-                    </x-button>
-                </div>
+                <x-button.find-setting />
             </x-slot>
-        </x-page-header>
+        </x-page-heading>
 
-        <flux:tab.group>
-            <flux:tabs>
-                <flux:tab name="language">Language</flux:tab>
-                <flux:tab name="sex">Sex</flux:tab>
-                <flux:tab name="violence">Violence</flux:tab>
-            </flux:tabs>
+        <x-tab.group>
+            <x-slot name="tabs">
+                <x-tab name="language">Language</x-tab>
+                <x-tab name="sex">Sex</x-tab>
+                <x-tab name="violence">Violence</x-tab>
+            </x-slot>
 
-            <flux:tab.panel name="language">
+            <x-tab.panel name="language">
                 <livewire:settings-content-ratings category="language" />
-            </flux:tab.panel>
+            </x-tab.panel>
 
-            <flux:tab.panel name="sex">
+            <x-tab.panel name="sex">
                 <livewire:settings-content-ratings category="sex" />
-            </flux:tab.panel>
+            </x-tab.panel>
 
-            <flux:tab.panel name="violence">
+            <x-tab.panel name="violence">
                 <livewire:settings-content-ratings category="violence" />
-            </flux:tab.panel>
-        </flux:tab.group>
+            </x-tab.panel>
+        </x-tab.group>
     </x-spacing>
 </x-admin-layout>

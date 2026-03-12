@@ -38,7 +38,7 @@
                 ])
             >
                 <x-spacing size="md" class="nv-ratings-card-rating-wrapper flex gap-x-4">
-                    <h3 class="nv-ratings-card-rating font-[family-name:--font-header] text-5xl font-bold">
+                    <h3 class="nv-ratings-card-rating font-(family-name:--font-header) text-5xl font-bold">
                         {{ $rating->rating->value }}
                     </h3>
 

@@ -30,9 +30,9 @@ enum SetupType: string
     public function getGuideButton(): string
     {
         return match ($this) {
-            self::Install => Blade::render('<x-button href="'.config('services.anodyne.links.install-guide').'" target="_blank" color="neutral">Install guide</x-button>'),
-            self::Migrate => Blade::render('<x-button href="'.config('services.anodyne.links.migrate-guide').'" target="_blank" color="neutral">Migrate guide</x-button>'),
-            self::Update => Blade::render('<x-button href="'.config('services.anodyne.links.update-guide').'" target="_blank" color="neutral">Update guide</x-button>'),
+            self::Install => Blade::render('<x-button href="'.config('services.anodyne.links.install-guide').'" target="_blank">Install guide</x-button>'),
+            self::Migrate => Blade::render('<x-button href="'.config('services.anodyne.links.migrate-guide').'" target="_blank">Migrate guide</x-button>'),
+            self::Update => Blade::render('<x-button href="'.config('services.anodyne.links.update-guide').'" target="_blank">Update guide</x-button>'),
         };
     }
 

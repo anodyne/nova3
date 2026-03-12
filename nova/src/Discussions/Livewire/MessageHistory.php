@@ -19,6 +19,7 @@ use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Users\Models\User;
+use Throwable;
 
 #[On('message-sent')]
 class MessageHistory extends Component
@@ -89,7 +90,7 @@ class MessageHistory extends Component
 
     public function deleteMessage(DiscussionMessage $message): void
     {
-        $this->authorize('delete', $this->discussion);
+        $this->authorize('deleteMessage', [$this->discussion, $message]);
 
         DeleteDiscussionMessage::run($message);
 
@@ -125,13 +126,19 @@ class MessageHistory extends Component
                 ->title('Failed to leave discussion')
                 ->body($th->getMessage())
                 ->send();
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             report($th);
 
             Notification::make()->danger()
                 ->title('Failed to leave discussion')
                 ->send();
         }
+    }
+
+    #[On('discussion-selected')]
+    public function resetMessageHistory(): void
+    {
+        $this->remainingMessagesLoaded = false;
     }
 
     public function render()

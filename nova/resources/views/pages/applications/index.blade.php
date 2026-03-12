@@ -1,7 +1,7 @@
 <x-admin-layout>
-    <x-page-header></x-page-header>
+    <x-page-heading />
 
     <livewire:applications-list />
 
-    <x-tips section="applications"></x-tips>
+    <x-tips section="applications" />
 </x-admin-layout>

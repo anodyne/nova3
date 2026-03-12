@@ -20,6 +20,8 @@ class DesignPageController extends Controller
 
     public function __invoke(Request $request, Page $page)
     {
+        $this->authorize('design', $page);
+
         return DesignPageResponse::sendWith([
             'page' => $page,
         ]);

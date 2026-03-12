@@ -17,7 +17,7 @@
 </x-mail::panel>
 
 <x-mail::button :url="route('admin.characters.index')">
-View pending characters &rarr;
+View pending characters <span aria-hidden="true">→</span>
 </x-mail::button>
 </x-email-layout>
 {{-- format-ignore-end --}}

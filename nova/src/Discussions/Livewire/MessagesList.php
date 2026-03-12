@@ -68,6 +68,7 @@ class MessagesList extends Component
             })
             ->when(filled($this->search), fn (Builder $query): Builder => $query->searchFor($this->search))
             ->latest('updated_at')
+            ->latest('id')
             ->simplePaginate(15);
     }
 

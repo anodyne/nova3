@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
-use Filament\Forms\Components\Actions\Action;
+use Anodyne\TablerIcons\Tabler;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Builder;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Filament\Support\Enums\IconSize;
-use Filament\Support\Enums\MaxWidth;
+use Filament\Support\Enums\Width;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Locked;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
 use Nova\Pages\Actions\PublishPage;
@@ -26,10 +28,10 @@ class PageDesigner extends FormComponent
 
     protected string $view = 'pages.pages.livewire.page-designer';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Builder::make('blocks')
                     ->hiddenLabel()
                     ->blockPreviews(areInteractive: true)
@@ -39,18 +41,26 @@ class PageDesigner extends FormComponent
                     ->addAction(function (Action $action): Action {
                         return $action
                             ->label('Add block')
-                            ->icon(iconName('add'))
+                            ->icon(Tabler::Plus)
                             ->iconSize(IconSize::Medium)
                             ->slideOver()
-                            ->modalWidth(MaxWidth::TwoExtraLarge);
+                            ->modalWidth(Width::TwoExtraLarge);
+                    })
+                    ->addBetweenAction(function (Action $action): Action {
+                        return $action
+                            ->label('Insert between blocks')
+                            ->icon(Tabler::Plus)
+                            ->iconSize(IconSize::Medium)
+                            ->slideOver()
+                            ->modalWidth(Width::TwoExtraLarge);
                     })
                     ->editAction(function (Action $action): Action {
                         return $action
-                            ->icon(iconName('settings'))
+                            ->icon(Tabler::Settings)
                             ->slideOver()
-                            ->modalWidth(MaxWidth::TwoExtraLarge);
-                    })
-                    ->afterStateUpdated(fn () => $this->save()),
+                            ->modalWidth(Width::TwoExtraLarge);
+                    }),
+                //                    ->afterStateUpdated(fn () => $this->save()),
             ])
             ->statePath('data')
             ->model($this->page);
@@ -58,6 +68,8 @@ class PageDesigner extends FormComponent
 
     public function save(): void
     {
+        $this->authorize('design', $this->page);
+
         UpdatePage::run($this->page, PageBlocksData::from($this->form->getState()));
 
         Notification::make()->success()
@@ -68,6 +80,8 @@ class PageDesigner extends FormComponent
 
     public function publish(): void
     {
+        $this->authorize('design', $this->page);
+
         PublishPage::run($this->page);
 
         Notification::make()->success()
@@ -78,7 +92,7 @@ class PageDesigner extends FormComponent
 
     public function mount(Page $page): void
     {
-        Cache::put('page-designer-page', $page->id);
+        Cache::put(CacheKeys::PageDesignerPage->value, $page->id);
 
         $this->form->fill($page->toArray());
     }

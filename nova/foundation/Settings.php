@@ -145,7 +145,7 @@ class Settings implements Arrayable, ArrayAccess, Jsonable, JsonSerializable
      * Get all of the settings except for a specified array of keys.
      *
      * @param  array|string  $keys
-     * @return \Domain\Settings\Settings
+     * @return Settings
      */
     public function except(...$keys)
     {
@@ -156,7 +156,7 @@ class Settings implements Arrayable, ArrayAccess, Jsonable, JsonSerializable
      * Get a subset of the settings.
      *
      * @param  array|string  $keys
-     * @return \Domain\Settings\Settings
+     * @return Settings
      */
     public function only(...$keys)
     {

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Blocks\Manifest;
 
+use Anodyne\TablerIcons\Tabler;
 use Closure;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Pages\Blocks\Block as PageBuilderBlock;
@@ -30,7 +31,7 @@ class ManifestBlock extends PageBuilderBlock
         return [
             Section::make()
                 ->heading('Layout')
-                ->icon(iconName('layout'))
+                ->icon(Tabler::Layout)
                 ->schema([
                     Select::make('block.layout')
                         ->options([
@@ -109,7 +110,7 @@ class ManifestBlock extends PageBuilderBlock
 
             Section::make()
                 ->heading('Departments')
-                ->icon(iconName('list-details'))
+                ->icon(Tabler::ListDetails)
                 ->schema([
                     Toggle::make('block.showDepartments')
                         ->label('Show departments on the manifest')
@@ -175,7 +176,7 @@ class ManifestBlock extends PageBuilderBlock
 
             Section::make()
                 ->heading('Available positions')
-                ->icon(iconName('enter'))
+                ->icon(Tabler::DoorEnter)
                 ->schema([
                     Toggle::make('block.showAvailablePositions')
                         ->label('Show available positions on the manifest')
@@ -210,7 +211,7 @@ class ManifestBlock extends PageBuilderBlock
 
             Section::make()
                 ->heading('Characters')
-                ->icon(iconName('characters'))
+                ->icon(Tabler::MasksTheater)
                 ->schema([
                     Toggle::make('block.showCharacters')
                         ->label('Show characters on the manifest')
@@ -240,7 +241,6 @@ class ManifestBlock extends PageBuilderBlock
                         ])
                         ->visible(fn (Get $get): bool => $get('block.showCharacters') === true),
                 ]),
-
         ];
     }
 }

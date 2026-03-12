@@ -12,11 +12,12 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Stories\Actions\UpdatePost;
 use Nova\Stories\Data\PostRatingsData;
 use Nova\Stories\Enums\ContentRatingValue;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Models\Post;
 
 class PostRatings extends Component
 {
-    use Concerns\InteractsWithPost;
+    use InteractsWithPost;
 
     public ContentRatingValue $language;
 

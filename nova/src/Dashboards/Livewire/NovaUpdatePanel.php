@@ -6,6 +6,7 @@ namespace Nova\Dashboards\Livewire;
 
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
+use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Enums\ReleaseSeverity;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Foundation\Nova;
@@ -28,25 +29,25 @@ class NovaUpdatePanel extends SlideOver
     #[Computed]
     public function upstream(): LatestVersion
     {
-        return Cache::get('nova-latest-version');
+        return Cache::get(CacheKeys::LatestVersion->value);
     }
 
     #[Computed]
     public function upcoming(): ?LatestVersion
     {
-        return Cache::get('nova-next-version');
+        return Cache::get(CacheKeys::NextVersion->value);
     }
 
     #[Computed]
     public function hasUpdate(): bool
     {
-        return Cache::has('nova-update-available');
+        return Cache::has(CacheKeys::UpdateAvailable->value);
     }
 
     #[Computed]
     public function hasUpcomingUpdate(): bool
     {
-        return Cache::has('nova-update-upcoming');
+        return Cache::has(CacheKeys::UpdateUpcoming->value);
     }
 
     #[Computed]
@@ -67,6 +68,18 @@ class NovaUpdatePanel extends SlideOver
         return version_compare($this->filesVersion, $this->databaseVersion, '>');
     }
 
+    #[Computed]
+    public function statusColor(): string
+    {
+        return match (true) {
+            ! $this->needsFilesUpdate && ! $this->needsDatabaseUpdate => 'success',
+            ! $this->needsFilesUpdate && $this->needsDatabaseUpdate => 'info',
+            $this->needsFilesUpdate && $this->hasCriticalUpdate => 'danger',
+            $this->needsFilesUpdate && ! $this->hasCriticalUpdate => 'warning',
+            default => 'gray',
+        };
+    }
+
     public function render()
     {
         return view('pages.dashboards.livewire.nova-update-panel', [
@@ -79,6 +92,7 @@ class NovaUpdatePanel extends SlideOver
             'hasCriticalUpdate' => $this->hasCriticalUpdate,
             'hasUpcomingUpdate' => $this->hasUpcomingUpdate,
             'upcoming' => $this->upcoming,
+            'statusColor' => $this->statusColor,
         ]);
     }
 

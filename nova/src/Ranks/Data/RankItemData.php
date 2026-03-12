@@ -30,7 +30,7 @@ readonly class RankItemData extends Bag
             'overlay_image' => $request->input('overlay_image'),
             'group_id' => $request->integer('group_id', null),
             'name_id' => $request->integer('name_id', null),
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
         ];
     }
 }

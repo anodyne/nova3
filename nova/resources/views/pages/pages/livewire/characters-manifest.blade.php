@@ -3,17 +3,17 @@
         @foreach ($departments as $department)
             <div class="mt-12 first:mt-0">
                 @if ($department->hasMedia('header'))
-                    <img src="{{ $department->getFirstMediaUrl('header') }}" class="h-8 w-auto" alt="" />
+                    <img src="{{ $department->getFirstMediaUrl('header') }}" class="h-8 w-auto" alt=""/>
                 @else
                     <h2
-                        class="font-[family-name:--font-header] text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+                        class="font-(family-name:--font-header) text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
                     >
                         {{ html_entity_decode($department->name) }}
                     </h2>
                 @endif
 
                 @if ($layout === 'table')
-                    <div class="mt-4">
+                    <div class="mt-4 nv-manifest-table">
                         @foreach ($department->positions as $position)
                             @if ($showCharacters)
                                 @foreach ($position->characters as $character)
@@ -38,7 +38,7 @@
                 @endif
 
                 @if ($layout === 'grid')
-                    <div class="@xs:grid-cols-1 @lg:grid-cols-2 mt-4 grid gap-8 @4xl:grid-cols-3">
+                    <div class="nv-manifest-grid @xs:grid-cols-1 @lg:grid-cols-2 mt-4 grid gap-8 @4xl:grid-cols-3">
                         @foreach ($department->positions as $position)
                             @foreach ($position->characters as $character)
                                 <x-public::manifest.grid-item
@@ -60,7 +60,7 @@
                 @endif
 
                 @if ($layout === 'cards')
-                    <div class="@xs:grid-cols-1 @lg:grid-cols-2 mt-4 grid gap-8 @4xl:grid-cols-3">
+                    <div class="nv-manifest-cards @xs:grid-cols-1 @lg:grid-cols-2 mt-4 grid gap-8 @4xl:grid-cols-3">
                         @foreach ($department->positions as $position)
                             @foreach ($position->characters as $character)
                                 <x-public::manifest.card
@@ -116,7 +116,7 @@
         @endforeach
     @else
         @if ($layout === 'table')
-            <div class="mt-4">
+            <div class="nv-manifest-table mt-4">
                 @if ($showCharacters)
                     @foreach ($characters as $character)
                         <x-public::manifest.table-row
@@ -146,7 +146,7 @@
         @endif
 
         @if ($layout === 'grid')
-            <div class="@xs:grid-cols-1 @lg:grid-cols-2 mt-4 grid gap-8 @4xl:grid-cols-3">
+            <div class="nv-manifest-grid @xs:grid-cols-1 @lg:grid-cols-2 mt-4 grid gap-8 @4xl:grid-cols-3">
                 @if ($showCharacters)
                     @foreach ($characters as $character)
                         <x-public::manifest.grid-item
@@ -171,7 +171,7 @@
         @endif
 
         @if ($layout === 'cards')
-            <div class="@xs:grid-cols-1 @lg:grid-cols-2 mt-4 grid gap-8 @4xl:grid-cols-3">
+            <div class="nv-manifest-cards @xs:grid-cols-1 @lg:grid-cols-2 mt-4 grid gap-8 @4xl:grid-cols-3">
                 @if ($showCharacters)
                     @foreach ($characters as $character)
                         <x-public::manifest.card

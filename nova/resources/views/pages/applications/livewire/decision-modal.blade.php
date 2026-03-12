@@ -1,10 +1,10 @@
 @use('Nova\Applications\Enums\ApplicationResult')
 
-<x-modal title="Final application decision" icon="progress">
+<x-modal title="Final application decision" :icon="Tabler::Progress">
     <x-form action="">
         <x-fieldset>
-            <x-fieldset.field-group>
-                <div data-slot="control" class="grid grid-cols-2 gap-8">
+            <x-fieldset.group>
+                <div class="grid grid-cols-2 gap-8">
                     <button
                         type="button"
                         wire:click="$set('form.result', 'accept')"
@@ -14,8 +14,8 @@
                             'text-gray-600 ring-gray-200 dark:text-gray-400 dark:ring-gray-700' => $form->result !== ApplicationResult::Accept,
                         ])
                     >
-                        <x-icon name="progress-check" size="xl"></x-icon>
-                        <div class="flex flex-col gap-y-1">
+                        <x-icon :name="Tabler::ProgressCheck" size="xl" />
+                        <div class="flex flex-col gap-1">
                             <div
                                 @class([
                                     'text-base/7 font-semibold',
@@ -36,8 +36,8 @@
                             'text-gray-600 ring-gray-200 dark:text-gray-400 dark:ring-gray-700' => $form->result !== ApplicationResult::Deny,
                         ])
                     >
-                        <x-icon name="progress-x" size="lg"></x-icon>
-                        <div class="flex flex-col gap-y-1">
+                        <x-icon :name="Tabler::ProgressX" size="xl" />
+                        <div class="flex flex-col gap-1">
                             <div
                                 @class([
                                     'text-base/7 font-semibold',
@@ -52,48 +52,43 @@
                 </div>
 
                 @if ($form->result === ApplicationResult::Accept)
-                    <x-fieldset.field
-                        label="Position(s)"
-                        description="Verify the position(s) this character will be assigned upon activation."
-                        id="position"
-                        name="position"
-                    >
-                        <div data-slot="control">
+                    <x-field>
+                        <x-label>Position(s)</x-label>
+                        <x-description>
+                            Verify the position(s) this character will be assigned upon activation
+                        </x-description>
+                        <div>
                             <livewire:characters-manage-positions
                                 :character="$application->character"
                                 @positions-updated="$set('form.positions', $event.detail.positions)"
-                            ></livewire:characters-manage-positions>
+                            />
                         </div>
-                    </x-fieldset.field>
+                    </x-field>
 
-                    <x-fieldset.field
-                        label="Rank"
-                        description="Verify the rank the character will be assigned upon activation."
-                        id="rank"
-                        name="rank"
-                    >
-                        <livewire:rank-items-dropdown
-                            :rank="old('rank_id', $application->character->rank_id)"
-                            @rank-item-selected="$set('form.rankId', $event.detail.rank)"
-                        ></livewire:rank-items-dropdown>
-                    </x-fieldset.field>
+                    <x-field>
+                        <x-label>Rank</x-label>
+                        <x-description>Verify the rank the character will be assigned upon activation</x-description>
+                        <div>
+                            <livewire:rank-items-dropdown
+                                :rank="old('rank_id', $application->character->rank_id)"
+                                @rank-item-selected="$set('form.rankId', $event.detail.rank)"
+                            />
+                        </div>
+                    </x-field>
                 @endif
 
-                <x-fieldset.field
+                <x-textarea
                     label="Message"
                     description="This is the message that will be emailed to the applicant notifying them of your decision."
-                    id="message"
-                    name="message"
-                    :error="$errors->first('form.message')"
-                >
-                    <x-input.textarea rows="5" wire:model.blur="form.message"></x-input.textarea>
-                </x-fieldset.field>
-            </x-fieldset.field-group>
+                    rows="5"
+                    wire:model.blur="form.message"
+                />
+            </x-fieldset.group>
         </x-fieldset>
     </x-form>
 
     <x-slot name="footer">
-        <x-button type="button" wire:click="save" color="primary">Submit</x-button>
-        <x-button type="button" wire:click="close" plain>Cancel</x-button>
+        <x-button type="button" wire:click="save" variant="primary">Submit</x-button>
+        <x-button type="button" wire:click="close" variant="ghost" :loading="false">Cancel</x-button>
     </x-slot>
 </x-modal>

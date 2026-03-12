@@ -1,74 +1,70 @@
 @use('Nova\Stories\Enums\PositionDirection')
 
-<x-modal.slide-over title="Publish post" icon="progress-check">
-    <flux:tab.group>
-        <flux:tabs>
-            <flux:tab name="participants">
+<x-modal.slide-over title="Publish post" :icon="Tabler::ProgressCheck">
+    <x-tab.group>
+        <x-slot name="tabs">
+            <x-tab name="participants">
                 <div class="flex items-center gap-x-1.5">
-                    <x-icon name="user-scan" size="sm"></x-icon>
+                    <x-icon :name="Tabler::UserScan" size="sm" />
                     Review participants
                 </div>
-            </flux:tab>
+            </x-tab>
 
-            <flux:tab name="position">
+            <x-tab name="position">
                 <div class="flex items-center gap-x-1.5">
-                    <x-icon name="timeline" size="sm"></x-icon>
+                    <x-icon :name="Tabler::TimelineEvent" size="sm" />
                     Set post position
                 </div>
-            </flux:tab>
-        </flux:tabs>
+            </x-tab>
+        </x-slot>
 
-        <flux:tab.panel name="position">
+        <x-tab.panel name="position">
             @if ($shouldShowPositionPanel)
-                <flux:tab.group>
-                    <flux:tabs variant="pills">
-                        <flux:tab name="custom" wire:click="$set('direction', 'after')">
-                            <div class="flex items-center gap-x-1.5">
-                                <x-icon name="arrows-sort" size="sm"></x-icon>
-                                Custom position
-                            </div>
-                        </flux:tab>
-                        <flux:tab name="start" wire:click="$set('direction', 'start')">
-                            <div class="flex items-center gap-x-1.5">
-                                <x-icon name="arrow-vertical-start" size="sm"></x-icon>
-                                Start of the story
-                            </div>
-                        </flux:tab>
-                        <flux:tab name="end" wire:click="$set('direction', 'end')">
-                            <div class="flex items-center gap-x-1.5">
-                                <x-icon name="arrow-vertical-end" size="sm"></x-icon>
-                                End of the story
-                            </div>
-                        </flux:tab>
-                    </flux:tabs>
+                <x-radio.group wire:model.live="direction" variant="segmented">
+                    <x-radio value="after" label="Custom position">
+                        <x-slot name="icon">
+                            <x-icon :name="Tabler::ArrowsSort" size="sm" />
+                        </x-slot>
+                    </x-radio>
+                    <x-radio value="start" label="Start of the story">
+                        <x-slot name="icon">
+                            <x-icon :name="Tabler::ArrowBarToUp" size="sm" />
+                        </x-slot>
+                    </x-radio>
+                    <x-radio value="end" label="End of the story">
+                        <x-slot name="icon">
+                            <x-icon :name="Tabler::ArrowBarToDown" size="sm" />
+                        </x-slot>
+                    </x-radio>
+                </x-radio.group>
 
-                    <flux:tab.panel name="start">
-                        <x-panel.primary
-                            title="Move to start"
-                            description="Your post will appear as the first post in the story."
-                            icon="arrow-vertical-start"
-                        ></x-panel.primary>
-                    </flux:tab.panel>
+                @if ($direction === PositionDirection::Start)
+                    <x-callout.primary heading="Move to start" :icon="Tabler::ArrowBarToUp" class="mt-4">
+                        Your post will appear as the first post in the story.
+                    </x-callout.primary>
+                @endif
 
-                    <flux:tab.panel name="end">
-                        <x-panel.primary
-                            title="Move to end"
-                            description="Your post will appear as the last post in the story."
-                            icon="arrow-vertical-end"
-                        ></x-panel.primary>
-                    </flux:tab.panel>
+                @if ($direction === PositionDirection::End)
+                    <x-callout.primary heading="Move to end" :icon="Tabler::ArrowBarToDown" class="mt-4">
+                        Your post will appear as the last post in the story.
+                    </x-callout.primary>
+                @endif
 
-                    <flux:tab.panel name="custom" class="space-y-6">
+                @if ($direction === PositionDirection::After)
+                    <div class="mt-4 space-y-4">
                         <x-panel.manage.search :$search placeholder="Find a post in the current story">
                             @if ($searchResults->count() === 0)
-                                <x-empty-state.small icon="book" title="No post(s) found"></x-empty-state.small>
+                                <x-empty variant="compact">
+                                    <x-icon :name="Tabler::Book2" />
+                                    <x-empty.heading>No posts found</x-empty.heading>
+                                </x-empty>
                             @else
                                 <x-dropdown.group>
                                     @foreach ($searchResults as $searchResult)
                                         <x-panel.manage.result-item
                                             :value="$searchResult->id"
                                             :text="$searchResult->title"
-                                        ></x-panel.manage.result-item>
+                                        />
                                     @endforeach
                                 </x-dropdown.group>
                             @endif
@@ -78,54 +74,55 @@
                             <div class="space-y-3">
                                 <div>
                                     <x-h2>{{ $neighbor?->title }}</x-h2>
-                                    <x-text><em>{{ $neighbor?->location_day_time }}</em></x-text>
+                                    <x-text>
+                                        <em>
+                                            {{ $neighbor?->location_day_time }}
+                                        </em>
+                                    </x-text>
                                 </div>
 
-                                <x-text size="lg">{{ $neighbor?->authors_string }}</x-text>
+                                <x-text size="lg">
+                                    {{ $neighbor?->authors_string }}
+                                </x-text>
 
-                                <x-fieldset.field id="move" name="move" label="Move this post">
-                                    <flux:radio.group
-                                        wire:model.live="direction"
-                                        variant="segmented"
-                                        data-slot="control"
-                                    >
-                                        <flux:radio
-                                            :value="PositionDirection::Before->value"
-                                            label="Before this post"
-                                        />
-                                        <flux:radio :value="PositionDirection::After->value" label="After this post" />
-                                    </flux:radio.group>
-                                </x-fieldset.field>
+                                <x-field>
+                                    <x-label>Move this post</x-label>
+
+                                    <x-radio.group wire:model.live="direction" variant="segmented">
+                                        <x-radio :value="PositionDirection::Before->value" label="Before this post" />
+                                        <x-radio :value="PositionDirection::After->value" label="After this post" />
+                                    </x-radio.group>
+                                </x-field>
                             </div>
                         @endif
-                    </flux:tab.panel>
-                </flux:tab.group>
+                    </div>
+                @endif
             @else
-                <x-panel.primary title="This is the first post in the story" icon="timeline"></x-panel.primary>
+                <x-callout.primary :icon="Tabler::TimelineEvent" icon:size="md">
+                    This is the first post in the story
+                </x-callout.primary>
             @endif
-        </flux:tab.panel>
+        </x-tab.panel>
 
-        <flux:tab.panel name="participants" class="space-y-6">
+        <x-tab.panel name="participants" class="space-y-6">
             @if ($shouldShowParticipantsPanel)
                 <x-fieldset>
-                    <x-fieldset.heading>
-                        <x-icon name="user-scan"></x-icon>
-                        <x-fieldset.legend>Review participants</x-fieldset.legend>
-                        <x-fieldset.description>
+                    <x-fieldset.heading :icon="Tabler::UserScan" heading="Review participants">
+                        <x-description>
                             You can review players who participated in writing this post to ensure that the proper
                             authors are credited.
-                        </x-fieldset.description>
+                        </x-description>
                     </x-fieldset.heading>
 
-                    <x-fieldset.field-group>
-                        <x-panel.warning
-                            title="Post author changes are immediate"
-                            icon="warning"
-                            description="Be aware that any changes made to post participants on this screen are immediate and cannot be cancelled or reversed. If you remove a participant from the post in error, you will need to manually re-add them before publishing."
-                        ></x-panel.warning>
-                    </x-fieldset.field-group>
+                    <x-fieldset.group>
+                        <x-callout.warning heading="Post author changes are immediate" :icon="Tabler::AlertTriangle">
+                            Be aware that any changes made to post participants on this screen are immediate and cannot
+                            be cancelled or reversed. If you remove a participant from the post in error, you will need
+                            to manually re-add them before publishing.
+                        </x-callout.warning>
+                    </x-fieldset.group>
 
-                    <x-fieldset.field-group>
+                    <x-fieldset.group>
                         <x-panel variant="well">
                             <x-panel>
                                 <div class="divide-y divide-gray-950/5 rounded-b-lg dark:divide-white/5">
@@ -141,15 +138,21 @@
                                                                 'bg-danger-500' => ! in_array($participatingUser->id, $post->participants ?? []),
                                                             ])
                                                         ></span>
-                                                        <span class="font-medium">{{ $participatingUser->name }}</span>
+                                                        <span class="font-medium">
+                                                            {{ $participatingUser->name }}
+                                                        </span>
                                                     </div>
                                                     <div class="ml-5">
                                                         @foreach ($post->characterAuthors()->wherePivot('user_id', $participatingUser->id)->get() as $character)
-                                                            <div class="text-sm">{{ $character->displayName }}</div>
+                                                            <div class="text-sm">
+                                                                {{ $character->displayName }}
+                                                            </div>
                                                         @endforeach
 
                                                         @foreach ($post->userAuthors()->wherePivot('user_id', $participatingUser->id)->get() as $user)
-                                                            <div class="text-sm italic">{{ $user->pivot->as }}</div>
+                                                            <div class="text-sm italic">
+                                                                {{ $user->pivot->as }}
+                                                            </div>
                                                         @endforeach
                                                     </div>
                                                 </div>
@@ -161,17 +164,23 @@
                                                     {{ str('word')->plural($participatingUser->pivot->word_count) }}
                                                 </div>
 
-                                                <x-dropdown placement="bottom-end">
-                                                    <x-slot name="trigger" color="neutral-danger">
-                                                        <x-icon name="remove" size="md"></x-icon>
+                                                <x-dropdown placement="bottom end">
+                                                    <x-slot name="trigger">
+                                                        <x-button
+                                                            type="button"
+                                                            variant="subtle"
+                                                            inset="right"
+                                                            square
+                                                            data-danger
+                                                        >
+                                                            <x-icon :name="Tabler::Trash" size="md" />
+                                                        </x-button>
                                                     </x-slot>
 
                                                     <x-dropdown.group>
                                                         <x-dropdown.text>
                                                             Are you sure you want to remove
-                                                            <strong
-                                                                class="font-semibold text-gray-700 dark:text-gray-950/5"
-                                                            >
+                                                            <strong>
                                                                 {{ $participatingUser->name }}
                                                             </strong>
                                                             and any characters they’re marked as writing as authors of
@@ -179,16 +188,17 @@
                                                         </x-dropdown.text>
                                                     </x-dropdown.group>
                                                     <x-dropdown.group>
-                                                        <x-dropdown.item-danger
-                                                            type="button"
-                                                            icon="remove"
-                                                            wire:click="removeParticipant({{ $participatingUser }})"
-                                                        >
-                                                            Remove
-                                                        </x-dropdown.item-danger>
                                                         <x-dropdown.item
                                                             type="button"
-                                                            icon="prohibited"
+                                                            :icon="Tabler::Trash"
+                                                            wire:click="removeParticipant({{ $participatingUser }})"
+                                                            variant="danger"
+                                                        >
+                                                            Remove
+                                                        </x-dropdown.item>
+                                                        <x-dropdown.item
+                                                            type="button"
+                                                            :icon="Tabler::Ban"
                                                             x-on:click.prevent="$dispatch('dropdown-close')"
                                                         >
                                                             Cancel
@@ -203,12 +213,17 @@
 
                             @if ($hasNonParticipants)
                                 <x-panel.footer class="flex items-center">
-                                    <x-dropdown placement="bottom-start">
-                                        <x-slot name="trigger" color="neutral-danger">
-                                            <div class="flex items-center gap-2">
-                                                <x-icon name="remove" size="sm"></x-icon>
+                                    <x-dropdown placement="bottom start">
+                                        <x-slot name="trigger">
+                                            <x-button
+                                                type="button"
+                                                variant="subtle"
+                                                inset="left top bottom"
+                                                data-danger
+                                            >
+                                                <x-icon :name="Tabler::CircleMinus" size="sm" />
                                                 <span>Remove all non-participating users</span>
-                                            </div>
+                                            </x-button>
                                         </x-slot>
 
                                         <x-dropdown.group>
@@ -218,16 +233,17 @@
                                             </x-dropdown.text>
                                         </x-dropdown.group>
                                         <x-dropdown.group>
-                                            <x-dropdown.item-danger
-                                                type="button"
-                                                icon="remove"
-                                                wire:click="removeAllNonParticipants"
-                                            >
-                                                Remove all
-                                            </x-dropdown.item-danger>
                                             <x-dropdown.item
                                                 type="button"
-                                                icon="prohibited"
+                                                :icon="Tabler::CircleMinus"
+                                                wire:click="removeAllNonParticipants"
+                                                variant="danger"
+                                            >
+                                                Remove all
+                                            </x-dropdown.item>
+                                            <x-dropdown.item
+                                                type="button"
+                                                :icon="Tabler::Ban"
                                                 x-on:click.prevent="$dispatch('dropdown-close')"
                                             >
                                                 Cancel
@@ -237,16 +253,18 @@
                                 </x-panel.footer>
                             @endif
                         </x-panel>
-                    </x-fieldset.field-group>
+                    </x-fieldset.group>
                 </x-fieldset>
             @else
-                <x-panel.primary title="No participants to review" icon="user-scan"></x-panel.primary>
+                <x-callout.primary :icon="Tabler::UserScan" icon:size="md">
+                    No participants to review
+                </x-callout.primary>
             @endif
-        </flux:tab.panel>
-    </flux:tab.group>
+        </x-tab.panel>
+    </x-tab.group>
 
     <x-slot name="footer">
-        <x-button type="button" wire:click="publish" color="primary">Publish</x-button>
-        <x-button type="button" wire:click="dismiss" plain>Cancel</x-button>
+        <x-button type="button" wire:click="publish" variant="primary">Publish</x-button>
+        <x-button type="button" wire:click="dismiss" variant="ghost">Cancel</x-button>
     </x-slot>
 </x-modal.slide-over>

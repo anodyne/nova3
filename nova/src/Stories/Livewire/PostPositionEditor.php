@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Stories\Enums\PositionDirection;
+use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Models\Post;
 
 class PostPositionEditor extends SlideOver
 {
-    use Concerns\InteractsWithPost;
+    use InteractsWithPost;
 
     public string $search = '';
 

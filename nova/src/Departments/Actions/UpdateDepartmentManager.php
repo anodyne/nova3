@@ -7,6 +7,7 @@ namespace Nova\Departments\Actions;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\UpdateDepartmentRequest;
+use Nova\Media\Actions\UploadImage;
 use Spatie\Activitylog\Facades\LogBatch;
 
 class UpdateDepartmentManager
@@ -22,7 +23,12 @@ class UpdateDepartmentManager
             $request->getDepartmentData()
         );
 
-        UploadDepartmentHeaderImage::run($department, $request->image_path);
+        UploadImage::run(
+            model: $department,
+            collection: 'header',
+            action: $request->getImageAction(),
+            tempPath: $request->getImageTempPath()
+        );
 
         LogBatch::endBatch();
 

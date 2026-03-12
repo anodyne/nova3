@@ -13,7 +13,9 @@ use Nova\Addons\BaseAddon;
 use Nova\Addons\Data\AddonRepository;
 use Nova\Addons\Data\AddonSettings;
 use Nova\Addons\Enums\AddonType;
-use Nova\Addons\Events;
+use Nova\Addons\Events\AddonCreated;
+use Nova\Addons\Events\AddonDeleted;
+use Nova\Addons\Events\AddonUpdated;
 use Nova\Addons\Models\Builders\AddonBuilder;
 use Nova\Foundation\Concerns\ChecksAddonVersion;
 use Nova\Foundation\Concerns\LogsActivity;
@@ -49,9 +51,9 @@ class Addon extends Model
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\AddonCreated::class,
-        'deleted' => Events\AddonDeleted::class,
-        'updated' => Events\AddonUpdated::class,
+        'created' => AddonCreated::class,
+        'deleted' => AddonDeleted::class,
+        'updated' => AddonUpdated::class,
     ];
 
     public function hasAddonClass(): Attribute

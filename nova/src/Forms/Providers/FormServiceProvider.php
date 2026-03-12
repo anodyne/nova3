@@ -13,7 +13,9 @@ use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormField;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Forms\Models\FormSubmissionResponse;
-use Nova\Forms\Spotlight;
+use Nova\Forms\Spotlight\DesignForm;
+use Nova\Forms\Spotlight\ViewForm;
+use Nova\Forms\Spotlight\ViewForms;
 
 class FormServiceProvider extends DomainServiceProvider
 {
@@ -47,9 +49,9 @@ class FormServiceProvider extends DomainServiceProvider
     public function spotlightCommands(): array
     {
         return [
-            Spotlight\DesignForm::class,
-            Spotlight\ViewForm::class,
-            Spotlight\ViewForms::class,
+            DesignForm::class,
+            ViewForm::class,
+            ViewForms::class,
         ];
     }
 }

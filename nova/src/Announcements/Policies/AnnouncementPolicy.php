@@ -16,12 +16,16 @@ class AnnouncementPolicy
 
     public function viewAny(User $user): Response
     {
-        return $this->allow();
+        return $user->isAbleTo('announcement.*')
+            ? $this->allow()
+            : $this->deny();
     }
 
     public function view(User $user, Announcement $announcement): Response
     {
-        return $this->allow();
+        return $user->isAbleTo('announcement.view')
+            ? $this->allow()
+            : $this->deny();
     }
 
     public function create(User $user): Response
@@ -57,7 +61,7 @@ class AnnouncementPolicy
 
     public function manage(User $user): Response
     {
-        return $user->isAbleTo(['announcement.create', 'announcement.update', 'announcement.delete'])
+        return $user->isAbleTo(['announcement.create', 'announcement.update', 'announcement.delete', 'announcement.approve'])
             ? $this->allow()
             : $this->deny();
     }

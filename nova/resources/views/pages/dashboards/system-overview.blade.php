@@ -1,11 +1,11 @@
 @use('Nova\Settings\Enums\ServerEnvironment')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         <x-slot name="actions">
-            <livewire:nova-update-panel-trigger />
+            <livewire:nova-update-panel-trigger/>
         </x-slot>
-    </x-page-header>
+    </x-page-heading>
 
     <div class="space-y-8">
         <div class="w-full max-w-2xl">
@@ -20,18 +20,19 @@
                 the support staff with resolving issues you may be having.
             </x-text>
             <div class="mt-6 flex items-center gap-x-4">
-                <livewire:copy-diagnostic-data-button />
+                <livewire:copy-diagnostic-data-button/>
             </div>
         </div>
 
         <div class="grid gap-8 lg:grid-cols-2">
             <x-panel variant="well">
-                <x-panel.header title="Environment" icon="leaf">
+                <x-panel.header title="Environment" :icon="Tabler::Leaf">
                     <x-slot name="actions">
                         <x-button
                             x-on:click="Livewire.dispatch('slide-over.open', {component: 'settings-environment'})"
-                            color="primary"
-                            text
+                            variant="subtle"
+                            inset="right top bottom"
+                            size="sm"
                         >
                             Edit
                         </x-button>
@@ -39,197 +40,158 @@
                 </x-panel.header>
 
                 <x-panel>
-                    <x-spacing class="text-sm/6" size="md">
-                        <div class="py-1.5">
-                            <div class="flex w-full items-center justify-between gap-4">
-                                <dt class="flex items-center gap-2 font-medium text-gray-500">URL</dt>
-                                <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                    {{ str(config('app.url'))->replace('https://', '') }}
-                                </dd>
-                            </div>
+                    <x-spacing.group height="sm">
+                        <x-panel.group.row height="2xs">
+                            <x-heading>URL</x-heading>
+                            <x-text>{{ str(config('app.url'))->replace('https://', '') }}</x-text>
 
                             @if (! str(config('app.url'))->startsWith('https'))
-                                <div class="flex gap-x-1.5">
-                                    <x-icon.micro.warning
-                                        class="h-6 w-4 shrink-0 text-danger-500"
-                                    ></x-icon.micro.warning>
+                                <x-slot name="trailing">
+                                    <div class="flex gap-1.5 text-sm/6">
+                                        <x-icon.micro.warning
+                                            class="text-danger-400 h-6 w-4 shrink-0"
+                                        ></x-icon.micro.warning>
 
-                                    <p class="text-danger-500">
-                                        Your site is missing an SSL certificate. If you have added an SSL certificate,
-                                        please update your URL.
-                                    </p>
-                                </div>
+                                        <p class="text-danger-600 dark:text-danger-400">
+                                            Your site is missing an SSL certificate. If you have added an SSL
+                                            certificate, please update your URL.
+                                        </p>
+                                    </div>
+                                </x-slot>
                             @endif
-                        </div>
-
-                        <div class="py-1.5">
-                            <div class="flex w-full items-center justify-between gap-4">
-                                <dt class="flex items-center gap-2 font-medium text-gray-500">Environment</dt>
-                                <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                    {{ config('app.env') }}
-                                </dd>
-                            </div>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Environment</x-heading>
+                            <x-text>{{ config('app.env') }}</x-text>
 
                             @if (config('app.env') !== 'production')
-                                <div class="flex gap-x-1.5">
-                                    <x-icon.micro.warning
-                                        class="h-6 w-4 shrink-0 text-danger-500"
-                                    ></x-icon.micro.warning>
+                                <x-slot name="trailing">
+                                    <div class="flex gap-1.5 text-sm/6">
+                                        <x-icon.micro.warning
+                                            class="text-danger-400 h-6 w-4 shrink-0"
+                                        ></x-icon.micro.warning>
 
-                                    <p class="text-danger-500">
-                                        Your site’s environment is not set to production. For the optimal experience,
-                                        please update your environment.
-                                    </p>
-                                </div>
+                                        <p class="text-danger-600 dark:text-danger-400">
+                                            Your site’s environment is not set to production. For the optimal
+                                            experience, please update your environment.
+                                        </p>
+                                    </div>
+                                </x-slot>
                             @endif
-                        </div>
-
-                        <div class="py-1.5">
-                            <div class="flex w-full items-center justify-between gap-4">
-                                <dt class="flex items-center gap-2 font-medium text-gray-500">Debug mode</dt>
-                                <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                    {{ config('app.debug') ? 'On' : 'Off' }}
-                                </dd>
-                            </div>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Debug mode</x-heading>
+                            <x-text>{{ config('app.debug') ? 'On' : 'Off' }}</x-text>
 
                             @if (config('app.debug') && config('app.env') === 'production')
-                                <div class="flex gap-x-1.5">
+                                <div class="flex gap-1.5 text-sm/6">
                                     <x-icon.micro.warning
-                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                        class="text-danger-400 h-6 w-4 shrink-0"
                                     ></x-icon.micro.warning>
 
-                                    <p class="text-danger-500">
+                                    <p class="text-danger-600 dark:text-danger-400">
                                         In a production environment, debug mode should always be off. If debug mode is
                                         on in production, you risk exposing sensitive configuration values to your end
                                         users.
                                     </p>
                                 </div>
                             @endif
-                        </div>
-
-                        <div class="py-1.5">
-                            <div class="flex w-full items-center justify-between gap-4">
-                                <dt class="flex items-center gap-2 font-medium text-gray-500">Maintenance mode</dt>
-                                <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                    <livewire:maintenance-mode-switch :maintenance="app()->isDownForMaintenance()" />
-                                </dd>
-                            </div>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Maintenance mode</x-heading>
+                            <livewire:maintenance-mode-switch :maintenance="app()->isDownForMaintenance()"/>
 
                             @if (app()->isDownForMaintenance())
-                                <div class="flex gap-x-1.5">
+                                <div class="flex gap-1.5 text-sm/6">
                                     <x-icon.micro.warning
-                                        class="h-6 w-4 shrink-0 text-danger-500"
+                                        class="text-danger-400 h-6 w-4 shrink-0"
                                     ></x-icon.micro.warning>
 
-                                    <p class="text-danger-500">Your application is currently down for maintenance.</p>
+                                    <p class="text-danger-600 dark:text-danger-400">
+                                        Your application is currently down for maintenance.
+                                    </p>
                                 </div>
                             @endif
-                        </div>
-                    </x-spacing>
+                        </x-panel.group.row>
+                    </x-spacing.group>
                 </x-panel>
             </x-panel>
 
             <x-panel variant="well">
-                <x-panel.header title="Drivers" icon="server-settings"></x-panel.header>
+                <x-panel.header title="Drivers" :icon="Tabler::ServerCog"></x-panel.header>
 
                 <x-panel>
-                    <x-spacing class="text-sm/6" size="md">
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Email</dt>
-                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                {{ config('mail.default') }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Logging</dt>
-                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                {{ config('logging.default') }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Cache</dt>
-                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                {{ config('cache.default') }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Session</dt>
-                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                {{ config('session.driver') }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Queue</dt>
-                            <dd class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white">
-                                {{ config('queue.default') }}
-                            </dd>
-                        </div>
-                    </x-spacing>
+                    <x-spacing.group height="sm">
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Email</x-heading>
+                            <x-text>{{ config('mail.default') }}</x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Logging</x-heading>
+                            <x-text>{{ config('logging.default') }}</x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Cache</x-heading>
+                            <x-text>{{ config('cache.default') }}</x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Session</x-heading>
+                            <x-text>{{ config('session.driver') }}</x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Queue</x-heading>
+                            <x-text>{{ config('queue.default') }}</x-text>
+                        </x-panel.group.row>
+                    </x-spacing.group>
                 </x-panel>
             </x-panel>
 
             <x-panel variant="well">
-                <x-panel.header title="Versions" icon="versions"></x-panel.header>
+                <x-panel.header title="Versions" :icon="Tabler::Versions"></x-panel.header>
 
                 <x-panel>
-                    <x-spacing class="text-sm/6" size="md">
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">PHP</dt>
-                            <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
-                            >
-                                {{ PHP_VERSION }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Database</dt>
-                            <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
-                            >
+                    <x-spacing.group height="sm">
+                        <x-panel.group.row height="2xs">
+                            <x-heading>PHP</x-heading>
+                            <x-text class="tabular-nums">{{ PHP_VERSION }}</x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Database</x-heading>
+                            <x-text class="tabular-nums">
                                 {{ app('nova.environment')->database->platform() }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Nova files</dt>
-                            <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
-                            >
+                            </x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Nova (files)</x-heading>
+                            <x-text class="tabular-nums">
                                 {{ nova()->filesVersion() }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Nova database</dt>
-                            <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
-                            >
+                            </x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Nova (database)</x-heading>
+                            <x-text class="tabular-nums">
                                 {{ nova()->databaseVersion() }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Laravel</dt>
-                            <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
-                            >
+                            </x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Laravel</x-heading>
+                            <x-text class="tabular-nums">
                                 {{ app()->version() }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Livewire</dt>
-                            <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
-                            >
+                            </x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Livewire</x-heading>
+                            <x-text class="tabular-nums">
                                 {{ app()->livewireVersion() }}
-                            </dd>
-                        </div>
-                        <div class="flex w-full items-center justify-between gap-4 py-1.5">
-                            <dt class="flex items-center gap-2 font-medium text-gray-500">Filament</dt>
-                            <dd
-                                class="flex min-w-0 items-center gap-1.5 text-right tabular-nums text-gray-950 dark:text-white"
-                            >
+                            </x-text>
+                        </x-panel.group.row>
+                        <x-panel.group.row height="2xs">
+                            <x-heading>Filament</x-heading>
+                            <x-text class="tabular-nums">
                                 {{ app()->filamentVersion() }}
-                            </dd>
-                        </div>
-                    </x-spacing>
+                            </x-text>
+                        </x-panel.group.row>
+                    </x-spacing.group>
                 </x-panel>
             </x-panel>
 
@@ -247,45 +209,24 @@
             @endphp
 
             <x-panel variant="well">
-                <x-panel.header title="File permissions" icon="folder-settings"></x-panel.header>
+                <x-panel.header title="File permissions" :icon="Tabler::FolderCog"></x-panel.header>
 
                 <x-panel>
-                    <x-spacing class="text-sm/6" size="md">
+                    <x-spacing.group height="sm">
                         @foreach ($folders as $path)
-                            <div class="py-1.5">
-                                <div class="flex w-full items-center justify-between gap-4">
-                                    <dt class="flex items-center gap-2 font-medium text-gray-500">
-                                        {{ str($path)->remove(base_path()) }}
-                                    </dt>
-                                    <dd
-                                        class="flex min-w-0 items-center gap-1.5 text-right text-gray-950 dark:text-white"
-                                    >
-                                        @if (is_writable($path))
-                                            <x-icon
-                                                name="check-circle-filled"
-                                                size="sm"
-                                                class="text-success-500"
-                                            ></x-icon>
-                                        @else
-                                            {{ substr(sprintf('%o', fileperms($path)), -4) }}
-                                        @endif
-                                    </dd>
-                                </div>
+                            <x-panel.group.row height="2xs">
+                                <x-heading>
+                                    {{ str($path)->remove(base_path()) }}
+                                </x-heading>
 
-                                @if (! is_writable($path))
-                                    <div class="flex gap-x-1.5">
-                                        <x-icon.micro.warning
-                                            class="h-6 w-4 shrink-0 text-danger-500"
-                                        ></x-icon.micro.warning>
-
-                                        <p class="text-danger-500">
-                                            Please adjust the folder permissions to be writable.
-                                        </p>
-                                    </div>
+                                @if (is_writable($path))
+                                    <x-icon :name="Tabler::CircleCheckFilled" size="sm" class="text-success-500"/>
+                                @else
+                                    {{ substr(sprintf('%o', fileperms($path)), -4) }}
                                 @endif
-                            </div>
+                            </x-panel.group.row>
                         @endforeach
-                    </x-spacing>
+                    </x-spacing.group>
                 </x-panel>
             </x-panel>
         </div>

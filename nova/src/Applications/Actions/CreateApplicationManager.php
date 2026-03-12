@@ -50,7 +50,7 @@ class CreateApplicationManager
     {
         $application->reviews()->sync(User::whereHasPermission('application.approve')->get());
 
-        $application->reviews()->syncWithoutDetaching(ApplicationReviewer::global()->get());
+        $application->reviews()->syncWithoutDetaching(ApplicationReviewer::global()->get()->pluck('user_id'));
     }
 
     protected function notifyReviewers(Application $application): void

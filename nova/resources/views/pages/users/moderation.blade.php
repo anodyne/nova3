@@ -1,16 +1,16 @@
 @use('Nova\Users\Models\User')
 
 <x-admin-layout>
-    <x-page-header>
+    <x-page-heading>
         @can('viewAny', User::class)
             <x-slot name="actions">
                 <x-button :href="route('admin.users.index')">
-                    <x-icon name="users" size="sm"></x-icon>
+                    <x-icon :name="Tabler::Users" size="sm" />
                     Manage users
                 </x-button>
             </x-slot>
         @endcan
-    </x-page-header>
+    </x-page-heading>
 
     <livewire:users-moderation-list />
 

@@ -6,6 +6,7 @@ namespace Nova\Menus\Actions;
 
 use Illuminate\Support\Facades\Cache;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Enums\CacheKeys;
 
 class BustMenusCache
 {
@@ -13,6 +14,6 @@ class BustMenusCache
 
     public function handle(): void
     {
-        Cache::forget('nova.basic-menu');
+        Cache::forget(CacheKeys::BasicMenu->value);
     }
 }

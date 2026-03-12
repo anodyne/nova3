@@ -3,9 +3,9 @@
 <x-filament.modal-content :$action>
     <x-slot name="title">Force delete {{ $count }} selected {{ str('character')->plural($count) }}?</x-slot>
 
-    <p>
+    <x-text variant="strong">
         Are you sure you want to force delete the following characters? This action is permanent and cannot be undone.
-    </p>
+    </x-text>
 
     <ul class="list-inside list-disc">
         @foreach ($records as $record)

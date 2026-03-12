@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Filament\Actions;
 
-use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\Action as FilamentAction;
+use Filament\Support\Enums\Width;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Nova\Foundation\Filament\Actions\Concerns\HasModalContentView;
 
-class Action extends FilamentAction
+class Action extends \Filament\Actions\Action
 {
-    use Concerns\HasModalContentView;
+    use HasModalContentView;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->modalWidth(MaxWidth::Large);
+        $this->modalWidth(Width::Large);
         $this->modalIcon(null);
         $this->modalHeading('');
         $this->modalDescription(null);

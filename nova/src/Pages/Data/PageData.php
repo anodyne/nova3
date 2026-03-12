@@ -39,7 +39,7 @@ readonly class PageData extends Bag
             'key' => $request->input('key'),
             'uri' => $request->input('uri'),
             'verb' => PageVerb::tryFrom($request->input('verb')) ?? PageVerb::Get,
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
             'resource' => $request->input('resource'),
             'layout' => $request->input('layout'),
             'seo_title' => $request->input('seo_title'),

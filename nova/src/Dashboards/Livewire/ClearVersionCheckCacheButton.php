@@ -7,21 +7,22 @@ namespace Nova\Dashboards\Livewire;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Nova\Foundation\Enums\CacheKeys;
 
 class ClearVersionCheckCacheButton extends Component
 {
     #[Renderless]
     public function clear(): void
     {
-        Cache::forget('nova-latest-version');
-        Cache::forget('nova-update-available');
+        Cache::forget(CacheKeys::LatestVersion->value);
+        Cache::forget(CacheKeys::UpdateAvailable->value);
     }
 
     public function render()
     {
         return <<<'blade'
-            <x-button type="button" color="neutral" wire:click="clear">
-                <x-icon name="eraser" size="sm"></x-icon>
+            <x-button type="button" wire:click="clear">
+                <x-icon :name="Tabler::Eraser" size="sm" />
                 Clear
             </x-button>
         blade;

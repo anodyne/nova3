@@ -18,7 +18,7 @@ class AnnouncementFactory extends Factory
     public function definition()
     {
         return [
-            'title' => str(fake()->words(mt_rand(3, 10), asText: true))->title(),
+            'title' => str(fake()->words(mt_rand(3, 10), asText: true))->title()->toString(),
             'category' => fake()->randomElement(['Crew', 'Story', 'Fleet']),
             'content' => fake()->paragraphs(mt_rand(1, 10), asText: true),
             'user_id' => fn () => User::inRandomOrder()->first(),
@@ -28,6 +28,22 @@ class AnnouncementFactory extends Factory
             ]),
             'published_at' => fn (array $attributes) => $attributes['status'] === PublishStatus::Published->value ? now() : null,
         ];
+    }
+
+    public function draft()
+    {
+        return $this->state([
+            'status' => PublishStatus::Draft,
+            'published_at' => null,
+        ]);
+    }
+
+    public function pending()
+    {
+        return $this->state([
+            'status' => PublishStatus::Pending,
+            'published_at' => null,
+        ]);
     }
 
     public function published()

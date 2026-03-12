@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Forms\Components\CheckboxList;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\HtmlString;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -25,7 +25,7 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Themes\Actions\DeleteTheme;
 use Nova\Themes\Actions\InstallTheme;
 use Nova\Themes\Models\Theme;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 
 class ThemesList extends TableComponent
 {
@@ -45,8 +45,9 @@ class ThemesList extends TableComponent
                     ->toggleable(),
                 IconColumn::make('is_current_public_theme')
                     ->label('Current theme')
-                    ->icon(fn (bool $state): ?string => $state ? iconName('check-circle') : null)
-                    ->color(fn (bool $state): ?string => $state ? 'success' : null)
+                    ->trueIcon(Tabler::CircleCheck)
+                    ->falseIcon('')
+                    ->alignCenter()
                     ->toggleable(),
                 TextColumn::make('repository.type')
                     ->label('Checking version from')
@@ -56,7 +57,7 @@ class ThemesList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -65,7 +66,7 @@ class ThemesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (Theme $record): string => route('admin.themes.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make(),
@@ -73,36 +74,32 @@ class ThemesList extends TableComponent
 
                     ActionGroup::make([
                         Action::make('goToUpdate')
-                            ->icon(iconName('cloud-share'))
+                            ->icon(Tabler::CloudShare)
                             ->url(fn (Theme $record): ?string => $record->update_url)
                             ->visible(fn (Theme $record): bool => $record->has_update),
-                    ])->authorizeAny(['create', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
+                            ->authorize('delete')
                             ->modalContentView('pages.themes.delete')
                             ->successNotificationTitle(fn (Theme $record): string => $record->name.' theme was deleted')
                             ->using(fn (Theme $record): Theme => DeleteTheme::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->filters([
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
-            ->headerActions([
+            ->toolbarActions([
                 Action::make('install')
                     ->authorize('create')
                     ->label('Themes available to install')
-                    ->icon(iconName('sparkles'))
+                    ->icon(Tabler::Sparkles)
                     ->color('gray')
                     ->visible(fn (): bool => Theme::hasInstallableThemes())
-                    ->modalWidth('xl')
-                    ->modalIcon(null)
-                    ->modalHeading('')
-                    ->modalDescription(null)
-                    ->modalSubmitActionLabel('Install')
-                    ->modalContent(fn (): View => view('pages.themes.pending-themes'))
-                    ->form([
+                    ->modalContentView('pages.themes.pending-themes')
+                    ->schema([
                         CheckboxList::make('themes')
                             ->options(Theme::getInstallableThemes()->flatMap(fn ($theme): array => [$theme => $theme]))
                             ->label('Select the pending themes you’d like to install:'),
@@ -148,7 +145,7 @@ class ThemesList extends TableComponent
                         $notification->send();
                     }),
             ])
-            ->emptyStateIcon(iconName('paint-brush'))
+            ->emptyStateIcon(Tabler::Brush)
             ->emptyStateHeading('No theme found')
             ->emptyStateDescription("Themes allow you to personalize your public-facing site to reflect your game's personality.")
             ->emptyStateActions([

@@ -35,7 +35,7 @@ readonly class PostTypeData extends Bag
             'name' => $request->input('name'),
             'key' => $request->input('key'),
             'description' => $request->input('description'),
-            'status' => BasicStatus::tryFrom($request->input('status')) ?? BasicStatus::Active,
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
             'fields' => Fields::from(
                 title: Field::from(
                     enabled: $request->boolean('fields.title.enabled'),

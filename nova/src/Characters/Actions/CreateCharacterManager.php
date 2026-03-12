@@ -63,9 +63,7 @@ class CreateCharacterManager
 
             $this->createFormSubmission($character, $request->input('characterBio', []));
 
-            if ($character->is_pending) {
-                $this->createApplication($character);
-            }
+            $this->createApplication($character);
 
             SendPendingCharacterNotification::runUnless(
                 $character->is_active,
@@ -81,13 +79,15 @@ class CreateCharacterManager
 
     protected function createApplication(Character $character): void
     {
-        $data = ApplicationData::from(
-            character_id: $character->id,
-            user_id: $character->activeUsers->first()->id,
-            ip_address: null,
-        );
+        if ($character->is_pending && $character->activeUsers()->count() > 0) {
+            $data = ApplicationData::from(
+                character_id: $character->id,
+                user_id: $character->activeUsers->first()->id,
+                ip_address: null,
+            );
 
-        CreateApplicationManager::run($data);
+            CreateApplicationManager::run($data);
+        }
     }
 
     protected function createFormSubmission(Character $character, ?array $data = []): void

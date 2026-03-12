@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Addons;
 
+use Nova\Addons\Concerns\HasAddonSettings;
+use Nova\Addons\Concerns\InteractsWithModel;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Models\Addon;
 
 abstract class BaseAddon
 {
-    use Concerns\HasAddonSettings;
-    use Concerns\InteractsWithModel;
+    use HasAddonSettings;
+    use InteractsWithModel;
 
     public string $location;
 

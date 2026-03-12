@@ -1,10 +1,8 @@
-@use('Illuminate\Support\Js')
-
 <div class="space-y-4">
     <ul role="list" class="space-y-4">
         @if (filled($previousPost))
             <li class="relative flex gap-x-4">
-                <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
+                <div class="absolute top-0 -bottom-6 left-0 flex w-6 justify-center">
                     <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
                 </div>
 
@@ -23,14 +21,14 @@
 
         <li class="relative flex gap-x-4">
             @if (filled($nextPost))
-                <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
+                <div class="absolute top-0 -bottom-6 left-0 flex w-6 justify-center">
                     <div class="w-px bg-gray-200 dark:bg-gray-700"></div>
                 </div>
             @endif
 
             <div class="relative flex size-6 flex-none items-center justify-center bg-white dark:bg-gray-950">
                 <div
-                    class="size-1.5 rounded-full bg-primary-100 ring-1 ring-primary-300 dark:bg-primary-950 dark:ring-primary-800"
+                    class="bg-primary-100 ring-primary-300 dark:bg-primary-950 dark:ring-primary-800 size-1.5 rounded-full ring-1"
                 ></div>
             </div>
 
@@ -65,8 +63,9 @@
                 'nextId': {{ Js::from($nextPost?->id) }}
             }
         })"
-        plain
+        variant="ghost"
     >
-        Update position &rarr;
+        Update position
+        <span aria-hidden="true">→</span>
     </x-button>
 </div>

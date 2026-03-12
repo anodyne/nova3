@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Set;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -30,8 +31,8 @@ use Nova\Pages\Data\PageData;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events\PageDuplicated;
 use Nova\Pages\Models\Page;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class PagesList extends TableComponent
@@ -90,16 +91,16 @@ class PagesList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         Action::make('visit')
-                            ->icon(iconName('www'))
+                            ->icon(Tabler::WorldWww)
                             ->label('Live page')
                             ->url(fn (Page $record): string => url($record->uri))
                             ->visible(fn (Page $record): bool => $record->is_published),
                         Action::make('preview')
-                            ->icon(iconName('www-preview'))
+                            ->icon(Tabler::WorldSearch)
                             ->label('Preview page')
                             ->url(fn (Page $record): string => route('preview-basic-page', $record->key)),
                     ])->divided(),
@@ -113,9 +114,9 @@ class PagesList extends TableComponent
                             ->url(fn (Page $record): string => route('admin.pages.edit', $record)),
                         Action::make('design')
                             ->authorize('design')
-                            ->icon(iconName('tools'))
+                            ->icon(Tabler::Tools)
                             ->url(fn (Page $record): string => route('admin.pages.design', $record)),
-                    ])->authorizeAny(['view', 'update', 'design'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -137,7 +138,7 @@ class PagesList extends TableComponent
                         ReplicateAction::make()
                             ->authorize('duplicate')
                             ->modalContentView('pages.pages.duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn (Set $set, string $state) => $set('key', str($state)->slug())),
@@ -164,7 +165,7 @@ class PagesList extends TableComponent
                                     ->title("{$replica->name} page has been created")
                                     ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -177,7 +178,7 @@ class PagesList extends TableComponent
                                     ->title($record->name.' page was deleted')
                                     ->send();
                             }),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -228,7 +229,7 @@ class PagesList extends TableComponent
                     ->label('HTTP verb')
                     ->options(PageVerb::class),
             ])
-            ->emptyStateIcon(iconName('list'))
+            ->emptyStateIcon(Tabler::List)
             ->emptyStateHeading('No pages found')
             ->emptyStateDescription('Manage all of Nova’s pages.')
             ->emptyStateActions([

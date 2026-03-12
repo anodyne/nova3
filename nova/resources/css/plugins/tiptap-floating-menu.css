@@ -1,3 +1,5 @@
+@reference "../../../../vendor/filament/support/resources/css/index.css";
+
 .floating-menu {
     @apply absolute flex items-center -mt-1 ml-1 invisible opacity-0 transition bg-white border rounded z-[1];
 

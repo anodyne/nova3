@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Anodyne\TablerIcons\Tabler;
 use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Infolist;
-use Filament\Support\Enums\MaxWidth;
+use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -21,6 +22,7 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\Ban;
 
@@ -57,22 +59,22 @@ class BansList extends TableComponent
                     ->label('Banned on')
                     ->date(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
                             ->authorize('view')
                             ->slideOver()
-                            ->modalWidth(MaxWidth::Large)
-                            ->modalIcon(iconName('hammer'))
+                            ->modalWidth(Width::Large)
+                            ->modalIcon(Tabler::Hammer)
                             ->modalHeading('')
                             ->modalDescription(null)
                             ->modalContent(fn (Ban $record, ViewAction $action) => view('pages.bans.show', [
                                 'record' => $record,
                                 'action' => $action,
                             ]))
-                            ->infolist(function (Infolist $infolist): Infolist {
-                                return $infolist->schema([
+                            ->schema(function (Schema $schema): Schema {
+                                return $schema->components([
                                     TextEntry::make('bannable.name')
                                         ->label('User name')
                                         ->visible(fn (Ban $record): bool => filled($record->bannable)),
@@ -92,7 +94,7 @@ class BansList extends TableComponent
                                     KeyValueEntry::make('metas')->label('Metadata'),
                                 ]);
                             }),
-                    ])->authorize('view')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -100,7 +102,7 @@ class BansList extends TableComponent
                             ->modalContentView('pages.bans.delete')
                             ->successNotificationTitle('Ban was deleted')
                             ->using(fn (Ban $record) => $record->delete()),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -152,7 +154,7 @@ class BansList extends TableComponent
                         blank: fn (Builder $query): Builder => $query,
                     ),
             ])
-            ->emptyStateIcon(iconName('forbid'))
+            ->emptyStateIcon(Illustration::SecureMonitor)
             ->emptyStateHeading('No bans found')
             ->emptyStateDescription('')
             ->emptyStateActions([

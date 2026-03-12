@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -22,15 +21,15 @@ use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
-use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankNameManager;
 use Nova\Ranks\Actions\DuplicateRankName;
 use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Events\RankNameDuplicated;
 use Nova\Ranks\Models\RankName;
-use RalphJSmit\Filament\Activitylog\Infolists\Components\Timeline;
-use RalphJSmit\Filament\Activitylog\Tables\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
+use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
 class RankNamesList extends TableComponent
@@ -39,6 +38,7 @@ class RankNamesList extends TableComponent
     {
         return $table
             ->query(RankName::query())
+            ->recordUrl(fn (RankName $record): string => route('admin.ranks.names.show', $record))
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
@@ -56,7 +56,7 @@ class RankNamesList extends TableComponent
                     ->badge()
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ActionGroup::make([
                         ViewAction::make()
@@ -65,7 +65,7 @@ class RankNamesList extends TableComponent
                         EditAction::make()
                             ->authorize('update')
                             ->url(fn (RankName $record): string => route('admin.ranks.names.edit', $record)),
-                    ])->authorizeAny(['view', 'update'])->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         TimelineAction::make()
@@ -83,9 +83,10 @@ class RankNamesList extends TableComponent
                     ActionGroup::make([
                         ReplicateAction::make()
                             ->authorize('duplicate')
-                            ->form([
+                            ->schema([
                                 TextInput::make('name')->label('New rank name'),
                             ])
+                            ->recordDisplayNameAttribute('name')
                             ->modalContentView('pages.ranks.names.duplicate')
                             ->action(function (RankName $record, array $data): void {
                                 $replica = DuplicateRankName::run(
@@ -97,12 +98,8 @@ class RankNamesList extends TableComponent
                                 );
 
                                 RankNameDuplicated::dispatch($replica, $record);
-
-                                Notification::make()->success()
-                                    ->title("{$replica->name} rank name has been created")
-                                    ->send();
                             }),
-                    ])->authorize('duplicate')->divided(),
+                    ])->divided(),
 
                     ActionGroup::make([
                         DeleteAction::make()
@@ -110,7 +107,7 @@ class RankNamesList extends TableComponent
                             ->modalContentView('pages.ranks.names.delete')
                             ->successNotificationTitle(fn (RankName $record): string => $record->name.' rank name was deleted')
                             ->using(fn (RankName $record): Model => DeleteRankNameManager::run($record)),
-                    ])->authorize('delete')->divided(),
+                    ])->divided(),
                 ]),
             ])
             ->groupedBulkActions([
@@ -118,30 +115,7 @@ class RankNamesList extends TableComponent
                     ->authorize('deleteAny')
                     ->modalContentView('pages.ranks.names.delete-bulk')
                     ->action(function (Collection $records): void {
-                        $ignoredRecords = 0;
-
-                        $records = $records
-                            ->filter(function (RankName $record) use (&$ignoredRecords): bool {
-                                if (Gate::allows('delete', $record)) {
-                                    return true;
-                                }
-
-                                $ignoredRecords += 1;
-
-                                return false;
-                            })
-                            ->each(fn (RankName $record): Model => DeleteRankNameManager::run($record));
-
-                        Notification::make()->success()
-                            ->title(count($records).' '.trans_choice('rank name was|rank names were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
-                            ->send();
+                        $records->each(fn (RankName $record): Model => DeleteRankNameManager::run($record));
                     }),
             ])
             ->filters([
@@ -154,7 +128,7 @@ class RankNamesList extends TableComponent
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])
             ->header(fn (): ?View => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
-            ->emptyStateIcon(iconName('info'))
+            ->emptyStateIcon(Illustration::ClipboardList)
             ->emptyStateHeading('No rank names found')
             ->emptyStateDescription('Rank names eliminate the repetitive task of setting the name of a rank by letting you re-use names across all of your rank items.')
             ->emptyStateActions([

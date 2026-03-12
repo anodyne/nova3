@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Models\Addon;
 use Nova\Foundation\Enums\BasicStatus;
+use Nova\Foundation\Support\FactoryRequestData;
 
 class AddonFactory extends Factory
 {
@@ -16,7 +17,7 @@ class AddonFactory extends Factory
 
     public function definition()
     {
-        $name = $this->faker->words(mt_rand(1, 3), asText: true);
+        $name = $this->faker->words(mt_rand(2, 4), asText: true);
 
         return [
             'name' => ucfirst($name),
@@ -28,10 +29,57 @@ class AddonFactory extends Factory
         ];
     }
 
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
+
     public function inactive()
     {
         return $this->state([
             'status' => BasicStatus::Inactive,
         ]);
+    }
+
+    public function extension()
+    {
+        return $this->state([
+            'type' => AddonType::Extension,
+        ]);
+    }
+
+    public function genre()
+    {
+        return $this->state([
+            'type' => AddonType::Genre,
+        ]);
+    }
+
+    public function rank()
+    {
+        return $this->state([
+            'type' => AddonType::Rank,
+        ]);
+    }
+
+    public function forRequest(): FactoryRequestData
+    {
+        $model = $this->make();
+
+        $payload = [
+            'name' => $model->name,
+            'location' => $model->location,
+            'version' => $model->version,
+            'type' => $model->type->value,
+            'preview' => $model->preview,
+        ];
+
+        if ($model->status === BasicStatus::Active) {
+            $payload['status'] = 'true';
+        }
+
+        return FactoryRequestData::from(model: $model, payload: $payload);
     }
 }

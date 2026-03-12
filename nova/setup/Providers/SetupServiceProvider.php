@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Nova\Setup\Providers;
 
 use BladeUI\Icons\Console\CacheCommand;
-use Filament\Support\Colors\ColorManager;
+use Filament\Support\Facades\FilamentColor;
 use Livewire\Commands\DiscoverCommand;
 use Livewire\Livewire;
 use Nova\DomainServiceProvider;
@@ -16,12 +16,26 @@ use Nova\Setup\Actions\SetDatabaseInitialState;
 use Nova\Setup\Livewire\ConfigureDatabase;
 use Nova\Setup\Livewire\InstallNova;
 use Nova\Setup\Livewire\MigrateNovaData;
-use Nova\Setup\Livewire\Migrations;
+use Nova\Setup\Livewire\Migrations\MigrateApplications;
+use Nova\Setup\Livewire\Migrations\MigrateBans;
+use Nova\Setup\Livewire\Migrations\MigrateCharacterForm;
+use Nova\Setup\Livewire\Migrations\MigrateCharacters;
+use Nova\Setup\Livewire\Migrations\MigrateDepartments;
+use Nova\Setup\Livewire\Migrations\MigrateMissionGroups;
+use Nova\Setup\Livewire\Migrations\MigrateMissions;
+use Nova\Setup\Livewire\Migrations\MigrateNewsItems;
+use Nova\Setup\Livewire\Migrations\MigratePersonalLogs;
+use Nova\Setup\Livewire\Migrations\MigratePositions;
+use Nova\Setup\Livewire\Migrations\MigratePosts;
+use Nova\Setup\Livewire\Migrations\MigratePrivateMessages;
+use Nova\Setup\Livewire\Migrations\MigrateSettings;
+use Nova\Setup\Livewire\Migrations\MigrateUserForm;
+use Nova\Setup\Livewire\Migrations\MigrateUsers;
+use Nova\Setup\Livewire\Migrations\UpdatePostOrdering;
 use Nova\Setup\Livewire\SetupAccount;
 use Nova\Setup\Livewire\UpdateNova;
 use Nova\Setup\Livewire\UserAccess;
 use Nova\Setup\View\Components\SetupLayout;
-use TimoKoerber\LaravelOneTimeOperations\Commands\OneTimeOperationsProcessCommand;
 
 class SetupServiceProvider extends DomainServiceProvider
 {
@@ -37,12 +51,13 @@ class SetupServiceProvider extends DomainServiceProvider
         Livewire::forceAssetInjection();
 
         if (! Nova::isInstalled()) {
-            app(ColorManager::class)->register([
+            FilamentColor::register([
                 'primary' => Color::Sky,
                 'danger' => Color::Rose,
-                'success' => Color::Emerald,
+                'gray' => Color::Zinc,
                 'info' => Color::Purple,
-                'gray' => Color::Gray,
+                'success' => Color::Emerald,
+                'warning' => Color::Amber,
             ]);
         }
     }
@@ -53,7 +68,6 @@ class SetupServiceProvider extends DomainServiceProvider
             // SeedRealStories::class,
             // DiscoverCommand::class, // Livewire only registers this in the console
             CacheCommand::class, // Blade Icons only registers this in the console
-            OneTimeOperationsProcessCommand::class, // One-time Operations package only registers this in the console
             // SetDatabaseInitialState::class,
         ];
     }
@@ -69,22 +83,22 @@ class SetupServiceProvider extends DomainServiceProvider
 
             'setup-update-nova' => UpdateNova::class,
 
-            'setup-migrate-users' => Migrations\MigrateUsers::class,
-            'setup-migrate-user-form' => Migrations\MigrateUserForm::class,
-            'setup-migrate-departments' => Migrations\MigrateDepartments::class,
-            'setup-migrate-positions' => Migrations\MigratePositions::class,
-            'setup-migrate-characters' => Migrations\MigrateCharacters::class,
-            'setup-migrate-character-form' => Migrations\MigrateCharacterForm::class,
-            'setup-migrate-applications' => Migrations\MigrateApplications::class,
-            'setup-migrate-mission-groups' => Migrations\MigrateMissionGroups::class,
-            'setup-migrate-missions' => Migrations\MigrateMissions::class,
-            'setup-migrate-posts' => Migrations\MigratePosts::class,
-            'setup-migrate-personal-logs' => Migrations\MigratePersonalLogs::class,
-            'setup-migrate-news-items' => Migrations\MigrateNewsItems::class,
-            'setup-migrate-private-messages' => Migrations\MigratePrivateMessages::class,
-            'setup-migrate-settings' => Migrations\MigrateSettings::class,
-            'setup-migrate-bans' => Migrations\MigrateBans::class,
-            'setup-update-post-ordering' => Migrations\UpdatePostOrdering::class,
+            'setup-migrate-users' => MigrateUsers::class,
+            'setup-migrate-user-form' => MigrateUserForm::class,
+            'setup-migrate-departments' => MigrateDepartments::class,
+            'setup-migrate-positions' => MigratePositions::class,
+            'setup-migrate-characters' => MigrateCharacters::class,
+            'setup-migrate-character-form' => MigrateCharacterForm::class,
+            'setup-migrate-applications' => MigrateApplications::class,
+            'setup-migrate-mission-groups' => MigrateMissionGroups::class,
+            'setup-migrate-missions' => MigrateMissions::class,
+            'setup-migrate-posts' => MigratePosts::class,
+            'setup-migrate-personal-logs' => MigratePersonalLogs::class,
+            'setup-migrate-news-items' => MigrateNewsItems::class,
+            'setup-migrate-private-messages' => MigratePrivateMessages::class,
+            'setup-migrate-settings' => MigrateSettings::class,
+            'setup-migrate-bans' => MigrateBans::class,
+            'setup-update-post-ordering' => UpdatePostOrdering::class,
         ];
     }
 

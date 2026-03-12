@@ -11,13 +11,10 @@ use function Pest\Laravel\from;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'post-type.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'post-type.create'));
 
     test('can view the create post type page', function () {
         get(route('admin.post-types.create'))->assertSuccessful();
@@ -43,9 +40,7 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the create post type page', function () {
         get(route('admin.post-types.create'))->assertForbidden();

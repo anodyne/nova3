@@ -6,6 +6,8 @@ namespace Nova\Departments\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\CharacterPositionsData;
+use Nova\Characters\Models\States\Status\Active;
+use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Departments\Models\Position;
 
 class UpdatePositionAvailability
@@ -15,6 +17,10 @@ class UpdatePositionAvailability
     public function handle(CharacterPositionsData $data): void
     {
         $decrementData = match (true) {
+            $data->oldStatus !== $data->newStatus &&
+            $data->newStatus === Active::$name &&
+            $data->canAutoManageNewType() => $data->newPositions?->pluck('id')->all(),
+
             $data->oldType === null &&
             $data->newType !== null &&
             $data->canAutoManageNewType() => $data->getNewActionableIds(),
@@ -32,12 +38,16 @@ class UpdatePositionAvailability
             $data->oldType !== $data->newType &&
             ! $data->hasPositionChanges() &&
             ! $data->canAutoManageOldType() &&
-            $data->canAutoManageNewType() => $data->newPositions->pluck('id')->all(),
+            $data->canAutoManageNewType() => $data->newPositions?->pluck('id')->all(),
 
             default => [],
         };
 
         $incrementData = match (true) {
+            $data->oldStatus !== $data->newStatus &&
+            $data->newStatus === Inactive::$name &&
+            $data->canAutoManageNewType() => $data->newPositions?->pluck('id')->all(),
+
             $data->oldType === $data->newType &&
             $data->hasPositionChanges() &&
             $data->canAutoManageNewType() => $data->getOldActionableIds(),
@@ -51,13 +61,13 @@ class UpdatePositionAvailability
             $data->oldType !== $data->newType &&
             ! $data->hasPositionChanges() &&
             $data->canAutoManageOldType() &&
-            ! $data->canAutoManageNewType() => $data->oldPositions->pluck('id')->all(),
+            ! $data->canAutoManageNewType() => $data->oldPositions?->pluck('id')->all(),
 
             default => [],
         };
 
-        $this->decrement($decrementData);
-        $this->increment($incrementData);
+        $this->decrement($decrementData ?? []);
+        $this->increment($incrementData ?? []);
     }
 
     protected function decrement(array $ids): void

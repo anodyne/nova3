@@ -7,15 +7,17 @@ namespace Nova\Settings\Livewire;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Media\Enums\ImageAction;
 
 class EmailSettings extends Component
 {
     public EmailSettingsForm $form;
 
     #[On('mediaUploaded')]
-    public function handleImagePath($path): void
+    public function handleImagePath($action, $path): void
     {
-        $this->form->imagePath = $path;
+        $this->form->imageAction = ImageAction::tryFrom($action) ?? ImageAction::Unchanged;
+        $this->form->imageTempPath = $path;
     }
 
     public function save(): void

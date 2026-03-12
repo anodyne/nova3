@@ -6,6 +6,7 @@ namespace Nova\Foundation\Models;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Nova\Foundation\Enums\CacheKeys;
 
 class ExternalContent extends Model
 {
@@ -25,7 +26,7 @@ class ExternalContent extends Model
                 );
             }
 
-            Cache::forget('external-content');
+            Cache::forget(CacheKeys::ExternalContent->value);
         }
     }
 }

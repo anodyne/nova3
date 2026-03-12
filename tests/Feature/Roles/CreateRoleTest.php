@@ -20,9 +20,7 @@ use function Pest\Livewire\livewire;
 uses()->group('roles');
 
 describe('authorized user', function () {
-    beforeEach(function () {
-        signIn(permissions: 'role.create');
-    });
+    beforeEach(fn () => signIn(permissions: 'role.create'));
 
     test('can view the create role page', function () {
         get(route('admin.roles.create'))->assertSuccessful();
@@ -58,7 +56,7 @@ describe('authorized user', function () {
         $user = User::factory()->create();
 
         $assignedUsers = livewire(ManageUsers::class)
-            ->call('add', $user->id)
+            ->set('selected', (string) $user->id)
             ->get('assignedUsers');
 
         $data = array_merge(
@@ -83,8 +81,8 @@ describe('authorized user', function () {
         $permission = Permission::first();
 
         $assignedPermissions = livewire(ManagePermissions::class)
-            ->call('add', $permission->id)
-            ->get('assignedPermissions');
+            ->set('assigned', [$permission->id])
+            ->get('assigned');
 
         $data = array_merge(
             Role::factory()->make()->toArray(),
@@ -106,16 +104,14 @@ describe('authorized user', function () {
 });
 
 describe('unauthorized user', function () {
-    beforeEach(function () {
-        signIn();
-    });
+    beforeEach(fn () => signIn());
 
     test('cannot view the create role page', function () {
-        get(route('admin.roles.create'))->assertForbidden();
+        get(route('admin.roles.create'))->assertNotFound();
     });
 
     test('cannot create a role', function () {
-        post(route('admin.roles.store'), [])->assertForbidden();
+        post(route('admin.roles.store'), [])->assertNotFound();
     });
 });
 

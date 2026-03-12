@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             StorySeeder::class,
             CurrentStoriesPostSeeder::class,
             CompletedStoriesPostSeeder::class,
+
             FormSeeder::class,
 
             ApplicationSeeder::class,
@@ -47,6 +48,8 @@ class DatabaseSeeder extends Seeder
             AnnouncementSeeder::class,
 
             ChangelogSeeder::class,
+
+            NotificationSeeder::class,
         ]);
 
         StartOnboarding::run(OnboardingProcess::FreshInstall, User::find(1));
@@ -100,6 +103,9 @@ class DatabaseSeeder extends Seeder
         if (Department::count() === 0 && Position::count() === 0) {
             $genre = Addon::location('St25')->first();
             $genre?->runScript('install');
+
+            $ranks = Addon::location('Picard2390')->first();
+            $ranks?->runScript('install');
         }
     }
 }

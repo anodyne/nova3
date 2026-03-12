@@ -29,7 +29,7 @@ class ActivateCharacterButton extends Component
     public function render()
     {
         return <<<'blade'
-            <x-button type="button" color="neutral" wire:click="activate">Activate</x-button>
+            <x-button type="button" wire:click="activate">Activate</x-button>
         blade;
     }
 }

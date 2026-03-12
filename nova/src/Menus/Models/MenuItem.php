@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Models;
 
+use Anodyne\TablerIcons\Tabler;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +17,9 @@ use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
-use Nova\Menus\Events;
+use Nova\Menus\Events\MenuItemCreated;
+use Nova\Menus\Events\MenuItemDeleted;
+use Nova\Menus\Events\MenuItemUpdated;
 use Nova\Menus\Models\Builders\MenuItemBuilder;
 use Nova\Menus\Observers\MenuItemObserver;
 use Nova\Pages\Models\Page;
@@ -44,6 +47,7 @@ class MenuItem extends Model implements Sortable
     ];
 
     protected $casts = [
+        'icon' => Tabler::class,
         'link_type' => LinkType::class,
         'order_column' => 'integer',
         'page_id' => 'integer',
@@ -53,9 +57,9 @@ class MenuItem extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\MenuItemCreated::class,
-        'deleted' => Events\MenuItemDeleted::class,
-        'updated' => Events\MenuItemUpdated::class,
+        'created' => MenuItemCreated::class,
+        'deleted' => MenuItemDeleted::class,
+        'updated' => MenuItemUpdated::class,
     ];
 
     public function menu(): BelongsTo
@@ -76,13 +80,6 @@ class MenuItem extends Model implements Sortable
     public function items(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
-    }
-
-    public function iconName(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): ?string => str($this->icon)->prepend('tabler-')->toString()
-        );
     }
 
     public function link(): Attribute

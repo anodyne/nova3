@@ -20,9 +20,9 @@ return [
             'prefix' => 'empty',
             'class' => '',
         ],
-        'notifications' => [
-            'path' => 'nova/resources/svg/notifications',
-            'prefix' => 'notis',
+        'neaticons' => [
+            'path' => 'nova/resources/svg/neaticons',
+            'prefix' => 'neat',
             'class' => '',
         ],
     ],

@@ -1,0 +1,5 @@
+.fi-section {
+    & > .fi-section-header {
+        @apply items-start;
+    }
+}

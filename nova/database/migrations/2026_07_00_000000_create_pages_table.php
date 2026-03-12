@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::create('pages', function (Blueprint $table) {
+            $table->id();
+            $table->prefixedId();
+            $table->string('name');
+            $table->string('uri');
+            $table->string('key')->nullable()->index();
+            $table->string('verb')->default('get');
+            $table->string('resource')->nullable();
+            $table->string('layout')->default('public');
+            $table->text('middleware')->nullable();
+            $table->longText('blocks')->nullable();
+            $table->longText('published_blocks')->nullable();
+            $table->string('seo_title')->nullable();
+            $table->text('seo_description')->nullable();
+            $table->text('seo_keywords')->nullable();
+            $table->string('status')->default('active');
+            $table->dateTime('published_at')->nullable();
+            $table->boolean('content_can_be_edited')->default(true);
+            $table->text('heading')->nullable();
+            $table->text('subheading')->nullable();
+            $table->longText('intro')->nullable();
+            $table->datetimes();
+        });
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('pages');
+    }
+};

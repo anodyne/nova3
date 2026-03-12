@@ -13,7 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\CharacterPosition;
 use Nova\Characters\Models\CharacterUser;
-use Nova\Departments\Events;
+use Nova\Departments\Events\PositionCreated;
+use Nova\Departments\Events\PositionDeleted;
+use Nova\Departments\Events\PositionUpdated;
 use Nova\Departments\Models\Builders\PositionBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
@@ -49,20 +51,14 @@ class Position extends Model implements Sortable
     ];
 
     protected $dispatchesEvents = [
-        'created' => Events\PositionCreated::class,
-        'deleted' => Events\PositionDeleted::class,
-        'updated' => Events\PositionUpdated::class,
+        'created' => PositionCreated::class,
+        'deleted' => PositionDeleted::class,
+        'updated' => PositionUpdated::class,
     ];
 
     public function activeCharacters(): BelongsToMany
     {
         return $this->characters()->active();
-    }
-
-    public function activeUsers(): HasManyDeep
-    {
-        return $this->users()
-            ->whereState(User::column('status'), Active::class);
     }
 
     public function characters(): BelongsToMany
@@ -71,17 +67,31 @@ class Position extends Model implements Sortable
             ->using(CharacterPosition::class);
     }
 
+    public function activeUsers(): HasManyDeep
+    {
+        return $this->users()
+            ->where(User::column('status'), Active::$name);
+    }
+
     public function users(): HasManyDeep
     {
-        return $this->hasManyDeep(
-            User::class,
-            [CharacterPosition::table(), Character::class, CharacterUser::table()]
-        )->distinct();
+        return $this->hasManyDeep(User::class, [
+            CharacterPosition::table(),
+            Character::class,
+            CharacterUser::table(),
+        ]);
     }
 
     public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function activeUsersCount(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): int => $this->activeUsers->unique()->count()
+        );
     }
 
     public function tagsAsString(): Attribute

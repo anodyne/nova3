@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Filament\Actions\Testing\TestAction;
 use Illuminate\Support\Facades\Event;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Stories\Events\PostTypeDuplicated;
@@ -11,8 +12,7 @@ use Nova\Stories\Models\PostType;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Livewire\livewire;
 
-uses()->group('stories');
-uses()->group('post-types');
+uses()->group('post-types', 'storytelling');
 
 beforeEach(function () {
     $this->postType = PostType::factory()->create();
@@ -28,7 +28,7 @@ test('an authorized user can duplicate a post type', function () {
     ];
 
     livewire(PostTypesList::class)
-        ->callTableAction(ReplicateAction::class, $this->postType, data: $data)
+        ->callAction(TestAction::make(ReplicateAction::class)->table($this->postType), data: $data)
         ->assertNotified();
 
     assertDatabaseHas(PostType::class, $data);
