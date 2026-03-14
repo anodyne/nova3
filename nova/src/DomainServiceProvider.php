@@ -133,7 +133,7 @@ abstract class DomainServiceProvider extends ServiceProvider
     private function registerLivewireComponents(): void
     {
         collect($this->livewireComponents())
-            ->each(fn ($component, $alias) => Livewire::component($alias, $component));
+            ->each(fn ($component, $alias) => Livewire::addComponent(name: $alias, class: $component));
     }
 
     private function registerMorphMaps(): void

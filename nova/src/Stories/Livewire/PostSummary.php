@@ -24,10 +24,8 @@ class PostSummary extends Component
     {
         $this->dispatch(
             'slide-over.open',
-            component: 'posts-summary-editor',
-            arguments: [
-                'summary' => $this->summary,
-            ]
+            PostSummaryEditor::class,
+            ['summary' => $this->summary]
         );
     }
 

@@ -241,8 +241,8 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureLivewireComponents()
     {
-        Livewire::component('rating', Rating::class);
-        Livewire::component('icon-picker', IconPicker::class);
+        Livewire::addComponent(name: 'rating', class: Rating::class);
+        Livewire::addComponent(name: 'icon-picker', class: IconPicker::class);
     }
 
     protected function configureResponseFilters(): void

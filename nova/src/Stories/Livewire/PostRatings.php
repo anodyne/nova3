@@ -29,8 +29,8 @@ class PostRatings extends Component
     {
         $this->dispatch(
             'slide-over.open',
-            component: 'posts-ratings-editor',
-            arguments: [
+            PostRatingsEditor::class,
+            [
                 'language' => $this->language,
                 'sex' => $this->sex,
                 'violence' => $this->violence,

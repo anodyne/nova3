@@ -60,8 +60,8 @@ class PostPosition extends Component
     {
         $this->dispatch(
             'slide-over.open',
-            component: 'posts-position-editor',
-            arguments: [
+            PostPositionEditor::class,
+            [
                 'postId' => $this->postId,
                 'nextId' => $this->nextPost?->id,
                 'previousId' => $this->previousPost?->id,

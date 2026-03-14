@@ -29,10 +29,8 @@ class UploadAvatar extends UploadImage
     {
         $this->dispatch(
             'modal.open',
-            component: 'media-avatar-editor',
-            arguments: [
-                'temporaryUrl' => $this->image->temporaryUrl(),
-            ]
+            AvatarEditor::class,
+            ['temporaryUrl' => $this->image->temporaryUrl()]
         );
     }
 

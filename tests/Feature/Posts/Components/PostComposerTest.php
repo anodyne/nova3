@@ -14,6 +14,7 @@ use Nova\Stories\Livewire\PostAuthors;
 use Nova\Stories\Livewire\PostComposer;
 use Nova\Stories\Livewire\PostDetails;
 use Nova\Stories\Livewire\PostPosition;
+use Nova\Stories\Livewire\PostPublish;
 use Nova\Stories\Livewire\PostRatings;
 use Nova\Stories\Livewire\PostSummary;
 use Nova\Stories\Models\Post;
@@ -21,7 +22,6 @@ use Nova\Stories\Models\PostAuthor;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Notifications\PostSaved;
-
 use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Laravel\assertSoftDeleted;
 use function Pest\Livewire\livewire;
@@ -290,11 +290,12 @@ describe('save post', function () {
             ->assertDispatchedTo(PostAuthors::class, 'save-post')
             ->assertDispatchedTo(PostPosition::class, 'save-post')
             ->assertDispatched('slide-over.open', function (string $event, array $params): bool {
-                $component = data_get($params, 'component') ?? data_get($params, '0.component');
-                $postId = data_get($params, 'arguments.postId') ?? data_get($params, '0.arguments.postId');
+                [$component, $arguments] = $params;
+
+                $postId = data_get($arguments, 'postId');
 
                 return $event === 'slide-over.open'
-                    && $component === 'posts-publish'
+                    && $component === PostPublish::class
                     && $postId === $this->post->id;
             });
     });

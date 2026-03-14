@@ -64,7 +64,6 @@
         "barryvdh/laravel-debugbar": "^3.15",
         "brianium/paratest": "^7.14",
         "fakerphp/faker": "^1.14",
-        "filament/upgrade": "^5.0",
         "itsgoingd/clockwork": "^5.0",
         "larastan/larastan": "^3.8",
         "laravel/boost": "^2.0",
