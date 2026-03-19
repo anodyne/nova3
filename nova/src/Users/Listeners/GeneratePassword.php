@@ -6,7 +6,7 @@ namespace Nova\Users\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Nova\Foundation\WordGenerator;
+use NicoBleiler\Passphrase\Facades\Passphrase;
 use Nova\Users\Events\UserCreatedByAdmin;
 use Nova\Users\Notifications\AccountCreated;
 
@@ -16,10 +16,10 @@ class GeneratePassword implements ShouldQueue
 
     public function handle(UserCreatedByAdmin $event)
     {
-        $password = implode('-', (new WordGenerator)->words(4));
+        $passphrase = Passphrase::generate();
 
-        $event->user->update(['password' => $password]);
+        $event->user->update(['password' => $passphrase]);
 
-        $event->user->notify(new AccountCreated($event->user, $password));
+        $event->user->notify(new AccountCreated($event->user, $passphrase));
     }
 }

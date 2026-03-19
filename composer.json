@@ -37,6 +37,7 @@
         "mailersend/laravel-driver": "^3.0",
         "mchev/banhammer": "^2.4",
         "mistralys/version-parser": "^2.1",
+        "nicobleiler/php-passphrase": "^2.1",
         "opcodesio/log-viewer": "^3.11",
         "ralphjsmit/laravel-filament-activitylog": "^2.0",
         "resend/resend-laravel": "^1.0",
