@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Nova\Forms\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
+use NicoBleiler\Passphrase\Facades\Passphrase;
 use Nova\Forms\Models\Form;
-use Nova\Foundation\WordGenerator;
 
 class DuplicateForm
 {
@@ -16,8 +16,7 @@ class DuplicateForm
     {
         $form = activity()->withoutLogs(function () use ($original) {
             $form = $original->replicate(['prefixed_id']);
-
-            $form->key = implode('-', (new WordGenerator)->words(2));
+            $form->key = Passphrase::generate();
             $form->name = "Copy of {$form->name}";
 
             $form->save();

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae0f7353261c2576be573baa4fb04da5",
+    "content-hash": "e1fffb533332e011efe9a901fab8be71",
     "packages": [
         {
             "name": "anodyne/blade-hugeicons",
@@ -5873,6 +5873,73 @@
                 "source": "https://github.com/nette/utils/tree/v4.1.3"
             },
             "time": "2026-02-13T03:05:33+00:00"
+        },
+        {
+            "name": "nicobleiler/php-passphrase",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nicobleiler/php-passphrase.git",
+                "reference": "abf9e2822fe843838cce6dbf4398ebe6d015c29e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nicobleiler/php-passphrase/zipball/abf9e2822fe843838cce6dbf4398ebe6d015c29e",
+                "reference": "abf9e2822fe843838cce6dbf4398ebe6d015c29e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.27",
+                "orchestra/testbench": "^9.0 || ^10.0",
+                "phpbench/phpbench": "^1.4.3",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^11.4 || ^12.0 || ^13.0",
+                "rector/rector": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Passphrase": "NicoBleiler\\Passphrase\\Facades\\Passphrase"
+                    },
+                    "providers": [
+                        "NicoBleiler\\Passphrase\\PassphraseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NicoBleiler\\Passphrase\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nico Bleiler"
+                }
+            ],
+            "description": "Passphrase generator with Laravel integration, inspired by Bitwarden. Uses the EFF long word list by default with support for custom wordlists.",
+            "keywords": [
+                "diceware",
+                "eff",
+                "generator",
+                "laravel",
+                "passphrase",
+                "password",
+                "security"
+            ],
+            "support": {
+                "issues": "https://github.com/nicobleiler/php-passphrase/issues",
+                "source": "https://github.com/nicobleiler/php-passphrase/tree/v2.1.0"
+            },
+            "time": "2026-03-01T16:39:42+00:00"
         },
         {
             "name": "nikic/php-parser",
