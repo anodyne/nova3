@@ -14,6 +14,7 @@ use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Forms\Models\FormSubmissionResponse;
+use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 
@@ -51,6 +52,10 @@ class ApplicationReviewModal extends Modal
         $this->dispatch('review-submitted');
 
         $this->close();
+
+        Notification::make()->success()
+            ->title('Review submitted')
+            ->send();
     }
 
     #[Computed]
