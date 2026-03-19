@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    @if (filled($discussionId))
+    @if (filled($discussionId) && filled($discussion))
         <x-panel variant="well">
             <x-panel.header :title="$discussion->subject ?? '(No subject)'">
                 <x-slot name="description">
@@ -28,116 +28,126 @@
                 </x-slot>
             </x-panel.header>
 
-            <x-panel>
-                <x-spacing size="row" class="flex items-center justify-between">
-                    <x-avatar
-                        :src="$latestMessage->user?->avatar_url"
-                        size="sm"
-                        :title="$latestMessage->user?->name"
-                        :subtitle="DateHelper::formatShortDateWithTime($latestMessage->created_at)"
-                    />
+            @if (filled($latestMessage))
+                <x-panel>
+                    <x-spacing size="row" class="flex items-center justify-between">
+                        <x-avatar
+                            :src="$latestMessage->user?->avatar_url"
+                            size="sm"
+                            :title="$latestMessage->user?->name"
+                            :subtitle="DateHelper::formatShortDateWithTime($latestMessage->created_at)"
+                        />
 
-                    <div class="flex items-center gap-2">
-                        @can('leave', $discussion)
-                            <x-dropdown placement="bottom end">
-                                <x-slot name="trigger">
-                                    <x-button variant="ghost" square>
-                                        <x-icon :name="Tabler::DoorExit" size="sm" />
-                                    </x-button>
-                                </x-slot>
+                        <div class="flex items-center gap-2">
+                            @can('leave', $discussion)
+                                <x-dropdown placement="bottom end">
+                                    <x-slot name="trigger">
+                                        <x-button variant="ghost" square>
+                                            <x-icon :name="Tabler::DoorExit" size="sm" />
+                                        </x-button>
+                                    </x-slot>
 
-                                <x-dropdown.group>
-                                    <x-dropdown.text>
-                                        Are you sure you want to leave this group message?
-                                    </x-dropdown.text>
-                                </x-dropdown.group>
-                                <x-dropdown.group>
-                                    <x-dropdown.item
-                                        type="button"
-                                        :icon="Tabler::DoorExit"
-                                        wire:click="leaveDiscussion"
-                                        variant="danger"
-                                    >
-                                        Leave
-                                    </x-dropdown.item>
-                                    <x-dropdown.item
-                                        type="button"
-                                        :icon="Tabler::Ban"
-                                        x-on:click.prevent="$dispatch('dropdown-close')"
-                                    >
-                                        Cancel
-                                    </x-dropdown.item>
-                                </x-dropdown.group>
-                            </x-dropdown>
-                        @endcan
+                                    <x-dropdown.group>
+                                        <x-dropdown.text>
+                                            Are you sure you want to leave this group message?
+                                        </x-dropdown.text>
+                                    </x-dropdown.group>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item
+                                            type="button"
+                                            :icon="Tabler::DoorExit"
+                                            wire:click="leaveDiscussion"
+                                            variant="danger"
+                                        >
+                                            Leave
+                                        </x-dropdown.item>
+                                        <x-dropdown.item
+                                            type="button"
+                                            :icon="Tabler::Ban"
+                                            x-on:click.prevent="$dispatch('dropdown-close')"
+                                        >
+                                            Cancel
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
+                                </x-dropdown>
+                            @endcan
 
-                        @can('delete', $discussion)
-                            <x-dropdown placement="bottom end">
-                                <x-slot name="trigger">
-                                    <x-button variant="ghost" square>
-                                        <x-icon :name="Tabler::MessageOff" size="sm" />
-                                    </x-button>
-                                </x-slot>
+                            @can('delete', $discussion)
+                                <x-dropdown placement="bottom end">
+                                    <x-slot name="trigger">
+                                        <x-button variant="ghost" square>
+                                            <x-icon :name="Tabler::MessageOff" size="sm" />
+                                        </x-button>
+                                    </x-slot>
 
-                                <x-dropdown.group>
-                                    <x-dropdown.text>
-                                        Are you sure you want to remove this message from the conversation?
-                                    </x-dropdown.text>
-                                </x-dropdown.group>
-                                <x-dropdown.group>
-                                    <x-dropdown.item
-                                        type="button"
-                                        :icon="Tabler::MessageOff"
-                                        wire:click="deleteMessage({{ $latestMessage }})"
-                                        variant="danger"
-                                    >
-                                        Remove
-                                    </x-dropdown.item>
-                                    <x-dropdown.item
-                                        type="button"
-                                        :icon="Tabler::Ban"
-                                        x-on:click.prevent="$dispatch('dropdown-close')"
-                                    >
-                                        Cancel
-                                    </x-dropdown.item>
-                                </x-dropdown.group>
-                            </x-dropdown>
+                                    <x-dropdown.group>
+                                        <x-dropdown.text>
+                                            Are you sure you want to remove this message from the conversation?
+                                        </x-dropdown.text>
+                                    </x-dropdown.group>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item
+                                            type="button"
+                                            :icon="Tabler::MessageOff"
+                                            wire:click="deleteMessage({{ $latestMessage }})"
+                                            variant="danger"
+                                        >
+                                            Remove
+                                        </x-dropdown.item>
+                                        <x-dropdown.item
+                                            type="button"
+                                            :icon="Tabler::Ban"
+                                            x-on:click.prevent="$dispatch('dropdown-close')"
+                                        >
+                                            Cancel
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
+                                </x-dropdown>
 
-                            <x-dropdown placement="bottom end">
-                                <x-slot name="trigger">
-                                    <x-button variant="ghost" square data-danger>
-                                        <x-icon :name="Tabler::Trash" size="sm" />
-                                    </x-button>
-                                </x-slot>
+                                <x-dropdown placement="bottom end">
+                                    <x-slot name="trigger">
+                                        <x-button variant="ghost" square data-danger>
+                                            <x-icon :name="Tabler::Trash" size="sm" />
+                                        </x-button>
+                                    </x-slot>
 
-                                <x-dropdown.group>
-                                    <x-dropdown.text>
-                                        Are you sure you want to delete this entire conversation?
-                                    </x-dropdown.text>
-                                </x-dropdown.group>
-                                <x-dropdown.group>
-                                    <x-dropdown.item type="button" :icon="Tabler::Trash" wire:click="deleteDiscussion">
-                                        Delete
-                                    </x-dropdown.item>
-                                    <x-dropdown.item
-                                        type="button"
-                                        :icon="Tabler::Ban"
-                                        x-on:click.prevent="$dispatch('dropdown-close')"
-                                    >
-                                        Cancel
-                                    </x-dropdown.item>
-                                </x-dropdown.group>
-                            </x-dropdown>
-                        @endcan
-                    </div>
-                </x-spacing>
+                                    <x-dropdown.group>
+                                        <x-dropdown.text>
+                                            Are you sure you want to delete this entire conversation?
+                                        </x-dropdown.text>
+                                    </x-dropdown.group>
+                                    <x-dropdown.group>
+                                        <x-dropdown.item type="button" :icon="Tabler::Trash" wire:click="deleteDiscussion">
+                                            Delete
+                                        </x-dropdown.item>
+                                        <x-dropdown.item
+                                            type="button"
+                                            :icon="Tabler::Ban"
+                                            x-on:click.prevent="$dispatch('dropdown-close')"
+                                        >
+                                            Cancel
+                                        </x-dropdown.item>
+                                    </x-dropdown.group>
+                                </x-dropdown>
+                            @endcan
+                        </div>
+                    </x-spacing>
 
-                <x-spacing width="md" top="xs" bottom="md">
-                    <div class="prose dark:prose-invert max-w-none space-y-6">
-                        {!! str($latestMessage->content)->markdown() !!}
-                    </div>
-                </x-spacing>
-            </x-panel>
+                    <x-spacing width="md" top="xs" bottom="md">
+                        <div class="prose dark:prose-invert max-w-none space-y-6">
+                            {!! str($latestMessage->content)->markdown() !!}
+                        </div>
+                    </x-spacing>
+                </x-panel>
+            @else
+                <x-panel>
+                    <x-empty>
+                        <x-illustration :name="Illustration::Inbox" />
+                        <x-empty.heading>No messages yet</x-empty.heading>
+                        <x-empty.text>Send the first message in this conversation.</x-empty.text>
+                    </x-empty>
+                </x-panel>
+            @endif
 
             <x-panel.footer class="flex items-center justify-between">
                 <x-button

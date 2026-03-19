@@ -5,14 +5,14 @@
         <x-slot name="tabs">
             <x-tab name="participants">
                 <div class="flex items-center gap-x-1.5">
-                    <x-icon :name="Tabler::UserScan" size="sm" />
+                    <x-icon :name="Tabler::UserScan" size="sm"/>
                     Review participants
                 </div>
             </x-tab>
 
             <x-tab name="position">
                 <div class="flex items-center gap-x-1.5">
-                    <x-icon :name="Tabler::TimelineEvent" size="sm" />
+                    <x-icon :name="Tabler::TimelineEvent" size="sm"/>
                     Set post position
                 </div>
             </x-tab>
@@ -21,20 +21,26 @@
         <x-tab.panel name="position">
             @if ($shouldShowPositionPanel)
                 <x-radio.group wire:model.live="direction" variant="segmented">
-                    <x-radio value="after" label="Custom position">
+                    <x-radio value="after">
                         <x-slot name="icon">
-                            <x-icon :name="Tabler::ArrowsSort" size="sm" />
+                            <x-icon :name="Tabler::ArrowsSort" size="sm"/>
                         </x-slot>
+
+                        Custom position
                     </x-radio>
-                    <x-radio value="start" label="Start of the story">
+                    <x-radio value="start">
                         <x-slot name="icon">
-                            <x-icon :name="Tabler::ArrowBarToUp" size="sm" />
+                            <x-icon :name="Tabler::ArrowBarToUp" size="sm"/>
                         </x-slot>
+
+                        Start of the story
                     </x-radio>
-                    <x-radio value="end" label="End of the story">
+                    <x-radio value="end">
                         <x-slot name="icon">
-                            <x-icon :name="Tabler::ArrowBarToDown" size="sm" />
+                            <x-icon :name="Tabler::ArrowBarToDown" size="sm"/>
                         </x-slot>
+
+                        End of the story
                     </x-radio>
                 </x-radio.group>
 
@@ -55,7 +61,7 @@
                         <x-panel.manage.search :$search placeholder="Find a post in the current story">
                             @if ($searchResults->count() === 0)
                                 <x-empty variant="compact">
-                                    <x-icon :name="Tabler::Book2" />
+                                    <x-icon :name="Tabler::Book2"/>
                                     <x-empty.heading>No posts found</x-empty.heading>
                                 </x-empty>
                             @else
@@ -89,8 +95,8 @@
                                     <x-label>Move this post</x-label>
 
                                     <x-radio.group wire:model.live="direction" variant="segmented">
-                                        <x-radio :value="PositionDirection::Before->value" label="Before this post" />
-                                        <x-radio :value="PositionDirection::After->value" label="After this post" />
+                                        <x-radio :value="PositionDirection::Before->value" label="Before this post"/>
+                                        <x-radio :value="PositionDirection::After->value" label="After this post"/>
                                     </x-radio.group>
                                 </x-field>
                             </div>
@@ -173,7 +179,7 @@
                                                             square
                                                             data-danger
                                                         >
-                                                            <x-icon :name="Tabler::Trash" size="md" />
+                                                            <x-icon :name="Tabler::Trash" size="md"/>
                                                         </x-button>
                                                     </x-slot>
 
@@ -221,7 +227,7 @@
                                                 inset="left top bottom"
                                                 data-danger
                                             >
-                                                <x-icon :name="Tabler::CircleMinus" size="sm" />
+                                                <x-icon :name="Tabler::CircleMinus" size="sm"/>
                                                 <span>Remove all non-participating users</span>
                                             </x-button>
                                         </x-slot>

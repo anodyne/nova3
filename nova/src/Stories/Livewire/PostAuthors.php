@@ -34,8 +34,8 @@ class PostAuthors extends Component
     {
         $this->dispatch(
             'slide-over.open',
-            component: 'posts-authors-editor',
-            arguments: [
+            PostAuthorsEditor::class,
+            [
                 'postId' => $this->postId,
                 'postTypeId' => $this->postTypeId,
                 'characterAuthors' => $this->characterAuthorsArr,

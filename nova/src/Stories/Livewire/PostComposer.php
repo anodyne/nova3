@@ -107,10 +107,8 @@ class PostComposer extends Component
 
         $this->dispatch(
             'slide-over.open',
-            component: 'posts-publish',
-            arguments: [
-                'postId' => $this->post->id,
-            ]
+            PostPublish::class,
+            ['postId' => $this->post->id]
         );
     }
 

@@ -190,6 +190,16 @@ describe('component initialized', function () {
             ->assertDontSeeText('Select a conversation')
             ->assertSeeText($this->discussionMessage2->content);
     });
+
+    test('with a discussion that has no messages', function () {
+        $emptyDiscussion = Discussion::factory()->create(['subject' => 'Empty discussion']);
+        $emptyDiscussion->participants()->attach([Auth::id(), $this->user->id]);
+
+        livewire(MessageHistory::class, ['discussionId' => $emptyDiscussion->id])
+            ->assertSet('discussionId', $emptyDiscussion->id)
+            ->assertDontSeeText('Select a conversation')
+            ->assertSeeText('No messages yet');
+    });
 });
 
 describe('reacts to events', function () {

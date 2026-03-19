@@ -205,11 +205,17 @@ class CharactersList extends TableComponent
                     ->modalSubmitActionLabel('Activate')
                     ->deselectRecordsAfterCompletion()
                     ->action(function (Collection $records): void {
+                        $recordsCount = $records->count();
+
                         $records->each(function (Character $record): void {
                             $character = ActivateCharacter::run($record);
 
                             CharacterActivated::dispatch($character);
                         });
+
+                        Notification::make()->success()
+                            ->title($recordsCount.' '.trans_choice('character was|characters were', $recordsCount).' activated')
+                            ->send();
                     }),
                 BulkAction::make('bulkDeactivateCharacter')
                     ->authorize('deactivateAny')
@@ -220,11 +226,17 @@ class CharactersList extends TableComponent
                     ->modalSubmitActionLabel('Deactivate')
                     ->deselectRecordsAfterCompletion()
                     ->action(function (Collection $records): void {
+                        $recordsCount = $records->count();
+
                         $records->each(function (Character $record): void {
                             $character = DeactivateCharacter::run($record);
 
                             CharacterDeactivated::dispatch($character);
                         });
+
+                        Notification::make()->success()
+                            ->title($recordsCount.' '.trans_choice('character was|characters were', $recordsCount).' deactivated')
+                            ->send();
                     }),
                 RestoreBulkAction::make()
                     ->authorize('restoreAny')

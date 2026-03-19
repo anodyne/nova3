@@ -1,4 +1,4 @@
-/*! tailwindcss v4.1.13 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.2.1 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -284,19 +284,19 @@
     transform-origin: bottom;
   }
   .origin-bottom-left {
-    transform-origin: bottom left;
+    transform-origin: 0 100%;
   }
   .origin-bottom-right {
-    transform-origin: bottom right;
+    transform-origin: 100% 100%;
   }
   .origin-top {
     transform-origin: top;
   }
   .origin-top-left {
-    transform-origin: top left;
+    transform-origin: 0 0;
   }
   .origin-top-right {
-    transform-origin: top right;
+    transform-origin: 100% 0;
   }
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -467,12 +467,12 @@
   }
   .sm\:origin-bottom-left {
     @media (width >= 40rem) {
-      transform-origin: bottom left;
+      transform-origin: 0 100%;
     }
   }
   .sm\:origin-bottom-right {
     @media (width >= 40rem) {
-      transform-origin: bottom right;
+      transform-origin: 100% 100%;
     }
   }
   .sm\:origin-top {
@@ -482,12 +482,12 @@
   }
   .sm\:origin-top-left {
     @media (width >= 40rem) {
-      transform-origin: top left;
+      transform-origin: 0 0;
     }
   }
   .sm\:origin-top-right {
     @media (width >= 40rem) {
-      transform-origin: top right;
+      transform-origin: 100% 0;
     }
   }
   .md\:right-0 {
@@ -617,12 +617,12 @@
   }
   .md\:origin-bottom-left {
     @media (width >= 48rem) {
-      transform-origin: bottom left;
+      transform-origin: 0 100%;
     }
   }
   .md\:origin-bottom-right {
     @media (width >= 48rem) {
-      transform-origin: bottom right;
+      transform-origin: 100% 100%;
     }
   }
   .md\:origin-top {
@@ -632,12 +632,12 @@
   }
   .md\:origin-top-left {
     @media (width >= 48rem) {
-      transform-origin: top left;
+      transform-origin: 0 0;
     }
   }
   .md\:origin-top-right {
     @media (width >= 48rem) {
-      transform-origin: top right;
+      transform-origin: 100% 0;
     }
   }
   .md\:grid-cols-1 {
@@ -767,12 +767,12 @@
   }
   .lg\:origin-bottom-left {
     @media (width >= 64rem) {
-      transform-origin: bottom left;
+      transform-origin: 0 100%;
     }
   }
   .lg\:origin-bottom-right {
     @media (width >= 64rem) {
-      transform-origin: bottom right;
+      transform-origin: 100% 100%;
     }
   }
   .lg\:origin-top {
@@ -782,12 +782,12 @@
   }
   .lg\:origin-top-left {
     @media (width >= 64rem) {
-      transform-origin: top left;
+      transform-origin: 0 0;
     }
   }
   .lg\:origin-top-right {
     @media (width >= 64rem) {
-      transform-origin: top right;
+      transform-origin: 100% 0;
     }
   }
   .xl\:max-w-2xl {
@@ -1653,7 +1653,7 @@ body {
   --tw-prose-invert-quote-borders: oklch(37.3% 0.034 259.733);
   --tw-prose-invert-captions: oklch(70.7% 0.022 261.325);
   --tw-prose-invert-kbd: #fff;
-  --tw-prose-invert-kbd-shadows: rgb(255, 255, 255 / 10%);
+  --tw-prose-invert-kbd-shadows: rgb(255 255 255 / 10%);
   --tw-prose-invert-code: #fff;
   --tw-prose-invert-pre-code: oklch(87.2% 0.01 258.338);
   --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);

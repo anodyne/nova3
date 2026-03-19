@@ -64,7 +64,7 @@
                 <!-- Empty state, show/hide based on command palette state -->
                 <div>
                     <x-empty>
-                        <x-icon :name="Tabler::MoodSad" />
+                        <x-icon :name="Tabler::MoodSad"/>
                         <x-empty.heading>No results found</x-empty.heading>
                         <x-empty.text>We couldn’t find anything with that term. Please try again.</x-empty.text>
                     </x-empty>
@@ -77,10 +77,10 @@
         <p class="font-medium">Show results for:</p>
 
         <x-checkbox.group wire:model.live="categories" variant="pills">
-            <x-checkbox class="text-xs" value="announcements" label="Announcements" />
-            <x-checkbox class="text-xs" value="characters" label="Characters" />
-            <x-checkbox class="text-xs" value="stories" label="Stories" />
-            <x-checkbox class="text-xs" value="posts" label="Story posts" />
+            <x-checkbox class="text-xs" value="announcements" label="Announcements"/>
+            <x-checkbox class="text-xs" value="characters" label="Characters"/>
+            <x-checkbox class="text-xs" value="stories" label="Stories"/>
+            <x-checkbox class="text-xs" value="posts" label="Story posts"/>
         </x-checkbox.group>
     </x-panel.footer>
 </x-panel>
