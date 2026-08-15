@@ -34,7 +34,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## Frontend Bundling
 
-- If the user doesn't see a frontend change reflected in the UI, it could mean they need to run `npm run build`, `npm run dev`, or `composer run dev`. Ask them.
+- If the user doesn't see a frontend change reflected in the UI, it could mean they need to run `bun run build`, `bun run dev`, or `composer run dev`. Ask them.
 
 ## Documentation Files
 
@@ -146,7 +146,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## Vite Error
 
-- If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `npm run build` or ask the user to run `npm run dev` or `composer run dev`.
+- If you receive an "Illuminate\Foundation\ViteException: Unable to locate file in Vite manifest" error, you can run `bun run build` or ask the user to run `bun run dev` or `composer run dev`.
 
 === laravel/v12 rules ===
 
@@ -233,7 +233,7 @@ Component APIs mirror shadcn/ui. `button` variants: `default`, `secondary`, `out
 
 A component is only usable if its file exists in `resources/views/components/ui/`.
 If it is missing, add it with the CLI — this copies the Blade source and prints the
-required composer/npm peer packages. Never re-implement a component by hand if BlatUI
+required Composer/Bun peer dependencies. Never re-implement a component by hand if BlatUI
 ships it.
 
 <code-snippet name="Add BlatUI components" lang="shell">
