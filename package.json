@@ -1,6 +1,7 @@
 {
     "private": true,
     "license": "MIT",
+    "packageManager": "bun@1.3.14",
     "scripts": {
         "cleanup": "rm -rf ./node_modules",
         "css:build-admin": "cross-env ENV_BUILD=dev postcss nova/resources/css/admin.css --base nova/resources --dir public/dist --verbose",
@@ -8,7 +9,7 @@
         "css:build-maintenance": "cross-env ENV_BUILD=prod postcss nova/resources/css/maintenance.css --base nova/resources --dir public/dist --verbose",
         "css:build-public": "cross-env ENV_BUILD=prod postcss nova/resources/css/public.css --base nova/resources --dir public/dist --verbose",
         "css:build-prod": "cross-env ENV_BUILD=prod postcss nova/resources/css/*.css --base nova/resources --dir public/dist --verbose",
-        "css:build-themes": "concurrently \"npm run css:build-theme-celestial\" \"npm run css:build-theme-cerritos\" \"npm run css:build-theme-event-horizon\" \"npm run css:build-theme-pulsar\" \"npm run css:build-theme-titan\"",
+        "css:build-themes": "concurrently \"bun run css:build-theme-celestial\" \"bun run css:build-theme-cerritos\" \"bun run css:build-theme-event-horizon\" \"bun run css:build-theme-pulsar\" \"bun run css:build-theme-titan\"",
         "css:build-theme-celestial": "cross-env ENV_BUILD=dev postcss \"themes/Celestial/resources/css/**/*.css\" --base themes/Celestial/resources/css --dir themes/Celestial/design --verbose",
         "css:build-theme-cerritos": "cross-env ENV_BUILD=dev postcss \"themes/Cerritos/resources/css/**/*.css\" --base themes/Cerritos/resources/css --dir themes/Cerritos/design --verbose",
         "css:build-theme-event-horizon": "cross-env ENV_BUILD=dev postcss \"themes/EventHorizon/resources/css/**/*.css\" --base themes/EventHorizon/resources/css --dir themes/EventHorizon/design --verbose",
@@ -18,8 +19,8 @@
         "js:build-prod": "esbuild nova/resources/js/app.js --bundle --minify --outfile=public/dist/js/app.js",
         "js:build-setup": "esbuild nova/resources/js/setup.js --bundle --minify --outfile=public/dist/js/setup.js",
         "js:build-tour": "esbuild nova/resources/js/tour.js --bundle --minify --outfile=public/dist/js/tour.js",
-        "dev": "concurrently \"npm run js:build-dev\" \"npm run js:build-setup\" \"npm run js:build-tour\" \"npm run css:build-dev\" \"npm run css:build-themes\"",
-        "prod": "concurrently \"npm run js:build-prod\" \"npm run js:build-setup\" \"npm run js:build-tour\" \"npm run css:build-prod\" \"npm run css:build-themes\""
+        "dev": "concurrently \"bun run js:build-dev\" \"bun run js:build-setup\" \"bun run js:build-tour\" \"bun run css:build-dev\" \"bun run css:build-themes\"",
+        "prod": "concurrently \"bun run js:build-prod\" \"bun run js:build-setup\" \"bun run js:build-tour\" \"bun run css:build-prod\" \"bun run css:build-themes\""
     },
     "dependencies": {
         "@alpinejs/collapse": "^3.10",
