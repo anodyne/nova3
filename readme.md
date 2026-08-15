@@ -21,7 +21,7 @@ composer install
 php artisan key:generate --ansi
 php artisan migrate:fresh --seed
 
-npm ci && npm dev
+bun install --frozen-lockfile && bun run dev
 ```
 
 ## Staying In Sync
@@ -31,7 +31,7 @@ git pull origin dev
 
 composer install
 
-npm ci && npm dev
+bun install --frozen-lockfile && bun run dev
 
 php artisan migrate:refresh --seed
 ```
