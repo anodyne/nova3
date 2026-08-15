@@ -131,38 +131,30 @@
             "find ./media/stories -mindepth 1 ! -name '.gitignore' -delete",
             "find ./media/users -mindepth 1 ! -name '.gitignore' -delete"
         ],
+        "update:requirements": [
+            "composer bump",
+            "bun update --latest"
+        ],
+        "analyse": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpstan --memory-limit=-1"
+        ],
         "lint": [
-            "pint"
+            "rector",
+            "pint --parallel",
+            "bun run lint"
         ],
-        "refactor": [
-            "rector"
-        ],
+        "test:type-coverage": "pest --type-coverage --min=100",
         "test:lint": [
-            "pint --test"
-        ],
-        "test:refactor": [
-            "rector --dry-run"
-        ],
-        "test:types": [
-            "phpstan analyse"
-        ],
-        "test:type-coverage": [
-            "pest --type-coverage --min=100"
-        ],
-        "test:arch": [
-            "pest --filter=arch"
-        ],
-        "test:unit": [
-            "pest --parallel --ci --coverage --min=100.0"
-        ],
-        "test:browser": [
-            "php artisan dusk --bail"
+            "pint --parallel --test",
+            "rector --dry-run",
+            "bun run test:lint"
         ],
         "test": [
+            "@php artisan config:clear --ansi @no_additional_args",
             "@test:lint",
-            "@test:refactor",
-            "@test:types",
             "@test:type-coverage",
+            "@analyse",
             "@test:unit"
         ],
         "post-autoload-dump": [
