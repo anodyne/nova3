@@ -5,5 +5,5 @@ parameters:
     bootstrapFiles:
         - phpstan-bootstrap.php
     paths:
-        - app/
+        - nova/
     level: 5
