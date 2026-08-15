@@ -109,7 +109,5 @@ class AdminLayout extends Component
     public function render(): View
     {
         return view('layouts.admin-flux');
-
-        return view('layouts.admin');
     }
 }

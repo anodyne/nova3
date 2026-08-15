@@ -18,6 +18,8 @@ class PostAuthor extends MorphPivot
 {
     use HasTableHelpers;
 
+    protected $table = 'post_author';
+
     public function authorable(): MorphTo
     {
         return $this->morphTo();

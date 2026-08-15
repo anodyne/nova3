@@ -152,7 +152,7 @@
             <x-panel.footer class="flex items-center justify-between">
                 <x-button
                     type="button"
-                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'discussionId': {{ $discussion->id }}, 'mode': 'reply'}})"
+                    wire:click="$dispatch('modal-open', {modal: 'discussions-compose-message-modal', props: {'discussionId': {{ $discussion->id }}, 'mode': 'reply'}})"
                     :loading="false"
                     variant="subtle"
                     inset="left top bottom"
@@ -268,7 +268,7 @@
                 <x-button
                     type="button"
                     variant="primary"
-                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'mode': 'new'}})"
+                    wire:click="$dispatch('modal-open', {modal: 'discussions-compose-message-modal', props: {'mode': 'new'}})"
                 >
                     Start a conversation
                 </x-button>

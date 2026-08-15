@@ -2,6 +2,7 @@
 @import "../../../vendor/livewire/flux/dist/flux.css";
 
 @source "../svg";
+@source "../../foundation/Livewire/Concerns/*.php";
 @source "../../foundation/View/Components/*.php";
 @source "../../foundation/View/Layouts/*.php";
 @source "../../src/**/Enums/*.php";
@@ -9,8 +10,7 @@
 @source "../../../vendor/livewire/flux/stubs";
 @source "../../../vendor/livewire/flux-pro/stubs";
 @source "../../../vendor/ralphjsmit/laravel-filament-activitylog/resources/views";
-@source "../../../vendor/wire-elements/pro/config/wire-elements-pro.php";
-@source "../../../vendor/wire-elements/pro/resources/views";
+@source "../../../vendor/elegantly/livewire-modal/resources/views";
 @source "../../../storage/framework/views";
 
 @import "../../../vendor/filament/support/resources/css/index.css";
@@ -27,7 +27,6 @@
 @import "./components/dropdown.css" layer(components);
 @import "./components/form.css" layer(components);
 @import "./components/icon.css" layer(components);
-@import "./components/modal.css" layer(components);
 
 @import "./plugins/filepond.css" layer(components);
 

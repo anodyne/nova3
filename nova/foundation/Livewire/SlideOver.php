@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
+use Livewire\Component;
+use Nova\Foundation\Livewire\Concerns\ClosesModal;
 use Nova\Foundation\Livewire\Concerns\ModalAttributes;
-use Nova\Foundation\Livewire\Concerns\ModalBehaviors;
-use WireElements\Pro\Components\SlideOver\SlideOver as BaseSlideOver;
 
-abstract class SlideOver extends BaseSlideOver
+abstract class SlideOver extends Component
 {
+    use ClosesModal;
     use ModalAttributes;
-    use ModalBehaviors;
 }

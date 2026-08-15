@@ -39,7 +39,7 @@ describe('PostPosition', function () {
     test('can open editor slide over', function () {
         livewire(PostPosition::class, ['post' => $this->post])
             ->call('openForEditing')
-            ->assertDispatched('slide-over.open');
+            ->assertDispatched('modal-open');
     });
 
     test('can handle post details updates', function () {

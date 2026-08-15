@@ -12,7 +12,7 @@
 
         <div class="flex shrink-0 items-center">
             <x-button
-                wire:click="$dispatch('slide-over.open', {component: 'theme-settings', arguments: {'theme': '{{ $selectedTheme->location }}'}})"
+                wire:click="$dispatch('modal-open', {modal: 'theme-settings', props: {'theme': '{{ $selectedTheme->location }}'}})"
                 variant="subtle"
                 square
             >

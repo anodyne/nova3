@@ -28,9 +28,9 @@ class UploadAvatar extends UploadImage
     public function launchCropper()
     {
         $this->dispatch(
-            'modal.open',
-            AvatarEditor::class,
-            ['temporaryUrl' => $this->image->temporaryUrl()]
+            'modal-open',
+            modal: 'media-avatar-editor',
+            props: ['temporaryUrl' => $this->image->temporaryUrl()]
         );
     }
 

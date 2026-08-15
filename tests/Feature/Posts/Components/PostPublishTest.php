@@ -40,7 +40,7 @@ it('can dismiss the publish slide over', function () {
     livewire(PostPublish::class, ['postId' => $this->post->id])
         ->call('dismiss')
         ->assertNotified()
-        ->assertDispatched('slide-over.close');
+        ->assertDispatched('modal-close');
 });
 
 it('can publish a post', function () {

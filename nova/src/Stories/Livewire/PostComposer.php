@@ -13,6 +13,7 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Livewire\Concerns\InteractsWithConfirmationModal;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Actions\DiscardPost;
 use Nova\Stories\Actions\UnlockPost;
@@ -24,7 +25,6 @@ use Nova\Stories\Livewire\Concerns\InteractsWithStories;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Notifications\PostSaved;
 use Nova\Users\Models\User;
-use WireElements\Pro\Concerns\InteractsWithConfirmationModal;
 
 class PostComposer extends Component
 {
@@ -106,9 +106,9 @@ class PostComposer extends Component
         $this->save(silently: true);
 
         $this->dispatch(
-            'slide-over.open',
-            PostPublish::class,
-            ['postId' => $this->post->id]
+            'modal-open',
+            modal: 'posts-publish',
+            props: ['postId' => $this->post->id]
         );
     }
 

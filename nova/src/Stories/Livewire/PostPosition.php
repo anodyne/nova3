@@ -59,9 +59,9 @@ class PostPosition extends Component
     public function openForEditing(): void
     {
         $this->dispatch(
-            'slide-over.open',
-            PostPositionEditor::class,
-            [
+            'modal-open',
+            modal: 'posts-position-editor',
+            props: [
                 'postId' => $this->postId,
                 'nextId' => $this->nextPost?->id,
                 'previousId' => $this->previousPost?->id,

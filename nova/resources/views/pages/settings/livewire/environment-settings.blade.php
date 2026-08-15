@@ -1,6 +1,6 @@
 @use('Nova\Settings\Enums\ServerEnvironment')
 
-<x-modal.slide-over title="Environment settings" color="success" :icon="Tabler::Leaf">
+<x-modal.slide-over :size-class="$this->sizeClass()" title="Environment settings" color="success" :icon="Tabler::Leaf">
     <x-form action="">
         <x-fieldset.group>
             <x-radio.group label="Environment" wire:model.live="form.environment" variant="segmented">

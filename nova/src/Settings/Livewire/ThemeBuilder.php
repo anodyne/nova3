@@ -49,7 +49,7 @@ class ThemeBuilder extends SlideOver
 
         settings()->update(['appearance' => $newSettings]);
 
-        $this->dispatch('slide-over.close');
+        $this->dispatch('modal-close');
 
         Notification::make()->success()
             ->title('Theme settings updated')

@@ -14,7 +14,6 @@ use Nova\Stories\Livewire\PostAuthors;
 use Nova\Stories\Livewire\PostComposer;
 use Nova\Stories\Livewire\PostDetails;
 use Nova\Stories\Livewire\PostPosition;
-use Nova\Stories\Livewire\PostPublish;
 use Nova\Stories\Livewire\PostRatings;
 use Nova\Stories\Livewire\PostSummary;
 use Nova\Stories\Models\Post;
@@ -177,7 +176,7 @@ test('can change the post type', function () {
 
     $component = livewire(PostComposer::class, ['post' => $post])
         ->call('startPostTypeChange', $newPostType->id)
-        ->assertDispatched('modal.open')
+        ->assertDispatched('modal-open')
         ->dispatch('actionConfirmed')
         ->assertRedirect(route('admin.posts.edit', $post));
 
@@ -290,14 +289,10 @@ describe('save post', function () {
             ->assertDispatchedTo(PostDetails::class, 'save-post')
             ->assertDispatchedTo(PostAuthors::class, 'save-post')
             ->assertDispatchedTo(PostPosition::class, 'save-post')
-            ->assertDispatched('slide-over.open', function (string $event, array $params): bool {
-                [$component, $arguments] = $params;
-
-                $postId = data_get($arguments, 'postId');
-
-                return $event === 'slide-over.open'
-                    && $component === PostPublish::class
-                    && $postId === $this->post->id;
+            ->assertDispatched('modal-open', function (string $event, array $params): bool {
+                return $event === 'modal-open'
+                    && data_get($params, 'modal') === 'posts-publish'
+                    && data_get($params, 'props.postId') === $this->post->id;
             });
     });
 
@@ -407,7 +402,7 @@ describe('delete post', function () {
         $component = Livewire::actingAs($this->user)
             ->test(PostComposer::class, ['post' => $post])
             ->call('delete')
-            ->assertDispatched('modal.open');
+            ->assertDispatched('modal-open');
 
         $component->dispatch('actionConfirmed')
             ->assertRedirect(route('admin.writing-overview'));
@@ -437,7 +432,7 @@ describe('discard draft post', function () {
 
         livewire(PostComposer::class, ['post' => $post])
             ->call('discard')
-            ->assertDispatched('modal.open')
+            ->assertDispatched('modal-open')
             ->dispatch('actionConfirmed')
             ->assertRedirect(route('admin.writing-overview'));
 

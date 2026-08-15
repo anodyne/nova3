@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Laravel\Sanctum\Sanctum;
 use Nova\Foundation\Http\Middleware\EncryptCookies;
-use Nova\Foundation\Http\Middleware\VerifyCsrfToken;
+use Nova\Foundation\Http\Middleware\PreventRequestForgery;
 
 return [
 
@@ -64,7 +64,7 @@ return [
     */
 
     'middleware' => [
-        'verify_csrf_token' => VerifyCsrfToken::class,
+        'verify_csrf_token' => PreventRequestForgery::class,
         'encrypt_cookies' => EncryptCookies::class,
     ],
 

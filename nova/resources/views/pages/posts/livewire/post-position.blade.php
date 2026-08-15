@@ -55,9 +55,9 @@
     </ul>
 
     <x-button
-        wire:click="$dispatch('slide-over.open', {
-            component: 'posts-position-editor',
-            arguments: {
+        wire:click="$dispatch('modal-open', {
+            modal: 'posts-position-editor',
+            props: {
                 'postId': {{ $postId }},
                 'previousId': {{ Js::from($previousPost?->id) }},
                 'nextId': {{ Js::from($nextPost?->id) }}

@@ -38,7 +38,7 @@
 
         @stack('modal')
         @livewire('livewire-ui-spotlight')
-        @livewire('wire-elements-modal')
+        <livewire:modal />
         @livewire('notifications')
 
         {{ NovaView::renderHook('admin::scripts.before') }}

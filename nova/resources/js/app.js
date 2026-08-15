@@ -1,6 +1,5 @@
 import axios from 'axios';
 import '@tailwindplus/elements';
-import '../../../vendor/wire-elements/pro/resources/js/overlay-component';
 
 import Clipboard from '@ryangjchandler/alpine-clipboard';
 import CharacterCount from '@tiptap/extension-character-count';

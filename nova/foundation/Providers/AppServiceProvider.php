@@ -52,6 +52,7 @@ use Nova\Addons\Models\Addon;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Console\Commands\InstallDataMigrations;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Environment\Environment;
@@ -59,6 +60,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\NotificationIcon;
 use Nova\Foundation\Listeners\AuthenticationEventSubscriber;
 use Nova\Foundation\Listeners\SetEmailSubjectPrefix;
+use Nova\Foundation\Livewire\ConfirmationModal;
 use Nova\Foundation\Livewire\IconPicker;
 use Nova\Foundation\Livewire\Rating;
 use Nova\Foundation\Macros\ArrMacros;
@@ -99,6 +101,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureNovaSingleton();
         $this->configureDatabaseRepositories();
+        $this->configureDataMigrationCommands();
 
         $this->app->extend('blade.compiler', function ($compiler, $app) {
             return tap(new BladeCompiler(
@@ -243,6 +246,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Livewire::addComponent(name: 'rating', class: Rating::class);
         Livewire::addComponent(name: 'icon-picker', class: IconPicker::class);
+        Livewire::addComponent(name: 'confirmation-modal', class: ConfirmationModal::class);
     }
 
     protected function configureResponseFilters(): void
@@ -411,5 +415,19 @@ class AppServiceProvider extends ServiceProvider
         } else {
             $this->app->bind(ReportingRepositoryInterface::class, MySQLReportingRepository::class);
         }
+    }
+
+    /**
+     * Swap in a data migration install command that keeps its own name so it
+     * stops shadowing Laravel's `migrate:install`.
+     *
+     * @see InstallDataMigrations
+     */
+    protected function configureDataMigrationCommands(): void
+    {
+        $this->app->singleton(
+            'command.migrate-data.install',
+            fn ($app) => new InstallDataMigrations($app['migration.data.repository'])
+        );
     }
 }

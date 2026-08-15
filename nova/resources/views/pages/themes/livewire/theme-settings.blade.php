@@ -1,4 +1,4 @@
-<x-modal.slide-over>
+<x-modal.slide-over :size-class="$this->sizeClass()">
     <x-slot name="title">{{ $theme?->name }} theme settings</x-slot>
 
     <x-form action="">

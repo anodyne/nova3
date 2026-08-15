@@ -1,4 +1,4 @@
-<x-modal.slide-over
+<x-modal.slide-over :size-class="$this->sizeClass()"
     title="Update content ratings"
     description="Let players and readers know what to expect from your post by setting the content ratings. These content ratings follow the game’s default ratings unless you specify otherwise."
     :icon="Tabler::Rating18Plus"
@@ -24,6 +24,6 @@
 
     <x-slot name="footer">
         <x-button wire:click="save" variant="primary">Save</x-button>
-        <x-button wire:click="$dispatch('slide-over.close')" variant="ghost">Cancel</x-button>
+        <x-button wire:click="$dispatch('modal-close')" variant="ghost">Cancel</x-button>
     </x-slot>
 </x-modal.slide-over>

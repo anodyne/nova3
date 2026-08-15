@@ -1,6 +1,6 @@
 @use('Nova\Users\Enums\NotificationStatus')
 
-<x-modal.slide-over title="Notifications" :icon="Tabler::Bell">
+<x-modal.slide-over :size-class="$this->sizeClass()" title="Notifications" :icon="Tabler::Bell">
     <nav class="flex items-center justify-between">
         <x-radio.group wire:model.live="status" variant="segmented" class="max-w-fit">
             @foreach (NotificationStatus::cases() as $notificationStatus)

@@ -1,4 +1,4 @@
-<x-modal :icon="$isReplying ? Tabler::MessageReply : Tabler::Message" :title="$isReplying ? 'Reply' : 'New message'">
+<x-modal :size-class="$this->sizeClass()" :icon="$isReplying ? Tabler::MessageReply : Tabler::Message" :title="$isReplying ? 'Reply' : 'New message'">
     <x-form action="">
         <x-fieldset>
             <x-fieldset.group>

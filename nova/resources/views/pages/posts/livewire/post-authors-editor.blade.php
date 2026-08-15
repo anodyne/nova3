@@ -1,4 +1,4 @@
-<x-modal.slide-over title="Manage authors" :icon="Tabler::MasksTheater">
+<x-modal.slide-over :size-class="$this->sizeClass()" title="Manage authors" :icon="Tabler::MasksTheater">
     <div class="space-y-6">
         <div class="space-y-3">
             <x-text size="lg">
@@ -207,6 +207,6 @@
 
     <x-slot name="footer">
         <x-button type="button" wire:click="save" variant="primary" :disabled="! $canSave">Update</x-button>
-        <x-button type="button" wire:click="$dispatch('slide-over.close')" variant="ghost">Cancel</x-button>
+        <x-button type="button" wire:click="$dispatch('modal-close')" variant="ghost">Cancel</x-button>
     </x-slot>
 </x-modal.slide-over>
