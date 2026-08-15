@@ -63,6 +63,7 @@
         "truecropper": "^1.0.3"
     },
     "devDependencies": {
+        "@alpinejs/anchor": "^3.15.12",
         "@danharrin/alpine-mousetrap": "^0.1",
         "@tailwindcss/aspect-ratio": "^0.4",
         "@tailwindcss/container-queries": "^0.1",

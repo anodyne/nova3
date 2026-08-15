@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f253d0a28b3faa1bd58867a31f37c9d9",
+    "content-hash": "b428b3aa8c61affa3a30a4812429a935",
     "packages": [
         {
             "name": "anodyne/blade-hugeicons",
@@ -134,6 +134,77 @@
                 "source": "https://github.com/anodyne/blade-tabler-icons/tree/3.40"
             },
             "time": "2026-03-09T13:16:35+00:00"
+        },
+        {
+            "name": "anousss007/blatui",
+            "version": "v1.16.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/anousss007/blatui.git",
+                "reference": "721d197dfa084c6fcc919269bd920718ad772997"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/anousss007/blatui/zipball/721d197dfa084c6fcc919269bd920718ad772997",
+                "reference": "721d197dfa084c6fcc919269bd920718ad772997",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^11.0 || ^12.0 || ^13.0",
+                "illuminate/support": "^11.0 || ^12.0 || ^13.0",
+                "php": "^8.2"
+            },
+            "replace": {
+                "blatui/blatui": "self.version"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.18",
+                "orchestra/testbench": "^9.0 || ^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BlatUI\\BlatuiServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BlatUI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "anousss007",
+                    "homepage": "https://github.com/anousss007"
+                }
+            ],
+            "description": "Open-source shadcn/ui for the BLAT stack (Blade, Laravel, Alpine.js, Tailwind CSS v4). A CLI that copies components you own into your Laravel project.",
+            "homepage": "https://github.com/anousss007/blatui",
+            "keywords": [
+                "alpinejs",
+                "blade",
+                "blatui",
+                "cli",
+                "components",
+                "laravel",
+                "shadcn",
+                "tailwindcss",
+                "ui"
+            ],
+            "support": {
+                "issues": "https://github.com/anousss007/blatui/issues",
+                "source": "https://github.com/anousss007/blatui"
+            },
+            "time": "2026-07-03T18:00:52+00:00"
         },
         {
             "name": "artesaos/seotools",
@@ -2460,6 +2531,147 @@
                 }
             ],
             "time": "2025-12-03T09:33:47+00:00"
+        },
+        {
+            "name": "gehrisandro/tailwind-merge-laravel",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gehrisandro/tailwind-merge-laravel.git",
+                "reference": "4dfc54d2f1c148b87a7f9803b3bae74c3437e7d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gehrisandro/tailwind-merge-laravel/zipball/4dfc54d2f1c148b87a7f9803b3bae74c3437e7d9",
+                "reference": "4dfc54d2f1c148b87a7f9803b3bae74c3437e7d9",
+                "shasum": ""
+            },
+            "require": {
+                "gehrisandro/tailwind-merge-php": "^v1.1.0",
+                "guzzlehttp/guzzle": "^7.5.1",
+                "laravel/framework": "^12.0|^13.0",
+                "php": "^8.2.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.13.8",
+                "orchestra/testbench": "^10.0|^11.0",
+                "pestphp/pest": "^3.7|^4.4",
+                "pestphp/pest-plugin-arch": "^3.0|^4.0",
+                "pestphp/pest-plugin-type-coverage": "^3.3|^4.0",
+                "phpstan/phpstan": "^1.10.55|^2.1",
+                "rector/rector": "^0.19|^2.0",
+                "symfony/var-dumper": "^6.4.2|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "TailwindMerge\\Laravel\\TailwindMergeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "TailwindMerge\\Laravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sandro Gehri",
+                    "email": "sandrogehri@gmail.com"
+                }
+            ],
+            "description": "TailwindMerge for Laravel merges multiple Tailwind CSS classes by automatically resolving conflicts between them",
+            "keywords": [
+                "classes",
+                "laravel",
+                "merge",
+                "php",
+                "tailwindcss"
+            ],
+            "support": {
+                "issues": "https://github.com/gehrisandro/tailwind-merge-laravel/issues",
+                "source": "https://github.com/gehrisandro/tailwind-merge-laravel/tree/v1.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/gehrisandro",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-03-21T06:54:49+00:00"
+        },
+        {
+            "name": "gehrisandro/tailwind-merge-php",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gehrisandro/tailwind-merge-php.git",
+                "reference": "400040c89bc958ed130699ee4db0213f689cd498"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gehrisandro/tailwind-merge-php/zipball/400040c89bc958ed130699ee4db0213f689cd498",
+                "reference": "400040c89bc958ed130699ee4db0213f689cd498",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2.0",
+                "psr/simple-cache": "^3.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.13.8",
+                "nunomaduro/collision": "^v8.9.1",
+                "pestphp/pest": "^v4.4.2",
+                "pestphp/pest-plugin-type-coverage": "^v4.0.3",
+                "phpstan/phpstan": "^2.1.42",
+                "rector/rector": "^2.3.9",
+                "symfony/var-dumper": "^v7.4.6"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/TailwindMerge.php"
+                ],
+                "psr-4": {
+                    "TailwindMerge\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sandro Gehri",
+                    "email": "sandrogehri@gmail.com"
+                }
+            ],
+            "description": "TailwindMerge for PHP merges multiple Tailwind CSS classes by automatically resolving conflicts between them",
+            "keywords": [
+                "classes",
+                "merge",
+                "php",
+                "tailwindcss"
+            ],
+            "support": {
+                "issues": "https://github.com/gehrisandro/tailwind-merge-php/issues",
+                "source": "https://github.com/gehrisandro/tailwind-merge-php/tree/v1.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/gehrisandro",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-03-21T06:39:15+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -5253,6 +5465,66 @@
                 "source": "https://github.com/mailersend/mailersend-php/tree/v0.36.0"
             },
             "time": "2026-02-02T09:26:45+00:00"
+        },
+        {
+            "name": "mallardduck/blade-lucide-icons",
+            "version": "1.26.29",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mallardduck/blade-lucide-icons.git",
+                "reference": "6e9420fa28e5758fa7c1ad0ec441dd6ed5c6fcef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mallardduck/blade-lucide-icons/zipball/6e9420fa28e5758fa7c1ad0ec441dd6ed5c6fcef",
+                "reference": "6e9420fa28e5758fa7c1ad0ec441dd6ed5c6fcef",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.8",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "ext-dom": "*",
+                "ext-fileinfo": "*",
+                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^9.0|^10.0|^11.0",
+                "spatie/phpunit-snapshot-assertions": "^4.2.14|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MallardDuck\\LucideIcons\\BladeLucideIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MallardDuck\\LucideIcons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dan Pock"
+                }
+            ],
+            "description": "A package to easily make use of Lucide icons in your Laravel Blade views.",
+            "homepage": "https://github.com/mallardduck/blade-lucide-icons",
+            "keywords": [
+                "LucideIcons",
+                "blade",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/mallardduck/blade-lucide-icons/issues",
+                "source": "https://github.com/mallardduck/blade-lucide-icons/tree/1.26.29"
+            },
+            "time": "2026-07-18T02:04:23+00:00"
         },
         {
             "name": "mchev/banhammer",
