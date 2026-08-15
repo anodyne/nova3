@@ -84,7 +84,7 @@ return [
 
         // Performance metrics
         'performance' => [
-            // Allow collecting of client metrics. Requires separate clockwork-browser npm package.
+            // Allow collecting of client metrics. Requires the separate clockwork-browser package.
             'client_metrics' => env('CLOCKWORK_PERFORMANCE_CLIENT_METRICS', true),
         ],
 
@@ -136,7 +136,7 @@ return [
     |
     | Clockwork can show a toolbar with basic metrics on all responses. Here
     | you can enable or disable this feature. Requires a separate
-    | clockwork-browser npm library.
+    | clockwork-browser JavaScript library.
     |
     */
 

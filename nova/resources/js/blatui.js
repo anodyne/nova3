@@ -11,7 +11,7 @@
 //   registerBlatUI(Alpine, { darkMode: 'system' });   // follow prefers-color-scheme
 //   registerBlatUI(Alpine, { darkMode: false });      // light-only
 //
-// To add charts (after `php artisan blatui:add chart` + `npm i -D apexcharts`):
+// To add charts (after `php artisan blatui:add chart` + `bun add --dev apexcharts`):
 //   import { registerCharts } from './blatui-charts.js';
 //   registerCharts(Alpine);            // alongside registerBlatUI, before start
 import Alpine from 'alpinejs';
