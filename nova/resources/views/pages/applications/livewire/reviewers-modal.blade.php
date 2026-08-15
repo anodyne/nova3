@@ -1,4 +1,4 @@
-<x-modal title="Manage application reviewers" :icon="Tabler::Users">
+<x-modal :size-class="$this->sizeClass()" title="Manage application reviewers" :icon="Tabler::Users">
     <x-checkbox.group wire:model="selectedReviewers">
         @foreach ($users as $user)
             <x-checkbox :value="$user->id" :label="$user->name" />

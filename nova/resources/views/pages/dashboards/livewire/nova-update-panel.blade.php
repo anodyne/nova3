@@ -1,6 +1,6 @@
 @use('Nova\Foundation\Enums\ReleaseSeverity')
 
-<x-modal.slide-over title="Nova updates" :color="$statusColor" :icon="Tabler::RefreshDot">
+<x-modal.slide-over :size-class="$this->sizeClass()" title="Nova updates" :color="$statusColor" :icon="Tabler::RefreshDot">
     <div class="space-y-8">
         @if (! $hasUpdate)
             <x-callout.success :icon="Tabler::CircleCheck" icon:size="md">

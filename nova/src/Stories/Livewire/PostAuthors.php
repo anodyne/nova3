@@ -33,9 +33,9 @@ class PostAuthors extends Component
     public function openForEditing(): void
     {
         $this->dispatch(
-            'slide-over.open',
-            PostAuthorsEditor::class,
-            [
+            'modal-open',
+            modal: 'posts-authors-editor',
+            props: [
                 'postId' => $this->postId,
                 'postTypeId' => $this->postTypeId,
                 'characterAuthors' => $this->characterAuthorsArr,

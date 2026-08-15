@@ -23,9 +23,9 @@ class PostSummary extends Component
     public function openForEditing(): void
     {
         $this->dispatch(
-            'slide-over.open',
-            PostSummaryEditor::class,
-            ['summary' => $this->summary]
+            'modal-open',
+            modal: 'posts-summary-editor',
+            props: ['summary' => $this->summary]
         );
     }
 

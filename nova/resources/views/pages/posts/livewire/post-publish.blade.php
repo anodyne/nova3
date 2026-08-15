@@ -1,6 +1,6 @@
 @use('Nova\Stories\Enums\PositionDirection')
 
-<x-modal.slide-over title="Publish post" :icon="Tabler::ProgressCheck">
+<x-modal.slide-over :size-class="$this->sizeClass()" title="Publish post" :icon="Tabler::ProgressCheck">
     <x-tab.group>
         <x-slot name="tabs">
             <x-tab name="participants">

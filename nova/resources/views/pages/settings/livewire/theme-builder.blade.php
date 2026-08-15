@@ -1,4 +1,4 @@
-<x-modal.slide-over>
+<x-modal.slide-over :size-class="$this->sizeClass()">
     <x-slot name="title">Admin theme builder</x-slot>
 
     <x-form action="">

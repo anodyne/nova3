@@ -3,18 +3,28 @@
         "claude_code",
         "codex"
     ],
+    "cloud": false,
     "guidelines": true,
-    "herd_mcp": true,
     "mcp": true,
+    "nightwatch": false,
     "packages": [
         "filament/filament",
-        "laravel/fortify"
+        "anousss007/blatui",
+        "ralphjsmit/laravel-filament-activitylog",
+        "spatie/laravel-medialibrary"
     ],
     "sail": false,
     "skills": [
+        "infer-conventions",
+        "fortify-development",
+        "laravel-best-practices",
+        "scout-development",
         "fluxui-development",
         "livewire-development",
         "pest-testing",
-        "tailwindcss-development"
+        "tailwindcss-development",
+        "blatui-development",
+        "filament-activitylog-pro",
+        "medialibrary-development"
     ]
 }

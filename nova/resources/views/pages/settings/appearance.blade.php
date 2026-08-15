@@ -95,7 +95,7 @@
                             <div class="flex shrink-0 items-center">
                                 <x-button
                                     type="button"
-                                    x-on:click="$dispatch('slide-over.open', {component: 'settings-theme-builder'})"
+                                    x-on:click="$dispatch('modal-open', {modal: 'settings-theme-builder'})"
                                     variant="subtle"
                                     square
                                 >

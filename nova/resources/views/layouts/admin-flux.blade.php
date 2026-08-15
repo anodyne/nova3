@@ -39,6 +39,7 @@
     class="relative min-h-screen bg-(--bg-color) font-(family-name:--font-body) text-gray-600 antialiased [--bg-color:var(--color-white)] xl:[--bg-color:var(--color-gray-50)] dark:text-gray-400 dark:[--bg-color:color-mix(in_oklab,var(--color-gray-950),white_10%)]"
 >
 {{ NovaView::renderHook('admin::body.start') }}
+{{ NovaView::renderHook('admin::page.start') }}
 
 <x-sidebar>
     <x-sidebar.header>
@@ -55,7 +56,7 @@
     <x-sidebar.nav>
         <x-sidebar.item
             type="button"
-            x-on:click="Livewire.dispatch('modal.open', {component: 'global-search'})"
+            x-on:click="Livewire.dispatch('modal-open', {modal: 'global-search'})"
             :icon="Tabler::Search"
             data-tour="dashboard-search"
         >
@@ -76,7 +77,7 @@
         @endif
 
         <x-sidebar.item
-            x-on:click="Livewire.dispatch('slide-over.open', {component: 'users-notifications'})"
+            x-on:click="Livewire.dispatch('modal-open', {modal: 'users-notifications'})"
             :icon="Tabler::Bell"
             data-tour="dashboard-notifications"
             :badge="$unreadNotificationsCount() ?: null"
@@ -339,8 +340,7 @@
 {{ NovaView::renderHook('admin::page.end') }}
 
 @stack('modal')
-@livewire('modal-pro')
-@livewire('slide-over-pro')
+<livewire:modal />
 @livewire('livewire-ui-spotlight')
 @livewire('notifications')
 

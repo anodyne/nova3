@@ -82,7 +82,7 @@ describe('PostAuthors', function () {
     test('can open editor slide over', function () {
         livewire(PostAuthors::class, ['post' => $this->post])
             ->call('openForEditing')
-            ->assertDispatched('slide-over.open');
+            ->assertDispatched('modal-open');
     });
 
     test('can handle author updates from PostAuthorsEditor', function () {

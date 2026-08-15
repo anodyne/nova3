@@ -26,7 +26,7 @@ describe('PostSummary', function () {
     test('can open editor slide over', function () {
         livewire(PostSummary::class, ['post' => $this->post])
             ->call('openForEditing')
-            ->assertDispatched('slide-over.open');
+            ->assertDispatched('modal-open');
     });
 
     test('can save summary', function () {

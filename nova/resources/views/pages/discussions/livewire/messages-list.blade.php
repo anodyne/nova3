@@ -12,7 +12,7 @@
                 <x-button
                     type="button"
                     variant="primary"
-                    wire:click="$dispatch('modal.open', {component: 'discussions-compose-message-modal', arguments: {'mode': 'new'}})"
+                    wire:click="$dispatch('modal-open', {modal: 'discussions-compose-message-modal', props: {'mode': 'new'}})"
                 >
                     <x-icon :name="Tabler::Edit" size="sm" />
                     <span class="block lg:hidden">New message</span>

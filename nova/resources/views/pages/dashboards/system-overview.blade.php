@@ -29,7 +29,7 @@
                 <x-panel.header title="Environment" :icon="Tabler::Leaf">
                     <x-slot name="actions">
                         <x-button
-                            x-on:click="Livewire.dispatch('slide-over.open', {component: 'settings-environment'})"
+                            x-on:click="Livewire.dispatch('modal-open', {modal: 'settings-environment'})"
                             variant="subtle"
                             inset="right top bottom"
                             size="sm"

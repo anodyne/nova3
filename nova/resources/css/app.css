@@ -1,12 +1,10 @@
 /* @import '../../../vendor/filament/forms/dist/index.css';
-@import '../../../vendor/wire-elements/pro/resources/css/tailwind/overlay-component.css';
 @import '../../../node_modules/truecropper/dist/truecropper.css'; */
 
 @import 'tailwindcss';
 
 /* @import './components/form.css';
 @import './components/icon.css';
-@import './components/modal.css';
 @import './plugins/tagify.css';
 @import './plugins/tippy.css';
 @import './plugins/filepond.css';

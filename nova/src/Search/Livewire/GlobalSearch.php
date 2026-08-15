@@ -29,6 +29,10 @@ class GlobalSearch extends Modal
     {
         $results = Collection::make();
 
+        if (blank($this->search)) {
+            return $results;
+        }
+
         $results
             ->when(in_array('announcements', $this->categories))
             ->put('Announcements', Announcement::search($this->search)->get());

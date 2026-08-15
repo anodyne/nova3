@@ -76,7 +76,7 @@ class PostPublish extends SlideOver
             ])
             ->send();
 
-        $this->dispatch('slide-over.close');
+        $this->dispatch('modal-close');
     }
 
     public function publish(): void
@@ -201,11 +201,6 @@ class PostPublish extends SlideOver
     public static function size(): string
     {
         return 'xl';
-    }
-
-    public static function removeStateOnClose(): bool
-    {
-        return true;
     }
 
     private function setPostAttributes(): void

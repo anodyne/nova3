@@ -34,7 +34,7 @@ describe('PostRatings', function () {
     test('can open editor slide over', function () {
         livewire(PostRatings::class, ['post' => $this->post])
             ->call('openForEditing')
-            ->assertDispatched('slide-over.open');
+            ->assertDispatched('modal-open');
     });
 
     test('can save ratings', function () {

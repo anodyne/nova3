@@ -32,18 +32,12 @@ use Nova\Stories\Providers\PostTypeServiceProvider;
 use Nova\Stories\Providers\StoryServiceProvider;
 use Nova\Themes\Providers\ThemeServiceProvider;
 use Nova\Users\Providers\UserServiceProvider;
-use WireElements\Pro\Components\Modal\ModalServiceProvider;
-use WireElements\Pro\Components\SlideOver\SlideOverServiceProvider;
-use WireElements\Pro\WireElementsProServiceProvider;
 
 return [
     BladeIconsServiceProvider::class,
     ImpersonateServiceProvider::class,
     SpotlightServiceProvider::class,
     LivewireServiceProvider::class,
-    WireElementsProServiceProvider::class,
-    ModalServiceProvider::class,
-    SlideOverServiceProvider::class,
     AddonServiceProvider::class,
     AnnouncementServiceProvider::class,
     ApplicationServiceProvider::class,

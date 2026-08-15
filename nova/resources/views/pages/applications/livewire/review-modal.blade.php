@@ -1,6 +1,6 @@
 @use('Nova\Applications\Enums\ApplicationResult')
 
-<x-modal title="Review application" :icon="Tabler::Progress">
+<x-modal :size-class="$this->sizeClass()" title="Review application" :icon="Tabler::Progress">
     <x-form action="">
         <x-fieldset>
             <x-fieldset.group>

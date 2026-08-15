@@ -13,7 +13,7 @@
 
                 @can('update', $theme)
                     <x-button
-                        x-on:click="Livewire.dispatch('slide-over.open', {component: 'theme-settings', arguments: {'theme': '{{ $theme->location }}'}})"
+                        x-on:click="Livewire.dispatch('modal-open', {modal: 'theme-settings', props: {'theme': '{{ $theme->location }}'}})"
                     >
                         Theme settings
                     </x-button>

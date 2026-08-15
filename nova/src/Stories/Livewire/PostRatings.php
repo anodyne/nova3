@@ -28,9 +28,9 @@ class PostRatings extends Component
     public function openForEditing(): void
     {
         $this->dispatch(
-            'slide-over.open',
-            PostRatingsEditor::class,
-            [
+            'modal-open',
+            modal: 'posts-ratings-editor',
+            props: [
                 'language' => $this->language,
                 'sex' => $this->sex,
                 'violence' => $this->violence,

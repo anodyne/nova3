@@ -1,6 +1,6 @@
 @use('Nova\Stories\Enums\PositionDirection')
 
-<x-modal.slide-over
+<x-modal.slide-over :size-class="$this->sizeClass()"
     title="Update post position"
     description="Posts live on a timeline which allows you to set exactly where this post should appear in the story’s timeline."
     :icon="Tabler::TimelineEvent"
@@ -65,6 +65,6 @@
 
     <x-slot name="footer">
         <x-button type="button" wire:click="save" variant="primary">Update</x-button>
-        <x-button type="button" wire:click="$dispatch('slide-over.close')" variant="ghost">Cancel</x-button>
+        <x-button type="button" wire:click="$dispatch('modal-close')" variant="ghost">Cancel</x-button>
     </x-slot>
 </x-modal.slide-over>
