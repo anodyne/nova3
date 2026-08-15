@@ -20,7 +20,5 @@
 .php-cs-fixer.cache
 .phpunit.result.cache
 auth.json
-npm-debug.log
 safelist.txt
-yarn-error.log
 .DS_Store
