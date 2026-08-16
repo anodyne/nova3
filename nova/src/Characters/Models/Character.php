@@ -41,6 +41,92 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+/**
+ * @property int $id
+ * @property string|null $prefixed_id
+ * @property string $name
+ * @property CharacterType $type
+ * @property CharacterStatus $status
+ * @property int|null $rank_id
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property-read \Nova\Characters\Models\CharacterPosition|\Nova\Characters\Models\CharacterUser|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activePrimaryUsers
+ * @property-read int|null $active_primary_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activeUsers
+ * @property-read int|null $active_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read Application|null $application
+ * @property-read string $avatar_url
+ * @property-read FormSubmission|null $characterFormSubmission
+ * @property-read string $display_name
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, FormSubmission> $formSubmissions
+ * @property-read int|null $form_submissions_count
+ * @property-read bool $has_avatar
+ * @property-read bool $is_active
+ * @property-read bool $is_deleted
+ * @property-read bool $is_hidden
+ * @property-read bool $is_inactive
+ * @property-read bool $is_pending
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Position> $positions
+ * @property-read int|null $positions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Post> $postAuthors
+ * @property-read int|null $post_authors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Post> $posts
+ * @property-read int|null $posts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $primaryUsers
+ * @property-read int|null $primary_users_count
+ * @property-read RankItem|null $rank
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, StatusHistory> $statusHistories
+ * @property-read int|null $status_histories_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $users
+ * @property-read int|null $users_count
+ * @method static CharacterBuilder<static>|Character active()
+ * @method static CharacterBuilder<static>|Character activeBetween(\Carbon\CarbonInterface $start, \Carbon\CarbonInterface $end)
+ * @method static \Database\Factories\CharacterFactory factory($count = null, $state = [])
+ * @method static CharacterBuilder<static>|Character hidden()
+ * @method static CharacterBuilder<static>|Character inactive()
+ * @method static CharacterBuilder<static>|Character isAssignedTo(\Nova\Users\Models\User $user)
+ * @method static CharacterBuilder<static>|Character newModelQuery()
+ * @method static CharacterBuilder<static>|Character newQuery()
+ * @method static CharacterBuilder<static>|Character notHidden()
+ * @method static CharacterBuilder<static>|Character notPending()
+ * @method static CharacterBuilder<static>|Character notPrimary()
+ * @method static CharacterBuilder<static>|Character notSecondary()
+ * @method static CharacterBuilder<static>|Character notSupport()
+ * @method static Builder<static>|Character onlyTrashed()
+ * @method static CharacterBuilder<static>|Character orWhereNotState(string $column, $states)
+ * @method static CharacterBuilder<static>|Character orWhereState(string $column, $states)
+ * @method static CharacterBuilder<static>|Character pending()
+ * @method static CharacterBuilder<static>|Character primary()
+ * @method static CharacterBuilder<static>|Character query()
+ * @method static CharacterBuilder<static>|Character searchFor($search)
+ * @method static CharacterBuilder<static>|Character searchForBasic($search)
+ * @method static CharacterBuilder<static>|Character searchForWithoutUsers($search)
+ * @method static CharacterBuilder<static>|Character secondary()
+ * @method static CharacterBuilder<static>|Character selectTotalCount()
+ * @method static CharacterBuilder<static>|Character selectTypeCounts()
+ * @method static CharacterBuilder<static>|Character support()
+ * @method static CharacterBuilder<static>|Character whereCreatedAt($value)
+ * @method static CharacterBuilder<static>|Character whereDeletedAt($value)
+ * @method static CharacterBuilder<static>|Character whereId($value)
+ * @method static CharacterBuilder<static>|Character whereIsPrimaryCharacter()
+ * @method static CharacterBuilder<static>|Character whereName($value)
+ * @method static CharacterBuilder<static>|Character whereNotState(string $column, $states)
+ * @method static CharacterBuilder<static>|Character wherePrefixedId($value)
+ * @method static CharacterBuilder<static>|Character whereRankId($value)
+ * @method static CharacterBuilder<static>|Character whereState(string $column, $states)
+ * @method static CharacterBuilder<static>|Character whereStatus($value)
+ * @method static CharacterBuilder<static>|Character whereType($value)
+ * @method static CharacterBuilder<static>|Character whereUpdatedAt($value)
+ * @method static Builder<static>|Character withTrashed(bool $withTrashed = true)
+ * @method static Builder<static>|Character withoutTrashed()
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(CharacterBuilder::class)]
 class Character extends Model implements HasMedia
 {

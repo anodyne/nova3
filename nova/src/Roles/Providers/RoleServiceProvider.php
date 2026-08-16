@@ -11,6 +11,7 @@ use Nova\Roles\Livewire\PermissionsList;
 use Nova\Roles\Livewire\RolesList;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Models\Role;
+use Nova\Roles\Models\Team;
 use Nova\Roles\Spotlight\AddRole;
 use Nova\Roles\Spotlight\EditRole;
 use Nova\Roles\Spotlight\ViewRole;
@@ -33,6 +34,7 @@ class RoleServiceProvider extends DomainServiceProvider
         return [
             'permission' => Permission::class,
             'role' => Role::class,
+            'team' => Team::class,
         ];
     }
 

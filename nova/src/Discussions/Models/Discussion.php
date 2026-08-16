@@ -18,6 +18,51 @@ use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+/**
+ * @property int $id
+ * @property string|null $prefixed_id
+ * @property string|null $discussable_type
+ * @property int|null $discussable_id
+ * @property string|null $subject
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Nova\Discussions\Models\DiscussionParticipant|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $allParticipants
+ * @property-read int|null $all_participants_count
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $discussable
+ * @property-read bool $has_unread_messages
+ * @property-read bool $is_direct_message
+ * @property-read bool $is_group_message
+ * @property-read \Nova\Discussions\Models\DiscussionMessage|null $lastMessage
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Discussions\Models\DiscussionMessage> $messages
+ * @property-read int|null $messages_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Discussions\Models\DiscussionNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $participants
+ * @property-read int|null $participants_count
+ * @property-read string $participants_string
+ * @property-read string $truncated_participants_string
+ * @method static DiscussionBuilder<static>|Discussion conversation()
+ * @method static DiscussionBuilder<static>|Discussion directMessage()
+ * @method static \Database\Factories\DiscussionFactory factory($count = null, $state = [])
+ * @method static DiscussionBuilder<static>|Discussion forCurrentUser()
+ * @method static DiscussionBuilder<static>|Discussion groupMessage()
+ * @method static DiscussionBuilder<static>|Discussion newModelQuery()
+ * @method static DiscussionBuilder<static>|Discussion newQuery()
+ * @method static DiscussionBuilder<static>|Discussion query()
+ * @method static DiscussionBuilder<static>|Discussion searchFor(string $search)
+ * @method static DiscussionBuilder<static>|Discussion whereCreatedAt($value)
+ * @method static DiscussionBuilder<static>|Discussion whereDiscussableId($value)
+ * @method static DiscussionBuilder<static>|Discussion whereDiscussableType($value)
+ * @method static DiscussionBuilder<static>|Discussion whereId($value)
+ * @method static DiscussionBuilder<static>|Discussion wherePrefixedId($value)
+ * @method static DiscussionBuilder<static>|Discussion whereSubject($value)
+ * @method static DiscussionBuilder<static>|Discussion whereUpdatedAt($value)
+ * @method static DiscussionBuilder<static>|Discussion withoutCurrentUser()
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(DiscussionBuilder::class)]
 class Discussion extends Model
 {

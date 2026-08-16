@@ -14,6 +14,37 @@ use Nova\Forms\Models\Builders\FormSubmissionBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
 
+/**
+ * @property int $id
+ * @property int $form_id
+ * @property string|null $owner_type
+ * @property int|null $owner_id
+ * @property array<array-key, mixed>|null $meta
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Nova\Forms\Models\Form $form
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $owner
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormSubmissionResponse> $responses
+ * @property-read int|null $responses_count
+ * @property-read string|null $title_field
+ * @method static \Database\Factories\FormSubmissionFactory factory($count = null, $state = [])
+ * @method static FormSubmissionBuilder<static>|FormSubmission form(\Nova\Forms\Models\Form|int $form)
+ * @method static FormSubmissionBuilder<static>|FormSubmission newModelQuery()
+ * @method static FormSubmissionBuilder<static>|FormSubmission newQuery()
+ * @method static FormSubmissionBuilder<static>|FormSubmission onlySubmissionsForCurrentUser()
+ * @method static FormSubmissionBuilder<static>|FormSubmission ownerIsUser(\Nova\Users\Models\User $user)
+ * @method static FormSubmissionBuilder<static>|FormSubmission query()
+ * @method static FormSubmissionBuilder<static>|FormSubmission whereCreatedAt($value)
+ * @method static FormSubmissionBuilder<static>|FormSubmission whereFormId($value)
+ * @method static FormSubmissionBuilder<static>|FormSubmission whereId($value)
+ * @method static FormSubmissionBuilder<static>|FormSubmission whereMeta($value)
+ * @method static FormSubmissionBuilder<static>|FormSubmission whereOwnerId($value)
+ * @method static FormSubmissionBuilder<static>|FormSubmission whereOwnerType($value)
+ * @method static FormSubmissionBuilder<static>|FormSubmission whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(FormSubmissionBuilder::class)]
 class FormSubmission extends Model
 {

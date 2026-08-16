@@ -10,6 +10,7 @@ use Nova\Themes\Actions\SetupThemeDirectory;
 use Nova\Themes\Livewire\ThemeSelector;
 use Nova\Themes\Livewire\ThemeSettings;
 use Nova\Themes\Livewire\ThemesList;
+use Nova\Themes\Models\PendingTheme;
 use Nova\Themes\Models\Theme;
 
 class ThemeServiceProvider extends DomainServiceProvider
@@ -52,6 +53,7 @@ class ThemeServiceProvider extends DomainServiceProvider
     public function morphMaps(): array
     {
         return [
+            'pendingTheme' => PendingTheme::class,
             'theme' => Theme::class,
         ];
     }

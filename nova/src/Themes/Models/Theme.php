@@ -21,6 +21,44 @@ use Nova\Themes\Events\ThemeDeleted;
 use Nova\Themes\Events\ThemeUpdated;
 use Nova\Themes\Models\Builders\ThemeBuilder;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $location
+ * @property string $version
+ * @property string|null $credits
+ * @property string|null $preview
+ * @property BasicStatus $status
+ * @property \Bag\Bag $settings
+ * @property \Bag\Bag|null $repository
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read bool $has_update
+ * @property-read bool $is_current_public_theme
+ * @property-read string|null $latest_version
+ * @property-read string|null $update_url
+ * @method static ThemeBuilder<static>|Theme active()
+ * @method static \Database\Factories\ThemeFactory factory($count = null, $state = [])
+ * @method static ThemeBuilder<static>|Theme inactive()
+ * @method static ThemeBuilder<static>|Theme location($location)
+ * @method static ThemeBuilder<static>|Theme newModelQuery()
+ * @method static ThemeBuilder<static>|Theme newQuery()
+ * @method static ThemeBuilder<static>|Theme query()
+ * @method static ThemeBuilder<static>|Theme whereCreatedAt($value)
+ * @method static ThemeBuilder<static>|Theme whereCredits($value)
+ * @method static ThemeBuilder<static>|Theme whereId($value)
+ * @method static ThemeBuilder<static>|Theme whereLocation($value)
+ * @method static ThemeBuilder<static>|Theme whereName($value)
+ * @method static ThemeBuilder<static>|Theme wherePreview($value)
+ * @method static ThemeBuilder<static>|Theme whereRepository($value)
+ * @method static ThemeBuilder<static>|Theme whereSettings($value)
+ * @method static ThemeBuilder<static>|Theme whereStatus($value)
+ * @method static ThemeBuilder<static>|Theme whereUpdatedAt($value)
+ * @method static ThemeBuilder<static>|Theme whereVersion($value)
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(ThemeBuilder::class)]
 class Theme extends Model
 {

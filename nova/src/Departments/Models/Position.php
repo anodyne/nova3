@@ -28,6 +28,56 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
+/**
+ * @property int $id
+ * @property string|null $prefixed_id
+ * @property int $department_id
+ * @property string $name
+ * @property string|null $description
+ * @property int $available
+ * @property BasicStatus $status
+ * @property array<array-key, mixed>|null $tags
+ * @property int|null $order_column
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read CharacterPosition|null $pivot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Character> $activeCharacters
+ * @property-read int|null $active_characters_count
+ * @property-read int|null $active_users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Character> $characters
+ * @property-read int|null $characters_count
+ * @property-read \Nova\Departments\Models\Department $department
+ * @property-read mixed $tags_as_string
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activeUsers
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $users
+ * @property-read int|null $users_count
+ * @method static PositionBuilder<static>|Position active()
+ * @method static PositionBuilder<static>|Position available()
+ * @method static PositionBuilder<static>|Position department($id)
+ * @method static \Database\Factories\PositionFactory factory($count = null, $state = [])
+ * @method static PositionBuilder<static>|Position hasTags(array $tags)
+ * @method static PositionBuilder<static>|Position inactive()
+ * @method static PositionBuilder<static>|Position newModelQuery()
+ * @method static PositionBuilder<static>|Position newQuery()
+ * @method static PositionBuilder<static>|Position ordered(string $direction = 'asc')
+ * @method static PositionBuilder<static>|Position query()
+ * @method static PositionBuilder<static>|Position searchFor($search)
+ * @method static PositionBuilder<static>|Position uniqueTags()
+ * @method static PositionBuilder<static>|Position whereAvailable($value)
+ * @method static PositionBuilder<static>|Position whereCreatedAt($value)
+ * @method static PositionBuilder<static>|Position whereDepartmentId($value)
+ * @method static PositionBuilder<static>|Position whereDescription($value)
+ * @method static PositionBuilder<static>|Position whereId($value)
+ * @method static PositionBuilder<static>|Position whereName($value)
+ * @method static PositionBuilder<static>|Position whereOrderColumn($value)
+ * @method static PositionBuilder<static>|Position wherePrefixedId($value)
+ * @method static PositionBuilder<static>|Position whereStatus($value)
+ * @method static PositionBuilder<static>|Position whereTags($value)
+ * @method static PositionBuilder<static>|Position whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(PositionBuilder::class)]
 class Position extends Model implements Sortable
 {

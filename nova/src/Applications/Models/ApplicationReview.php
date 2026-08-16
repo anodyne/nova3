@@ -14,6 +14,32 @@ use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Users\Models\User;
 
+/**
+ * @property int $id
+ * @property int $application_id
+ * @property int $user_id
+ * @property ApplicationResult|null $result
+ * @property string|null $comments
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Nova\Applications\Models\Application $application
+ * @property-read bool $is_accepted
+ * @property-read bool $is_denied
+ * @property-read User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereApplicationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereComments($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereResult($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereUserId($value)
+ * @mixin \Eloquent
+ */
 class ApplicationReview extends Pivot
 {
     use HasTableHelpers;

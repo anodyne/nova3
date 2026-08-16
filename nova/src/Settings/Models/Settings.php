@@ -19,6 +19,42 @@ use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Models\Builders\SettingsBuilder;
 use Spatie\MediaLibrary\HasMedia;
 
+/**
+ * @property int $id
+ * @property string $key
+ * @property \Bag\Bag|null $general
+ * @property \Bag\Bag|null $email
+ * @property \Bag\Bag|null $appearance
+ * @property \Bag\Bag|null $characters
+ * @property \Bag\Bag|null $discord
+ * @property \Bag\Bag|null $posting_activity
+ * @property \Bag\Bag|null $ratings
+ * @property \Bag\Bag|null $applications
+ * @property \Bag\Bag|null $dashboard
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
+ * @method static SettingsBuilder<static>|Settings custom()
+ * @method static SettingsBuilder<static>|Settings default()
+ * @method static SettingsBuilder<static>|Settings newModelQuery()
+ * @method static SettingsBuilder<static>|Settings newQuery()
+ * @method static SettingsBuilder<static>|Settings query()
+ * @method static SettingsBuilder<static>|Settings whereAppearance($value)
+ * @method static SettingsBuilder<static>|Settings whereApplications($value)
+ * @method static SettingsBuilder<static>|Settings whereCharacters($value)
+ * @method static SettingsBuilder<static>|Settings whereCreatedAt($value)
+ * @method static SettingsBuilder<static>|Settings whereDashboard($value)
+ * @method static SettingsBuilder<static>|Settings whereDiscord($value)
+ * @method static SettingsBuilder<static>|Settings whereEmail($value)
+ * @method static SettingsBuilder<static>|Settings whereGeneral($value)
+ * @method static SettingsBuilder<static>|Settings whereId($value)
+ * @method static SettingsBuilder<static>|Settings whereKey($value)
+ * @method static SettingsBuilder<static>|Settings wherePostingActivity($value)
+ * @method static SettingsBuilder<static>|Settings whereRatings($value)
+ * @method static SettingsBuilder<static>|Settings whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(SettingsBuilder::class)]
 class Settings extends Model implements HasMedia
 {

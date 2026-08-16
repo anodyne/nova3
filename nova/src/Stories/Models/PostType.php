@@ -29,6 +29,68 @@ use Spatie\EloquentSortable\SortableTrait;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+/**
+ * @property int $id
+ * @property string|null $prefixed_id
+ * @property string $key
+ * @property string $name
+ * @property string|null $description
+ * @property string|null $color
+ * @property Tabler|null $icon
+ * @property int|null $role_id
+ * @property BasicStatus $status
+ * @property PostTypeVisibility $visibility
+ * @property \Bag\Bag|null $fields
+ * @property \Bag\Bag|null $options
+ * @property int|null $order_column
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read bool $included_in_post_tracking
+ * @property-read bool $notifies_users
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Stories\Models\Post> $posts
+ * @property-read int|null $posts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Stories\Models\Post> $publishedPosts
+ * @property-read int|null $published_posts_count
+ * @property-read Role|null $role
+ * @property-read string $title
+ * @method static PostTypeBuilder<static>|PostType active()
+ * @method static \Database\Factories\PostTypeFactory factory($count = null, $state = [])
+ * @method static PostTypeBuilder<static>|PostType inCharacter()
+ * @method static PostTypeBuilder<static>|PostType inactive()
+ * @method static PostTypeBuilder<static>|PostType newModelQuery()
+ * @method static PostTypeBuilder<static>|PostType newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostType onlyTrashed()
+ * @method static PostTypeBuilder<static>|PostType orWhereNotState(string $column, $states)
+ * @method static PostTypeBuilder<static>|PostType orWhereState(string $column, $states)
+ * @method static PostTypeBuilder<static>|PostType ordered(string $direction = 'asc')
+ * @method static PostTypeBuilder<static>|PostType query()
+ * @method static PostTypeBuilder<static>|PostType searchFor($search)
+ * @method static PostTypeBuilder<static>|PostType userHasAccess(\Illuminate\Contracts\Auth\Authenticatable $user)
+ * @method static PostTypeBuilder<static>|PostType whereColor($value)
+ * @method static PostTypeBuilder<static>|PostType whereCreatedAt($value)
+ * @method static PostTypeBuilder<static>|PostType whereDeletedAt($value)
+ * @method static PostTypeBuilder<static>|PostType whereDescription($value)
+ * @method static PostTypeBuilder<static>|PostType whereFields($value)
+ * @method static PostTypeBuilder<static>|PostType whereIcon($value)
+ * @method static PostTypeBuilder<static>|PostType whereId($value)
+ * @method static PostTypeBuilder<static>|PostType whereKey($value)
+ * @method static PostTypeBuilder<static>|PostType whereName($value)
+ * @method static PostTypeBuilder<static>|PostType whereNotState(string $column, $states)
+ * @method static PostTypeBuilder<static>|PostType whereOptions($value)
+ * @method static PostTypeBuilder<static>|PostType whereOrderColumn($value)
+ * @method static PostTypeBuilder<static>|PostType wherePrefixedId($value)
+ * @method static PostTypeBuilder<static>|PostType whereRoleId($value)
+ * @method static PostTypeBuilder<static>|PostType whereState(string $column, $states)
+ * @method static PostTypeBuilder<static>|PostType whereStatus($value)
+ * @method static PostTypeBuilder<static>|PostType whereUpdatedAt($value)
+ * @method static PostTypeBuilder<static>|PostType whereVisibility($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostType withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostType withoutTrashed()
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(PostTypeBuilder::class)]
 class PostType extends Model implements Sortable
 {

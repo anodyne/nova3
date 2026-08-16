@@ -28,6 +28,78 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+/**
+ * @property int $id
+ * @property string|null $prefixed_id
+ * @property string $name
+ * @property string $uri
+ * @property string|null $key
+ * @property PageVerb $verb
+ * @property string|null $resource
+ * @property string $layout
+ * @property array<array-key, mixed>|null $middleware
+ * @property array<array-key, mixed>|null $blocks
+ * @property array<array-key, mixed>|null $published_blocks
+ * @property string|null $seo_title
+ * @property string|null $seo_description
+ * @property string|null $seo_keywords
+ * @property BasicStatus $status
+ * @property \Carbon\CarbonImmutable|null $published_at
+ * @property bool $content_can_be_edited
+ * @property string|null $heading
+ * @property string|null $subheading
+ * @property string|null $intro
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read bool $is_advanced
+ * @property-read bool $is_basic
+ * @property-read bool $is_previewable
+ * @property-read bool $is_published
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, MenuItem> $menuItems
+ * @property-read int|null $menu_items_count
+ * @property-read string|null $rendered_block_content
+ * @method static PageBuilder<static>|Page active()
+ * @method static PageBuilder<static>|Page advanced()
+ * @method static PagesCollection<int, static> all($columns = ['*'])
+ * @method static PageBuilder<static>|Page basic()
+ * @method static \Database\Factories\PageFactory factory($count = null, $state = [])
+ * @method static PagesCollection<int, static> get($columns = ['*'])
+ * @method static PageBuilder<static>|Page inactive()
+ * @method static PageBuilder<static>|Page key(string $key)
+ * @method static PageBuilder<static>|Page newModelQuery()
+ * @method static PageBuilder<static>|Page newQuery()
+ * @method static PageBuilder<static>|Page public()
+ * @method static PageBuilder<static>|Page query()
+ * @method static PageBuilder<static>|Page searchFor(string $search)
+ * @method static PageBuilder<static>|Page verb(\Nova\Pages\Enums\PageVerb $verb)
+ * @method static PageBuilder<static>|Page whereBlocks($value)
+ * @method static PageBuilder<static>|Page whereContentCanBeEdited($value)
+ * @method static PageBuilder<static>|Page whereCreatedAt($value)
+ * @method static PageBuilder<static>|Page whereHeading($value)
+ * @method static PageBuilder<static>|Page whereId($value)
+ * @method static PageBuilder<static>|Page whereIntro($value)
+ * @method static PageBuilder<static>|Page whereKey($value)
+ * @method static PageBuilder<static>|Page whereLayout($value)
+ * @method static PageBuilder<static>|Page whereMiddleware($value)
+ * @method static PageBuilder<static>|Page whereName($value)
+ * @method static PageBuilder<static>|Page wherePrefixedId($value)
+ * @method static PageBuilder<static>|Page wherePublishedAt($value)
+ * @method static PageBuilder<static>|Page wherePublishedBlocks($value)
+ * @method static PageBuilder<static>|Page whereResource($value)
+ * @method static PageBuilder<static>|Page whereSeoDescription($value)
+ * @method static PageBuilder<static>|Page whereSeoKeywords($value)
+ * @method static PageBuilder<static>|Page whereSeoTitle($value)
+ * @method static PageBuilder<static>|Page whereStatus($value)
+ * @method static PageBuilder<static>|Page whereSubheading($value)
+ * @method static PageBuilder<static>|Page whereUpdatedAt($value)
+ * @method static PageBuilder<static>|Page whereUri($value)
+ * @method static PageBuilder<static>|Page whereVerb($value)
+ * @mixin \Eloquent
+ */
 #[CollectedBy(PagesCollection::class)]
 #[ObservedBy([PageObserver::class])]
 #[UseEloquentBuilder(PageBuilder::class)]

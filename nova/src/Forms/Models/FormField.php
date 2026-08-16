@@ -14,6 +14,39 @@ use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Foundation\Models\Model;
 use Spatie\EloquentSortable\Sortable;
 
+/**
+ * @property int $id
+ * @property int $form_id
+ * @property string $name
+ * @property string $uid
+ * @property string $label
+ * @property string $type
+ * @property int|null $order_column
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Nova\Forms\Models\Form $form
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormSubmissionResponse> $responses
+ * @property-read int|null $responses_count
+ * @method static \Database\Factories\FormFieldFactory factory($count = null, $state = [])
+ * @method static FormFieldBuilder<static>|FormField form(\Nova\Forms\Models\Form|int $form)
+ * @method static FormFieldBuilder<static>|FormField newModelQuery()
+ * @method static FormFieldBuilder<static>|FormField newQuery()
+ * @method static FormFieldBuilder<static>|FormField ordered(string $direction = 'asc')
+ * @method static FormFieldBuilder<static>|FormField query()
+ * @method static FormFieldBuilder<static>|FormField uid(string $uid)
+ * @method static FormFieldBuilder<static>|FormField whereCreatedAt($value)
+ * @method static FormFieldBuilder<static>|FormField whereFormId($value)
+ * @method static FormFieldBuilder<static>|FormField whereId($value)
+ * @method static FormFieldBuilder<static>|FormField whereLabel($value)
+ * @method static FormFieldBuilder<static>|FormField whereName($value)
+ * @method static FormFieldBuilder<static>|FormField whereOrderColumn($value)
+ * @method static FormFieldBuilder<static>|FormField whereType($value)
+ * @method static FormFieldBuilder<static>|FormField whereUid($value)
+ * @method static FormFieldBuilder<static>|FormField whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(FormFieldBuilder::class)]
 class FormField extends Model implements Sortable
 {

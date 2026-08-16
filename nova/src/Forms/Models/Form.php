@@ -22,6 +22,57 @@ use Nova\Foundation\Models\Model;
 use Spatie\Activitylog\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
+/**
+ * @property int $id
+ * @property string|null $prefixed_id
+ * @property string $name
+ * @property string $key
+ * @property FormType $type
+ * @property string|null $description
+ * @property bool $is_locked
+ * @property \Bag\Bag|null $options
+ * @property array<array-key, mixed>|null $fields
+ * @property array<array-key, mixed>|null $published_fields
+ * @property BasicStatus $status
+ * @property \Carbon\CarbonImmutable|null $published_at
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormField> $formFields
+ * @property-read int|null $form_fields_count
+ * @property-read bool $has_published_fields
+ * @property-read string|null $rendered_block_content
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormSubmission> $submissions
+ * @property-read int|null $submissions_count
+ * @property-read array $validation_messages
+ * @property-read array $validation_rules
+ * @method static FormBuilder<static>|Form active()
+ * @method static FormBuilder<static>|Form basic()
+ * @method static \Database\Factories\FormFactory factory($count = null, $state = [])
+ * @method static FormBuilder<static>|Form inactive()
+ * @method static FormBuilder<static>|Form key(string $key)
+ * @method static FormBuilder<static>|Form newModelQuery()
+ * @method static FormBuilder<static>|Form newQuery()
+ * @method static FormBuilder<static>|Form query()
+ * @method static FormBuilder<static>|Form searchFor($search)
+ * @method static FormBuilder<static>|Form submissible()
+ * @method static FormBuilder<static>|Form whereCreatedAt($value)
+ * @method static FormBuilder<static>|Form whereDescription($value)
+ * @method static FormBuilder<static>|Form whereFields($value)
+ * @method static FormBuilder<static>|Form whereId($value)
+ * @method static FormBuilder<static>|Form whereIsLocked($value)
+ * @method static FormBuilder<static>|Form whereKey($value)
+ * @method static FormBuilder<static>|Form whereName($value)
+ * @method static FormBuilder<static>|Form whereOptions($value)
+ * @method static FormBuilder<static>|Form wherePrefixedId($value)
+ * @method static FormBuilder<static>|Form wherePublishedAt($value)
+ * @method static FormBuilder<static>|Form wherePublishedFields($value)
+ * @method static FormBuilder<static>|Form whereStatus($value)
+ * @method static FormBuilder<static>|Form whereType($value)
+ * @method static FormBuilder<static>|Form whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 #[UseEloquentBuilder(FormBuilder::class)]
 class Form extends Model
 {

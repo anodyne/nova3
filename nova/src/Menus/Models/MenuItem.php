@@ -26,6 +26,52 @@ use Nova\Pages\Models\Page;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
+/**
+ * @property int $id
+ * @property int $menu_id
+ * @property int|null $parent_id
+ * @property string $label
+ * @property Tabler|null $icon
+ * @property LinkType $link_type
+ * @property int|null $page_id
+ * @property string|null $url
+ * @property LinkTarget $target
+ * @property BasicStatus $status
+ * @property int|null $order_column
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, MenuItem> $items
+ * @property-read int|null $items_count
+ * @property-read mixed $link
+ * @property-read \Nova\Menus\Models\Menu $menu
+ * @property-read Page|null $page
+ * @property-read MenuItem|null $parent
+ * @method static MenuItemBuilder<static>|MenuItem active()
+ * @method static \Database\Factories\MenuItemFactory factory($count = null, $state = [])
+ * @method static MenuItemBuilder<static>|MenuItem inactive()
+ * @method static MenuItemBuilder<static>|MenuItem newModelQuery()
+ * @method static MenuItemBuilder<static>|MenuItem newQuery()
+ * @method static MenuItemBuilder<static>|MenuItem ordered(string $direction = 'asc')
+ * @method static MenuItemBuilder<static>|MenuItem public()
+ * @method static MenuItemBuilder<static>|MenuItem query()
+ * @method static MenuItemBuilder<static>|MenuItem searchFor($search)
+ * @method static MenuItemBuilder<static>|MenuItem whereCreatedAt($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereIcon($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereId($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereLabel($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereLinkType($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereMenuId($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereOrderColumn($value)
+ * @method static MenuItemBuilder<static>|MenuItem wherePageId($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereParentId($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereStatus($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereTarget($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereUpdatedAt($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereUrl($value)
+ * @mixin \Eloquent
+ */
 #[ObservedBy([MenuItemObserver::class])]
 #[UseEloquentBuilder(MenuItemBuilder::class)]
 class MenuItem extends Model implements Sortable
