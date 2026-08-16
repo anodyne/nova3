@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-use Illuminate\Foundation\Application;
+use Illuminate\Contracts\Console\Kernel;
+use Nova\Foundation\Application;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,15 @@ use Illuminate\Foundation\Application;
 | never defines `LARAVEL_VERSION`. Since Larastan 3.10 its stub file extension
 | reads that constant unconditionally, which aborts the analysis.
 |
-| Defining it from the framework itself keeps analysis working without booting
-| the whole application inside PHPStan.
+| Load Nova's application and bootstrap its console kernel so Laravel helpers
+| resolve against the application container during analysis.
 |
 */
+
+/** @var Application $app */
+$app = require __DIR__.'/nova/bootstrap/app.php';
+
+$app->make(Kernel::class)->bootstrap();
 
 if (! defined('LARAVEL_VERSION')) {
     define('LARAVEL_VERSION', Application::VERSION);
