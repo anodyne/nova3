@@ -65,6 +65,7 @@
         "wire-elements/spotlight": "^2.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.7",
         "brianium/paratest": "^7.14",
         "fakerphp/faker": "^1.14",
         "fruitcake/laravel-debugbar": "^4.1",
@@ -156,6 +157,12 @@
             "@test:type-coverage",
             "@analyse",
             "@test:unit"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:models -RW",
+            "@php artisan ide-helper:meta"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
