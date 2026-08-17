@@ -16,7 +16,7 @@ class ClearNovaCacheButton extends Component
     {
         Cache::flush();
 
-        Artisan::run('icons:cache');
+        Artisan::call('icons:cache');
     }
 
     public function render()

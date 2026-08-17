@@ -8,6 +8,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(?string $color, ?string $webhook)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class Discord extends Bag
 {

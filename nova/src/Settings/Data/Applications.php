@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(bool $enabled, ?string $disabledMessage, bool $alwaysShowResults, bool $allowVoteChanging, bool $showDecisionMessage)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class Applications extends Bag
 {

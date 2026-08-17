@@ -11,6 +11,8 @@ use Illuminate\Support\Collection;
 
 /**
  * @method static static from(Field $title, Field $day, Field $time, Field $location, Field $content, Field $rating, Field $summary)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class Fields extends Bag
 {

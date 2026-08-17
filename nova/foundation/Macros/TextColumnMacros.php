@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
+use Closure;
+use Filament\Tables\Columns\TextColumn;
+
 class TextColumnMacros
 {
-    public function titleColumn()
+    public function titleColumn(): Closure
     {
         return function () {
-            $this->weight('medium');
-            $this->extraAttributes(['class' => 'fi-ta-title-column']);
+            /** @var TextColumn $column */
+            $column = $this;
 
-            return $this;
+            $column->weight('medium');
+            $column->extraAttributes(['class' => 'fi-ta-title-column']);
+
+            return $column;
         };
     }
 }

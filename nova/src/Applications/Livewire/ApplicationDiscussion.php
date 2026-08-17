@@ -15,6 +15,12 @@ use Nova\Applications\Models\ApplicationReview;
 use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\Form;
 
+/**
+ * @property-read ?Discussion $discussion
+ * @property-read ?Collection $messages
+ * @property-read ?Form $applicationReviewForm
+ * @property-read bool $hasPublishedForm
+ */
 #[On('review-submitted')]
 class ApplicationDiscussion extends Component
 {

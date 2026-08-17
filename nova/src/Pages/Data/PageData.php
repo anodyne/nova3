@@ -12,6 +12,8 @@ use Nova\Pages\Enums\PageVerb;
 
 /**
  * @method static static from(string $name, string $key, string $uri, PageVerb $verb, BasicStatus $status, ?string $resource, string $layout, ?string $seo_title, ?string $seo_description, ?string $seo_keywords, ?string $heading, ?string $subheading, ?string $intro)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class PageData extends Bag
 {

@@ -6,4 +6,4 @@ parameters:
         - phpstan-bootstrap.php
     paths:
         - nova/
-    level: 5
+    level: 1

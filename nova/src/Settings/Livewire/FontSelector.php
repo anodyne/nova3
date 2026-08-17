@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
+/**
+ * @property-read array $localFonts
+ * @property-read ?string $fontFamilyInputName
+ * @property-read ?string $fontProviderInputName
+ */
 class FontSelector extends Component
 {
     public ?string $section = null;

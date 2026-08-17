@@ -14,6 +14,8 @@ use Nova\Stories\Models\Story;
 
 /**
  * @method static static from(string $title, ?string $description, ?string $startedAt, ?string $endedAt, ?int $parentId, ?string $summary)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[MapInputName(SnakeCase::class)]
 #[MapOutputName(SnakeCase::class)]

@@ -10,6 +10,9 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Ranks\Models\RankName;
 
+/**
+ * @property-read Collection $rankNames
+ */
 class RankNamesDropdown extends Component
 {
     public ?int $name = null;

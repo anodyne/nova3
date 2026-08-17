@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(string $name, string $email, PronounsData $pronouns)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[StripExtraParameters]
 readonly class UserData extends Bag

@@ -12,6 +12,8 @@ use Nova\Foundation\Enums\BasicStatus;
 
 /**
  * @method static static from(string $name, ?string $location, ?string $version, ?string $credits, BasicStatus $status, string $preview, ?ThemeSettings $settings, ?AddonRepository $repository)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ThemeData extends Bag
 {

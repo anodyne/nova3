@@ -12,6 +12,8 @@ use Nova\Settings\Enums\Mailer;
 
 /**
  * @method static static from(?string $mailer, ?string $fromAddress, ?string $fromName, ?string $sendmailPath, ?string $smtpHost, ?string $smtpPort, ?string $smtpUsername, ?string $smtpPassword, ?string $smtpEncryption, ?string $mailgunDomain, ?string $mailgunSecret, ?string $mailgunEndpoint, ?string $mailersendApiKey, ?string $postmarkToken, ?string $awsAccessKeyId, ?string $awsSecretAccessKey, ?string $awsDefaultRegion)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[MapInputName(SnakeCase::class)]
 #[StripExtraParameters]

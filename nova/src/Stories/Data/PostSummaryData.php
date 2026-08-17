@@ -9,6 +9,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(?string $summary)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[StripExtraParameters]
 readonly class PostSummaryData extends Bag

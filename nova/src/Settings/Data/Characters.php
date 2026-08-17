@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(bool $approvePrimary, bool $approveSecondary, bool $approveSupport, bool $enforceCharacterLimits, ?int $characterLimit, bool $autoAvailabilityForPrimary, bool $autoAvailabilityForSecondary, bool $autoAvailabilityForSupport)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class Characters extends Bag
 {

@@ -8,6 +8,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(string $label, ?string $currentTimeframe, ?string $lastMonth, ?string $thisMonth, ?string $lifetime)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class GameStatLine extends Bag
 {

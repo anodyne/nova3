@@ -23,6 +23,10 @@ use Nova\Users\Data\PronounsData;
 use Nova\Users\Models\States\Status\Active;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read bool $shouldShowForm
+ * @property-read bool $shouldShowSuccessTable
+ */
 #[Layout('layouts.setup', ['type' => SetupType::Install])]
 class SetupAccount extends Component
 {

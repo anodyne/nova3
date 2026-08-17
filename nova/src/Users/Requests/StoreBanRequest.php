@@ -9,7 +9,7 @@ use Nova\Users\Data\BanData;
 
 class StoreBanRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'bannable_id' => ['nullable'],

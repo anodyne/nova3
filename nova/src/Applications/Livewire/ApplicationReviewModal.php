@@ -18,6 +18,10 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read ?Form $applicationReviewForm
+ * @property-read User $owner
+ */
 class ApplicationReviewModal extends Modal
 {
     #[Locked]

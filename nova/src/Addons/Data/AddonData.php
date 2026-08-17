@@ -12,6 +12,8 @@ use Nova\Foundation\Enums\BasicStatus;
 
 /**
  * @method static static from(string $name, string $location, string $version, ?string $credits, AddonType $type, BasicStatus $status, ?string $preview, ?AddonSettings $settings, ?AddonRepository $repository)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class AddonData extends Bag
 {

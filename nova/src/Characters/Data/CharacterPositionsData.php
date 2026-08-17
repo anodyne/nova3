@@ -11,6 +11,8 @@ use Nova\Characters\Models\Character;
 
 /**
  * @method static static from(Character $character, ?CharacterType $oldType, ?CharacterType $newType, ?Collection $oldPositions, ?Collection $newPositions, ?string $oldStatus, ?string $newStatus)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class CharacterPositionsData extends Bag
 {

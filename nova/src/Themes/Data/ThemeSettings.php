@@ -8,11 +8,11 @@ use Bag\Attributes\MapInputName;
 use Bag\Bag;
 use Bag\Mappers\SnakeCase;
 use Nova\Settings\Data\FontFamilies;
-use Spatie\Color\Contrast;
-use Spatie\Color\Hex;
 
 /**
  * @method static static from(FontFamilies $fonts, array $settings)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[MapInputName(SnakeCase::class)]
 readonly class ThemeSettings extends Bag
@@ -34,12 +34,6 @@ readonly class ThemeSettings extends Bag
 
     public function textAccentColor(): ?string
     {
-        // $fallbackTextColor = (Contrast::ratio(Hex::fromString($this->accentColor()), Hex::fromString('#fff')) >= 2.0)
-        //     ? '#fff'
-        //     : '#000';
-
-        $fallbackTextColor = '#000';
-
-        return data_get($this->settings, 'textAccentColor', $fallbackTextColor);
+        return data_get($this->settings, 'textAccentColor', '#000');
     }
 }

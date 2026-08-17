@@ -13,6 +13,8 @@ use Nova\Settings\Enums\PostingTarget;
 
 /**
  * @method static static from(Leaderboard $leaderboard, PostingTarget $milestonesTarget)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class Dashboard extends Bag
 {

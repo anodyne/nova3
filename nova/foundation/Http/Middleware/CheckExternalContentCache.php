@@ -24,7 +24,9 @@ class CheckExternalContentCache
     {
         if (Nova::isInstalled()) {
             Cache::rememberForever(CacheKeys::ExternalContent->value, function () {
-                return DB::table('external_content')->get()->pluck('value', 'key')->toArray();
+                return DB::table('external_content')
+                    ->pluck('value', 'key')
+                    ->toArray();
             });
 
             Cache::rememberForever(CacheKeys::ExternalChangelog->value, function () {

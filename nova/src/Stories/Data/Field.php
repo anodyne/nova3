@@ -8,6 +8,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(bool $enabled, bool $required)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class Field extends Bag
 {

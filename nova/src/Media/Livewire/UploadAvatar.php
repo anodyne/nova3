@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 
+/**
+ * @property-read ?string $path
+ * @property-read ?string $previewUrl
+ */
 class UploadAvatar extends UploadImage
 {
     public ?string $mediaCollectionName = 'avatar';

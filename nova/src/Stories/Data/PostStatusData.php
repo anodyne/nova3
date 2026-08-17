@@ -9,6 +9,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(string $status)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class PostStatusData extends Bag
 {

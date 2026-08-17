@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,8 +27,11 @@ use Nova\Stories\Models\States\StoryStatus\Current;
 use Nova\Stories\Models\States\StoryStatus\Ongoing;
 use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
@@ -44,9 +48,9 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
  * @property string|null $summary
  * @property mixed|null $started_at
  * @property mixed|null $ended_at
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Stories\Models\Post> $allPosts
  * @property-read int|null $all_posts_count
@@ -58,7 +62,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
  * @property-read bool $is_current
  * @property-read bool $is_ongoing
  * @property-read bool $is_upcoming
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
  * @property-read \Nova\Stories\Models\Story|null $parent
  * @property-read Story|null $parentStory
@@ -110,7 +114,6 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
  * @method static StoryBuilder<static>|Story orWhereNotState(string $column, $states)
  * @method static StoryBuilder<static>|Story orWhereState(string $column, $states)
  * @method static StoryBuilder<static>|Story ordered(string $direction = 'asc')
- * @method static StoryBuilder<static>|Story parent(\Nova\Stories\Models\Story|int|null $parent)
  * @method static StoryBuilder<static>|Story query()
  * @method static StoryBuilder<static>|Story searchFor($search)
  * @method static StoryBuilder<static>|Story selectStatusCounts()
@@ -125,6 +128,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
  * @method static StoryBuilder<static>|Story whereId($value)
  * @method static StoryBuilder<static>|Story whereNotState(string $column, $states)
  * @method static StoryBuilder<static>|Story whereOrderColumn($value)
+ * @method static StoryBuilder<static>|Story whereParent(\Nova\Stories\Models\Story|int|null $parent)
  * @method static StoryBuilder<static>|Story whereParentId($value)
  * @method static StoryBuilder<static>|Story wherePrefixedId($value)
  * @method static StoryBuilder<static>|Story whereStartedAt($value)
@@ -279,7 +283,7 @@ class Story extends Model implements HasMedia, Sortable
 
     public function buildSortQuery(): Builder
     {
-        return static::query()->parent($this->parent_id);
+        return static::query()->whereParent($this->parent_id);
     }
 
     public function nextSibling(): ?self
@@ -314,7 +318,7 @@ class Story extends Model implements HasMedia, Sortable
 
     public static function getStatuses(): Collection
     {
-        $model = new static;
+        $model = new self;
 
         return StoryStatus\StoryStatus::all()
             ->flatMap(fn (string $className): array => [new $className($model)])
@@ -323,7 +327,7 @@ class Story extends Model implements HasMedia, Sortable
 
     protected function getSibling($direction): ?self
     {
-        $query = self::query()->parent($this->parent_id);
+        $query = self::query()->whereParent($this->parent_id);
 
         return match ($direction) {
             'previous' => $query->where('order_column', $this->order_column - 1)->first(),

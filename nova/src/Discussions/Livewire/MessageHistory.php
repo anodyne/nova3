@@ -21,6 +21,12 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Users\Models\User;
 use Throwable;
 
+/**
+ * @property-read ?Discussion $discussion
+ * @property-read ?DiscussionMessage $latestMessage
+ * @property-read ?Collection $remainingMessages
+ * @property-read ?User $participant
+ */
 #[On('message-sent')]
 class MessageHistory extends Component
 {

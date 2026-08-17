@@ -8,6 +8,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(array $blocks)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class PageBlocksData extends Bag
 {

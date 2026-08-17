@@ -19,6 +19,13 @@ use Nova\Stories\Livewire\Concerns\InteractsWithRoute;
 use PDO;
 use Throwable;
 
+/**
+ * @property-read bool $shouldShowForm
+ * @property-read bool $shouldShowManualInstructions
+ * @property-read bool $shouldShowSuccessTable
+ * @property-read bool $shouldShowDatabaseOptions
+ * @property-read string $codeForEnv
+ */
 #[Layout('layouts.setup', ['type' => SetupType::Install])]
 class ConfigureDatabase extends Component
 {

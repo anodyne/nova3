@@ -29,6 +29,10 @@ use Nova\Setup\Livewire\Migrations\MigrateUserForm;
 use Nova\Setup\Livewire\Migrations\MigrateUsers;
 use Nova\Setup\Livewire\Migrations\UpdatePostOrdering;
 
+/**
+ * @property-read float $elapsedTime
+ * @property-read bool $hasErrors
+ */
 #[Layout('layouts.setup', ['type' => SetupType::Migrate])]
 class MigrateNovaData extends Component
 {

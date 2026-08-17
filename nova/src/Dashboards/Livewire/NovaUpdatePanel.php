@@ -12,6 +12,18 @@ use Nova\Foundation\Livewire\SlideOver;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Values\LatestVersion;
 
+/**
+ * @property-read ?string $databaseVersion
+ * @property-read string $filesVersion
+ * @property-read LatestVersion $upstream
+ * @property-read ?LatestVersion $upcoming
+ * @property-read bool $hasUpdate
+ * @property-read bool $hasUpcomingUpdate
+ * @property-read bool $hasCriticalUpdate
+ * @property-read bool $needsFilesUpdate
+ * @property-read bool $needsDatabaseUpdate
+ * @property-read string $statusColor
+ */
 class NovaUpdatePanel extends SlideOver
 {
     #[Computed]

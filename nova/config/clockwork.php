@@ -375,7 +375,6 @@ return [
     'serialization_blackbox' => [
         Container::class,
         Application::class,
-        Laravel\Lumen\Application::class,
     ],
 
     /*

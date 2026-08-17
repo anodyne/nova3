@@ -8,6 +8,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(string $label, ?string $hint, array $stats)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class GameStatCategory extends Bag
 {

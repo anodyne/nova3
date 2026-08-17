@@ -35,7 +35,6 @@ trait InteractsWithCharacterAuthors
                     $this->characterArrayStructure($character, $userId),
                 ];
 
-                $this->characterAuthorsArr = [];
                 $this->characterAuthorsArr = $updatedCharacterAuthorsArr;
 
                 if ($numberOfActiveUsers > 1) {
@@ -44,8 +43,6 @@ trait InteractsWithCharacterAuthors
             }
 
             $this->syncCharacterAuthorsPivotData();
-
-            $this->search = '';
 
             $this->dispatch('dropdown-close');
         }
@@ -139,7 +136,7 @@ trait InteractsWithCharacterAuthors
         $character = $this->characterAuthors()->firstWhere('id', $characterId);
 
         if ($character) {
-            $this->characterAuthorPivotData[$characterId] = ['user_id' => $userId];
+            $this->characterAuthorsPivotData[$characterId] = ['user_id' => $userId];
         }
     }
 

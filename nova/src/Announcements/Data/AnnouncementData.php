@@ -13,6 +13,8 @@ use Nova\Users\Models\User;
 
 /**
  * @method static static from(string $title, ?string $category, PublishStatus $status, ?string $content)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class AnnouncementData extends Bag
 {

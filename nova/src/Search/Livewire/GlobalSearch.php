@@ -13,6 +13,10 @@ use Nova\Foundation\Livewire\Modal;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
+/**
+ * @property-read Collection $results
+ * @property-read int $numberOfResults
+ */
 class GlobalSearch extends Modal
 {
     public ?string $search = null;

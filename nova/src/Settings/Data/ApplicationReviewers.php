@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(array $globalReviewers)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ApplicationReviewers extends Bag
 {

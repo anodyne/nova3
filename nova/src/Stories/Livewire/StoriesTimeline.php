@@ -10,6 +10,9 @@ use Livewire\Component;
 use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
 
+/**
+ * @property-read Collection $stories
+ */
 class StoriesTimeline extends Component
 {
     public string $sortField = 'order_column';

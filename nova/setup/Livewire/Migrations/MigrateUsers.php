@@ -12,6 +12,10 @@ use Nova\Setup\Actions\Migration\MigrateUser;
 use Nova\Setup\Models\Upgrade;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateUsers extends MigrationStep
 {
     public string $label = 'Users';
@@ -36,7 +40,7 @@ class MigrateUsers extends MigrationStep
     #[Computed]
     public function pendingMigrationCount(): int
     {
-        return $this->query(false)->count();
+        return $this->query()->count();
     }
 
     #[Computed]

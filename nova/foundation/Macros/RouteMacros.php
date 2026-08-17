@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
+use Closure;
+use Illuminate\Routing\Route;
 use Nova\Pages\Models\Page;
 
 class RouteMacros
 {
-    public function findPageFromRoute()
+    public function findPageFromRoute(): Closure
     {
         return function () {
-            return Page::key($this->getName())->first();
+            /** @var Route $route */
+            $route = $this;
+
+            return Page::key($route->getName())->first();
         };
     }
 }

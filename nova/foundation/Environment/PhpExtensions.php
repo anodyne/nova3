@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Environment;
 
-class PhpExtensions
+readonly class PhpExtensions
 {
-    public readonly array $required;
+    public array $required;
 
-    public readonly array $loaded;
+    public array $loaded;
 
     public function __construct()
     {

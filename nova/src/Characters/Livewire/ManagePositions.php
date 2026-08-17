@@ -12,6 +12,11 @@ use Livewire\Component;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
 
+/**
+ * @property-read string $assignedPositions
+ * @property-read Collection $models
+ * @property-read Collection $positions
+ */
 class ManagePositions extends Component
 {
     public ?Character $character = null;

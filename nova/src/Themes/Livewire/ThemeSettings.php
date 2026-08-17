@@ -12,6 +12,9 @@ use Nova\Foundation\Livewire\SlideOver;
 use Nova\Themes\Data\ThemeSettings as ThemeSettingsData;
 use Nova\Themes\Models\Theme;
 
+/**
+ * @property-read Schema $form
+ */
 class ThemeSettings extends SlideOver implements HasForms
 {
     use InteractsWithForms;

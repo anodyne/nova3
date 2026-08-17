@@ -9,6 +9,8 @@ use Nova\Onboarding\Models\Onboarding;
 
 /**
  * @method static static from(Onboarding $model, string $label, string $description, int $percentComplete, string $ctaLabel)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class DashboardOnboardingData extends Bag
 {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\PublicSite\Livewire;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -11,6 +12,9 @@ use Livewire\Component;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
+/**
+ * @property-read Collection $posts
+ */
 class PostsTimeline extends Component
 {
     #[Locked]

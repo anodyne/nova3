@@ -8,6 +8,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(GameStatCategory $users, GameStatCategory $characters, GameStatCategory $stories, GameStatCategory $posts, GameStatCategory $averages)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class GameStats extends Bag
 {

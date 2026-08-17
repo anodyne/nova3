@@ -11,6 +11,8 @@ use Nova\Foundation\Enums\BasicStatus;
 
 /**
  * @method static static from(string $name, ?string $description, array $tags, BasicStatus $status)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class DepartmentData extends Bag
 {

@@ -14,6 +14,11 @@ use Opcodes\LogViewer\LogFileCollection;
 use Opcodes\LogViewer\Logs\Log;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
+/**
+ * @property-read ?LogFile $logFile
+ * @property-read ?array $logs
+ * @property-read LogFileCollection $files
+ */
 class ErrorLogViewer extends Component
 {
     public ?string $selectedLogFile = null;

@@ -14,6 +14,11 @@ use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Onboarding\Models\Onboarding;
 use Nova\Onboarding\Onboarding\OnboardingChecklist;
 
+/**
+ * @property-read OnboardingChecklist $onboarder
+ * @property-read int $percentComplete
+ * @property-read OnboardingProcess $process
+ */
 class OnboardingDetail extends Component
 {
     public $stepsData = [];

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @method static static from(?Collection $results)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class PostTypeReport extends Bag
 {

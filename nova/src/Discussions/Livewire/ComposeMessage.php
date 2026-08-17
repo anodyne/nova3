@@ -21,6 +21,12 @@ use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 use Throwable;
 
+/**
+ * @property-read ?Discussion $discussion
+ * @property-read bool $isChangingSubject
+ * @property-read bool $isReplying
+ * @property-read Collection $users
+ */
 class ComposeMessage extends Modal
 {
     #[Validate('required')]

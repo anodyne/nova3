@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(?array $characters, ?int $primaryCharacter)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class AssignUserCharactersData extends Bag
 {

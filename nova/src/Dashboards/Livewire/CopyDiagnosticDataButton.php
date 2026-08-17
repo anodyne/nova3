@@ -10,6 +10,9 @@ use Livewire\Component;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
 
+/**
+ * @property-read string $codeToCopy
+ */
 class CopyDiagnosticDataButton extends Component
 {
     #[Computed]

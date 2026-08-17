@@ -30,7 +30,7 @@ use Nova\Foundation\Models\Model;
  * @property-read int|null $responses_count
  * @property-read string|null $title_field
  * @method static \Database\Factories\FormSubmissionFactory factory($count = null, $state = [])
- * @method static FormSubmissionBuilder<static>|FormSubmission form(\Nova\Forms\Models\Form|int $form)
+ * @method static FormSubmissionBuilder<static>|FormSubmission forForm(\Nova\Forms\Models\Form|int $form)
  * @method static FormSubmissionBuilder<static>|FormSubmission newModelQuery()
  * @method static FormSubmissionBuilder<static>|FormSubmission newQuery()
  * @method static FormSubmissionBuilder<static>|FormSubmission onlySubmissionsForCurrentUser()

@@ -11,6 +11,8 @@ use Bag\Mappers\SnakeCase;
 
 /**
  * @method static static from(?string $subjectPrefix, ?string $replyTo, ?string $imagePath)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[MapInputName(SnakeCase::class)]
 #[StripExtraParameters]

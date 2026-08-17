@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(?array $permissions)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class RolePermissionsData extends Bag
 {

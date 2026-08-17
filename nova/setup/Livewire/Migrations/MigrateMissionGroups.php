@@ -13,6 +13,10 @@ use Nova\Setup\Models\Legacy\MissionGroup as LegacyMissionGroup;
 use Nova\Setup\Models\Upgrade;
 use Nova\Stories\Models\Story;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateMissionGroups extends MigrationStep
 {
     public string $label = 'Mission groups';

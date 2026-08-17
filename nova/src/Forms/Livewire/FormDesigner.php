@@ -18,11 +18,16 @@ use Nova\Forms\Actions\UnpublishForm;
 use Nova\Forms\Actions\UpdateForm;
 use Nova\Forms\Data\FormFieldsData;
 use Nova\Forms\Fields\FormFieldRegistry;
+use Nova\Forms\Models\Form;
 use Nova\Forms\Models\Form as NovaForm;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\FormComponent;
 
+/**
+ * @property-read Form $getNovaForm
+ * @property-read Schema $form
+ */
 class FormDesigner extends FormComponent
 {
     #[Locked]

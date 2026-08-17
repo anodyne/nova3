@@ -27,7 +27,7 @@ class SavePostManager
 
         //        $post = SetPostPosition::run($post, $positionData);
 
-        $post = SetPostAuthors::run($post, $authorsData);
+        $post = UpdatePostAuthors::run($post, $authorsData);
 
         // Send notifications
 

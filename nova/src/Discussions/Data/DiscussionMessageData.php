@@ -11,6 +11,8 @@ use Nova\Discussions\Enums\MessageType;
 
 /**
  * @method static static from(?int $userId, string $content, MessageType $type)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class DiscussionMessageData extends Bag
 {

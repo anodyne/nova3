@@ -8,34 +8,40 @@ use Illuminate\Support\Facades\DB;
 use PDO;
 use Throwable;
 
-class Database
+readonly class Database
 {
-    public readonly string $driver;
+    public string $driver;
 
-    public readonly string $version;
+    public string $version;
 
-    public readonly bool $hasMysql;
+    public bool $hasMysql;
 
     public function __construct()
     {
         try {
             $pdo = DB::connection()->getPdo();
 
-            $this->version = $pdo->getAttribute(PDO::ATTR_SERVER_VERSION);
+            $version = $pdo->getAttribute(PDO::ATTR_SERVER_VERSION);
 
-            if (str($this->version)->contains('mariadb', ignoreCase: true)) {
-                $this->driver = 'mariadb';
-                $this->hasMysql = false;
+            if (str($version)->contains('mariadb', ignoreCase: true)) {
+                $driver = 'mariadb';
+                $hasMysql = false;
             } else {
-                $this->driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-                $this->hasMysql = $this->driver === 'mysql' && in_array('mysql', PDO::getAvailableDrivers());
+                $driver = $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+                $hasMysql = $driver === 'mysql'
+                    && in_array('mysql', PDO::getAvailableDrivers());
             }
         } catch (Throwable $th) {
             report($th);
 
-            $this->driver = 'unknown';
-            $this->hasMysql = in_array('mysql', PDO::getAvailableDrivers());
+            $driver = 'unknown';
+            $version = 'unknown';
+            $hasMysql = in_array('mysql', PDO::getAvailableDrivers());
         }
+
+        $this->driver = $driver;
+        $this->version = $version;
+        $this->hasMysql = $hasMysql;
     }
 
     public function driverName(): string

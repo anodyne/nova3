@@ -15,8 +15,18 @@ use Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors;
 use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors;
+use Nova\Stories\Models\PostType;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read Collection $allUsers
+ * @property-read string $authorSearchPlaceholder
+ * @property-read bool $canAddAuthors
+ * @property-read Collection $filteredCharacters
+ * @property-read Collection $filteredUsers
+ * @property-read Collection $availablePostTypes
+ * @property-read ?PostType $postType
+ */
 #[On('post-authors-modified')]
 class PostAuthorsEditor extends SlideOver
 {

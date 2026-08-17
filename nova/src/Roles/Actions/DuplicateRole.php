@@ -16,7 +16,7 @@ class DuplicateRole
     public function handle(Role $original, RoleData $data): Role
     {
         if (! $original->is_locked) {
-            $replica = DB::transaction(function () use ($original, $data) {
+            return DB::transaction(function () use ($original, $data) {
                 $replica = $original->replicate([
                     'active_users_count',
                     'inactive_users_count',
@@ -34,10 +34,10 @@ class DuplicateRole
                     ->event('duplicated')
                     ->log('duplicated');
 
-                return $replica;
+                return $replica->refresh();
             });
         }
 
-        return $replica->refresh();
+        return $original;
     }
 }

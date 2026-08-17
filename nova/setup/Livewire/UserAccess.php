@@ -17,6 +17,9 @@ use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Setup\Enums\SetupType;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read Collection $users
+ */
 #[Layout('layouts.setup', ['type' => SetupType::Migrate])]
 class UserAccess extends Component
 {

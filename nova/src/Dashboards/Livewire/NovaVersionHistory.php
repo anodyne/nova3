@@ -11,6 +11,11 @@ use Livewire\Component;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Nova;
 
+/**
+ * @property-read string $filesVersion
+ * @property-read ?string $databaseVersion
+ * @property-read Collection $versionHistory
+ */
 class NovaVersionHistory extends Component
 {
     public ?string $start = null;

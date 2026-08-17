@@ -255,6 +255,8 @@ class UsersList extends TableComponent
                                             $record->status->transitionTo(Inactive::class);
 
                                             $bodyMessage = 'Their user account is still marked as inactive. If you want them to be able to participate again, you will need to activate their account.';
+                                        } else {
+                                            $bodyMessage = null;
                                         }
                                     }
 
@@ -265,7 +267,7 @@ class UsersList extends TableComponent
 
                                     Notification::make()->success()
                                         ->title($record->name.' has been un-banned')
-                                        ->body(filled($bodyMessage) ? $bodyMessage : null)
+                                        ->body($bodyMessage)
                                         ->send();
                                 });
                             })

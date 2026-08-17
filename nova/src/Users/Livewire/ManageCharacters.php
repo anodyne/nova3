@@ -11,6 +11,12 @@ use Livewire\Component;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read string $assignedCharacters
+ * @property-read Collection $characters
+ * @property-read Collection $models
+ * @property-read string $primaryCharacter
+ */
 class ManageCharacters extends Component
 {
     #[Locked]

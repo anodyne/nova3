@@ -15,6 +15,11 @@ use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Foundation\Enums\BasicStatus;
 
+/**
+ * @property-read ?Collection $characters
+ * @property-read ?Collection $departments
+ * @property-read ?Collection $positions
+ */
 class CharactersManifest extends Component
 {
     public string $layout = 'table';

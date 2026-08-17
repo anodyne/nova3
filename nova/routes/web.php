@@ -18,8 +18,8 @@ try {
 
     $basicPages = Cache::get(CacheKeys::BasicPages->value);
 
-    $basicPages->each(function (Page $page) use ($router) {
-        return $router->get($page->uri, BasicPageController::class)
+    $basicPages->each(function (Page $page) {
+        return Route::get($page->uri, BasicPageController::class)
             ->name($page->key)
             ->middleware(array_merge(
                 $page->middleware ?? [],
@@ -30,7 +30,7 @@ try {
             ));
     });
 
-    $router->get('preview-page/{pageKey}', PreviewBasicPageController::class)
+    Route::get('preview-page/{pageKey}', PreviewBasicPageController::class)
         ->name('preview-basic-page')
         ->middleware([
             LogoutBanned::class,
@@ -39,16 +39,14 @@ try {
 
     $advancedPages = Cache::get(CacheKeys::AdvancedPages->value);
 
-    $advancedPages->each(function (Page $page) use ($router) {
-        return $router->{$page->verb->value}($page->uri, $page->resource)
+    $advancedPages->each(function (Page $page) {
+        return Route::match([$page->verb->value], $page->uri, $page->resource)
             ->name($page->key)
-            ->middleware(array_merge(
-                $page->middleware ?? [],
-                [
-                    LogoutBanned::class,
-                    IPBanned::class,
-                ]
-            ));
+            ->middleware([
+                ...($page->middleware ?? []),
+                LogoutBanned::class,
+                IPBanned::class,
+            ]);
     });
 } catch (Throwable $th) {
     Route::view('/', 'pages.welcome')->middleware(CheckInstallStatus::class);

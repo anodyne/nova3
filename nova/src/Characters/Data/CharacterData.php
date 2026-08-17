@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(string $name, ?int $rank_id)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[StripExtraParameters]
 readonly class CharacterData extends Bag

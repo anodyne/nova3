@@ -55,8 +55,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property-read int|null $users_count
  * @method static PositionBuilder<static>|Position active()
  * @method static PositionBuilder<static>|Position available()
- * @method static PositionBuilder<static>|Position department($id)
  * @method static \Database\Factories\PositionFactory factory($count = null, $state = [])
+ * @method static PositionBuilder<static>|Position forDepartment($id)
  * @method static PositionBuilder<static>|Position hasTags(array $tags)
  * @method static PositionBuilder<static>|Position inactive()
  * @method static PositionBuilder<static>|Position newModelQuery()

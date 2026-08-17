@@ -6,12 +6,16 @@ namespace Nova\Users\Livewire;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\MessageBag;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Users\Actions\DeleteAccount;
 use Nova\Users\Models\User;
 use Nova\Users\Notifications\UserDeletedAccount;
 
+/**
+ * @property-read MessageBag $errors
+ */
 class DeleteMyAccount extends Component
 {
     public function delete(): void
@@ -31,7 +35,7 @@ class DeleteMyAccount extends Component
     }
 
     #[Computed]
-    public function errors()
+    public function errors(): MessageBag
     {
         return $this->getErrorBag();
     }

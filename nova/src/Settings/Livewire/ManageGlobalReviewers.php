@@ -9,6 +9,11 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read string $globalReviewers
+ * @property-read Collection $models
+ * @property-read Collection $reviewers
+ */
 class ManageGlobalReviewers extends Component
 {
     public Collection $assigned;

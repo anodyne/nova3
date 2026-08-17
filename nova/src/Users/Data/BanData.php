@@ -13,6 +13,8 @@ use Nova\Users\Models\User;
 
 /**
  * @method static static from(?string $bannable_type, ?string $bannable_id, ?string $ip, ?string $comment, ?CarbonInterface $expired_at)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class BanData extends Bag
 {

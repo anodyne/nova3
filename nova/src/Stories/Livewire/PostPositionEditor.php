@@ -13,6 +13,9 @@ use Nova\Stories\Enums\PositionDirection;
 use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Models\Post;
 
+/**
+ * @property-read Collection $searchResults
+ */
 class PostPositionEditor extends SlideOver
 {
     use InteractsWithPost;

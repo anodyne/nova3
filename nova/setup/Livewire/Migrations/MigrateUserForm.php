@@ -11,6 +11,10 @@ use Nova\Setup\Actions\Migration\MigrateLegacyUserData;
 use Nova\Setup\Livewire\Concerns\HandlesFormFields;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateUserForm extends MigrationStep
 {
     use HandlesFormFields;

@@ -14,6 +14,8 @@ use Nova\Stories\Models\Story;
 
 /**
  * @method static static from(PositionDirection $direction, ?Story $neighbor, bool $hasPositionChange)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class StoryPositionData extends Bag
 {

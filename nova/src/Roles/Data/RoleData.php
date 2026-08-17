@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(string $name, string $displayName, ?string $description, bool $isDefault)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[MapInputName(SnakeCase::class)]
 #[MapOutputName(SnakeCase::class)]

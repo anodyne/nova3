@@ -7,6 +7,9 @@ namespace Nova\Dashboards\Livewire;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
+/**
+ * @property-read string $codeToCopy
+ */
 class CopyStacktraceButton extends Component
 {
     public string $stacktrace;

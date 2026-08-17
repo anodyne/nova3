@@ -34,11 +34,11 @@ class LatestVersion implements Wireable
         ];
     }
 
-    public static function fromAnodyne(array $data): static
+    public static function fromAnodyne(array $data): self
     {
         $releaseDate = data_get($data, 'date');
 
-        return new static(
+        return new self(
             version: data_get($data, 'version'),
             date: is_null($releaseDate) ? $releaseDate : Date::parse($releaseDate),
             severity: ReleaseSeverity::tryFrom(data_get($data, 'severity', 'patch')),
@@ -49,9 +49,9 @@ class LatestVersion implements Wireable
         );
     }
 
-    public static function fromGithub(array $data): static
+    public static function fromGithub(array $data): self
     {
-        return new static(
+        return new self(
             version: data_get($data, 'name'),
             date: Date::parse(data_get($data, 'published_at')),
             severity: ReleaseSeverity::Patch,
@@ -62,9 +62,9 @@ class LatestVersion implements Wireable
         );
     }
 
-    public static function fromLivewire($value)
+    public static function fromLivewire($value): self
     {
-        return new static(
+        return new self(
             version: data_get($value, 'name'),
             date: Date::parse(data_get($value, 'date')),
             severity: ReleaseSeverity::tryFrom(data_get($value, 'severity')),

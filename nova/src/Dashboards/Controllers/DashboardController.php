@@ -65,7 +65,7 @@ class DashboardController extends Controller
             'activityPercentage' => $percentageComplete,
             'activityStatement' => sprintf(
                 '%s %s%s in %s',
-                Number::format($activity ?? 0),
+                Number::format($activity),
                 $settings->target->value,
                 $percentageComplete < 100 ? str(' of ')->append(Number::format($settings->requirement)) : '',
                 $settings->timeframe->getStatsDescription()

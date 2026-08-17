@@ -17,6 +17,12 @@ use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
 
+/**
+ * @property-read LengthAwarePaginator $posts
+ * @property-read Collection $postTypes
+ * @property-read ?Story $selectedStory
+ * @property-read Collection $stories
+ */
 class PublishedPostsList extends Component
 {
     use WithPagination;

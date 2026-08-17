@@ -4,11 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Users\Resources;
 
+use Carbon\CarbonInterface;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Notifications\DatabaseNotification;
 
+/**
+ * @mixin DatabaseNotification
+ *
+ * @property-read CarbonInterface|null $created_at
+ */
 class NotificationResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,

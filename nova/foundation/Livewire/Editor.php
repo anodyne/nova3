@@ -7,6 +7,9 @@ namespace Nova\Foundation\Livewire;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
+/**
+ * @property-read string $wordCount
+ */
 class Editor extends Component
 {
     public bool $codeView = false;

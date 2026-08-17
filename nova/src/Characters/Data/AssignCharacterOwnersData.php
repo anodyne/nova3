@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(?array $users, ?array $primaryUsers)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[StripExtraParameters]
 readonly class AssignCharacterOwnersData extends Bag

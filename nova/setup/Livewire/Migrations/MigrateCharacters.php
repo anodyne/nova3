@@ -12,6 +12,10 @@ use Nova\Characters\Models\Character;
 use Nova\Setup\Actions\Migration\MigrateCharacter;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateCharacters extends MigrationStep
 {
     public string $label = 'Characters';

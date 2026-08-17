@@ -24,8 +24,17 @@ use Nova\Stories\Enums\PositionDirection;
 use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\States\PostStatus\Published;
 
+/**
+ * @property-read bool $hasNonParticipants
+ * @property-read Collection $searchResults
+ * @property-read bool $shouldShowParticipantsPanel
+ * @property-read bool $shouldShowPositionPanel
+ * @property-read Collection $availablePostTypes
+ * @property-read ?PostType $postType
+ */
 class PostPublish extends SlideOver
 {
     use InteractsWithPost;

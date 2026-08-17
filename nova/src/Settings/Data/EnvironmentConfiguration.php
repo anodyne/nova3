@@ -13,6 +13,8 @@ use Nova\Settings\Enums\ServerEnvironment;
 
 /**
  * @method static static from(?string $url, ?string $environment, ?int $debugMode)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[MapInputName(SnakeCase::class)]
 readonly class EnvironmentConfiguration extends Bag

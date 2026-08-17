@@ -11,6 +11,8 @@ use Nova\Foundation\Enums\BasicStatus;
 
 /**
  * @method static static from(string $name, BasicStatus $status, ?string $base_image)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class RankGroupData extends Bag
 {

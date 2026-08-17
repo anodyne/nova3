@@ -22,6 +22,11 @@ use Nova\Forms\Models\FormSubmission;
 use Nova\Forms\Models\FormSubmissionResponse;
 use Nova\Foundation\Filament\Notifications\Notification;
 
+/**
+ * @property-read array|null $fields
+ * @property-read FormMode $mode
+ * @property-read bool $showsFormControls
+ */
 class DynamicForm extends Component
 {
     #[Locked]

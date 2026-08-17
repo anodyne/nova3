@@ -9,6 +9,8 @@ use Nova\Stories\Enums\ContentRatingValue;
 
 /**
  * @method static static from(ContentRatingValue $rating, ?string $description0, ?string $description1, ?string $description2, ?string $description3, ContentRatingValue $warningThreshold, ?string $warningThresholdMessage)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ContentRating extends Bag
 {
@@ -24,6 +26,12 @@ readonly class ContentRating extends Bag
 
     public function getDescription(): ?string
     {
-        return $this->{"description{$this->rating->value}"};
+        return match ($this->rating) {
+            ContentRatingValue::Level0 => $this->description0,
+            ContentRatingValue::Level1 => $this->description1,
+            ContentRatingValue::Level2 => $this->description2,
+            ContentRatingValue::Level3 => $this->description3,
+            ContentRatingValue::Game, ContentRatingValue::None => null,
+        };
     }
 }

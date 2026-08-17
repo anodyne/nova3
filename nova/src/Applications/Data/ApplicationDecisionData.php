@@ -9,6 +9,8 @@ use Nova\Ranks\Models\RankItem;
 
 /**
  * @method static static from(?string $message, ?int $rank_id, array $positions)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ApplicationDecisionData extends Bag
 {

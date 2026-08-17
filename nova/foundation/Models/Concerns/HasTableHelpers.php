@@ -4,19 +4,35 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Models\Concerns;
 
-use Illuminate\Support\Facades\DB;
+use Nova\Foundation\Models\Model;
 
+/**
+ * @phpstan-require-extends Model
+ */
 trait HasTableHelpers
 {
+    public static function model(): static
+    {
+        return static::query()->getModel();
+    }
+
     public static function table(bool $prefix = false): string
     {
-        $tableName = with(new static)->getTable();
+        $model = static::model();
+        $table = $model->getTable();
 
-        if (! $prefix) {
-            return $tableName;
-        }
+        return $prefix
+            ? $model->getConnection()->getTablePrefix().$table
+            : $table;
+    }
 
-        return with(DB::getTablePrefix(), fn ($prefix) => $prefix.$tableName);
+    public static function primaryKey(?string $tableAlias = null, bool $prefixTable = false): string
+    {
+        return static::column(
+            static::model()->getKeyName(),
+            $tableAlias,
+            $prefixTable
+        );
     }
 
     public static function column(string $columnName, ?string $tableAlias = null, bool $prefixTable = false): string
@@ -37,13 +53,8 @@ trait HasTableHelpers
 
     public static function columnAs(string $columnName, string $as, ?string $tableAlias = null, bool $prefixTable = false): string
     {
-        $original = self::column($columnName, $tableAlias, $prefixTable);
+        $original = static::column($columnName, $tableAlias, $prefixTable);
 
         return "{$original} as {$as}";
-    }
-
-    public static function primaryKey(?string $tableAlias = null, bool $prefixTable = false): string
-    {
-        return static::column((new static)->primaryKey, $tableAlias, $prefixTable);
     }
 }

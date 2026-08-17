@@ -12,6 +12,8 @@ use Nova\Foundation\Enums\BasicStatus;
 
 /**
  * @method static static from(string $name, string $key, FormType $type, ?string $description, ?FormOptions $options, BasicStatus $status)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class FormData extends Bag
 {

@@ -14,6 +14,10 @@ use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigratePersonalLogs extends MigrationStep
 {
     public string $label = 'Personal logs';

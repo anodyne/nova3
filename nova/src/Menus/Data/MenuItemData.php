@@ -13,6 +13,8 @@ use Nova\Menus\Enums\LinkType;
 
 /**
  * @method static static from(string $label, ?string $icon, ?string $url, ?int $page_id, ?int $parent_id, LinkType $link_type, LinkTarget $target, BasicStatus $status)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class MenuItemData extends Bag
 {

@@ -20,7 +20,7 @@ class DeleteFormManager
             LogBatch::startBatch();
 
             FormSubmission::query()
-                ->form($form)
+                ->forForm($form)
                 ->get()
                 ->each(fn (FormSubmission $submission) => DeleteFormSubmission::run($submission));
 

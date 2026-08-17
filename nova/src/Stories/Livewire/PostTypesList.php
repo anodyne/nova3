@@ -90,7 +90,7 @@ class PostTypesList extends TableComponent
                 TextColumn::make('published_posts_count')
                     ->counts('publishedPosts')
                     ->label('# of published posts')
-                    ->formatStateUsing(fn (int $state): string => Number::format($state ?? 0))
+                    ->formatStateUsing(fn (int $state): string => Number::format($state))
                     ->alignCenter()
                     ->sortable()
                     ->toggleable(),
@@ -98,7 +98,7 @@ class PostTypesList extends TableComponent
                     ->counts('posts')
                     ->label('# of posts')
                     ->alignCenter()
-                    ->formatStateUsing(fn (int $state): string => Number::format($state ?? 0))
+                    ->formatStateUsing(fn (int $state): string => Number::format($state))
                     ->sortable()
                     ->toggleable(),
                 IconColumn::make('includedInPostTracking')
@@ -213,6 +213,8 @@ class PostTypesList extends TableComponent
                                     );
 
                                     $record->refresh();
+                                } else {
+                                    $newPostType = null;
                                 }
 
                                 DeletePostType::run($record);
@@ -220,7 +222,7 @@ class PostTypesList extends TableComponent
                                 Notification::make()->success()
                                     ->title($record->name.' post type was deleted')
                                     ->when(
-                                        isset($newPostType),
+                                        $newPostType,
                                         fn (Notification $notification) => $notification->body('All posts have been re-assigned to the '.$newPostType->name.' post type.')
                                     );
                             }),

@@ -12,6 +12,9 @@ use Livewire\Component;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview as ApplicationReviewModel;
 
+/**
+ * @property-read bool $currentUserHasReviewed
+ */
 #[On('review-submitted')]
 #[On('reviewers-updated')]
 class ApplicationReview extends Component

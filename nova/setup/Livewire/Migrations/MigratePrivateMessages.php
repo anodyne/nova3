@@ -12,6 +12,10 @@ use Nova\Discussions\Models\Discussion;
 use Nova\Setup\Actions\Migration\MigratePrivateMessage;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigratePrivateMessages extends MigrationStep
 {
     public string $label = 'Private messages';

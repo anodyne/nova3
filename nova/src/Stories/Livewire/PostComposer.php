@@ -6,6 +6,7 @@ namespace Nova\Stories\Livewire;
 
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Computed;
@@ -13,7 +14,6 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Livewire\Concerns\InteractsWithConfirmationModal;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Actions\DiscardPost;
 use Nova\Stories\Actions\UnlockPost;
@@ -21,16 +21,30 @@ use Nova\Stories\Data\Field;
 use Nova\Stories\Enums\PostTypeField;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostLocks;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Nova\Stories\Livewire\Concerns\InteractsWithPostTypeChanges;
 use Nova\Stories\Livewire\Concerns\InteractsWithStories;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
+use Nova\Stories\Models\Story;
 use Nova\Stories\Notifications\PostSaved;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read bool $canPublish
+ * @property-read bool $isDirty
+ * @property-read bool $canBeEditedByCurrentUser
+ * @property-read bool $postIsLocked
+ * @property-read bool $shouldUsePostLock
+ * @property-read Collection $availablePostTypes
+ * @property-read ?PostType $postType
+ * @property-read Collection $currentStories
+ * @property-read ?Story $story
+ */
 class PostComposer extends Component
 {
-    use InteractsWithConfirmationModal;
     use InteractsWithPostLocks;
     use InteractsWithPostType;
+    use InteractsWithPostTypeChanges;
     use InteractsWithStories;
 
     #[Locked]

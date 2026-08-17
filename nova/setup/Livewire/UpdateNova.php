@@ -25,6 +25,10 @@ use Nova\Setup\Enums\SetupType;
 use Nova\Setup\Telemetry;
 use Throwable;
 
+/**
+ * @property-read bool $shouldShowForm
+ * @property-read bool $shouldShowSuccessTable
+ */
 #[Layout('layouts.setup', ['type' => SetupType::Update])]
 class UpdateNova extends Component
 {

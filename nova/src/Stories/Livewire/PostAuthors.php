@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Livewire;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
@@ -17,7 +18,12 @@ use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
 
+/**
+ * @property-read Collection $availablePostTypes
+ * @property-read ?PostType $postType
+ */
 class PostAuthors extends Component
 {
     use InteractsWithCharacterAuthors;

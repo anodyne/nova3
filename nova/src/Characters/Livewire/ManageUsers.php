@@ -10,6 +10,12 @@ use Livewire\Component;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read string $assignedUsers
+ * @property-read Collection $models
+ * @property-read string $primaryUsers
+ * @property-read Collection $users
+ */
 class ManageUsers extends Component
 {
     public ?Character $character = null;

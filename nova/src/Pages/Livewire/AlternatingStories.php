@@ -10,6 +10,11 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Stories\Models\Story;
 
+/**
+ * @property-read bool $showDescription
+ * @property-read bool $showStats
+ * @property-read Collection $stories
+ */
 class AlternatingStories extends Component
 {
     public ?string $type = null;

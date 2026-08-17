@@ -10,6 +10,8 @@ use Nova\Stories\Models\Post;
 
 /**
  * @method static static from(PositionDirection $direction, ?Post $neighbor, bool $hasPositionChange)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class PostPositionData extends Bag
 {

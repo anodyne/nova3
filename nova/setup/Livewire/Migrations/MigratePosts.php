@@ -13,6 +13,10 @@ use Nova\Setup\Models\Upgrade;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigratePosts extends MigrationStep
 {
     public string $label = 'Mission posts';

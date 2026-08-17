@@ -13,6 +13,10 @@ use Nova\Departments\Models\Position;
 use Nova\Setup\Actions\Migration\MigratePosition;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigratePositions extends MigrationStep
 {
     public string $label = 'Positions';

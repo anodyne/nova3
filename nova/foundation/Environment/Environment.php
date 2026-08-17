@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Environment;
 
-class Environment
+readonly class Environment
 {
-    public readonly Php $php;
-
-    public readonly PhpExtensions $extensions;
-
-    public readonly Database $database;
+    public function __construct(
+        public Php $php,
+        public Database $database,
+        public PhpExtensions $extensions
+    ) {}
 
     public function fails(): bool
     {
@@ -26,13 +26,12 @@ class Environment
             $this->database->passes();
     }
 
-    public static function make(): static
+    public static function make(): self
     {
-        $environment = new static;
-        $environment->php = new Php;
-        $environment->extensions = new PhpExtensions;
-        $environment->database = new Database;
-
-        return $environment;
+        return new self(
+            php: new Php,
+            database: new Database,
+            extensions: new PhpExtensions
+        );
     }
 }

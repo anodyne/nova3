@@ -10,6 +10,8 @@ use Nova\Users\Enums\Appearance;
 
 /**
  * @method static static from(Appearance $appearance, ?string $timezone, ?int $languageContentRatingWarningThreshold, ?int $sexContentRatingWarningThreshold, ?int $violenceContentRatingWarningThreshold)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class UserPreferences extends Bag
 {

@@ -15,6 +15,8 @@ use Nova\Settings\Enums\AvatarStyle;
 
 /**
  * @method static static from(string $theme, AvatarShape $avatarShape, AvatarStyle $avatarStyle, string $colorsGray, string $colorsPrimary, string $colorsDanger, string $colorsWarning, string $colorsSuccess, string $colorsInfo, FontFamilies $adminFonts)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[MapInputName(SnakeCase::class)]
 readonly class Appearance extends Bag

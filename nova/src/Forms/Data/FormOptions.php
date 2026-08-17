@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(bool $onlyAuthenticatedUsers, bool $collectResponses, bool $singleSubmission, ?string $submissionTitleField, bool $emailResponses, ?string $emailRecipients)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class FormOptions extends Bag
 {

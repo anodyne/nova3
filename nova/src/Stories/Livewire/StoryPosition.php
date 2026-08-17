@@ -12,6 +12,11 @@ use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Stories\Models\Story;
 
+/**
+ * @property-read Collection $storiesForOrdering
+ * @property-read ?Story $parentStory
+ * @property-read Collection $parentStories
+ */
 class StoryPosition extends Component
 {
     public ?string $direction = 'after';
@@ -36,7 +41,7 @@ class StoryPosition extends Component
     public function storiesForOrdering(): Collection
     {
         return Story::query()
-            ->when(filled($this->parentId), fn (Builder $query): Builder => $query->parent($this->parentId))
+            ->when(filled($this->parentId), fn (Builder $query): Builder => $query->whereParent($this->parentId))
             ->when(blank($this->parentId), fn (Builder $query): Builder => $query->whereNull('parent_id'))
             ->ordered()
             ->get();

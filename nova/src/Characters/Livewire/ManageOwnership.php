@@ -10,6 +10,14 @@ use Livewire\Component;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
 
+/**
+ * @property-read bool $hasReachedCharacterLimit
+ * @property-read array $characterStatus
+ * @property-read CharacterType $characterType
+ * @property-read bool $linkToUserValue
+ * @property-read bool $linkToUserDisabled
+ * @property-read bool $assignAsPrimaryValue
+ */
 class ManageOwnership extends Component
 {
     public bool $linkToUser = false;

@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Nova\Setup\Actions\Migration\UpdatePostOrder;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class UpdatePostOrdering extends MigrationStep
 {
     public string $label = 'Update post ordering';

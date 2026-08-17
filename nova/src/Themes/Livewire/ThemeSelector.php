@@ -9,6 +9,10 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Themes\Models\Theme;
 
+/**
+ * @property-read Collection $availableThemes
+ * @property-read Theme $selectedTheme
+ */
 class ThemeSelector extends Component
 {
     public ?string $selected = null;

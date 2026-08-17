@@ -12,6 +12,10 @@ use Nova\Announcements\Models\Announcement;
 use Nova\Setup\Actions\Migration\MigrateNewsItem;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateNewsItems extends MigrationStep
 {
     public string $label = 'News items';

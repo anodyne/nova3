@@ -62,7 +62,8 @@
         "symfony/postmark-mailer": "^8.0",
         "teamtnt/laravel-scout-tntsearch-driver": "^16.0",
         "vlucas/phpdotenv": "^5.6",
-        "wire-elements/spotlight": "^2.0"
+        "wire-elements/spotlight": "^2.0",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",
@@ -115,6 +116,10 @@
         }
     },
     "scripts": {
+        "analyse": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpstan --memory-limit=-1"
+        ],
         "clean": [
             "rm -f ./nova/bootstrap/cache/blade-icons.php",
             "rm -f ./nova/bootstrap/cache/packages.php",
@@ -132,31 +137,34 @@
             "find ./media/stories -mindepth 1 ! -name '.gitignore' -delete",
             "find ./media/users -mindepth 1 ! -name '.gitignore' -delete"
         ],
-        "update:requirements": [
-            "composer bump",
-            "bun update --latest"
-        ],
-        "analyse": [
-            "Composer\\Config::disableProcessTimeout",
-            "phpstan --memory-limit=-1"
-        ],
         "lint": [
             "rector",
             "pint --parallel",
             "bun run lint"
         ],
-        "test:type-coverage": "pest --type-coverage --min=100",
-        "test:lint": [
+        "lint:test": [
             "pint --parallel --test",
             "rector --dry-run",
             "bun run test:lint"
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
-            "@test:lint",
+            "@lint:test",
             "@test:type-coverage",
-            "@analyse",
-            "@test:unit"
+            "@analyse"
+        ],
+        "test:type-coverage": "pest --type-coverage --min=100",
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan optimize:clear --ansi",
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
@@ -164,17 +172,9 @@
             "@php artisan ide-helper:models -RW",
             "@php artisan ide-helper:meta"
         ],
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan optimize:clear --ansi",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+        "update-requirements": [
+            "composer bump",
+            "bun update --latest"
         ]
     },
     "config": {

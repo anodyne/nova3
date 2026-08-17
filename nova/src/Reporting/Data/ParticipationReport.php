@@ -11,6 +11,8 @@ use Nova\Foundation\Data\Concerns\WireableBag;
 
 /**
  * @method static static from(int $active, int $total, ?Collection $results)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ParticipationReport extends Bag implements Wireable
 {

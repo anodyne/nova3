@@ -11,6 +11,8 @@ use Nova\Settings\Enums\PostingTimeframe;
 
 /**
  * @method static static from(PostingTarget $target, int $requirement, PostingTimeframe $timeframe, ?int $rollingDays)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class PostingActivity extends Bag
 {

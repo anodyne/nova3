@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire\Migrations;
 
+use Illuminate\Bus\Batch;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -12,6 +13,13 @@ use Nova\Setup\Livewire\Concerns\HandlesBatching;
 use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Throwable;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ * @property-read string $migrationCountBadgeColor
+ * @property-read bool $wasSuccessfullyMigrated
+ * @property-read ?Batch $batch
+ */
 abstract class MigrationStep extends Component
 {
     use HandlesBatching;

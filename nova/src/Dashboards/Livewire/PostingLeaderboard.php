@@ -13,6 +13,13 @@ use Nova\Settings\Enums\LeaderboardTimeframe;
 use Nova\Settings\Enums\PostingTarget;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read LeaderboardTimeframe $selectedTimeframe
+ * @property-read ?Collection $leaderboard
+ * @property-read Collection $calculateLeaderboardByPosts
+ * @property-read Collection $calculateLeaderboardByWords
+ * @property-read Leaderboard $settings
+ */
 class PostingLeaderboard extends Component
 {
     public string $timeframe;

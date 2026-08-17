@@ -16,6 +16,10 @@ use Livewire\WithPagination;
 use Nova\Discussions\Actions\MarkDiscussionRead;
 use Nova\Discussions\Models\Discussion;
 
+/**
+ * @property-read ?Discussion $selectedDiscussion
+ * @property-read Paginator $discussions
+ */
 #[On('discussion-started')]
 #[On('discussion-updated')]
 #[On('discussion-removed')]

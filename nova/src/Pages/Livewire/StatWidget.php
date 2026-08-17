@@ -10,6 +10,9 @@ use Nova\Characters\Models\Character;
 use Nova\Stories\Models\Post;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read string $statValue
+ */
 class StatWidget extends Component
 {
     public ?string $identifier = null;

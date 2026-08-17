@@ -11,6 +11,8 @@ use Nova\Settings\Enums\PostingTarget;
 
 /**
  * @method static static from(string $title, Tabler $icon, PostingTarget $target, bool $userSelectableTimeframe, LeaderboardTimeframe $timeframe, ?int $numberOfSpotsToShow, bool $showRankNumbers, bool $hideUsersWithZero, bool $onlyActiveUsers, bool $enabled, bool $showPodium)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class Leaderboard extends Bag
 {

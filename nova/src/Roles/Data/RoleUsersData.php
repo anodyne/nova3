@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(?array $users)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class RoleUsersData extends Bag
 {

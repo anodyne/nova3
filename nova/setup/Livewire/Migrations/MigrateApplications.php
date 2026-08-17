@@ -12,6 +12,10 @@ use Nova\Applications\Models\Application;
 use Nova\Setup\Actions\Migration\MigrateApplication;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateApplications extends MigrationStep
 {
     public string $label = 'Applications';

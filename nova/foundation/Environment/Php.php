@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Environment;
 
-class Php
+readonly class Php
 {
     public function __construct(
-        public readonly string $required = '8.4',
-        public readonly string $version = PHP_VERSION
+        public string $required = '8.4',
+        public string $version = PHP_VERSION
     ) {}
 
     public function fails(): bool

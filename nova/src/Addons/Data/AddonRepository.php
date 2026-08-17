@@ -12,6 +12,8 @@ use Nova\Addons\Enums\AddonRepositoryType;
 
 /**
  * @method static static from(?AddonRepositoryType $type, ?string $id)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class AddonRepository extends Bag
 {

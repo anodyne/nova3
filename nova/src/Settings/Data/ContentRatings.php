@@ -8,6 +8,8 @@ use Bag\Bag;
 
 /**
  * @method static static from(?ContentRating $language, ?ContentRating $sex, ?ContentRating $violence)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ContentRatings extends Bag
 {

@@ -17,8 +17,18 @@ use Nova\Stories\Data\PostStatusData;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
 use Nova\Stories\Livewire\Concerns\InteractsWithStories;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\States\StoryStatus\Current;
+use Nova\Stories\Models\Story;
 
+/**
+ * @property-read bool $canContinueWriting
+ * @property-read ?Collection $characters
+ * @property-read Collection $availablePostTypes
+ * @property-read ?PostType $postType
+ * @property-read Collection $currentStories
+ * @property-read ?Story $story
+ */
 class PostSetup extends Component
 {
     use InteractsWithPostType;

@@ -11,6 +11,10 @@ use Livewire\Component;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 
+/**
+ * @property-read Collection $rankGroups
+ * @property-read ?RankItem $selectedRank
+ */
 class RankItemsDropdown extends Component
 {
     public ?int $selected = null;

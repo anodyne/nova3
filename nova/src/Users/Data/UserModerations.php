@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(bool $announcements, bool $posts)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[StripExtraParameters]
 readonly class UserModerations extends Bag

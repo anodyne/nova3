@@ -26,13 +26,10 @@ trait InteractsWithUserAuthors
                     $this->userArrayStructure($user, $userId),
                 ];
 
-                $this->userAuthorsArr = [];
                 $this->userAuthorsArr = $updatedUserAuthorsArr;
             }
 
             $this->syncUserAuthorsPivotData();
-
-            $this->search = '';
 
             $this->dispatch('dropdown-close');
         }

@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(string $gameName, bool $contactFormEnabled, ?string $contactFormDisabledMessage)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class General extends Bag
 {

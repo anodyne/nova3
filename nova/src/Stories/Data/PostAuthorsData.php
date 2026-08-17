@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @method static static from(array $characters, ?Collection $originalCharacters, array $users, ?Collection $originalUsers)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 #[StripExtraParameters]
 readonly class PostAuthorsData extends Bag

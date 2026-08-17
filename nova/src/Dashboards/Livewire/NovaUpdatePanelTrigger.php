@@ -12,6 +12,18 @@ use Nova\Foundation\Enums\ReleaseSeverity;
 use Nova\Foundation\Nova;
 use Nova\Foundation\Values\LatestVersion;
 
+/**
+ * @property-read ?string $databaseVersion
+ * @property-read string $filesVersion
+ * @property-read LatestVersion $upstream
+ * @property-read bool $hasUpdate
+ * @property-read bool $hasUpcomingUpdate
+ * @property-read bool $hasCriticalUpdate
+ * @property-read bool $needsFilesUpdate
+ * @property-read bool $needsDatabaseUpdate
+ * @property-read string $leadingText
+ * @property-read ?string $trailingText
+ */
 class NovaUpdatePanelTrigger extends Component
 {
     #[Computed]

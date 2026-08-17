@@ -12,6 +12,10 @@ use Nova\Setup\Actions\Migration\MigrateBan;
 use Nova\Setup\Models\Upgrade;
 use Nova\Users\Models\Ban;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateBans extends MigrationStep
 {
     public string $label = 'Bans';

@@ -12,7 +12,7 @@ use Nova\Users\Models\User;
 
 class FormSubmissionBuilder extends Builder
 {
-    public function form(Form|int $form): self
+    public function forForm(Form|int $form): self
     {
         return $this->where('form_id', $form?->id ?? $form);
     }

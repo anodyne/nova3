@@ -11,6 +11,8 @@ use Nova\Stories\Enums\PostEditTimeframe;
 
 /**
  * @method static static from(bool $notifiesUsers, bool $includedInPostTracking, bool $allowsMultipleAuthors, bool $allowsCharacterAuthors, bool $allowsUserAuthors, bool $showContentInTimelineView, PostEditTimeframe $editTimeframe)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class Options extends Bag
 {

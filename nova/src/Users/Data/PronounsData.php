@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 
 /**
  * @method static static from(string $value, ?string $subject, ?string $object)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class PronounsData extends Bag
 {

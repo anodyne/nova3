@@ -13,6 +13,10 @@ use Nova\Departments\Models\Department;
 use Nova\Setup\Actions\Migration\MigrateDepartment;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateDepartments extends MigrationStep
 {
     public string $label = 'Departments';

@@ -10,6 +10,9 @@ use Livewire\Component;
 use Nova\Foundation\Actions\RecacheIcons;
 use Nova\Foundation\Enums\CacheKeys;
 
+/**
+ * @property-read array $filteredIcons
+ */
 class IconPicker extends Component
 {
     public string $field = 'icon';

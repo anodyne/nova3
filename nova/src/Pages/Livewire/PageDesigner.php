@@ -21,6 +21,9 @@ use Nova\Pages\Blocks\PageBlockRegistry;
 use Nova\Pages\Data\PageBlocksData;
 use Nova\Pages\Models\Page;
 
+/**
+ * @property-read Schema $form
+ */
 class PageDesigner extends FormComponent
 {
     #[Locked]

@@ -11,6 +11,11 @@ use Livewire\Component;
 use Nova\Roles\Models\Role;
 use Nova\Users\Models\User;
 
+/**
+ * @property-read string $assignedUsers
+ * @property-read Collection $models
+ * @property-read Collection $users
+ */
 class ManageUsers extends Component
 {
     #[Locked]

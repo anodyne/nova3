@@ -9,6 +9,8 @@ use Nova\Applications\Enums\ApplicationResult;
 
 /**
  * @method static static from(ApplicationResult $result, ?string $comments)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ApplicationReviewData extends Bag
 {

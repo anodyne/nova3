@@ -16,6 +16,8 @@ use Nova\Foundation\Fonts\LocalFontProvider;
 
 /**
  * @method static static from(string $headerProvider, string $headerFamily, string $bodyProvider, string $bodyFamily, string $monoProvider, string $monoFamily)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class FontFamilies extends Bag
 {

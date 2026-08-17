@@ -29,6 +29,11 @@ use Nova\Themes\Actions\InstallTheme;
 use Symfony\Component\Finder\Finder;
 use Throwable;
 
+/**
+ * @property-read bool $shouldShowForm
+ * @property-read bool $shouldShowSuccessTable
+ * @property-read array $availableGenres
+ */
 #[Layout('layouts.setup', ['type' => SetupType::Install])]
 class InstallNova extends Component
 {

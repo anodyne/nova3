@@ -9,9 +9,17 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use Nova\Media\Enums\ImageAction;
 
+/**
+ * @property-read bool $hasImage
+ * @property-read TemporaryUploadedFile|null $imageInfo
+ * @property-read ?string $previewUrl
+ * @property-read string $fieldImageAction
+ * @property-read string $fieldTempFile
+ */
 class UploadImage extends Component
 {
     use WithFileUploads;

@@ -20,7 +20,7 @@ class PositionBuilder extends Builder
         return $this->where('available', '>', 0);
     }
 
-    public function department($id): self
+    public function forDepartment($id): self
     {
         return $this->where('department_id', $id);
     }

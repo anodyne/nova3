@@ -28,7 +28,7 @@ class StoryBuilder extends Builder
         return $this->whereState('status', Ongoing::class);
     }
 
-    public function parent(Story|int|null $parent): self
+    public function whereParent(Story|int|null $parent): self
     {
         return $this
             ->when(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent))

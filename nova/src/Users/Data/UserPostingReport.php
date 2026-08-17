@@ -11,6 +11,8 @@ use Nova\Settings\Enums\PostingTarget;
 
 /**
  * @method static static from(int $posts, int $words)
+ *
+ * @phpstan-method static static from(mixed ...$values)
  */
 readonly class UserPostingReport extends Bag
 {

@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -37,7 +40,11 @@ use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
+use Nova\Users\Models\User;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
@@ -48,21 +55,21 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property CharacterType $type
  * @property CharacterStatus $status
  * @property int|null $rank_id
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property CarbonImmutable|null $deleted_at
  * @property-read \Nova\Characters\Models\CharacterPosition|\Nova\Characters\Models\CharacterUser|null $pivot
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activePrimaryUsers
+ * @property-read Collection<int, User> $activePrimaryUsers
  * @property-read int|null $active_primary_users_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activeUsers
+ * @property-read Collection<int, User> $activeUsers
  * @property-read int|null $active_users_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
  * @property-read Application|null $application
  * @property-read string $avatar_url
  * @property-read FormSubmission|null $characterFormSubmission
  * @property-read string $display_name
- * @property-read \Illuminate\Database\Eloquent\Collection<int, FormSubmission> $formSubmissions
+ * @property-read Collection<int, FormSubmission> $formSubmissions
  * @property-read int|null $form_submissions_count
  * @property-read bool $has_avatar
  * @property-read bool $is_active
@@ -70,20 +77,20 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read bool $is_hidden
  * @property-read bool $is_inactive
  * @property-read bool $is_pending
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Position> $positions
+ * @property-read Collection<int, Position> $positions
  * @property-read int|null $positions_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Post> $postAuthors
+ * @property-read Collection<int, Post> $postAuthors
  * @property-read int|null $post_authors_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Post> $posts
+ * @property-read Collection<int, Post> $posts
  * @property-read int|null $posts_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $primaryUsers
+ * @property-read Collection<int, User> $primaryUsers
  * @property-read int|null $primary_users_count
  * @property-read RankItem|null $rank
- * @property-read \Illuminate\Database\Eloquent\Collection<int, StatusHistory> $statusHistories
+ * @property-read Collection<int, StatusHistory> $statusHistories
  * @property-read int|null $status_histories_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $users
+ * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  * @method static CharacterBuilder<static>|Character active()
  * @method static CharacterBuilder<static>|Character activeBetween(\Carbon\CarbonInterface $start, \Carbon\CarbonInterface $end)
@@ -156,7 +163,7 @@ class Character extends Model implements HasMedia
         'name', 'status', 'rank_id', 'type',
     ];
 
-    public function positions()
+    public function positions(): BelongsToMany
     {
         return $this->belongsToMany(Position::class)
             ->using(CharacterPosition::class);

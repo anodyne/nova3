@@ -12,6 +12,11 @@ use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
 
+/**
+ * @property-read EloquentCollection $posts
+ * @property-read Collection $stories
+ * @property-read Collection $currentStories
+ */
 class PostsTimeline extends Component
 {
     public string $sortField = 'order_column';

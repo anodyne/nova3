@@ -13,6 +13,10 @@ use Nova\Setup\Actions\Migration\MigrateForm;
 use Nova\Setup\Livewire\Concerns\HandlesFormFields;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 
+/**
+ * @property-read int $pendingMigrationCount
+ * @property-read int $completedMigrationCount
+ */
 class MigrateCharacterForm extends MigrationStep
 {
     use HandlesFormFields;

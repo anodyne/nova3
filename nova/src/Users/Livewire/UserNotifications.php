@@ -12,6 +12,12 @@ use Nova\Users\Enums\NotificationStatus;
 use Nova\Users\Models\User;
 use Nova\Users\Resources\NotificationResource;
 
+/**
+ * @property-read int $allCount
+ * @property-read array<string, mixed> $notifications
+ * @property-read int $unreadCount
+ * @property-read User $user
+ */
 class UserNotifications extends SlideOver
 {
     public NotificationStatus $status = NotificationStatus::Unread;
