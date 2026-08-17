@@ -76,11 +76,23 @@ trait InteractsWithUserAuthors
             ->map(fn ($user): object => $this->userObjectStructure($user));
     }
 
+    private function syncUserAuthorsPivotData(): void
+    {
+        $this->userAuthorsPivotData = collect($this->userAuthorsArr)
+            ->mapWithKeys(fn ($user): array => [
+                $user['id'] => [
+                    'user_id' => data_get($user, 'id'),
+                    'as' => data_get($user, 'authorship.as'),
+                ],
+            ])
+            ->toArray();
+    }
+
     private function userArrayStructure(User $user, ?int $pivotUserId = null): array
     {
-        $pivotArray = empty($user->pivot)
+        $pivotArray = empty($user->authorship)
             ? ['user' => User::find($pivotUserId), 'user_id' => $pivotUserId, 'as' => null]
-            : ['user' => $user->pivot->user, 'user_id' => $user->pivot->user_id, 'as' => $user->pivot->as];
+            : ['user' => $user->authorship->user, 'user_id' => $user->authorship->user_id, 'as' => $user->authorship->as];
 
         return [
             'id' => $user->id,
@@ -97,22 +109,10 @@ trait InteractsWithUserAuthors
             'name' => data_get($user, 'name'),
             'avatar_url' => data_get($user, 'avatar_url'),
             'pivot' => (object) [
-                'user' => (object) data_get($user, 'pivot.user'),
-                'user_id' => data_get($user, 'pivot.user_id'),
-                'as' => data_get($user, 'pivot.as'),
+                'user' => (object) data_get($user, 'authorship.user'),
+                'user_id' => data_get($user, 'authorship.user_id'),
+                'as' => data_get($user, 'authorship.as'),
             ],
         ];
-    }
-
-    private function syncUserAuthorsPivotData(): void
-    {
-        $this->userAuthorsPivotData = collect($this->userAuthorsArr)
-            ->mapWithKeys(fn ($user): array => [
-                $user['id'] => [
-                    'user_id' => data_get($user, 'id'),
-                    'as' => data_get($user, 'pivot.as'),
-                ],
-            ])
-            ->toArray();
     }
 }

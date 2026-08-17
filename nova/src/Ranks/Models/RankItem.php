@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,6 +18,7 @@ use Nova\Ranks\Events\RankItemCreated;
 use Nova\Ranks\Events\RankItemDeleted;
 use Nova\Ranks\Events\RankItemUpdated;
 use Nova\Ranks\Models\Builders\RankItemBuilder;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
@@ -27,34 +30,36 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property string|null $overlay_image
  * @property BasicStatus $status
  * @property int|null $order_column
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Character> $characters
+ * @property-read Collection<int, Character> $characters
  * @property-read int|null $characters_count
- * @property-read \Nova\Ranks\Models\RankGroup $group
- * @property-read \Nova\Ranks\Models\RankName $name
- * @method static RankItemBuilder<static>|RankItem active()
+ * @property-read RankGroup $group
+ * @property-read RankName $name
+ *
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem active()
  * @method static \Database\Factories\RankItemFactory factory($count = null, $state = [])
- * @method static RankItemBuilder<static>|RankItem group($group)
- * @method static RankItemBuilder<static>|RankItem inactive()
- * @method static RankItemBuilder<static>|RankItem name($name)
- * @method static RankItemBuilder<static>|RankItem newModelQuery()
- * @method static RankItemBuilder<static>|RankItem newQuery()
- * @method static RankItemBuilder<static>|RankItem ordered(string $direction = 'asc')
- * @method static RankItemBuilder<static>|RankItem query()
- * @method static RankItemBuilder<static>|RankItem searchFor($search)
- * @method static RankItemBuilder<static>|RankItem whereBaseImage($value)
- * @method static RankItemBuilder<static>|RankItem whereCreatedAt($value)
- * @method static RankItemBuilder<static>|RankItem whereGroupId($value)
- * @method static RankItemBuilder<static>|RankItem whereId($value)
- * @method static RankItemBuilder<static>|RankItem whereNameId($value)
- * @method static RankItemBuilder<static>|RankItem whereOrderColumn($value)
- * @method static RankItemBuilder<static>|RankItem whereOverlayImage($value)
- * @method static RankItemBuilder<static>|RankItem whereStatus($value)
- * @method static RankItemBuilder<static>|RankItem whereUpdatedAt($value)
- * @method static RankItemBuilder<static>|RankItem withRankName()
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem group($group)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem inactive()
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem name($name)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem newModelQuery()
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem newQuery()
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem ordered(string $direction = 'asc')
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem query()
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem searchFor($search)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereBaseImage($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereCreatedAt($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereGroupId($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereId($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereNameId($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereOrderColumn($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereOverlayImage($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereStatus($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereUpdatedAt($value)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem withRankName()
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(RankItemBuilder::class)]
@@ -63,14 +68,6 @@ class RankItem extends Model implements Sortable
     use HasFactory;
     use LogsActivity;
     use SortableTrait;
-
-    protected $table = 'rank_items';
-
-    protected $fillable = [
-        'base_image', 'overlay_image', 'group_id', 'name_id', 'order_column', 'status',
-    ];
-
-    protected $with = ['name'];
 
     protected $casts = [
         'group_id' => 'integer',
@@ -84,6 +81,14 @@ class RankItem extends Model implements Sortable
         'deleted' => RankItemDeleted::class,
         'updated' => RankItemUpdated::class,
     ];
+
+    protected $fillable = [
+        'base_image', 'overlay_image', 'group_id', 'name_id', 'order_column', 'status',
+    ];
+
+    protected $table = 'rank_items';
+
+    protected $with = ['name'];
 
     public function characters(): HasMany
     {

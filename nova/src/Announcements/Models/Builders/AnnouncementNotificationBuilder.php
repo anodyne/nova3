@@ -5,7 +5,13 @@ declare(strict_types=1);
 namespace Nova\Announcements\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Announcements\Models\AnnouncementNotification;
 
+/**
+ * @template TModel of AnnouncementNotification
+ *
+ * @extends Builder<TModel>
+ */
 class AnnouncementNotificationBuilder extends Builder
 {
     public function announcement(int $announcementId): self

@@ -10,11 +10,17 @@ use Nova\Forms\Models\FormSubmission;
 
 trait HasFormSubmissions
 {
+    /**
+     * @return MorphMany<FormSubmission, $this>
+     */
     public function formSubmissions(): MorphMany
     {
         return $this->morphMany(FormSubmission::class, 'owner');
     }
 
+    /**
+     * @return MorphOne<FormSubmission, $this>
+     */
     public function userFormSubmission(): MorphOne
     {
         return $this

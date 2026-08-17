@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Nova\Characters\Models\Character;
 use Nova\Forms\Models\Form;
+use Nova\Forms\Models\FormSubmission;
 use Nova\Users\Models\User;
 
+/**
+ * @template TModel of FormSubmission
+ *
+ * @extends Builder<TModel>
+ */
 class FormSubmissionBuilder extends Builder
 {
     public function forForm(Form|int $form): self

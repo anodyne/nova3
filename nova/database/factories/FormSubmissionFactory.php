@@ -9,20 +9,10 @@ use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Users\Models\User;
 
+/** @extends Factory<FormSubmission> */
 class FormSubmissionFactory extends Factory
 {
     protected $model = FormSubmission::class;
-
-    public function definition()
-    {
-        return [
-            'form_id' => Form::factory(),
-            'owner_id' => User::factory(),
-            'owner_type' => function (array $attributes) {
-                return User::find($attributes['owner_id'])->getMorphClass();
-            },
-        ];
-    }
 
     public function applicationInfo()
     {
@@ -43,6 +33,17 @@ class FormSubmissionFactory extends Factory
         return $this->state([
             'form_id' => Form::key('characterBio')->first(),
         ]);
+    }
+
+    public function definition()
+    {
+        return [
+            'form_id' => Form::factory(),
+            'owner_id' => User::factory(),
+            'owner_type' => function (array $attributes) {
+                return User::find($attributes['owner_id'])->getMorphClass();
+            },
+        ];
     }
 
     public function userBio()

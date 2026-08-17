@@ -7,11 +7,16 @@ namespace Nova\Users\Models\Scopes;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
+use Nova\Users\Models\Builders\UserBuilder;
+use Nova\Users\Models\User;
 
 class ActiveUsers implements Scope
 {
-    public function apply(Builder $builder, Model $model): Builder
+    public function apply(Builder $builder, Model $model): void
     {
-        return $builder->whereHas('user', fn (Builder $query): Builder => $query->active());
+        $builder->whereHas('user', function (Builder $query): void {
+            /** @var UserBuilder<User> $query */
+            $query->active();
+        });
     }
 }

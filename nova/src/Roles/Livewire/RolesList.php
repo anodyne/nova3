@@ -28,6 +28,7 @@ use Nova\Roles\Actions\DeleteRole;
 use Nova\Roles\Actions\DuplicateRole;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Events\RoleDuplicated;
+use Nova\Roles\Models\Builders\RoleBuilder;
 use Nova\Roles\Models\Role;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 
@@ -56,7 +57,7 @@ class RolesList extends TableComponent
                     ->label('Name')
                     ->icon(fn (Role $record): ?BackedEnum => $record->is_locked ? Tabler::Lock : null)
                     ->iconPosition('after')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
+                    ->searchable(query: fn (RoleBuilder $query, string $search): RoleBuilder => $query->searchFor($search)),
                 TextColumn::make('user_count')
                     ->counts('user')
                     ->label('# of active users')
@@ -97,11 +98,14 @@ class RolesList extends TableComponent
                                 TextInput::make('display_name')->label('New role name'),
                             ])
                             ->action(function (Role $record, array $data): void {
+                                $displayName = data_get($data, 'display_name');
+
                                 $replica = DuplicateRole::run(
                                     $record,
                                     RoleData::from(
-                                        displayName: $displayName = data_get($data, 'display_name'),
                                         name: str($displayName)->slug()->toString(),
+                                        displayName: $displayName,
+                                        description: $record->description,
                                         isDefault: false
                                     )
                                 );

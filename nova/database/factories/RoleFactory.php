@@ -9,11 +9,19 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Nova\Roles\Models\Role;
 
+/** @extends Factory<Role> */
 class RoleFactory extends Factory
 {
     use CanHandleDataForRequests;
 
     protected $model = Role::class;
+
+    public function default()
+    {
+        return $this->state([
+            'is_default' => true,
+        ]);
+    }
 
     public function definition()
     {
@@ -27,10 +35,10 @@ class RoleFactory extends Factory
         ];
     }
 
-    public function default()
+    public function locked()
     {
         return $this->state([
-            'is_default' => true,
+            'is_locked' => true,
         ]);
     }
 
@@ -38,13 +46,6 @@ class RoleFactory extends Factory
     {
         return $this->state([
             'is_default' => false,
-        ]);
-    }
-
-    public function locked()
-    {
-        return $this->state([
-            'is_locked' => true,
         ]);
     }
 }

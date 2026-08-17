@@ -11,14 +11,20 @@ use Nova\Users\Models\Login;
 
 trait HasLogins
 {
-    public function logins(): HasMany
-    {
-        return $this->hasMany(Login::class);
-    }
-
+    /**
+     * @return HasOne<Login, $this>
+     */
     public function latestLogin(): HasOne
     {
         return $this->logins()->one()->ofMany();
+    }
+
+    /**
+     * @return HasMany<Login, $this>
+     */
+    public function logins(): HasMany
+    {
+        return $this->hasMany(Login::class);
     }
 
     public function recordLogin(?string $ip): void

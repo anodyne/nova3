@@ -19,6 +19,7 @@ use Nova\Departments\Actions\DeleteDepartment;
 use Nova\Departments\Actions\DuplicateDepartment;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Events\DepartmentDuplicated;
+use Nova\Departments\Models\Builders\DepartmentBuilder;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Foundation\Enums\BasicStatus;
@@ -30,6 +31,8 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\Builders\UserBuilder;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -54,7 +57,7 @@ class DepartmentsList extends TableComponent
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (DepartmentBuilder $query, string $search): DepartmentBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('positions_count')
                     ->counts('positions')
@@ -70,7 +73,7 @@ class DepartmentsList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('active_users_count')
                     ->counts([
-                        'activeUsers' => fn (Builder $query): Builder => $query->countDistinct(),
+                        'activeUsers' => fn (UserBuilder $query): UserBuilder => $query->countDistinct(),
                     ])
                     ->label('# of users')
                     ->alignCenter()
@@ -101,11 +104,11 @@ class DepartmentsList extends TableComponent
                                     ])
                                     ->eventDescriptions([
                                         'duplicated' => fn (Activity $activity) => __('activity.departments.duplicated', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'replica' => Department::find($activity->getExtraProperty('replica'))?->name,
                                         ]),
                                         'uploaded' => fn (Activity $activity) => __('activity.departments.uploaded', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                         ]),
                                     ]);
                             }),

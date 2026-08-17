@@ -17,17 +17,19 @@ use Nova\Foundation\Models\NotificationType;
  * @property int $discord
  * @property string|null $discord_settings
  * @property-read NotificationType $notificationType
- * @property-read \Nova\Users\Models\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference whereDatabase($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference whereDiscord($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference whereDiscordSettings($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference whereMail($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference whereNotificationTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|UserNotificationPreference whereUserId($value)
+ * @property-read User|null $user
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereDatabase($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereDiscord($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereDiscordSettings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereMail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereNotificationTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class UserNotificationPreference extends Model

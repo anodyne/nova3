@@ -9,16 +9,30 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Auth;
+use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostAuthor;
 
 trait HasPosts
 {
+    /**
+     * @return BelongsToMany<Post, $this>
+     */
     public function draftPosts(): BelongsToMany
     {
-        return $this->posts()->draft();
+        $relation = $this->posts();
+
+        /** @var PostBuilder<Post> $query */
+        $query = $relation->getQuery();
+
+        $query->draft();
+
+        return $relation;
     }
 
+    /**
+     * @return BelongsToMany<Post, $this>
+     */
     public function draftPostsNeedingAttention(): BelongsToMany
     {
         return $this->draftPosts()
@@ -28,31 +42,59 @@ trait HasPosts
             });
     }
 
+    /**
+     * @return BelongsToMany<Post, $this>
+     */
     public function latestPost(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'post_author')
-            ->published()
+        $relation = $this->posts();
+
+        /** @var PostBuilder<Post> $query */
+        $query = $relation->getQuery();
+
+        $query->published();
+
+        return $relation
             ->latest('published_at')
             ->limit(1);
     }
 
-    public function posts(): BelongsToMany
-    {
-        return $this->belongsToMany(Post::class, 'post_author');
-    }
-
-    public function postsAsUser(): MorphToMany
-    {
-        return $this->morphToMany(Post::class, 'authorable', 'post_author');
-    }
-
+    /**
+     * @return HasMany<PostAuthor, $this>
+     */
     public function postAuthors(): HasMany
     {
         return $this->hasMany(PostAuthor::class);
     }
 
+    /**
+     * @return BelongsToMany<Post, $this>
+     */
+    public function posts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'post_author');
+    }
+
+    /**
+     * @return MorphToMany<Post, $this>
+     */
+    public function postsAsUser(): MorphToMany
+    {
+        return $this->morphToMany(Post::class, 'authorable', 'post_author');
+    }
+
+    /**
+     * @return BelongsToMany<Post, $this>
+     */
     public function publishedPosts(): BelongsToMany
     {
-        return $this->posts()->published();
+        $relation = $this->posts();
+
+        /** @var PostBuilder<Post> $query */
+        $query = $relation->getQuery();
+
+        $query->published();
+
+        return $relation;
     }
 }

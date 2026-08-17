@@ -6,6 +6,7 @@ namespace Nova\Stories\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Data\StoryPositionData;
+use Nova\Stories\Enums\PositionDirection;
 use Nova\Stories\Models\Story;
 
 class SetStoryPosition
@@ -14,12 +15,15 @@ class SetStoryPosition
 
     public function handle(Story $story, StoryPositionData $data): void
     {
-        if ($data->hasPositionChange) {
-            if ($data->direction && $data->neighbor) {
-                $method = 'move'.ucfirst($data->direction->value);
-
-                $story->$method($data->neighbor);
-            }
+        if (! $data->hasPositionChange) {
+            return;
         }
+
+        match ($data->direction) {
+            PositionDirection::After => $data->neighbor ? $story->moveAfter($data->neighbor) : null,
+            PositionDirection::Before => $data->neighbor ? $story->moveBefore($data->neighbor) : null,
+            PositionDirection::Start => $story->moveToStart(),
+            PositionDirection::End => $story->moveToEnd(),
+        };
     }
 }

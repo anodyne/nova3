@@ -7,12 +7,13 @@ namespace Nova\Media\Actions;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Foundation\Models\Model;
 use Nova\Media\Enums\ImageAction;
+use Spatie\MediaLibrary\HasMedia;
 
 class UploadImage
 {
     use AsAction;
 
-    public function handle(Model $model, string $collection, ImageAction $action, ?string $tempPath = null): Model
+    public function handle(Model&HasMedia $model, string $collection, ImageAction $action, ?string $tempPath = null): Model
     {
         return match ($action) {
             ImageAction::Unchanged => $model->refresh(),
@@ -22,21 +23,12 @@ class UploadImage
         };
     }
 
-    protected function handleImageRemoval(Model $model, string $collection): Model
+    protected function getActivityName(string $collection): string
     {
-        $model->clearMediaCollection($collection);
-
-        $activityName = $this->getActivityName($collection);
-
-        activity()
-            ->performedOn($model)
-            ->event('removed '.$activityName)
-            ->log('removed '.$activityName);
-
-        return $model->refresh();
+        return str($collection)->replace('-', ' ')->toString();
     }
 
-    protected function handleImageAddition(Model $model, string $collection, ?string $tempPath): Model
+    protected function handleImageAddition(Model&HasMedia $model, string $collection, ?string $tempPath): Model
     {
         // Guard: ensure we actually have a temp file
         if (blank($tempPath)) {
@@ -56,7 +48,21 @@ class UploadImage
         return $model->refresh();
     }
 
-    protected function handleImageReplacement(Model $model, string $collection, ?string $tempPath): Model
+    protected function handleImageRemoval(Model&HasMedia $model, string $collection): Model
+    {
+        $model->clearMediaCollection($collection);
+
+        $activityName = $this->getActivityName($collection);
+
+        activity()
+            ->performedOn($model)
+            ->event('removed '.$activityName)
+            ->log('removed '.$activityName);
+
+        return $model->refresh();
+    }
+
+    protected function handleImageReplacement(Model&HasMedia $model, string $collection, ?string $tempPath): Model
     {
         // Guard: if no temp file, do nothing (non-destructive)
         if (blank($tempPath)) {
@@ -74,10 +80,5 @@ class UploadImage
             ->log('replaced '.$activityName);
 
         return $model->refresh();
-    }
-
-    protected function getActivityName(string $collection): string
-    {
-        return str($collection)->replace('-', ' ')->toString();
     }
 }

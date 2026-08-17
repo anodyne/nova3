@@ -9,11 +9,17 @@ use Nova\Onboarding\Models\Onboarding;
 
 trait HasOnboarding
 {
+    /**
+     * @return HasMany<Onboarding, $this>
+     */
     public function activeOnboardings(): HasMany
     {
         return once(fn () => $this->onboardings()->incomplete());
     }
 
+    /**
+     * @return HasMany<Onboarding, $this>
+     */
     public function onboardings(): HasMany
     {
         return $this->HasMany(Onboarding::class);

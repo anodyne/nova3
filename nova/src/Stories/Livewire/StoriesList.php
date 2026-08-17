@@ -15,7 +15,6 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\EditAction;
@@ -25,7 +24,9 @@ use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Stories\Actions\UpdateStory;
 use Nova\Stories\Data\StoryData;
+use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\Story;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -59,7 +60,7 @@ class StoriesList extends TableComponent
                 TextColumn::make('title')
                     ->wrap()
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (StoryBuilder $query, string $search): StoryBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('parentStory.title')
                     ->wrap()
@@ -198,9 +199,16 @@ class StoriesList extends TableComponent
                                         'status' => fn ($value) => $value?->name(),
                                     ])
                                     ->eventDescriptions([
-                                        'uploaded-image' => fn (Activity $activity) => __('activity.stories.uploaded-image', [
-                                            'name' => $activity->causer->name,
-                                        ]),
+                                        'uploaded-image' => function (Activity $activity) {
+                                            $causer = $activity->causer;
+                                            $causerName = $causer instanceof User
+                                                ? $causer->name
+                                                : 'System';
+
+                                            return __('activity.stories.uploaded-image', [
+                                                'name' => $causerName,
+                                            ]);
+                                        },
                                     ]);
                             }),
                     ])->divided(),

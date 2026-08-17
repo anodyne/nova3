@@ -6,8 +6,10 @@ use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Mistralys\VersionParser\VersionParser;
+use Nova\Foundation\Application;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
+use Nova\Settings\Models\Settings;
 
 if (! function_exists('__s')) {
     function __s(string $key): Stringable
@@ -31,11 +33,14 @@ if (! function_exists('pipe')) {
 }
 
 if (! function_exists('settings')) {
-    function settings($key = null)
+    /**
+     * @return ($key is null ? Settings|null : mixed)
+     */
+    function settings($key = null): mixed
     {
         $settings = app('nova.settings');
 
-        if ($key) {
+        if ($key !== null) {
             return data_get($settings, $key);
         }
 
@@ -53,7 +58,13 @@ if (! function_exists('nova')) {
 if (! function_exists('nova_path')) {
     function nova_path($path = '')
     {
-        return app()->novaPath($path);
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        return $application->novaPath($path);
     }
 }
 
@@ -73,7 +84,13 @@ if (! function_exists('theme')) {
 if (! function_exists('theme_path')) {
     function theme_path($path = '')
     {
-        return app()->themePath($path);
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        return $application->themePath($path);
     }
 }
 
@@ -93,14 +110,26 @@ if (! function_exists('addon')) {
 if (! function_exists('addon_path')) {
     function addon_path($path = '')
     {
-        return app()->addonPath($path);
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        return $application->addonPath($path);
     }
 }
 
 if (! function_exists('rank_path')) {
     function rank_path($path = '')
     {
-        return app()->rankPath($path);
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        return $application->rankPath($path);
     }
 }
 

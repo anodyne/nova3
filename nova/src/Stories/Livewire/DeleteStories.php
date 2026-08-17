@@ -15,6 +15,9 @@ class DeleteStories extends Component
 
     public Collection $stories;
 
+    /**
+     * @return Collection<int, Story>
+     */
     public function getStoriesForMovingPosts(int $storyId): Collection
     {
         $storiesBeingDeleted = collect($this->actions)
@@ -30,6 +33,9 @@ class DeleteStories extends Component
             ->get();
     }
 
+    /**
+     * @return Collection<int, Story>
+     */
     public function getStoriesForMovingStories(int $storyId): Collection
     {
         $storiesBeingDeleted = collect($this->actions)
@@ -49,7 +55,7 @@ class DeleteStories extends Component
     {
         $this->stories = $stories->loadMissing('parent');
 
-        $this->actions = $stories->mapWithKeys(function ($story) {
+        $this->actions = $stories->mapWithKeys(function (Story $story) {
             return [$story->id => [
                 'story' => [
                     'action' => 'delete',

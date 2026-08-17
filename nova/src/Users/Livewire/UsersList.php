@@ -41,6 +41,7 @@ use Nova\Users\Data\BanData;
 use Nova\Users\Data\PronounsData;
 use Nova\Users\Events\UserActivated;
 use Nova\Users\Events\UserDeactivated;
+use Nova\Users\Models\Builders\UserBuilder;
 use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
@@ -63,7 +64,7 @@ class UsersList extends TableComponent
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.user-avatar')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
+                    ->searchable(query: fn (UserBuilder $query, string $search): UserBuilder => $query->searchFor($search)),
                 TextColumn::make('primaryCharacter.name')
                     ->label('Primary character')
                     ->toggleable(),
@@ -144,7 +145,12 @@ class UsersList extends TableComponent
                                             ->get()
                                             ->implode('name', ', ');
 
-                                        return str("**{$activity->causer->name}** assigned {$characterNames} to the user.")->inlineMarkdown()->toHtmlString();
+                                        $causer = $activity->causer;
+                                        $causerName = $causer instanceof User
+                                            ? $causer->name
+                                            : 'System';
+
+                                        return str("**{$causerName}** assigned {$characterNames} to the user.")->inlineMarkdown()->toHtmlString();
                                     })
                                     ->eventDescription('unassigned', function (Activity $activity) {
                                         $characterIds = $activity->getExtraProperty('characterIds');
@@ -153,7 +159,12 @@ class UsersList extends TableComponent
                                             ->get()
                                             ->implode('name', ', ');
 
-                                        return str("**{$activity->causer->name}** unassigned {$characterNames} from the user.")->inlineMarkdown()->toHtmlString();
+                                        $causer = $activity->causer;
+                                        $causerName = $causer instanceof User
+                                            ? $causer->name
+                                            : 'System';
+
+                                        return str("**{$causerName}** unassigned {$characterNames} from the user.")->inlineMarkdown()->toHtmlString();
                                     })
                                     ->attributeValue(
                                         'pronouns',
@@ -309,14 +320,14 @@ class UsersList extends TableComponent
                 TernaryFilter::make('hasAssignedCharacters')
                     ->label('Has assigned characters')
                     ->queries(
-                        true: fn (Builder $query): Builder => $query->whereHas('activeCharacters'),
-                        false: fn (Builder $query): Builder => $query->whereDoesntHave('activeCharacters')
+                        true: fn (UserBuilder $query): UserBuilder => $query->whereHas('activeCharacters'),
+                        false: fn (UserBuilder $query): UserBuilder => $query->whereDoesntHave('activeCharacters')
                     ),
                 TernaryFilter::make('moderated')
                     ->label('Is moderated')
                     ->queries(
-                        true: fn (Builder $query): Builder => $query->whereModerationHasTrue(),
-                        false: fn (Builder $query): Builder => $query->whereModerationDoesntHaveTrue()
+                        true: fn (UserBuilder $query): UserBuilder => $query->whereModerationHasTrue(),
+                        false: fn (UserBuilder $query): UserBuilder => $query->whereModerationDoesntHaveTrue()
                     ),
                 SelectFilter::make('lastLogin')
                     ->label('Last signed in')
@@ -325,7 +336,7 @@ class UsersList extends TableComponent
                         '14 days' => 'Within 2 weeks',
                         '30 days' => 'In the last month',
                     ])
-                    ->query(function (Builder $query, array $data): Builder {
+                    ->query(function (UserBuilder $query, array $data): UserBuilder {
                         return $query->when($data['value'], function (Builder $query, string $date): Builder {
                             return $query->whereHas(
                                 'latestLogin',
@@ -347,7 +358,7 @@ class UsersList extends TableComponent
                         '14 days' => 'Within 2 weeks',
                         '30 days' => 'In the last month',
                     ])
-                    ->query(function (Builder $query, array $data): Builder {
+                    ->query(function (UserBuilder $query, array $data): UserBuilder {
                         return $query->when($data['value'], function (Builder $query, string $date): Builder {
                             return $query->whereHas(
                                 'latestPost',

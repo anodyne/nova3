@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Database\Factories\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
 
 trait CanAddMedia
 {
-    protected function addRandomMedia(Model $model, string $source, string $destination, string $mediaCollection)
+    protected function addRandomMedia(Model&HasMedia $model, string $source, string $destination, string $mediaCollection): void
     {
         $sourceDirectory = base_path($source);
         $destinationDirectory = base_path($destination);

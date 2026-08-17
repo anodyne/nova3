@@ -10,11 +10,19 @@ use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Foundation\Enums\BasicStatus;
 
+/** @extends Factory<Position> */
 class PositionFactory extends Factory
 {
     use CanHandleDataForRequests;
 
     protected $model = Position::class;
+
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
 
     public function definition()
     {
@@ -25,13 +33,6 @@ class PositionFactory extends Factory
             'available' => $this->faker->numberBetween(1, 5),
             'department_id' => fn () => Department::factory(),
         ];
-    }
-
-    public function active()
-    {
-        return $this->state([
-            'status' => BasicStatus::Active,
-        ]);
     }
 
     public function inactive()

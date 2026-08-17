@@ -8,15 +8,14 @@ use Closure;
 use Illuminate\Routing\Route;
 use Nova\Pages\Models\Page;
 
+/** @mixin Route */
 class RouteMacros
 {
     public function findPageFromRoute(): Closure
     {
+        /** @this Route */
         return function () {
-            /** @var Route $route */
-            $route = $this;
-
-            return Page::key($route->getName())->first();
+            return Page::key($this->getName())->first();
         };
     }
 }

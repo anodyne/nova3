@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormField;
 
+/** @extends Factory<FormField> */
 class FormFieldFactory extends Factory
 {
     protected $model = FormField::class;

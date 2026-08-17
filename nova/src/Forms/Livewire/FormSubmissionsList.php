@@ -8,10 +8,11 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Nova\Forms\Actions\DeleteFormSubmission;
 use Nova\Forms\Enums\FormType;
+use Nova\Forms\Models\Builders\FormBuilder;
+use Nova\Forms\Models\Builders\FormSubmissionBuilder;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\DeleteAction;
@@ -20,6 +21,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\User;
 
 class FormSubmissionsList extends TableComponent
 {
@@ -39,7 +41,7 @@ class FormSubmissionsList extends TableComponent
                         'owner_type',
                     ])
                     ->whereRelation('form', 'type', '=', FormType::Basic)
-                    ->unless($user->can('manage', new FormSubmission), fn (Builder $query): Builder => $query->ownerIsUser($user))
+                    ->unless($user->can('manage', new FormSubmission), fn (FormSubmissionBuilder $query): FormSubmissionBuilder => $query->ownerIsUser($user))
             )
             ->recordUrl(fn (FormSubmission $record): string => route('admin.form-submissions.show', $record))
             ->defaultSort('created_at', 'desc')
@@ -90,7 +92,7 @@ class FormSubmissionsList extends TableComponent
                     ->relationship(
                         name: 'form',
                         titleAttribute: 'name',
-                        modifyQueryUsing: fn (Builder $query): Builder => $query->basic()
+                        modifyQueryUsing: fn (FormBuilder $query): FormBuilder => $query->basic()
                     ),
             ])
             ->defaultPaginationPageOption(25)

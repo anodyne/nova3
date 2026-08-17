@@ -9,6 +9,8 @@ use Illuminate\Support\Number;
 use Illuminate\Support\Str;
 use Nova\Addons\Models\Addon;
 use Nova\Characters\Models\Character;
+use Nova\Characters\Models\States\Status\Active;
+use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Discussions\Data\DiscussionData;
@@ -39,14 +41,14 @@ Route::get('manifest-test', function () {
             'positions' => fn ($query) => $query->whereHas('characters'),
             'positions.characters',
         ])
-        ->whereHas('positions', fn ($query) => $query->whereHas('characters', fn ($q) => $q->active()))
+        ->whereHas('positions', fn ($query) => $query->whereHas('characters', fn ($q) => $q->whereState('status', Active::class)))
         ->get();
     $inactive = Department::query()
         ->with([
             'positions' => fn ($query) => $query->whereHas('characters'),
             'positions.characters',
         ])
-        ->whereHas('positions', fn ($query) => $query->whereHas('characters', fn ($q) => $q->inactive()))
+        ->whereHas('positions', fn ($query) => $query->whereHas('characters', fn ($q) => $q->whereState('status', Inactive::class)))
         ->get();
     $depts = Department::query()
         ->with([
@@ -183,7 +185,7 @@ Route::get('leaderboard', function () {
         ->get();
 
     foreach ($leaderboard as $user) {
-        echo $user->name.' - '.Number::format((int) $user->author_word_count)."\r\n\r\n";
+        echo $user->name.' - '.Number::format((int) $user->getAttribute('author_word_count'))."\r\n\r\n";
     }
 
     // dd($leaderboard->toArray());
@@ -309,7 +311,7 @@ Route::get('migrate', function () {
 
     $freshForm = DB::table('forms')->find($form->id);
 
-    dd(json_decode($freshForm->fields, associative: true));
+    dd(json_decode((string) data_get($freshForm, 'fields'), associative: true));
 });
 
 Route::get('tags', function () {

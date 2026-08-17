@@ -14,9 +14,9 @@ use Nova\Addons\Models\Addon;
 
 class EditAddon extends SpotlightCommand
 {
-    protected string $name = 'Edit Add-on';
-
     protected string $description = 'Edit a add-on';
+
+    protected string $name = 'Edit Add-on';
 
     protected array $synonyms = [
         'update existing add-on',
@@ -34,21 +34,21 @@ class EditAddon extends SpotlightCommand
             );
     }
 
+    public function execute(Spotlight $spotlight, Addon $addon): void
+    {
+        $spotlight->redirectRoute('admin.addons.edit', $addon);
+    }
+
     public function searchAddon($query)
     {
         return Addon::query()
-            ->searchFor($query)
+            ->searchFor('name', $query)
             ->get()
             ->map(fn (Addon $addon) => new SpotlightSearchResult(
                 $addon->id,
                 $addon->name,
                 sprintf('Edit %s', $addon->name)
             ));
-    }
-
-    public function execute(Spotlight $spotlight, Addon $addon): void
-    {
-        $spotlight->redirectRoute('admin.addons.edit', $addon);
     }
 
     public function shouldBeShown(): bool

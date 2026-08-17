@@ -9,7 +9,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\UserNotificationPreference;
@@ -25,7 +24,7 @@ class UserNotificationPreferencesList extends TableComponent
             ->groups([
                 Group::make('notificationType.audience')
                     ->label('Audience')
-                    ->getDescriptionFromRecordUsing(fn (Model $record): ?string => $record->notificationType->audience->description()),
+                    ->getDescriptionFromRecordUsing(fn (UserNotificationPreference $record): ?string => $record->notificationType->audience->description()),
             ])
             ->defaultGroup('notificationType.audience')
             ->defaultPaginationPageOption(25)
@@ -33,22 +32,22 @@ class UserNotificationPreferencesList extends TableComponent
                 TextColumn::make('notificationType.name')
                     ->label('Notification')
                     ->titleColumn()
-                    ->description(fn (Model $record): ?string => $record->notificationType->description)
+                    ->description(fn (UserNotificationPreference $record): ?string => $record->notificationType->description)
                     ->searchable(),
                 TextColumn::make('notificationType.audience')
                     ->label('Audience')
                     ->badge()
-                    ->color(fn (Model $record): string => $record->notificationType->audience->color()),
+                    ->color(fn (UserNotificationPreference $record): string => $record->notificationType->audience->color()),
                 ToggleColumn::make('database')
                     ->label('In-app')
                     ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
-                    ->disabled(fn (Model $record): bool => ! $record->notificationType->database),
+                    ->disabled(fn (UserNotificationPreference $record): bool => ! $record->notificationType->database),
                 ToggleColumn::make('mail')
                     ->label('Email')
                     ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
-                    ->disabled(fn (Model $record): bool => ! $record->notificationType->mail),
+                    ->disabled(fn (UserNotificationPreference $record): bool => ! $record->notificationType->mail),
             ])
             ->emptyStateIcon(Tabler::Notification)
             ->emptyStateHeading('No notification preferences found');

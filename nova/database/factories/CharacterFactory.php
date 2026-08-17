@@ -12,11 +12,19 @@ use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 
+/** @extends Factory<Character> */
 class CharacterFactory extends Factory
 {
     use CanHandleDataForRequests;
 
     protected $model = Character::class;
+
+    public function active()
+    {
+        return $this->state([
+            'status' => Active::class,
+        ]);
+    }
 
     public function definition()
     {
@@ -25,13 +33,6 @@ class CharacterFactory extends Factory
             'type' => CharacterType::Support,
             'status' => Active::class,
         ];
-    }
-
-    public function active()
-    {
-        return $this->state([
-            'status' => Active::class,
-        ]);
     }
 
     public function inactive()

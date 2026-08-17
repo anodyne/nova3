@@ -6,7 +6,13 @@ namespace Nova\Menus\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
+use Nova\Menus\Models\MenuItem;
 
+/**
+ * @template TModel of MenuItem
+ *
+ * @extends Builder<TModel>
+ */
 class MenuItemBuilder extends Builder
 {
     use QueriesStatus;

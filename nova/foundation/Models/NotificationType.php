@@ -4,16 +4,66 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Settings\Data\Discord;
 use Nova\Users\Models\User;
 use Nova\Users\Models\UserNotificationPreference;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $key
+ * @property string|null $description
+ * @property string|null $notes
+ * @property NotificationAudience $audience
+ * @property bool $database
+ * @property bool $database_default
+ * @property bool $mail
+ * @property bool $mail_default
+ * @property bool $discord
+ * @property Discord|null $discord_settings
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read string|null $discord_color
+ * @property-read string|null $discord_webhook
+ * @property-read Collection<int, UserNotificationPreference> $userNotificationPreferences
+ * @property-read int|null $user_notification_preferences_count
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereAudience($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDatabase($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDatabaseDefault($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDiscord($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDiscordSettings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereMail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereMailDefault($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereUpdatedAt($value)
+ *
+ * @mixin \Eloquent
+ */
 class NotificationType extends Model
 {
-    protected $table = 'notification_types';
+    protected $casts = [
+        'audience' => NotificationAudience::class,
+        'mail' => 'boolean',
+        'mail_default' => 'boolean',
+        'database' => 'boolean',
+        'database_default' => 'boolean',
+        'discord' => 'boolean',
+        'discord_settings' => Discord::class,
+    ];
 
     protected $fillable = [
         'name',
@@ -29,15 +79,7 @@ class NotificationType extends Model
         'discord_settings',
     ];
 
-    protected $casts = [
-        'audience' => NotificationAudience::class,
-        'mail' => 'boolean',
-        'mail_default' => 'boolean',
-        'database' => 'boolean',
-        'database_default' => 'boolean',
-        'discord' => 'boolean',
-        'discord_settings' => Discord::class,
-    ];
+    protected $table = 'notification_types';
 
     public function discordColor(): Attribute
     {
@@ -73,13 +115,13 @@ class NotificationType extends Model
         );
     }
 
-    public function userNotificationPreferences(): HasMany
-    {
-        return $this->hasMany(UserNotificationPreference::class);
-    }
-
     public function preferenceForUser(User $user): UserNotificationPreference
     {
         return $this->userNotificationPreferences()->where('user_id', $user->id)->first();
+    }
+
+    public function userNotificationPreferences(): HasMany
+    {
+        return $this->hasMany(UserNotificationPreference::class);
     }
 }

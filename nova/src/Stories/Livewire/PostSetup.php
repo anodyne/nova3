@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
+use Nova\Characters\Models\Character;
 use Nova\Stories\Actions\UpdatePostAuthors;
 use Nova\Stories\Actions\UpdatePostStatus;
 use Nova\Stories\Data\PostAuthorsData;
@@ -20,24 +21,67 @@ use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\States\StoryStatus\Current;
 use Nova\Stories\Models\Story;
+use Nova\Users\Models\User;
 
 /**
  * @property-read bool $canContinueWriting
- * @property-read ?Collection $characters
- * @property-read Collection $availablePostTypes
- * @property-read ?PostType $postType
- * @property-read Collection $currentStories
- * @property-read ?Story $story
+ * @property-read Collection<int, Character>|null $characters
+ * @property-read Collection<int, PostType> $availablePostTypes
+ * @property-read PostType|null $postType
+ * @property-read Collection<int, Story> $currentStories
+ * @property-read Story|null $story
  */
 class PostSetup extends Component
 {
     use InteractsWithPostType;
     use InteractsWithStories;
 
+    public ?int $characterId = null;
+
     #[Locked]
     public Post $post;
 
-    public ?int $characterId = null;
+    #[Computed]
+    public function canContinueWriting(): bool
+    {
+        return filled($this->storyId) && filled($this->postTypeId) && filled($this->characterId);
+    }
+
+    /**
+     * @return Collection<int, Character>|null
+     */
+    #[Computed]
+    public function characters(): ?Collection
+    {
+        return Auth::user()->activeCharacters;
+    }
+
+    public function mount(Post $post): void
+    {
+        $this->post = $post;
+
+        if ($this->currentStories->count() === 1) {
+            $this->storyId = $this->currentStories->first()->id;
+        }
+
+        if ($this->availablePostTypes->count() === 1) {
+            $this->postTypeId = $this->availablePostTypes->first()->id;
+        }
+
+        if ($this->characters->count() === 1) {
+            $this->characterId = $this->characters->first()->id;
+        }
+    }
+
+    public function render(): View
+    {
+        return view('pages.posts.livewire.post-setup', [
+            'availablePostTypes' => $this->availablePostTypes,
+            'canContinueWriting' => $this->canContinueWriting,
+            'characters' => $this->characters,
+            'currentStories' => $this->currentStories,
+        ]);
+    }
 
     public function rules(): array
     {
@@ -100,45 +144,6 @@ class PostSetup extends Component
         UpdatePostStatus::run($this->post, PostStatusData::from('draft'));
 
         $this->redirectRoute('admin.posts.edit', $this->post);
-    }
-
-    public function mount(Post $post): void
-    {
-        $this->post = $post;
-
-        if ($this->currentStories->count() === 1) {
-            $this->storyId = $this->currentStories->first()->id;
-        }
-
-        if ($this->availablePostTypes->count() === 1) {
-            $this->postTypeId = $this->availablePostTypes->first()->id;
-        }
-
-        if ($this->characters->count() === 1) {
-            $this->characterId = $this->characters->first()->id;
-        }
-    }
-
-    public function render(): View
-    {
-        return view('pages.posts.livewire.post-setup', [
-            'availablePostTypes' => $this->availablePostTypes,
-            'canContinueWriting' => $this->canContinueWriting,
-            'characters' => $this->characters,
-            'currentStories' => $this->currentStories,
-        ]);
-    }
-
-    #[Computed]
-    public function canContinueWriting(): bool
-    {
-        return filled($this->storyId) && filled($this->postTypeId) && filled($this->characterId);
-    }
-
-    #[Computed]
-    public function characters(): ?Collection
-    {
-        return Auth::user()->activeCharacters;
     }
 
     protected function validationAttributes(): array

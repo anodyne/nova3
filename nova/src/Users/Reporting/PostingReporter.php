@@ -21,16 +21,6 @@ class PostingReporter
         $this->postingActivitySettings = settings('posting_activity');
     }
 
-    public function lifetime(): UserPostingReport
-    {
-        $result = $this->query();
-
-        return UserPostingReport::from(
-            posts: (int) $result->total_posts,
-            words: (int) $result->total_words
-        );
-    }
-
     public function currentActivityTimeframe(): UserPostingReport
     {
         $result = $this->query(
@@ -39,8 +29,18 @@ class PostingReporter
         );
 
         return UserPostingReport::from(
-            posts: (int) $result->total_posts,
-            words: (int) $result->total_words
+            posts: (int) $result->getAttribute('total_posts'),
+            words: (int) $result->getAttribute('total_words')
+        );
+    }
+
+    public function lifetime(): UserPostingReport
+    {
+        $result = $this->query();
+
+        return UserPostingReport::from(
+            posts: (int) $result->getAttribute('total_posts'),
+            words: (int) $result->getAttribute('total_words'),
         );
     }
 

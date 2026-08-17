@@ -15,7 +15,6 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\HtmlString;
 use Nova\Addons\Actions\BustActiveAddonsCache;
 use Nova\Addons\Actions\DeleteAddon;
@@ -24,6 +23,7 @@ use Nova\Addons\Actions\UpdateAddonSettings;
 use Nova\Addons\Data\AddonSettings;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Models\Addon;
+use Nova\Addons\Models\Builders\AddonBuilder;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -34,6 +34,7 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Facades\LogBatch;
@@ -60,12 +61,12 @@ class AddonsList extends TableComponent
                 TextColumn::make('name')
                     ->titleColumn()
                     ->description(fn (Addon $record): ?Htmlable => $record->has_update ? new HtmlString('<strong class="text-warning-600 dark:text-warning-500 font-medium text-xs">Version <span class="tabular-nums">'.$record->latest_version.'</span> is available</strong>') : null)
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor('name', $search)),
+                    ->searchable(query: fn (AddonBuilder $query, string $search): AddonBuilder => $query->searchFor('name', $search)),
                 TextColumn::make('version')
                     ->toggleable(),
                 TextColumn::make('location')
                     ->prefix('addons/')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor('location', $search))
+                    ->searchable(query: fn (AddonBuilder $query, string $search): AddonBuilder => $query->searchFor('location', $search))
                     ->toggleable(),
                 TextColumn::make('type')
                     ->badge()
@@ -119,31 +120,31 @@ class AddonsList extends TableComponent
                                     ])
                                     ->eventDescriptions([
                                         'ran-append' => fn (Activity $activity) => __('activity.addons.ran-script', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'rank image append',
                                         ]),
                                         'ran-install' => fn (Activity $activity) => __('activity.addons.ran-script', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'install',
                                         ]),
                                         'ran-migrations' => fn (Activity $activity) => __('activity.addons.ran-script', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'database migrations',
                                         ]),
                                         'ran-migrations-rollback' => fn (Activity $activity) => __('activity.addons.ran-script', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'database migrations rollback',
                                         ]),
                                         'ran-replace' => fn (Activity $activity) => __('activity.addons.ran-script', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'rank image replacement',
                                         ]),
                                         'ran-uninstall' => fn (Activity $activity) => __('activity.addons.ran-script', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'uninstall',
                                         ]),
                                         'ran-update' => fn (Activity $activity) => __('activity.addons.ran-script', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'update',
                                         ]),
                                     ])

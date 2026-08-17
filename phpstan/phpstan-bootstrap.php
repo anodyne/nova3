@@ -22,7 +22,7 @@ use Nova\Foundation\Application;
 */
 
 /** @var Application $app */
-$app = require __DIR__.'/nova/bootstrap/app.php';
+$app = require __DIR__.'/../nova/bootstrap/app.php';
 
 $app->make(Kernel::class)->bootstrap();
 

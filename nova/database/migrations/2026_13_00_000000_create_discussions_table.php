@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('discussion_notifications');
+        Schema::dropIfExists('discussion_messages');
+        Schema::dropIfExists('discussions');
+    }
+
+    /**
      * Run the migrations.
      */
     public function up(): void
@@ -32,8 +42,8 @@ return new class extends Migration
 
         Schema::create('discussion_notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('discussion_id')->onDelete('cascade');
-            $table->foreignId('discussion_message_id')->onDelete('cascade');
+            $table->foreignId('discussion_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('discussion_message_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id');
             $table->boolean('is_seen')->default(false);
             $table->boolean('is_sender')->default(false);
@@ -45,22 +55,12 @@ return new class extends Migration
 
         Schema::create('discussion_participant', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('discussion_id')->onDelete('cascade');
+            $table->foreignId('discussion_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id');
             $table->datetimes();
             $table->softDeletesDatetime();
 
             $table->unique(['discussion_id', 'user_id'], 'discussion_participants_index');
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('discussion_notifications');
-        Schema::dropIfExists('discussion_messages');
-        Schema::dropIfExists('discussions');
     }
 };

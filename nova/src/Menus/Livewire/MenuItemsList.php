@@ -11,7 +11,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Enums\BasicStatus;
@@ -25,6 +24,7 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Menus\Actions\DeleteMenuItem;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
+use Nova\Menus\Models\Builders\MenuItemBuilder;
 use Nova\Menus\Models\MenuItem;
 use Nova\Pages\Models\Page;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
@@ -37,7 +37,8 @@ class MenuItemsList extends TableComponent
         return $table
             ->query(
                 MenuItem::query()
-                    ->with('page')
+                    ->public()
+                    ->with(['page'])
                     ->select([
                         'id',
                         'label',
@@ -48,14 +49,13 @@ class MenuItemsList extends TableComponent
                         'status',
                         'target',
                     ])
-                    ->public()
             )
             ->defaultSort('order_column', 'asc')
             ->reorderable('order_column')
             ->columns([
                 TextColumn::make('label')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (MenuItemBuilder $query, string $search): MenuItemBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('link')
                     ->icon(fn (MenuItem $record): ?BackedEnum => $record->target === LinkTarget::Blank ? Tabler::ExternalLink : null)

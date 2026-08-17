@@ -24,14 +24,14 @@ class DeleteAction extends \Filament\Actions\DeleteAction
 
         $this->successNotificationTitle(function (Model $record): string {
             return trans('messages.table.delete-success', [
-                'title' => $record->title,
+                'title' => $this->getRecordTitle($record),
                 'label' => $this->getRecordTitle(),
             ]);
         });
 
         $this->failureNotificationTitle(function (Model $record): string {
             return trans('messages.table.delete-failure', [
-                'title' => $record->title,
+                'title' => $this->getRecordTitle($record),
                 'label' => $this->getRecordTitle(),
             ]);
         });

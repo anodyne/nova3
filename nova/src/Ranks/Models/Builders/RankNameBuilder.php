@@ -6,7 +6,13 @@ namespace Nova\Ranks\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
+use Nova\Ranks\Models\RankName;
 
+/**
+ * @template TModel of RankName
+ *
+ * @extends Builder<TModel>
+ */
 class RankNameBuilder extends Builder
 {
     use QueriesStatus;

@@ -7,20 +7,19 @@ namespace Nova\Stories\Models\Builders;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 
+/**
+ * @template TModel of PostAuthor
+ *
+ * @extends Builder<TModel>
+ */
 class PostAuthorBuilder extends Builder
 {
-    public function timeframe(?CarbonInterface $start = null, ?CarbonInterface $end = null): self
+    public function draft(): self
     {
-        return $this
-            ->when(filled($start), fn (Builder $query): Builder => $query->where('updated_at', '>=', $start))
-            ->when(filled($end), fn (Builder $query): Builder => $query->where('updated_at', '<=', $end));
-    }
-
-    public function updatedBetween(?CarbonInterface $start = null, ?CarbonInterface $end = null): self
-    {
-        return $this->whereBetween('updated_at', [$start, $end]);
+        return $this->whereRelation('post', Post::column('status'), '=', 'draft');
     }
 
     public function includedInPostTracking(): self
@@ -33,9 +32,16 @@ class PostAuthorBuilder extends Builder
         return $this->whereRelation('post', Post::column('status'), '=', 'published');
     }
 
-    public function draft(): self
+    public function timeframe(?CarbonInterface $start = null, ?CarbonInterface $end = null): self
     {
-        return $this->whereRelation('post', Post::column('status'), '=', 'draft');
+        return $this
+            ->when(filled($start), fn (Builder $query): Builder => $query->where('updated_at', '>=', $start))
+            ->when(filled($end), fn (Builder $query): Builder => $query->where('updated_at', '<=', $end));
+    }
+
+    public function updatedBetween(?CarbonInterface $start = null, ?CarbonInterface $end = null): self
+    {
+        return $this->whereBetween('updated_at', [$start, $end]);
     }
 
     public function wherePost(int|Post|null $post): self

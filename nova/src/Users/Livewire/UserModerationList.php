@@ -10,10 +10,10 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Data\UserModerations;
+use Nova\Users\Models\Builders\UserBuilder;
 use Nova\Users\Models\User;
 
 class UserModerationList extends TableComponent
@@ -36,7 +36,7 @@ class UserModerationList extends TableComponent
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.user-avatar')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
+                    ->searchable(query: fn (UserBuilder $query, string $search): UserBuilder => $query->searchFor($search)),
                 TextColumn::make('primaryCharacter.name')
                     ->label('Primary character')
                     ->toggleable(),

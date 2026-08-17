@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Carbon\CarbonInterface;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -21,6 +23,12 @@ use Nova\Users\Resources\NotificationResource;
 class UserNotifications extends SlideOver
 {
     public NotificationStatus $status = NotificationStatus::Unread;
+
+    #[Computed]
+    public function allCount(): int
+    {
+        return $this->user->notifications()->count();
+    }
 
     public function clearAllNotifications(): void
     {
@@ -55,21 +63,6 @@ class UserNotifications extends SlideOver
         $this->redirect($href, true);
     }
 
-    public function render()
-    {
-        return view('pages.users.livewire.notifications', [
-            'allCount' => $this->allCount,
-            'notifications' => $this->notifications,
-            'unreadCount' => $this->unreadCount,
-        ]);
-    }
-
-    #[Computed]
-    public function allCount(): int
-    {
-        return $this->user->notifications()->count();
-    }
-
     #[Computed]
     public function notifications(): array
     {
@@ -87,13 +80,19 @@ class UserNotifications extends SlideOver
         $startLast7 = $now->copy()->subDays(7)->startOfDay();
 
         $grouped = collect($items->items() ?? $items)
-            ->groupBy(function ($n) use ($startToday, $startYesterday, $startLast7) {
-                $ts = $n->created_at;
+            ->groupBy(function (
+                DatabaseNotification $notification,
+            ) use ($startToday, $startYesterday, $startLast7) {
+                $timestamp = $notification->getAttribute('created_at');
+
+                if (! $timestamp instanceof CarbonInterface) {
+                    return 'older';
+                }
 
                 return match (true) {
-                    $ts >= $startToday => 'today',
-                    $ts >= $startYesterday && $ts < $startToday => 'yesterday',
-                    $ts >= $startLast7 => 'last_7_days',
+                    $timestamp >= $startToday => 'today',
+                    $timestamp >= $startYesterday && $timestamp < $startToday => 'yesterday',
+                    $timestamp >= $startLast7 => 'last_7_days',
                     default => 'older',
                 };
             });
@@ -109,6 +108,15 @@ class UserNotifications extends SlideOver
             ->filter(fn ($value) => $value && $value->isNotEmpty())
             ->map(fn ($value) => $toArray($value))
             ->all();
+    }
+
+    public function render()
+    {
+        return view('pages.users.livewire.notifications', [
+            'allCount' => $this->allCount,
+            'notifications' => $this->notifications,
+            'unreadCount' => $this->unreadCount,
+        ]);
     }
 
     #[Computed]

@@ -17,6 +17,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\Post;
 
 class DraftPostsList extends TableComponent
@@ -26,7 +27,8 @@ class DraftPostsList extends TableComponent
         return $table
             ->query(
                 Post::query()
-                    ->with('postType', 'story', 'lockOwner')
+                    ->draft()
+                    ->with(['postType', 'story', 'lockOwner'])
                     ->select([
                         'day',
                         'id',
@@ -40,8 +42,7 @@ class DraftPostsList extends TableComponent
                         'time',
                         'title',
                     ])
-                    ->draft()
-                    ->whereHas('story', fn (Builder $query): Builder => $query->current())
+                    ->whereHas('story', fn (StoryBuilder $query): StoryBuilder => $query->current())
                     ->whereHas(
                         'participatingUsers',
                         fn (Builder $query): Builder => $query->where('post_author.user_id', Auth::id())

@@ -6,9 +6,32 @@ namespace Nova\Stories\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;
+use Nova\Users\Models\User;
 
 trait HasContentRatings
 {
+    public function contentRatingThreshold(string $category, bool $forUser = false): ?string
+    {
+        $globalThreshold = settings("ratings.{$category}.warningThreshold");
+
+        if (! $forUser) {
+            return $globalThreshold->value;
+        }
+
+        /** @var User */
+        $user = Auth::user();
+
+        $preferences = $user?->preferences;
+
+        if (! $preferences?->hasContentRatingPreferences()) {
+            return $globalThreshold->value;
+        }
+
+        $property = "{$category}ContentRatingWarningThreshold";
+
+        return $preferences?->{$property}->value;
+    }
+
     public function showContentWarningForAdminSite(): Attribute
     {
         return Attribute::make(
@@ -43,27 +66,5 @@ trait HasContentRatings
                 };
             }
         );
-    }
-
-    public function contentRatingThreshold(string $category, bool $forUser = false): ?string
-    {
-        $globalThreshold = settings("ratings.{$category}.warningThreshold");
-
-        if (! $forUser) {
-            return $globalThreshold->value;
-        }
-
-        /** @var User */
-        $user = Auth::user();
-
-        $preferences = $user?->preferences;
-
-        if (! $preferences?->hasContentRatingPreferences()) {
-            return $globalThreshold->value;
-        }
-
-        $property = "{$category}ContentRatingWarningThreshold";
-
-        return $preferences?->{$property}->value;
     }
 }

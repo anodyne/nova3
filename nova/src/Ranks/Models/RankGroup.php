@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Foundation\Concerns\LogsActivity;
@@ -14,6 +16,7 @@ use Nova\Ranks\Events\RankGroupCreated;
 use Nova\Ranks\Events\RankGroupDeleted;
 use Nova\Ranks\Events\RankGroupUpdated;
 use Nova\Ranks\Models\Builders\RankGroupBuilder;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
@@ -22,26 +25,28 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property string $name
  * @property BasicStatus $status
  * @property int|null $order_column
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Ranks\Models\RankItem> $ranks
+ * @property-read Collection<int, RankItem> $ranks
  * @property-read int|null $ranks_count
- * @method static RankGroupBuilder<static>|RankGroup active()
+ *
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup active()
  * @method static \Database\Factories\RankGroupFactory factory($count = null, $state = [])
- * @method static RankGroupBuilder<static>|RankGroup inactive()
- * @method static RankGroupBuilder<static>|RankGroup newModelQuery()
- * @method static RankGroupBuilder<static>|RankGroup newQuery()
- * @method static RankGroupBuilder<static>|RankGroup ordered(string $direction = 'asc')
- * @method static RankGroupBuilder<static>|RankGroup query()
- * @method static RankGroupBuilder<static>|RankGroup searchFor($search)
- * @method static RankGroupBuilder<static>|RankGroup whereCreatedAt($value)
- * @method static RankGroupBuilder<static>|RankGroup whereId($value)
- * @method static RankGroupBuilder<static>|RankGroup whereName($value)
- * @method static RankGroupBuilder<static>|RankGroup whereOrderColumn($value)
- * @method static RankGroupBuilder<static>|RankGroup whereStatus($value)
- * @method static RankGroupBuilder<static>|RankGroup whereUpdatedAt($value)
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup inactive()
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup newModelQuery()
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup newQuery()
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup ordered(string $direction = 'asc')
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup query()
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup searchFor($search)
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereCreatedAt($value)
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereId($value)
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereName($value)
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereOrderColumn($value)
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereStatus($value)
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(RankGroupBuilder::class)]
@@ -50,12 +55,6 @@ class RankGroup extends Model implements Sortable
     use HasFactory;
     use LogsActivity;
     use SortableTrait;
-
-    protected $table = 'rank_groups';
-
-    protected $fillable = ['name', 'order_column', 'status'];
-
-    protected $with = ['ranks'];
 
     protected $casts = [
         'order_column' => 'integer',
@@ -67,6 +66,12 @@ class RankGroup extends Model implements Sortable
         'updated' => RankGroupUpdated::class,
         'deleted' => RankGroupDeleted::class,
     ];
+
+    protected $fillable = ['name', 'order_column', 'status'];
+
+    protected $table = 'rank_groups';
+
+    protected $with = ['ranks'];
 
     public function ranks(): HasMany
     {

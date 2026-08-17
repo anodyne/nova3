@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Nova\Forms\Models\Builders\FormSubmissionBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
+use Spatie\Activitylog\Models\Activity;
 
 /**
  * @property int $id
@@ -20,29 +23,31 @@ use Nova\Foundation\Models\Model;
  * @property string|null $owner_type
  * @property int|null $owner_id
  * @property array<array-key, mixed>|null $meta
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Nova\Forms\Models\Form $form
+ * @property-read Form $form
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $owner
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormSubmissionResponse> $responses
+ * @property-read Collection<int, FormSubmissionResponse> $responses
  * @property-read int|null $responses_count
  * @property-read string|null $title_field
+ *
  * @method static \Database\Factories\FormSubmissionFactory factory($count = null, $state = [])
- * @method static FormSubmissionBuilder<static>|FormSubmission forForm(\Nova\Forms\Models\Form|int $form)
- * @method static FormSubmissionBuilder<static>|FormSubmission newModelQuery()
- * @method static FormSubmissionBuilder<static>|FormSubmission newQuery()
- * @method static FormSubmissionBuilder<static>|FormSubmission onlySubmissionsForCurrentUser()
- * @method static FormSubmissionBuilder<static>|FormSubmission ownerIsUser(\Nova\Users\Models\User $user)
- * @method static FormSubmissionBuilder<static>|FormSubmission query()
- * @method static FormSubmissionBuilder<static>|FormSubmission whereCreatedAt($value)
- * @method static FormSubmissionBuilder<static>|FormSubmission whereFormId($value)
- * @method static FormSubmissionBuilder<static>|FormSubmission whereId($value)
- * @method static FormSubmissionBuilder<static>|FormSubmission whereMeta($value)
- * @method static FormSubmissionBuilder<static>|FormSubmission whereOwnerId($value)
- * @method static FormSubmissionBuilder<static>|FormSubmission whereOwnerType($value)
- * @method static FormSubmissionBuilder<static>|FormSubmission whereUpdatedAt($value)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission forForm(\Nova\Forms\Models\Form|int $form)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission newModelQuery()
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission newQuery()
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission onlySubmissionsForCurrentUser()
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission ownerIsUser(\Nova\Users\Models\User $user)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission query()
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission whereCreatedAt($value)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission whereFormId($value)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission whereId($value)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission whereMeta($value)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission whereOwnerId($value)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission whereOwnerType($value)
+ * @method static \Nova\Forms\Models\Builders\FormSubmissionBuilder<static>|\Nova\Forms\Models\FormSubmission whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(FormSubmissionBuilder::class)]
@@ -51,11 +56,11 @@ class FormSubmission extends Model
     use HasFactory;
     use LogsActivity;
 
-    protected $fillable = ['meta'];
-
     protected $casts = [
         'meta' => 'array',
     ];
+
+    protected $fillable = ['meta'];
 
     public function form(): BelongsTo
     {
@@ -75,7 +80,13 @@ class FormSubmission extends Model
     public function titleField(): Attribute
     {
         return Attribute::make(
-            get: fn (): ?string => $this->responses()->where('field_uid', $this->form->options?->submissionTitleField)->first()?->value
+            get: function (): ?string {
+                $value = $this->responses()
+                    ->where('field_uid', $this->form->options?->submissionTitleField)
+                    ->first()?->getAttribute('value');
+
+                return is_string($value) ? $value : null;
+            }
         );
     }
 }

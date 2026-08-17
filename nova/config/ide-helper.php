@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\PendingRequest;
+use Nova\Foundation\Support\IdeHelper\BagCastModelHook;
 
 return [
 
@@ -145,7 +146,7 @@ return [
     */
 
     'model_locations' => [
-        'nova/foundation/*/Models',
+        'nova/foundation/Models',
         'nova/src/*/Models',
     ],
 
@@ -174,7 +175,7 @@ return [
     */
 
     'model_hooks' => [
-        // App\Support\IdeHelper\MyModelHook::class
+        BagCastModelHook::class,
     ],
 
     /*
@@ -267,7 +268,7 @@ return [
     | or there is an import (use className) of the class.
     |
     */
-    'force_fqn' => false,
+    'force_fqn' => true,
 
     /*
     |--------------------------------------------------------------------------

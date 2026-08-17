@@ -9,17 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResponseValue implements CastsAttributes
 {
-    public function get(Model $model, string $key, mixed $value, array $attributes)
+    public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return match ($model->field_type) {
-            default => $value,
-        };
+        return $value;
     }
 
-    public function set(Model $model, string $key, mixed $value, array $attributes)
+    public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return match ($model->field_type) {
-            default => $value,
-        };
+        return $value;
     }
 }

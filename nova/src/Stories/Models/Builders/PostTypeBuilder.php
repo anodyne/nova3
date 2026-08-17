@@ -8,7 +8,13 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Stories\Enums\PostTypeVisibility;
+use Nova\Stories\Models\PostType;
 
+/**
+ * @template TModel of PostType
+ *
+ * @extends Builder<TModel>
+ */
 class PostTypeBuilder extends Builder
 {
     use QueriesStatus;

@@ -14,7 +14,6 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\CreateAction;
@@ -27,6 +26,7 @@ use Nova\Stories\Actions\ApprovePost;
 use Nova\Stories\Actions\DeletePost;
 use Nova\Stories\Actions\DiscardPost;
 use Nova\Stories\Actions\ForceUnlockPost;
+use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\Post;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
@@ -38,7 +38,7 @@ class PostsList extends TableComponent
         return $table
             ->query(
                 Post::query()
-                    ->with('characterAuthors', 'userAuthors', 'participatingUsers')
+                    ->with(['characterAuthors', 'userAuthors', 'participatingUsers'])
                     ->select([
                         'day',
                         'deleted_at',
@@ -71,7 +71,7 @@ class PostsList extends TableComponent
             ->columns([
                 ViewColumn::make('title')
                     ->view('filament.tables.columns.post-title')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (PostBuilder $query, string $search): PostBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('postType.name')
                     ->sortable()
@@ -205,9 +205,9 @@ class PostsList extends TableComponent
                     ->trueLabel('Locked')
                     ->falseLabel('Unlocked')
                     ->queries(
-                        true: fn (Builder $query): Builder => $query->locked(),
-                        false: fn (Builder $query): Builder => $query->unlocked(),
-                        blank: fn (Builder $query): Builder => $query
+                        true: fn (PostBuilder $query): PostBuilder => $query->locked(),
+                        false: fn (PostBuilder $query): PostBuilder => $query->unlocked(),
+                        blank: fn (PostBuilder $query): PostBuilder => $query
                     ),
             ])
             ->emptyStateIcon(Tabler::Edit)

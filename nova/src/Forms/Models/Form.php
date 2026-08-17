@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Blade;
@@ -20,6 +22,7 @@ use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
@@ -30,47 +33,49 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property FormType $type
  * @property string|null $description
  * @property bool $is_locked
- * @property \Bag\Bag|null $options
+ * @property FormOptions|null $options
  * @property array<array-key, mixed>|null $fields
  * @property array<array-key, mixed>|null $published_fields
  * @property BasicStatus $status
- * @property \Carbon\CarbonImmutable|null $published_at
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $published_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormField> $formFields
+ * @property-read Collection<int, FormField> $formFields
  * @property-read int|null $form_fields_count
  * @property-read bool $has_published_fields
  * @property-read string|null $rendered_block_content
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormSubmission> $submissions
+ * @property-read Collection<int, FormSubmission> $submissions
  * @property-read int|null $submissions_count
  * @property-read array $validation_messages
  * @property-read array $validation_rules
- * @method static FormBuilder<static>|Form active()
- * @method static FormBuilder<static>|Form basic()
+ *
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form active()
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form basic()
  * @method static \Database\Factories\FormFactory factory($count = null, $state = [])
- * @method static FormBuilder<static>|Form inactive()
- * @method static FormBuilder<static>|Form key(string $key)
- * @method static FormBuilder<static>|Form newModelQuery()
- * @method static FormBuilder<static>|Form newQuery()
- * @method static FormBuilder<static>|Form query()
- * @method static FormBuilder<static>|Form searchFor($search)
- * @method static FormBuilder<static>|Form submissible()
- * @method static FormBuilder<static>|Form whereCreatedAt($value)
- * @method static FormBuilder<static>|Form whereDescription($value)
- * @method static FormBuilder<static>|Form whereFields($value)
- * @method static FormBuilder<static>|Form whereId($value)
- * @method static FormBuilder<static>|Form whereIsLocked($value)
- * @method static FormBuilder<static>|Form whereKey($value)
- * @method static FormBuilder<static>|Form whereName($value)
- * @method static FormBuilder<static>|Form whereOptions($value)
- * @method static FormBuilder<static>|Form wherePrefixedId($value)
- * @method static FormBuilder<static>|Form wherePublishedAt($value)
- * @method static FormBuilder<static>|Form wherePublishedFields($value)
- * @method static FormBuilder<static>|Form whereStatus($value)
- * @method static FormBuilder<static>|Form whereType($value)
- * @method static FormBuilder<static>|Form whereUpdatedAt($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form inactive()
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form key(string $key)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form newModelQuery()
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form newQuery()
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form query()
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form searchFor($search)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form submissible()
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereCreatedAt($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereDescription($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereFields($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereId($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereIsLocked($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereKey($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereName($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereOptions($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form wherePrefixedId($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form wherePublishedAt($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form wherePublishedFields($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereStatus($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereType($value)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(FormBuilder::class)]
@@ -81,18 +86,6 @@ class Form extends Model
     use LogsActivity {
         LogsActivity::getActivitylogOptions as baseActivitylogOptions;
     }
-
-    protected $fillable = [
-        'name',
-        'key',
-        'type',
-        'description',
-        'status',
-        'fields',
-        'published_fields',
-        'published_at',
-        'options',
-    ];
 
     protected $casts = [
         'is_locked' => 'boolean',
@@ -110,14 +103,30 @@ class Form extends Model
         'updated' => FormUpdated::class,
     ];
 
+    protected $fillable = [
+        'name',
+        'key',
+        'type',
+        'description',
+        'status',
+        'fields',
+        'published_fields',
+        'published_at',
+        'options',
+    ];
+
     public function formFields(): HasMany
     {
         return $this->hasMany(FormField::class);
     }
 
-    public function submissions(): HasMany
+    public function getActivitylogOptions(): LogOptions
     {
-        return $this->hasMany(FormSubmission::class);
+        return $this->baseActivitylogOptions()
+            ->logExcept([
+                'fields',
+                'published_fields',
+            ]);
     }
 
     public function hasPublishedFields(): Attribute
@@ -132,6 +141,14 @@ class Form extends Model
         return Attribute::make(
             get: fn (): ?string => $this->generateBlockContent()
         );
+    }
+
+    /**
+     * @return HasMany<FormSubmission, $this>
+     */
+    public function submissions(): HasMany
+    {
+        return $this->hasMany(FormSubmission::class);
     }
 
     public function validationMessages(): Attribute
@@ -182,15 +199,6 @@ class Form extends Model
                     ->all();
             }
         );
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return $this->baseActivitylogOptions()
-            ->logExcept([
-                'fields',
-                'published_fields',
-            ]);
     }
 
     protected function generateBlockContent(): ?string

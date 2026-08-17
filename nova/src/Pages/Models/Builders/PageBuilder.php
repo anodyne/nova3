@@ -7,7 +7,13 @@ namespace Nova\Pages\Models\Builders;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Pages\Enums\PageVerb;
+use Nova\Pages\Models\Page;
 
+/**
+ * @template TModel of Page
+ *
+ * @extends Builder<TModel>
+ */
 class PageBuilder extends Builder
 {
     use QueriesStatus;

@@ -5,7 +5,13 @@ declare(strict_types=1);
 namespace Nova\Discussions\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Discussions\Models\DiscussionParticipant;
 
+/**
+ * @template TModel of DiscussionParticipant
+ *
+ * @extends Builder<TModel>
+ */
 class DiscussionParticipantBuilder extends Builder
 {
     public function discussion(int $discussionId): self

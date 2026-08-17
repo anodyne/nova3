@@ -20,6 +20,7 @@ use Nova\Departments\Actions\DeletePosition;
 use Nova\Departments\Actions\DuplicatePosition;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Events\PositionDuplicated;
+use Nova\Departments\Models\Builders\PositionBuilder;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Foundation\Enums\BasicStatus;
@@ -32,6 +33,7 @@ use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -71,7 +73,7 @@ class PositionsList extends TableComponent
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (PositionBuilder $query, string $search): PositionBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('available')
                     ->label('Available slots')
@@ -118,7 +120,7 @@ class PositionsList extends TableComponent
                                     ])
                                     ->eventDescriptions([
                                         'duplicated' => fn (Activity $activity) => __('activity.positions.duplicated', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'replica' => Position::find($activity->getExtraProperty('replica'))?->name,
                                         ]),
                                     ]);

@@ -7,7 +7,6 @@ namespace Nova\Dashboards\Livewire;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\Models\Activity;
@@ -53,7 +52,7 @@ class ActivityLogList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('subject_type')
                     ->label('Subject')
-                    ->formatStateUsing(function ($state, Model $record) {
+                    ->formatStateUsing(function ($state, Activity $record) {
                         if (! $state) {
                             return '-';
                         }

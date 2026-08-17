@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
+use Nova\Stories\Models\Builders\PostTypeBuilder;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
@@ -25,8 +26,8 @@ class PostsTimeline extends Component
     {
         return Post::query()
             ->published()
-            ->story($this->story?->id)
-            ->whereHas('postType', fn ($query) => $query->inCharacter())
+            ->forStory($this->story?->id)
+            ->whereHas('postType', fn (PostTypeBuilder $query): PostTypeBuilder => $query->inCharacter())
             ->orderBy('order_column', 'asc')
             ->get();
     }

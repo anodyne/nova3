@@ -6,7 +6,6 @@ namespace Nova\Notes\Livewire;
 
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -20,7 +19,9 @@ use Nova\Foundation\Livewire\TableComponent;
 use Nova\Notes\Actions\DeleteNote;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
+use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Notes\Models\Note;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -45,7 +46,7 @@ class NotesList extends TableComponent
             ->columns([
                 TextColumn::make('title')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (NoteBuilder $query, string $search): NoteBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('updated_at')
                     ->label('Last modified')
@@ -73,10 +74,17 @@ class NotesList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => __('activity.notes.duplicated', [
-                                            'name' => $activity->causer->name,
-                                            'replica' => Note::find($activity->getExtraProperty('replica'))?->title,
-                                        ]),
+                                        'duplicated' => function (Activity $activity) {
+                                            $causer = $activity->causer;
+                                            $causerName = $causer instanceof User
+                                                ? $causer->name
+                                                : 'System';
+
+                                            return __('activity.notes.duplicated', [
+                                                'name' => $causerName,
+                                                'replica' => Note::find($activity->getExtraProperty('replica'))?->title,
+                                            ]);
+                                        },
                                     ]);
                             }),
                     ])->divided(),

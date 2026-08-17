@@ -11,11 +11,19 @@ use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 
+/** @extends Factory<RankItem> */
 class RankItemFactory extends Factory
 {
     use CanHandleDataForRequests;
 
     protected $model = RankItem::class;
+
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
 
     public function definition()
     {
@@ -26,13 +34,6 @@ class RankItemFactory extends Factory
             'overlay_image' => 'overlay.png',
             'status' => BasicStatus::Active,
         ];
-    }
-
-    public function active()
-    {
-        return $this->state([
-            'status' => BasicStatus::Active,
-        ]);
     }
 
     public function inactive()

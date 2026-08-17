@@ -14,6 +14,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Nova\Discussions\Actions\MarkDiscussionRead;
+use Nova\Discussions\Models\Builders\DiscussionBuilder;
 use Nova\Discussions\Models\Discussion;
 
 /**
@@ -28,29 +29,34 @@ class MessagesList extends Component
 {
     use WithPagination;
 
-    #[Locked]
-    public ?int $selected = null;
-
     public string $filter = 'all';
-
-    public ?string $search = null;
 
     public $pageHeading = null;
 
-    public $pageSubheading = null;
-
     public $pageIntro = null;
 
-    #[Computed]
-    public function selectedDiscussion(): ?Discussion
+    public $pageSubheading = null;
+
+    public ?string $search = null;
+
+    #[Locked]
+    public ?int $selected = null;
+
+    public function clearSelected(): void
     {
-        return Discussion::find($this->selected);
+        $this->reset('selected');
+    }
+
+    #[On('discussion-removed')]
+    public function clearSelectedDiscussion(): void
+    {
+        $this->selected = null;
     }
 
     #[Computed]
     public function discussions(): Paginator
     {
-        return Discussion::query()
+        return Discussion::conversation()
             ->with([
                 'participants',
                 'notifications' => fn (HasMany $query): HasMany => $query->where('user_id', Auth::id()),
@@ -63,27 +69,23 @@ class MessagesList extends Component
                 'subject',
                 'updated_at',
             ])
-            ->conversation()
             ->forCurrentUser()
             ->when($this->filter === 'unread', function (Builder $query): Builder {
                 return $query->whereHas('notifications', function (Builder $query): Builder {
                     return $query->where('user_id', Auth::id())->where('is_seen', 0);
                 });
             })
-            ->when(filled($this->search), fn (Builder $query): Builder => $query->searchFor($this->search))
+            ->when(filled($this->search), fn (DiscussionBuilder $query): DiscussionBuilder => $query->searchFor($this->search ?? ''))
             ->latest('updated_at')
             ->latest('id')
             ->simplePaginate(15);
     }
 
-    public function updatedFilter(string $value): void
+    public function render()
     {
-        $this->clearSelected();
-    }
-
-    public function clearSelected(): void
-    {
-        $this->reset('selected');
+        return view('pages.discussions.livewire.messages-list', [
+            'discussions' => $this->discussions,
+        ]);
     }
 
     public function selectDiscussion($id): void
@@ -100,10 +102,10 @@ class MessagesList extends Component
         );
     }
 
-    #[On('discussion-removed')]
-    public function clearSelectedDiscussion(): void
+    #[Computed]
+    public function selectedDiscussion(): ?Discussion
     {
-        $this->selected = null;
+        return Discussion::find($this->selected);
     }
 
     #[On('discussion-started')]
@@ -114,10 +116,8 @@ class MessagesList extends Component
         $this->selectDiscussion($this->discussions->first()?->id);
     }
 
-    public function render()
+    public function updatedFilter(string $value): void
     {
-        return view('pages.discussions.livewire.messages-list', [
-            'discussions' => $this->discussions,
-        ]);
+        $this->clearSelected();
     }
 }

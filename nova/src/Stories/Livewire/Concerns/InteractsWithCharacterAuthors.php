@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection as DatabaseCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Nova\Characters\Models\Character;
+use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 
 trait InteractsWithCharacterAuthors
@@ -100,18 +101,33 @@ trait InteractsWithCharacterAuthors
         }, $this->characterAuthorsArr);
     }
 
+    private function addCharacterAuthorValidationError(int $id): void
+    {
+        $this->characterAuthorsValidationErrors[$id] = $id;
+    }
+
     private function characterArrayStructure(Character $character, ?int $pivotUserId = null): array
     {
-        $pivotArray = empty($character->pivot)
-            ? ['user' => User::find($pivotUserId), 'user_id' => $pivotUserId]
-            : ['user' => $character->pivot->user, 'user_id' => $character->pivot->user_id];
+        $authorship = $character->relationLoaded('authorship')
+            ? $character->getRelation('authorship')
+            : null;
+
+        $pivotArray = $authorship instanceof PostAuthor
+            ? [
+                'user' => $authorship->user,
+                'user_id' => $authorship->user_id,
+            ]
+            : [
+                'user' => User::find($pivotUserId),
+                'user_id' => $pivotUserId,
+            ];
 
         return [
             'id' => $character->id,
             'name' => $character->display_name,
             'type' => $character->type->value,
             'avatar_url' => $character->avatar_url,
-            'activeUsers' => $character->activeUsers->map(fn ($user) => $user->toArray())->toArray(),
+            'activeUsers' => $character->activeUsers->map(fn (User $user) => $user->toArray())->toArray(),
             'pivot' => $pivotArray,
         ];
     }
@@ -123,12 +139,19 @@ trait InteractsWithCharacterAuthors
             'name' => data_get($character, 'name'),
             'type' => data_get($character, 'type'),
             'avatar_url' => data_get($character, 'avatar_url'),
-            'activeUsers' => collect($character['activeUsers'])->map(fn ($user) => (object) $user),
+            'activeUsers' => collect($character['activeUsers'])->map(fn (User $user) => $user),
             'pivot' => (object) [
-                'user' => (object) data_get($character, 'pivot.user'),
-                'user_id' => data_get($character, 'pivot.user_id'),
+                'user' => (object) data_get($character, 'authorship.user'),
+                'user_id' => data_get($character, 'authorship.user_id'),
             ],
         ];
+    }
+
+    private function removeCharacterAuthorValidationErrors(int $id): void
+    {
+        if (array_key_exists($id, $this->characterAuthorsValidationErrors)) {
+            unset($this->characterAuthorsValidationErrors[$id]);
+        }
     }
 
     private function setAuthorUserId(int $characterId, ?int $userId): void
@@ -145,21 +168,9 @@ trait InteractsWithCharacterAuthors
         $this->characterAuthorsPivotData = collect($this->characterAuthorsArr)
             ->mapWithKeys(fn ($character): array => [
                 $character['id'] => [
-                    'user_id' => data_get($character, 'pivot.user_id'),
+                    'user_id' => data_get($character, 'authorship.user_id'),
                 ],
             ])
             ->toArray();
-    }
-
-    private function addCharacterAuthorValidationError(int $id): void
-    {
-        $this->characterAuthorsValidationErrors[$id] = $id;
-    }
-
-    private function removeCharacterAuthorValidationErrors(int $id): void
-    {
-        if (array_key_exists($id, $this->characterAuthorsValidationErrors)) {
-            unset($this->characterAuthorsValidationErrors[$id]);
-        }
     }
 }

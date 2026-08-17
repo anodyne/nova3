@@ -5,7 +5,13 @@ declare(strict_types=1);
 namespace Nova\Discussions\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Discussions\Models\DiscussionNotification;
 
+/**
+ * @template TModel of DiscussionNotification
+ *
+ * @extends Builder<TModel>
+ */
 class DiscussionNotificationBuilder extends Builder
 {
     public function discussion(int $discussionId): self

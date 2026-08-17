@@ -10,12 +10,17 @@ use Nova\Characters\Models\CharacterUser;
 
 trait HasCharacters
 {
+    /**
+     * @return BelongsToMany<Character, $this>
+     */
     public function activeCharacters(): BelongsToMany
     {
-        return $this->characters()
-            ->active();
+        return $this->characters()->active();
     }
 
+    /**
+     * @return BelongsToMany<Character, $this>
+     */
     public function characters(): BelongsToMany
     {
         return $this->belongsToMany(Character::class)
@@ -24,9 +29,11 @@ trait HasCharacters
             ->using(CharacterUser::class);
     }
 
+    /**
+     * @return BelongsToMany<Character, $this>
+     */
     public function primaryCharacter(): BelongsToMany
     {
-        return $this->activeCharacters()
-            ->wherePivot('primary', true);
+        return $this->activeCharacters()->wherePivot('primary', true);
     }
 }

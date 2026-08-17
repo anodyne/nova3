@@ -9,6 +9,9 @@ use Nova\Discussions\Models\Discussion;
 
 trait Discussable
 {
+    /**
+     * @return MorphOne<Discussion, $this>
+     */
     public function discussion(): MorphOne
     {
         return $this->morphOne(Discussion::class, 'discussable');

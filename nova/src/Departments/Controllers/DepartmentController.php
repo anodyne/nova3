@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
 use Nova\Departments\Actions\CreateDepartmentManager;
 use Nova\Departments\Actions\UpdateDepartmentManager;
 use Nova\Departments\Models\Department;
@@ -15,6 +14,7 @@ use Nova\Departments\Responses\EditDepartmentResponse;
 use Nova\Departments\Responses\ListDepartmentsResponse;
 use Nova\Departments\Responses\ShowDepartmentResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Users\Models\Builders\UserBuilder;
 
 class DepartmentController extends Controller
 {
@@ -25,6 +25,18 @@ class DepartmentController extends Controller
         $this->middleware('auth');
 
         $this->authorizeResource(Department::class);
+    }
+
+    public function create()
+    {
+        return CreateDepartmentResponse::send();
+    }
+
+    public function edit(Department $department)
+    {
+        return EditDepartmentResponse::sendWith([
+            'department' => $department,
+        ]);
     }
 
     public function index()
@@ -43,17 +55,12 @@ class DepartmentController extends Controller
         $department->loadCount([
             'positions',
             'activeCharacters',
-            'activeUsers' => fn (Builder $query): Builder => $query->countDistinct(),
+            'activeUsers' => fn (UserBuilder $query): UserBuilder => $query->countDistinct(),
         ]);
 
         return ShowDepartmentResponse::sendWith([
             'department' => $department,
         ]);
-    }
-
-    public function create()
-    {
-        return CreateDepartmentResponse::send();
     }
 
     public function store(StoreDepartmentRequest $request)
@@ -62,13 +69,6 @@ class DepartmentController extends Controller
 
         return to_route('admin.departments.index')
             ->notify("{$department->name} department was created");
-    }
-
-    public function edit(Department $department)
-    {
-        return EditDepartmentResponse::sendWith([
-            'department' => $department,
-        ]);
     }
 
     public function update(UpdateDepartmentRequest $request, Department $department)

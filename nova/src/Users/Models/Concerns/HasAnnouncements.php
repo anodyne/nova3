@@ -11,14 +11,20 @@ use Nova\Announcements\Models\AnnouncementNotification;
 
 trait HasAnnouncements
 {
-    public function announcements(): HasMany
-    {
-        return $this->hasMany(Announcement::class);
-    }
-
+    /**
+     * @return HasMany<AnnouncementNotification, $this>
+     */
     public function announcementNotifications(): HasMany
     {
         return $this->hasMany(AnnouncementNotification::class);
+    }
+
+    /**
+     * @return HasMany<Announcement, $this>
+     */
+    public function announcements(): HasMany
+    {
+        return $this->hasMany(Announcement::class);
     }
 
     public function unreadAnnouncementsCount(): Attribute

@@ -44,6 +44,7 @@ use Nova\Stories\Actions\RestorePostType;
 use Nova\Stories\Data\PostTypeData;
 use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Events\PostTypeDuplicated;
+use Nova\Stories\Models\Builders\PostTypeBuilder;
 use Nova\Stories\Models\PostType;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
@@ -79,7 +80,7 @@ class PostTypesList extends TableComponent
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.post-type')
                     ->searchable(
-                        query: fn (Builder $query, string $search): Builder => $query->searchFor($search)
+                        query: fn (PostTypeBuilder $query, string $search): PostTypeBuilder => $query->searchFor($search)
                     )
                     ->sortable(),
                 TextColumn::make('role.display_name')

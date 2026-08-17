@@ -16,9 +16,54 @@ use Nova\Stories\Models\States\PostStatus\Published;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
+/** @extends Factory<Post> */
 class PostFactory extends Factory
 {
     protected $model = Post::class;
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Post $post) {
+            $maxAuthors = min(5, max(1, Character::with('users')->count()));
+            $numberOfAuthors = random_int(1, $maxAuthors);
+
+            $distributedWords = $this->distributeWordsRandomly($post->word_count, $numberOfAuthors);
+
+            $users = [];
+
+            for ($i = 0; $i < $numberOfAuthors; $i++) {
+                $character = Character::with('users')->inRandomOrder()->first();
+
+                if (! $character) {
+                    $character = Character::factory()->create();
+                }
+
+                $user = $character->users->first();
+
+                if (! $user) {
+                    $user = User::active()->inRandomOrder()->first();
+
+                    if (! $user) {
+                        $user = User::factory()->active()->create();
+                    }
+
+                    $character->users()->attach($user->id, [
+                        'primary' => true,
+                    ]);
+                }
+
+                $users[] = $user->id;
+
+                $post->characterAuthors()->attach($character->id, [
+                    'user_id' => $user->id,
+                    'word_count' => $distributedWords[$i],
+                ]);
+            }
+
+            $post->participants = collect($users)->filter()->unique()->values()->all();
+            $post->save();
+        });
+    }
 
     public function definition()
     {
@@ -82,50 +127,6 @@ class PostFactory extends Factory
         ];
     }
 
-    public function configure(): static
-    {
-        return $this->afterCreating(function (Post $post) {
-            $maxAuthors = min(5, max(1, Character::with('users')->count()));
-            $numberOfAuthors = random_int(1, $maxAuthors);
-
-            $distributedWords = $this->distributeWordsRandomly($post->word_count, $numberOfAuthors);
-
-            $users = [];
-
-            for ($i = 0; $i < $numberOfAuthors; $i++) {
-                $character = Character::with('users')->inRandomOrder()->first();
-
-                if (! $character) {
-                    $character = Character::factory()->create();
-                }
-
-                $user = $character->users->first();
-
-                if (! $user) {
-                    $user = User::active()->inRandomOrder()->first();
-
-                    if (! $user) {
-                        $user = User::factory()->active()->create();
-                    }
-
-                    $character->users()->attach($user->id, [
-                        'primary' => true,
-                    ]);
-                }
-
-                $users[] = $user->id;
-
-                $post->characterAuthors()->attach($character->id, [
-                    'user_id' => $user->id,
-                    'word_count' => $distributedWords[$i],
-                ]);
-            }
-
-            $post->participants = collect($users)->filter()->unique()->values()->all();
-            $post->save();
-        });
-    }
-
     public function draft()
     {
         return $this->state([
@@ -134,11 +135,35 @@ class PostFactory extends Factory
         ]);
     }
 
+    public function markerPost()
+    {
+        return $this->state([
+            'post_type_id' => PostType::where('key', 'marker')->first()->id,
+        ]);
+    }
+
+    public function notePost()
+    {
+        return $this->state([
+            'post_type_id' => PostType::where('key', 'note')->first()->id,
+        ]);
+    }
+
     public function pending()
     {
         return $this->state([
             'status' => Pending::class,
             'published_at' => null,
+        ]);
+    }
+
+    public function personalPost()
+    {
+        return $this->state([
+            'post_type_id' => PostType::where('key', 'personal')->first()->id,
+            'day' => 'Day {fake()->numberBetween(1, 5)}',
+            'time' => fake()->time('Hi').' hours',
+            'location' => ucfirst(fake()->words(3, true)),
         ]);
     }
 
@@ -157,30 +182,6 @@ class PostFactory extends Factory
             'day' => 'Day {fake()->numberBetween(1, 5)}',
             'time' => fake()->time('Hi').' hours',
             'location' => ucfirst(fake()->words(3, true)),
-        ]);
-    }
-
-    public function personalPost()
-    {
-        return $this->state([
-            'post_type_id' => PostType::where('key', 'personal')->first()->id,
-            'day' => 'Day {fake()->numberBetween(1, 5)}',
-            'time' => fake()->time('Hi').' hours',
-            'location' => ucfirst(fake()->words(3, true)),
-        ]);
-    }
-
-    public function markerPost()
-    {
-        return $this->state([
-            'post_type_id' => PostType::where('key', 'marker')->first()->id,
-        ]);
-    }
-
-    public function notePost()
-    {
-        return $this->state([
-            'post_type_id' => PostType::where('key', 'note')->first()->id,
         ]);
     }
 

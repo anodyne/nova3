@@ -7,18 +7,17 @@ namespace Nova\Foundation\Macros;
 use Closure;
 use Filament\Tables\Columns\TextColumn;
 
+/** @mixin TextColumn */
 class TextColumnMacros
 {
     public function titleColumn(): Closure
     {
+        /** @this TextColumn */
         return function () {
-            /** @var TextColumn $column */
-            $column = $this;
+            $this->weight('medium');
+            $this->extraAttributes(['class' => 'fi-ta-title-column']);
 
-            $column->weight('medium');
-            $column->extraAttributes(['class' => 'fi-ta-title-column']);
-
-            return $column;
+            return $this;
         };
     }
 }

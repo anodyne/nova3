@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace Nova\Announcements\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Announcements\Models\Announcement;
 use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
+/**
+ * @template TModel of Announcement
+ *
+ * @extends Builder<TModel>
+ */
 class AnnouncementBuilder extends Builder
 {
     public function draft(): self
@@ -42,7 +48,7 @@ class AnnouncementBuilder extends Builder
     {
         return $this->whereHas(
             'notifications',
-            fn (Builder $query): Builder => $query->user($user->id)->read()
+            fn (AnnouncementNotificationBuilder $query): AnnouncementNotificationBuilder => $query->user($user->id)->read()
         );
     }
 
@@ -50,7 +56,7 @@ class AnnouncementBuilder extends Builder
     {
         return $this->whereHas(
             'notifications',
-            fn (Builder $query): Builder => $query->user($user->id)->unread()
+            fn (AnnouncementNotificationBuilder $query): AnnouncementNotificationBuilder => $query->user($user->id)->unread()
         );
     }
 }

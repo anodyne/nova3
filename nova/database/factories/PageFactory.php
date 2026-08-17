@@ -9,32 +9,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use Nova\Foundation\Enums\BasicStatus;
-use Nova\Model;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Models\Page;
 
-/**
- * @extends Factory<Model>
- */
+/** @extends Factory<Page> */
 class PageFactory extends Factory
 {
     use CanHandleDataForRequests;
 
     protected $model = Page::class;
-
-    public function definition(): array
-    {
-        $name = $this->faker->words(3, asText: true);
-
-        return [
-            'name' => $name,
-            'uri' => $this->faker->url,
-            'key' => Str::slug($name),
-            'verb' => PageVerb::Get,
-            'layout' => 'admin',
-            'status' => BasicStatus::Active,
-        ];
-    }
 
     public function active(): Factory
     {
@@ -55,6 +38,20 @@ class PageFactory extends Factory
         return $this->state([
             'resource' => null,
         ]);
+    }
+
+    public function definition(): array
+    {
+        $name = $this->faker->words(3, asText: true);
+
+        return [
+            'name' => $name,
+            'uri' => $this->faker->url,
+            'key' => Str::slug($name),
+            'verb' => PageVerb::Get,
+            'layout' => 'admin',
+            'status' => BasicStatus::Active,
+        ];
     }
 
     public function inactive(): Factory

@@ -6,9 +6,15 @@ namespace Nova\Departments\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Departments\Models\Concerns\QueriesUniqueTags;
+use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
+/**
+ * @template TModel of Department
+ *
+ * @extends Builder<TModel>
+ */
 class DepartmentBuilder extends Builder
 {
     use QueriesStatus;

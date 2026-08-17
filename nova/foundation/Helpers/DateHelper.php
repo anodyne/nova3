@@ -18,7 +18,9 @@ class DateHelper
      */
     public static function format(CarbonInterface $date, User $user): string
     {
-        return $date->isoFormat($user->date_format);
+        $format = $user->getAttribute('date_format');
+
+        return $date->isoFormat(is_string($format) ? $format : trans('format.date'));
     }
 
     /**
@@ -33,14 +35,43 @@ class DateHelper
     }
 
     /**
-     * Return a date and the time according to the timezone of the user, in a
-     * short format like "Oct 29, 1981 19:32".
+     * Return the day and the month in a format like "Monday (July 29th)".
      */
-    public static function formatShortDateWithTime(CarbonInterface $date, ?string $timezone = null): string
+    public static function formatDayAndMonthInParenthesis(CarbonInterface $date, ?string $timezone = null): string
     {
         $date->setTimezone($timezone ?? static::getUserTimezone());
 
-        return $date->isoFormat(trans('format.short_date_year_time'));
+        return $date->isoFormat(trans('format.day_month_parenthesis'));
+    }
+
+    /**
+     * Return the day as a number, like "03".
+     */
+    public static function formatDayNumber(CarbonInterface $date, ?string $timezone = null): string
+    {
+        $date->setTimezone($timezone ?? static::getUserTimezone());
+
+        return $date->isoFormat(trans('format.day_number'));
+    }
+
+    /**
+     * Return the complete date like "Monday, July 29th 2020".
+     */
+    public static function formatFullDate(CarbonInterface $date, ?string $timezone = null): string
+    {
+        $date->setTimezone($timezone ?? static::getUserTimezone());
+
+        return $date->isoFormat(trans('format.full_date'));
+    }
+
+    /**
+     * Return the long month and the year in a format like "September 2020".
+     */
+    public static function formatLongMonthAndYear(CarbonInterface $date, ?string $timezone = null): string
+    {
+        $date->setTimezone($timezone ?? static::getUserTimezone());
+
+        return $date->isoFormat(trans('format.long_month_year'));
     }
 
     /**
@@ -64,23 +95,24 @@ class DateHelper
     }
 
     /**
-     * Return the long month and the year in a format like "September 2020".
+     * Return the first letter of the month, like "Jan" for January.
      */
-    public static function formatLongMonthAndYear(CarbonInterface $date, ?string $timezone = null): string
+    public static function formatMonthNumber($date, ?string $timezone = null): string
     {
         $date->setTimezone($timezone ?? static::getUserTimezone());
 
-        return $date->isoFormat(trans('format.long_month_year'));
+        return $date->isoFormat(trans('format.short_month'));
     }
 
     /**
-     * Return the day and the month in a format like "Jul 29".
+     * Return a date and the time according to the timezone of the user, in a
+     * short format like "Oct 29, 1981 19:32".
      */
-    public static function formatShortMonthAndDay(CarbonInterface $date, ?string $timezone = null): string
+    public static function formatShortDateWithTime(CarbonInterface $date, ?string $timezone = null): string
     {
         $date->setTimezone($timezone ?? static::getUserTimezone());
 
-        return $date->isoFormat(trans('format.short_date'));
+        return $date->isoFormat(trans('format.short_date_year_time'));
     }
 
     /**
@@ -94,43 +126,29 @@ class DateHelper
     }
 
     /**
-     * Return the day and the month in a format like "Monday (July 29th)".
+     * Return the day and the month in a format like "Jul 29".
      */
-    public static function formatDayAndMonthInParenthesis(CarbonInterface $date, ?string $timezone = null): string
+    public static function formatShortMonthAndDay(CarbonInterface $date, ?string $timezone = null): string
     {
         $date->setTimezone($timezone ?? static::getUserTimezone());
 
-        return $date->isoFormat(trans('format.day_month_parenthesis'));
+        return $date->isoFormat(trans('format.short_date'));
     }
 
     /**
-     * Return the complete date like "Monday, July 29th 2020".
+     * Return a collection of days.
      */
-    public static function formatFullDate(CarbonInterface $date, ?string $timezone = null): string
+    public static function getDays(): Collection
     {
-        $date->setTimezone($timezone ?? static::getUserTimezone());
+        $daysCollection = collect();
+        for ($day = 1; $day <= 31; $day++) {
+            $daysCollection->push([
+                'id' => $day,
+                'name' => $day,
+            ]);
+        }
 
-        return $date->isoFormat(trans('format.full_date'));
-    }
-
-    /**
-     * Return the day as a number, like "03".
-     */
-    public static function formatDayNumber(CarbonInterface $date, ?string $timezone = null): string
-    {
-        $date->setTimezone($timezone ?? static::getUserTimezone());
-
-        return $date->isoFormat(trans('format.day_number'));
-    }
-
-    /**
-     * Return the first letter of the month, like "Jan" for January.
-     */
-    public static function formatMonthNumber($date, ?string $timezone = null): string
-    {
-        $date->setTimezone($timezone ?? static::getUserTimezone());
-
-        return $date->isoFormat(trans('format.short_month'));
+        return $daysCollection;
     }
 
     /**
@@ -148,22 +166,6 @@ class DateHelper
         }
 
         return $monthsCollection;
-    }
-
-    /**
-     * Return a collection of days.
-     */
-    public static function getDays(): Collection
-    {
-        $daysCollection = collect();
-        for ($day = 1; $day <= 31; $day++) {
-            $daysCollection->push([
-                'id' => $day,
-                'name' => $day,
-            ]);
-        }
-
-        return $daysCollection;
     }
 
     /**

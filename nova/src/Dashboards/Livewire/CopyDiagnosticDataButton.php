@@ -7,6 +7,8 @@ namespace Nova\Dashboards\Livewire;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use LogicException;
+use Nova\Foundation\Application;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
 
@@ -27,9 +29,15 @@ class CopyDiagnosticDataButton extends Component
         $novaDatabaseVersion = Nova::databaseVersion();
         $phpVersion = PHP_VERSION;
         $database = "{$env->database->driverName()} {$env->database->version}";
-        $laravelVersion = app()->version();
-        $livewireVersion = app()->livewireVersion();
-        $filamentVersion = app()->filamentVersion();
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        $laravelVersion = $application->version();
+        $livewireVersion = $application->livewireVersion();
+        $filamentVersion = $application->filamentVersion();
 
         $debugMode = config('app.debug') ? 'Enabled' : 'Off';
         $environment = config('app.env');

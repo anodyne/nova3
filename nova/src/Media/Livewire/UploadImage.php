@@ -12,6 +12,8 @@ use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use Nova\Media\Enums\ImageAction;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property-read bool $hasImage
@@ -24,14 +26,11 @@ class UploadImage extends Component
 {
     use WithFileUploads;
 
-    #[Locked]
-    public ?Model $model = null;
-
-    public ?string $modelAttribute = null;
-
-    public ?string $mediaCollectionName = null;
+    public string $actionMessage = 'Upload a file';
 
     public ?string $existingImage = null;
+
+    public string $fieldName = 'image';
 
     #[Validate('image:allow_svg|max:10240')]
     public $image = null;
@@ -43,27 +42,66 @@ class UploadImage extends Component
     #[Locked]
     public bool $initialHasExisting = false;
 
-    public string $actionMessage = 'Upload a file';
+    public ?string $mediaCollectionName = null;
+
+    #[Locked]
+    public ?Model $model = null;
+
+    public ?string $modelAttribute = null;
 
     public string $supportMessage = 'PNG, JPG, or GIF (max. 10MB)';
 
-    public string $fieldName = 'image';
-
     protected string $filename = 'livewire.media.upload-image';
 
-    public function updatedImage($value): void
+    #[Computed]
+    public function fieldImageAction(): string
+    {
+        return $this->fieldName.'_action';
+    }
+
+    #[Computed]
+    public function fieldTempFile(): string
+    {
+        return $this->fieldName.'_temp_path';
+    }
+
+    #[Computed]
+    public function hasImage(): bool
+    {
+        return filled($this->image) || filled($this->existingImage);
+    }
+
+    #[Computed]
+    public function imageInfo()
     {
         if (filled($this->image)) {
-            // If there was existing media at mount time, we're replacing; otherwise, adding.
-            $this->imageAction = $this->initialHasExisting ? ImageAction::Replace : ImageAction::Add;
-            $this->imageTempPath = $this->image?->getRealPath() ?: null;
-
-            $this->dispatch('mediaUploaded', action: $this->imageAction->value, path: $this->imageTempPath);
-        } else {
-            // If image was cleared by the browser/UX, reset to unchanged.
-            $this->imageAction = ImageAction::Unchanged;
-            $this->imageTempPath = null;
+            return $this->image;
         }
+
+        // return $this->existingImage;
+    }
+
+    public function mount(): void
+    {
+        $media = $this->model instanceof HasMedia
+            ? $this->model->getMedia($this->mediaCollectionName ?? 'default')->first()
+            : null;
+
+        $this->existingImage = $media instanceof Media ? $media->getUrl() : null;
+
+        $this->initialHasExisting = filled($this->existingImage);
+        $this->imageAction = ImageAction::Unchanged;
+        $this->imageTempPath = null;
+    }
+
+    #[Computed]
+    public function previewUrl(): ?string
+    {
+        if (filled($this->image)) {
+            return $this->image?->temporaryUrl();
+        }
+
+        return $this->existingImage;
     }
 
     public function removeImage(): void
@@ -85,17 +123,6 @@ class UploadImage extends Component
         }
     }
 
-    public function mount()
-    {
-        $this->existingImage = $this->model?->hasMedia($this->mediaCollectionName)
-            ? $this->model->getFirstMediaUrl($this->mediaCollectionName)
-            : null;
-
-        $this->initialHasExisting = filled($this->existingImage);
-        $this->imageAction = ImageAction::Unchanged;
-        $this->imageTempPath = null;
-    }
-
     public function render()
     {
         return view($this->filename, [
@@ -107,41 +134,18 @@ class UploadImage extends Component
         ]);
     }
 
-    #[Computed]
-    public function hasImage(): bool
-    {
-        return filled($this->image) || filled($this->existingImage);
-    }
-
-    #[Computed]
-    public function imageInfo()
+    public function updatedImage($value): void
     {
         if (filled($this->image)) {
-            return $this->image;
+            // If there was existing media at mount time, we're replacing; otherwise, adding.
+            $this->imageAction = $this->initialHasExisting ? ImageAction::Replace : ImageAction::Add;
+            $this->imageTempPath = $this->image?->getRealPath() ?: null;
+
+            $this->dispatch('mediaUploaded', action: $this->imageAction->value, path: $this->imageTempPath);
+        } else {
+            // If image was cleared by the browser/UX, reset to unchanged.
+            $this->imageAction = ImageAction::Unchanged;
+            $this->imageTempPath = null;
         }
-
-        // return $this->existingImage;
-    }
-
-    #[Computed]
-    public function previewUrl(): ?string
-    {
-        if (filled($this->image)) {
-            return $this->image?->temporaryUrl();
-        }
-
-        return $this->existingImage;
-    }
-
-    #[Computed]
-    public function fieldImageAction(): string
-    {
-        return $this->fieldName.'_action';
-    }
-
-    #[Computed]
-    public function fieldTempFile(): string
-    {
-        return $this->fieldName.'_temp_path';
     }
 }

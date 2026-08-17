@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Settings\Actions;
 
 use Bag\Bag;
+use LogicException;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Settings\Models\Settings;
 
@@ -14,6 +15,10 @@ class UpdateSettings
 
     public function handle($field, Bag $data): Settings
     {
-        return tap(settings())->update([(string) $field => $data]);
+        $settings = settings() ?? throw new LogicException('Settings are unavailable.');
+
+        $settings->update([$field => $data]);
+
+        return $settings;
     }
 }

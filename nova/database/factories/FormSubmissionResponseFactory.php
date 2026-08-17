@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Forms\Models\FormSubmissionResponse;
 
+/** @extends Factory<FormSubmissionResponse> */
 class FormSubmissionResponseFactory extends Factory
 {
     protected $model = FormSubmissionResponse::class;

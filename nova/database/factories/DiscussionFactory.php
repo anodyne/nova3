@@ -6,11 +6,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Discussions\Models\Discussion;
-use Nova\Model;
 
-/**
- * @extends Factory<Model>
- */
+/** @extends Factory<Discussion> */
 class DiscussionFactory extends Factory
 {
     protected $model = Discussion::class;

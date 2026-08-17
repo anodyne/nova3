@@ -9,9 +9,18 @@ use Nova\Applications\Enums\ReviewerType;
 use Nova\Applications\Models\ApplicationReviewer;
 use Nova\Users\Models\User;
 
+/** @extends Factory<ApplicationReviewer> */
 class ApplicationReviewerFactory extends Factory
 {
     protected $model = ApplicationReviewer::class;
+
+    public function conditional()
+    {
+        return $this->state([
+            'type' => ReviewerType::Conditional,
+            'conditions' => [],
+        ]);
+    }
 
     public function definition()
     {
@@ -27,14 +36,6 @@ class ApplicationReviewerFactory extends Factory
         return $this->state([
             'type' => ReviewerType::Global,
             'conditions' => null,
-        ]);
-    }
-
-    public function conditional()
-    {
-        return $this->state([
-            'type' => ReviewerType::Conditional,
-            'conditions' => [],
         ]);
     }
 }

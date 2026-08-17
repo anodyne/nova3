@@ -4,29 +4,50 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
 
 /**
- * @property-read EloquentCollection $posts
- * @property-read Collection $stories
- * @property-read Collection $currentStories
+ * @property-read EloquentCollection<int, Post> $posts
+ * @property-read Collection<int, Story> $stories
+ * @property-read Collection<int, Story> $currentStories
  */
 class PostsTimeline extends Component
 {
-    public string $sortField = 'order_column';
+    public bool $admin = true;
 
     public string $sortDirection = 'desc';
 
+    public string $sortField = 'order_column';
+
     public ?int $storyId = null;
 
-    public bool $admin = true;
+    /**
+     * @return Collection<int, Story>
+     */
+    #[Computed]
+    public function currentStories(): Collection
+    {
+        return Story::query()->current()->get();
+    }
 
+    public function mount(): void
+    {
+        if ($this->currentStories->count() >= 1) {
+            $this->storyId = $this->currentStories->first()->id;
+        }
+    }
+
+    /**
+     * @return EloquentCollection<int, Post>
+     */
     #[Computed]
     public function posts(): EloquentCollection
     {
@@ -36,31 +57,12 @@ class PostsTimeline extends Component
 
         return Post::query()
             ->published()
-            ->when(filled($this->storyId), fn (Builder $query): Builder => $query->story($this->storyId))
+            ->when(filled($this->storyId), fn (PostBuilder $query): PostBuilder => $query->forStory($this->storyId))
             ->orderBy($this->sortField, $this->sortDirection)
             ->get();
     }
 
-    #[Computed]
-    public function stories(): Collection
-    {
-        return Story::query()->get();
-    }
-
-    #[Computed]
-    public function currentStories(): Collection
-    {
-        return Story::query()->current()->get();
-    }
-
-    public function mount()
-    {
-        if ($this->currentStories->count() >= 1) {
-            $this->storyId = $this->currentStories->first()->id;
-        }
-    }
-
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|Factory|View
     {
         $view = $this->admin
             ? 'pages.posts.livewire.timeline'
@@ -71,5 +73,14 @@ class PostsTimeline extends Component
             'posts' => $this->posts,
             'postClass' => Post::class,
         ]);
+    }
+
+    /**
+     * @return Collection<int, Story>
+     */
+    #[Computed]
+    public function stories(): Collection
+    {
+        return Story::query()->get();
     }
 }

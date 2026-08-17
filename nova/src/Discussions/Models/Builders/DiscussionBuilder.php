@@ -11,6 +11,11 @@ use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Discussions\Models\DiscussionParticipant;
 use Nova\Users\Models\User;
 
+/**
+ * @template TModel of Discussion
+ *
+ * @extends Builder<TModel>
+ */
 class DiscussionBuilder extends Builder
 {
     public function conversation(): self
@@ -23,11 +28,6 @@ class DiscussionBuilder extends Builder
         return $this->whereHas(relation: 'allParticipants', operator: '=', count: 2);
     }
 
-    public function groupMessage(): self
-    {
-        return $this->whereHas(relation: 'allParticipants', operator: '>', count: 2);
-    }
-
     public function forCurrentUser(): self
     {
         return $this->withWhereHas('allParticipants', function ($query) {
@@ -36,9 +36,9 @@ class DiscussionBuilder extends Builder
         });
     }
 
-    public function withoutCurrentUser(): self
+    public function groupMessage(): self
     {
-        return $this->whereRelation('allParticipants', User::column('id'), '=', Auth::id());
+        return $this->whereHas(relation: 'allParticipants', operator: '>', count: 2);
     }
 
     public function searchFor(string $search): self
@@ -47,5 +47,10 @@ class DiscussionBuilder extends Builder
             ->where(Discussion::column('subject'), 'like', "%{$search}%")
             ->orWhereRelation('messages', DiscussionMessage::column('content'), 'like', "%{$search}%")
             ->orWhereRelation('participants', User::column('name'), 'like', "%{$search}%");
+    }
+
+    public function withoutCurrentUser(): self
+    {
+        return $this->whereRelation('allParticipants', User::column('id'), '=', Auth::id());
     }
 }

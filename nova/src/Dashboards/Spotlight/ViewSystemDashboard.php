@@ -10,9 +10,9 @@ use LivewireUI\Spotlight\SpotlightCommand;
 
 class ViewSystemDashboard extends SpotlightCommand
 {
-    protected string $name = 'View System Dashboard';
-
     protected string $description = 'View the system dashboard';
+
+    protected string $name = 'View System Dashboard';
 
     protected array $synonyms = [
         'nova version', 'database version', 'php version', 'laravel version',
@@ -25,6 +25,6 @@ class ViewSystemDashboard extends SpotlightCommand
 
     public function shouldBeShown(Request $request): bool
     {
-        return $request->user()?->canManageSystem ?? false;
+        return $request->user()?->can_manage_system ?? false;
     }
 }

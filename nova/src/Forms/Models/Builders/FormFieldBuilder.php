@@ -6,7 +6,13 @@ namespace Nova\Forms\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Forms\Models\Form;
+use Nova\Forms\Models\FormField;
 
+/**
+ * @template TModel of FormField
+ *
+ * @extends Builder<TModel>
+ */
 class FormFieldBuilder extends Builder
 {
     public function form(Form|int $form): Builder

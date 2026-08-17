@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Characters\Models\Character;
@@ -20,9 +22,12 @@ use Nova\Foundation\Models\Model;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Users\Models\States\Status\Active as UserActive;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -35,42 +40,44 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property int|null $order_column
  * @property BasicStatus $status
  * @property array<array-key, mixed>|null $tags
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read MediaCollection<int, Media> $media
  * @property-read int|null $media_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Departments\Models\Position> $positions
+ * @property-read Collection<int, Position> $positions
  * @property-read int|null $positions_count
  * @property-read mixed $tags_as_string
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Characters\Models\Character> $activeCharacters
+ * @property-read Collection<int, Character> $activeCharacters
  * @property-read int|null $active_characters_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Characters\Models\Character> $characters
+ * @property-read Collection<int, Character> $characters
  * @property-read int|null $characters_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activeUsers
+ * @property-read Collection<int, User> $activeUsers
  * @property-read int|null $active_users_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $users
+ * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- * @method static DepartmentBuilder<static>|Department active()
+ *
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department active()
  * @method static \Database\Factories\DepartmentFactory factory($count = null, $state = [])
- * @method static DepartmentBuilder<static>|Department hasTags(array $tags)
- * @method static DepartmentBuilder<static>|Department inactive()
- * @method static DepartmentBuilder<static>|Department newModelQuery()
- * @method static DepartmentBuilder<static>|Department newQuery()
- * @method static DepartmentBuilder<static>|Department ordered(string $direction = 'asc')
- * @method static DepartmentBuilder<static>|Department query()
- * @method static DepartmentBuilder<static>|Department searchFor($search)
- * @method static DepartmentBuilder<static>|Department uniqueTags()
- * @method static DepartmentBuilder<static>|Department whereCreatedAt($value)
- * @method static DepartmentBuilder<static>|Department whereDescription($value)
- * @method static DepartmentBuilder<static>|Department whereId($value)
- * @method static DepartmentBuilder<static>|Department whereName($value)
- * @method static DepartmentBuilder<static>|Department whereOrderColumn($value)
- * @method static DepartmentBuilder<static>|Department wherePrefixedId($value)
- * @method static DepartmentBuilder<static>|Department whereStatus($value)
- * @method static DepartmentBuilder<static>|Department whereTags($value)
- * @method static DepartmentBuilder<static>|Department whereUpdatedAt($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department hasTags(array $tags)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department inactive()
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department newModelQuery()
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department newQuery()
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department ordered(string $direction = 'asc')
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department query()
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department searchFor($search)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department uniqueTags()
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereCreatedAt($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereDescription($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereId($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereName($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereOrderColumn($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department wherePrefixedId($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereStatus($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereTags($value)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(DepartmentBuilder::class)]
@@ -82,10 +89,6 @@ class Department extends Model implements HasMedia, Sortable
     use InteractsWithMedia;
     use LogsActivity;
     use SortableTrait;
-
-    protected $table = 'departments';
-
-    protected $fillable = ['name', 'description', 'order_column', 'status', 'tags'];
 
     protected $casts = [
         'order_column' => 'integer',
@@ -99,10 +102,21 @@ class Department extends Model implements HasMedia, Sortable
         'updated' => DepartmentUpdated::class,
     ];
 
+    protected $fillable = ['name', 'description', 'order_column', 'status', 'tags'];
+
+    protected $table = 'departments';
+
     public function activeCharacters(): HasManyDeep
     {
         return $this->characters()
             ->whereState(Character::column('status'), CharacterActive::class);
+    }
+
+    public function activeUsers(): HasManyDeep
+    {
+        return $this->users()
+            ->where(User::column('status'), UserActive::$name)
+            ->where(Character::column('status'), CharacterActive::$name);
     }
 
     public function characters(): HasManyDeep
@@ -118,19 +132,12 @@ class Department extends Model implements HasMedia, Sortable
         return $this->hasMany(Position::class)->ordered();
     }
 
-    public function activeUsers(): HasManyDeep
+    public function registerMediaCollections(): void
     {
-        return $this->users()
-            ->where(User::column('status'), UserActive::$name)
-            ->where(Character::column('status'), CharacterActive::$name);
-    }
-
-    public function users(): HasManyDeep
-    {
-        return $this->hasManyDeep(
-            User::class,
-            [Position::class, 'character_position', Character::class, 'character_user']
-        );
+        $this->addMediaCollection('header')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
+            ->singleFile()
+            ->useDisk('media-departments');
     }
 
     public function tagsAsString(): Attribute
@@ -140,12 +147,12 @@ class Department extends Model implements HasMedia, Sortable
         );
     }
 
-    public function registerMediaCollections(): void
+    public function users(): HasManyDeep
     {
-        $this->addMediaCollection('header')
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
-            ->singleFile()
-            ->useDisk('media-departments');
+        return $this->hasManyDeep(
+            User::class,
+            [Position::class, 'character_position', Character::class, 'character_user']
+        );
     }
 
     public static function getMediaPath(): string

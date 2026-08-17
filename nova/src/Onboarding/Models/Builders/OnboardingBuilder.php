@@ -7,7 +7,13 @@ namespace Nova\Onboarding\Models\Builders;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Onboarding\Enums\OnboardingProcess;
+use Nova\Onboarding\Models\Onboarding;
 
+/**
+ * @template TModel of Onboarding
+ *
+ * @extends Builder<TModel>
+ */
 class OnboardingBuilder extends Builder
 {
     public function incomplete(): self
@@ -22,6 +28,6 @@ class OnboardingBuilder extends Builder
 
     public function user(Authenticatable $user): self
     {
-        return $this->where('user_id', $user->id);
+        return $this->where('user_id', $user->getAuthIdentifier());
     }
 }

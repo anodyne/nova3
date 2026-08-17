@@ -6,8 +6,14 @@ namespace Nova\Notes\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Nova\Notes\Models\Note;
 use Nova\Users\Models\User;
 
+/**
+ * @template TModel of Note
+ *
+ * @extends Builder<TModel>
+ */
 class NoteBuilder extends Builder
 {
     public function author(User $user): self

@@ -6,7 +6,6 @@ namespace Nova\Characters\Models;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,6 +31,7 @@ use Nova\Characters\Models\States\Status\Hidden;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Characters\Models\States\Status\Pending;
 use Nova\Departments\Models\Position;
+use Nova\Forms\Models\Builders\FormBuilder;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
@@ -58,7 +58,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
  * @property CarbonImmutable|null $deleted_at
- * @property-read \Nova\Characters\Models\CharacterPosition|\Nova\Characters\Models\CharacterUser|null $pivot
+ * @property-read CharacterPosition|CharacterUser|null $pivot
  * @property-read Collection<int, User> $activePrimaryUsers
  * @property-read int|null $active_primary_users_count
  * @property-read Collection<int, User> $activeUsers
@@ -92,46 +92,48 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read int|null $status_histories_count
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- * @method static CharacterBuilder<static>|Character active()
- * @method static CharacterBuilder<static>|Character activeBetween(\Carbon\CarbonInterface $start, \Carbon\CarbonInterface $end)
+ *
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character active()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character activeBetween(\Carbon\CarbonInterface $start, \Carbon\CarbonInterface $end)
  * @method static \Database\Factories\CharacterFactory factory($count = null, $state = [])
- * @method static CharacterBuilder<static>|Character hidden()
- * @method static CharacterBuilder<static>|Character inactive()
- * @method static CharacterBuilder<static>|Character isAssignedTo(\Nova\Users\Models\User $user)
- * @method static CharacterBuilder<static>|Character newModelQuery()
- * @method static CharacterBuilder<static>|Character newQuery()
- * @method static CharacterBuilder<static>|Character notHidden()
- * @method static CharacterBuilder<static>|Character notPending()
- * @method static CharacterBuilder<static>|Character notPrimary()
- * @method static CharacterBuilder<static>|Character notSecondary()
- * @method static CharacterBuilder<static>|Character notSupport()
- * @method static Builder<static>|Character onlyTrashed()
- * @method static CharacterBuilder<static>|Character orWhereNotState(string $column, $states)
- * @method static CharacterBuilder<static>|Character orWhereState(string $column, $states)
- * @method static CharacterBuilder<static>|Character pending()
- * @method static CharacterBuilder<static>|Character primary()
- * @method static CharacterBuilder<static>|Character query()
- * @method static CharacterBuilder<static>|Character searchFor($search)
- * @method static CharacterBuilder<static>|Character searchForBasic($search)
- * @method static CharacterBuilder<static>|Character searchForWithoutUsers($search)
- * @method static CharacterBuilder<static>|Character secondary()
- * @method static CharacterBuilder<static>|Character selectTotalCount()
- * @method static CharacterBuilder<static>|Character selectTypeCounts()
- * @method static CharacterBuilder<static>|Character support()
- * @method static CharacterBuilder<static>|Character whereCreatedAt($value)
- * @method static CharacterBuilder<static>|Character whereDeletedAt($value)
- * @method static CharacterBuilder<static>|Character whereId($value)
- * @method static CharacterBuilder<static>|Character whereIsPrimaryCharacter()
- * @method static CharacterBuilder<static>|Character whereName($value)
- * @method static CharacterBuilder<static>|Character whereNotState(string $column, $states)
- * @method static CharacterBuilder<static>|Character wherePrefixedId($value)
- * @method static CharacterBuilder<static>|Character whereRankId($value)
- * @method static CharacterBuilder<static>|Character whereState(string $column, $states)
- * @method static CharacterBuilder<static>|Character whereStatus($value)
- * @method static CharacterBuilder<static>|Character whereType($value)
- * @method static CharacterBuilder<static>|Character whereUpdatedAt($value)
- * @method static Builder<static>|Character withTrashed(bool $withTrashed = true)
- * @method static Builder<static>|Character withoutTrashed()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character hidden()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character inactive()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character isAssignedTo(\Nova\Users\Models\User $user)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character newModelQuery()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character newQuery()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notHidden()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notPending()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notPrimary()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notSecondary()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notSupport()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\Character onlyTrashed()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character orWhereNotState(string $column, $states)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character orWhereState(string $column, $states)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character pending()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character primary()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character query()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchFor($search)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchForBasic($search)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchForWithoutUsers($search)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character secondary()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character selectTotalCount()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character selectTypeCounts()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character support()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereCreatedAt($value)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereDeletedAt($value)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereId($value)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereIsPrimaryCharacter()
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereName($value)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereNotState(string $column, $states)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character wherePrefixedId($value)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereRankId($value)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereState(string $column, $states)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereStatus($value)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereType($value)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\Character withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\Character withoutTrashed()
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(CharacterBuilder::class)]
@@ -163,57 +165,9 @@ class Character extends Model implements HasMedia
         'name', 'status', 'rank_id', 'type',
     ];
 
-    public function positions(): BelongsToMany
-    {
-        return $this->belongsToMany(Position::class)
-            ->using(CharacterPosition::class);
-    }
-
-    public function posts(): MorphToMany
-    {
-        return $this->morphToMany(Post::class, 'authorable', 'post_author');
-    }
-
-    public function postAuthors(): MorphToMany
-    {
-        return $this->morphToMany(
-            Post::class,
-            'authorable',
-            'post_author',
-        )->withPivot(['user_id', 'authorable_type'])
-            ->select([
-                'posts.id as post_id', // ✅ Explicitly selecting "id" from posts
-                'posts.title', // Select only necessary columns
-                'post_author.user_id', // ✅ Ensure pivot data is included
-                'post_author.authorable_id',
-                'post_author.authorable_type',
-            ]);
-    }
-
-    public function rank()
-    {
-        return $this->hasOne(RankItem::class, 'id', 'rank_id');
-    }
-
-    public function formSubmissions(): MorphMany
-    {
-        return $this->morphMany(FormSubmission::class, 'owner');
-    }
-
-    public function characterFormSubmission(): MorphOne
-    {
-        return $this->morphOne(FormSubmission::class, 'owner')
-            ->whereHas('form', fn (Builder $query): Builder => $query->key('characterBio'));
-    }
-
     public function application(): HasOne
     {
         return $this->hasOne(Application::class);
-    }
-
-    public function statusHistories(): MorphMany
-    {
-        return $this->morphMany(StatusHistory::class, 'statusable');
     }
 
     public function avatarUrl(): Attribute
@@ -223,6 +177,17 @@ class Character extends Model implements HasMedia
         );
     }
 
+    public function canBeDeleted(): bool
+    {
+        return $this->posts()->count() === 0;
+    }
+
+    public function characterFormSubmission(): MorphOne
+    {
+        return $this->morphOne(FormSubmission::class, 'owner')
+            ->whereHas('form', fn (FormBuilder $query): FormBuilder => $query->key('characterBio'));
+    }
+
     public function displayName(): Attribute
     {
         $this->loadMissing('rank.name');
@@ -230,6 +195,11 @@ class Character extends Model implements HasMedia
         return new Attribute(
             get: fn (): string => trim($this?->rank?->name?->name.' '.$this->name)
         );
+    }
+
+    public function formSubmissions(): MorphMany
+    {
+        return $this->morphMany(FormSubmission::class, 'owner');
     }
 
     public function hasAvatar(): Attribute
@@ -253,17 +223,17 @@ class Character extends Model implements HasMedia
         );
     }
 
-    public function isInactive(): Attribute
-    {
-        return new Attribute(
-            get: fn (): bool => $this->status->equals(Inactive::class)
-        );
-    }
-
     public function isHidden(): Attribute
     {
         return new Attribute(
             get: fn (): bool => $this->status->equals(Hidden::class)
+        );
+    }
+
+    public function isInactive(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Inactive::class)
         );
     }
 
@@ -274,16 +244,43 @@ class Character extends Model implements HasMedia
         );
     }
 
+    public function positions(): BelongsToMany
+    {
+        return $this->belongsToMany(Position::class)
+            ->using(CharacterPosition::class);
+    }
+
+    public function postAuthors(): MorphToMany
+    {
+        return $this->morphToMany(
+            Post::class,
+            'authorable',
+            'post_author',
+        )->withPivot(['user_id', 'authorable_type'])
+            ->select([
+                'posts.id as post_id', // ✅ Explicitly selecting "id" from posts
+                'posts.title', // Select only necessary columns
+                'post_author.user_id', // ✅ Ensure pivot data is included
+                'post_author.authorable_id',
+                'post_author.authorable_type',
+            ]);
+    }
+
+    public function posts(): MorphToMany
+    {
+        return $this->morphToMany(Post::class, 'authorable', 'post_author');
+    }
+
+    public function rank(): HasOne
+    {
+        return $this->hasOne(RankItem::class, 'id', 'rank_id');
+    }
+
     public function rankId(): Attribute
     {
         return new Attribute(
             set: fn ($value): ?int => $value === 0 ? null : $value
         );
-    }
-
-    public function canBeDeleted(): bool
-    {
-        return $this->posts()->count() === 0;
     }
 
     public function registerMediaCollections(): void
@@ -295,6 +292,16 @@ class Character extends Model implements HasMedia
             ->singleFile();
     }
 
+    public function shouldBeSearchable(): bool
+    {
+        return ! $this->is_pending;
+    }
+
+    public function statusHistories(): MorphMany
+    {
+        return $this->morphMany(StatusHistory::class, 'statusable');
+    }
+
     public function toSearchableArray(): array
     {
         return [
@@ -302,11 +309,6 @@ class Character extends Model implements HasMedia
             'prefixed_id' => $this->prefixed_id,
             'name' => $this->name,
         ];
-    }
-
-    public function shouldBeSearchable(): bool
-    {
-        return ! $this->is_pending;
     }
 
     public static function getMediaPath(): string

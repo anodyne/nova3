@@ -36,13 +36,13 @@ class ApplicationHistory extends InfolistComponent
                     ])
                     ->eventDescriptions([
                         'message-added' => fn (Activity $activity) => __('activity.applications.message-added', [
-                            'name' => $activity->causer->name,
+                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                         ]),
                         'reviewers-added' => fn (Activity $activity) => trans_choice(
                             'activity.applications.reviewers-added',
                             count($activity->getExtraProperty('addedReviewers')),
                             [
-                                'name' => $activity->causer->name,
+                                'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                 'reviewers' => User::whereIn('id', $activity->getExtraProperty('addedReviewers'))
                                     ->get()
                                     ->pluck('name')
@@ -53,7 +53,7 @@ class ApplicationHistory extends InfolistComponent
                             'activity.applications.reviewers-removed',
                             count($activity->getExtraProperty('removedReviewers')),
                             [
-                                'name' => $activity->causer->name,
+                                'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                 'reviewers' => User::whereIn('id', $activity->getExtraProperty('removedReviewers'))
                                     ->get()
                                     ->pluck('name')
@@ -61,10 +61,10 @@ class ApplicationHistory extends InfolistComponent
                             ]
                         ),
                         'vote-accept' => fn (Activity $activity) => __('activity.applications.vote-accept', [
-                            'name' => $activity->causer->name,
+                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                         ]),
                         'vote-deny' => fn (Activity $activity) => __('activity.applications.vote-deny', [
-                            'name' => $activity->causer->name,
+                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                         ]),
                     ])
                     ->itemIcons([

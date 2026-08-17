@@ -10,7 +10,6 @@ use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -25,6 +24,7 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Ranks\Actions\DeleteRankItemManager;
+use Nova\Ranks\Models\Builders\RankItemBuilder;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
@@ -49,7 +49,7 @@ class RankItemsList extends TableComponent
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.rank')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (RankItemBuilder $query, string $search): RankItemBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('characters_count')
                     ->counts('characters')

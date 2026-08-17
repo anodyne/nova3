@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
+use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\Story;
 
 /**
- * @property-read Collection $storiesForOrdering
- * @property-read ?Story $parentStory
- * @property-read Collection $parentStories
+ * @property-read Collection<int, Story> $storiesForOrdering
+ * @property-read Story|null $parentStory
+ * @property-read Collection<int, Story> $parentStories
  */
 class StoryPosition extends Component
 {
@@ -32,34 +32,7 @@ class StoryPosition extends Component
     #[Locked]
     public ?Story $story = null;
 
-    public function updated($property): void
-    {
-        $this->hasPositionChange = true;
-    }
-
-    #[Computed]
-    public function storiesForOrdering(): Collection
-    {
-        return Story::query()
-            ->when(filled($this->parentId), fn (Builder $query): Builder => $query->whereParent($this->parentId))
-            ->when(blank($this->parentId), fn (Builder $query): Builder => $query->whereNull('parent_id'))
-            ->ordered()
-            ->get();
-    }
-
-    #[Computed]
-    public function parentStory(): ?Story
-    {
-        return Story::withCount('stories')->find($this->parentId);
-    }
-
-    #[Computed]
-    public function parentStories(): Collection
-    {
-        return Story::tree()->ordered()->get();
-    }
-
-    public function mount()
+    public function mount(): void
     {
         if (filled($this->story)) {
             $nextNeighbor = $this->story->nextSibling();
@@ -80,6 +53,21 @@ class StoryPosition extends Component
         }
     }
 
+    /**
+     * @return Collection<int, Story>
+     */
+    #[Computed]
+    public function parentStories(): Collection
+    {
+        return Story::tree()->ordered()->get();
+    }
+
+    #[Computed]
+    public function parentStory(): ?Story
+    {
+        return Story::withCount('stories')->find($this->parentId);
+    }
+
     public function render(): View
     {
         return view('pages.stories.livewire.story-position', [
@@ -87,6 +75,24 @@ class StoryPosition extends Component
             'parentStories' => $this->parentStories,
             'storiesForOrdering' => $this->storiesForOrdering,
         ]);
+    }
+
+    /**
+     * @return Collection<int, Story>
+     */
+    #[Computed]
+    public function storiesForOrdering(): Collection
+    {
+        return Story::query()
+            ->when(filled($this->parentId), fn (StoryBuilder $query): StoryBuilder => $query->whereParent($this->parentId))
+            ->when(blank($this->parentId), fn (StoryBuilder $query): StoryBuilder => $query->whereNull('parent_id'))
+            ->ordered()
+            ->get();
+    }
+
+    public function updated($property): void
+    {
+        $this->hasPositionChange = true;
     }
 
     protected function getStory($id): ?Story

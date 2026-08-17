@@ -11,9 +11,23 @@ use Nova\Announcements\Models\AnnouncementNotification;
 use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
+/** @extends Factory<Announcement> */
 class AnnouncementFactory extends Factory
 {
     protected $model = Announcement::class;
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Announcement $announcement) {
+            $users = User::active()->get();
+
+            $users->each(fn (User $user) => AnnouncementNotification::create([
+                'announcement_id' => $announcement->id,
+                'user_id' => $user->id,
+                'is_seen' => $announcement->user_id === $user->id ? true : fake()->boolean(),
+            ]));
+        });
+    }
 
     public function definition()
     {
@@ -52,18 +66,5 @@ class AnnouncementFactory extends Factory
             'status' => PublishStatus::Published,
             'published_at' => now(),
         ]);
-    }
-
-    public function configure(): static
-    {
-        return $this->afterCreating(function (Announcement $announcement) {
-            $users = User::active()->get();
-
-            $users->each(fn (User $user) => AnnouncementNotification::create([
-                'announcement_id' => $announcement->id,
-                'user_id' => $user->id,
-                'is_seen' => $announcement->user_id === $user->id ? true : fake()->boolean(),
-            ]));
-        });
     }
 }

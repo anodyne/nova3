@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Nova\Applications\Enums\ApplicationResult;
@@ -13,6 +15,7 @@ use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\Models\Activity;
 
 /**
  * @property int $id
@@ -20,24 +23,26 @@ use Nova\Users\Models\User;
  * @property int $user_id
  * @property ApplicationResult|null $result
  * @property string|null $comments
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Nova\Applications\Models\Application $application
+ * @property-read Application $application
  * @property-read bool $is_accepted
  * @property-read bool $is_denied
  * @property-read User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereApplicationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereComments($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereResult($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ApplicationReview whereUserId($value)
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview whereApplicationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview whereComments($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview whereResult($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Applications\Models\ApplicationReview whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class ApplicationReview extends Pivot
@@ -52,14 +57,6 @@ class ApplicationReview extends Pivot
     public function application(): BelongsTo
     {
         return $this->belongsTo(Application::class);
-    }
-
-    public function user(): BelongsTo
-    {
-        /** @var BelongsTo $relation */
-        $relation = $this->belongsTo(User::class)->withTrashed();
-
-        return $relation;
     }
 
     public function formSubmission(): ?FormSubmission
@@ -83,5 +80,13 @@ class ApplicationReview extends Pivot
         return Attribute::make(
             get: fn (): bool => $this->result === ApplicationResult::Deny
         );
+    }
+
+    public function user(): BelongsTo
+    {
+        /** @var BelongsTo $relation */
+        $relation = $this->belongsTo(User::class)->withTrashed();
+
+        return $relation;
     }
 }

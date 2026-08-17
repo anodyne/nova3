@@ -19,7 +19,7 @@ class DiscussionSeeder extends Seeder
         $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 
         $seedChat = function (array $discussionAttrs, array $participantIds, array $authorPool, int $count = 5) use ($now) {
-            /** @var \App\Models\Discussion $discussion */
+            /** @var Discussion $discussion */
             $discussion = Discussion::factory()->create(
                 ['created_at' => $now, 'updated_at' => $now] + $discussionAttrs
             );

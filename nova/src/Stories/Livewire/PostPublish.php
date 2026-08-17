@@ -6,7 +6,6 @@ namespace Nova\Stories\Livewire;
 
 use Anodyne\TablerIcons\Tabler;
 use Filament\Actions\Action;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +22,7 @@ use Nova\Stories\Data\PostStatusData;
 use Nova\Stories\Enums\PositionDirection;
 use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
+use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\States\PostStatus\Published;
@@ -40,20 +40,20 @@ class PostPublish extends SlideOver
     use InteractsWithPost;
     use InteractsWithPostType;
 
-    #[Locked]
-    public Post $post;
-
-    public ?Collection $participatingUsers = null;
-
-    public string $search = '';
-
-    public ?Post $previousPost = null;
-
-    public ?Post $nextPost = null;
+    public PositionDirection $direction;
 
     public ?Post $neighbor = null;
 
-    public PositionDirection $direction;
+    public ?Post $nextPost = null;
+
+    public ?Collection $participatingUsers = null;
+
+    #[Locked]
+    public Post $post;
+
+    public ?Post $previousPost = null;
+
+    public string $search = '';
 
     public function add(int $postId): void
     {
@@ -62,13 +62,6 @@ class PostPublish extends SlideOver
         $this->neighbor = Post::query()
             ->select(['id', 'story_id', 'post_type_id', 'title', 'location', 'day', 'time'])
             ->find($postId);
-    }
-
-    public function updatedDirection($value)
-    {
-        if (in_array($this->direction, [PositionDirection::End, PositionDirection::Start])) {
-            $this->neighbor = null;
-        }
     }
 
     #[Renderless]
@@ -86,6 +79,30 @@ class PostPublish extends SlideOver
             ->send();
 
         $this->dispatch('modal-close');
+    }
+
+    #[Computed]
+    public function hasNonParticipants(): bool
+    {
+        return $this->post->participatingUsers()
+            ->newPivotStatement()
+            ->where('post_id', $this->post->id)
+            ->whereNotIn('user_id', $this->post->participants ?? [])
+            ->count() > 0;
+    }
+
+    public function hydrate(): void
+    {
+        $this->setPostAttributes();
+    }
+
+    public function mount(int $postId): void
+    {
+        $this->postId = $postId;
+
+        $this->direction = PositionDirection::After;
+
+        $this->setPostAttributes();
     }
 
     public function publish(): void
@@ -135,35 +152,6 @@ class PostPublish extends SlideOver
         $this->refreshParticipatingUsers();
     }
 
-    public function updatePostPosition(): void
-    {
-        $positionChange = match (true) {
-            filled($this->neighbor) && in_array($this->direction, [PositionDirection::After, PositionDirection::Before]) => true,
-            blank($this->neighbor) && in_array($this->direction, [PositionDirection::End, PositionDirection::Start]) => true,
-            default => false,
-        };
-
-        UpdatePostPosition::run($this->post, PostPositionData::from(
-            neighbor: $this->neighbor,
-            direction: $this->direction,
-            hasPositionChange: $positionChange
-        ));
-    }
-
-    public function hydrate(): void
-    {
-        $this->setPostAttributes();
-    }
-
-    public function mount(int $postId): void
-    {
-        $this->postId = $postId;
-
-        $this->direction = PositionDirection::After;
-
-        $this->setPostAttributes();
-    }
-
     public function render(): View
     {
         return view('pages.posts.livewire.post-publish', [
@@ -175,22 +163,12 @@ class PostPublish extends SlideOver
     }
 
     #[Computed]
-    public function hasNonParticipants(): bool
-    {
-        return $this->post->participatingUsers()
-            ->newPivotStatement()
-            ->where('post_id', $this->post->id)
-            ->whereNotIn('user_id', $this->post->participants ?? [])
-            ->count() > 0;
-    }
-
-    #[Computed]
     public function searchResults(): Collection
     {
         return Post::query()
             ->select(['id', 'story_id', 'post_type_id', 'title', 'location', 'day', 'time'])
-            ->story($this->getPost()?->story_id)
-            ->when(filled($this->search), fn (Builder $query): Builder => $query->searchFor($this->search))
+            ->forStory($this->getPost()?->story_id)
+            ->when(filled($this->search), fn (PostBuilder $query): PostBuilder => $query->searchFor($this->search))
             ->ordered()
             ->get();
     }
@@ -205,6 +183,28 @@ class PostPublish extends SlideOver
     public function shouldShowPositionPanel(): bool
     {
         return $this->post->story->posts()->count() > 0;
+    }
+
+    public function updatedDirection($value)
+    {
+        if (in_array($this->direction, [PositionDirection::End, PositionDirection::Start])) {
+            $this->neighbor = null;
+        }
+    }
+
+    public function updatePostPosition(): void
+    {
+        $positionChange = match (true) {
+            filled($this->neighbor) && in_array($this->direction, [PositionDirection::After, PositionDirection::Before]) => true,
+            blank($this->neighbor) && in_array($this->direction, [PositionDirection::End, PositionDirection::Start]) => true,
+            default => false,
+        };
+
+        UpdatePostPosition::run($this->post, PostPositionData::from(
+            neighbor: $this->neighbor,
+            direction: $this->direction,
+            hasPositionChange: $positionChange
+        ));
     }
 
     public static function size(): string

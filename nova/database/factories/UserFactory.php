@@ -6,7 +6,6 @@ namespace Database\Factories;
 
 use Database\Factories\Concerns\CanAddMedia;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
 use Nova\Foundation\Actions\TrackStatusUpdate;
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
@@ -17,28 +16,18 @@ use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
-/**
- * @extends Factory<Model>
- */
+/** @extends Factory<User> */
 class UserFactory extends Factory
 {
     use CanAddMedia;
 
     protected $model = User::class;
 
-    public function definition(): array
+    public function active(): static
     {
-        return [
-            'name' => fn (array $attributes) => sprintf(
-                '%s %s',
-                fake()->firstName($attributes['pronouns']->value),
-                fake()->lastName($attributes['pronouns']->value)
-            ),
-            'email' => fake()->unique()->safeEmail,
-            'password' => 'secret',
-            'pronouns' => PronounsData::from(fake()->randomElement(['male', 'female'])),
-            'force_password_reset' => false,
-        ];
+        return $this->state([
+            'status' => Active::class,
+        ]);
     }
 
     public function configure(): static
@@ -66,24 +55,25 @@ class UserFactory extends Factory
         });
     }
 
-    public function verifiedEmail(): static
+    public function definition(): array
     {
-        return $this->state([
-            'email_verified_at' => now(),
-        ]);
+        return [
+            'name' => fn (array $attributes) => sprintf(
+                '%s %s',
+                fake()->firstName($attributes['pronouns']->value),
+                fake()->lastName($attributes['pronouns']->value)
+            ),
+            'email' => fake()->unique()->safeEmail,
+            'password' => 'secret',
+            'pronouns' => PronounsData::from(fake()->randomElement(['male', 'female'])),
+            'force_password_reset' => false,
+        ];
     }
 
     public function forcePasswordReset(): static
     {
         return $this->state([
             'force_password_reset' => true,
-        ]);
-    }
-
-    public function active(): static
-    {
-        return $this->state([
-            'status' => Active::class,
         ]);
     }
 
@@ -98,6 +88,13 @@ class UserFactory extends Factory
     {
         return $this->state([
             'status' => Pending::class,
+        ]);
+    }
+
+    public function verifiedEmail(): static
+    {
+        return $this->state([
+            'email_verified_at' => now(),
         ]);
     }
 }

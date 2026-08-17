@@ -1,38 +1,36 @@
 {
-  "preset": "laravel",
-  "exclude": [
-    "tests/Fixtures"
-  ],
-  "rules": {
-    "declare_strict_types": true,
-    "ordered_class_elements": {
-      "order": [
-        "use_trait",
-        "case",
-        "constant",
-        "constant_public",
-        "constant_protected",
-        "constant_private",
-        "property_public",
-        "property_protected",
-        "property_private",
-        "construct",
-        "destruct",
-        "magic",
-        "phpunit",
-        "method_abstract",
-        "method_public",
-        "method_public_static",
-        "method_protected",
-        "method_protected_static",
-        "method_private",
-        "method_private_static"
-      ],
-      "sort_algorithm": "none"
-    },
-    "ordered_interfaces": {
-      "direction": "ascend",
-      "order": "alpha"
+    "preset": "laravel",
+    "exclude": ["tests/Fixtures"],
+    "rules": {
+        "declare_strict_types": true,
+        "ordered_class_elements": {
+            "order": [
+                "use_trait",
+                "case",
+                "constant",
+                "constant_public",
+                "constant_protected",
+                "constant_private",
+                "property_public",
+                "property_protected",
+                "property_private",
+                "construct",
+                "destruct",
+                "magic",
+                "phpunit",
+                "method_abstract",
+                "method_public",
+                "method_public_static",
+                "method_protected",
+                "method_protected_static",
+                "method_private",
+                "method_private_static"
+            ],
+            "sort_algorithm": "alpha"
+        },
+        "ordered_interfaces": {
+            "direction": "ascend",
+            "order": "alpha"
+        }
     }
-  }
 }

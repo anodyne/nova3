@@ -26,6 +26,7 @@ use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Events\CharacterActivated;
 use Nova\Characters\Events\CharacterDeactivated;
 use Nova\Characters\Events\CharacterDeletedByAdmin;
+use Nova\Characters\Models\Builders\CharacterBuilder;
 use Nova\Characters\Models\Character;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -42,6 +43,7 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -60,7 +62,7 @@ class CharactersList extends TableComponent
                     ->notHidden()
                     ->unless(
                         $user->can('manage', new Character),
-                        fn (Builder $query): Builder => $query->isAssignedTo($user)
+                        fn (CharacterBuilder $query): CharacterBuilder => $query->isAssignedTo($user)
                     )
                     ->select([
                         'deleted_at',
@@ -79,7 +81,7 @@ class CharactersList extends TableComponent
             ->columns([
                 ViewColumn::make('name')
                     ->view('filament.tables.columns.character-avatar')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search)),
+                    ->searchable(query: fn (CharacterBuilder $query, string $search): CharacterBuilder => $query->searchFor($search)),
                 TextColumn::make('activeUsers.name')
                     ->visible($user->can('viewAny', Character::class))
                     ->label('Played by')
@@ -111,10 +113,10 @@ class CharactersList extends TableComponent
                                 $timeline
                                     ->eventDescriptions([
                                         'removed-avatar' => fn (Activity $activity) => __('activity.characters.removed-avatar', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                         ]),
                                         'uploaded-avatar' => fn (Activity $activity) => __('activity.characters.uploaded-avatar', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                         ]),
                                     ])
                                     ->itemIcons([

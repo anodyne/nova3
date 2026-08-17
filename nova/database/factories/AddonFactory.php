@@ -11,9 +11,17 @@ use Nova\Addons\Models\Addon;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Support\FactoryRequestData;
 
+/** @extends Factory<Addon> */
 class AddonFactory extends Factory
 {
     protected $model = Addon::class;
+
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
 
     public function definition()
     {
@@ -29,38 +37,10 @@ class AddonFactory extends Factory
         ];
     }
 
-    public function active()
-    {
-        return $this->state([
-            'status' => BasicStatus::Active,
-        ]);
-    }
-
-    public function inactive()
-    {
-        return $this->state([
-            'status' => BasicStatus::Inactive,
-        ]);
-    }
-
     public function extension()
     {
         return $this->state([
             'type' => AddonType::Extension,
-        ]);
-    }
-
-    public function genre()
-    {
-        return $this->state([
-            'type' => AddonType::Genre,
-        ]);
-    }
-
-    public function rank()
-    {
-        return $this->state([
-            'type' => AddonType::Rank,
         ]);
     }
 
@@ -81,5 +61,26 @@ class AddonFactory extends Factory
         }
 
         return FactoryRequestData::from(model: $model, payload: $payload);
+    }
+
+    public function genre()
+    {
+        return $this->state([
+            'type' => AddonType::Genre,
+        ]);
+    }
+
+    public function inactive()
+    {
+        return $this->state([
+            'status' => BasicStatus::Inactive,
+        ]);
+    }
+
+    public function rank()
+    {
+        return $this->state([
+            'type' => AddonType::Rank,
+        ]);
     }
 }

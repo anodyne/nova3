@@ -13,17 +13,39 @@ use Nova\Users\Models\User;
 
 /**
  * @property-read string $assignedUsers
- * @property-read Collection $models
- * @property-read Collection $users
+ * @property-read Collection<int, User> $models
+ * @property-read Collection<int, User> $users
  */
 class ManageUsers extends Component
 {
+    public Collection $assigned;
+
     #[Locked]
     public ?Role $role = null;
 
-    public Collection $assigned;
-
     public ?string $selected = null;
+
+    #[Computed]
+    public function assignedUsers(): string
+    {
+        return $this->assigned
+            ->map(fn (User $user) => $user->id)
+            ->join(',');
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    #[Computed]
+    public function models(): Collection
+    {
+        return User::get();
+    }
+
+    public function mount(): void
+    {
+        $this->assigned = $this->role?->user ?? Collection::make();
+    }
 
     public function remove(User $user): void
     {
@@ -32,18 +54,6 @@ class ManageUsers extends Component
         );
 
         $this->dispatch('users-updated', users: $this->assigned->pluck('id')->all());
-    }
-
-    public function updatedSelected(User $value): void
-    {
-        $this->assigned->push($value);
-
-        $this->selected = null;
-    }
-
-    public function mount(): void
-    {
-        $this->assigned = $this->role?->user ?? Collection::make();
     }
 
     public function render()
@@ -55,20 +65,16 @@ class ManageUsers extends Component
         ]);
     }
 
-    #[Computed]
-    public function assignedUsers(): string
+    public function updatedSelected(User $value): void
     {
-        return $this->assigned
-            ->map(fn (User $user) => $user->id)
-            ->join(',');
+        $this->assigned->push($value);
+
+        $this->selected = null;
     }
 
-    #[Computed]
-    public function models(): Collection
-    {
-        return User::get();
-    }
-
+    /**
+     * @return Collection<int, User>
+     */
     #[Computed]
     public function users(): Collection
     {

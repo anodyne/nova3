@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,6 +22,7 @@ use Nova\Foundation\Enums\PublishStatus;
 use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
@@ -30,36 +33,38 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property string|null $category
  * @property string $content
  * @property PublishStatus $status
- * @property \Carbon\CarbonImmutable|null $published_at
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $published_at
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
  * @property-read bool $is_published
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Announcements\Models\AnnouncementNotification> $notifications
+ * @property-read Collection<int, AnnouncementNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read User|null $user
- * @method static AnnouncementBuilder<static>|Announcement draft()
+ *
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement draft()
  * @method static \Database\Factories\AnnouncementFactory factory($count = null, $state = [])
- * @method static AnnouncementBuilder<static>|Announcement newModelQuery()
- * @method static AnnouncementBuilder<static>|Announcement newQuery()
- * @method static AnnouncementBuilder<static>|Announcement pending()
- * @method static AnnouncementBuilder<static>|Announcement published()
- * @method static AnnouncementBuilder<static>|Announcement query()
- * @method static AnnouncementBuilder<static>|Announcement searchFor($search)
- * @method static AnnouncementBuilder<static>|Announcement uniqueCategories()
- * @method static AnnouncementBuilder<static>|Announcement whereCategory($value)
- * @method static AnnouncementBuilder<static>|Announcement whereContent($value)
- * @method static AnnouncementBuilder<static>|Announcement whereCreatedAt($value)
- * @method static AnnouncementBuilder<static>|Announcement whereId($value)
- * @method static AnnouncementBuilder<static>|Announcement wherePrefixedId($value)
- * @method static AnnouncementBuilder<static>|Announcement wherePublishedAt($value)
- * @method static AnnouncementBuilder<static>|Announcement whereStatus($value)
- * @method static AnnouncementBuilder<static>|Announcement whereTitle($value)
- * @method static AnnouncementBuilder<static>|Announcement whereUpdatedAt($value)
- * @method static AnnouncementBuilder<static>|Announcement whereUserId($value)
- * @method static AnnouncementBuilder<static>|Announcement withReadNotificationsForUser(\Nova\Users\Models\User $user)
- * @method static AnnouncementBuilder<static>|Announcement withUnreadNotificationsForUser(\Nova\Users\Models\User $user)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement newModelQuery()
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement newQuery()
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement pending()
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement published()
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement query()
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement searchFor($search)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement uniqueCategories()
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereCategory($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereContent($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereCreatedAt($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereId($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement wherePrefixedId($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement wherePublishedAt($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereStatus($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereTitle($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereUpdatedAt($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereUserId($value)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement withReadNotificationsForUser(\Nova\Users\Models\User $user)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement withUnreadNotificationsForUser(\Nova\Users\Models\User $user)
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(AnnouncementBuilder::class)]
@@ -72,15 +77,6 @@ class Announcement extends Model
     }
     use Searchable;
 
-    protected $fillable = [
-        'category',
-        'content',
-        'published_at',
-        'status',
-        'title',
-        'user_id',
-    ];
-
     protected $casts = [
         'status' => PublishStatus::class,
         'published_at' => 'datetime',
@@ -92,17 +88,18 @@ class Announcement extends Model
         'updated' => AnnouncementUpdated::class,
     ];
 
-    public function notifications(): HasMany
-    {
-        return $this->hasMany(AnnouncementNotification::class);
-    }
+    protected $fillable = [
+        'category',
+        'content',
+        'published_at',
+        'status',
+        'title',
+        'user_id',
+    ];
 
-    public function user(): BelongsTo
+    public function getActivitylogOptions(): LogOptions
     {
-        /** @var BelongsTo $relation */
-        $relation = $this->belongsTo(User::class)->withTrashed();
-
-        return $relation;
+        return $this->baseActivitylogOptions()->logExcept(['content']);
     }
 
     public function isPublished(): Attribute
@@ -112,14 +109,9 @@ class Announcement extends Model
         );
     }
 
-    public function unreadFor(User $user): bool
+    public function notifications(): HasMany
     {
-        return $this->notifications()->user($user->id)->unread()->count() > 0;
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return $this->baseActivitylogOptions()->logExcept(['content']);
+        return $this->hasMany(AnnouncementNotification::class);
     }
 
     public function toSearchableArray(): array
@@ -131,5 +123,21 @@ class Announcement extends Model
             'category' => $this->category,
             'content' => $this->content,
         ];
+    }
+
+    public function unreadFor(User $user): bool
+    {
+        return $this->notifications()
+            ->where('user_id', $user->id)
+            ->where('is_seen', false)
+            ->exists();
+    }
+
+    public function user(): BelongsTo
+    {
+        /** @var BelongsTo $relation */
+        $relation = $this->belongsTo(User::class)->withTrashed();
+
+        return $relation;
     }
 }

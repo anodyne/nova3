@@ -11,11 +11,19 @@ use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
 use Nova\Menus\Models\MenuItem;
 
+/** @extends Factory<MenuItem> */
 class MenuItemFactory extends Factory
 {
     use CanHandleDataForRequests;
 
     protected $model = MenuItem::class;
+
+    public function active(): Factory
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
 
     public function definition()
     {
@@ -29,13 +37,6 @@ class MenuItemFactory extends Factory
             'target' => $this->faker->randomElement(LinkTarget::cases()),
             'parent_id' => null,
         ];
-    }
-
-    public function active(): Factory
-    {
-        return $this->state([
-            'status' => BasicStatus::Active,
-        ]);
     }
 
     public function inactive(): Factory

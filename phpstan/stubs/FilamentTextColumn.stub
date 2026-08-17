@@ -1,0 +1,10 @@
+<?php
+
+namespace Filament\Tables\Columns;
+
+/**
+ * @method $this titleColumn()
+ */
+class TextColumn
+{
+}

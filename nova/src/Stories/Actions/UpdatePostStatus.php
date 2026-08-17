@@ -38,7 +38,7 @@ class UpdatePostStatus
             return $this->statuses[$data->status];
         }
 
-        if ($isPublishing && $post->participatingUsers()->moderatedOn('posts')->count() === 0) {
+        if ($post->participatingUsers()->moderatedOn('posts')->count() === 0) {
             return $this->statuses[$data->status];
         }
 

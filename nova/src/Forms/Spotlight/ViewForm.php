@@ -14,9 +14,9 @@ use Nova\Forms\Models\Form;
 
 class ViewForm extends SpotlightCommand
 {
-    protected string $name = 'View Form';
-
     protected string $description = 'View a form';
+
+    protected string $name = 'View Form';
 
     protected array $synonyms = [
         'show a form',
@@ -32,6 +32,11 @@ class ViewForm extends SpotlightCommand
             );
     }
 
+    public function execute(Spotlight $spotlight, Form $form): void
+    {
+        $spotlight->redirectRoute('admin.forms.show', $form);
+    }
+
     public function searchForm($query)
     {
         return Form::query()
@@ -39,14 +44,9 @@ class ViewForm extends SpotlightCommand
             ->get()
             ->map(fn (Form $form) => new SpotlightSearchResult(
                 $form->id,
-                $form->uri,
+                $form->name,
                 sprintf('View %s', $form->key)
             ));
-    }
-
-    public function execute(Spotlight $spotlight, Form $form): void
-    {
-        $spotlight->redirectRoute('admin.forms.show', $form);
     }
 
     public function shouldBeShown(): bool

@@ -12,13 +12,13 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 use Nova\Announcements\Actions\ApproveAnnouncement;
 use Nova\Announcements\Actions\DeleteAnnouncement;
 use Nova\Announcements\Models\Announcement;
+use Nova\Announcements\Models\Builders\AnnouncementBuilder;
 use Nova\Foundation\Enums\PublishStatus;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -29,6 +29,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 
@@ -56,15 +57,15 @@ class AnnouncementsList extends TableComponent
                     ])
                     ->when(
                         $user->can('manage', Announcement::class) && $user->can('approveAny', Announcement::class),
-                        fn (Builder $query): Builder => $query,
+                        fn (AnnouncementBuilder $query): AnnouncementBuilder => $query,
                     )
                     ->when(
                         $user->can('manage', Announcement::class) && $user->cannot('approveAny', Announcement::class),
-                        fn (Builder $query): Builder => $query->whereIn('status', [PublishStatus::Published, PublishStatus::Draft]),
+                        fn (AnnouncementBuilder $query): AnnouncementBuilder => $query->whereIn('status', [PublishStatus::Published, PublishStatus::Draft]),
                     )
                     ->when(
                         $user->cannot('manage', Announcement::class) && $user->cannot('approveAny', Announcement::class),
-                        fn (Builder $query): Builder => $query->published(),
+                        fn (AnnouncementBuilder $query): AnnouncementBuilder => $query->published(),
                     )
             )
             ->defaultGroup(fn (): ?string => $user->can('manage', Announcement::class) ? 'status' : null)
@@ -75,7 +76,7 @@ class AnnouncementsList extends TableComponent
             ->columns([
                 ViewColumn::make('title')
                     ->view('filament.tables.columns.announcement')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (AnnouncementBuilder $query, string $search): AnnouncementBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('category')
                     ->badge()
@@ -148,8 +149,8 @@ class AnnouncementsList extends TableComponent
                     ->trueLabel('Only unread announcements')
                     ->falseLabel('Only read announcements')
                     ->queries(
-                        true: fn (Builder $query): Builder => $query->withUnreadNotificationsForUser($user),
-                        false: fn (Builder $query): Builder => $query->withReadNotificationsForUser($user)
+                        true: fn (AnnouncementBuilder $query): AnnouncementBuilder => $query->withUnreadNotificationsForUser($user),
+                        false: fn (AnnouncementBuilder $query): AnnouncementBuilder => $query->withReadNotificationsForUser($user)
                     ),
                 TernaryFilter::make('published_at')
                     ->label('Published')
@@ -157,8 +158,8 @@ class AnnouncementsList extends TableComponent
                     ->trueLabel('Published announcements')
                     ->falseLabel('Draft announcements')
                     ->queries(
-                        true: fn (Builder $query): Builder => $query->published(),
-                        false: fn (Builder $query): Builder => $query->draft()
+                        true: fn (AnnouncementBuilder $query): AnnouncementBuilder => $query->published(),
+                        false: fn (AnnouncementBuilder $query): AnnouncementBuilder => $query->draft()
                     )
                     ->visible($user->can('manage', Announcement::class)),
                 SelectFilter::make('category')

@@ -10,6 +10,11 @@ use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
+/**
+ * @template TModel of Position
+ *
+ * @extends Builder<TModel>
+ */
 class PositionBuilder extends Builder
 {
     use QueriesStatus;

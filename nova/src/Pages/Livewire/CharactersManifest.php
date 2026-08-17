@@ -8,9 +8,14 @@ use Closure;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use LogicException;
+use Nova\Characters\Models\Builders\CharacterBuilder;
 use Nova\Characters\Models\Character;
+use Nova\Departments\Models\Builders\DepartmentBuilder;
+use Nova\Departments\Models\Builders\PositionBuilder;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Foundation\Enums\BasicStatus;
@@ -22,41 +27,41 @@ use Nova\Foundation\Enums\BasicStatus;
  */
 class CharactersManifest extends Component
 {
-    public string $layout = 'table';
-
-    public bool $showCharacters = false;
-
-    public bool $showDepartments = false;
-
-    public bool $showAvailablePositions = false;
-
-    public array $columns = [];
-
-    public array $characterOptions = [];
+    public ?string $availablePositionsStatus = null;
 
     public ?string $cardOrientation = 'center';
 
-    public ?string $departmentStatus = null;
-
-    public array $selectedDepartments = [];
-
-    public array $taggedDepartments = [];
-
-    public ?string $positionStatus = null;
-
-    public array $selectedPositions = [];
-
-    public array $taggedPositions = [];
+    public array $characterOptions = [];
 
     public ?string $characterStatus = null;
 
     public ?string $characterType = null;
 
-    public ?string $availablePositionsStatus = null;
+    public array $columns = [];
+
+    public ?string $departmentStatus = null;
+
+    public string $layout = 'table';
+
+    public ?string $positionStatus = null;
 
     public array $selectedAvailablePositions = [];
 
+    public array $selectedDepartments = [];
+
+    public array $selectedPositions = [];
+
+    public bool $showAvailablePositions = false;
+
+    public bool $showCharacters = false;
+
+    public bool $showDepartments = false;
+
     public array $taggedAvailablePositions = [];
+
+    public array $taggedDepartments = [];
+
+    public array $taggedPositions = [];
 
     #[Computed]
     public function characters(): ?Collection
@@ -66,7 +71,7 @@ class CharactersManifest extends Component
         }
 
         return tap(
-            Character::with('positions', 'rank.name'),
+            Character::with(['positions', 'rank.name']),
             $this->filterCharacters()
         )->get();
     }
@@ -80,17 +85,58 @@ class CharactersManifest extends Component
 
         return Department::query()
             ->with([
-                'positions' => fn ($q) => tap($q, $this->filterPositions())->with([
-                    'characters' => fn ($c) => tap($c, $this->filterCharacters())->with('rank.name'),
-                ]),
+                'positions' => function (Builder $query): void {
+                    ($this->filterPositions())($query);
+
+                    $query->with([
+                        'characters' => function (Builder $query): void {
+                            ($this->filterCharacters())($query);
+                            $query->with('rank.name');
+                        },
+                    ]);
+                },
             ])
-            ->when($this->departmentStatus === 'active', fn ($q) => $q->active())
-            ->when($this->departmentStatus === 'inactive', fn ($q) => $q->inactive())
-            ->when($this->departmentStatus === 'choose', fn ($q) => $q->whereIn('id', $this->selectedDepartments))
-            ->when($this->departmentStatus === 'tags', fn ($q) => $q->hasTags($this->taggedDepartments))
+            ->when($this->departmentStatus === 'active', fn (DepartmentBuilder $query): DepartmentBuilder => $query->active())
+            ->when($this->departmentStatus === 'inactive', fn (DepartmentBuilder $query): DepartmentBuilder => $query->inactive())
+            ->when($this->departmentStatus === 'choose', fn (DepartmentBuilder $query): DepartmentBuilder => $query->whereIn('id', $this->selectedDepartments))
+            ->when($this->departmentStatus === 'tags', fn (DepartmentBuilder $query): DepartmentBuilder => $query->hasTags($this->taggedDepartments))
             ->whereHas('positions', $this->filterPositions())
             ->ordered()
             ->get();
+    }
+
+    public function filterCharacters(): Closure
+    {
+        return function (Builder $query): Builder {
+            $this->characterBuilder($query)
+                ->when($this->characterStatus === 'all', fn (CharacterBuilder $query): CharacterBuilder => $query->notPending())
+                ->when($this->characterStatus === 'active', fn (CharacterBuilder $query): CharacterBuilder => $query->active())
+                ->when($this->characterStatus === 'inactive', fn (CharacterBuilder $query): CharacterBuilder => $query->inactive())
+                ->when($this->characterType === 'primary', fn (CharacterBuilder $query): CharacterBuilder => $query->primary())
+                ->when($this->characterType === 'secondary', fn (CharacterBuilder $query): CharacterBuilder => $query->secondary())
+                ->when($this->characterType === 'support', fn (CharacterBuilder $query): CharacterBuilder => $query->support())
+                ->when($this->characterType === 'primary-secondary', fn (CharacterBuilder $query): CharacterBuilder => $query->notSupport())
+                ->when($this->characterType === 'primary-support', fn (CharacterBuilder $query): CharacterBuilder => $query->notSecondary())
+                ->when($this->characterType === 'secondary-support', fn (CharacterBuilder $query): CharacterBuilder => $query->notPrimary());
+
+            return $query;
+        };
+    }
+
+    public function filterPositions(): Closure
+    {
+        return function (Builder $query): Builder {
+            $this->positionBuilder($query)
+                ->when($this->positionStatus === 'active', fn (PositionBuilder $query): PositionBuilder => $query->active())
+                ->when($this->positionStatus === 'inactive', fn (PositionBuilder $query): PositionBuilder => $query->inactive())
+                ->when($this->positionStatus === 'choose', fn (PositionBuilder $query): PositionBuilder => $query->whereIn('id', $this->selectedPositions))
+                ->when($this->positionStatus === 'tags', fn (PositionBuilder $query): PositionBuilder => $query->hasTags($this->taggedPositions))
+                ->when($this->showCharacters === true && $this->showAvailablePositions === false, function (PositionBuilder $query): PositionBuilder {
+                    return $query->whereHas('characters', $this->filterCharacters());
+                });
+
+            return $query;
+        };
     }
 
     #[Computed]
@@ -102,10 +148,19 @@ class CharactersManifest extends Component
 
         return Position::query()
             ->available()
-            ->when($this->availablePositionsStatus === 'choose', fn ($q) => $q->whereIn('id', $this->selectedAvailablePositions))
-            ->when($this->availablePositionsStatus === 'tags', fn ($q) => $q->hasTags($this->taggedAvailablePositions))
+            ->when($this->availablePositionsStatus === 'choose', fn (PositionBuilder $query): PositionBuilder => $query->whereIn('id', $this->selectedAvailablePositions))
+            ->when($this->availablePositionsStatus === 'tags', fn (PositionBuilder $query): PositionBuilder => $query->hasTags($this->taggedAvailablePositions))
             ->ordered()
             ->get();
+    }
+
+    public function render(): View
+    {
+        return view('pages.pages.livewire.characters-manifest', [
+            'characters' => $this->characters,
+            'departments' => $this->departments,
+            'positions' => $this->positions,
+        ]);
     }
 
     public function shouldShowAvailablePosition(Position $position): bool
@@ -119,42 +174,29 @@ class CharactersManifest extends Component
             );
     }
 
-    public function render(): View
+    private function characterBuilder(Builder $query): CharacterBuilder
     {
-        return view('pages.pages.livewire.characters-manifest', [
-            'characters' => $this->characters,
-            'departments' => $this->departments,
-            'positions' => $this->positions,
-        ]);
+        if ($query instanceof CharacterBuilder) {
+            return $query;
+        }
+
+        if ($query instanceof Relation && $query->getQuery() instanceof CharacterBuilder) {
+            return $query->getQuery();
+        }
+
+        throw new LogicException('Expected a character query builder.');
     }
 
-    public function filterPositions(): Closure
+    private function positionBuilder(Builder $query): PositionBuilder
     {
-        return function (Builder $query): Builder {
-            return $query
-                ->when($this->positionStatus === 'active', fn (Builder $q): Builder => $q->active())
-                ->when($this->positionStatus === 'inactive', fn (Builder $q): Builder => $q->inactive())
-                ->when($this->positionStatus === 'choose', fn (Builder $q): Builder => $q->whereIn('id', $this->selectedPositions))
-                ->when($this->positionStatus === 'tags', fn (Builder $q): Builder => $q->hasTags($this->taggedPositions))
-                ->when($this->showCharacters === true && $this->showAvailablePositions === false, function (Builder $q): Builder {
-                    return $q->whereHas('characters', $this->filterCharacters());
-                });
-        };
-    }
+        if ($query instanceof PositionBuilder) {
+            return $query;
+        }
 
-    public function filterCharacters(): Closure
-    {
-        return function (Builder $query): Builder {
-            return $query
-                ->when($this->characterStatus === 'all', fn (Builder $q): Builder => $q->notPending())
-                ->when($this->characterStatus === 'active', fn (Builder $q): Builder => $q->active())
-                ->when($this->characterStatus === 'inactive', fn (Builder $q): Builder => $q->inactive())
-                ->when($this->characterType === 'primary', fn (Builder $q): Builder => $q->primary())
-                ->when($this->characterType === 'secondary', fn (Builder $q): Builder => $q->secondary())
-                ->when($this->characterType === 'support', fn (Builder $q): Builder => $q->support())
-                ->when($this->characterType === 'primary-secondary', fn (Builder $q): Builder => $q->notSupport())
-                ->when($this->characterType === 'primary-support', fn (Builder $q): Builder => $q->notSecondary())
-                ->when($this->characterType === 'secondary-support', fn (Builder $q): Builder => $q->notPrimary());
-        };
+        if ($query instanceof Relation && $query->getQuery() instanceof PositionBuilder) {
+            return $query->getQuery();
+        }
+
+        throw new LogicException('Expected a position query builder.');
     }
 }

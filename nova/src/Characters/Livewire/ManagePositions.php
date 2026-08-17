@@ -11,6 +11,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
+use Nova\Users\Models\User;
 
 /**
  * @property-read string $assignedPositions
@@ -19,41 +20,11 @@ use Nova\Departments\Models\Position;
  */
 class ManagePositions extends Component
 {
-    public ?Character $character = null;
-
     public Collection $assigned;
 
+    public ?Character $character = null;
+
     public ?string $selected = null;
-
-    public function remove(Position $position): void
-    {
-        $this->assigned = $this->assigned->reject(
-            fn (Position $collectionPosition) => $collectionPosition->id === $position->id
-        );
-
-        $this->dispatch('positions-updated', positions: $this->assigned->pluck('id')->all());
-    }
-
-    public function updatedSelected(Position $value): void
-    {
-        $this->assigned->push($value);
-
-        $this->selected = null;
-    }
-
-    public function mount(): void
-    {
-        $this->assigned = $this->character?->positions ?? Collection::make();
-    }
-
-    public function render()
-    {
-        return view('pages.characters.livewire.manage-positions', [
-            'assignedPositions' => $this->assignedPositions,
-            'models' => $this->models,
-            'positions' => $this->positions,
-        ]);
-    }
 
     #[Computed]
     public function assignedPositions(): string
@@ -75,9 +46,39 @@ class ManagePositions extends Component
             ->get();
     }
 
+    public function mount(): void
+    {
+        $this->assigned = $this->character?->positions ?? Collection::make();
+    }
+
     #[Computed]
     public function positions(): Collection
     {
         return $this->assigned;
+    }
+
+    public function remove(Position $position): void
+    {
+        $this->assigned = $this->assigned->reject(
+            fn (Position $collectionPosition) => $collectionPosition->id === $position->id
+        );
+
+        $this->dispatch('positions-updated', positions: $this->assigned->pluck('id')->all());
+    }
+
+    public function render()
+    {
+        return view('pages.characters.livewire.manage-positions', [
+            'assignedPositions' => $this->assignedPositions,
+            'models' => $this->models,
+            'positions' => $this->positions,
+        ]);
+    }
+
+    public function updatedSelected(Position $value): void
+    {
+        $this->assigned->push($value);
+
+        $this->selected = null;
     }
 }

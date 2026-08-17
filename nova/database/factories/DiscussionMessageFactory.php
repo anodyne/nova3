@@ -11,9 +11,7 @@ use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Model;
 use Nova\Users\Models\User;
 
-/**
- * @extends Factory<Model>
- */
+/** @extends Factory<DiscussionMessage> */
 class DiscussionMessageFactory extends Factory
 {
     protected $model = DiscussionMessage::class;

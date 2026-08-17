@@ -3,7 +3,9 @@ includes:
 
 parameters:
     bootstrapFiles:
-        - phpstan-bootstrap.php
+        - phpstan/phpstan-bootstrap.php
+    stubFiles:
+        - phpstan/stubs/FilamentTextColumn.stub
     paths:
         - nova/
-    level: 1
+    level: 2

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Notes\Models\Note;
 use Nova\Users\Models\User;
 
+/** @extends Factory<Note> */
 class NoteFactory extends Factory
 {
     protected $model = Note::class;

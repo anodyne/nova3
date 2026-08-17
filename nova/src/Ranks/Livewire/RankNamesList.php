@@ -10,7 +10,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Nova\Foundation\Enums\BasicStatus;
@@ -27,7 +26,9 @@ use Nova\Ranks\Actions\DeleteRankNameManager;
 use Nova\Ranks\Actions\DuplicateRankName;
 use Nova\Ranks\Data\RankNameData;
 use Nova\Ranks\Events\RankNameDuplicated;
+use Nova\Ranks\Models\Builders\RankNameBuilder;
 use Nova\Ranks\Models\RankName;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -44,7 +45,7 @@ class RankNamesList extends TableComponent
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (RankNameBuilder $query, string $search): RankNameBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('ranks_count')
                     ->counts('ranks')
@@ -72,10 +73,19 @@ class RankNamesList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => __('activity.ranks.name-duplicated', [
-                                            'name' => $activity->causer->name,
-                                            'rankName' => RankName::find($activity->getExtraProperty('replica'))?->name,
-                                        ]),
+                                        'duplicated' => function (Activity $activity) {
+                                            $causer = $activity->causer;
+                                            $causerName = $causer instanceof User
+                                                ? $causer->name
+                                                : 'System';
+
+                                            return __('activity.ranks.name-duplicated', [
+                                                'name' => $causerName,
+                                                'rankName' => RankName::find(
+                                                    $activity->getExtraProperty('replica')
+                                                )?->name,
+                                            ]);
+                                        },
                                     ]);
                             }),
                     ])->divided(),
@@ -122,8 +132,8 @@ class RankNamesList extends TableComponent
                 TernaryFilter::make('ranks_assigned')
                     ->label('Has assigned ranks')
                     ->queries(
-                        true: fn (Builder $query): Builder => $query->whereHas('ranks'),
-                        false: fn (Builder $query): Builder => $query->whereDoesntHave('ranks')
+                        true: fn (RankNameBuilder $query): RankNameBuilder => $query->whereHas('ranks'),
+                        false: fn (RankNameBuilder $query): RankNameBuilder => $query->whereDoesntHave('ranks')
                     ),
                 SelectFilter::make('status')->options(BasicStatus::class),
             ])

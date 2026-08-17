@@ -7,8 +7,8 @@ namespace Nova\Roles\Livewire;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Roles\Models\Builders\PermissionBuilder;
 use Nova\Roles\Models\Permission;
 
 class PermissionsList extends TableComponent
@@ -30,11 +30,11 @@ class PermissionsList extends TableComponent
                 TextColumn::make('display_name')
                     ->titleColumn()
                     ->label('Name')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (PermissionBuilder $query, string $search): PermissionBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('name')
                     ->label('Key')
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (PermissionBuilder $query, string $search): PermissionBuilder => $query->searchFor($search))
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('description')

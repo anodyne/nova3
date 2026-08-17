@@ -16,15 +16,46 @@ class ApplicationPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): Response
+    public function create(User $user): Response
     {
-        if ($user->isAbleTo('application.approve')) {
-            return $this->allow();
-        }
+        return $this->denyWithStatus(418);
+    }
 
-        return ApplicationReview::where('user_id', Auth::id())->count() > 0
+    public function decide(User $user, Application $application): Response
+    {
+        return $user->isAbleTo('application.approve') && $application->result === ApplicationResult::Pending
             ? $this->allow()
             : $this->deny();
+    }
+
+    public function delete(User $user, Application $application): Response
+    {
+        return $this->deleteAny($user);
+    }
+
+    public function deleteAny(User $user): Response
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function duplicate(User $user, Application $application): Response
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function forceDelete(User $user, Application $application): Response
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function restore(User $user, Application $application): Response
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function update(User $user, Application $application): Response
+    {
+        return $this->denyWithStatus(418);
     }
 
     public function view(User $user, Application $application): Response
@@ -38,44 +69,13 @@ class ApplicationPolicy
             : $this->deny();
     }
 
-    public function create(User $user): Response
+    public function viewAny(User $user): Response
     {
-        return $this->denyWithStatus(418);
-    }
+        if ($user->isAbleTo('application.approve')) {
+            return $this->allow();
+        }
 
-    public function update(User $user, Application $application): Response
-    {
-        return $this->denyWithStatus(418);
-    }
-
-    public function deleteAny(User $user): Response
-    {
-        return $this->denyWithStatus(418);
-    }
-
-    public function delete(User $user, Application $application): Response
-    {
-        return $this->deleteAny($user);
-    }
-
-    public function duplicate(User $user, Application $application): Response
-    {
-        return $this->denyWithStatus(418);
-    }
-
-    public function restore(User $user, Application $application): Response
-    {
-        return $this->denyWithStatus(418);
-    }
-
-    public function forceDelete(User $user, Application $application): Response
-    {
-        return $this->denyWithStatus(418);
-    }
-
-    public function decide(User $user, Application $application): Response
-    {
-        return $user->isAbleTo('application.approve') && $application->result === ApplicationResult::Pending
+        return ApplicationReview::where('user_id', Auth::id())->count() > 0
             ? $this->allow()
             : $this->deny();
     }
@@ -89,7 +89,9 @@ class ApplicationPolicy
         if ($application->reviews->contains($user)) {
             $userReview = $application->reviews()->wherePivot('user_id', $user->id)->first();
 
-            if (blank($userReview->pivot->result) || (filled($userReview->pivot->result) && settings('applications.allowVoteChanging'))) {
+            $review = $userReview?->pivot;
+
+            if ($review instanceof ApplicationReview && (blank($review->result) || settings('applications.allowVoteChanging'))) {
                 return $this->allow();
             }
         }

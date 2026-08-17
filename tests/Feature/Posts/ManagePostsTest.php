@@ -79,7 +79,7 @@ describe('authorized user', function () {
         livewire(PostsList::class)
             ->filterTable('story', [$story->id])
             ->assertCountTableRecords(2)
-            ->assertCanSeeTableRecords(Post::query()->story($story)->get())
+            ->assertCanSeeTableRecords(Post::query()->forStory($story)->get())
             ->assertCanNotSeeTableRecords(Post::where('story_id', '!=', $story->id)->get());
     });
 

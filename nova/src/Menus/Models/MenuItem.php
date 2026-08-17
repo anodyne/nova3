@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Nova\Menus\Models;
 
 use Anodyne\TablerIcons\Tabler;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,6 +25,7 @@ use Nova\Menus\Events\MenuItemUpdated;
 use Nova\Menus\Models\Builders\MenuItemBuilder;
 use Nova\Menus\Observers\MenuItemObserver;
 use Nova\Pages\Models\Page;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
@@ -38,38 +41,40 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property LinkTarget $target
  * @property BasicStatus $status
  * @property int|null $order_column
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, MenuItem> $items
+ * @property-read Collection<int, MenuItem> $items
  * @property-read int|null $items_count
  * @property-read mixed $link
- * @property-read \Nova\Menus\Models\Menu $menu
+ * @property-read Menu $menu
  * @property-read Page|null $page
  * @property-read MenuItem|null $parent
- * @method static MenuItemBuilder<static>|MenuItem active()
+ *
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem active()
  * @method static \Database\Factories\MenuItemFactory factory($count = null, $state = [])
- * @method static MenuItemBuilder<static>|MenuItem inactive()
- * @method static MenuItemBuilder<static>|MenuItem newModelQuery()
- * @method static MenuItemBuilder<static>|MenuItem newQuery()
- * @method static MenuItemBuilder<static>|MenuItem ordered(string $direction = 'asc')
- * @method static MenuItemBuilder<static>|MenuItem public()
- * @method static MenuItemBuilder<static>|MenuItem query()
- * @method static MenuItemBuilder<static>|MenuItem searchFor($search)
- * @method static MenuItemBuilder<static>|MenuItem whereCreatedAt($value)
- * @method static MenuItemBuilder<static>|MenuItem whereIcon($value)
- * @method static MenuItemBuilder<static>|MenuItem whereId($value)
- * @method static MenuItemBuilder<static>|MenuItem whereLabel($value)
- * @method static MenuItemBuilder<static>|MenuItem whereLinkType($value)
- * @method static MenuItemBuilder<static>|MenuItem whereMenuId($value)
- * @method static MenuItemBuilder<static>|MenuItem whereOrderColumn($value)
- * @method static MenuItemBuilder<static>|MenuItem wherePageId($value)
- * @method static MenuItemBuilder<static>|MenuItem whereParentId($value)
- * @method static MenuItemBuilder<static>|MenuItem whereStatus($value)
- * @method static MenuItemBuilder<static>|MenuItem whereTarget($value)
- * @method static MenuItemBuilder<static>|MenuItem whereUpdatedAt($value)
- * @method static MenuItemBuilder<static>|MenuItem whereUrl($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem inactive()
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem newModelQuery()
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem newQuery()
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem ordered(string $direction = 'asc')
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem public()
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem query()
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem searchFor($search)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereCreatedAt($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereIcon($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereId($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereLabel($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereLinkType($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereMenuId($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereOrderColumn($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem wherePageId($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereParentId($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereStatus($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereTarget($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereUpdatedAt($value)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereUrl($value)
+ *
  * @mixin \Eloquent
  */
 #[ObservedBy([MenuItemObserver::class])]
@@ -79,18 +84,6 @@ class MenuItem extends Model implements Sortable
     use HasFactory;
     use LogsActivity;
     use SortableTrait;
-
-    protected $fillable = [
-        'icon',
-        'label',
-        'link_type',
-        'order_column',
-        'page_id',
-        'parent_id',
-        'status',
-        'target',
-        'url',
-    ];
 
     protected $casts = [
         'icon' => Tabler::class,
@@ -108,19 +101,21 @@ class MenuItem extends Model implements Sortable
         'updated' => MenuItemUpdated::class,
     ];
 
-    public function menu(): BelongsTo
-    {
-        return $this->belongsTo(Menu::class);
-    }
+    protected $fillable = [
+        'icon',
+        'label',
+        'link_type',
+        'order_column',
+        'page_id',
+        'parent_id',
+        'status',
+        'target',
+        'url',
+    ];
 
-    public function page(): BelongsTo
+    public function buildSortQuery(): Builder
     {
-        return $this->belongsTo(Page::class);
-    }
-
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(self::class, 'parent_id');
+        return static::query()->where('menu_id', $this->menu_id);
     }
 
     public function items(): HasMany
@@ -138,8 +133,18 @@ class MenuItem extends Model implements Sortable
         );
     }
 
-    public function buildSortQuery(): Builder
+    public function menu(): BelongsTo
     {
-        return static::query()->where('menu_id', $this->menu_id);
+        return $this->belongsTo(Menu::class);
+    }
+
+    public function page(): BelongsTo
+    {
+        return $this->belongsTo(Page::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_id');
     }
 }

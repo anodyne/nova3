@@ -12,9 +12,22 @@ use Illuminate\Auth\Events\PasswordResetLinkSent;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
+use Nova\Users\Models\User;
 
 class AuthenticationEventSubscriber
 {
+    public function handleLogin(Login $event): void
+    {
+        if (! $event->user instanceof User) {
+            return;
+        }
+
+        $this->info($event, "User {$event->user->email} logged in", array_merge(
+            $event->user->only('id', 'email'),
+            ['ip' => Request::ip()]
+        ));
+    }
+
     public function handleLoginFailed(Failed $event): void
     {
         $this->info($event, "User {$event->credentials['email']} attempted login failed", [
@@ -23,16 +36,12 @@ class AuthenticationEventSubscriber
         ]);
     }
 
-    public function handleLogin(Login $event): void
-    {
-        $this->info($event, "User {$event->user->email} logged in", array_merge(
-            $event->user->only('id', 'email'),
-            ['ip' => Request::ip()]
-        ));
-    }
-
     public function handleLogout(Logout $event): void
     {
+        if (! $event->user instanceof User) {
+            return;
+        }
+
         $this->info($event, "User {$event->user->email} logged out", array_merge(
             $event->user->only('id', 'email'),
             ['ip' => Request::ip()]
@@ -41,6 +50,10 @@ class AuthenticationEventSubscriber
 
     public function handlePasswordReset(PasswordReset $event): void
     {
+        if (! $event->user instanceof User) {
+            return;
+        }
+
         $this->info($event, "User {$event->user->email} reset their password", array_merge(
             $event->user->only('id', 'email'),
             ['ip' => Request::ip()]
@@ -49,6 +62,10 @@ class AuthenticationEventSubscriber
 
     public function handlePasswordResetLinkSent(PasswordResetLinkSent $event): void
     {
+        if (! $event->user instanceof User) {
+            return;
+        }
+
         $this->info($event, "User {$event->user->email} requested a password reset link", array_merge(
             $event->user->only('id', 'email'),
             ['ip' => Request::ip()]

@@ -22,7 +22,8 @@ class RecentPublishedPostsList extends TableComponent
         return $table
             ->query(
                 Post::query()
-                    ->with('postType', 'story')
+                    ->published()
+                    ->with(['postType', 'story'])
                     ->select([
                         'day',
                         'id',
@@ -35,7 +36,6 @@ class RecentPublishedPostsList extends TableComponent
                         'locked_at',
                         'locked_by',
                     ])
-                    ->published()
                     ->where('published_at', '>=', now()->subMonth())
             )
             ->defaultSort('published_at', 'desc')

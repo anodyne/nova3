@@ -10,9 +10,26 @@ use Nova\Applications\Models\Application;
 use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
 
+/** @extends Factory<Application> */
 class ApplicationFactory extends Factory
 {
     protected $model = Application::class;
+
+    public function accepted()
+    {
+        return $this->state([
+            'result' => ApplicationResult::Accept,
+            'decision_date' => now(),
+            'decision_message' => $this->faker->paragraphs(3, asText: true),
+        ]);
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Application $application) {
+            $application->discussion()->create();
+        });
+    }
 
     public function definition()
     {
@@ -22,15 +39,6 @@ class ApplicationFactory extends Factory
             'ip_address' => $this->faker->ipv4(),
             'result' => ApplicationResult::Pending,
         ];
-    }
-
-    public function accepted()
-    {
-        return $this->state([
-            'result' => ApplicationResult::Accept,
-            'decision_date' => now(),
-            'decision_message' => $this->faker->paragraphs(3, asText: true),
-        ]);
     }
 
     public function denied()
@@ -49,12 +57,5 @@ class ApplicationFactory extends Factory
             'decision_date' => null,
             'decision_message' => null,
         ]);
-    }
-
-    public function configure(): static
-    {
-        return $this->afterCreating(function (Application $application) {
-            $application->discussion()->create();
-        });
     }
 }

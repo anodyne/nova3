@@ -11,6 +11,11 @@ use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Builder;
 
+/**
+ * @template TModel of Story
+ *
+ * @extends Builder<TModel>
+ */
 class StoryBuilder extends Builder
 {
     public function completed(): self
@@ -23,16 +28,19 @@ class StoryBuilder extends Builder
         return $this->whereState('status', Current::class);
     }
 
+    public function exceptCompleted(): self
+    {
+        return $this->whereNotState('status', Completed::class);
+    }
+
+    public function exceptUpcoming(): self
+    {
+        return $this->whereNotState('status', Upcoming::class);
+    }
+
     public function ongoing(): self
     {
         return $this->whereState('status', Ongoing::class);
-    }
-
-    public function whereParent(Story|int|null $parent): self
-    {
-        return $this
-            ->when(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent))
-            ->unless(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent?->id));
     }
 
     public function searchFor($search): self
@@ -43,19 +51,32 @@ class StoryBuilder extends Builder
         ], 'like', "%{$search}%");
     }
 
+    public function selectStatusCounts(): self
+    {
+        return $this
+            ->selectRaw("
+                SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed_count,
+                SUM(CASE WHEN status = 'current' THEN 1 ELSE 0 END) as current_count,
+                SUM(CASE WHEN status = 'ongoing' THEN 1 ELSE 0 END) as ongoing_count,
+                SUM(CASE WHEN status = 'upcoming' THEN 1 ELSE 0 END) as upcoming_count
+            ");
+    }
+
+    public function selectTotalCount(): self
+    {
+        return $this->selectRaw('COUNT(*) as total_count');
+    }
+
     public function upcoming(): self
     {
         return $this->whereState('status', Upcoming::class);
     }
 
-    public function exceptCompleted(): self
+    public function whereParent(Story|int|null $parent): self
     {
-        return $this->whereNotState('status', Completed::class);
-    }
-
-    public function exceptUpcoming(): self
-    {
-        return $this->whereNotState('status', Upcoming::class);
+        return $this
+            ->when(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent))
+            ->unless(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent?->id));
     }
 
     public function withCountsAndSums(): self
@@ -69,21 +90,5 @@ class StoryBuilder extends Builder
         return $this
             ->withCount('posts', 'children')
             ->withSum('posts', 'word_count');
-    }
-
-    public function selectTotalCount(): self
-    {
-        return $this->selectRaw('COUNT(*) as total_count');
-    }
-
-    public function selectStatusCounts(): self
-    {
-        return $this
-            ->selectRaw("
-                SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed_count,
-                SUM(CASE WHEN status = 'current' THEN 1 ELSE 0 END) as current_count,
-                SUM(CASE WHEN status = 'ongoing' THEN 1 ELSE 0 END) as ongoing_count,
-                SUM(CASE WHEN status = 'upcoming' THEN 1 ELSE 0 END) as upcoming_count
-            ");
     }
 }

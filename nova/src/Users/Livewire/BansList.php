@@ -25,6 +25,7 @@ use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\Ban;
+use Nova\Users\Models\User;
 
 class BansList extends TableComponent
 {
@@ -38,8 +39,10 @@ class BansList extends TableComponent
                     ->label('Ban')
                     ->titleColumn()
                     ->getStateUsing(function (Ban $record): string {
-                        if ($record->bannable) {
-                            return $record->bannable?->name;
+                        $bannable = $record->bannable;
+
+                        if ($bannable instanceof User) {
+                            return $bannable->name;
                         }
 
                         if ($record->getMeta('email')) {
@@ -48,7 +51,15 @@ class BansList extends TableComponent
 
                         return $record->ip;
                     })
-                    ->description(fn (Ban $record): ?string => $record->bannable?->email)
+                    ->description(function (Ban $record): ?string {
+                        $bannable = $record->bannable;
+
+                        if ($bannable instanceof User) {
+                            return $bannable->email;
+                        }
+
+                        return null;
+                    })
                     ->extraAttributes(['class' => 'tabular-nums']),
                 TextColumn::make('created_by.name')->label('Banned by'),
                 TextColumn::make('expired_at')

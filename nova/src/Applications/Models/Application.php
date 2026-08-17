@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,10 +16,12 @@ use Nova\Applications\Events\ApplicationCreated;
 use Nova\Applications\Models\Builders\ApplicationBuilder;
 use Nova\Characters\Models\Character;
 use Nova\Discussions\Concerns\Discussable;
+use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
@@ -28,41 +32,43 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property string|null $ip_address
  * @property ApplicationResult $result
  * @property string|null $decision_message
- * @property \Carbon\CarbonImmutable|null $decision_date
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Nova\Applications\Models\ApplicationReview|null $pivot
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $acceptedReviews
+ * @property CarbonImmutable|null $decision_date
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read ApplicationReview|null $pivot
+ * @property-read Collection<int, User> $acceptedReviews
  * @property-read int|null $accepted_reviews_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
  * @property-read FormSubmission|null $applicationFormSubmission
  * @property-read Character|null $character
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $deniedReviews
+ * @property-read Collection<int, User> $deniedReviews
  * @property-read int|null $denied_reviews_count
- * @property-read \Nova\Discussions\Models\Discussion|null $discussion
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $noResultReviews
+ * @property-read Discussion|null $discussion
+ * @property-read Collection<int, User> $noResultReviews
  * @property-read int|null $no_result_reviews_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $reviews
+ * @property-read Collection<int, User> $reviews
  * @property-read int|null $reviews_count
  * @property-read User|null $user
+ *
  * @method static \Database\Factories\ApplicationFactory factory($count = null, $state = [])
- * @method static ApplicationBuilder<static>|Application newModelQuery()
- * @method static ApplicationBuilder<static>|Application newQuery()
- * @method static ApplicationBuilder<static>|Application pending()
- * @method static ApplicationBuilder<static>|Application query()
- * @method static ApplicationBuilder<static>|Application reviewedBy(\Illuminate\Contracts\Auth\Authenticatable $user)
- * @method static ApplicationBuilder<static>|Application searchFor($search)
- * @method static ApplicationBuilder<static>|Application whereCharacterId($value)
- * @method static ApplicationBuilder<static>|Application whereCreatedAt($value)
- * @method static ApplicationBuilder<static>|Application whereDecisionDate($value)
- * @method static ApplicationBuilder<static>|Application whereDecisionMessage($value)
- * @method static ApplicationBuilder<static>|Application whereId($value)
- * @method static ApplicationBuilder<static>|Application whereIpAddress($value)
- * @method static ApplicationBuilder<static>|Application wherePrefixedId($value)
- * @method static ApplicationBuilder<static>|Application whereResult($value)
- * @method static ApplicationBuilder<static>|Application whereUpdatedAt($value)
- * @method static ApplicationBuilder<static>|Application whereUserId($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application newModelQuery()
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application newQuery()
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application pending()
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application query()
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application reviewedBy(\Illuminate\Contracts\Auth\Authenticatable $user)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application searchFor($search)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereCharacterId($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereCreatedAt($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereDecisionDate($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereDecisionMessage($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereId($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereIpAddress($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application wherePrefixedId($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereResult($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereUpdatedAt($value)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(ApplicationBuilder::class)]
@@ -73,15 +79,6 @@ class Application extends Model
     use HasPrefixedId;
     use LogsActivity;
 
-    protected $fillable = [
-        'character_id',
-        'decision_date',
-        'decision_message',
-        'ip_address',
-        'result',
-        'user_id',
-    ];
-
     protected $casts = [
         'decision_date' => 'datetime',
         'result' => ApplicationResult::class,
@@ -89,6 +86,15 @@ class Application extends Model
 
     protected $dispatchesEvents = [
         'created' => ApplicationCreated::class,
+    ];
+
+    protected $fillable = [
+        'character_id',
+        'decision_date',
+        'decision_message',
+        'ip_address',
+        'result',
+        'user_id',
     ];
 
     public function acceptedReviews(): BelongsToMany

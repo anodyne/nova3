@@ -9,9 +9,7 @@ use Illuminate\Support\Str;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Themes\Models\Theme;
 
-/**
- * @extends Factory<Model>
- */
+/** @extends Factory<Theme> */
 class ThemeFactory extends Factory
 {
     protected $model = Theme::class;

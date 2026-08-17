@@ -12,24 +12,20 @@ use Nova\Stories\Models\States\StoryStatus\Ongoing;
 use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Nova\Stories\Models\Story;
 
-/**
- * @extends Factory<Model>
- */
+/** @extends Factory<Story> */
 class StoryFactory extends Factory
 {
     use CanAddMedia;
 
     protected $model = Story::class;
 
-    public function definition(): array
+    public function completed(): static
     {
-        return [
-            'title' => ucfirst(fake()->words(mt_rand(1, 8), asText: true)),
-
-            'description' => fake()->sentences(mt_rand(1, 5), asText: true),
-
-            'status' => fake()->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
-        ];
+        return $this->state([
+            'status' => Completed::$name,
+            'started_at' => now()->subMonths(mt_rand(1, 6)),
+            'ended_at' => now(),
+        ]);
     }
 
     public function configure(): static
@@ -44,13 +40,6 @@ class StoryFactory extends Factory
         });
     }
 
-    public function upcoming(): static
-    {
-        return $this->state([
-            'status' => Upcoming::$name,
-        ]);
-    }
-
     public function current(): static
     {
         return $this->state([
@@ -59,13 +48,15 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function completed(): static
+    public function definition(): array
     {
-        return $this->state([
-            'status' => Completed::$name,
-            'started_at' => now()->subMonths(mt_rand(1, 6)),
-            'ended_at' => now(),
-        ]);
+        return [
+            'title' => ucfirst(fake()->words(mt_rand(1, 8), asText: true)),
+
+            'description' => fake()->sentences(mt_rand(1, 5), asText: true),
+
+            'status' => fake()->randomElement([Upcoming::$name, Current::$name, Completed::$name]),
+        ];
     }
 
     public function ongoing(): static
@@ -76,10 +67,10 @@ class StoryFactory extends Factory
         ]);
     }
 
-    public function withStartDate(): static
+    public function upcoming(): static
     {
         return $this->state([
-            'started_at' => fake()->date(),
+            'status' => Upcoming::$name,
         ]);
     }
 
@@ -94,6 +85,13 @@ class StoryFactory extends Factory
     {
         return $this->state([
             'parent_id' => $parent?->id ?? Story::factory(),
+        ]);
+    }
+
+    public function withStartDate(): static
+    {
+        return $this->state([
+            'started_at' => fake()->date(),
         ]);
     }
 }

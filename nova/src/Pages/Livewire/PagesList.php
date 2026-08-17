@@ -31,6 +31,7 @@ use Nova\Pages\Data\PageData;
 use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Events\PageDuplicated;
 use Nova\Pages\Models\Page;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -123,13 +124,27 @@ class PagesList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => __('activity.pages.duplicated', [
-                                            'name' => $activity->causer->name,
-                                            'replica' => Page::find($activity->getExtraProperty('replica'))?->name,
-                                        ]),
-                                        'uploaded' => fn (Activity $activity) => __('activity.pages.uploaded', [
-                                            'name' => $activity->causer->name,
-                                        ]),
+                                        'duplicated' => function (Activity $activity) {
+                                            $causer = $activity->causer;
+                                            $causerName = $causer instanceof User
+                                                ? $causer->name
+                                                : 'System';
+
+                                            return __('activity.pages.duplicated', [
+                                                'name' => $causerName,
+                                                'replica' => Page::find(
+                                                    $activity->getExtraProperty('replica')
+                                                )?->name,
+                                            ]);
+                                        },
+                                        'uploaded' => function (Activity $activity) {
+                                            $causer = $activity->causer;
+                                            $causerName = $causer instanceof User
+                                                ? $causer->name
+                                                : 'System';
+
+                                            return __('activity.pages.uploaded', ['name' => $causerName]);
+                                        },
                                     ]);
                             }),
                     ])->divided(),

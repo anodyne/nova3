@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,7 @@ use Nova\Foundation\Concerns\ChecksAddonVersion;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
@@ -33,40 +35,42 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property string|null $preview
  * @property AddonType $type
  * @property BasicStatus $status
- * @property \Bag\Bag|null $settings
- * @property \Bag\Bag|null $repository
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property AddonSettings|null $settings
+ * @property AddonRepository|null $repository
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Activity> $activities
  * @property-read int|null $activities_count
  * @property-read bool $has_addon_class
  * @property-read bool $has_update
  * @property-read string|null $latest_version
  * @property-read string|null $update_url
- * @method static AddonBuilder<static>|Addon active()
- * @method static AddonBuilder<static>|Addon extension()
+ *
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon active()
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon extension()
  * @method static \Database\Factories\AddonFactory factory($count = null, $state = [])
- * @method static AddonBuilder<static>|Addon genre()
- * @method static AddonBuilder<static>|Addon inactive()
- * @method static AddonBuilder<static>|Addon location(string $location)
- * @method static AddonBuilder<static>|Addon newModelQuery()
- * @method static AddonBuilder<static>|Addon newQuery()
- * @method static AddonBuilder<static>|Addon query()
- * @method static AddonBuilder<static>|Addon rankSet()
- * @method static AddonBuilder<static>|Addon searchFor($column, $search)
- * @method static AddonBuilder<static>|Addon whereCreatedAt($value)
- * @method static AddonBuilder<static>|Addon whereCredits($value)
- * @method static AddonBuilder<static>|Addon whereId($value)
- * @method static AddonBuilder<static>|Addon whereLocation($value)
- * @method static AddonBuilder<static>|Addon whereName($value)
- * @method static AddonBuilder<static>|Addon wherePrefixedId($value)
- * @method static AddonBuilder<static>|Addon wherePreview($value)
- * @method static AddonBuilder<static>|Addon whereRepository($value)
- * @method static AddonBuilder<static>|Addon whereSettings($value)
- * @method static AddonBuilder<static>|Addon whereStatus($value)
- * @method static AddonBuilder<static>|Addon whereType($value)
- * @method static AddonBuilder<static>|Addon whereUpdatedAt($value)
- * @method static AddonBuilder<static>|Addon whereVersion($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon genre()
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon inactive()
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon location(string $location)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon newModelQuery()
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon newQuery()
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon query()
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon rankSet()
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon searchFor($column, $search)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereCreatedAt($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereCredits($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereId($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereLocation($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereName($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon wherePrefixedId($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon wherePreview($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereRepository($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereSettings($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereStatus($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereType($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereUpdatedAt($value)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereVersion($value)
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(AddonBuilder::class)]
@@ -76,18 +80,6 @@ class Addon extends Model
     use HasFactory;
     use HasPrefixedId;
     use LogsActivity;
-
-    protected $fillable = [
-        'credits',
-        'location',
-        'name',
-        'preview',
-        'repository',
-        'settings',
-        'status',
-        'type',
-        'version',
-    ];
 
     protected $casts = [
         'repository' => AddonRepository::class,
@@ -102,11 +94,21 @@ class Addon extends Model
         'updated' => AddonUpdated::class,
     ];
 
-    public function hasAddonClass(): Attribute
+    protected $fillable = [
+        'credits',
+        'location',
+        'name',
+        'preview',
+        'repository',
+        'settings',
+        'status',
+        'type',
+        'version',
+    ];
+
+    public function addonVersionCacheKey(): string
     {
-        return Attribute::make(
-            get: fn (): bool => class_exists('Addons\\'.$this->location.'\\Addon')
-        );
+        return 'nova-addons-latest-versions';
     }
 
     public function getAddonClass(): ?BaseAddon
@@ -120,16 +122,18 @@ class Addon extends Model
         return new $addonClass;
     }
 
+    public function hasAddonClass(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => class_exists('Addons\\'.$this->location.'\\Addon')
+        );
+    }
+
     public function runScript(string $name): void
     {
         $addonClass = $this->getAddonClass();
 
         $addonClass->runScript($name);
-    }
-
-    public function addonVersionCacheKey(): string
-    {
-        return 'nova-addons-latest-versions';
     }
 
     public static function getInstallableAddons(): Collection

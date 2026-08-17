@@ -24,7 +24,7 @@ class PendingApprovalController extends Controller
     public function __invoke()
     {
         return PendingApprovalResponse::sendWith([
-            'announcements' => Announcement::query()->with(['user'])->select(['id', 'title', 'category', 'user_id'])->pending()->get(),
+            'announcements' => Announcement::pending()->with(['user'])->select(['id', 'title', 'category', 'user_id'])->get(),
             'posts' => Post::query()->select(['id', 'title', 'story_id', 'post_type_id'])->pending()->get(),
         ]);
     }

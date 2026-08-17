@@ -6,8 +6,14 @@ namespace Nova\Addons\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
 use Nova\Addons\Enums\AddonType;
+use Nova\Addons\Models\Addon;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
+/**
+ * @template TModel of Addon
+ *
+ * @extends Builder<TModel>
+ */
 class AddonBuilder extends Builder
 {
     use QueriesStatus;

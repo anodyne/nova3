@@ -29,7 +29,9 @@ use Nova\Ranks\Actions\DuplicateRankGroup;
 use Nova\Ranks\Concerns\FindRankImages;
 use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Events\RankGroupDuplicated;
+use Nova\Ranks\Models\Builders\RankGroupBuilder;
 use Nova\Ranks\Models\RankGroup;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -48,7 +50,7 @@ class RankGroupsList extends TableComponent
             ->columns([
                 TextColumn::make('name')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (RankGroupBuilder $query, string $search): RankGroupBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('ranks_count')
                     ->counts('ranks')
@@ -76,10 +78,19 @@ class RankGroupsList extends TableComponent
                             ->modifyTimelineUsing(function (Timeline $timeline) {
                                 $timeline
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => __('activity.ranks.group-duplicated', [
-                                            'name' => $activity->causer->name,
-                                            'rankGroup' => RankGroup::find($activity->getExtraProperty('replica'))?->name,
-                                        ]),
+                                        'duplicated' => function (Activity $activity) {
+                                            $causer = $activity->causer;
+                                            $causerName = $causer instanceof User
+                                                ? $causer->name
+                                                : 'System';
+
+                                            return __('activity.ranks.group-duplicated', [
+                                                'name' => $causerName,
+                                                'rankGroup' => RankGroup::find(
+                                                    $activity->getExtraProperty('replica')
+                                                )?->name,
+                                            ]);
+                                        },
                                     ]);
                             }),
                     ])->divided(),

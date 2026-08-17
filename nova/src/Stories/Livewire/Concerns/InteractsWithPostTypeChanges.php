@@ -13,37 +13,8 @@ trait InteractsWithPostTypeChanges
 {
     use InteractsWithConfirmationModal;
 
-    public function startPostTypeChange(int $newPostTypeId): void
-    {
-        $oldPostType = $this->postType;
-        $newPostType = PostType::find($newPostTypeId);
-
-        $this->askForConfirmation(
-            callback: fn () => $this->changePostType($oldPostType, $newPostType),
-            prompt: [
-                'title' => 'Change post type?',
-                'icon' => 'edit-settings',
-                'message' => __('messages.change-post-type', [
-                    'old' => $oldPostType->name,
-                    'new' => $newPostType->name,
-                ]),
-                'confirm' => 'Yes, change post type',
-                'cancel' => 'Cancel',
-            ],
-            theme: 'warning',
-        );
-    }
-
     public function changePostType(PostType $oldPostType, PostType $newPostType): void
     {
-        if (is_null($newPostType)) {
-            Notification::make()->danger()
-                ->title('Post type could not be found')
-                ->send();
-
-            return;
-        }
-
         $this->post->post_type_id = $newPostType->id;
 
         $this->handlePostTypeUpdateForDetails($oldPostType, $newPostType);
@@ -64,32 +35,25 @@ trait InteractsWithPostTypeChanges
         $this->redirectRoute('admin.posts.edit', $this->post);
     }
 
-    private function handlePostTypeUpdateForDetails(PostType $oldPostType, PostType $newPostType): void
+    public function startPostTypeChange(int $newPostTypeId): void
     {
-        /**
-         * Get the enabled fields for the old post type, removing the rating
-         * and summary fields (since we'll handle those separately).
-         */
-        $oldFields = $oldPostType->fields->enabledFields()
-            ->reject(fn ($field, string $key) => in_array($key, ['rating', 'summary']));
+        $oldPostType = $this->postType;
+        $newPostType = PostType::find($newPostTypeId);
 
-        /**
-         * Get the enabled fields for the new post type, removing the rating
-         * and summary fields (since we'll handle those separate).
-         */
-        $newFields = $newPostType->fields->enabledFields()
-            ->reject(fn ($field, string $key) => in_array($key, ['rating', 'summary']));
-
-        /**
-         * Determine what fields are being removed when we move the post to the
-         * new post type.
-         */
-        $removedFields = $oldFields->keys()->diff($newFields->keys())->values();
-
-        /**
-         * Loop through the fields being removed and null the values on the post.
-         */
-        $removedFields->each(fn (string $fieldName) => $this->post->$fieldName = null);
+        $this->askForConfirmation(
+            callback: fn () => $this->changePostType($oldPostType, $newPostType),
+            prompt: [
+                'title' => 'Change post type?',
+                'icon' => 'edit-settings',
+                'message' => __('messages.change-post-type', [
+                    'old' => $oldPostType->name,
+                    'new' => $newPostType->name,
+                ]),
+                'confirm' => 'Yes, change post type',
+                'cancel' => 'Cancel',
+            ],
+            theme: 'warning',
+        );
     }
 
     private function handlePostTypeUpdateForAuthors(PostType $oldPostType, PostType $newPostType): void
@@ -157,7 +121,7 @@ trait InteractsWithPostTypeChanges
                  * In order to do this, we'll simply grab their primary
                  * character and add it to the post.
                  */
-                $userCharacter = Auth::user()->primaryCharacter->first() ?? Auth::user()->activeCharacter->first();
+                $userCharacter = Auth::user()->primaryCharacter->first() ?? Auth::user()->activeCharacters->first();
 
                 $this->post->characterAuthors()->syncWithoutDetaching([
                     $userCharacter->id => ['user_id' => Auth::id()],
@@ -176,6 +140,34 @@ trait InteractsWithPostTypeChanges
          * authors, in which case, we just set the current user as the author
          * of the post).
          */
+    }
+
+    private function handlePostTypeUpdateForDetails(PostType $oldPostType, PostType $newPostType): void
+    {
+        /**
+         * Get the enabled fields for the old post type, removing the rating
+         * and summary fields (since we'll handle those separately).
+         */
+        $oldFields = $oldPostType->fields->enabledFields()
+            ->reject(fn ($field, string $key) => in_array($key, ['rating', 'summary']));
+
+        /**
+         * Get the enabled fields for the new post type, removing the rating
+         * and summary fields (since we'll handle those separate).
+         */
+        $newFields = $newPostType->fields->enabledFields()
+            ->reject(fn ($field, string $key) => in_array($key, ['rating', 'summary']));
+
+        /**
+         * Determine what fields are being removed when we move the post to the
+         * new post type.
+         */
+        $removedFields = $oldFields->keys()->diff($newFields->keys())->values();
+
+        /**
+         * Loop through the fields being removed and null the values on the post.
+         */
+        $removedFields->each(fn (string $fieldName) => $this->post->$fieldName = null);
     }
 
     private function handlePostTypeUpdateForRatings(PostType $oldPostType, PostType $newPostType): void

@@ -8,11 +8,11 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Url;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
+use Nova\Applications\Models\Builders\ApplicationBuilder;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\User;
@@ -43,7 +43,7 @@ class ApplicationsList extends TableComponent
                     ])
                     ->unless(
                         $user->isAbleTo('application.approve'),
-                        fn (Builder $query): Builder => $query->reviewedBy($user)
+                        fn (ApplicationBuilder $query): ApplicationBuilder => $query->reviewedBy($user)
                     )
             )
             ->defaultSort('created_at', 'desc')
@@ -54,14 +54,14 @@ class ApplicationsList extends TableComponent
             ->columns([
                 TextColumn::make('character.name')
                     ->titleColumn()
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (ApplicationBuilder $query, string $search): ApplicationBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('character.positions.name')
                     ->label('Position')
                     ->listWithLineBreaks(),
                 TextColumn::make('user.name')
                     ->description(fn (Application $record): ?string => $record->user->is_pending ? 'New user' : null)
-                    ->searchable(query: fn (Builder $query, string $search): Builder => $query->searchFor($search))
+                    ->searchable(query: fn (ApplicationBuilder $query, string $search): ApplicationBuilder => $query->searchFor($search))
                     ->sortable(),
                 TextColumn::make('result')
                     ->badge()

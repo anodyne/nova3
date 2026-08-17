@@ -20,21 +20,21 @@ class PostPositionEditor extends SlideOver
 {
     use InteractsWithPost;
 
-    public string $search = '';
-
-    public ?int $previousPostId = null;
-
-    public ?int $nextPostId = null;
-
     public Post $currentPost;
 
-    public ?Post $previousPost = null;
-
-    public ?Post $nextPost = null;
+    public PositionDirection $direction;
 
     public ?Post $neighbor = null;
 
-    public PositionDirection $direction;
+    public ?Post $nextPost = null;
+
+    public ?int $nextPostId = null;
+
+    public ?Post $previousPost = null;
+
+    public ?int $previousPostId = null;
+
+    public string $search = '';
 
     public function add(int $postId): void
     {
@@ -43,20 +43,6 @@ class PostPositionEditor extends SlideOver
         $this->neighbor = Post::query()
             ->select(['id', 'story_id', 'post_type_id', 'title', 'location', 'day', 'time'])
             ->find($postId);
-    }
-
-    public function save(): void
-    {
-        $this->close(andDispatch: [
-            'update-post-position' => [$this->neighbor->id, $this->direction],
-        ]);
-    }
-
-    public function updatedDirection($value)
-    {
-        if (in_array($this->direction, [PositionDirection::End, PositionDirection::Start])) {
-            $this->neighbor = null;
-        }
     }
 
     public function mount(int $postId, ?int $previousId, ?int $nextId): void
@@ -75,15 +61,29 @@ class PostPositionEditor extends SlideOver
         ]);
     }
 
+    public function save(): void
+    {
+        $this->close(andDispatch: [
+            'update-post-position' => [$this->neighbor->id, $this->direction],
+        ]);
+    }
+
     #[Computed]
     public function searchResults(): Collection
     {
         return Post::query()
             ->select(['id', 'story_id', 'post_type_id', 'title', 'location', 'day', 'time'])
-            ->story($this->getPost()?->story_id)
+            ->forStory($this->getPost()?->story_id)
             ->when(filled($this->search), fn (Builder $query): Builder => $query->searchFor($this->search))
             ->ordered()
             ->get();
+    }
+
+    public function updatedDirection($value)
+    {
+        if (in_array($this->direction, [PositionDirection::End, PositionDirection::Start])) {
+            $this->neighbor = null;
+        }
     }
 
     public static function size(): string

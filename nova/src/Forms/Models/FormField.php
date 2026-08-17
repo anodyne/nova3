@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,6 +14,7 @@ use Nova\Forms\Models\Builders\FormFieldBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Concerns\SortableTrait;
 use Nova\Foundation\Models\Model;
+use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 
 /**
@@ -22,29 +25,31 @@ use Spatie\EloquentSortable\Sortable;
  * @property string $label
  * @property string $type
  * @property int|null $order_column
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property CarbonImmutable|null $created_at
+ * @property CarbonImmutable|null $updated_at
+ * @property-read Collection<int, Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Nova\Forms\Models\Form $form
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormSubmissionResponse> $responses
+ * @property-read Form $form
+ * @property-read Collection<int, FormSubmissionResponse> $responses
  * @property-read int|null $responses_count
+ *
  * @method static \Database\Factories\FormFieldFactory factory($count = null, $state = [])
- * @method static FormFieldBuilder<static>|FormField form(\Nova\Forms\Models\Form|int $form)
- * @method static FormFieldBuilder<static>|FormField newModelQuery()
- * @method static FormFieldBuilder<static>|FormField newQuery()
- * @method static FormFieldBuilder<static>|FormField ordered(string $direction = 'asc')
- * @method static FormFieldBuilder<static>|FormField query()
- * @method static FormFieldBuilder<static>|FormField uid(string $uid)
- * @method static FormFieldBuilder<static>|FormField whereCreatedAt($value)
- * @method static FormFieldBuilder<static>|FormField whereFormId($value)
- * @method static FormFieldBuilder<static>|FormField whereId($value)
- * @method static FormFieldBuilder<static>|FormField whereLabel($value)
- * @method static FormFieldBuilder<static>|FormField whereName($value)
- * @method static FormFieldBuilder<static>|FormField whereOrderColumn($value)
- * @method static FormFieldBuilder<static>|FormField whereType($value)
- * @method static FormFieldBuilder<static>|FormField whereUid($value)
- * @method static FormFieldBuilder<static>|FormField whereUpdatedAt($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField form(\Nova\Forms\Models\Form|int $form)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField newModelQuery()
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField newQuery()
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField ordered(string $direction = 'asc')
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField query()
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField uid(string $uid)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereCreatedAt($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereFormId($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereId($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereLabel($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereName($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereOrderColumn($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereType($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereUid($value)
+ * @method static \Nova\Forms\Models\Builders\FormFieldBuilder<static>|\Nova\Forms\Models\FormField whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 #[UseEloquentBuilder(FormFieldBuilder::class)]

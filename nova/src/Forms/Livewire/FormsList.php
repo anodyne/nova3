@@ -25,6 +25,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
@@ -82,7 +83,7 @@ class FormsList extends TableComponent
                                     ])
                                     ->eventDescriptions([
                                         'duplicated' => fn (Activity $activity) => __('activity.forms.duplicated', [
-                                            'name' => $activity->causer->name,
+                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'replica' => Form::find($activity->getExtraProperty('replica'))?->name,
                                         ]),
                                     ])

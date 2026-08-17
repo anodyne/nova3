@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Nova\Reporting\Reports;
 
 use Carbon\CarbonInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Nova\Reporting\Data\PostTypeReport;
 use Nova\Settings\Data\PostingActivity;
+use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\PostType;
 
 class PostTypeReporter
@@ -53,18 +53,18 @@ class PostTypeReporter
     {
         return PostType::query()
             ->withCount([
-                'posts as published_posts_count' => function (Builder $query) use ($start, $end): Builder {
+                'posts as published_posts_count' => function (PostBuilder $query) use ($start, $end): PostBuilder {
                     return $query
                         ->whereBetween('published_at', [$start, $end])
                         ->published();
                 },
-                'posts as draft_posts_count' => function (Builder $query) use ($start, $end): Builder {
+                'posts as draft_posts_count' => function (PostBuilder $query) use ($start, $end): PostBuilder {
                     return $query
                         ->whereBetween('updated_at', [$start, $end])
                         ->draft();
                 },
             ])
-            ->withSum(['posts as published_posts_sum_word_count' => function (Builder $query) use ($start, $end): Builder {
+            ->withSum(['posts as published_posts_sum_word_count' => function (PostBuilder $query) use ($start, $end): PostBuilder {
                 return $query->whereBetween('updated_at', [$start, $end]);
             }], 'word_count')
             ->get();

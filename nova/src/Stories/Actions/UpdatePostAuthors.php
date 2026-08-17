@@ -8,6 +8,7 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Models\Character;
 use Nova\Stories\Data\PostAuthorsData;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostAuthor;
 use Nova\Stories\Notifications\CharacterAuthorAddedToPost;
 use Nova\Stories\Notifications\CharacterAuthorRemovedFromPost;
 use Nova\Stories\Notifications\UserAuthorAddedToPost;
@@ -34,21 +35,28 @@ class UpdatePostAuthors
         return $post;
     }
 
-    private function updateCharacterAuthors(Post $post, array $authors): void
+    private function getAuthorship(Character $character): ?PostAuthor
     {
-        $post->characterAuthors()->sync($authors);
-    }
+        if (! $character->relationLoaded('authorship')) {
+            return null;
+        }
 
-    private function updateUserAuthors(Post $post, array $authors): void
-    {
-        $post->userAuthors()->sync($authors);
+        $authorship = $character->getRelation('authorship');
+
+        return $authorship instanceof PostAuthor
+            ? $authorship
+            : null;
     }
 
     private function sendNotificationsToAddedAuthors(Post $post, PostAuthorsData $data): void
     {
         $post->characterAuthors
             ->diff($data->originalCharacters)
-            ->each(fn (Character $character) => $character->pivot->user?->notify(new CharacterAuthorAddedToPost($post, $character)));
+            ->each(function (Character $character) use ($post): void {
+                $this->getAuthorship($character)
+                    ?->user
+                    ?->notify(new CharacterAuthorAddedToPost($post, $character));
+            });
 
         $post->userAuthors
             ->diff($data->originalUsers)
@@ -59,10 +67,24 @@ class UpdatePostAuthors
     {
         $data->originalCharacters
             ->diff($post->characterAuthors)
-            ->each(fn (Character $character) => $character->pivot->user?->notify(new CharacterAuthorRemovedFromPost($post, $character)));
+            ->each(function (Character $character) use ($post): void {
+                $this->getAuthorship($character)
+                    ?->user
+                    ?->notify(new CharacterAuthorRemovedFromPost($post, $character));
+            });
 
         $data->originalUsers
             ->diff($post->userAuthors)
             ->each->notify(new UserAuthorRemovedFromPost($post));
+    }
+
+    private function updateCharacterAuthors(Post $post, array $authors): void
+    {
+        $post->characterAuthors()->sync($authors);
+    }
+
+    private function updateUserAuthors(Post $post, array $authors): void
+    {
+        $post->userAuthors()->sync($authors);
     }
 }

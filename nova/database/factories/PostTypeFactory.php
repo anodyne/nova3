@@ -14,9 +14,17 @@ use Nova\Stories\Enums\PostEditTimeframe;
 use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Models\PostType;
 
+/** @extends Factory<PostType> */
 class PostTypeFactory extends Factory
 {
     protected $model = PostType::class;
+
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
 
     public function definition()
     {
@@ -70,13 +78,6 @@ class PostTypeFactory extends Factory
                 editTimeframe: PostEditTimeframe::Hour4,
             ),
         ];
-    }
-
-    public function active()
-    {
-        return $this->state([
-            'status' => BasicStatus::Active,
-        ]);
     }
 
     public function inactive()

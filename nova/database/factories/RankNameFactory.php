@@ -9,11 +9,19 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Ranks\Models\RankName;
 
+/** @extends Factory<RankName> */
 class RankNameFactory extends Factory
 {
     use CanHandleDataForRequests;
 
     protected $model = RankName::class;
+
+    public function active()
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
+    }
 
     public function definition()
     {
@@ -21,13 +29,6 @@ class RankNameFactory extends Factory
             'name' => ucfirst($this->faker->words(3, asText: true)),
             'status' => BasicStatus::Active,
         ];
-    }
-
-    public function active()
-    {
-        return $this->state([
-            'status' => BasicStatus::Active,
-        ]);
     }
 
     public function inactive()

@@ -9,6 +9,9 @@ use Nova\Notes\Models\Note;
 
 trait HasNotes
 {
+    /**
+     * @return HasMany<Note, $this>
+     */
     public function notes(): HasMany
     {
         return $this->hasMany(Note::class);

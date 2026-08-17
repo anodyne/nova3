@@ -14,18 +14,13 @@ use Nova\Stories\Models\States\PostStatus\Started;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
+/**
+ * @template TModel of Post
+ *
+ * @extends Builder<TModel>
+ */
 class PostBuilder extends Builder
 {
-    public function searchFor($search): self
-    {
-        return $this->whereAny([
-            'title',
-            'location',
-            'day',
-            'time',
-        ], 'like', "%{$search}%");
-    }
-
     public function abandoned(): self
     {
         return $this->whereState('status', Started::class)
@@ -48,6 +43,37 @@ class PostBuilder extends Builder
         return $this->whereBetween('published_at', [$startOfCurrentYear, $endOfCurrentYear]);
     }
 
+    public function draft(): self
+    {
+        return $this->whereState('status', Draft::class);
+    }
+
+    public function forStory(Story|int $story): self
+    {
+        $storyId = is_int($story) ? $story : $story->id;
+
+        return $this->where('story_id', $storyId);
+    }
+
+    public function hasExpiredPostLock(): self
+    {
+        return $this
+            ->whereNotNull('locked_at')
+            ->where('locked_at', '<', Date::now()->subMinutes(5));
+    }
+
+    public function locked(): self
+    {
+        return $this
+            ->whereNotNull('locked_at')
+            ->where('locked_at', '>=', Date::now()->subMinutes(5));
+    }
+
+    public function pending(): self
+    {
+        return $this->whereState('status', Pending::class);
+    }
+
     public function previousMonth(): self
     {
         $startOfPreviousMonth = Date::now()->subMonth()->startOfMonth();
@@ -62,6 +88,29 @@ class PostBuilder extends Builder
         $endOfPreviousYear = Date::now()->subYear()->endOfYear();
 
         return $this->whereBetween('published_at', [$startOfPreviousYear, $endOfPreviousYear]);
+    }
+
+    public function published(): self
+    {
+        return $this->whereState('status', Published::class);
+    }
+
+    public function searchFor($search): self
+    {
+        return $this->whereAny([
+            'title',
+            'location',
+            'day',
+            'time',
+        ], 'like', "%{$search}%");
+    }
+
+    public function unlocked(): self
+    {
+        return $this->where(function (Builder $query): Builder {
+            return $query->whereNull('locked_at')
+                ->orWhere('locked_at', '<', Date::now()->subMinutes(5));
+        });
     }
 
     public function whereHasUser(User $user): self
@@ -82,49 +131,5 @@ class PostBuilder extends Builder
     public function wherePostType($postTypeId): self
     {
         return $this->where('post_type_id', $postTypeId);
-    }
-
-    public function draft(): self
-    {
-        return $this->whereState('status', Draft::class);
-    }
-
-    public function pending(): self
-    {
-        return $this->whereState('status', Pending::class);
-    }
-
-    public function published(): self
-    {
-        return $this->whereState('status', Published::class);
-    }
-
-    public function story(Story|int $story): self
-    {
-        $storyId = is_int($story) ? $story : $story->id;
-
-        return $this->where('story_id', $storyId);
-    }
-
-    public function locked(): self
-    {
-        return $this
-            ->whereNotNull('locked_at')
-            ->where('locked_at', '>=', Date::now()->subMinutes(5));
-    }
-
-    public function unlocked(): self
-    {
-        return $this->where(function (Builder $query): Builder {
-            return $query->whereNull('locked_at')
-                ->orWhere('locked_at', '<', Date::now()->subMinutes(5));
-        });
-    }
-
-    public function hasExpiredPostLock(): self
-    {
-        return $this
-            ->whereNotNull('locked_at')
-            ->where('locked_at', '<', Date::now()->subMinutes(5));
     }
 }
