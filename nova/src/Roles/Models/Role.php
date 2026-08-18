@@ -37,6 +37,8 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read int|null $activities_count
  * @property-read Collection<int, Permission> $permissions
  * @property-read int|null $permissions_count
+ * @property-read Collection<int, User> $user
+ * @property-read int|null $user_count
  *
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role atOrAboveOrderColumn($maxSortValue)
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role atOrBelowOrderColumn($maxSortValue)

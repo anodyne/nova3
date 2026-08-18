@@ -18,7 +18,7 @@ use Spatie\Activitylog\Models\Activity;
  * @property int $submission_id
  * @property string $field_type
  * @property string $field_uid
- * @property mixed $value
+ * @property mixed|null $value
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
  * @property-read Collection<int, Activity> $activities

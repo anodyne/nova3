@@ -56,7 +56,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application newQuery()
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application pending()
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application query()
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application reviewedBy(\Illuminate\Contracts\Auth\Authenticatable $user)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application reviewedBy(\Nova\Users\Models\User $user)
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application searchFor($search)
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereCharacterId($value)
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereCreatedAt($value)

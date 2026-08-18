@@ -19,7 +19,7 @@ class DraftToPublished extends Transition
 
     public function handle(): Post
     {
-        $this->post->status = Published::class;
+        $this->post->status = new Published($this->post);
         $this->post->published_at = now();
         $this->post->save();
 

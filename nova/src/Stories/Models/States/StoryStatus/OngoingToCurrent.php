@@ -17,7 +17,7 @@ class OngoingToCurrent extends Transition
 
     public function handle(): Story
     {
-        $this->story->status = Current::class;
+        $this->story->status = new Current($this->story);
         $this->story->save();
 
         $this->updateParentStoryToOngoing();

@@ -17,8 +17,7 @@ class PendingToActive extends Transition
 
     public function handle(): User
     {
-        $this->user->status = Active::class;
-
+        $this->user->status = new Active($this->user);
         $this->user->save();
 
         $roles = Role::isDefault()->pluck('id')->all();

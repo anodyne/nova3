@@ -75,7 +75,6 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read int|null $activities_count
  * @property-read array $authors_avatars
  * @property-read string $authors_string
- * @property-read PostAuthor|null $authorship
  * @property-read Collection<int, Character> $characterAuthors
  * @property-read int|null $character_authors_count
  * @property-read bool $has_location_and_time
@@ -239,7 +238,7 @@ class Post extends Model implements Sortable
                 return collect(array_merge(
                     $this->characterAuthors->map(fn ($character) => $character->display_name)->all(),
                     $this->userAuthors->map(function (User $user): string {
-                        $authorship = $user->getRelation('authorship');
+                        $authorship = $user->getRelation('pivot');
 
                         if (! $authorship instanceof PostAuthor || blank($authorship->as)) {
                             return $user->name;
@@ -262,7 +261,6 @@ class Post extends Model implements Sortable
     public function characterAuthors(): MorphToMany
     {
         return $this->morphedByMany(Character::class, 'authorable', 'post_author')
-            ->as('authorship')
             ->withPivot(['user_id'])
             ->using(PostAuthor::class)
             ->withTimestamps();
@@ -481,7 +479,6 @@ class Post extends Model implements Sortable
     public function userAuthors(): MorphToMany
     {
         return $this->morphedByMany(User::class, 'authorable', 'post_author')
-            ->as('authorship')
             ->withPivot(['as', 'user_id'])
             ->withTrashed()
             ->using(PostAuthor::class)

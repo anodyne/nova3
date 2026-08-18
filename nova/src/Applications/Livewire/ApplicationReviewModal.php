@@ -27,15 +27,68 @@ class ApplicationReviewModal extends Modal
     #[Locked]
     public int|Application $application;
 
-    #[Locked]
-    public int|User $user;
+    public ApplicationReviewForm $form;
 
     #[Locked]
     public ?ApplicationReview $review;
 
-    public ApplicationReviewForm $form;
+    #[Locked]
+    public int|User $user;
 
     public array $values = [];
+
+    #[Computed]
+    public function applicationReviewForm(): ?Form
+    {
+        return Form::key('applicationReview')->first();
+    }
+
+    public function mount(Application $application, ?User $user = null)
+    {
+        $this->authorize('vote', $application);
+
+        $this->application = $application;
+        $this->user = $user;
+
+        $this->review = ApplicationReview::query()
+            ->where('application_id', $application->id)
+            ->where('user_id', $this->owner->id)
+            ->firstOrFail();
+
+        $this->form->setReview(
+            application: $this->application,
+            review: $this->review,
+            user: $this->owner
+        );
+
+        $submission = FormSubmission::query()
+            ->whereMorphRelation('owner', User::class, 'id', $this->owner->id)
+            ->where('meta->application_id', $this->application->id)
+            ->first();
+
+        if (blank($submission)) {
+            $this->values = collect($this->applicationReviewForm->published_fields ?? [])
+                ->flatMap(fn ($item) => [data_get($item, 'data.attrs.id') => ''])
+                ->all();
+        } else {
+            $this->values = $submission->responses
+                ->flatMap(fn (FormSubmissionResponse $response) => [$response->field_uid => $response->value])
+                ->all();
+        }
+    }
+
+    #[Computed]
+    public function owner(): User
+    {
+        return filled($this->user) ? $this->user : Auth::user();
+    }
+
+    public function render()
+    {
+        return view('pages.applications.livewire.review-modal', [
+            'applicationReviewForm' => $this->applicationReviewForm,
+        ]);
+    }
 
     public function save(): void
     {
@@ -60,57 +113,5 @@ class ApplicationReviewModal extends Modal
         Notification::make()->success()
             ->title('Review submitted')
             ->send();
-    }
-
-    #[Computed]
-    public function applicationReviewForm(): ?Form
-    {
-        return Form::key('applicationReview')->first();
-    }
-
-    #[Computed]
-    public function owner(): User
-    {
-        return filled($this->user) ? $this->user : Auth::user();
-    }
-
-    public function mount(Application $application, ?User $user = null)
-    {
-        $this->authorize('vote', $application);
-
-        $this->application = $application;
-        $this->user = $user;
-
-        $this->review = $application->reviews()
-            ->wherePivot('user_id', $this->owner->id)
-            ->first()->pivot;
-
-        $this->form->setReview(
-            application: $this->application,
-            review: $this->review,
-            user: $this->owner
-        );
-
-        $submission = FormSubmission::query()
-            ->whereMorphRelation('owner', User::class, 'id', $this->owner->id)
-            ->where('meta->application_id', $this->application->id)
-            ->first();
-
-        if (blank($submission)) {
-            $this->values = collect($this->applicationReviewForm->published_fields ?? [])
-                ->flatMap(fn ($item) => [data_get($item, 'data.attrs.id') => ''])
-                ->all();
-        } else {
-            $this->values = $submission->responses
-                ->flatMap(fn (FormSubmissionResponse $response) => [$response->field_uid => $response->value])
-                ->all();
-        }
-    }
-
-    public function render()
-    {
-        return view('pages.applications.livewire.review-modal', [
-            'applicationReviewForm' => $this->applicationReviewForm,
-        ]);
     }
 }

@@ -6,106 +6,67 @@ namespace Nova\Ranks\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Nova\Ranks\Models\RankItem;
-use Nova\Users\Models\User;
 
 class RankItemPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any rank name.
-     *
-     *
-     * @return bool
-     */
-    public function viewAny(User $user)
+    public function create(Authenticatable $authenticatable): Response
     {
-        return $user->isAbleTo('rank.*')
+        return $authenticatable->isAbleTo('rank.create')
             ? $this->allow()
             : $this->deny();
     }
 
-    /**
-     * Determine whether the user can view the rank name.
-     *
-     *
-     * @return bool
-     */
-    public function view(User $user, RankItem $name)
+    public function delete(Authenticatable $authenticatable, RankItem $name): Response
     {
-        return $user->isAbleTo('rank.view')
+        return $this->deleteAny($authenticatable);
+    }
+
+    public function deleteAny(Authenticatable $authenticatable): Response
+    {
+        return $authenticatable->isAbleTo('rank.delete')
             ? $this->allow()
             : $this->deny();
     }
 
-    /**
-     * Determine whether the user can create rank names.
-     *
-     *
-     * @return bool
-     */
-    public function create(User $user)
+    public function duplicate(Authenticatable $authenticatable, RankItem $name): Response
     {
-        return $user->isAbleTo('rank.create')
+        return $authenticatable->isAbleTo('rank.create') && $authenticatable->isAbleTo('rank.update')
             ? $this->allow()
             : $this->deny();
     }
 
-    /**
-     * Determine whether the user can update the rank name.
-     *
-     *
-     * @return bool
-     */
-    public function update(User $user, RankItem $name)
-    {
-        return $user->isAbleTo('rank.update')
-            ? $this->allow()
-            : $this->deny();
-    }
-
-    public function deleteAny(User $user): Response
-    {
-        return $user->isAbleTo('rank.delete')
-            ? $this->allow()
-            : $this->deny();
-    }
-
-    public function delete(User $user, RankItem $name): Response
-    {
-        return $this->deleteAny($user);
-    }
-
-    /**
-     * Determine whether the user can duplicate the rank name.
-     */
-    public function duplicate(User $user, RankItem $name)
-    {
-        return $user->isAbleTo('rank.create') && $user->isAbleTo('rank.update')
-            ? $this->allow()
-            : $this->deny();
-    }
-
-    /**
-     * Determine whether the user can restore the rank name.
-     *
-     *
-     * @return bool
-     */
-    public function restore(User $user, RankItem $name)
+    public function forceDelete(Authenticatable $authenticatable, RankItem $name): Response
     {
         return $this->denyWithStatus(418);
     }
 
-    /**
-     * Determine whether the user can permanently delete the rank name.
-     *
-     *
-     * @return bool
-     */
-    public function forceDelete(User $user, RankItem $name)
+    public function restore(Authenticatable $authenticatable, RankItem $name): Response
     {
         return $this->denyWithStatus(418);
+    }
+
+    public function update(Authenticatable $authenticatable, RankItem $name): Response
+    {
+        return $authenticatable->isAbleTo('rank.update')
+            ? $this->allow()
+            : $this->deny();
+    }
+
+    public function view(Authenticatable $authenticatable, RankItem $name): Response
+    {
+        return $authenticatable->isAbleTo('rank.view')
+            ? $this->allow()
+            : $this->deny();
+    }
+
+    public function viewAny(Authenticatable $authenticatable): Response
+    {
+        return $authenticatable->isAbleTo('rank.*')
+            ? $this->allow()
+            : $this->deny();
     }
 }

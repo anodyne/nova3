@@ -11,7 +11,7 @@ use Nova\Characters\Models\CharacterUser;
 trait HasCharacters
 {
     /**
-     * @return BelongsToMany<Character, $this>
+     * @return BelongsToMany<Character, $this, CharacterUser, 'pivot'>
      */
     public function activeCharacters(): BelongsToMany
     {
@@ -19,7 +19,7 @@ trait HasCharacters
     }
 
     /**
-     * @return BelongsToMany<Character, $this>
+     * @return BelongsToMany<Character, $this, CharacterUser, 'pivot'>
      */
     public function characters(): BelongsToMany
     {
@@ -30,7 +30,7 @@ trait HasCharacters
     }
 
     /**
-     * @return BelongsToMany<Character, $this>
+     * @return BelongsToMany<Character, $this, CharacterUser, 'pivot'>
      */
     public function primaryCharacter(): BelongsToMany
     {

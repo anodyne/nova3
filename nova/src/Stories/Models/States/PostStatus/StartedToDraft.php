@@ -17,7 +17,7 @@ class StartedToDraft extends Transition
 
     public function handle(): Post
     {
-        $this->post->status = Draft::class;
+        $this->post->status = new Draft($this->post);
 
         if (blank($this->post->neighbor)) {
             $this->post->setHighestOrderNumber();
@@ -28,11 +28,11 @@ class StartedToDraft extends Transition
         if (filled($this->post->neighbor)) {
             UpdatePostPosition::run(
                 $this->post,
-                PostPositionData::from([
-                    'neighbor' => $this->post->neighbor,
-                    'direction' => $this->post->direction,
-                    'hasPositionChange' => true,
-                ])
+                PostPositionData::from(
+                    neighbor: $this->post->neighbor,
+                    direction: $this->post->direction,
+                    hasPositionChange: true
+                )
             );
         }
 

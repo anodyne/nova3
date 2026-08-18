@@ -36,22 +36,6 @@ class ParticipationReporter
         );
     }
 
-    public function previousActivityTimeframe(): ParticipationReport
-    {
-        $result = once(function () {
-            return $this->query(
-                start: $this->postingActivitySettings->timeframe->previousStartDate(),
-                end: $this->postingActivitySettings->timeframe->previousEndDate()
-            );
-        });
-
-        return ParticipationReport::from(
-            active: $result->where('total_word_count', '>', 0)->count(),
-            total: $result->count(),
-            results: null
-        );
-    }
-
     public function percentageChange(): int
     {
         $previous = $this->previousActivityTimeframe()->percentage();
@@ -81,7 +65,23 @@ class ParticipationReporter
         };
     }
 
-    public static function make(): static
+    public function previousActivityTimeframe(): ParticipationReport
+    {
+        $result = once(function () {
+            return $this->query(
+                start: $this->postingActivitySettings->timeframe->previousStartDate(),
+                end: $this->postingActivitySettings->timeframe->previousEndDate()
+            );
+        });
+
+        return ParticipationReport::from(
+            active: $result->where('total_word_count', '>', 0)->count(),
+            total: $result->count(),
+            results: null
+        );
+    }
+
+    public static function make(): self
     {
         return new self;
     }

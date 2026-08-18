@@ -13,7 +13,6 @@ use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
-use Nova\Foundation\Application;
 use Nova\Foundation\Concerns\SetSEOValues;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Menus\Actions\RecacheMenus;
@@ -32,8 +31,6 @@ abstract class Responsable implements LaravelResponsable
 
     public string $view;
 
-    protected Application $app;
-
     protected array $data = [];
 
     protected $output;
@@ -44,7 +41,6 @@ abstract class Responsable implements LaravelResponsable
 
     final public function __construct(?Page $page)
     {
-        $this->app = app();
         $this->page = $page ?? request()->route()?->findPageFromRoute();
         $this->theme = app('nova.theme');
     }
@@ -62,14 +58,6 @@ abstract class Responsable implements LaravelResponsable
         return $this->with(Str::camel(substr($method, 4)), $parameters[0]);
     }
 
-    public function prepareData(): array
-    {
-        return app(Pipeline::class)
-            ->send(collect($this->data))
-            ->through(app('nova.response-filters')->resolveFiltersFor($this->page?->key))
-            ->then(fn ($data) => $data->all());
-    }
-
     public function layout(): ?string
     {
         if ($this->page?->layout === 'public') {
@@ -79,13 +67,12 @@ abstract class Responsable implements LaravelResponsable
         return null;
     }
 
-    public function subnav(): ?string
+    public function prepareData(): array
     {
-        if ($this->subnav) {
-            return "subnavs.{$this->subnav}";
-        }
-
-        return null;
+        return app(Pipeline::class)
+            ->send(collect($this->data))
+            ->through(app('nova.response-filters')->resolveFiltersFor($this->page?->key))
+            ->then(fn ($data) => $data->all());
     }
 
     public function render(): ViewContract
@@ -116,6 +103,15 @@ abstract class Responsable implements LaravelResponsable
             'subnav' => $this->subnav,
             'meta' => $meta,
         ]));
+    }
+
+    public function subnav(): ?string
+    {
+        if ($this->subnav) {
+            return "subnavs.{$this->subnav}";
+        }
+
+        return null;
     }
 
     public function toResponse($request): Response|JsonResponse

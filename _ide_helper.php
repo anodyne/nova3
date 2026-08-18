@@ -24752,6 +24752,24 @@ namespace Nova\Foundation {
         /**
          * @static
          */
+        public static function adminScripts($options = [])
+        {
+            /** @var \Nova\Foundation\NovaManager $instance */
+            return $instance->adminScripts($options);
+        }
+
+        /**
+         * @static
+         */
+        public static function adminStyles($options = [])
+        {
+            /** @var \Nova\Foundation\NovaManager $instance */
+            return $instance->adminStyles($options);
+        }
+
+        /**
+         * @static
+         */
         public static function characterCount()
         {
             /** @var \Nova\Foundation\NovaManager $instance */
@@ -24761,10 +24779,19 @@ namespace Nova\Foundation {
         /**
          * @static
          */
-        public static function userCount()
+        public static function databaseIsConfigured($connection = null)
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->userCount();
+            return $instance->databaseIsConfigured($connection);
+        }
+
+        /**
+         * @static
+         */
+        public static function databaseVersion()
+        {
+            /** @var \Nova\Foundation\NovaManager $instance */
+            return $instance->databaseVersion();
         }
 
         /**
@@ -24779,19 +24806,19 @@ namespace Nova\Foundation {
         /**
          * @static
          */
-        public static function getAvatarUrl($seed = null)
+        public static function filesVersion()
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->getAvatarUrl($seed);
+            return $instance->filesVersion();
         }
 
         /**
          * @static
          */
-        public static function getFontFamily()
+        public static function getAvatarUrl($seed = null)
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->getFontFamily();
+            return $instance->getAvatarUrl($seed);
         }
 
         /**
@@ -24806,10 +24833,10 @@ namespace Nova\Foundation {
         /**
          * @static
          */
-        public static function getHeaderFontFamily()
+        public static function getFontFamily()
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->getHeaderFontFamily();
+            return $instance->getFontFamily();
         }
 
         /**
@@ -24833,19 +24860,10 @@ namespace Nova\Foundation {
         /**
          * @static
          */
-        public static function filesVersion()
+        public static function getHeaderFontFamily()
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->filesVersion();
-        }
-
-        /**
-         * @static
-         */
-        public static function databaseVersion()
-        {
-            /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->databaseVersion();
+            return $instance->getHeaderFontFamily();
         }
 
         /**
@@ -24867,39 +24885,24 @@ namespace Nova\Foundation {
         }
 
         /**
+         * Provide data from the backend for the frontend to use.
+         *
+         * @return \Illuminate\Support\Collection
          * @static
          */
-        public static function databaseIsConfigured($connection = null)
+        public static function provideScriptVariables()
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->databaseIsConfigured($connection);
+            return $instance->provideScriptVariables();
         }
 
         /**
          * @static
          */
-        public static function adminStyles($options = [])
+        public static function publicScripts($options = [])
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->adminStyles($options);
-        }
-
-        /**
-         * @static
-         */
-        public static function adminScripts($options = [])
-        {
-            /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->adminScripts($options);
-        }
-
-        /**
-         * @static
-         */
-        public static function setupScripts($options = [])
-        {
-            /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->setupScripts($options);
+            return $instance->publicScripts($options);
         }
 
         /**
@@ -24914,22 +24917,19 @@ namespace Nova\Foundation {
         /**
          * @static
          */
-        public static function publicScripts($options = [])
+        public static function setupScripts($options = [])
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->publicScripts($options);
+            return $instance->setupScripts($options);
         }
 
         /**
-         * Provide data from the backend for the frontend to use.
-         *
-         * @return \Illuminate\Support\Collection
          * @static
          */
-        public static function provideScriptVariables()
+        public static function userCount()
         {
             /** @var \Nova\Foundation\NovaManager $instance */
-            return $instance->provideScriptVariables();
+            return $instance->userCount();
         }
 
             }
@@ -40868,8 +40868,10 @@ use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Mistralys\VersionParser\VersionParser;
+use Nova\Foundation\Application;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
+use Nova\Settings\Models\Settings;
 
 if (! function_exists('__s')) {
     function __s(string $key): Stringable
@@ -40893,11 +40895,14 @@ if (! function_exists('pipe')) {
 }
 
 if (! function_exists('settings')) {
-    function settings($key = null)
+    /**
+     * @return ($key is null ? Settings|null : mixed)
+     */
+    function settings($key = null): mixed
     {
         $settings = app('nova.settings');
 
-        if ($key) {
+        if ($key !== null) {
             return data_get($settings, $key);
         }
 
@@ -40915,7 +40920,13 @@ if (! function_exists('nova')) {
 if (! function_exists('nova_path')) {
     function nova_path($path = '')
     {
-        return app()->novaPath($path);
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        return $application->novaPath($path);
     }
 }
 
@@ -40935,7 +40946,13 @@ if (! function_exists('theme')) {
 if (! function_exists('theme_path')) {
     function theme_path($path = '')
     {
-        return app()->themePath($path);
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        return $application->themePath($path);
     }
 }
 
@@ -40955,14 +40972,26 @@ if (! function_exists('addon')) {
 if (! function_exists('addon_path')) {
     function addon_path($path = '')
     {
-        return app()->addonPath($path);
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        return $application->addonPath($path);
     }
 }
 
 if (! function_exists('rank_path')) {
     function rank_path($path = '')
     {
-        return app()->rankPath($path);
+        $application = app();
+
+        if (! $application instanceof Application) {
+            throw new LogicException('Expected the Nova application instance.');
+        }
+
+        return $application->rankPath($path);
     }
 }
 

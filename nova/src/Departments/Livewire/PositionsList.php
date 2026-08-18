@@ -41,9 +41,7 @@ use Spatie\Activitylog\Models\Activity;
 class PositionsList extends TableComponent
 {
     #[Url]
-    public ?array $tableFilters = [
-        'department_id',
-    ];
+    public ?array $tableFilters = null;
 
     public function table(Table $table): Table
     {

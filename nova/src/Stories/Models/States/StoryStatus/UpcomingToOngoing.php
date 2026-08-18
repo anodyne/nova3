@@ -17,7 +17,7 @@ class UpcomingToOngoing extends Transition
 
     public function handle(): Story
     {
-        $this->story->status = Ongoing::class;
+        $this->story->status = new Ongoing($this->story);
         $this->story->started_at = now();
         $this->story->ended_at = null;
         $this->story->save();

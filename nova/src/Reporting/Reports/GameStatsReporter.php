@@ -182,7 +182,7 @@ class GameStatsReporter
         );
     }
 
-    public static function make(): static
+    public static function make(): self
     {
         return new self;
     }
@@ -204,6 +204,15 @@ class GameStatsReporter
                 endOfTimeframe: $this->postingActivitySettings->timeframe->endDate(),
             )
             ->first();
+    }
+
+    protected function average(int $numerator, int $denominator): ?string
+    {
+        if ($denominator > 0) {
+            return Number::format($numerator / $denominator, 1);
+        }
+
+        return null;
     }
 
     protected function characterQuery()
@@ -286,14 +295,5 @@ class GameStatsReporter
                 endOfTimeframe: $this->postingActivitySettings->timeframe->endDate()
             )
             ->first();
-    }
-
-    protected function average(int $numerator, int $denominator): ?string
-    {
-        if ($denominator > 0) {
-            return Number::format($numerator / $denominator, 1);
-        }
-
-        return null;
     }
 }

@@ -92,7 +92,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property CarbonImmutable|null $deleted_at
  * @property-read Collection<int, Activity> $actions
  * @property-read int|null $actions_count
- * @property-read CharacterUser|null $pivot
+ * @property-read CharacterUser|PostAuthor|null $pivot
  * @property-read Collection<int, Character> $activeCharacters
  * @property-read int|null $active_characters_count
  * @property-read Collection<int, Onboarding> $activeOnboardings

@@ -17,7 +17,7 @@ class OngoingToCompleted extends Transition
 
     public function handle(): Story
     {
-        $this->story->status = Completed::class;
+        $this->story->status = new Completed($this->story);
         $this->story->ended_at = now();
         $this->story->save();
 

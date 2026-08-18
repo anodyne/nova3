@@ -16,7 +16,10 @@ class CreateMenuItem
     public function handle(MenuItemData $data): MenuItem
     {
         $menu = Menu::public()->first();
+        $menuItem = new MenuItem($data->toArray());
 
-        return $menu->items()->create($data->toArray());
+        $menu->items()->save($menuItem);
+
+        return $menuItem;
     }
 }

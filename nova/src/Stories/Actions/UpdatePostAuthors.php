@@ -37,11 +37,11 @@ class UpdatePostAuthors
 
     private function getAuthorship(Character $character): ?PostAuthor
     {
-        if (! $character->relationLoaded('authorship')) {
+        if (! $character->relationLoaded('pivot')) {
             return null;
         }
 
-        $authorship = $character->getRelation('authorship');
+        $authorship = $character->getRelation('pivot');
 
         return $authorship instanceof PostAuthor
             ? $authorship

@@ -7,6 +7,7 @@ namespace Nova\Users\Actions;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use LogicException;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Users\Data\BanData;
 use Nova\Users\Models\Ban;
@@ -26,6 +27,10 @@ class BanUserManager
                     'comment' => $data->comment,
                     'expired_at' => $data->expired_at,
                 ]);
+
+                if (! $ban instanceof Ban) {
+                    throw new LogicException('The configured ban model must be '.Ban::class.'.');
+                }
 
                 if ($data->user()->status->canTransitionTo(Banned::class)) {
                     $data->user()->status->transitionTo(Banned::class);

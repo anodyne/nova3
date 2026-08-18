@@ -38,22 +38,6 @@ class ActivityReporter
         );
     }
 
-    public function previousActivityTimeframe(): ActivityReport
-    {
-        $result = once(function () {
-            return $this->query(
-                start: $this->postingActivitySettings->timeframe->previousStartDate(),
-                end: $this->postingActivitySettings->timeframe->previousEndDate()
-            );
-        });
-
-        return ActivityReport::from(
-            active: $this->calculateActive($result),
-            total: $result->count(),
-            results: null
-        );
-    }
-
     public function percentageChange(): int
     {
         $previous = $this->previousActivityTimeframe()->percentage();
@@ -83,22 +67,25 @@ class ActivityReporter
         };
     }
 
-    public static function make(): static
+    public function previousActivityTimeframe(): ActivityReport
     {
-        return new self;
+        $result = once(function () {
+            return $this->query(
+                start: $this->postingActivitySettings->timeframe->previousStartDate(),
+                end: $this->postingActivitySettings->timeframe->previousEndDate()
+            );
+        });
+
+        return ActivityReport::from(
+            active: $this->calculateActive($result),
+            total: $result->count(),
+            results: null
+        );
     }
 
-    protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection
+    public static function make(): self
     {
-        return app(ReportingRepositoryInterface::class)
-            ->getActivityQuery($start, $end)
-            ->get()
-            ->map(function ($user) {
-                // Convert `latest_login` to Carbon, handling null values
-                $user->latest_login = $user->latest_login ? Date::parse($user->latest_login) : null;
-
-                return $user;
-            });
+        return new self;
     }
 
     protected function calculateActive(Collection $result): int
@@ -116,5 +103,18 @@ class ActivityReporter
                 fn (Collection $collection): Collection => $collection->where('total_word_count', '>=', $settings->requirement)
             )
             ->count();
+    }
+
+    protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection
+    {
+        return app(ReportingRepositoryInterface::class)
+            ->getActivityQuery($start, $end)
+            ->get()
+            ->map(function ($user) {
+                // Convert `latest_login` to Carbon, handling null values
+                $user->latest_login = $user->latest_login ? Date::parse($user->latest_login) : null;
+
+                return $user;
+            });
     }
 }

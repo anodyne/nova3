@@ -23,7 +23,7 @@ class SendStoryStartedNotificationToDiscord
             ->embed(function (DiscordEmbed $embed) use ($story, $notificationType) {
                 $embed->title($story->title, route('admin.stories.show', $story))
                     ->description($story->description)
-                    ->color($notificationType->discord_settings->color);
+                    ->color($notificationType->discord_color);
             });
 
         DiscordAlert::make()->for($notificationType)->send($message);

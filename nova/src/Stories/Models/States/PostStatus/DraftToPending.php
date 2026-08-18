@@ -15,7 +15,7 @@ class DraftToPending extends Transition
 
     public function handle(): Post
     {
-        $this->post->status = Pending::class;
+        $this->post->status = new Pending($this->post);
         $this->post->save();
 
         activity()

@@ -117,7 +117,10 @@ class NotificationType extends Model
 
     public function preferenceForUser(User $user): UserNotificationPreference
     {
-        return $this->userNotificationPreferences()->where('user_id', $user->id)->first();
+        return UserNotificationPreference::query()
+            ->whereBelongsTo($this, 'notificationType')
+            ->whereBelongsTo($user)
+            ->firstOrFail();
     }
 
     public function userNotificationPreferences(): HasMany

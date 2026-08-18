@@ -20,9 +20,7 @@ use Nova\Users\Models\User;
 class ApplicationsList extends TableComponent
 {
     #[Url]
-    public ?array $tableFilters = [
-        'result',
-    ];
+    public ?array $tableFilters = null;
 
     public function table(Table $table): Table
     {

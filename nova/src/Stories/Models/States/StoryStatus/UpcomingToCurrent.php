@@ -20,7 +20,7 @@ class UpcomingToCurrent extends Transition
 
     public function handle(): Story
     {
-        $this->story->status = Current::class;
+        $this->story->status = new Current($this->story);
         $this->story->started_at = now();
         $this->story->ended_at = null;
         $this->story->save();

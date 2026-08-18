@@ -108,8 +108,8 @@ trait InteractsWithCharacterAuthors
 
     private function characterArrayStructure(Character $character, ?int $pivotUserId = null): array
     {
-        $authorship = $character->relationLoaded('authorship')
-            ? $character->getRelation('authorship')
+        $authorship = $character->relationLoaded('pivot')
+            ? $character->getRelation('pivot')
             : null;
 
         $pivotArray = $authorship instanceof PostAuthor
@@ -139,10 +139,10 @@ trait InteractsWithCharacterAuthors
             'name' => data_get($character, 'name'),
             'type' => data_get($character, 'type'),
             'avatar_url' => data_get($character, 'avatar_url'),
-            'activeUsers' => collect($character['activeUsers'])->map(fn (User $user) => $user),
+            'activeUsers' => collect($character['activeUsers'])->map(fn (array $user): object => (object) $user),
             'pivot' => (object) [
-                'user' => (object) data_get($character, 'authorship.user'),
-                'user_id' => data_get($character, 'authorship.user_id'),
+                'user' => (object) data_get($character, 'pivot.user'),
+                'user_id' => data_get($character, 'pivot.user_id'),
             ],
         ];
     }
@@ -168,7 +168,7 @@ trait InteractsWithCharacterAuthors
         $this->characterAuthorsPivotData = collect($this->characterAuthorsArr)
             ->mapWithKeys(fn ($character): array => [
                 $character['id'] => [
-                    'user_id' => data_get($character, 'authorship.user_id'),
+                    'user_id' => data_get($character, 'pivot.user_id'),
                 ],
             ])
             ->toArray();

@@ -82,7 +82,7 @@ trait InteractsWithUserAuthors
             ->mapWithKeys(fn ($user): array => [
                 $user['id'] => [
                     'user_id' => data_get($user, 'id'),
-                    'as' => data_get($user, 'authorship.as'),
+                    'as' => data_get($user, 'pivot.as'),
                 ],
             ])
             ->toArray();
@@ -90,9 +90,9 @@ trait InteractsWithUserAuthors
 
     private function userArrayStructure(User $user, ?int $pivotUserId = null): array
     {
-        $pivotArray = empty($user->authorship)
+        $pivotArray = empty($user->pivot)
             ? ['user' => User::find($pivotUserId), 'user_id' => $pivotUserId, 'as' => null]
-            : ['user' => $user->authorship->user, 'user_id' => $user->authorship->user_id, 'as' => $user->authorship->as];
+            : ['user' => $user->pivot->user, 'user_id' => $user->pivot->user_id, 'as' => $user->pivot->as];
 
         return [
             'id' => $user->id,
@@ -109,9 +109,9 @@ trait InteractsWithUserAuthors
             'name' => data_get($user, 'name'),
             'avatar_url' => data_get($user, 'avatar_url'),
             'pivot' => (object) [
-                'user' => (object) data_get($user, 'authorship.user'),
-                'user_id' => data_get($user, 'authorship.user_id'),
-                'as' => data_get($user, 'authorship.as'),
+                'user' => (object) data_get($user, 'pivot.user'),
+                'user_id' => data_get($user, 'pivot.user_id'),
+                'as' => data_get($user, 'pivot.as'),
             ],
         ];
     }

@@ -18,7 +18,7 @@ class InactiveToActive extends Transition
 
     public function handle(): Character
     {
-        $this->character->status = Active::class;
+        $this->character->status = new Active($this->character);
         $this->character->save();
 
         TrackStatusUpdate::run($this->character);

@@ -44,7 +44,7 @@ class PostingReporter
         );
     }
 
-    public static function make(User $user): static
+    public static function make(User $user): self
     {
         return new self($user);
     }

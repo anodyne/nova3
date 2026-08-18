@@ -51,10 +51,10 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property-read mixed $tags_as_string
  * @property-read Collection<int, Character> $activeCharacters
  * @property-read int|null $active_characters_count
- * @property-read Collection<int, Character> $characters
- * @property-read int|null $characters_count
  * @property-read Collection<int, User> $activeUsers
  * @property-read int|null $active_users_count
+ * @property-read Collection<int, Character> $characters
+ * @property-read int|null $characters_count
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  *

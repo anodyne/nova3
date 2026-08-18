@@ -40,6 +40,7 @@ use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\MediaLibrary\HasMedia;
@@ -58,7 +59,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
  * @property CarbonImmutable|null $deleted_at
- * @property-read CharacterPosition|CharacterUser|null $pivot
+ * @property-read CharacterPosition|CharacterUser|PostAuthor|null $pivot
  * @property-read Collection<int, User> $activePrimaryUsers
  * @property-read int|null $active_primary_users_count
  * @property-read Collection<int, User> $activeUsers

@@ -41,6 +41,7 @@ class RolesList extends TableComponent
                 Role::query()
                     ->with('user', 'permissions')
                     ->select([
+                        'description',
                         'display_name',
                         'id',
                         'is_default',
