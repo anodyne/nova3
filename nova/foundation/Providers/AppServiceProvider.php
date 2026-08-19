@@ -52,6 +52,7 @@ use Nova\Addons\Models\Addon;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Application;
 use Nova\Foundation\Console\Commands\InstallDataMigrations;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Enums\CacheKeys;
@@ -103,7 +104,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDatabaseRepositories();
         $this->configureDataMigrationCommands();
 
-        $this->app->extend('blade.compiler', function ($compiler, $app) {
+        $this->app->extend('blade.compiler', function ($compiler, Application $app) {
             return tap(new BladeCompiler(
                 $app['files'],
                 $app['config']['view.compiled'],
@@ -427,7 +428,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             'command.migrate-data.install',
-            fn ($app) => new InstallDataMigrations($app['migration.data.repository'])
+            fn (Application $app) => new InstallDataMigrations($app['migration.data.repository'])
         );
     }
 }
