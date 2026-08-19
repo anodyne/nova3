@@ -201,7 +201,7 @@ class ChangelogSeeder extends Seeder
 
         $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 
-        $rows = array_map(function (array $values) use ($now) {
+        $rows = array_map(function (array $values) use ($now): array {
             $severity = $values['severity'];
             $severity = $severity->value;
 

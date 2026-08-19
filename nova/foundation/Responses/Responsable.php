@@ -45,7 +45,7 @@ abstract class Responsable implements LaravelResponsable
         $this->theme = app('nova.theme');
     }
 
-    public function __call($method, $parameters): self
+    public function __call(string $method, array $parameters): self
     {
         if (! Str::startsWith($method, 'with')) {
             throw new BadMethodCallException(sprintf(
@@ -82,7 +82,7 @@ abstract class Responsable implements LaravelResponsable
             $this->theme->prepareData(),
         );
 
-        $meta = new ResponseMeta(
+        $responseMeta = new ResponseMeta(
             layout: $this->layout(),
             subnav: $this->subnav(),
             subnavSection: $this->subnav,
@@ -92,16 +92,16 @@ abstract class Responsable implements LaravelResponsable
             pageIntro: $this->page?->intro,
         );
 
-        app()->instance('nova.meta', $meta);
+        app()->instance('nova.meta', $responseMeta);
 
-        View::share('meta', $meta);
+        View::share('meta', $responseMeta);
         View::share('settings', settings());
 
         $this->setSEOValues();
 
         return view("pages.{$this->view}", array_merge($data, [
             'subnav' => $this->subnav,
-            'meta' => $meta,
+            'meta' => $responseMeta,
         ]));
     }
 
@@ -136,20 +136,20 @@ abstract class Responsable implements LaravelResponsable
 
     public static function send(?Page $page = null, array $seo = []): self
     {
-        $instance = new static($page);
+        $static = new static($page);
 
-        $instance->seoData = $seo;
+        $static->seoData = $seo;
 
-        return $instance;
+        return $static;
     }
 
     public static function sendWith(array $data, ?Page $page = null, array $seo = []): self
     {
-        $instance = new static($page);
+        $static = new static($page);
 
-        $instance->seoData = $seo;
+        $static->seoData = $seo;
 
-        return $instance->with($data);
+        return $static->with($data);
     }
 
     protected function getPublicMenuItems(): Menu

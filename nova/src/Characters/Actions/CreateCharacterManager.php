@@ -47,13 +47,13 @@ class CreateCharacterManager
 
             $character = SetCharacterType::run($character);
 
-            $positions = new CharacterPositionsData(
+            $characterPositionsData = new CharacterPositionsData(
                 character: $character,
                 newType: $character->type,
                 newPositions: $character->positions
             );
 
-            UpdatePositionAvailability::run($positions);
+            UpdatePositionAvailability::run($characterPositionsData);
 
             UploadCharacterAvatar::run($character, $request->image_path);
 

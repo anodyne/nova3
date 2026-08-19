@@ -125,10 +125,10 @@ class AnnouncementsList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->attributeValues([
-                                        'published_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                                        'published_at' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
                                     ]);
                             }),
                     ])->divided(),

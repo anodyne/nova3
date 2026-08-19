@@ -6,7 +6,10 @@ namespace Nova\Stories\Models;
 
 use Anodyne\TablerIcons\Tabler;
 use Carbon\CarbonImmutable;
+use Database\Factories\PostTypeFactory;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -60,39 +63,39 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read Role|null $role
  * @property-read string $title
  *
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType active()
- * @method static \Database\Factories\PostTypeFactory factory($count = null, $state = [])
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType inCharacter()
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType inactive()
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType newModelQuery()
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Stories\Models\PostType onlyTrashed()
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType orWhereNotState(string $column, $states)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType orWhereState(string $column, $states)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType ordered(string $direction = 'asc')
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType query()
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType searchFor($search)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType userHasAccess(\Illuminate\Contracts\Auth\Authenticatable $user)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereColor($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereCreatedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereDeletedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereDescription($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereFields($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereIcon($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereId($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereKey($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereName($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereNotState(string $column, $states)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereOptions($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereOrderColumn($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType wherePrefixedId($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereRoleId($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereState(string $column, $states)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereStatus($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereUpdatedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereVisibility($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Stories\Models\PostType withTrashed(bool $withTrashed = true)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Stories\Models\PostType withoutTrashed()
+ * @method static PostTypeBuilder<static>|PostType active()
+ * @method static PostTypeFactory factory($count = null, $state = [])
+ * @method static PostTypeBuilder<static>|PostType inCharacter()
+ * @method static PostTypeBuilder<static>|PostType inactive()
+ * @method static PostTypeBuilder<static>|PostType newModelQuery()
+ * @method static PostTypeBuilder<static>|PostType newQuery()
+ * @method static Builder<static>|PostType onlyTrashed()
+ * @method static PostTypeBuilder<static>|PostType orWhereNotState(string $column, $states)
+ * @method static PostTypeBuilder<static>|PostType orWhereState(string $column, $states)
+ * @method static PostTypeBuilder<static>|PostType ordered(string $direction = 'asc')
+ * @method static PostTypeBuilder<static>|PostType query()
+ * @method static PostTypeBuilder<static>|PostType searchFor($search)
+ * @method static PostTypeBuilder<static>|PostType userHasAccess(Authenticatable $user)
+ * @method static PostTypeBuilder<static>|PostType whereColor($value)
+ * @method static PostTypeBuilder<static>|PostType whereCreatedAt($value)
+ * @method static PostTypeBuilder<static>|PostType whereDeletedAt($value)
+ * @method static PostTypeBuilder<static>|PostType whereDescription($value)
+ * @method static PostTypeBuilder<static>|PostType whereFields($value)
+ * @method static PostTypeBuilder<static>|PostType whereIcon($value)
+ * @method static PostTypeBuilder<static>|PostType whereId($value)
+ * @method static PostTypeBuilder<static>|PostType whereKey($value)
+ * @method static PostTypeBuilder<static>|PostType whereName($value)
+ * @method static PostTypeBuilder<static>|PostType whereNotState(string $column, $states)
+ * @method static PostTypeBuilder<static>|PostType whereOptions($value)
+ * @method static PostTypeBuilder<static>|PostType whereOrderColumn($value)
+ * @method static PostTypeBuilder<static>|PostType wherePrefixedId($value)
+ * @method static PostTypeBuilder<static>|PostType whereRoleId($value)
+ * @method static PostTypeBuilder<static>|PostType whereState(string $column, $states)
+ * @method static PostTypeBuilder<static>|PostType whereStatus($value)
+ * @method static PostTypeBuilder<static>|PostType whereUpdatedAt($value)
+ * @method static PostTypeBuilder<static>|PostType whereVisibility($value)
+ * @method static Builder<static>|PostType withTrashed(bool $withTrashed = true)
+ * @method static Builder<static>|PostType withoutTrashed()
  *
  * @mixin \Eloquent
  */

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Applications\Models\Application;
 use Nova\Setup\Actions\Migration\MigrateApplication;
 use Nova\Setup\Models\Upgrade;
@@ -27,7 +28,7 @@ class MigrateApplications extends MigrationStep
 
         $this->query()
             ->whereNotIn('app_id', Upgrade::type('application')->pluck('old_id'))
-            ->chunkById(100, function (Collection $legacyApplications) use ($characterMap, $userMap) {
+            ->chunkById(100, function (Collection $legacyApplications) use ($characterMap, $userMap): void {
                 foreach ($legacyApplications as $legacyApplication) {
                     MigrateApplication::run(
                         model: $legacyApplication,
@@ -63,6 +64,6 @@ class MigrateApplications extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($application) => MigrateApplication::makeJob($application));
+            ->map(fn ($application): JobDecorator => MigrateApplication::makeJob($application));
     }
 }

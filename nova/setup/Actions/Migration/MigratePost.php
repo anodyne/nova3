@@ -32,7 +32,7 @@ class MigratePost
             upgradeKey: 'user'
         );
 
-        DB::transaction(function () use ($model, $postPostTypeId, $newStoryId, $lastSavedUserId) {
+        DB::transaction(function () use ($model, $postPostTypeId, $newStoryId, $lastSavedUserId): void {
             $postId = DB::table('posts')->insertGetId([
                 'title' => $model->post_title,
                 'location' => $model->post_location,
@@ -60,7 +60,7 @@ class MigratePost
             Character::with('activeUsers')
                 ->whereIn('id', $characterIds)
                 ->get()
-                ->each(function (Character $character) use ($postId, $created) {
+                ->each(function (Character $character) use ($postId, $created): void {
                     DB::table('post_author')->insert([
                         'post_id' => $postId,
                         'authorable_type' => 'character',

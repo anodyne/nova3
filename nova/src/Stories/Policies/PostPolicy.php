@@ -123,7 +123,7 @@ class PostPolicy
 
     public function write(User $user, Post $post, ?PostType $postType): Response
     {
-        if ($postType === null || Gate::forUser($user)->allows('write', $postType)) {
+        if (! $postType instanceof PostType || Gate::forUser($user)->allows('write', $postType)) {
             return $this->create($user);
         }
 

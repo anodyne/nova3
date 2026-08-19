@@ -7,6 +7,7 @@ namespace Nova\Settings\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Media\Actions\UploadImage;
 use Nova\Media\Enums\ImageAction;
 use Nova\Settings\Actions\UpdateSettings;
@@ -23,7 +24,7 @@ class AppearanceSettingsController extends Controller
         $this->middleware('auth');
     }
 
-    public function edit()
+    public function edit(): Responsable
     {
         $this->authorize('update', $settings = settings());
 
@@ -37,7 +38,7 @@ class AppearanceSettingsController extends Controller
     {
         $this->authorize('update', settings());
 
-        DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request): void {
             $settings = settings('appearance');
 
             $requestWithColors = $request->merge([

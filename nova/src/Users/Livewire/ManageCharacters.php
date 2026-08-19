@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -64,13 +66,13 @@ class ManageCharacters extends Component
     public function remove(Character $character): void
     {
         $this->assigned = $this->assigned->reject(
-            fn (Character $collectionCharacter) => $collectionCharacter->id === $character->id
+            fn (Character $collectionCharacter): bool => $collectionCharacter->id === $character->id
         );
 
         $this->dispatch('characters-updated', characters: $this->assigned->pluck('id')->all());
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.users.livewire.manage-characters', [
             'assignedCharacters' => $this->assignedCharacters,

@@ -23,24 +23,24 @@ class PostingReporter
 
     public function currentActivityTimeframe(): UserPostingReport
     {
-        $result = $this->query(
+        $postAuthor = $this->query(
             start: $this->postingActivitySettings->timeframe->startDate(),
             end: $this->postingActivitySettings->timeframe->endDate()
         );
 
         return UserPostingReport::from(
-            posts: (int) $result->getAttribute('total_posts'),
-            words: (int) $result->getAttribute('total_words')
+            posts: (int) $postAuthor->getAttribute('total_posts'),
+            words: (int) $postAuthor->getAttribute('total_words')
         );
     }
 
     public function lifetime(): UserPostingReport
     {
-        $result = $this->query();
+        $postAuthor = $this->query();
 
         return UserPostingReport::from(
-            posts: (int) $result->getAttribute('total_posts'),
-            words: (int) $result->getAttribute('total_words'),
+            posts: (int) $postAuthor->getAttribute('total_posts'),
+            words: (int) $postAuthor->getAttribute('total_words'),
         );
     }
 

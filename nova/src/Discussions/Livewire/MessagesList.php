@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Pagination\Paginator;
@@ -31,11 +33,11 @@ class MessagesList extends Component
 
     public string $filter = 'all';
 
-    public $pageHeading = null;
+    public $pageHeading;
 
-    public $pageIntro = null;
+    public $pageIntro;
 
-    public $pageSubheading = null;
+    public $pageSubheading;
 
     public ?string $search = null;
 
@@ -70,25 +72,21 @@ class MessagesList extends Component
                 'updated_at',
             ])
             ->forCurrentUser()
-            ->when($this->filter === 'unread', function (Builder $query): Builder {
-                return $query->whereHas('notifications', function (Builder $query): Builder {
-                    return $query->where('user_id', Auth::id())->where('is_seen', 0);
-                });
-            })
+            ->when($this->filter === 'unread', fn (Builder $query): Builder => $query->whereHas('notifications', fn (Builder $query): Builder => $query->where('user_id', Auth::id())->where('is_seen', 0)))
             ->when(filled($this->search), fn (DiscussionBuilder $query): DiscussionBuilder => $query->searchFor($this->search ?? ''))
             ->latest('updated_at')
             ->latest('id')
             ->simplePaginate(15);
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.discussions.livewire.messages-list', [
             'discussions' => $this->discussions,
         ]);
     }
 
-    public function selectDiscussion($id): void
+    public function selectDiscussion(?int $id): void
     {
         $this->selected = $id;
 

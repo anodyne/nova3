@@ -15,17 +15,17 @@ class ContentRatingsSettingsForm extends Form
     #[Validate]
     public ContentRatingValue $rating;
 
-    public ?string $description0;
+    public ?string $description0 = null;
 
-    public ?string $description1;
+    public ?string $description1 = null;
 
-    public ?string $description2;
+    public ?string $description2 = null;
 
-    public ?string $description3;
+    public ?string $description3 = null;
 
     public ContentRatingValue $warningThreshold;
 
-    public ?string $warningThresholdMessage;
+    public ?string $warningThresholdMessage = null;
 
     public function rules(): array
     {

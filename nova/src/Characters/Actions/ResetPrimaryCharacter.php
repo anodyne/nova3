@@ -17,7 +17,7 @@ class ResetPrimaryCharacter
     {
         collect($data->primaryUsers)
             ->filter()
-            ->each(function ($userId) use ($character) {
+            ->each(function ($userId) use ($character): void {
                 $user = User::find($userId);
 
                 $oldPrimaryCharacter = $user?->primaryCharacter->first();

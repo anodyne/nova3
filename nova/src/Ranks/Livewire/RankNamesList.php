@@ -70,10 +70,10 @@ class RankNamesList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->eventDescriptions([
-                                        'duplicated' => function (Activity $activity) {
+                                        'duplicated' => function (Activity $activity): string {
                                             $causer = $activity->causer;
                                             $causerName = $causer instanceof User
                                                 ? $causer->name

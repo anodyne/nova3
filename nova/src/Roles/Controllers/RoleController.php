@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Roles\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Roles\Actions\CreateRoleManager;
 use Nova\Roles\Actions\UpdateRoleManager;
 use Nova\Roles\Models\Role;
@@ -26,19 +27,19 @@ class RoleController extends Controller
         $this->authorizeResource(Role::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListRolesResponse::send();
     }
 
-    public function show(Role $role)
+    public function show(Role $role): Responsable
     {
         return ShowRoleResponse::sendWith([
             'role' => $role->load('permissions', 'user'),
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateRoleResponse::send();
     }
@@ -51,7 +52,7 @@ class RoleController extends Controller
             ->notify("{$role->display_name} role was created");
     }
 
-    public function edit(Role $role)
+    public function edit(Role $role): Responsable
     {
         return EditRoleResponse::sendWith([
             'role' => $role->load('user.media', 'permissions')->loadCount(['user', 'permissions']),

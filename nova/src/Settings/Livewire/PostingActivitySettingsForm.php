@@ -33,12 +33,12 @@ class PostingActivitySettingsForm extends Form
     {
         $this->validate();
 
-        $data = PostingActivity::from($this->all());
+        $postingActivity = PostingActivity::from($this->all());
 
-        UpdateSettings::run('posting_activity', $data);
+        UpdateSettings::run('posting_activity', $postingActivity);
     }
 
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'target' => ['required'],

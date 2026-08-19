@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Models;
 
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,25 +31,25 @@ use Nova\Users\Models\User;
  * @property-read Post|null $post
  * @property-read User|null $user
  *
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor draft()
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor includedInPostTracking()
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor newModelQuery()
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor newQuery()
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor published()
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor query()
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor timeframe(?\Carbon\CarbonInterface $start = null, ?\Carbon\CarbonInterface $end = null)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor updatedBetween(?\Carbon\CarbonInterface $start = null, ?\Carbon\CarbonInterface $end = null)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereAs($value)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereAuthorableId($value)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereAuthorableType($value)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereCreatedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereId($value)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor wherePost(\Nova\Stories\Models\Post|int|null $post)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor wherePostId($value)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereUpdatedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereUser(\Nova\Users\Models\User|int $user)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereUserId($value)
- * @method static \Nova\Stories\Models\Builders\PostAuthorBuilder<static>|\Nova\Stories\Models\PostAuthor whereWordCount($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor draft()
+ * @method static PostAuthorBuilder<static>|PostAuthor includedInPostTracking()
+ * @method static PostAuthorBuilder<static>|PostAuthor newModelQuery()
+ * @method static PostAuthorBuilder<static>|PostAuthor newQuery()
+ * @method static PostAuthorBuilder<static>|PostAuthor published()
+ * @method static PostAuthorBuilder<static>|PostAuthor query()
+ * @method static PostAuthorBuilder<static>|PostAuthor timeframe(?CarbonInterface $start = null, ?CarbonInterface $end = null)
+ * @method static PostAuthorBuilder<static>|PostAuthor updatedBetween(?CarbonInterface $start = null, ?CarbonInterface $end = null)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereAs($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereAuthorableId($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereAuthorableType($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereCreatedAt($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereId($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor wherePost(Post|int|null $post)
+ * @method static PostAuthorBuilder<static>|PostAuthor wherePostId($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereUpdatedAt($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereUser(User|int $user)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereUserId($value)
+ * @method static PostAuthorBuilder<static>|PostAuthor whereWordCount($value)
  *
  * @mixin \Eloquent
  */

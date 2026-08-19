@@ -15,7 +15,7 @@ class MaintenanceModeSwitch extends Component
 {
     public bool $maintenance;
 
-    public function updatedMaintenance($value)
+    public function updatedMaintenance($value): void
     {
         if ($value === true) {
             $secret = Str::uuid();
@@ -43,7 +43,7 @@ class MaintenanceModeSwitch extends Component
         }
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
             <x-switch wire:model.live="maintenance"></x-switch>

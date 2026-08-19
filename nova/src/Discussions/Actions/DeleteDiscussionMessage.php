@@ -14,7 +14,7 @@ class DeleteDiscussionMessage
 
     public function handle(DiscussionMessage $message): void
     {
-        DB::transaction(function () use ($message) {
+        DB::transaction(function () use ($message): void {
             $message->notifications()->delete();
 
             $message->delete();

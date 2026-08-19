@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\RankNameFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,20 +33,20 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property-read Collection<int, RankItem> $ranks
  * @property-read int|null $ranks_count
  *
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName active()
- * @method static \Database\Factories\RankNameFactory factory($count = null, $state = [])
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName inactive()
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName newModelQuery()
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName newQuery()
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName ordered(string $direction = 'asc')
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName query()
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName searchFor($search)
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereCreatedAt($value)
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereId($value)
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereName($value)
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereOrderColumn($value)
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereStatus($value)
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereUpdatedAt($value)
+ * @method static RankNameBuilder<static>|RankName active()
+ * @method static RankNameFactory factory($count = null, $state = [])
+ * @method static RankNameBuilder<static>|RankName inactive()
+ * @method static RankNameBuilder<static>|RankName newModelQuery()
+ * @method static RankNameBuilder<static>|RankName newQuery()
+ * @method static RankNameBuilder<static>|RankName ordered(string $direction = 'asc')
+ * @method static RankNameBuilder<static>|RankName query()
+ * @method static RankNameBuilder<static>|RankName searchFor($search)
+ * @method static RankNameBuilder<static>|RankName whereCreatedAt($value)
+ * @method static RankNameBuilder<static>|RankName whereId($value)
+ * @method static RankNameBuilder<static>|RankName whereName($value)
+ * @method static RankNameBuilder<static>|RankName whereOrderColumn($value)
+ * @method static RankNameBuilder<static>|RankName whereStatus($value)
+ * @method static RankNameBuilder<static>|RankName whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */

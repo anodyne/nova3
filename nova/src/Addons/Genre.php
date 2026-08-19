@@ -28,22 +28,18 @@ abstract class Genre extends BaseAddon
     {
         $this->uninstall();
 
-        if (count($this->departmentAndPositionsData()) > 0) {
-            foreach ($this->departmentAndPositionsData() as $department) {
-                $positions = data_get($department, 'positions');
+        foreach ($this->departmentAndPositionsData() as $department) {
+            $positions = data_get($department, 'positions');
 
-                $dept = Department::create(Arr::except($department, 'positions'));
+            $dept = Department::create(Arr::except($department, 'positions'));
 
-                if (filled($positions)) {
-                    $dept->positions()->createMany($positions);
-                }
+            if (filled($positions)) {
+                $dept->positions()->createMany($positions);
             }
         }
 
-        if (count($this->rankNamesData()) > 0) {
-            foreach ($this->rankNamesData() as $rankName) {
-                RankName::create($rankName);
-            }
+        foreach ($this->rankNamesData() as $rankName) {
+            RankName::create($rankName);
         }
 
         if (count($this->rankGroupsAndItemsData()) > 0) {

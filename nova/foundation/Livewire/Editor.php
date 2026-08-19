@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
@@ -30,7 +32,7 @@ class Editor extends Component
         return number_format(str($this->content)->pipe('strip_tags')->wordCount());
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('livewire.editor', [
             'wordCount' => $this->wordCount,

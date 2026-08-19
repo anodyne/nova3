@@ -29,10 +29,10 @@ class CurrentStoriesPostSeeder extends Seeder
             return;
         }
 
-        DB::transaction(function () use ($storyIds) {
+        DB::transaction(function () use ($storyIds): void {
             $buffer = [];
 
-            $flush = function () use (&$buffer) {
+            $flush = function () use (&$buffer): void {
                 DB::table('posts')->insert($buffer);
                 $buffer = [];
             };

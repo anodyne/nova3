@@ -30,7 +30,7 @@ class NoteSeeder extends Seeder
                     'created_at' => $now,
                     'updated_at' => $now,
                 ])
-                ->map(fn ($note) => array_replace($note->getAttributes(), [
+                ->map(fn ($note): array => array_replace($note->getAttributes(), [
                     'created_at' => $now,
                     'updated_at' => $now,
                 ]))

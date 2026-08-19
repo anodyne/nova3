@@ -28,7 +28,7 @@ class NotifyReviewersOfVote
 
         if (filled($notification)) {
             $reviewers
-                ->reject(fn (User $user) => $user->id === $reviewer->id)
+                ->reject(fn (User $user): bool => $user->id === $reviewer->id)
                 ->each->notify($notification);
         }
     }

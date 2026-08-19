@@ -16,6 +16,7 @@ use Nova\Announcements\Responses\EditAnnouncementResponse;
 use Nova\Announcements\Responses\ListAnnouncementsResponse;
 use Nova\Announcements\Responses\ShowAnnouncementResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class AnnouncementController extends Controller
 {
@@ -28,21 +29,21 @@ class AnnouncementController extends Controller
         $this->authorizeResource(Announcement::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListAnnouncementsResponse::send();
     }
 
-    public function show(Announcement $announcement)
+    public function show(Announcement $announcement): Responsable
     {
-        defer(fn () => MarkAnnouncementRead::run($announcement, Auth::user()));
+        defer(fn (): mixed => MarkAnnouncementRead::run($announcement, Auth::user()));
 
         return ShowAnnouncementResponse::sendWith([
             'announcement' => $announcement->loadMissing('user'),
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateAnnouncementResponse::sendWith([
             'categories' => Announcement::uniqueCategories()->pluck('category')->filter(),
@@ -57,7 +58,7 @@ class AnnouncementController extends Controller
             ->notify("{$announcement->title} announcement was created");
     }
 
-    public function edit(Announcement $announcement)
+    public function edit(Announcement $announcement): Responsable
     {
         return EditAnnouncementResponse::sendWith([
             'announcement' => $announcement,

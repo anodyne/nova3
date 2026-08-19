@@ -20,7 +20,7 @@ class AdminForcedPasswordResetException extends Exception
             ->with('message', $this->getMessage());
     }
 
-    public function report()
+    public function report(): bool
     {
         return false;
     }

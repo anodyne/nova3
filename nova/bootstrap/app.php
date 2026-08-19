@@ -19,7 +19,7 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
-        then: function () {
+        then: function (): void {
             if (app()->environment('local')) {
                 Route::prefix('test')
                     ->middleware('web')
@@ -27,7 +27,7 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
             }
         }
     )
-    ->withMiddleware(function (Middleware $middleware) {
+    ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'installed' => CheckInstallStatus::class,
         ]);
@@ -43,7 +43,7 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
             CheckExternalContentCache::class,
         ]);
     })
-    ->withExceptions(function (Exceptions $exceptions) {
+    ->withExceptions(function (Exceptions $exceptions): void {
         // /** @var Nova\Users\Models\User */
         // $user = Auth::user();
 

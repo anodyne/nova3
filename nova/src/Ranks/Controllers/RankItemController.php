@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Ranks\Actions\CreateRankItem;
 use Nova\Ranks\Actions\UpdateRankItem;
 use Nova\Ranks\Concerns\FindRankImages;
@@ -31,19 +32,19 @@ class RankItemController extends Controller
         $this->authorizeResource(RankItem::class, 'item');
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListRankItemsResponse::send();
     }
 
-    public function show(RankItem $item)
+    public function show(RankItem $item): Responsable
     {
         return ShowRankItemResponse::sendWith([
             'item' => $item->load('group', 'characters'),
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateRankItemResponse::sendWith([
             'groups' => RankGroup::ordered()->get(),
@@ -61,7 +62,7 @@ class RankItemController extends Controller
             ->notify('Rank item was created');
     }
 
-    public function edit(RankItem $item)
+    public function edit(RankItem $item): Responsable
     {
         return EditRankItemResponse::sendWith([
             'groups' => RankGroup::ordered()->get(),
@@ -74,7 +75,7 @@ class RankItemController extends Controller
 
     public function update(UpdateRankItemRequest $request, RankItem $item)
     {
-        $item = UpdateRankItem::run($item, $request->getRankItemData());
+        UpdateRankItem::run($item, $request->getRankItemData());
 
         return back()->notify('Rank item was updated');
     }

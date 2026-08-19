@@ -97,17 +97,17 @@ class DepartmentsList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->attributeValues([
-                                        'tags' => fn ($value) => is_array($value) ? implode(', ', $value) : '',
+                                        'tags' => fn ($value): string => is_array($value) ? implode(', ', $value) : '',
                                     ])
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => __('activity.departments.duplicated', [
+                                        'duplicated' => fn (Activity $activity): string => __('activity.departments.duplicated', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'replica' => Department::find($activity->getExtraProperty('replica'))?->name,
                                         ]),
-                                        'uploaded' => fn (Activity $activity) => __('activity.departments.uploaded', [
+                                        'uploaded' => fn (Activity $activity): string => __('activity.departments.uploaded', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                         ]),
                                     ]);

@@ -41,28 +41,22 @@ class PageDesigner extends FormComponent
                     ->blockPickerColumns(2)
                     ->blocks(PageBlockRegistry::blocks())
                     ->collapsible()
-                    ->addAction(function (Action $action): Action {
-                        return $action
-                            ->label('Add block')
-                            ->icon(Tabler::Plus)
-                            ->iconSize(IconSize::Medium)
-                            ->slideOver()
-                            ->modalWidth(Width::TwoExtraLarge);
-                    })
-                    ->addBetweenAction(function (Action $action): Action {
-                        return $action
-                            ->label('Insert between blocks')
-                            ->icon(Tabler::Plus)
-                            ->iconSize(IconSize::Medium)
-                            ->slideOver()
-                            ->modalWidth(Width::TwoExtraLarge);
-                    })
-                    ->editAction(function (Action $action): Action {
-                        return $action
-                            ->icon(Tabler::Settings)
-                            ->slideOver()
-                            ->modalWidth(Width::TwoExtraLarge);
-                    }),
+                    ->addAction(fn (Action $action): Action => $action
+                        ->label('Add block')
+                        ->icon(Tabler::Plus)
+                        ->iconSize(IconSize::Medium)
+                        ->slideOver()
+                        ->modalWidth(Width::TwoExtraLarge))
+                    ->addBetweenAction(fn (Action $action): Action => $action
+                        ->label('Insert between blocks')
+                        ->icon(Tabler::Plus)
+                        ->iconSize(IconSize::Medium)
+                        ->slideOver()
+                        ->modalWidth(Width::TwoExtraLarge))
+                    ->editAction(fn (Action $action): Action => $action
+                        ->icon(Tabler::Settings)
+                        ->slideOver()
+                        ->modalWidth(Width::TwoExtraLarge)),
                 //                    ->afterStateUpdated(fn () => $this->save()),
             ])
             ->statePath('data')

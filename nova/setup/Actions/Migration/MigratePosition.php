@@ -26,7 +26,7 @@ class MigratePosition
             upgradeKey: 'department'
         );
 
-        DB::transaction(function () use ($model, $newDepartmentId) {
+        DB::transaction(function () use ($model, $newDepartmentId): void {
             $positionId = DB::table('positions')->insertGetId([
                 'name' => $model->pos_name,
                 'description' => $model->pos_desc,

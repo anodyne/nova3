@@ -36,10 +36,8 @@ trait HasPosts
     public function draftPostsNeedingAttention(): BelongsToMany
     {
         return $this->draftPosts()
-            ->where(function (Builder $query): Builder {
-                return $query->whereNull('last_update_by')
-                    ->orWhere('last_update_by', '!=', Auth::id());
-            });
+            ->where(fn (Builder $query): Builder => $query->whereNull('last_update_by')
+                ->orWhere('last_update_by', '!=', Auth::id()));
     }
 
     /**

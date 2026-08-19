@@ -13,7 +13,7 @@ class PublishPage
 
     public function handle(Page $page): Page
     {
-        activity()->withoutLogs(function () use ($page) {
+        activity()->withoutLogs(function () use ($page): void {
             $page->published_blocks = $page->blocks;
             $page->published_at = now();
             $page->save();

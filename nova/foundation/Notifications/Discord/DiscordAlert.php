@@ -37,7 +37,7 @@ class DiscordAlert
         return app(static::class, ['notificationKey' => $notificationKey]);
     }
 
-    protected function buildJsonPayload(DiscordMessage $message)
+    protected function buildJsonPayload(DiscordMessage $message): array
     {
         $optionalFields = array_filter([
             'username' => data_get($message, 'username'),
@@ -54,24 +54,22 @@ class DiscordAlert
 
     protected function embeds(DiscordMessage $message)
     {
-        return collect($message->embeds)->map(function (DiscordEmbed $embed) {
-            return array_filter([
-                'color' => $embed->color,
-                'title' => $embed->title,
-                'description' => $embed->description,
-                'url' => $embed->url,
-                'thumbnail' => $embed->thumbnail,
-                'image' => $embed->image,
-                'footer' => $embed->footer,
-                'author' => $embed->author,
-                'fields' => $this->embedFields($embed),
-            ]);
-        })->all();
+        return collect($message->embeds)->map(fn (DiscordEmbed $embed): array => array_filter([
+            'color' => $embed->color,
+            'title' => $embed->title,
+            'description' => $embed->description,
+            'url' => $embed->url,
+            'thumbnail' => $embed->thumbnail,
+            'image' => $embed->image,
+            'footer' => $embed->footer,
+            'author' => $embed->author,
+            'fields' => $this->embedFields($embed),
+        ]))->all();
     }
 
     protected function embedFields(DiscordEmbed $embed)
     {
-        return collect($embed->fields)->map(function ($value, $key) {
+        return collect($embed->fields)->map(function ($value, $key): array {
             if ($value instanceof DiscordEmbedField) {
                 return $value->toArray();
             }

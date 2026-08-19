@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Applications\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\ApplicationFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,23 +52,23 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read int|null $reviews_count
  * @property-read User|null $user
  *
- * @method static \Database\Factories\ApplicationFactory factory($count = null, $state = [])
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application newModelQuery()
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application newQuery()
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application pending()
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application query()
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application reviewedBy(\Nova\Users\Models\User $user)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application searchFor($search)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereCharacterId($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereCreatedAt($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereDecisionDate($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereDecisionMessage($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereId($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereIpAddress($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application wherePrefixedId($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereResult($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereUpdatedAt($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereUserId($value)
+ * @method static ApplicationFactory factory($count = null, $state = [])
+ * @method static ApplicationBuilder<static>|Application newModelQuery()
+ * @method static ApplicationBuilder<static>|Application newQuery()
+ * @method static ApplicationBuilder<static>|Application pending()
+ * @method static ApplicationBuilder<static>|Application query()
+ * @method static ApplicationBuilder<static>|Application reviewedBy(User $user)
+ * @method static ApplicationBuilder<static>|Application searchFor($search)
+ * @method static ApplicationBuilder<static>|Application whereCharacterId($value)
+ * @method static ApplicationBuilder<static>|Application whereCreatedAt($value)
+ * @method static ApplicationBuilder<static>|Application whereDecisionDate($value)
+ * @method static ApplicationBuilder<static>|Application whereDecisionMessage($value)
+ * @method static ApplicationBuilder<static>|Application whereId($value)
+ * @method static ApplicationBuilder<static>|Application whereIpAddress($value)
+ * @method static ApplicationBuilder<static>|Application wherePrefixedId($value)
+ * @method static ApplicationBuilder<static>|Application whereResult($value)
+ * @method static ApplicationBuilder<static>|Application whereUpdatedAt($value)
+ * @method static ApplicationBuilder<static>|Application whereUserId($value)
  *
  * @mixin \Eloquent
  */

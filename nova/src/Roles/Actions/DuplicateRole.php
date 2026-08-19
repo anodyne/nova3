@@ -17,24 +17,24 @@ class DuplicateRole
     {
         if (! $original->is_locked) {
             return DB::transaction(function () use ($original, $data) {
-                $replica = $original->replicate([
+                $role = $original->replicate([
                     'active_users_count',
                     'inactive_users_count',
                     'user_count',
                     'permissions_count',
                     'prefixed_id',
                 ]);
-                $replica->fill($data->toArray());
-                $replica->save();
+                $role->fill($data->toArray());
+                $role->save();
 
-                $replica->syncPermissions($original->permissions);
+                $role->syncPermissions($original->permissions);
 
                 activity()
                     ->performedOn($original)
                     ->event('duplicated')
                     ->log('duplicated');
 
-                return $replica->refresh();
+                return $role->refresh();
             });
         }
 

@@ -79,7 +79,7 @@ class PostPositionEditor extends SlideOver
             ->get();
     }
 
-    public function updatedDirection($value)
+    public function updatedDirection($value): void
     {
         if (in_array($this->direction, [PositionDirection::End, PositionDirection::Start])) {
             $this->neighbor = null;

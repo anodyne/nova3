@@ -35,13 +35,11 @@ class EditMenuItem extends SpotlightCommand
     {
         return MenuItem::where('label', 'like', "%{$query}%")
             ->get()
-            ->map(function ($menuItem) {
-                return new SpotlightSearchResult(
-                    $menuItem->id,
-                    $menuItem->label,
-                    sprintf('Edit %s menu item', $menuItem->label)
-                );
-            });
+            ->map(fn ($menuItem): SpotlightSearchResult => new SpotlightSearchResult(
+                $menuItem->id,
+                $menuItem->label,
+                sprintf('Edit %s menu item', $menuItem->label)
+            ));
     }
 
     public function execute(Spotlight $spotlight, MenuItem $menuItem): void

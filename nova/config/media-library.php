@@ -46,7 +46,7 @@ return [
      * This is useful when the originals live on a remote disk (e.g. S3) but the
      * generated derivatives should stay local for faster access and lower egress.
      */
-    'conversions_disk_name' => env('MEDIA_CONVERSIONS_DISK', null),
+    'conversions_disk_name' => env('MEDIA_CONVERSIONS_DISK'),
 
     /*
      * The maximum file size of an item in bytes.

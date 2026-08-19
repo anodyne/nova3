@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends StoreUserRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return array_merge(parent::rules(), [
             'email' => [

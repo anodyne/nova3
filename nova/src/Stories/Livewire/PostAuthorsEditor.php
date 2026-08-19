@@ -65,11 +65,7 @@ class PostAuthorsEditor extends SlideOver
             return true;
         }
 
-        if ($this->characterAuthors()->count() > 0 || $this->userAuthors()->count() > 0) {
-            return false;
-        }
-
-        return true;
+        return $this->characterAuthors()->count() <= 0 && $this->userAuthors()->count() <= 0;
     }
 
     public function canSave(): bool

@@ -13,6 +13,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Filament\Actions\ActionGroup;
@@ -78,33 +80,30 @@ class BansList extends TableComponent
                             ->slideOver()
                             ->modalWidth(Width::Large)
                             ->modalIcon(Tabler::Hammer)
-                            ->modalHeading('')
-                            ->modalDescription(null)
-                            ->modalContent(fn (Ban $record, ViewAction $action) => view('pages.bans.show', [
+                            ->modalHeading('')->modalDescription()
+                            ->modalContent(fn (Ban $record, ViewAction $action): Factory|View => view('pages.bans.show', [
                                 'record' => $record,
                                 'action' => $action,
                             ]))
-                            ->schema(function (Schema $schema): Schema {
-                                return $schema->components([
-                                    TextEntry::make('bannable.name')
-                                        ->label('User name')
-                                        ->visible(fn (Ban $record): bool => filled($record->bannable)),
-                                    TextEntry::make('ip')
-                                        ->label('IP address')
-                                        ->extraAttributes(['class' => 'tabular-nums'])
-                                        ->visible(fn (Ban $record): bool => filled($record->ip)),
-                                    TextEntry::make('created_by.name')->label('Banned by'),
-                                    TextEntry::make('created_at')
-                                        ->label('Banned on')
-                                        ->formatStateUsing(fn (Ban $record): string => DateHelper::formatDate($record->created_at)),
-                                    TextEntry::make('expired_at')
-                                        ->label('Expiration')
-                                        ->placeholder('No expiration')
-                                        ->date(),
-                                    TextEntry::make('comment')->label('Comments'),
-                                    KeyValueEntry::make('metas')->label('Metadata'),
-                                ]);
-                            }),
+                            ->schema(fn (Schema $schema): Schema => $schema->components([
+                                TextEntry::make('bannable.name')
+                                    ->label('User name')
+                                    ->visible(fn (Ban $record): bool => filled($record->bannable)),
+                                TextEntry::make('ip')
+                                    ->label('IP address')
+                                    ->extraAttributes(['class' => 'tabular-nums'])
+                                    ->visible(fn (Ban $record): bool => filled($record->ip)),
+                                TextEntry::make('created_by.name')->label('Banned by'),
+                                TextEntry::make('created_at')
+                                    ->label('Banned on')
+                                    ->formatStateUsing(fn (Ban $record): string => DateHelper::formatDate($record->created_at)),
+                                TextEntry::make('expired_at')
+                                    ->label('Expiration')
+                                    ->placeholder('No expiration')
+                                    ->date(),
+                                TextEntry::make('comment')->label('Comments'),
+                                KeyValueEntry::make('metas')->label('Metadata'),
+                            ])),
                     ])->divided(),
 
                     ActionGroup::make([
@@ -137,13 +136,11 @@ class BansList extends TableComponent
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('ban was|bans were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
+                            ->when($ignoredRecords > 0, fn (Notification $notification): Notification => $notification->body(sprintf(
+                                '%d %s ignored due to being ineligible for this action.',
+                                $ignoredRecords,
+                                trans_choice('record was|records were', $ignoredRecords)
+                            )))
                             ->send();
                     }),
             ])

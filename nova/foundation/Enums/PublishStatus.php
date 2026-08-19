@@ -39,7 +39,7 @@ enum PublishStatus: string implements HasColor, HasLabel
     public static function options(bool $withPending = false): array
     {
         return collect(self::cases())
-            ->unless($withPending, fn ($collection) => $collection->reject(fn ($case) => $case === self::Pending))
+            ->unless($withPending, fn ($collection) => $collection->reject(fn ($case): bool => $case === self::Pending))
             ->toArray();
     }
 }

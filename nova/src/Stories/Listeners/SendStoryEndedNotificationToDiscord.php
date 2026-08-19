@@ -18,14 +18,14 @@ class SendStoryEndedNotificationToDiscord
 
         $notificationType = NotificationType::where('key', 'story-ended')->first();
 
-        $message = (new DiscordMessage)
+        $discordMessage = (new DiscordMessage)
             ->content('A story has been ended')
-            ->embed(function (DiscordEmbed $embed) use ($story, $notificationType) {
+            ->embed(function (DiscordEmbed $embed) use ($story, $notificationType): void {
                 $embed->title($story->title, route('admin.stories.show', $story))
                     ->description($story->description)
                     ->color($notificationType->discord_color);
             });
 
-        DiscordAlert::make()->for($notificationType)->send($message);
+        DiscordAlert::make()->for($notificationType)->send($discordMessage);
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
@@ -41,7 +43,7 @@ class StatWidget extends Component
         };
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.pages.livewire.stat-widget', [
             'value' => $this->statValue,

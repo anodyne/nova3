@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Number;
 use Nova\Dashboards\Responses\DashboardResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Onboarding\Concerns\GetActiveOnboardingsForCurrentUser;
 use Nova\Settings\Enums\PostingTarget;
 use Nova\Users\Data\UserPostingReport;
@@ -27,14 +28,14 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
         $this->user = Auth::user();
 
-        $reporter = PostingReporter::make($this->user);
+        $postingReporter = PostingReporter::make($this->user);
 
-        $lifetime = $reporter->lifetime();
-        $currentActivityTimeframe = $reporter->currentActivityTimeframe();
+        $lifetime = $postingReporter->lifetime();
+        $currentActivityTimeframe = $postingReporter->currentActivityTimeframe();
 
         $data = (settings('dashboard.milestonesTarget') === PostingTarget::Words)
             ? $this->getDataForWordBasedStats($lifetime)

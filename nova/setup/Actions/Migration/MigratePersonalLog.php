@@ -18,7 +18,7 @@ class MigratePersonalLog
 
     public function handle(object $model, Story $story, int $logPostTypeId): void
     {
-        DB::transaction(function () use ($model, $story, $logPostTypeId) {
+        DB::transaction(function () use ($model, $story, $logPostTypeId): void {
             $logId = DB::table('posts')->insertGetId([
                 'title' => $model->log_title,
                 'post_type_id' => $logPostTypeId,
@@ -38,7 +38,7 @@ class MigratePersonalLog
             Character::with('activeUsers')
                 ->where('id', Upgrade::type('character')->where('old_id', $model->log_author_character)->first()?->new_id)
                 ->get()
-                ->each(function (Character $character) use ($logId, $created) {
+                ->each(function (Character $character) use ($logId, $created): void {
                     DB::table('post_author')->insert([
                         'post_id' => $logId,
                         'authorable_type' => 'character',

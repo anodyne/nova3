@@ -22,12 +22,10 @@ class DeleteBulkAction extends \Filament\Actions\DeleteBulkAction
 
         $this->requiresConfirmation(false);
 
-        $this->successNotificationTitle(function (Collection $records): string {
-            return trans_choice('messages.table.bulk-delete-success', $records->count(), [
-                'count' => $records->count(),
-                'label' => str($this->getRecordTitle())->plural($records->count()),
-            ]);
-        });
+        $this->successNotificationTitle(fn (Collection $records): string => trans_choice('messages.table.bulk-delete-success', $records->count(), [
+            'count' => $records->count(),
+            'label' => str($this->getRecordTitle())->plural($records->count()),
+        ]));
 
         $this->failureNotificationTitle(function (int $successCount, int $totalCount): string {
             if ($successCount) {
@@ -44,9 +42,9 @@ class DeleteBulkAction extends \Filament\Actions\DeleteBulkAction
         });
 
         $this->modalWidth(Width::Large);
-        $this->modalIcon(null);
+        $this->modalIcon();
         $this->modalHeading('');
-        $this->modalDescription(null);
+        $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, delete them');
         $this->modalCancelActionLabel('No, keep them');
         $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [

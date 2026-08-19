@@ -12,7 +12,6 @@ use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
-use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
 use Nova\Users\Actions\PopulateAccountPreferences;
@@ -26,7 +25,7 @@ class ApplicationSeeder extends Seeder
         DB::disableQueryLog();
         activity()->disableLogging();
 
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             $forms = Form::query()
                 ->whereIn('key', ['userBio', 'characterBio', 'applicationInfo'])
                 ->get()
@@ -99,7 +98,7 @@ class ApplicationSeeder extends Seeder
         CreateFormSubmission::run($forms['applicationInfo'], $application);
 
         $discussion = $application->discussion()->create();
-        if (! empty($reviewerIds)) {
+        if ($reviewerIds !== []) {
             $application->reviews()->attach($reviewerIds);
         }
 
@@ -115,7 +114,7 @@ class ApplicationSeeder extends Seeder
             return;
         }
 
-        $authorIds = ! empty($authorPool)
+        $authorIds = $authorPool !== []
             ? $authorPool
             : User::query()->orderBy('id')->limit(3)->pluck('id')->all();
 

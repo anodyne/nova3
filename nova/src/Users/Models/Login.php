@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Users\Models;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Foundation\Models\Model;
 
@@ -15,13 +16,13 @@ use Nova\Foundation\Models\Model;
  * @property CarbonImmutable $created_at
  * @property-read User|null $user
  *
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\Login newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\Login newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\Login query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\Login whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\Login whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\Login whereIpAddress($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\Login whereUserId($value)
+ * @method static Builder<static>|Login newModelQuery()
+ * @method static Builder<static>|Login newQuery()
+ * @method static Builder<static>|Login query()
+ * @method static Builder<static>|Login whereCreatedAt($value)
+ * @method static Builder<static>|Login whereId($value)
+ * @method static Builder<static>|Login whereIpAddress($value)
+ * @method static Builder<static>|Login whereUserId($value)
  *
  * @mixin \Eloquent
  */

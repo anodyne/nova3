@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
@@ -19,7 +21,7 @@ class MigrateNova extends Component
 
     public ?string $legacyVersion = null;
 
-    public function mount()
+    public function mount(): void
     {
         if (filled(config('database.connections.nova2.database'))) {
             $this->status = NovaMigrateStatus::DatabaseConfigured;
@@ -42,7 +44,7 @@ class MigrateNova extends Component
         }
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('setup.migrate-nova.index');
     }

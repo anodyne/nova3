@@ -23,9 +23,9 @@ class ForceDeleteBulkAction extends \Filament\Actions\ForceDeleteBulkAction
         $this->requiresConfirmation(false);
 
         $this->modalWidth(Width::Large);
-        $this->modalIcon(null);
+        $this->modalIcon();
         $this->modalHeading('');
-        $this->modalDescription(null);
+        $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, delete them forever');
         $this->modalCancelActionLabel('No, keep them');
         $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [

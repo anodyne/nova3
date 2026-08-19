@@ -15,7 +15,7 @@ class DeleteUserManager
 
     public function handle(User $user): User
     {
-        return DB::transaction(function () use ($user) {
+        return DB::transaction(function () use ($user): User {
             LogBatch::startBatch();
 
             DeleteUser::run($user);

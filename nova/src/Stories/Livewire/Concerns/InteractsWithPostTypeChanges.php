@@ -149,14 +149,14 @@ trait InteractsWithPostTypeChanges
          * and summary fields (since we'll handle those separately).
          */
         $oldFields = $oldPostType->fields->enabledFields()
-            ->reject(fn ($field, string $key) => in_array($key, ['rating', 'summary']));
+            ->reject(fn ($field, string $key): bool => in_array($key, ['rating', 'summary']));
 
         /**
          * Get the enabled fields for the new post type, removing the rating
          * and summary fields (since we'll handle those separate).
          */
         $newFields = $newPostType->fields->enabledFields()
-            ->reject(fn ($field, string $key) => in_array($key, ['rating', 'summary']));
+            ->reject(fn ($field, string $key): bool => in_array($key, ['rating', 'summary']));
 
         /**
          * Determine what fields are being removed when we move the post to the
@@ -167,7 +167,7 @@ trait InteractsWithPostTypeChanges
         /**
          * Loop through the fields being removed and null the values on the post.
          */
-        $removedFields->each(fn (string $fieldName) => $this->post->$fieldName = null);
+        $removedFields->each(fn (string $fieldName): null => $this->post->$fieldName = null);
     }
 
     private function handlePostTypeUpdateForRatings(PostType $oldPostType, PostType $newPostType): void

@@ -18,9 +18,9 @@ class BulkAction extends \Filament\Actions\BulkAction
         parent::setUp();
 
         $this->modalWidth(Width::Large);
-        $this->modalIcon(null);
+        $this->modalIcon();
         $this->modalHeading('');
-        $this->modalDescription(null);
+        $this->modalDescription();
         $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
             'records' => $records,
             'action' => $this,

@@ -8,7 +8,7 @@ class ArrMacros
 {
     public static function boolean()
     {
-        return function (array $target, $key, $default = false) {
+        return function (array $target, $key, $default = false): ?bool {
             if ($default === null) {
                 return filter_var(data_get($target, $key, $default), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
             }
@@ -19,7 +19,7 @@ class ArrMacros
 
     public static function build()
     {
-        return function (array $array) {
+        return function (array $array): array {
             $items = [];
 
             foreach ($array as $value => $constraint) {
@@ -36,15 +36,7 @@ class ArrMacros
 
     public static function isMultiDimensional()
     {
-        return function (array $array): bool {
-            foreach ($array as $item) {
-                if (is_array($item)) {
-                    return true;
-                }
-            }
-
-            return false;
-        };
+        return fn (array $array): bool => array_any($array, fn ($item): bool => is_array($item));
     }
 
     //    public static function enum()

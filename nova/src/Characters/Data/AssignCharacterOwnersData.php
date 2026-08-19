@@ -26,8 +26,8 @@ readonly class AssignCharacterOwnersData extends Bag
     protected static function fromRequest(Request $request): array
     {
         return [
-            'users' => array_map('trim', explode(',', $request->input('assigned_users') ?? '')),
-            'primaryUsers' => array_map('trim', explode(',', $request->input('primary_users') ?? '')),
+            'users' => array_map(trim(...), explode(',', $request->input('assigned_users') ?? '')),
+            'primaryUsers' => array_map(trim(...), explode(',', $request->input('primary_users') ?? '')),
         ];
     }
 }

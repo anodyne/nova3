@@ -9,7 +9,7 @@ use Nova\Ranks\Models\RankGroup;
 
 class RankGroupSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 

@@ -44,20 +44,16 @@ class FormDesigner extends FormComponent
                     ->blockPreviews(areInteractive: true)
                     ->blocks(FormFieldRegistry::fields())
                     ->collapsible()
-                    ->addAction(function (Action $action): Action {
-                        return $action
-                            ->label('Add field')
-                            ->icon(Tabler::Plus)
-                            ->iconSize(IconSize::Medium)
-                            ->slideOver()
-                            ->modalWidth(Width::ExtraLarge);
-                    })
-                    ->editAction(function (Action $action): Action {
-                        return $action
-                            ->icon(Tabler::Settings)
-                            ->slideOver()
-                            ->modalWidth(Width::ExtraLarge);
-                    })
+                    ->addAction(fn (Action $action): Action => $action
+                        ->label('Add field')
+                        ->icon(Tabler::Plus)
+                        ->iconSize(IconSize::Medium)
+                        ->slideOver()
+                        ->modalWidth(Width::ExtraLarge))
+                    ->editAction(fn (Action $action): Action => $action
+                        ->icon(Tabler::Settings)
+                        ->slideOver()
+                        ->modalWidth(Width::ExtraLarge))
                     ->afterStateUpdated(fn () => $this->save()),
             ])
             ->statePath('data')

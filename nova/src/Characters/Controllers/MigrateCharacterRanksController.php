@@ -7,6 +7,7 @@ namespace Nova\Characters\Controllers;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Responses\MigrateCharacterRanksResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class MigrateCharacterRanksController extends Controller
 {
@@ -17,7 +18,7 @@ class MigrateCharacterRanksController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
         $this->authorize('updateAny', Character::class);
 

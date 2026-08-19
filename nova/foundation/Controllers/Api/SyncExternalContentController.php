@@ -9,7 +9,7 @@ use Nova\Foundation\Models\ExternalContent;
 
 class SyncExternalContentController
 {
-    public function __invoke()
+    public function __invoke(): void
     {
         $this->syncExternalChangelog();
 

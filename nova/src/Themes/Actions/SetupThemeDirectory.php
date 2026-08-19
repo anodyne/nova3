@@ -52,20 +52,11 @@ class SetupThemeDirectory
     public function handle(ThemeData $data): void
     {
         $this->data = $data;
-
-        try {
-            $this->createThemeDirectory();
-
-            $this->createThemeInstallFile();
-
-            $this->createThemeClass();
-
-            $this->createThemeDesignDirectoryAndStylesheet();
-
-            $this->createThemeLayout();
-        } catch (Throwable $th) {
-            throw $th;
-        }
+        $this->createThemeDirectory();
+        $this->createThemeInstallFile();
+        $this->createThemeClass();
+        $this->createThemeDesignDirectoryAndStylesheet();
+        $this->createThemeLayout();
     }
 
     protected function createStylesheet($stylesheet): void

@@ -20,7 +20,7 @@ class CopyStacktraceButton extends Component
         return str($this->stacktrace)->remove(base_path())->toString();
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
             <div

@@ -175,7 +175,7 @@ class DynamicForm extends Component
     protected function setBlankValuesForCreate(): void
     {
         $this->values = collect($this->form->published_fields ?? [])
-            ->flatMap(fn ($item) => [data_get($item, 'data.attrs.id') => ''])
+            ->flatMap(fn ($item): array => [data_get($item, 'data.attrs.id') => ''])
             ->all();
     }
 
@@ -185,7 +185,7 @@ class DynamicForm extends Component
             $this->values = [];
         } else {
             $this->values = $this->submission->responses
-                ->flatMap(fn (FormSubmissionResponse $response) => [$response->field_uid => $response->value])
+                ->flatMap(fn (FormSubmissionResponse $response): array => [$response->field_uid => $response->value])
                 ->all();
         }
     }

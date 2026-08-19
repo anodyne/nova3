@@ -115,7 +115,7 @@ class ThemesList extends TableComponent
                                 InstallTheme::run($theme);
 
                                 $created[] = $theme;
-                            } catch (FileNotFoundException $ex) {
+                            } catch (FileNotFoundException) {
                                 $errored[] = $theme;
                             }
                         }

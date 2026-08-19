@@ -22,12 +22,10 @@ class ParticipationReporter
 
     public function currentActivityTimeframe(): ParticipationReport
     {
-        $result = once(function () {
-            return $this->query(
-                start: $this->postingActivitySettings->timeframe->startDate(),
-                end: $this->postingActivitySettings->timeframe->endDate()
-            );
-        });
+        $result = once(fn (): Collection => $this->query(
+            start: $this->postingActivitySettings->timeframe->startDate(),
+            end: $this->postingActivitySettings->timeframe->endDate()
+        ));
 
         return ParticipationReport::from(
             active: $result->where('total_word_count', '>', 0)->count(),
@@ -67,12 +65,10 @@ class ParticipationReporter
 
     public function previousActivityTimeframe(): ParticipationReport
     {
-        $result = once(function () {
-            return $this->query(
-                start: $this->postingActivitySettings->timeframe->previousStartDate(),
-                end: $this->postingActivitySettings->timeframe->previousEndDate()
-            );
-        });
+        $result = once(fn (): Collection => $this->query(
+            start: $this->postingActivitySettings->timeframe->previousStartDate(),
+            end: $this->postingActivitySettings->timeframe->previousEndDate()
+        ));
 
         return ParticipationReport::from(
             active: $result->where('total_word_count', '>', 0)->count(),

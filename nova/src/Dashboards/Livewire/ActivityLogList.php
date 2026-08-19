@@ -23,7 +23,7 @@ class ActivityLogList extends TableComponent
                 TextColumn::make('log_name')
                     ->label('Type')
                     ->badge()
-                    ->formatStateUsing(fn (string $state) => ucfirst($state))
+                    ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->color(fn (string $state): string => match ($state) {
                         'impersonation' => 'info',
                         'admin' => 'danger',
@@ -41,7 +41,7 @@ class ActivityLogList extends TableComponent
                     ->wrap(),
                 TextColumn::make('event')
                     ->badge()
-                    ->formatStateUsing(fn (string $state) => ucfirst($state))
+                    ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->color(fn (string $state): string => match ($state) {
                         'created' => 'success',
                         'deleted' => 'danger',
@@ -52,7 +52,7 @@ class ActivityLogList extends TableComponent
                     ->toggleable(),
                 TextColumn::make('subject_type')
                     ->label('Subject')
-                    ->formatStateUsing(function ($state, Activity $record) {
+                    ->formatStateUsing(function ($state, Activity $record): string {
                         if (! $state) {
                             return '-';
                         }

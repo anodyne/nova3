@@ -10,7 +10,7 @@ use Nova\Forms\Models\Form;
 
 class FormSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 

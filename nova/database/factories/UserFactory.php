@@ -32,7 +32,7 @@ class UserFactory extends Factory
 
     public function configure(): static
     {
-        return $this->afterCreating(function (User $user) {
+        return $this->afterCreating(function (User $user): void {
             $source = match ($user->pronouns->value) {
                 'female' => 'media/samples/people/female',
                 default => 'media/samples/people/male',
@@ -58,7 +58,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fn (array $attributes) => sprintf(
+            'name' => fn (array $attributes): string => sprintf(
                 '%s %s',
                 fake()->firstName($attributes['pronouns']->value),
                 fake()->lastName($attributes['pronouns']->value)

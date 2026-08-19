@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Stories\Responses\ShowPostsTimelineResponse;
 
 class ShowPostsTimelineController extends Controller
@@ -16,7 +17,7 @@ class ShowPostsTimelineController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
         return ShowPostsTimelineResponse::send();
     }

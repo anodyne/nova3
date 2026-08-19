@@ -35,13 +35,11 @@ class EditDepartment extends SpotlightCommand
     {
         return Department::where('name', 'like', "%{$query}%")
             ->get()
-            ->map(function ($department) {
-                return new SpotlightSearchResult(
-                    $department->id,
-                    $department->name,
-                    sprintf('Edit %s department', $department->name)
-                );
-            });
+            ->map(fn ($department): SpotlightSearchResult => new SpotlightSearchResult(
+                $department->id,
+                $department->name,
+                sprintf('Edit %s department', $department->name)
+            ));
     }
 
     public function execute(Spotlight $spotlight, Department $department): void

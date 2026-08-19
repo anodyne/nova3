@@ -106,7 +106,7 @@ class PositionsList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->attributeLabels([
                                         'available' => 'availability',
@@ -114,10 +114,10 @@ class PositionsList extends TableComponent
                                     ])
                                     ->attributeValues([
                                         'department_id' => fn ($value) => Department::find($value)?->name,
-                                        'tags' => fn ($value) => is_array($value) ? implode(', ', $value) : '',
+                                        'tags' => fn ($value): string => is_array($value) ? implode(', ', $value) : '',
                                     ])
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity) => __('activity.positions.duplicated', [
+                                        'duplicated' => fn (Activity $activity): string => __('activity.positions.duplicated', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'replica' => Position::find($activity->getExtraProperty('replica'))?->name,
                                         ]),

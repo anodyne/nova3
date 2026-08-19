@@ -8,7 +8,7 @@ use Illuminate\Mail\Events\MessageSending;
 
 class SetEmailSubjectPrefix
 {
-    public function handle(MessageSending $event)
+    public function handle(MessageSending $event): void
     {
         $message = $event->message;
 

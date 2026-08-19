@@ -23,13 +23,13 @@ class UploadAvatar extends UploadImage
     protected string $filename = 'livewire.media.upload-avatar';
 
     #[On('croppedImageReady')]
-    public function handleCroppedImage($path)
+    public function handleCroppedImage(?string $path): void
     {
         $this->croppedPath = $path;
     }
 
     #[On('mediaUploaded')]
-    public function launchCropper()
+    public function launchCropper(): void
     {
         $this->dispatch(
             'modal-open',

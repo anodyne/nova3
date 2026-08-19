@@ -20,13 +20,13 @@ class CreateFormSubmission
         return DB::transaction(function () use ($form, $owner, $meta) {
             LogBatch::startBatch();
 
-            $submission = $form->submissions()->create(['meta' => $meta]);
+            $formSubmission = $form->submissions()->create(['meta' => $meta]);
 
-            $submission->owner()->associate($owner)->save();
+            $formSubmission->owner()->associate($owner)->save();
 
             LogBatch::endBatch();
 
-            return $submission->refresh();
+            return $formSubmission->refresh();
         });
     }
 }

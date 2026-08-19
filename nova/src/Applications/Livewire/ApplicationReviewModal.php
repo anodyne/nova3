@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -30,7 +32,7 @@ class ApplicationReviewModal extends Modal
     public ApplicationReviewForm $form;
 
     #[Locked]
-    public ?ApplicationReview $review;
+    public ?ApplicationReview $review = null;
 
     #[Locked]
     public int|User $user;
@@ -43,7 +45,7 @@ class ApplicationReviewModal extends Modal
         return Form::key('applicationReview')->first();
     }
 
-    public function mount(Application $application, ?User $user = null)
+    public function mount(Application $application, ?User $user = null): void
     {
         $this->authorize('vote', $application);
 
@@ -68,11 +70,11 @@ class ApplicationReviewModal extends Modal
 
         if (blank($submission)) {
             $this->values = collect($this->applicationReviewForm->published_fields ?? [])
-                ->flatMap(fn ($item) => [data_get($item, 'data.attrs.id') => ''])
+                ->flatMap(fn ($item): array => [data_get($item, 'data.attrs.id') => ''])
                 ->all();
         } else {
             $this->values = $submission->responses
-                ->flatMap(fn (FormSubmissionResponse $response) => [$response->field_uid => $response->value])
+                ->flatMap(fn (FormSubmissionResponse $response): array => [$response->field_uid => $response->value])
                 ->all();
         }
     }
@@ -83,7 +85,7 @@ class ApplicationReviewModal extends Modal
         return filled($this->user) ? $this->user : Auth::user();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.applications.livewire.review-modal', [
             'applicationReviewForm' => $this->applicationReviewForm,

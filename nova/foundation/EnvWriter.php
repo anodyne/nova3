@@ -43,7 +43,7 @@ class EnvWriter
         return is_writable($path);
     }
 
-    public function refreshEnvVars()
+    public function refreshEnvVars(): void
     {
         Dotenv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
@@ -59,13 +59,7 @@ class EnvWriter
 
     public function writeMultipleLines(array $keys = []): bool
     {
-        foreach ($keys as $key => $value) {
-            if ($this->writeLine($key, $value) === false) {
-                return false;
-            }
-        }
-
-        return true;
+        return array_all($keys, fn ($value, string $key): bool => $this->writeLine($key, $value));
     }
 
     public function writeLine(string $key, mixed $value): bool

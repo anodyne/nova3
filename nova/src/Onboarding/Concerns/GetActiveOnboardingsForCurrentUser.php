@@ -18,17 +18,17 @@ trait GetActiveOnboardingsForCurrentUser
             ->incomplete()
             ->get()
             ->map(function (Onboarding $onboarding) use ($sync): DashboardOnboardingData {
-                $checklist = $onboarding->process->make($onboarding);
+                $onboardingChecklist = $onboarding->process->make($onboarding);
 
                 if ($sync) {
-                    $checklist->syncSteps();
+                    $onboardingChecklist->syncSteps();
                 }
 
                 return DashboardOnboardingData::from(
                     model: $onboarding,
                     label: $onboarding->process->getLabel(),
                     description: $onboarding->process->getDescription(),
-                    percentComplete: $checklist->percentComplete(),
+                    percentComplete: $onboardingChecklist->percentComplete(),
                     ctaLabel: $onboarding->process->getCallToActionLabel()
                 );
             });

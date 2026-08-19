@@ -35,18 +35,12 @@ class SetupAddonDirectory
         $this->data = $data;
 
         $this->files = Storage::disk('addons');
-
-        try {
-            $this->createAddonDirectory();
-
-            match ($data->type) {
-                AddonType::Extension => $this->createExtension(),
-                AddonType::Genre => $this->createGenre(),
-                AddonType::Rank => $this->createRankSet(),
-            };
-        } catch (Throwable $th) {
-            throw $th;
-        }
+        $this->createAddonDirectory();
+        match ($data->type) {
+            AddonType::Extension => $this->createExtension(),
+            AddonType::Genre => $this->createGenre(),
+            AddonType::Rank => $this->createRankSet(),
+        };
     }
 
     public function asCommand(Command $command): void

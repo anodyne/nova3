@@ -16,7 +16,7 @@ class Locator
     // locate()->template('simple')
     // locate()->structure('app-server')
 
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters)
     {
         return $this->buildLocationMap($parameters[0], Str::plural($method));
     }
@@ -24,12 +24,10 @@ class Locator
     protected function buildLocationMap($view, $directory): Collection
     {
         return collect($this->paths)
-            ->map(function ($path) use ($view, $directory) {
-                return implode('.', [
-                    $path,
-                    $directory,
-                    $view,
-                ]);
-            });
+            ->map(fn ($path): string => implode('.', [
+                $path,
+                $directory,
+                $view,
+            ]));
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -33,12 +35,12 @@ class ApplicationReview extends Component
         return filled($review?->result);
     }
 
-    public function hydrate()
+    public function hydrate(): void
     {
         $this->application->loadCount('reviews', 'acceptedReviews', 'deniedReviews', 'noResultReviews');
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.applications.livewire.review', [
             'currentUserHasReviewed' => $this->currentUserHasReviewed,

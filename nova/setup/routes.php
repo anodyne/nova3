@@ -15,13 +15,13 @@ use Nova\Setup\Livewire\SetupAccount;
 use Nova\Setup\Livewire\UpdateNova;
 use Nova\Setup\Livewire\UserAccess;
 
-Route::prefix('setup')->group(function () {
+Route::prefix('setup')->group(function (): void {
     Route::get('/', StartSetupController::class)->name('setup.start');
     Route::get('configure-database', ConfigureDatabase::class);
     Route::get('install', InstallNova::class);
     Route::get('setup-account', SetupAccount::class);
 
-    Route::prefix('migrate')->group(function () {
+    Route::prefix('migrate')->group(function (): void {
         Route::get('/', MigrateNova::class);
         Route::get('configure-database', ConfigureDatabase::class);
         Route::get('steps', MigrateNovaData::class);
@@ -30,7 +30,7 @@ Route::prefix('setup')->group(function () {
 
     Route::prefix('update')
         ->middleware(['auth', 'permission:site.update'])
-        ->group(function () {
+        ->group(function (): void {
             Route::get('/', UpdateNova::class)->name('update.run');
             Route::get('whats-new', UpdateWhatsNewController::class)->name('update.whats-new');
         });

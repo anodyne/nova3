@@ -13,7 +13,7 @@ class UnpublishForm
 
     public function handle(Form $form): Form
     {
-        activity()->withoutLogs(function () use ($form) {
+        activity()->withoutLogs(function () use ($form): void {
             $form->published_fields = null;
             $form->published_at = null;
             $form->save();

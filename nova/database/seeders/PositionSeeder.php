@@ -10,7 +10,7 @@ use Nova\Foundation\Enums\BasicStatus;
 
 class PositionSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 

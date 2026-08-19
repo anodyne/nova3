@@ -18,7 +18,7 @@ class ClearVersionCheckCacheButton extends Component
         Cache::forget(CacheKeys::UpdateAvailable->value);
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
             <x-button type="button" wire:click="clear">

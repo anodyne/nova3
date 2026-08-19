@@ -14,13 +14,13 @@ class SendMessage
 
     public function handle(Discussion $discussion, DiscussionData $data): void
     {
-        $message = $discussion->messages()->create($data->message->toArray());
+        $model = $discussion->messages()->create($data->message->toArray());
 
         // Broadcast
 
         NotifyParticipants::run(
             discussion: $discussion,
-            message: $message,
+            message: $model,
             data: $data->participants
         );
     }

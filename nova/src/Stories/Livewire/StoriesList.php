@@ -136,10 +136,8 @@ class StoriesList extends TableComponent
                                 DatePicker::make('start_date')->native(false),
                                 DatePicker::make('end_date')->native(false),
                             ])
-                            ->modalWidth('lg')
-                            ->modalIcon(null)
-                            ->modalHeading('')
-                            ->modalDescription(null)
+                            ->modalWidth('lg')->modalIcon()
+                            ->modalHeading('')->modalDescription()
                             ->modalSubmitActionLabel('Update')
                             ->modalContent(fn (Story $record, Action $action): View => view('pages.stories.edit-dates', [
                                 'record' => $record,
@@ -187,19 +185,19 @@ class StoriesList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->attributeLabels([
                                         'parent_id' => 'parent story',
                                     ])
                                     ->attributeValues([
-                                        'ended_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                                        'ended_at' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
                                         'parent_id' => fn ($value) => Story::find($value)?->title,
-                                        'started_at' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                                        'started_at' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
                                         'status' => fn ($value) => $value?->name(),
                                     ])
                                     ->eventDescriptions([
-                                        'uploaded-image' => function (Activity $activity) {
+                                        'uploaded-image' => function (Activity $activity): string {
                                             $causer = $activity->causer;
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
@@ -226,7 +224,7 @@ class StoriesList extends TableComponent
                 SelectFilter::make('status')
                     ->multiple()
                     ->preload()
-                    ->options(fn (): array => Story::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
+                    ->options(fn (): array => Story::getStatesFor('status')->flatMap(fn ($state): array => [$state => ucfirst($state)])->all())
                     ->default(['current', 'ongoing', 'upcoming']),
                 SelectFilter::make('parent_id')
                     ->relationship('parentStory', 'title')

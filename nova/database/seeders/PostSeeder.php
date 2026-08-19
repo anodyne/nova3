@@ -12,7 +12,7 @@ use Nova\Stories\Models\Story;
 
 class PostSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 

@@ -26,7 +26,7 @@ class ForcePasswordResetButton extends Component
             );
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
             <x-button type="button" wire:click="forcePasswordReset">Force password reset</x-button>

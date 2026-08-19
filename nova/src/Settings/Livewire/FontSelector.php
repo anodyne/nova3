@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -52,7 +54,7 @@ class FontSelector extends Component
     //     $this->family = $fonts->{$familyVariable} ?? 'Inter';
     // }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.settings.livewire.font-selector', [
             'fontFamilyInputName' => $this->fontFamilyInputName,
@@ -65,7 +67,7 @@ class FontSelector extends Component
     public function localFonts(): array
     {
         return collect(Storage::disk('dist')->directories('fonts'))
-            ->flatMap(function (string $dir) {
+            ->flatMap(function (string $dir): array {
                 $dir = str($dir)->replace('fonts/', '')->replace('-', ' ')->title()->toString();
 
                 return [$dir => $dir];

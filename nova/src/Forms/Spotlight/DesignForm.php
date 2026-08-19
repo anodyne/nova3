@@ -36,7 +36,7 @@ class DesignForm extends SpotlightCommand
         return Form::query()
             ->searchFor($query)
             ->get()
-            ->map(fn (Form $form) => new SpotlightSearchResult(
+            ->map(fn (Form $form): SpotlightSearchResult => new SpotlightSearchResult(
                 $form->id,
                 $form->name,
                 $form->key

@@ -14,7 +14,7 @@ trait HasTableHelpers
 {
     public static function column(string $columnName, ?string $tableAlias = null, bool $prefixTable = false): string
     {
-        $tableAlias = $tableAlias ?? static::table($prefixTable);
+        $tableAlias ??= static::table($prefixTable);
 
         return "{$tableAlias}.{$columnName}";
     }

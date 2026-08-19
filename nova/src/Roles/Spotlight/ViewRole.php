@@ -37,7 +37,7 @@ class ViewRole extends SpotlightCommand
         return Role::query()
             ->searchFor($query)
             ->get()
-            ->map(fn (Role $role) => new SpotlightSearchResult(
+            ->map(fn (Role $role): SpotlightSearchResult => new SpotlightSearchResult(
                 $role->id,
                 $role->display_name,
                 sprintf('Edit %s', $role->display_name)

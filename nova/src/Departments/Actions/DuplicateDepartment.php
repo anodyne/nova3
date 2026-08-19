@@ -18,26 +18,26 @@ class DuplicateDepartment
     public function handle(Department $original, DepartmentData $data): Department
     {
         return DB::transaction(function () use ($original, $data) {
-            $replica = $original->replicate([
+            $department = $original->replicate([
                 'positions_count',
                 'active_characters_count',
                 'active_users_count',
                 'prefixed_id',
             ]);
-            $replica->forceFill($data->toArray());
-            $replica->save();
+            $department->forceFill($data->toArray());
+            $department->save();
 
-            $original->positions->each(fn (Position $position) => $replica->positions()->create(
+            $original->positions->each(fn (Position $position) => $department->positions()->create(
                 Arr::except($position->toArray(), ['id', 'prefixed_id', 'created_at', 'updated_at'])
             ));
 
             activity()
                 ->performedOn($original)
-                ->withProperty('replica', $replica->id)
+                ->withProperty('replica', $department->id)
                 ->event('duplicated')
                 ->log('duplicated');
 
-            return $replica->refresh();
+            return $department->refresh();
         });
     }
 }

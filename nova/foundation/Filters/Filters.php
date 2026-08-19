@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 
 abstract class Filters
 {
-    protected Request $request;
-
     protected Builder $builder;
 
     protected array $filters = [];
@@ -18,10 +16,7 @@ abstract class Filters
     /**
      * Create a new filters instance.
      */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
+    public function __construct(protected Request $request) {}
 
     /**
      * Apply the filters.

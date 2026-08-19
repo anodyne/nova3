@@ -107,10 +107,8 @@ class PostBuilder extends Builder
 
     public function unlocked(): self
     {
-        return $this->where(function (Builder $query): Builder {
-            return $query->whereNull('locked_at')
-                ->orWhere('locked_at', '<', Date::now()->subMinutes(5));
-        });
+        return $this->where(fn (Builder $query): Builder => $query->whereNull('locked_at')
+            ->orWhere('locked_at', '<', Date::now()->subMinutes(5)));
     }
 
     public function whereHasUser(User $user): self

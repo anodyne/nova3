@@ -63,10 +63,10 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
     {
         $channels = [];
 
-        $preference = $this->notificationType->preferenceForUser($notifiable);
+        $userNotificationPreference = $this->notificationType->preferenceForUser($notifiable);
 
         foreach (NotificationChannel::cases() as $channel) {
-            if ($this->notificationType->{$channel->value} && $preference->{$channel->value}) {
+            if ($this->notificationType->{$channel->value} && $userNotificationPreference->{$channel->value}) {
                 $channels[] = $channel->value;
             }
         }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -23,7 +25,7 @@ class ManageGlobalReviewers extends Component
     public function remove(User $user): void
     {
         $this->assigned = $this->assigned->reject(
-            fn (User $collectionUser) => $collectionUser->id === $user->id
+            fn (User $collectionUser): bool => $collectionUser->id === $user->id
         );
 
         $this->dispatch('reviewers-updated', users: $this->assigned->pluck('id')->all());
@@ -44,7 +46,7 @@ class ManageGlobalReviewers extends Component
             ->get();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.settings.livewire.manage-global-reviewers', [
             'globalReviewers' => $this->globalReviewers,

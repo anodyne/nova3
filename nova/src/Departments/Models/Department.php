@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\DepartmentFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -58,25 +59,25 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  *
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department active()
- * @method static \Database\Factories\DepartmentFactory factory($count = null, $state = [])
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department hasTags(array $tags)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department inactive()
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department newModelQuery()
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department newQuery()
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department ordered(string $direction = 'asc')
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department query()
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department searchFor($search)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department uniqueTags()
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereCreatedAt($value)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereDescription($value)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereId($value)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereName($value)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereOrderColumn($value)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department wherePrefixedId($value)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereStatus($value)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereTags($value)
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereUpdatedAt($value)
+ * @method static DepartmentBuilder<static>|Department active()
+ * @method static DepartmentFactory factory($count = null, $state = [])
+ * @method static DepartmentBuilder<static>|Department hasTags(array $tags)
+ * @method static DepartmentBuilder<static>|Department inactive()
+ * @method static DepartmentBuilder<static>|Department newModelQuery()
+ * @method static DepartmentBuilder<static>|Department newQuery()
+ * @method static DepartmentBuilder<static>|Department ordered(string $direction = 'asc')
+ * @method static DepartmentBuilder<static>|Department query()
+ * @method static DepartmentBuilder<static>|Department searchFor($search)
+ * @method static DepartmentBuilder<static>|Department uniqueTags()
+ * @method static DepartmentBuilder<static>|Department whereCreatedAt($value)
+ * @method static DepartmentBuilder<static>|Department whereDescription($value)
+ * @method static DepartmentBuilder<static>|Department whereId($value)
+ * @method static DepartmentBuilder<static>|Department whereName($value)
+ * @method static DepartmentBuilder<static>|Department whereOrderColumn($value)
+ * @method static DepartmentBuilder<static>|Department wherePrefixedId($value)
+ * @method static DepartmentBuilder<static>|Department whereStatus($value)
+ * @method static DepartmentBuilder<static>|Department whereTags($value)
+ * @method static DepartmentBuilder<static>|Department whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */
@@ -143,7 +144,7 @@ class Department extends Model implements HasMedia, Sortable
     public function tagsAsString(): Attribute
     {
         return Attribute::make(
-            get: fn () => implode(', ', $this->tags ?? [])
+            get: fn (): string => implode(', ', $this->tags ?? [])
         );
     }
 

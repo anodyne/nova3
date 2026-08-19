@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -102,15 +104,7 @@ class ManageOwnership extends Component
             return false;
         }
 
-        if (
-            $user->cannot('createPrimary', Character::class) &&
-            $user->can('createSecondary', Character::class) &&
-            $user->can('createSupport', Character::class)
-        ) {
-            return false;
-        }
-
-        return true;
+        return ! ($user->cannot('createPrimary', Character::class) && $user->can('createSecondary', Character::class) && $user->can('createSupport', Character::class));
     }
 
     #[Computed]
@@ -166,10 +160,10 @@ class ManageOwnership extends Component
             $user->can('createPrimary', Character::class) &&
             $user->can('createSecondary', Character::class) &&
             $this->linkToUser === false &&
-            (bool) $this->assignAsPrimary === true
+            $this->assignAsPrimary
         ) {
             // TODO: test this scenario
-            $this->linkToUser = (bool) $this->assignAsPrimary;
+            $this->linkToUser = $this->assignAsPrimary;
         }
     }
 
@@ -182,17 +176,17 @@ class ManageOwnership extends Component
             $user->cannot('createSecondary', Character::class) &&
             $user->can('createSupport', Character::class)
         ) {
-            $this->assignAsPrimary = (bool) $this->linkToUser;
+            $this->assignAsPrimary = $this->linkToUser;
         }
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->linkToUser = $this->linkToUserValue;
         $this->assignAsPrimary = $this->assignAsPrimaryValue;
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.characters.livewire.manage-ownership', [
             'hasReachedCharacterLimit' => $this->hasReachedCharacterLimit,

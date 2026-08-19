@@ -120,12 +120,12 @@ class FormSchema
                     ->live(),
                 ColorPicker::make('bgColor')
                     ->label('Background color')
-                    ->visible(fn (Get $get) => $get('bgOption') === 'color'),
+                    ->visible(fn (Get $get): bool => $get('bgOption') === 'color'),
                 FileUpload::make('bgImage')
                     ->label('Background image')
                     ->disk('media-pages')
                     ->directory((string) $page)
-                    ->visible(fn (Get $get) => $get('bgOption') === 'custom'),
+                    ->visible(fn (Get $get): bool => $get('bgOption') === 'custom'),
                 Select::make('bgImageIntensity')
                     ->label('Background image intensity')
                     ->options([
@@ -136,7 +136,7 @@ class FormSchema
                         'muted' => 'Muted',
                         'subtle' => 'Subtle',
                     ])
-                    ->hidden(fn (Get $get) => blank($get('bgOption')) || in_array($get('bgOption'), ['color', 'custom', 'transparent'])),
+                    ->hidden(fn (Get $get): bool => blank($get('bgOption')) || in_array($get('bgOption'), ['color', 'custom', 'transparent'])),
                 ...static::dark(),
                 ...static::spacing(),
             ]),
@@ -157,7 +157,7 @@ class FormSchema
                     ->live(),
                 ColorPicker::make('bgColor')
                     ->label('Background color')
-                    ->visible(fn (Get $get) => $get('bgOption') === 'color'),
+                    ->visible(fn (Get $get): bool => $get('bgOption') === 'color'),
                 ...static::dark(),
                 ...static::spacing(),
             ]),
@@ -216,16 +216,16 @@ class FormSchema
                         'left' => 'Left',
                     ])
                     ->default('right')
-                    ->hidden(fn (Get $get) => $get('mediaType') === 'none'),
+                    ->hidden(fn (Get $get): bool => $get('mediaType') === 'none'),
                 FileUpload::make('image')
                     ->disk('media-pages')
                     ->directory((string) $page)
                     ->maxFiles(1)
-                    ->visible(fn (Get $get) => $get('mediaType') === 'image'),
+                    ->visible(fn (Get $get): bool => $get('mediaType') === 'image'),
                 TextInput::make('video')
                     ->label('Video URL')
                     ->url()
-                    ->visible(fn (Get $get) => $get('mediaType') === 'video'),
+                    ->visible(fn (Get $get): bool => $get('mediaType') === 'video'),
             ]),
         ];
     }
@@ -250,15 +250,15 @@ class FormSchema
                         'bottom' => 'Bottom',
                     ])
                     ->default('bottom')
-                    ->hidden(fn (Get $get) => $get('mediaType') === 'none'),
+                    ->hidden(fn (Get $get): bool => $get('mediaType') === 'none'),
                 FileUpload::make('image')
                     ->disk('media-pages')
                     ->directory((string) $page)
-                    ->visible(fn (Get $get) => $get('mediaType') === 'image'),
+                    ->visible(fn (Get $get): bool => $get('mediaType') === 'image'),
                 TextInput::make('video')
                     ->label('Video URL')
                     ->url()
-                    ->visible(fn (Get $get) => $get('mediaType') === 'video'),
+                    ->visible(fn (Get $get): bool => $get('mediaType') === 'video'),
             ]),
         ];
     }

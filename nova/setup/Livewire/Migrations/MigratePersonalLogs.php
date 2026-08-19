@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Setup\Actions\Migration\MigratePersonalLog;
 use Nova\Setup\Models\Upgrade;
 use Nova\Stories\Models\Post;
@@ -28,7 +29,7 @@ class MigratePersonalLogs extends MigrationStep
 
         $this->query()
             ->whereNotIn('log_id', Upgrade::type('personal-log')->pluck('old_id'))
-            ->chunkById(100, function (Collection $legacyLogs) use ($logPostTypeId) {
+            ->chunkById(100, function (Collection $legacyLogs) use ($logPostTypeId): void {
                 foreach ($legacyLogs as $legacyLog) {
                     MigratePersonalLog::run(
                         model: $legacyLog,
@@ -64,7 +65,7 @@ class MigratePersonalLogs extends MigrationStep
 
         return $this->query()
             ->get()
-            ->map(fn ($log) => MigratePersonalLog::makeJob(
+            ->map(fn ($log): JobDecorator => MigratePersonalLog::makeJob(
                 model: $log,
                 story: $this->getPersonalLogTempStory(),
                 logPostTypeId: $logPostTypeId

@@ -7,6 +7,7 @@ namespace Nova\Dashboards\Controllers;
 use Nova\Announcements\Models\Announcement;
 use Nova\Dashboards\Responses\PendingApprovalResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Stories\Models\Post;
 
 class PendingApprovalController extends Controller
@@ -21,7 +22,7 @@ class PendingApprovalController extends Controller
         ]);
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
         return PendingApprovalResponse::sendWith([
             'announcements' => Announcement::pending()->with(['user'])->select(['id', 'title', 'category', 'user_id'])->get(),

@@ -35,16 +35,14 @@ class EditUser extends SpotlightCommand
     {
         return User::where('name', 'like', "%{$query}%")
             ->get()
-            ->map(function ($user) {
-                return new SpotlightSearchResult(
-                    $user->id,
-                    $user->name,
-                    sprintf('Edit %s', $user->name)
-                );
-            });
+            ->map(fn ($user): SpotlightSearchResult => new SpotlightSearchResult(
+                $user->id,
+                $user->name,
+                sprintf('Edit %s', $user->name)
+            ));
     }
 
-    public function execute(Spotlight $spotlight, User $user)
+    public function execute(Spotlight $spotlight, User $user): void
     {
         $spotlight->redirectRoute('admin.users.edit', $user);
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 use Nova\Announcements\Models\Announcement;
@@ -18,7 +19,7 @@ class AnnouncementFactory extends Factory
 
     public function configure(): static
     {
-        return $this->afterCreating(function (Announcement $announcement) {
+        return $this->afterCreating(function (Announcement $announcement): void {
             $users = User::active()->get();
 
             $users->each(fn (User $user) => AnnouncementNotification::create([
@@ -40,7 +41,7 @@ class AnnouncementFactory extends Factory
                 PublishStatus::Draft->value => 25,
                 PublishStatus::Published->value => 75,
             ]),
-            'published_at' => fn (array $attributes) => $attributes['status'] === PublishStatus::Published->value ? now() : null,
+            'published_at' => fn (array $attributes): ?CarbonInterface => $attributes['status'] === PublishStatus::Published->value ? now() : null,
         ];
     }
 

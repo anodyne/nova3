@@ -127,7 +127,7 @@ abstract class MigrationStep extends Component
     #[On('startMigrationStep')]
     public function startMigrationStep(string $step): void
     {
-        if ($step !== get_class($this)) {
+        if ($step !== static::class) {
             return;
         }
 

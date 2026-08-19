@@ -6,6 +6,7 @@ namespace Nova\Pages\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Pages\Actions\CreatePageManager;
 use Nova\Pages\Actions\UpdatePageManager;
 use Nova\Pages\Models\Page;
@@ -27,19 +28,19 @@ class PageController extends Controller
         $this->authorizeResource(Page::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListPagesResponse::send();
     }
 
-    public function show(Page $page)
+    public function show(Page $page): Responsable
     {
         return ShowPageResponse::sendWith([
             'page' => $page,
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreatePageResponse::send();
     }
@@ -58,7 +59,7 @@ class PageController extends Controller
             ->notify("{$page->name} page was created");
     }
 
-    public function edit(Page $page)
+    public function edit(Page $page): Responsable
     {
         return EditPageResponse::sendWith([
             'page' => $page,

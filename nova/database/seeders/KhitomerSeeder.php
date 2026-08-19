@@ -11,7 +11,7 @@ use Nova\Stories\Models\Story;
 
 class KhitomerSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 

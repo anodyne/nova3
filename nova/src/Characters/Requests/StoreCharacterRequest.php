@@ -33,15 +33,13 @@ class StoreCharacterRequest extends FormRequest
 
     public function rules(): array
     {
-        $rules = array_merge(
+        return array_merge(
             [
                 'name' => ['required'],
                 'rank_id' => ['nullable'],
             ],
             Form::key('characterBio')->first()->validation_rules,
         );
-
-        return $rules;
     }
 
     public function messages(): array

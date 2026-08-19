@@ -122,10 +122,10 @@ class PagesList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->eventDescriptions([
-                                        'duplicated' => function (Activity $activity) {
+                                        'duplicated' => function (Activity $activity): string {
                                             $causer = $activity->causer;
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
@@ -138,7 +138,7 @@ class PagesList extends TableComponent
                                                 )?->name,
                                             ]);
                                         },
-                                        'uploaded' => function (Activity $activity) {
+                                        'uploaded' => function (Activity $activity): string {
                                             $causer = $activity->causer;
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
@@ -157,7 +157,7 @@ class PagesList extends TableComponent
                             ->schema([
                                 TextInput::make('name')
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Set $set, string $state) => $set('key', str($state)->slug())),
+                                    ->afterStateUpdated(fn (Set $set, string $state): mixed => $set('key', str($state)->slug())),
                                 TextInput::make('uri')->label('URI'),
                                 TextInput::make('key')
                                     ->helperText('The key must be a unique value to identify the page'),
@@ -218,13 +218,11 @@ class PagesList extends TableComponent
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('page was|pages were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
+                            ->when($ignoredRecords > 0, fn (Notification $notification): Notification => $notification->body(sprintf(
+                                '%d %s ignored due to being ineligible for this action.',
+                                $ignoredRecords,
+                                trans_choice('record was|records were', $ignoredRecords)
+                            )))
                             ->send();
                     }),
             ])

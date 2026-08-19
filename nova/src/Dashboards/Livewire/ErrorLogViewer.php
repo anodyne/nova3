@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -50,7 +52,7 @@ class ErrorLogViewer extends Component
     public function getStacktrace(Log $log): ?string
     {
         if (Arr::isMultiDimensional($log->context)) {
-            foreach ($log->context as $key => $value) {
+            foreach ($log->context as $value) {
                 if (Arr::has($value, 'exception')) {
                     return Arr::get($value, 'exception');
                 }
@@ -78,7 +80,7 @@ class ErrorLogViewer extends Component
         return $this->logFile->download();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.dashboards.livewire.error-log-viewer', [
             'files' => $this->files,

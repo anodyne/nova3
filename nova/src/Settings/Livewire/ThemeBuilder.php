@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Settings\Livewire;
 
 use Anodyne\TablerIcons\Tabler;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Nova\Foundation\Filament\Actions\Action;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\SlideOver;
@@ -74,7 +76,7 @@ class ThemeBuilder extends SlideOver
         $this->warning = data_get($recs, 'warning');
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->primary = settings('appearance.colorsPrimary');
         $this->danger = settings('appearance.colorsDanger');
@@ -84,7 +86,7 @@ class ThemeBuilder extends SlideOver
         $this->gray = settings('appearance.colorsGray');
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.settings.livewire.theme-builder', [
             'colors' => $this->colors(),

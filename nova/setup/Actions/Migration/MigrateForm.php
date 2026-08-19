@@ -24,10 +24,10 @@ class MigrateForm
 
     public function handle(): void
     {
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             $form = $this->getCharacterBioForm();
 
-            $form->submissions->each(function ($submission) {
+            $form->submissions->each(function ($submission): void {
                 $submission = $submission->loadMissing('responses');
 
                 $submission->responses->each->delete();
@@ -45,7 +45,7 @@ class MigrateForm
                 ->table('characters_tabs')
                 ->orderBy('tab_order', 'asc')
                 ->get()
-                ->each(function ($tab) use (&$fields, $form) {
+                ->each(function ($tab) use (&$fields, $form): void {
                     $fields[] = [
                         'type' => 'content',
                         'data' => [
@@ -60,7 +60,7 @@ class MigrateForm
                         ->where('section_tab', $tab->tab_id)
                         ->orderBy('section_order', 'asc')
                         ->get()
-                        ->each(function ($section) use (&$fields, $form, $tab) {
+                        ->each(function ($section) use (&$fields, $form, $tab): void {
                             $fields[] = [
                                 'type' => 'content',
                                 'data' => [
@@ -75,7 +75,7 @@ class MigrateForm
                                 ->where('field_section', $section->section_id)
                                 ->orderBy('field_order', 'asc')
                                 ->get()
-                                ->each(function ($field) use (&$fields, $form) {
+                                ->each(function (object $field) use (&$fields, $form): void {
                                     $fieldUid = Str::random(12);
 
                                     $formFieldId = DB::table('form_fields')->insertGetId([
@@ -99,7 +99,7 @@ class MigrateForm
                                             ->where('value_field', $field->field_id)
                                             ->orderBy('value_order', 'asc')
                                             ->get()
-                                            ->flatMap(fn ($value) => [$value->value_field_value => $value->value_content])
+                                            ->flatMap(fn ($value): array => [$value->value_field_value => $value->value_content])
                                             ->toArray();
                                     }
 
@@ -114,7 +114,7 @@ class MigrateForm
                                         ->join('characters', 'characters_data.data_char', '=', 'characters.charid')
                                         ->where('data_field', $field->field_id)
                                         ->get()
-                                        ->each(function ($data) use ($form, $fieldType, $fieldUid) {
+                                        ->each(function ($data) use ($form, $fieldType, $fieldUid): void {
                                             $newCharacterId = $this->getNewId(
                                                 id: $data->data_char,
                                                 collection: null,

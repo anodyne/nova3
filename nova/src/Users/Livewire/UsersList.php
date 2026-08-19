@@ -131,7 +131,7 @@ class UsersList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->withRelations(['characters'])
                                     ->itemIcon('activated', Tabler::CircleCheck->value)
@@ -231,12 +231,12 @@ class UsersList extends TableComponent
                             ->color('gray')
                             ->modalContentView('pages.users.ban')
                             ->successNotificationTitle('User was banned')
-                            ->action(function (User $record) {
-                                $data = BanData::from(
+                            ->action(function (User $record): void {
+                                $banData = BanData::from(
                                     bannable_id: $record->id,
                                 );
 
-                                BanUserManager::run($data);
+                                BanUserManager::run($banData);
 
                                 Notification::make()->success()
                                     ->title($record->name.' has been banned')
@@ -253,8 +253,8 @@ class UsersList extends TableComponent
                             ])
                             ->modalContentView('pages.users.unban')
                             ->successNotificationTitle('User was unbanned')
-                            ->action(function (User $record, array $data) {
-                                DB::transaction(function () use ($record, $data) {
+                            ->action(function (User $record, array $data): void {
+                                DB::transaction(function () use ($record, $data): void {
                                     $record->unban();
 
                                     if (data_get($data, 'reactivate')) {
@@ -315,7 +315,7 @@ class UsersList extends TableComponent
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
+                    ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state): array => [$state => ucfirst($state)])->all())
                     ->default(fn () => request()->query('status', ['active'])),
                 TernaryFilter::make('hasAssignedCharacters')
                     ->label('Has assigned characters')
@@ -336,14 +336,10 @@ class UsersList extends TableComponent
                         '14 days' => 'Within 2 weeks',
                         '30 days' => 'In the last month',
                     ])
-                    ->query(function (UserBuilder $query, array $data): UserBuilder {
-                        return $query->when($data['value'], function (Builder $query, string $date): Builder {
-                            return $query->whereHas(
-                                'latestLogin',
-                                fn (Builder $query): Builder => $query->whereBetween('created_at', [now()->sub($date), now()])
-                            );
-                        });
-                    })
+                    ->query(fn (UserBuilder $query, array $data): UserBuilder => $query->when($data['value'], fn (Builder $query, string $date): Builder => $query->whereHas(
+                        'latestLogin',
+                        fn (Builder $query): Builder => $query->whereBetween('created_at', [now()->sub($date), now()])
+                    )))
                     ->indicateUsing(function (array $data): ?string {
                         if (! $data['value']) {
                             return null;
@@ -358,14 +354,10 @@ class UsersList extends TableComponent
                         '14 days' => 'Within 2 weeks',
                         '30 days' => 'In the last month',
                     ])
-                    ->query(function (UserBuilder $query, array $data): UserBuilder {
-                        return $query->when($data['value'], function (Builder $query, string $date): Builder {
-                            return $query->whereHas(
-                                'latestPost',
-                                fn (Builder $query): Builder => $query->whereBetween('published_at', [now()->sub($date), now()])
-                            );
-                        });
-                    })
+                    ->query(fn (UserBuilder $query, array $data): UserBuilder => $query->when($data['value'], fn (Builder $query, string $date): Builder => $query->whereHas(
+                        'latestPost',
+                        fn (Builder $query): Builder => $query->whereBetween('published_at', [now()->sub($date), now()])
+                    )))
                     ->indicateUsing(function (array $data): ?string {
                         if (! $data['value']) {
                             return null;

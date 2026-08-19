@@ -30,7 +30,7 @@ class DiscussionBuilder extends Builder
 
     public function forCurrentUser(): self
     {
-        return $this->withWhereHas('allParticipants', function ($query) {
+        return $this->withWhereHas('allParticipants', function ($query): void {
             $query->whereNull(DiscussionParticipant::column('deleted_at'))
                 ->where(User::column('id'), Auth::id());
         });

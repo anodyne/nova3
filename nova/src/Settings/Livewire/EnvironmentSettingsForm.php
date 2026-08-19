@@ -30,12 +30,12 @@ class EnvironmentSettingsForm extends Form
     {
         $this->validate();
 
-        $data = EnvironmentConfiguration::from($this->all());
+        $environmentConfiguration = EnvironmentConfiguration::from($this->all());
 
-        UpdateEnvironment::run($data);
+        UpdateEnvironment::run($environmentConfiguration);
     }
 
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'environment' => ['required', Rule::enum(ServerEnvironment::class)],

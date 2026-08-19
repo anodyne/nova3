@@ -21,7 +21,7 @@ class MigrateLegacyUserData
 
     public function handle(): void
     {
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             $form = $this->getUserBioForm();
 
             $form->submissions->each(fn ($submission) => $submission->load('responses')->responses->each->delete());
@@ -53,7 +53,7 @@ class MigrateLegacyUserData
             DB::connection('nova2')
                 ->table('users')
                 ->get()
-                ->each(function ($user) use ($form, $formFields) {
+                ->each(function ($user) use ($form, $formFields): void {
                     $newUserId = $this->getNewId(
                         id: $user->userid,
                         collection: null,

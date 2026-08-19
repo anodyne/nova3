@@ -33,7 +33,7 @@ class AnnouncementBuilder extends Builder
 
     public function searchFor($search): self
     {
-        return $this->where(function ($query) use ($search) {
+        return $this->where(function ($query) use ($search): void {
             $query->whereFullText('title', $search)
                 ->orWhereLike('title', "%{$search}%");
         });

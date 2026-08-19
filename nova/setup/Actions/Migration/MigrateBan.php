@@ -16,7 +16,7 @@ class MigrateBan
 
     public function handle(object $model): void
     {
-        DB::transaction(function () use ($model) {
+        DB::transaction(function () use ($model): void {
             $existingUser = DB::connection('nova2')
                 ->table('users')
                 ->where('email', $model->ban_email)

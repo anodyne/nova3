@@ -24,7 +24,7 @@ class SetupUserAccount extends Step
     {
         try {
             return User::count() > 0;
-        } catch (Throwable $th) {
+        } catch (Throwable) {
             return false;
         }
     }

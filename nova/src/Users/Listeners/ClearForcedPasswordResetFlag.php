@@ -6,7 +6,7 @@ namespace Nova\Users\Listeners;
 
 class ClearForcedPasswordResetFlag
 {
-    public function handle($event)
+    public function handle($event): void
     {
         $event->user->update(['force_password_reset' => false]);
     }

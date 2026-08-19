@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Nova\Characters\Models\Character;
@@ -15,7 +17,7 @@ class MigrateCharacterRanks extends Component
 
     public ?int $rankId = null;
 
-    public function updateRank($rank): void
+    public function updateRank(?int $rank): void
     {
         $this->rankId = $rank;
 
@@ -38,12 +40,12 @@ class MigrateCharacterRanks extends Component
         return $this->getLegacyCharacter()?->rank_name;
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->rankId = $this->character->rank_id;
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.characters.livewire.migrate-character-ranks', [
             'legacyRank' => $this->getLegacyRank(),

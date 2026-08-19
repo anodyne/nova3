@@ -18,7 +18,7 @@ class FileHelper
         $i = 0;
 
         while (($bytes / $step) > 0.9) {
-            $bytes = $bytes / $step;
+            $bytes /= $step;
             $i++;
         }
 

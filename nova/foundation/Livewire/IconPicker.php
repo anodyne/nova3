@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -21,14 +23,14 @@ class IconPicker extends Component
 
     public ?string $selected = null;
 
-    public function mount()
+    public function mount(): void
     {
         if (Cache::missing(CacheKeys::SearchableIcons->value)) {
             RecacheIcons::run();
         }
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('livewire.icon-picker', [
             'filteredIcons' => $this->filteredIcons,
@@ -51,9 +53,9 @@ class IconPicker extends Component
         $icons = Cache::get(CacheKeys::SearchableIcons->value, []);
 
         return collect($icons)
-            ->filter(fn ($icon) => str_contains($icon['searchable'], $query))
+            ->filter(fn ($icon): bool => str_contains($icon['searchable'], $query))
             ->take(25)
-            ->map(fn ($icon) => $icon['value'])
+            ->map(fn ($icon): mixed => $icon['value'])
             ->toArray();
     }
 }

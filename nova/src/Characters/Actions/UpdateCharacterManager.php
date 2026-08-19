@@ -45,15 +45,15 @@ class UpdateCharacterManager
 
             $character = SetCharacterType::run($character);
 
-            $positions = new CharacterPositionsData(
+            $characterPositionsData = new CharacterPositionsData(
                 character: $character,
                 oldType: $oldCharacterType,
-                oldPositions: $oldCharacterPositions,
                 newType: $character->type,
+                oldPositions: $oldCharacterPositions,
                 newPositions: $character->positions,
             );
 
-            UpdatePositionAvailability::run($positions);
+            UpdatePositionAvailability::run($characterPositionsData);
 
             UploadCharacterAvatar::run($character, $request->image_path);
 

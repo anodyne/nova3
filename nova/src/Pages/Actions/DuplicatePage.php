@@ -14,19 +14,19 @@ class DuplicatePage
 
     public function handle(Page $original, PageData $data): Page
     {
-        $replica = $original->replicate(['prefixed_id']);
-        $replica->forceFill($data->toArray());
-        $replica->save();
+        $page = $original->replicate(['prefixed_id']);
+        $page->forceFill($data->toArray());
+        $page->save();
 
         BustPagesCache::run();
         RecachePages::run();
 
         activity()
             ->performedOn($original)
-            ->withProperty('replica', $replica->id)
+            ->withProperty('replica', $page->id)
             ->event('duplicated')
             ->log('duplicated');
 
-        return $replica->refresh();
+        return $page->refresh();
     }
 }

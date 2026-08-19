@@ -21,19 +21,19 @@ use Nova\Users\Models\User;
  * @property-read Announcement $announcement
  * @property-read User|null $user
  *
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification announcement(int $announcementId)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification newModelQuery()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification newQuery()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification query()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification read()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification unread()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification user(int $userId)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereAnnouncementId($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereCreatedAt($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereId($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereIsSeen($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereUpdatedAt($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereUserId($value)
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification announcement(int $announcementId)
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification newModelQuery()
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification newQuery()
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification query()
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification read()
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification unread()
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification user(int $userId)
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification whereAnnouncementId($value)
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification whereCreatedAt($value)
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification whereId($value)
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification whereIsSeen($value)
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification whereUpdatedAt($value)
+ * @method static AnnouncementNotificationBuilder<static>|AnnouncementNotification whereUserId($value)
  *
  * @mixin \Eloquent
  */

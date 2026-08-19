@@ -45,7 +45,7 @@ abstract class StatsBlock extends PageBuilderBlock
                             Select::make('stat')
                                 ->options($this->getStatOptions())
                                 ->live()
-                                ->afterStateUpdated(fn (?string $state, Set $set) => $set('heading', $this->getStatOptions()[$state])),
+                                ->afterStateUpdated(fn (?string $state, Set $set): mixed => $set('heading', $this->getStatOptions()[$state])),
                             TextInput::make('heading')->label('Heading'),
                         ]),
                 ]),

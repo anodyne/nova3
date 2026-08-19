@@ -18,12 +18,12 @@ class DuplicateRankGroup
     public function handle(RankGroup $original, RankGroupData $data): RankGroup
     {
         return DB::transaction(function () use ($original, $data) {
-            $replica = $original->replicate(['ranks_count']);
-            $replica->fill(Arr::except($data->toArray(), 'base_image'));
-            $replica->save();
+            $rankGroup = $original->replicate(['ranks_count']);
+            $rankGroup->fill(Arr::except($data->toArray(), 'base_image'));
+            $rankGroup->save();
 
             $original->ranks->each(
-                fn (RankItem $rank) => $replica->ranks()->create([
+                fn (RankItem $rank) => $rankGroup->ranks()->create([
                     ...Arr::except($rank->toArray(), ['id', 'name', 'created_at', 'updated_at']),
                     ...Arr::only($data->toArray(), 'base_image'),
                 ])
@@ -31,11 +31,11 @@ class DuplicateRankGroup
 
             activity()
                 ->performedOn($original)
-                ->withProperty('replica', $replica->id)
+                ->withProperty('replica', $rankGroup->id)
                 ->event('duplicated')
                 ->log('duplicated');
 
-            return $replica->refresh();
+            return $rankGroup->refresh();
         });
     }
 }

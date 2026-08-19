@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
+use Closure;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 class CreateUpdateOrDelete
 {
-    protected $query;
+    protected HasMany $query;
 
     protected $records;
 
@@ -21,7 +22,7 @@ class CreateUpdateOrDelete
         $this->query = $query;
 
         $this->records = collect($records)->filter(
-            function ($record) use ($relatedKeyName, $allowedRecordIds) {
+            function ($record) use ($relatedKeyName, $allowedRecordIds): bool {
                 $id = $record[$relatedKeyName] ?? null;
 
                 return $id === null || $allowedRecordIds->contains($id);
@@ -29,9 +30,9 @@ class CreateUpdateOrDelete
         );
     }
 
-    public function __invoke()
+    public function __invoke(): void
     {
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             $this->deleteMissingRecords();
 
             $this->updateOrCreateRecords();
@@ -55,7 +56,7 @@ class CreateUpdateOrDelete
     {
         $recordKeyName = $this->query->getRelated()->getKeyName();
 
-        $this->records->each(function ($record) use ($recordKeyName) {
+        $this->records->each(function (Closure|array $record) use ($recordKeyName): void {
             (clone $this->query)->updateOrCreate([
                 $recordKeyName => $record[$recordKeyName] ?? null,
             ], $record);

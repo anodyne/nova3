@@ -107,7 +107,7 @@ class UserBuilder extends Builder
         $keys = UserModerations::resources();
 
         return match (true) {
-            $versionInfo->isMysql => $this->where(function (Builder $query) use ($keys) {
+            $versionInfo->isMysql => $this->where(function (Builder $query) use ($keys): void {
                 foreach ($keys as $key) {
                     $query->whereRaw("JSON_EXTRACT(moderations, '$.$key') != true");
                 }
@@ -121,7 +121,7 @@ class UserBuilder extends Builder
                 )
             '),
 
-            default => $this->where(function (Builder $query) use ($keys) {
+            default => $this->where(function (Builder $query) use ($keys): void {
                 foreach ($keys as $key) {
                     $query->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(moderations, '$.$key')) != 'true'");
                 }
@@ -136,7 +136,7 @@ class UserBuilder extends Builder
         $keys = UserModerations::resources();
 
         return match (true) {
-            $versionInfo->isMysql => $this->where(function (Builder $query) use ($keys) {
+            $versionInfo->isMysql => $this->where(function (Builder $query) use ($keys): void {
                 foreach ($keys as $key) {
                     $query->orWhereRaw("JSON_EXTRACT(moderations, '$.$key') = true");
                 }
@@ -150,7 +150,7 @@ class UserBuilder extends Builder
                 )
             '),
 
-            default => $this->where(function (Builder $query) use ($keys) {
+            default => $this->where(function (Builder $query) use ($keys): void {
                 foreach ($keys as $key) {
                     $query->orWhereRaw("JSON_UNQUOTE(JSON_EXTRACT(moderations, '$.$key')) = 'true'");
                 }

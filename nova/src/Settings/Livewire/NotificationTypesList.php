@@ -48,12 +48,12 @@ class NotificationTypesList extends TableComponent
                 ToggleColumn::make('database')
                     ->label('Allow in-app')
                     ->alignCenter()
-                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                    ->onColor(fn (): string => settings('appearance.panda') ? 'panda' : 'primary')
                     ->extraAttributes(['data-panda' => settings('appearance.panda')]),
                 ToggleColumn::make('mail')
                     ->label('Allow email')
                     ->alignCenter()
-                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                    ->onColor(fn (): string => settings('appearance.panda') ? 'panda' : 'primary')
                     ->extraAttributes(['data-panda' => settings('appearance.panda')]),
                 ToggleColumn::make('discord')
                     ->label('Allow Discord')
@@ -62,7 +62,7 @@ class NotificationTypesList extends TableComponent
                         'data-panda' => settings('appearance.panda'),
                     ])
                     ->alignCenter()
-                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary'),
+                    ->onColor(fn (): string => settings('appearance.panda') ? 'panda' : 'primary'),
             ])
             ->recordActions([
                 ActionGroup::make([
@@ -92,12 +92,12 @@ class NotificationTypesList extends TableComponent
                             ->schema([
                                 Toggle::make('database_default')
                                     ->label('In-app')
-                                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                                    ->onColor(fn (): string => settings('appearance.panda') ? 'panda' : 'primary')
                                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
                                     ->helperText('When triggered, this notification will be sent to the Notifications panel inside of Nova. Any user who has enabled it in their preferences will see an indicator on the notifications icon in the header.'),
                                 Toggle::make('mail_default')
                                     ->label('Email')
-                                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                                    ->onColor(fn (): string => settings('appearance.panda') ? 'panda' : 'primary')
                                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
                                     ->helperText('When triggered, this notification will be emailed to any user who has enabled it in their preferences.'),
                             ])
@@ -128,7 +128,7 @@ class NotificationTypesList extends TableComponent
                             ->schema([
                                 Toggle::make('use_global')
                                     ->label('Use global settings')
-                                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                                    ->onColor(fn (): string => settings('appearance.panda') ? 'panda' : 'primary')
                                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
                                     ->live(),
                                 TextInput::make('webhook')
@@ -156,7 +156,7 @@ class NotificationTypesList extends TableComponent
 
                                 Notification::make()->success()
                                     ->title('Discord settings updated for notification')
-                                    ->when($useGlobal, fn (Notification $notification) => $notification->body('The global Discord settings will be used for the '.$record->name.' notification.'))
+                                    ->when($useGlobal, fn (Notification $notification): Notification => $notification->body('The global Discord settings will be used for the '.$record->name.' notification.'))
                                     ->send();
                             })
                             ->hidden(fn (NotificationType $record): bool => $record->audience === NotificationAudience::Personal),

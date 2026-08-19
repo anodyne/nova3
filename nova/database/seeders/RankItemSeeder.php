@@ -9,7 +9,7 @@ use Nova\Ranks\Models\RankItem;
 
 class RankItemSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 

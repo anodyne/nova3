@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Ranks\Actions\CreateRankName;
 use Nova\Ranks\Actions\UpdateRankName;
 use Nova\Ranks\Models\RankName;
@@ -26,19 +27,19 @@ class RankNameController extends Controller
         $this->authorizeResource(RankName::class, 'name');
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListRankNamesResponse::send();
     }
 
-    public function show(RankName $name)
+    public function show(RankName $name): Responsable
     {
         return ShowRankNameResponse::sendWith([
             'name' => $name->load('ranks.group'),
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateRankNameResponse::send();
     }
@@ -51,7 +52,7 @@ class RankNameController extends Controller
             ->notify("{$name->name} rank name was created");
     }
 
-    public function edit(RankName $name)
+    public function edit(RankName $name): Responsable
     {
         return EditRankNameResponse::sendWith([
             'name' => $name->load('ranks.group'),

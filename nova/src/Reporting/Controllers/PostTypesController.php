@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Reporting\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Reporting\Reports\PostTypeReporter;
 use Nova\Reporting\Responses\PostTypesResponse;
 
@@ -17,12 +18,12 @@ class PostTypesController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
-        $report = PostTypeReporter::make();
+        $postTypeReporter = PostTypeReporter::make();
 
         return PostTypesResponse::sendWith([
-            'report' => $report->currentActivityTimeframe(),
+            'report' => $postTypeReporter->currentActivityTimeframe(),
             'settings' => settings('posting_activity'),
         ]);
     }

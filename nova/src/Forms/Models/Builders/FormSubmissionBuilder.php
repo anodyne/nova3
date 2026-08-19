@@ -26,30 +26,22 @@ class FormSubmissionBuilder extends Builder
     public function onlySubmissionsForCurrentUser(): self
     {
         return $this
-            ->where(function (Builder $query): Builder {
-                return $query
-                    ->where(function (Builder $query): Builder {
-                        return $query->where('owner_type', 'user')
-                            ->where('owner_id', Auth::id());
-                    })
-                    ->orWhere(function (Builder $query): Builder {
-                        return $query->where('owner_type', 'character')
-                            ->whereIn('owner_id', function ($subQuery) {
-                                $subQuery->select(Character::column('id'))
-                                    ->from('characters')
-                                    ->join('character_user', Character::column('id'), '=', 'character_user.character_id')
-                                    ->where('character_user.user_id', Auth::id());
-                            });
-                    });
-            });
+            ->where(fn (Builder $query): Builder => $query
+                ->where(fn (Builder $query): Builder => $query->where('owner_type', 'user')
+                    ->where('owner_id', Auth::id()))
+                ->orWhere(fn (Builder $query): Builder => $query->where('owner_type', 'character')
+                    ->whereIn('owner_id', function ($subQuery): void {
+                        $subQuery->select(Character::column('id'))
+                            ->from('characters')
+                            ->join('character_user', Character::column('id'), '=', 'character_user.character_id')
+                            ->where('character_user.user_id', Auth::id());
+                    })));
     }
 
     public function ownerIsUser(User $user): self
     {
-        return $this->where(function (Builder $query) use ($user): Builder {
-            return $this
-                ->where('owner_type', 'user')
-                ->where('owner_id', $user->id);
-        });
+        return $this->where(fn (Builder $query): Builder => $this
+            ->where('owner_type', 'user')
+            ->where('owner_id', $user->id));
     }
 }

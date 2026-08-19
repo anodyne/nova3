@@ -37,7 +37,7 @@ class ThemeServiceProvider extends DomainServiceProvider
 
             $this->app['view']->addLocation("themes/{$theme->location}/views");
         } else {
-            $this->app->bind('nova.theme', fn () => null);
+            $this->app->bind('nova.theme', fn (): null => null);
         }
     }
 

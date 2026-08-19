@@ -16,7 +16,7 @@ class DeleteStoriesManager
 
     public function handle(Request $request): int
     {
-        return DB::transaction(function () use ($request) {
+        return DB::transaction(function () use ($request): int {
             LogBatch::startBatch();
 
             $actions = json_decode((string) $request->input('actions', '[]'), true);
@@ -45,7 +45,7 @@ class DeleteStoriesManager
             $resolveStory = static fn (mixed $id) => $storiesById->get((int) $id);
             $deletedStories = 0;
 
-            $stories->where('story.action', 'move')->each(function ($item, $id) use ($resolveStory) {
+            $stories->where('story.action', 'move')->each(function ($item, $id) use ($resolveStory): void {
                 $story = $resolveStory($id);
 
                 if (! $story) {
@@ -65,7 +65,7 @@ class DeleteStoriesManager
                 );
             });
 
-            $stories->where('posts.action', 'move')->each(function ($item, $id) use ($resolveStory) {
+            $stories->where('posts.action', 'move')->each(function ($item, $id) use ($resolveStory): void {
                 $story = $resolveStory($id);
                 $newStory = $resolveStory(data_get($item, 'posts.actionId'));
 
@@ -79,7 +79,7 @@ class DeleteStoriesManager
                 );
             });
 
-            $stories->where('posts.action', 'delete')->each(function ($item, $id) use ($resolveStory) {
+            $stories->where('posts.action', 'delete')->each(function ($item, $id) use ($resolveStory): void {
                 $story = $resolveStory($id);
 
                 if (! $story) {
@@ -93,7 +93,7 @@ class DeleteStoriesManager
              * Stories being deleted need to be reversed so the parent isn't deleted
              * first which will cascade delete all descendants.
              */
-            $stories->where('story.action', 'delete')->reverse()->each(function ($item, $id) use (&$deletedStories, $resolveStory) {
+            $stories->where('story.action', 'delete')->reverse()->each(function ($item, $id) use (&$deletedStories, $resolveStory): void {
                 $story = $resolveStory($id);
 
                 if (! $story) {

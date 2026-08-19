@@ -91,7 +91,7 @@ class CopyDiagnosticDataButton extends Component
         EOT;
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
             <div

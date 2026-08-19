@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Foundation\Models\Model;
 use Nova\Foundation\Models\NotificationType;
@@ -19,16 +20,16 @@ use Nova\Foundation\Models\NotificationType;
  * @property-read NotificationType $notificationType
  * @property-read User|null $user
  *
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereDatabase($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereDiscord($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereDiscordSettings($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereMail($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereNotificationTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\UserNotificationPreference whereUserId($value)
+ * @method static Builder<static>|UserNotificationPreference newModelQuery()
+ * @method static Builder<static>|UserNotificationPreference newQuery()
+ * @method static Builder<static>|UserNotificationPreference query()
+ * @method static Builder<static>|UserNotificationPreference whereDatabase($value)
+ * @method static Builder<static>|UserNotificationPreference whereDiscord($value)
+ * @method static Builder<static>|UserNotificationPreference whereDiscordSettings($value)
+ * @method static Builder<static>|UserNotificationPreference whereId($value)
+ * @method static Builder<static>|UserNotificationPreference whereMail($value)
+ * @method static Builder<static>|UserNotificationPreference whereNotificationTypeId($value)
+ * @method static Builder<static>|UserNotificationPreference whereUserId($value)
  *
  * @mixin \Eloquent
  */

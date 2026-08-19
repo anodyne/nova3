@@ -13,18 +13,18 @@ class DuplicateNote
 
     public function handle(Note $original): Note
     {
-        $replica = $original->replicate(['prefixed_id']);
-        $replica->title = "Copy of {$replica->title}";
-        $replica->save();
+        $note = $original->replicate(['prefixed_id']);
+        $note->title = "Copy of {$note->title}";
+        $note->save();
 
-        $replica->refresh();
+        $note->refresh();
 
         activity()
             ->performedOn($original)
-            ->withProperty('replica', $replica->id)
+            ->withProperty('replica', $note->id)
             ->event('duplicated')
             ->log('duplicated');
 
-        return $replica;
+        return $note;
     }
 }

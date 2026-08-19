@@ -14,7 +14,7 @@ class GeneratePassword implements ShouldQueue
 {
     use InteractsWithQueue;
 
-    public function handle(UserCreatedByAdmin $event)
+    public function handle(UserCreatedByAdmin $event): void
     {
         $passphrase = Passphrase::generate();
 

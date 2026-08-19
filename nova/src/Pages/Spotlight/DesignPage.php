@@ -37,7 +37,7 @@ class DesignPage extends SpotlightCommand
             ->basic()
             ->searchFor($query)
             ->get()
-            ->map(fn (Page $page) => new SpotlightSearchResult(
+            ->map(fn (Page $page): SpotlightSearchResult => new SpotlightSearchResult(
                 $page->id,
                 $page->name,
                 $page->uri

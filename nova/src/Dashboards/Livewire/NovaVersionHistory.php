@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
@@ -45,7 +47,7 @@ class NovaVersionHistory extends Component
             ->get();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.dashboards.livewire.nova-version-history', [
             'databaseVersion' => $this->databaseVersion,

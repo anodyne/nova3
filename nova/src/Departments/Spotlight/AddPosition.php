@@ -35,13 +35,11 @@ class AddPosition extends SpotlightCommand
     {
         return Department::where('name', 'like', "%{$query}%")
             ->get()
-            ->map(function ($department) {
-                return new SpotlightSearchResult(
-                    $department->id,
-                    $department->name,
-                    sprintf('Add position within %s', $department->name)
-                );
-            });
+            ->map(fn ($department): SpotlightSearchResult => new SpotlightSearchResult(
+                $department->id,
+                $department->name,
+                sprintf('Add position within %s', $department->name)
+            ));
     }
 
     public function execute(Spotlight $spotlight, Department $department): void

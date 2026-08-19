@@ -14,7 +14,7 @@ class DeleteCharacter
     public function handle(Character $character): Character
     {
         if (! $character->trashed()) {
-            $character = tap($character)->delete();
+            return tap($character)->delete();
         }
 
         return $character;

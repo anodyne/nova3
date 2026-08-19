@@ -24,7 +24,7 @@ class CheckNovaVersion
     public function handle(Request $request, Closure $next): Response
     {
         if (Nova::isInstalled()) {
-            Cache::flexible(CacheKeys::LatestVersion->value, [86_400, 129_600], function () {
+            Cache::flexible(CacheKeys::LatestVersion->value, [86_400, 129_600], function (): LatestVersion {
                 // TODO: remove this for the 3.0 release
                 $latestVersion = Http::get(config('services.anodyne.api.latest-version'))->json();
 
@@ -42,7 +42,7 @@ class CheckNovaVersion
                 return LatestVersion::fromGithub($githubVersion);
             });
 
-            Cache::flexible(CacheKeys::NextVersion->value, [86_400, 129_600], function () {
+            Cache::flexible(CacheKeys::NextVersion->value, [86_400, 129_600], function (): ?LatestVersion {
                 $nextVersion = Http::get(config('services.anodyne.api.next-version'))->json();
 
                 if (is_null($nextVersion)) {

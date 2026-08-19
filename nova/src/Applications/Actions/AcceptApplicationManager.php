@@ -29,7 +29,7 @@ class AcceptApplicationManager
     {
         Gate::forUser(Auth::user())->authorize('decide', $application);
 
-        DB::transaction(function () use ($application, $data) {
+        DB::transaction(function () use ($application, $data): void {
             LogBatch::startBatch();
 
             ActivateUser::run($user = $application->user);

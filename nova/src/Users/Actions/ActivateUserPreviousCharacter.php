@@ -15,7 +15,7 @@ class ActivateUserPreviousCharacter
     public function handle(User $user): void
     {
         $primaryCharacters = $user->characters->filter(
-            fn ($character) => $character->pivot->primary !== true
+            fn ($character): bool => $character->pivot->primary !== true
         );
 
         if ($primaryCharacters->count() > 1) {

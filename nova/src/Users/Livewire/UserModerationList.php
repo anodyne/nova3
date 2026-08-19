@@ -43,7 +43,7 @@ class UserModerationList extends TableComponent
                 ToggleColumn::make('announcements_moderation')
                     ->getStateUsing(fn (User $record): bool => $record->moderations->announcements)
                     ->label('Announcements')
-                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                    ->onColor(fn (): string => settings('appearance.panda') ? 'panda' : 'primary')
                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
                     ->updateStateUsing(function (User $record, bool $state): void {
                         $record->update([
@@ -52,14 +52,14 @@ class UserModerationList extends TableComponent
 
                         Notification::make()->success()
                             ->title($record->name.' moderation status updated')
-                            ->when($state === true, fn (Notification $notification) => $notification->body('All announcements they author will require approval before being published.'))
-                            ->when($state === false, fn (Notification $notification) => $notification->body('Any announcements they author will no longer require approval before being published.'))
+                            ->when($state, fn (Notification $notification): Notification => $notification->body('All announcements they author will require approval before being published.'))
+                            ->when($state === false, fn (Notification $notification): Notification => $notification->body('Any announcements they author will no longer require approval before being published.'))
                             ->send();
                     }),
                 ToggleColumn::make('posts_moderation')
                     ->getStateUsing(fn (User $record): bool => $record->moderations->posts)
                     ->label('Posts')
-                    ->onColor(fn () => settings('appearance.panda') ? 'panda' : 'primary')
+                    ->onColor(fn (): string => settings('appearance.panda') ? 'panda' : 'primary')
                     ->extraAttributes(['data-panda' => settings('appearance.panda')])
                     ->updateStateUsing(function (User $record, bool $state): void {
                         $record->update([
@@ -68,8 +68,8 @@ class UserModerationList extends TableComponent
 
                         Notification::make()->success()
                             ->title($record->name.' moderation status updated')
-                            ->when($state === true, fn (Notification $notification) => $notification->body('All posts they’re involved with will require approval before being published.'))
-                            ->when($state === false, fn (Notification $notification) => $notification->body('Any posts they’re involved with will no longer require approval before being published.'))
+                            ->when($state, fn (Notification $notification): Notification => $notification->body('All posts they’re involved with will require approval before being published.'))
+                            ->when($state === false, fn (Notification $notification): Notification => $notification->body('Any posts they’re involved with will no longer require approval before being published.'))
                             ->send();
                     }),
                 TextColumn::make('status')
@@ -79,7 +79,7 @@ class UserModerationList extends TableComponent
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
+                    ->options(fn (): array => User::getStatesFor('status')->flatMap(fn ($state): array => [$state => ucfirst($state)])->all())
                     ->default(fn () => request()->query('status', ['active'])),
             ])
             ->emptyStateIcon(Tabler::User)

@@ -35,22 +35,14 @@ readonly class UserPostingReport extends Bag
     {
         $settings = settings('posting_activity');
 
-        if ($settings->target === PostingTarget::Posts && $this->posts >= $settings->requirement) {
-            return true;
-        }
-
-        return false;
+        return $settings->target === PostingTarget::Posts && $this->posts >= $settings->requirement;
     }
 
     public function hasMetWordsRequirements(): bool
     {
         $settings = settings('posting_activity');
 
-        if ($settings->target === PostingTarget::Words && $this->words >= $settings->requirement) {
-            return true;
-        }
-
-        return false;
+        return $settings->target === PostingTarget::Words && $this->words >= $settings->requirement;
     }
 
     public function percentageComplete(): int

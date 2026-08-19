@@ -22,7 +22,7 @@ class InstallAddon
     {
         $jsonData = json_decode(Storage::disk('addons')->get("{$path}/addon.json"), true);
 
-        $data = AddonData::from(
+        $addonData = AddonData::from(
             name: data_get($jsonData, 'name'),
             location: data_get($jsonData, 'location'),
             version: data_get($jsonData, 'version'),
@@ -34,7 +34,7 @@ class InstallAddon
             repository: data_get($jsonData, 'repository') ? AddonRepository::from(data_get($jsonData, 'repository')) : null,
         );
 
-        $addon = activity()->withoutLogs(fn (): Addon => CreateAddon::run($data));
+        $addon = activity()->withoutLogs(fn (): Addon => CreateAddon::run($addonData));
 
         AddonInstalled::dispatch($addon);
 

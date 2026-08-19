@@ -24,9 +24,9 @@ class ForceDeleteAction extends \Filament\Actions\ForceDeleteAction
         $this->requiresConfirmation(false);
 
         $this->modalWidth(Width::Large);
-        $this->modalIcon(null);
+        $this->modalIcon();
         $this->modalHeading('');
-        $this->modalDescription(null);
+        $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, delete it forever');
         $this->modalCancelActionLabel('No, keep it');
         $this->modalContent(fn (Model $record): View => view($this->modalContentView, [

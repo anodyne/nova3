@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Departments\Models\Position;
 use Nova\Setup\Actions\Migration\MigratePosition;
 use Nova\Setup\Models\Upgrade;
@@ -29,7 +30,7 @@ class MigratePositions extends MigrationStep
 
         $this->query()
             ->whereNotIn('pos_id', Upgrade::type('position')->pluck('old_id'))
-            ->chunkById(100, function (Collection $legacyPositions) use ($departmentsMap) {
+            ->chunkById(100, function (Collection $legacyPositions) use ($departmentsMap): void {
                 foreach ($legacyPositions as $legacyPosition) {
                     MigratePosition::run(
                         model: $legacyPosition,
@@ -64,7 +65,7 @@ class MigratePositions extends MigrationStep
 
         return $this->query()
             ->get()
-            ->map(fn ($position) => MigratePosition::makeJob($position));
+            ->map(fn ($position): JobDecorator => MigratePosition::makeJob($position));
     }
 
     protected function truncateTable(): void

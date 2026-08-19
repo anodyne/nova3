@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Onboarding\Models;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,19 +25,19 @@ use Nova\Users\Models\User;
  * @property CarbonImmutable|null $updated_at
  * @property-read User|null $user
  *
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding incomplete()
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding newModelQuery()
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding newQuery()
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding process(\Nova\Onboarding\Enums\OnboardingProcess $process)
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding query()
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding user(\Illuminate\Contracts\Auth\Authenticatable $user)
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding whereCompletedAt($value)
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding whereCreatedAt($value)
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding whereId($value)
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding whereProcess($value)
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding whereSteps($value)
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding whereUpdatedAt($value)
- * @method static \Nova\Onboarding\Models\Builders\OnboardingBuilder<static>|\Nova\Onboarding\Models\Onboarding whereUserId($value)
+ * @method static OnboardingBuilder<static>|Onboarding incomplete()
+ * @method static OnboardingBuilder<static>|Onboarding newModelQuery()
+ * @method static OnboardingBuilder<static>|Onboarding newQuery()
+ * @method static OnboardingBuilder<static>|Onboarding process(OnboardingProcess $process)
+ * @method static OnboardingBuilder<static>|Onboarding query()
+ * @method static OnboardingBuilder<static>|Onboarding user(Authenticatable $user)
+ * @method static OnboardingBuilder<static>|Onboarding whereCompletedAt($value)
+ * @method static OnboardingBuilder<static>|Onboarding whereCreatedAt($value)
+ * @method static OnboardingBuilder<static>|Onboarding whereId($value)
+ * @method static OnboardingBuilder<static>|Onboarding whereProcess($value)
+ * @method static OnboardingBuilder<static>|Onboarding whereSteps($value)
+ * @method static OnboardingBuilder<static>|Onboarding whereUpdatedAt($value)
+ * @method static OnboardingBuilder<static>|Onboarding whereUserId($value)
  *
  * @mixin \Eloquent
  */

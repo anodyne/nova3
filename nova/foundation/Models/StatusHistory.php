@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Foundation\Models;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
@@ -18,17 +19,17 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $statusable
  *
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory whereEndedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory whereStartedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory whereStatusableId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory whereStatusableType($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory whereUpdatedAt($value)
+ * @method static Builder<static>|StatusHistory newModelQuery()
+ * @method static Builder<static>|StatusHistory newQuery()
+ * @method static Builder<static>|StatusHistory query()
+ * @method static Builder<static>|StatusHistory whereCreatedAt($value)
+ * @method static Builder<static>|StatusHistory whereEndedAt($value)
+ * @method static Builder<static>|StatusHistory whereId($value)
+ * @method static Builder<static>|StatusHistory whereStartedAt($value)
+ * @method static Builder<static>|StatusHistory whereStatus($value)
+ * @method static Builder<static>|StatusHistory whereStatusableId($value)
+ * @method static Builder<static>|StatusHistory whereStatusableType($value)
+ * @method static Builder<static>|StatusHistory whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */

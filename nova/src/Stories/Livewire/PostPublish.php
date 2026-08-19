@@ -185,7 +185,7 @@ class PostPublish extends SlideOver
         return $this->post->story->posts()->count() > 0;
     }
 
-    public function updatedDirection($value)
+    public function updatedDirection($value): void
     {
         if (in_array($this->direction, [PositionDirection::End, PositionDirection::Start])) {
             $this->neighbor = null;

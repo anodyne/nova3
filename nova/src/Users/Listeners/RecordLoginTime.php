@@ -11,7 +11,7 @@ class RecordLoginTime implements ShouldQueue
 {
     use InteractsWithQueue;
 
-    public function handle($event)
+    public function handle($event): void
     {
         $event->user->recordLogin(request()->ip());
     }

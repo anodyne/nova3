@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Settings\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Settings\Responses\PostingActivitySettingsResponse;
 
 class PostingActivitySettingsController extends Controller
@@ -16,7 +17,7 @@ class PostingActivitySettingsController extends Controller
         $this->middleware('auth');
     }
 
-    public function edit()
+    public function edit(): Responsable
     {
         $this->authorize('update', settings());
 

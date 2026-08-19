@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Media\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -33,7 +35,7 @@ class UploadImage extends Component
     public string $fieldName = 'image';
 
     #[Validate('image:allow_svg|max:10240')]
-    public $image = null;
+    public $image;
 
     public ImageAction $imageAction = ImageAction::Unchanged;
 
@@ -123,7 +125,7 @@ class UploadImage extends Component
         }
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view($this->filename, [
             'hasImage' => $this->hasImage,

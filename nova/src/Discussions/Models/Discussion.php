@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Discussions\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\DiscussionFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -48,23 +49,23 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read string $participants_string
  * @property-read string $truncated_participants_string
  *
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion conversation()
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion directMessage()
- * @method static \Database\Factories\DiscussionFactory factory($count = null, $state = [])
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion forCurrentUser()
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion groupMessage()
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion newModelQuery()
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion newQuery()
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion query()
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion searchFor(string $search)
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion whereCreatedAt($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion whereDiscussableId($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion whereDiscussableType($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion whereId($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion wherePrefixedId($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion whereSubject($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion whereUpdatedAt($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionBuilder<static>|\Nova\Discussions\Models\Discussion withoutCurrentUser()
+ * @method static DiscussionBuilder<static>|Discussion conversation()
+ * @method static DiscussionBuilder<static>|Discussion directMessage()
+ * @method static DiscussionFactory factory($count = null, $state = [])
+ * @method static DiscussionBuilder<static>|Discussion forCurrentUser()
+ * @method static DiscussionBuilder<static>|Discussion groupMessage()
+ * @method static DiscussionBuilder<static>|Discussion newModelQuery()
+ * @method static DiscussionBuilder<static>|Discussion newQuery()
+ * @method static DiscussionBuilder<static>|Discussion query()
+ * @method static DiscussionBuilder<static>|Discussion searchFor(string $search)
+ * @method static DiscussionBuilder<static>|Discussion whereCreatedAt($value)
+ * @method static DiscussionBuilder<static>|Discussion whereDiscussableId($value)
+ * @method static DiscussionBuilder<static>|Discussion whereDiscussableType($value)
+ * @method static DiscussionBuilder<static>|Discussion whereId($value)
+ * @method static DiscussionBuilder<static>|Discussion wherePrefixedId($value)
+ * @method static DiscussionBuilder<static>|Discussion whereSubject($value)
+ * @method static DiscussionBuilder<static>|Discussion whereUpdatedAt($value)
+ * @method static DiscussionBuilder<static>|Discussion withoutCurrentUser()
  *
  * @mixin \Eloquent
  */

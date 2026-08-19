@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
@@ -22,7 +24,6 @@ use Nova\Pages\Actions\BustPagesCache;
 use Nova\Pages\Actions\RecachePages;
 use Nova\Setup\Enums\NovaInstallStatus;
 use Nova\Setup\Enums\SetupType;
-use Nova\Setup\Telemetry;
 use Throwable;
 
 /**
@@ -81,7 +82,7 @@ class UpdateNova extends Component
         };
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('setup.update-nova.index', [
             'shouldShowForm' => $this->shouldShowForm,

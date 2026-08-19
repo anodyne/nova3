@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
@@ -27,7 +29,7 @@ class UserAccess extends Component
 
     public ?string $password = null;
 
-    public function setAccess()
+    public function setAccess(): void
     {
         if (filled($this->userId)) {
             $user = User::findOrFail($this->userId);
@@ -52,7 +54,7 @@ class UserAccess extends Component
         }
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('setup.migrate-nova.user-access', [
             'users' => $this->users,

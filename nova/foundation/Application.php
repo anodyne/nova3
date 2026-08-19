@@ -47,8 +47,6 @@ class Application extends IlluminateApplication
 
     /**
      * Set the nova directory.
-     *
-     * @return $this
      */
     public function useNovaPath(string $path): self
     {
@@ -69,8 +67,6 @@ class Application extends IlluminateApplication
 
     /**
      * Set the themes directory.
-     *
-     * @return $this
      */
     public function useThemePath(string $path): self
     {
@@ -91,8 +87,6 @@ class Application extends IlluminateApplication
 
     /**
      * Set the add-ons directory.
-     *
-     * @return $this
      */
     public function useAddonPath(string $path): self
     {
@@ -113,8 +107,6 @@ class Application extends IlluminateApplication
 
     /**
      * Set the ranks directory.
-     *
-     * @return $this
      */
     public function useRankPath(string $path): self
     {

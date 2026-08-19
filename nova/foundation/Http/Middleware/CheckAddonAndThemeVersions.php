@@ -23,25 +23,21 @@ class CheckAddonAndThemeVersions
     public function handle(Request $request, Closure $next): Response
     {
         if (Nova::isInstalled()) {
-            Cache::flexible(CacheKeys::AddonsLatestVersions->value, [86_400, 129_600], function () {
-                return Addon::query()
-                    ->whereNotNull('repository')
-                    ->get()
-                    ->flatMap(fn (Addon $addon): array => [
-                        $addon->repository->id => $addon->repository->endpointData(),
-                    ])
-                    ->all();
-            });
+            Cache::flexible(CacheKeys::AddonsLatestVersions->value, [86_400, 129_600], fn () => Addon::query()
+                ->whereNotNull('repository')
+                ->get()
+                ->flatMap(fn (Addon $addon): array => [
+                    $addon->repository->id => $addon->repository->endpointData(),
+                ])
+                ->all());
 
-            Cache::flexible(CacheKeys::ThemesLatestVersions->value, [86_400, 129_600], function () {
-                return Theme::query()
-                    ->whereNotNull('repository')
-                    ->get()
-                    ->flatMap(fn (Theme $theme): array => [
-                        $theme->repository->id => $theme->repository->endpointData(),
-                    ])
-                    ->all();
-            });
+            Cache::flexible(CacheKeys::ThemesLatestVersions->value, [86_400, 129_600], fn () => Theme::query()
+                ->whereNotNull('repository')
+                ->get()
+                ->flatMap(fn (Theme $theme): array => [
+                    $theme->repository->id => $theme->repository->endpointData(),
+                ])
+                ->all());
         }
 
         return $next($request);

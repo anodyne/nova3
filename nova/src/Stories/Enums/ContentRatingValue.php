@@ -31,12 +31,12 @@ enum ContentRatingValue: string implements HasLabel
 
     public static function casesForGameThreshold(): array
     {
-        return array_filter(self::cases(), fn ($case) => ! in_array($case, [self::Game], true));
+        return array_filter(self::cases(), fn (ContentRatingValue $case): bool => $case !== self::Game);
     }
 
     public static function casesForRatings(): array
     {
-        return array_filter(self::cases(), fn ($case) => ! in_array($case, [self::Game, self::None], true));
+        return array_filter(self::cases(), fn (ContentRatingValue $case): bool => ! in_array($case, [self::Game, self::None], true));
     }
 
     public static function casesForUserThreshold(): array

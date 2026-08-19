@@ -15,7 +15,7 @@ class EnsureSingularActiveGenre
 
     public function handle(Addon $addon): void
     {
-        DB::transaction(function () use ($addon) {
+        DB::transaction(function () use ($addon): void {
             Addon::active()->genre()->update(['status' => BasicStatus::Inactive]);
 
             $addon->update(['status' => BasicStatus::Active]);

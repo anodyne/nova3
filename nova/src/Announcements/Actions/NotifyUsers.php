@@ -22,8 +22,8 @@ class NotifyUsers
         /** @var User $currentUser */
         $currentUser = Auth::user();
 
-        User::query()->active()->chunk(100, function ($users) use ($announcement, $currentUser) {
-            DB::transaction(function () use ($users, $announcement, $currentUser) {
+        User::query()->active()->chunk(100, function ($users) use ($announcement, $currentUser): void {
+            DB::transaction(function () use ($users, $announcement, $currentUser): void {
                 $notifications = [];
                 $usersToEmail = [];
 
@@ -47,8 +47,8 @@ class NotifyUsers
                     ['is_seen', 'updated_at']
                 );
 
-                foreach ($usersToEmail as $user) {
-                    $user->notify(new AnnouncementPublished($announcement));
+                foreach ($usersToEmail as $userToEmail) {
+                    $userToEmail->notify(new AnnouncementPublished($announcement));
                 }
             });
         });

@@ -69,7 +69,7 @@ trait InteractsWithConfirmationModal
             return;
         }
 
-        if (! (new ReflectionMethod($this, $this->confirmationCaller))->isPublic()) {
+        if (! new ReflectionMethod($this, $this->confirmationCaller)->isPublic()) {
             return;
         }
 

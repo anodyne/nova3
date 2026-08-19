@@ -37,7 +37,7 @@ class ViewPage extends SpotlightCommand
         return Page::query()
             ->searchFor($query)
             ->get()
-            ->map(fn (Page $page) => new SpotlightSearchResult(
+            ->map(fn (Page $page): SpotlightSearchResult => new SpotlightSearchResult(
                 $page->id,
                 $page->uri,
                 sprintf('View %s', $page->uri)

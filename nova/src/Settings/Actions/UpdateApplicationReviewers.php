@@ -16,7 +16,7 @@ class UpdateApplicationReviewers
 
     public function handle(ApplicationReviewers $data): void
     {
-        DB::transaction(function () use ($data) {
+        DB::transaction(function () use ($data): void {
             $this->updateGlobalReviewers($data);
         });
     }

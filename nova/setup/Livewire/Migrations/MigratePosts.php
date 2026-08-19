@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Setup\Actions\Migration\MigratePost;
 use Nova\Setup\Models\Upgrade;
 use Nova\Stories\Models\Post;
@@ -33,7 +34,7 @@ class MigratePosts extends MigrationStep
 
         $this->query()
             ->whereNotIn('post_id', Upgrade::type('post')->pluck('old_id'))
-            ->chunkById(500, function (Collection $legacyPosts) use ($missionMap, $userMap, $postPostTypeId) {
+            ->chunkById(500, function (Collection $legacyPosts) use ($missionMap, $userMap, $postPostTypeId): void {
                 foreach ($legacyPosts as $legacyPost) {
                     MigratePost::run(
                         model: $legacyPost,
@@ -72,6 +73,6 @@ class MigratePosts extends MigrationStep
 
         return $this->query()
             ->get()
-            ->map(fn ($post) => MigratePost::makeJob(model: $post, postPostTypeId: $postPostTypeId));
+            ->map(fn ($post): JobDecorator => MigratePost::makeJob(model: $post, postPostTypeId: $postPostTypeId));
     }
 }

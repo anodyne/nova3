@@ -30,7 +30,7 @@ readonly class FormOptions extends Bag
             return [];
         }
 
-        return array_map('trim', explode(',', $this->emailRecipients ?? ''));
+        return array_map(trim(...), explode(',', $this->emailRecipients ?? ''));
     }
 
     #[Transforms(Request::class)]

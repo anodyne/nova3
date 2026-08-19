@@ -8,7 +8,7 @@ class StrMacros
 {
     public function readDuration()
     {
-        return function ($text) {
+        return function ($text): int {
             $totalWords = str_word_count(implode(' ', $text));
             $minutesToRead = round($totalWords / 200);
 

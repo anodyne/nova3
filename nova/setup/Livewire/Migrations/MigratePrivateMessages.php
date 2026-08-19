@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Discussions\Models\Discussion;
 use Nova\Setup\Actions\Migration\MigratePrivateMessage;
 use Nova\Setup\Models\Upgrade;
@@ -33,10 +34,10 @@ class MigratePrivateMessages extends MigrationStep
 
         $this->query()
             ->whereNotIn('privmsgs_id', Upgrade::type('private-message')->pluck('old_id'))
-            ->chunkById(500, function (Collection $legacyPrivateMessages) use ($userMap) {
-                foreach ($legacyPrivateMessages as $legacyPm) {
+            ->chunkById(500, function (Collection $legacyPrivateMessages) use ($userMap): void {
+                foreach ($legacyPrivateMessages as $legacyPrivateMessage) {
                     MigratePrivateMessage::run(
-                        model: $legacyPm,
+                        model: $legacyPrivateMessage,
                         users: $userMap
                     );
                 }
@@ -66,6 +67,6 @@ class MigratePrivateMessages extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($pm) => MigratePrivateMessage::makeJob(model: $pm));
+            ->map(fn ($pm): JobDecorator => MigratePrivateMessage::makeJob(model: $pm));
     }
 }

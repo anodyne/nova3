@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Users\Livewire;
 
 use Carbon\CarbonInterface;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +37,7 @@ class UserNotifications extends SlideOver
         $this->user->notifications()->delete();
     }
 
-    public function clearNotification($notificationId)
+    public function clearNotification($notificationId): void
     {
         $this->user
             ->notifications()
@@ -48,7 +50,7 @@ class UserNotifications extends SlideOver
         $this->user->unreadNotifications->markAsRead();
     }
 
-    public function markNotificationAsRead($notificationId)
+    public function markNotificationAsRead($notificationId): void
     {
         $this->user
             ->notifications()
@@ -70,7 +72,7 @@ class UserNotifications extends SlideOver
             ? $this->user->unreadNotifications()
             : $this->user->notifications();
 
-        $items = $base->select(['id', 'data', 'type', 'read_at', 'created_at'])
+        $paginator = $base->select(['id', 'data', 'type', 'read_at', 'created_at'])
             ->latest('created_at')
             ->simplePaginate(50);
 
@@ -79,10 +81,10 @@ class UserNotifications extends SlideOver
         $startYesterday = $now->copy()->subDay()->startOfDay();
         $startLast7 = $now->copy()->subDays(7)->startOfDay();
 
-        $grouped = collect($items->items())
+        $grouped = collect($paginator->items())
             ->groupBy(function (
                 DatabaseNotification $notification,
-            ) use ($startToday, $startYesterday, $startLast7) {
+            ) use ($startToday, $startYesterday, $startLast7): string {
                 $timestamp = $notification->getAttribute('created_at');
 
                 if (! $timestamp instanceof CarbonInterface) {
@@ -105,12 +107,12 @@ class UserNotifications extends SlideOver
             'last_7_days' => $grouped->get('last_7_days'),
             'older' => $grouped->get('older'),
         ])
-            ->filter(fn ($value) => $value && $value->isNotEmpty())
+            ->filter(fn ($value): bool => $value && $value->isNotEmpty())
             ->map(fn ($value) => $toArray($value))
             ->all();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.users.livewire.notifications', [
             'allCount' => $this->allCount,

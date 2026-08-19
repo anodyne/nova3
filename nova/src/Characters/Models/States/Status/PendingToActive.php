@@ -39,7 +39,7 @@ class PendingToActive extends Transition
         // Get a list of users that have this character as their primary character
         User::whereHas('primaryCharacter', fn (Builder $query): Builder => $query->where('characters.id', $this->character->id))
             ->get()
-            ->each(function (User $user) {
+            ->each(function (User $user): void {
                 /** @var User */
                 $currentUser = Auth::user();
 
@@ -60,7 +60,7 @@ class PendingToActive extends Transition
                             $currentUser->can('createSecondary', Character::class)
                         )
                     ) {
-                        $primaryCharacters->each(function (Character $character) use ($user) {
+                        $primaryCharacters->each(function (Character $character) use ($user): void {
                             $user->primaryCharacter()->updateExistingPivot($character->id, ['primary' => false]);
 
                             SetCharacterType::run($character);
@@ -73,7 +73,7 @@ class PendingToActive extends Transition
                         $currentUser->can('createSecondary', Character::class) &&
                         settings('characters.approveSecondary') === true
                     ) {
-                        $primaryCharacters->each(function (Character $character) use ($user) {
+                        $primaryCharacters->each(function (Character $character) use ($user): void {
                             $character->status->transitionTo(Pending::class);
 
                             SendPendingCharacterNotification::run($character, $user);
@@ -86,7 +86,7 @@ class PendingToActive extends Transition
                         $currentUser->cannot('createSecondary', $this->character)
                     ) {
                         $primaryCharacters->each(
-                            fn (Character $character) => DeactivateCharacter::run($character)
+                            fn (Character $character): mixed => DeactivateCharacter::run($character)
                         );
                     }
                 }

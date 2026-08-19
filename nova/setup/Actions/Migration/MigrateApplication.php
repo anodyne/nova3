@@ -32,7 +32,7 @@ class MigrateApplication
             upgradeKey: 'user'
         );
 
-        DB::transaction(function () use ($model, $newCharacterId, $newUserId) {
+        DB::transaction(function () use ($model, $newCharacterId, $newUserId): void {
             $applicationId = DB::table('applications')->insertGetId([
                 'user_id' => $newUserId,
                 'character_id' => $newCharacterId,

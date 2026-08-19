@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -29,7 +31,7 @@ class ManageUsers extends Component
     public function remove(User $user): void
     {
         $this->assigned = $this->assigned->reject(
-            fn (User $collectionUser) => $collectionUser->id === $user->id
+            fn (User $collectionUser): bool => $collectionUser->id === $user->id
         );
 
         $this->dispatch('users-updated', users: $this->assigned->pluck('id')->all());
@@ -54,7 +56,7 @@ class ManageUsers extends Component
         $this->primary = $this->character->primaryUsers ?? Collection::make();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.characters.livewire.manage-users', [
             'assignedUsers' => $this->assignedUsers,

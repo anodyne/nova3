@@ -31,9 +31,9 @@ abstract class OnboardingChecklistStep
 
     public function key(): string
     {
-        $str = Str::of(get_class_name($this::class));
+        $stringable = Str::of(get_class_name(static::class));
 
-        return $str->snake()->slug()->toString();
+        return $stringable->snake()->slug()->toString();
     }
 
     public function isComplete(): bool
@@ -47,7 +47,7 @@ abstract class OnboardingChecklistStep
         $child = static::class;
 
         // If the class does NOT override isComplete(), it's manually completable
-        return (new ReflectionClass($child))->getMethod('isComplete')->getDeclaringClass()->name === $base;
+        return new ReflectionClass($child)->getMethod('isComplete')->getDeclaringClass()->name === $base;
     }
 
     public function linkLabel(): ?string

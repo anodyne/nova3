@@ -20,7 +20,7 @@ class ApplicationReviewForm extends Form
     public Application $application;
 
     #[Validate('required')]
-    public ?ApplicationResult $result;
+    public ?ApplicationResult $result = null;
 
     public ApplicationReview $review;
 

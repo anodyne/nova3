@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Pages\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\PageFactory;
 use Illuminate\Database\Eloquent\Attributes\CollectedBy;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
@@ -68,42 +69,42 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read int|null $menu_items_count
  * @property-read string|null $rendered_block_content
  *
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page active()
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page advanced()
- * @method static \Nova\Pages\Models\Collections\PagesCollection<int, static> all($columns = ['*'])
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page basic()
- * @method static \Database\Factories\PageFactory factory($count = null, $state = [])
- * @method static \Nova\Pages\Models\Collections\PagesCollection<int, static> get($columns = ['*'])
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page inactive()
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page key(string $key)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page newModelQuery()
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page newQuery()
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page public()
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page query()
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page searchFor(string $search)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page verb(\Nova\Pages\Enums\PageVerb $verb)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereBlocks($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereContentCanBeEdited($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereCreatedAt($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereHeading($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereId($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereIntro($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereKey($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereLayout($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereMiddleware($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereName($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page wherePrefixedId($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page wherePublishedAt($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page wherePublishedBlocks($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereResource($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereSeoDescription($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereSeoKeywords($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereSeoTitle($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereStatus($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereSubheading($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereUpdatedAt($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereUri($value)
- * @method static \Nova\Pages\Models\Builders\PageBuilder<static>|\Nova\Pages\Models\Page whereVerb($value)
+ * @method static PageBuilder<static>|Page active()
+ * @method static PageBuilder<static>|Page advanced()
+ * @method static PagesCollection<int, static> all($columns = ['*'])
+ * @method static PageBuilder<static>|Page basic()
+ * @method static PageFactory factory($count = null, $state = [])
+ * @method static PagesCollection<int, static> get($columns = ['*'])
+ * @method static PageBuilder<static>|Page inactive()
+ * @method static PageBuilder<static>|Page key(string $key)
+ * @method static PageBuilder<static>|Page newModelQuery()
+ * @method static PageBuilder<static>|Page newQuery()
+ * @method static PageBuilder<static>|Page public()
+ * @method static PageBuilder<static>|Page query()
+ * @method static PageBuilder<static>|Page searchFor(string $search)
+ * @method static PageBuilder<static>|Page verb(PageVerb $verb)
+ * @method static PageBuilder<static>|Page whereBlocks($value)
+ * @method static PageBuilder<static>|Page whereContentCanBeEdited($value)
+ * @method static PageBuilder<static>|Page whereCreatedAt($value)
+ * @method static PageBuilder<static>|Page whereHeading($value)
+ * @method static PageBuilder<static>|Page whereId($value)
+ * @method static PageBuilder<static>|Page whereIntro($value)
+ * @method static PageBuilder<static>|Page whereKey($value)
+ * @method static PageBuilder<static>|Page whereLayout($value)
+ * @method static PageBuilder<static>|Page whereMiddleware($value)
+ * @method static PageBuilder<static>|Page whereName($value)
+ * @method static PageBuilder<static>|Page wherePrefixedId($value)
+ * @method static PageBuilder<static>|Page wherePublishedAt($value)
+ * @method static PageBuilder<static>|Page wherePublishedBlocks($value)
+ * @method static PageBuilder<static>|Page whereResource($value)
+ * @method static PageBuilder<static>|Page whereSeoDescription($value)
+ * @method static PageBuilder<static>|Page whereSeoKeywords($value)
+ * @method static PageBuilder<static>|Page whereSeoTitle($value)
+ * @method static PageBuilder<static>|Page whereStatus($value)
+ * @method static PageBuilder<static>|Page whereSubheading($value)
+ * @method static PageBuilder<static>|Page whereUpdatedAt($value)
+ * @method static PageBuilder<static>|Page whereUri($value)
+ * @method static PageBuilder<static>|Page whereVerb($value)
  *
  * @mixin \Eloquent
  */
@@ -185,11 +186,7 @@ class Page extends Model implements HasMedia
                     return true;
                 }
 
-                if ($this->blocks !== $this->published_blocks) {
-                    return true;
-                }
-
-                return false;
+                return $this->blocks !== $this->published_blocks;
             }
         );
     }
@@ -234,13 +231,13 @@ class Page extends Model implements HasMedia
         $content = null;
 
         if (filled($this->published_blocks)) {
-            foreach ($this->published_blocks as $publishedBlock) {
-                if (View::exists('components.pages.blocks.'.$publishedBlock['type'])) {
+            foreach ($this->published_blocks as $published_block) {
+                if (View::exists('components.pages.blocks.'.$published_block['type'])) {
                     $content .= Blade::render('<x-dynamic-component :$component :$container :$content :$block />', [
-                        'component' => 'pages.blocks.'.$publishedBlock['type'],
-                        'container' => data_get($publishedBlock, 'data.container'),
-                        'content' => data_get($publishedBlock, 'data.content'),
-                        'block' => data_get($publishedBlock, 'data.block'),
+                        'component' => 'pages.blocks.'.$published_block['type'],
+                        'container' => data_get($published_block, 'data.container'),
+                        'content' => data_get($published_block, 'data.content'),
+                        'block' => data_get($published_block, 'data.block'),
                     ]);
                 }
             }

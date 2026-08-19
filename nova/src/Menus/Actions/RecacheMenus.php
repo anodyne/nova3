@@ -17,14 +17,12 @@ class RecacheMenus
 
     public function handle(): void
     {
-        Cache::rememberForever(CacheKeys::BasicMenu->value, function () {
-            return Menu::public()
-                ->with([
-                    'items' => fn (HasMany $query): HasMany => $query->where('status', BasicStatus::Active),
-                    'items.page',
-                    'items.items',
-                ])
-                ->first();
-        });
+        Cache::rememberForever(CacheKeys::BasicMenu->value, fn () => Menu::public()
+            ->with([
+                'items' => fn (HasMany $query): HasMany => $query->where('status', BasicStatus::Active),
+                'items.page',
+                'items.items',
+            ])
+            ->first());
     }
 }

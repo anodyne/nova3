@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Setup\Actions\Migration\MigrateBan;
 use Nova\Setup\Models\Upgrade;
 use Nova\Users\Models\Ban;
@@ -24,7 +25,7 @@ class MigrateBans extends MigrationStep
     {
         $this->query()
             ->whereNotIn('ban_id', Upgrade::type('ban')->pluck('old_id'))
-            ->chunkById(100, function (Collection $legacyBans) {
+            ->chunkById(100, function (Collection $legacyBans): void {
                 foreach ($legacyBans as $legacyBan) {
                     MigrateBan::run($legacyBan);
                 }
@@ -52,6 +53,6 @@ class MigrateBans extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($ban) => MigrateBan::makeJob($ban));
+            ->map(fn ($ban): JobDecorator => MigrateBan::makeJob($ban));
     }
 }

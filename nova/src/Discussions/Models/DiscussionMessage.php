@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Discussions\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\DiscussionMessageFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,17 +35,17 @@ use Spatie\Activitylog\Models\Activity;
  * @property-read int|null $notifications_count
  * @property-read User|null $user
  *
- * @method static \Database\Factories\DiscussionMessageFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage whereContent($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage whereDiscussionId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Discussions\Models\DiscussionMessage whereUserId($value)
+ * @method static DiscussionMessageFactory factory($count = null, $state = [])
+ * @method static Builder<static>|DiscussionMessage newModelQuery()
+ * @method static Builder<static>|DiscussionMessage newQuery()
+ * @method static Builder<static>|DiscussionMessage query()
+ * @method static Builder<static>|DiscussionMessage whereContent($value)
+ * @method static Builder<static>|DiscussionMessage whereCreatedAt($value)
+ * @method static Builder<static>|DiscussionMessage whereDiscussionId($value)
+ * @method static Builder<static>|DiscussionMessage whereId($value)
+ * @method static Builder<static>|DiscussionMessage whereType($value)
+ * @method static Builder<static>|DiscussionMessage whereUpdatedAt($value)
+ * @method static Builder<static>|DiscussionMessage whereUserId($value)
  *
  * @mixin \Eloquent
  */

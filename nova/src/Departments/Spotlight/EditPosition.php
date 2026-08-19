@@ -36,13 +36,11 @@ class EditPosition extends SpotlightCommand
     {
         return Position::where('name', 'like', "%{$query}%")
             ->get()
-            ->map(function ($position) {
-                return new SpotlightSearchResult(
-                    $position->id,
-                    $position->name,
-                    sprintf('Edit %s position', $position->name)
-                );
-            });
+            ->map(fn ($position): SpotlightSearchResult => new SpotlightSearchResult(
+                $position->id,
+                $position->name,
+                sprintf('Edit %s position', $position->name)
+            ));
     }
 
     public function execute(Spotlight $spotlight, Position $position): void

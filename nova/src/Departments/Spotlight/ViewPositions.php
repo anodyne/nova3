@@ -35,13 +35,11 @@ class ViewPositions extends SpotlightCommand
     {
         return Department::where('name', 'like', "%{$query}%")
             ->get()
-            ->map(function ($department) {
-                return new SpotlightSearchResult(
-                    $department->id,
-                    $department->name,
-                    sprintf('View %s positions', $department->name)
-                );
-            });
+            ->map(fn ($department): SpotlightSearchResult => new SpotlightSearchResult(
+                $department->id,
+                $department->name,
+                sprintf('View %s positions', $department->name)
+            ));
     }
 
     public function execute(Spotlight $spotlight, Department $department): void

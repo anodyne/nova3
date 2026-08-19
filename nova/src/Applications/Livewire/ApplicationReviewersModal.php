@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -72,18 +74,18 @@ class ApplicationReviewersModal extends Modal
         return User::query()->active()->get();
     }
 
-    public function mount(Application $application)
+    public function mount(Application $application): void
     {
         $this->authorize('decide', $application);
 
         $this->application = $application;
 
         $this->selectedReviewers = $this->application->reviews
-            ->flatMap(fn (User $user) => [(string) $user->id])
+            ->flatMap(fn (User $user): array => [(string) $user->id])
             ->all();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.applications.livewire.reviewers-modal', [
             'users' => $this->users,

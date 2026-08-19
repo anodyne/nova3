@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Roles\Models\Role;
 use Nova\Stories\Actions\CreatePostType;
 use Nova\Stories\Actions\UpdatePostType;
@@ -28,19 +29,19 @@ class PostTypeController extends Controller
         $this->authorizeResource(PostType::class, 'postType');
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListPostTypesResponse::send();
     }
 
-    public function show(PostType $postType)
+    public function show(PostType $postType): Responsable
     {
         return ShowPostTypeResponse::sendWith([
             'postType' => $postType->load('role')->loadCount('publishedPosts'),
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreatePostTypeResponse::sendWith([
             'editTimeframes' => PostEditTimeframe::toOptions(),
@@ -56,7 +57,7 @@ class PostTypeController extends Controller
             ->notify("{$postType->name} post type was created");
     }
 
-    public function edit(PostType $postType)
+    public function edit(PostType $postType): Responsable
     {
         return EditPostTypeResponse::sendWith([
             'editTimeframes' => PostEditTimeframe::toOptions(),

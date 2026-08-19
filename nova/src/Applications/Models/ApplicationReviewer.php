@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Applications\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\ApplicationReviewerFactory;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Collection;
@@ -29,19 +30,19 @@ use Spatie\Activitylog\Models\Activity;
  * @property-read int|null $activities_count
  * @property-read User|null $user
  *
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer conditional()
- * @method static \Database\Factories\ApplicationReviewerFactory factory($count = null, $state = [])
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer global()
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer globalReviewersWithApprovalPermission()
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer newModelQuery()
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer newQuery()
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer query()
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer whereConditions($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer whereCreatedAt($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer whereId($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer whereType($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer whereUpdatedAt($value)
- * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer whereUserId($value)
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer conditional()
+ * @method static ApplicationReviewerFactory factory($count = null, $state = [])
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer global()
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer globalReviewersWithApprovalPermission()
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer newModelQuery()
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer newQuery()
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer query()
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer whereConditions($value)
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer whereCreatedAt($value)
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer whereId($value)
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer whereType($value)
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer whereUpdatedAt($value)
+ * @method static ApplicationReviewerBuilder<static>|ApplicationReviewer whereUserId($value)
  *
  * @mixin \Eloquent
  */

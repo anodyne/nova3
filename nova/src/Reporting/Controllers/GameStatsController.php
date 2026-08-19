@@ -7,6 +7,7 @@ namespace Nova\Reporting\Controllers;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Date;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Reporting\Reports\GameStatsReporter;
 use Nova\Reporting\Responses\GameStatsResponse;
 
@@ -19,9 +20,9 @@ class GameStatsController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
-        $stats = GameStatsReporter::make();
+        $gameStatsReporter = GameStatsReporter::make();
 
         $settings = settings('posting_activity');
 
@@ -36,7 +37,7 @@ class GameStatsController extends Controller
         }
 
         return GameStatsResponse::sendWith([
-            'stats' => $stats->stats(),
+            'stats' => $gameStatsReporter->stats(),
             'timeframes' => $timeframes,
             'settings' => $settings,
         ]);

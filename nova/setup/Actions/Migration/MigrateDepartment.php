@@ -17,7 +17,7 @@ class MigrateDepartment
 
     public function handle(object $model): void
     {
-        DB::transaction(function () use ($model) {
+        DB::transaction(function () use ($model): void {
             $departmentId = DB::table('departments')->insertGetId([
                 'name' => $model->dept_name,
                 'description' => $model->dept_desc,

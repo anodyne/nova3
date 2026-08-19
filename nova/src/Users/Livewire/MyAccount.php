@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
@@ -48,7 +50,7 @@ class MyAccount extends Component
         $this->form->setAccount(Auth::user());
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.users.livewire.my-account', [
             'errors' => $this->errors,
@@ -57,7 +59,7 @@ class MyAccount extends Component
     }
 
     #[On('croppedImageReady')]
-    public function handleCroppedImage($path)
+    public function handleCroppedImage(?string $path): void
     {
         $this->form->setProfilePhoto($path);
     }

@@ -103,16 +103,16 @@ abstract class Block extends BuilderBlock
                             ColorPicker::make('container.bg.color')
                                 ->label('Background color')
                                 ->rgba()
-                                ->visible(fn (Get $get) => $get('container.bg.option') === 'color'),
+                                ->visible(fn (Get $get): bool => $get('container.bg.option') === 'color'),
                             FileUpload::make('container.bg.image')
                                 ->label('Background image')
                                 ->disk('media-pages')
                                 ->directory((string) $this->getPageDesignerPage())
-                                ->visible(fn (Get $get) => $get('container.bg.option') === 'custom'),
+                                ->visible(fn (Get $get): bool => $get('container.bg.option') === 'custom'),
                             Select::make('container.bg.intensity')
                                 ->label('Background image intensity')
                                 ->options(BackgroundImageIntensity::class)
-                                ->hidden(fn (Get $get) => blank($get('container.bg.option')) || in_array($get('container.bg.option'), ['color', 'transparent'])),
+                                ->hidden(fn (Get $get): bool => blank($get('container.bg.option')) || in_array($get('container.bg.option'), ['color', 'transparent'])),
                         ]),
                 ]),
         ];
@@ -164,16 +164,16 @@ abstract class Block extends BuilderBlock
                                         ->label('Background blur')
                                         ->options(Blur::class),
                                 ])
-                                ->visible(fn (Get $get) => $get('content.bg.option') === 'color'),
+                                ->visible(fn (Get $get): bool => $get('content.bg.option') === 'color'),
                             FileUpload::make('content.bg.image')
                                 ->label('Background image')
                                 ->disk('media-pages')
                                 ->directory((string) $this->getPageDesignerPage())
-                                ->visible(fn (Get $get) => $get('content.bg.option') === 'custom'),
+                                ->visible(fn (Get $get): bool => $get('content.bg.option') === 'custom'),
                             Select::make('content.bg.intensity')
                                 ->label('Background image intensity')
                                 ->options(BackgroundImageIntensity::class)
-                                ->hidden(fn (Get $get) => blank($get('content.bg.option')) || in_array($get('content.bg.option'), ['color', 'custom', 'transparent'])),
+                                ->hidden(fn (Get $get): bool => blank($get('content.bg.option')) || in_array($get('content.bg.option'), ['color', 'custom', 'transparent'])),
                         ]),
                     Section::make()
                         ->heading('Border')

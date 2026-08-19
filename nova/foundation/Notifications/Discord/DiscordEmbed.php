@@ -78,9 +78,8 @@ class DiscordEmbed
      *
      * @param  string  $title
      * @param  string|null  $url
-     * @return $this
      */
-    public function title($title, $url = '')
+    public function title($title, $url = ''): static
     {
         $this->title = $title;
         $this->url = $url;
@@ -92,9 +91,8 @@ class DiscordEmbed
      * Set the description (text) of embed.
      *
      * @param  string  $description
-     * @return $this
      */
-    public function description($description)
+    public function description($description): static
     {
         $this->description = $description;
 
@@ -105,9 +103,8 @@ class DiscordEmbed
      * Set the color code of the embed.
      *
      * @param  string  $code
-     * @return $this
      */
-    public function color($code)
+    public function color($code): static
     {
         $this->color = hexdec($code);
 
@@ -119,9 +116,8 @@ class DiscordEmbed
      *
      * @param  string  $text
      * @param  string|null  $icon_url
-     * @return $this
      */
-    public function footer($text, $icon_url = '')
+    public function footer($text, $icon_url = ''): static
     {
         $this->footer = [
             'text' => $text,
@@ -135,9 +131,8 @@ class DiscordEmbed
      * Set the image (url) information.
      *
      * @param  string  $url
-     * @return $this
      */
-    public function image($url)
+    public function image($url): static
     {
         $this->image = [
             'url' => $url,
@@ -150,9 +145,8 @@ class DiscordEmbed
      * Set the thumbnail (url) information.
      *
      * @param  string  $url
-     * @return $this
      */
-    public function thumbnail($url)
+    public function thumbnail($url): static
     {
         $this->thumbnail = [
             'url' => $url,
@@ -167,9 +161,8 @@ class DiscordEmbed
      * @param  string  $name
      * @param  string|null  $url
      * @param  string|null  $icon_url
-     * @return $this
      */
-    public function author($name, $url = '', $icon_url = '')
+    public function author($name, $url = '', $icon_url = ''): static
     {
         $this->author = [
             'name' => $name,
@@ -180,14 +173,14 @@ class DiscordEmbed
         return $this;
     }
 
-    public function field($title, $content = '')
+    public function field($title, $content = ''): static
     {
         if (is_callable($title)) {
             $callback = $title;
 
-            $callback($attachmentField = new DiscordEmbedField);
+            $callback($discordEmbedField = new DiscordEmbedField);
 
-            $this->fields[] = $attachmentField;
+            $this->fields[] = $discordEmbedField;
 
             return $this;
         }
@@ -199,10 +192,8 @@ class DiscordEmbed
 
     /**
      * Set the fields of the attachment.
-     *
-     * @return $this
      */
-    public function fields(array $fields)
+    public function fields(array $fields): static
     {
         $this->fields = $fields;
 

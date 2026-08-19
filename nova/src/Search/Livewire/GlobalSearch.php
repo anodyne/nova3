@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Search\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
@@ -74,7 +76,7 @@ class GlobalSearch extends Modal
             ->sum();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('livewire.search.index', [
             'numberOfResults' => $this->numberOfResults,

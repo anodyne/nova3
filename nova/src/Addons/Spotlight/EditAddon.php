@@ -44,7 +44,7 @@ class EditAddon extends SpotlightCommand
         return Addon::query()
             ->searchFor('name', $query)
             ->get()
-            ->map(fn (Addon $addon) => new SpotlightSearchResult(
+            ->map(fn (Addon $addon): SpotlightSearchResult => new SpotlightSearchResult(
                 $addon->id,
                 $addon->name,
                 sprintf('Edit %s', $addon->name)

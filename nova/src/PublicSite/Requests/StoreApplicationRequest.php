@@ -35,7 +35,7 @@ class StoreApplicationRequest extends FormRequest
         }
 
         if (filled($applicationInfoForm->published_fields)) {
-            $rules = array_merge($rules, $applicationInfoForm->validation_rules);
+            return array_merge($rules, $applicationInfoForm->validation_rules);
         }
 
         return $rules;
@@ -73,7 +73,7 @@ class StoreApplicationRequest extends FormRequest
         }
 
         if (filled($applicationInfoForm->published_fields)) {
-            $messages = array_merge($messages, $applicationInfoForm->validation_messages);
+            return array_merge($messages, $applicationInfoForm->validation_messages);
         }
 
         return $messages;

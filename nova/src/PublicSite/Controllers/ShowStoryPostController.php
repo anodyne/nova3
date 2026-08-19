@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\PublicSite\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\PublicSite\Responses\ShowStoryPostResponse;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
@@ -13,7 +14,7 @@ use Nova\Stories\Models\Story;
 
 class ShowStoryPostController extends Controller
 {
-    public function __invoke(Story $story, Post $post)
+    public function __invoke(Story $story, Post $post): Responsable
     {
         $inCharacterPostTypes = PostType::query()->inCharacter()->pluck('key')->all();
 

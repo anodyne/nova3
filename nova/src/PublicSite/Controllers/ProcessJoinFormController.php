@@ -21,7 +21,7 @@ class ProcessJoinFormController extends Controller
             $executed = RateLimiter::attempt(
                 key: 'process-join:'.$request->input('userInfo.email'),
                 maxAttempts: 1,
-                callback: fn () => CreateApplicationFromJoinFormManager::run($request),
+                callback: fn (): mixed => CreateApplicationFromJoinFormManager::run($request),
                 decaySeconds: 15 * 60
             );
 

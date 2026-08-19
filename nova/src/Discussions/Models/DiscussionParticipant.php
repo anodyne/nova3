@@ -22,17 +22,17 @@ use Nova\Users\Models\User;
  * @property-read Discussion|null $discussion
  * @property-read User|null $user
  *
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant discussion(int $discussionId)
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant newModelQuery()
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant newQuery()
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant query()
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant user(int $userId)
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereCreatedAt($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereDeletedAt($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereDiscussionId($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereId($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereUpdatedAt($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereUserId($value)
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant discussion(int $discussionId)
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant newModelQuery()
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant newQuery()
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant query()
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant user(int $userId)
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereCreatedAt($value)
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereDeletedAt($value)
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereDiscussionId($value)
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereId($value)
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereUpdatedAt($value)
+ * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereUserId($value)
  *
  * @mixin \Eloquent
  */

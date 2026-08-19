@@ -9,7 +9,7 @@ use Nova\Users\Exceptions\AdminForcedPasswordResetException;
 
 class CheckForForcedPasswordReset
 {
-    public function handle($event)
+    public function handle($event): void
     {
         if ($event->user->force_password_reset) {
             Auth::logout();

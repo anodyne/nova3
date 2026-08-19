@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Foundation\Models;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -33,23 +34,23 @@ use Nova\Users\Models\UserNotificationPreference;
  * @property-read Collection<int, UserNotificationPreference> $userNotificationPreferences
  * @property-read int|null $user_notification_preferences_count
  *
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereAudience($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDatabase($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDatabaseDefault($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDiscord($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereDiscordSettings($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereMail($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereMailDefault($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereNotes($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\NotificationType whereUpdatedAt($value)
+ * @method static Builder<static>|NotificationType newModelQuery()
+ * @method static Builder<static>|NotificationType newQuery()
+ * @method static Builder<static>|NotificationType query()
+ * @method static Builder<static>|NotificationType whereAudience($value)
+ * @method static Builder<static>|NotificationType whereCreatedAt($value)
+ * @method static Builder<static>|NotificationType whereDatabase($value)
+ * @method static Builder<static>|NotificationType whereDatabaseDefault($value)
+ * @method static Builder<static>|NotificationType whereDescription($value)
+ * @method static Builder<static>|NotificationType whereDiscord($value)
+ * @method static Builder<static>|NotificationType whereDiscordSettings($value)
+ * @method static Builder<static>|NotificationType whereId($value)
+ * @method static Builder<static>|NotificationType whereKey($value)
+ * @method static Builder<static>|NotificationType whereMail($value)
+ * @method static Builder<static>|NotificationType whereMailDefault($value)
+ * @method static Builder<static>|NotificationType whereName($value)
+ * @method static Builder<static>|NotificationType whereNotes($value)
+ * @method static Builder<static>|NotificationType whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */

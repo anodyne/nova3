@@ -24,12 +24,10 @@ class ActivityReporter
 
     public function currentActivityTimeframe(): ActivityReport
     {
-        $result = once(function () {
-            return $this->query(
-                start: $this->postingActivitySettings->timeframe->startDate(),
-                end: $this->postingActivitySettings->timeframe->endDate()
-            );
-        });
+        $result = once(fn (): Collection => $this->query(
+            start: $this->postingActivitySettings->timeframe->startDate(),
+            end: $this->postingActivitySettings->timeframe->endDate()
+        ));
 
         return ActivityReport::from(
             active: $this->calculateActive($result),
@@ -69,12 +67,10 @@ class ActivityReporter
 
     public function previousActivityTimeframe(): ActivityReport
     {
-        $result = once(function () {
-            return $this->query(
-                start: $this->postingActivitySettings->timeframe->previousStartDate(),
-                end: $this->postingActivitySettings->timeframe->previousEndDate()
-            );
-        });
+        $result = once(fn (): Collection => $this->query(
+            start: $this->postingActivitySettings->timeframe->previousStartDate(),
+            end: $this->postingActivitySettings->timeframe->previousEndDate()
+        ));
 
         return ActivityReport::from(
             active: $this->calculateActive($result),

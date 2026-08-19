@@ -7,13 +7,14 @@ namespace Nova\Users\Data;
 use Bag\Attributes\Transforms;
 use Bag\Bag;
 use Illuminate\Http\Request;
+use Stringable;
 
 /**
  * @method static static from(string $value, ?string $subject, ?string $object)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
-readonly class PronounsData extends Bag
+readonly class PronounsData extends Bag implements Stringable
 {
     public function __construct(
         public string $value,
@@ -21,7 +22,7 @@ readonly class PronounsData extends Bag
         public ?string $object,
     ) {}
 
-    public function __toString()
+    public function __toString(): string
     {
         if ($this->value === 'none') {
             return '';

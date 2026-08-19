@@ -34,7 +34,7 @@ class CreateApplicationFromJoinFormManager
 
     public function handle(StoreApplicationRequest $request): void
     {
-        DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request): void {
             LogBatch::startBatch();
 
             $character = $this->createPendingCharacter($request);
@@ -131,12 +131,12 @@ class CreateApplicationFromJoinFormManager
 
     protected function createApplication(StoreApplicationRequest $request, Character $character, User $user): Application
     {
-        $data = ApplicationData::from(
+        $applicationData = ApplicationData::from(
             character_id: $character->id,
             user_id: $user->id,
             ip_address: $request->ip(),
         );
 
-        return CreateApplicationManager::run($data, $request->input('applicationInfo', []));
+        return CreateApplicationManager::run($applicationData, $request->input('applicationInfo', []));
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Attributes\Computed;
 use Nova\Foundation\Enums\CacheKeys;
@@ -91,7 +93,7 @@ class NovaUpdatePanel extends SlideOver
         };
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.dashboards.livewire.nova-update-panel', [
             'databaseVersion' => $this->databaseVersion,

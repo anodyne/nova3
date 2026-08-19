@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Setup\Actions\Migration\MigrateUser;
 use Nova\Setup\Models\Upgrade;
 use Nova\Users\Models\User;
@@ -30,7 +31,7 @@ class MigrateUsers extends MigrationStep
     {
         $this->query()
             ->whereNotIn('userid', Upgrade::type('user')->pluck('old_id'))
-            ->chunkById(100, function (Collection $users) {
+            ->chunkById(100, function (Collection $users): void {
                 foreach ($users as $user) {
                     MigrateUser::run(model: $user);
                 }
@@ -53,7 +54,7 @@ class MigrateUsers extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($user) => MigrateUser::makeJob($user));
+            ->map(fn ($user): JobDecorator => MigrateUser::makeJob($user));
     }
 
     protected function query(): Builder

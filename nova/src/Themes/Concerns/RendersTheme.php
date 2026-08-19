@@ -22,14 +22,14 @@ trait RendersTheme
 
     public function layout($view, array $data = []): static
     {
-        $this->structure->layout = view("layouts.{$view}", (array) $data);
+        $this->structure->layout = view("layouts.{$view}", $data);
 
         return $this;
     }
 
     public function page($view, array $data = []): static
     {
-        $this->structure->layout->template->content = view("pages.{$view}", (array) $data);
+        $this->structure->layout->template->content = view("pages.{$view}", $data);
 
         return $this;
     }
@@ -72,7 +72,7 @@ trait RendersTheme
 
     public function template($view, array $data = []): static
     {
-        $this->structure->layout->template = view("templates.{$view}", (array) $data);
+        $this->structure->layout->template = view("templates.{$view}", $data);
 
         return $this;
     }

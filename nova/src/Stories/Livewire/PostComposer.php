@@ -70,7 +70,7 @@ class PostComposer extends Component
         } catch (ValidationException $th) {
             $fields = collect($th->errors())
                 ->keys()
-                ->flatMap(fn (string $key) => [str($key)->after('post.')->toString()])
+                ->flatMap(fn (string $key): array => [str($key)->after('post.')->toString()])
                 ->join(', ', ' and ');
 
             $message = __('messages.post-validation-errors', [
@@ -111,7 +111,7 @@ class PostComposer extends Component
         $this->authorize('delete', $this->post);
 
         $this->askForConfirmation(
-            callback: function () {
+            callback: function (): void {
                 DeletePost::run($this->post);
 
                 Notification::make()->success()
@@ -166,7 +166,7 @@ class PostComposer extends Component
     #[Computed]
     public function isDirty(): bool
     {
-        return $this->lastUpdate !== null;
+        return $this->lastUpdate instanceof CarbonInterface;
     }
 
     public function mount(?Post $post = null): void

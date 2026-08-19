@@ -73,7 +73,7 @@ class RankItemsList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->attributeLabels([
                                         'group_id' => 'rank group',
@@ -116,13 +116,11 @@ class RankItemsList extends TableComponent
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('rank item was|rank items were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
+                            ->when($ignoredRecords > 0, fn (Notification $notification): Notification => $notification->body(sprintf(
+                                '%d %s ignored due to being ineligible for this action.',
+                                $ignoredRecords,
+                                trans_choice('record was|records were', $ignoredRecords)
+                            )))
                             ->send();
                     }),
             ])

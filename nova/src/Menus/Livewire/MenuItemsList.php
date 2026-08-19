@@ -80,7 +80,7 @@ class MenuItemsList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->attributeLabels([
                                         'page_id' => 'page',
@@ -90,7 +90,7 @@ class MenuItemsList extends TableComponent
                                     ->attributeValues([
                                         'page_id' => fn (?int $value) => Page::find($value)?->name,
                                         'parent_id' => fn (?int $value) => MenuItem::find($value)?->label,
-                                        'target' => fn (?LinkTarget $value) => $value?->getLabel(),
+                                        'target' => fn (?LinkTarget $value): ?string => $value?->getLabel(),
                                     ]);
                             }),
                     ])->divided(),
@@ -125,13 +125,11 @@ class MenuItemsList extends TableComponent
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('menu item was|menu items were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
+                            ->when($ignoredRecords > 0, fn (Notification $notification): Notification => $notification->body(sprintf(
+                                '%d %s ignored due to being ineligible for this action.',
+                                $ignoredRecords,
+                                trans_choice('record was|records were', $ignoredRecords)
+                            )))
                             ->send();
                     }),
             ])

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Themes\Models;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Nova\Addons\Data\AddonRepository;
 use Nova\Foundation\Enums\BasicStatus;
@@ -30,20 +31,20 @@ use Spatie\Activitylog\Models\Activity;
  * @property-read string|null $latest_version
  * @property-read string|null $update_url
  *
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereCredits($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme wherePreview($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereRepository($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereSettings($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereVersion($value)
+ * @method static Builder<static>|PendingTheme newModelQuery()
+ * @method static Builder<static>|PendingTheme newQuery()
+ * @method static Builder<static>|PendingTheme query()
+ * @method static Builder<static>|PendingTheme whereCreatedAt($value)
+ * @method static Builder<static>|PendingTheme whereCredits($value)
+ * @method static Builder<static>|PendingTheme whereId($value)
+ * @method static Builder<static>|PendingTheme whereLocation($value)
+ * @method static Builder<static>|PendingTheme whereName($value)
+ * @method static Builder<static>|PendingTheme wherePreview($value)
+ * @method static Builder<static>|PendingTheme whereRepository($value)
+ * @method static Builder<static>|PendingTheme whereSettings($value)
+ * @method static Builder<static>|PendingTheme whereStatus($value)
+ * @method static Builder<static>|PendingTheme whereUpdatedAt($value)
+ * @method static Builder<static>|PendingTheme whereVersion($value)
  *
  * @mixin \Eloquent
  */

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\RankItemFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,26 +40,26 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property-read RankGroup $group
  * @property-read RankName $name
  *
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem active()
- * @method static \Database\Factories\RankItemFactory factory($count = null, $state = [])
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem group($group)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem inactive()
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem name($name)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem newModelQuery()
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem newQuery()
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem ordered(string $direction = 'asc')
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem query()
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem searchFor($search)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereBaseImage($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereCreatedAt($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereGroupId($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereId($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereNameId($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereOrderColumn($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereOverlayImage($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereStatus($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereUpdatedAt($value)
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem withRankName()
+ * @method static RankItemBuilder<static>|RankItem active()
+ * @method static RankItemFactory factory($count = null, $state = [])
+ * @method static RankItemBuilder<static>|RankItem group($group)
+ * @method static RankItemBuilder<static>|RankItem inactive()
+ * @method static RankItemBuilder<static>|RankItem name($name)
+ * @method static RankItemBuilder<static>|RankItem newModelQuery()
+ * @method static RankItemBuilder<static>|RankItem newQuery()
+ * @method static RankItemBuilder<static>|RankItem ordered(string $direction = 'asc')
+ * @method static RankItemBuilder<static>|RankItem query()
+ * @method static RankItemBuilder<static>|RankItem searchFor($search)
+ * @method static RankItemBuilder<static>|RankItem whereBaseImage($value)
+ * @method static RankItemBuilder<static>|RankItem whereCreatedAt($value)
+ * @method static RankItemBuilder<static>|RankItem whereGroupId($value)
+ * @method static RankItemBuilder<static>|RankItem whereId($value)
+ * @method static RankItemBuilder<static>|RankItem whereNameId($value)
+ * @method static RankItemBuilder<static>|RankItem whereOrderColumn($value)
+ * @method static RankItemBuilder<static>|RankItem whereOverlayImage($value)
+ * @method static RankItemBuilder<static>|RankItem whereStatus($value)
+ * @method static RankItemBuilder<static>|RankItem whereUpdatedAt($value)
+ * @method static RankItemBuilder<static>|RankItem withRankName()
  *
  * @mixin \Eloquent
  */

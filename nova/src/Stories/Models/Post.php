@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -97,61 +98,61 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read Collection<int, User> $userAuthors
  * @property-read int|null $user_authors_count
  *
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post abandoned()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post currentMonth()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post currentYear()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post draft()
- * @method static \Database\Factories\PostFactory factory($count = null, $state = [])
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post forStory(\Nova\Stories\Models\Story|int $story)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post hasExpiredPostLock()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post locked()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post newModelQuery()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Stories\Models\Post onlyTrashed()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post orWhereNotState(string $column, $states)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post orWhereState(string $column, $states)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post ordered(string $direction = 'asc')
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post pending()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post previousMonth()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post previousYear()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post published()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post query()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post searchFor($search)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post unlocked()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereContent($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereCreatedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereDay($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereDeletedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereDirection($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereHasUser(\Nova\Users\Models\User $user)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereId($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereLastUpdateBy($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereLocation($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereLockedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereLockedBy($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereNeighbor($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereNotPost(\Nova\Stories\Models\Post $post)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereNotRootPost()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereNotState(string $column, $states)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereOrderColumn($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereParticipants($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePostType($postTypeId)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePostTypeId($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePrefixedId($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePublishedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereRatingLanguage($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereRatingSex($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereRatingViolence($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereState(string $column, $states)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereStatus($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereStoryId($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereSummary($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereTime($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereTitle($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereUpdatedAt($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereWordCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Stories\Models\Post withTrashed(bool $withTrashed = true)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Stories\Models\Post withoutTrashed()
+ * @method static PostBuilder<static>|Post abandoned()
+ * @method static PostBuilder<static>|Post currentMonth()
+ * @method static PostBuilder<static>|Post currentYear()
+ * @method static PostBuilder<static>|Post draft()
+ * @method static PostFactory factory($count = null, $state = [])
+ * @method static PostBuilder<static>|Post forStory(Story|int $story)
+ * @method static PostBuilder<static>|Post hasExpiredPostLock()
+ * @method static PostBuilder<static>|Post locked()
+ * @method static PostBuilder<static>|Post newModelQuery()
+ * @method static PostBuilder<static>|Post newQuery()
+ * @method static Builder<static>|Post onlyTrashed()
+ * @method static PostBuilder<static>|Post orWhereNotState(string $column, $states)
+ * @method static PostBuilder<static>|Post orWhereState(string $column, $states)
+ * @method static PostBuilder<static>|Post ordered(string $direction = 'asc')
+ * @method static PostBuilder<static>|Post pending()
+ * @method static PostBuilder<static>|Post previousMonth()
+ * @method static PostBuilder<static>|Post previousYear()
+ * @method static PostBuilder<static>|Post published()
+ * @method static PostBuilder<static>|Post query()
+ * @method static PostBuilder<static>|Post searchFor($search)
+ * @method static PostBuilder<static>|Post unlocked()
+ * @method static PostBuilder<static>|Post whereContent($value)
+ * @method static PostBuilder<static>|Post whereCreatedAt($value)
+ * @method static PostBuilder<static>|Post whereDay($value)
+ * @method static PostBuilder<static>|Post whereDeletedAt($value)
+ * @method static PostBuilder<static>|Post whereDirection($value)
+ * @method static PostBuilder<static>|Post whereHasUser(User $user)
+ * @method static PostBuilder<static>|Post whereId($value)
+ * @method static PostBuilder<static>|Post whereLastUpdateBy($value)
+ * @method static PostBuilder<static>|Post whereLocation($value)
+ * @method static PostBuilder<static>|Post whereLockedAt($value)
+ * @method static PostBuilder<static>|Post whereLockedBy($value)
+ * @method static PostBuilder<static>|Post whereNeighbor($value)
+ * @method static PostBuilder<static>|Post whereNotPost(Post $post)
+ * @method static PostBuilder<static>|Post whereNotRootPost()
+ * @method static PostBuilder<static>|Post whereNotState(string $column, $states)
+ * @method static PostBuilder<static>|Post whereOrderColumn($value)
+ * @method static PostBuilder<static>|Post whereParticipants($value)
+ * @method static PostBuilder<static>|Post wherePostType($postTypeId)
+ * @method static PostBuilder<static>|Post wherePostTypeId($value)
+ * @method static PostBuilder<static>|Post wherePrefixedId($value)
+ * @method static PostBuilder<static>|Post wherePublishedAt($value)
+ * @method static PostBuilder<static>|Post whereRatingLanguage($value)
+ * @method static PostBuilder<static>|Post whereRatingSex($value)
+ * @method static PostBuilder<static>|Post whereRatingViolence($value)
+ * @method static PostBuilder<static>|Post whereState(string $column, $states)
+ * @method static PostBuilder<static>|Post whereStatus($value)
+ * @method static PostBuilder<static>|Post whereStoryId($value)
+ * @method static PostBuilder<static>|Post whereSummary($value)
+ * @method static PostBuilder<static>|Post whereTime($value)
+ * @method static PostBuilder<static>|Post whereTitle($value)
+ * @method static PostBuilder<static>|Post whereUpdatedAt($value)
+ * @method static PostBuilder<static>|Post whereWordCount($value)
+ * @method static Builder<static>|Post withTrashed(bool $withTrashed = true)
+ * @method static Builder<static>|Post withoutTrashed()
  *
  * @mixin \Eloquent
  */
@@ -222,32 +223,28 @@ class Post extends Model implements Sortable
     public function authorsAvatars(): Attribute
     {
         return Attribute::make(
-            get: function (): array {
-                return collect(array_merge(
-                    $this->characterAuthors->map(fn ($character) => $character->avatar_url)->all(),
-                    $this->userAuthors->map(fn ($user) => $user->avatar_url)->all(),
-                ))->all();
-            }
+            get: fn (): array => collect(array_merge(
+                $this->characterAuthors->map(fn ($character) => $character->avatar_url)->all(),
+                $this->userAuthors->map(fn ($user) => $user->avatar_url)->all(),
+            ))->all()
         );
     }
 
     public function authorsString(): Attribute
     {
         return Attribute::make(
-            get: function (): string {
-                return collect(array_merge(
-                    $this->characterAuthors->map(fn ($character) => $character->display_name)->all(),
-                    $this->userAuthors->map(function (User $user): string {
-                        $authorship = $user->getRelation('pivot');
+            get: fn (): string => collect(array_merge(
+                $this->characterAuthors->map(fn ($character) => $character->display_name)->all(),
+                $this->userAuthors->map(function (User $user): string {
+                    $authorship = $user->getRelation('pivot');
 
-                        if (! $authorship instanceof PostAuthor || blank($authorship->as)) {
-                            return $user->name;
-                        }
+                    if (! $authorship instanceof PostAuthor || blank($authorship->as)) {
+                        return $user->name;
+                    }
 
-                        return "{$user->name} as {$authorship->as}";
-                    })->all(),
-                ))->join(', ', ', and ');
-            }
+                    return "{$user->name} as {$authorship->as}";
+                })->all(),
+            ))->join(', ', ', and ')
         );
     }
 
@@ -339,7 +336,7 @@ class Post extends Model implements Sortable
             ->event('locked')
             ->log('locked');
 
-        activity()->withoutLogs(function () use ($user) {
+        activity()->withoutLogs(function () use ($user): void {
             $this->update([
                 'locked_by' => $user->id,
                 'locked_at' => now(),
@@ -420,7 +417,7 @@ class Post extends Model implements Sortable
 
         $participants = collect($this->participants)
             ->filter()
-            ->filter(fn ($participant) => $participant !== $userId)
+            ->filter(fn ($participant): bool => $participant !== $userId)
             ->unique()
             ->values()
             ->map(fn ($value): int => (int) $value)
@@ -461,14 +458,14 @@ class Post extends Model implements Sortable
         ];
     }
 
-    public function unlock()
+    public function unlock(): void
     {
         activity()
             ->performedOn($this)
             ->event('unlocked')
             ->log('unlocked');
 
-        activity()->withoutLogs(function () {
+        activity()->withoutLogs(function (): void {
             $this->update([
                 'locked_by' => null,
                 'locked_at' => null,

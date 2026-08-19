@@ -19,7 +19,7 @@ use Symfony\Component\Finder\Finder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 
@@ -66,9 +66,9 @@ class DatabaseSeeder extends Seeder
                 ->depth(0);
 
             collect($finder)
-                ->flatMap(fn ($finder) => [$finder->getFilename()])
-                ->reject(fn ($theme) => ! file_exists(theme_path($theme.'/theme.json')))
-                ->each([InstallTheme::class, 'run']);
+                ->flatMap(fn ($finder): array => [$finder->getFilename()])
+                ->reject(fn ($theme): bool => ! file_exists(theme_path($theme.'/theme.json')))
+                ->each(InstallTheme::run(...));
         }
     }
 
@@ -81,9 +81,9 @@ class DatabaseSeeder extends Seeder
                 ->depth(0);
 
             collect($finder)
-                ->flatMap(fn ($finder) => [$finder->getFilename()])
-                ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/addon.json')))
-                ->each([InstallAddon::class, 'run']);
+                ->flatMap(fn ($finder): array => [$finder->getFilename()])
+                ->reject(fn ($addon): bool => ! file_exists(addon_path($addon.'/addon.json')))
+                ->each(InstallAddon::run(...));
 
             BustActiveAddonsCache::run();
         }

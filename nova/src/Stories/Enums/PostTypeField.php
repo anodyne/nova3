@@ -41,7 +41,7 @@ enum PostTypeField: string implements HasLabel
     public function requiredValidationRule(): string|Closure
     {
         return match ($this) {
-            self::Content, self::Summary => function ($attribute, $value, $fail) {
+            self::Content, self::Summary => function ($attribute, $value, $fail): void {
                 $strippedContent = str($value)->pipe('strip_tags');
 
                 if (blank($strippedContent)) {

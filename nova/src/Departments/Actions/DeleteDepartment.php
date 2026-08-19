@@ -17,7 +17,7 @@ class DeleteDepartment
     {
         return DB::transaction(function () use ($department) {
             $department->positions->each(
-                fn (Position $position) => DeletePosition::run($position)
+                fn (Position $position): mixed => DeletePosition::run($position)
             );
 
             return tap($department)->delete();

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Setup\Livewire;
 
 use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
@@ -110,9 +112,9 @@ class InstallNova extends Component
         $disk = Storage::disk('addons');
 
         return collect($finder)
-            ->flatMap(fn ($finder) => [$finder->getRelativePath()])
-            ->reject(fn ($path) => ! $disk->exists("{$path}/addon.json"))
-            ->flatMap(function ($path) use ($disk) {
+            ->flatMap(fn ($finder): array => [$finder->getRelativePath()])
+            ->reject(fn ($path): bool => ! $disk->exists("{$path}/addon.json"))
+            ->flatMap(function ($path) use ($disk): array {
                 $data = json_decode($disk->get("{$path}/addon.json"), true);
 
                 return [$path => data_get($data, 'name')];
@@ -120,7 +122,7 @@ class InstallNova extends Component
             ->toArray();
     }
 
-    public function mount()
+    public function mount(): void
     {
         if (app()->environment('local')) {
             $this->shouldSeed = true;
@@ -131,7 +133,7 @@ class InstallNova extends Component
         }
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('setup.install-nova.index', [
             'availableGenres' => $this->availableGenres,
@@ -184,9 +186,9 @@ class InstallNova extends Component
             ->depth(0);
 
         collect($finder)
-            ->flatMap(fn ($finder) => [$finder->getFilename()])
-            ->reject(fn ($theme) => ! file_exists(theme_path($theme.'/theme.json')))
-            ->each([InstallTheme::class, 'run']);
+            ->flatMap(fn ($finder): array => [$finder->getFilename()])
+            ->reject(fn ($theme): bool => ! file_exists(theme_path($theme.'/theme.json')))
+            ->each(InstallTheme::run(...));
     }
 
     protected function installExtensions(): void
@@ -197,9 +199,9 @@ class InstallNova extends Component
             ->depth(0);
 
         collect($finder)
-            ->flatMap(fn ($finder) => [$finder->getFilename()])
-            ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/addon.json')))
-            ->each([InstallAddon::class, 'run']);
+            ->flatMap(fn ($finder): array => [$finder->getFilename()])
+            ->reject(fn ($addon): bool => ! file_exists(addon_path($addon.'/addon.json')))
+            ->each(InstallAddon::run(...));
 
         BustActiveAddonsCache::run();
     }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -108,7 +110,7 @@ class ComposeMessage extends Modal
 
         $this->validateOnly('content');
 
-        $data = DiscussionData::from(
+        $discussionData = DiscussionData::from(
             subject: $this->subject,
             message: DiscussionMessageData::from(
                 userId: Auth::id(),
@@ -125,7 +127,7 @@ class ComposeMessage extends Modal
 
         $this->dispatch('discussion-updated');
 
-        SendMessage::run($this->discussion, $data);
+        SendMessage::run($this->discussion, $discussionData);
 
         Notification::make()->success()
             ->title('Message reply sent')
@@ -158,7 +160,7 @@ class ComposeMessage extends Modal
         }
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.discussions.livewire.compose-message-modal', [
             'discussion' => $this->discussion,

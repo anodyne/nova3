@@ -24,7 +24,7 @@ class SyncUserCharacters
 
             //     return [$character => $primary];
             // })
-            ->mapWithKeys(fn ($character) => [$character => ['primary' => (int) $character === $data->primaryCharacter]])
+            ->mapWithKeys(fn ($character): array => [$character => ['primary' => (int) $character === $data->primaryCharacter]])
             ->all();
 
         $operations = $user->characters()->sync($characters);

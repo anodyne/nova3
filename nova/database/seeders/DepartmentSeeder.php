@@ -9,7 +9,7 @@ use Nova\Departments\Models\Department;
 
 class DepartmentSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         $departments = [
             ['name' => 'Command', 'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Adipisci, totam numquam voluptatem cum repellat quos commodi sed repudiandae ut ducimus illo culpa voluptate saepe ipsam nostrum unde ab. Facilis, ipsum?', 'order_column' => 0],

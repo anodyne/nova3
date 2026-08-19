@@ -9,6 +9,7 @@ use Nova\Applications\Responses\ListApplicationsResponse;
 use Nova\Applications\Responses\ShowApplicationResponse;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class ApplicationController extends Controller
 {
@@ -21,12 +22,12 @@ class ApplicationController extends Controller
         $this->authorizeResource(Application::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListApplicationsResponse::send();
     }
 
-    public function show(Application $application)
+    public function show(Application $application): Responsable
     {
         $application->load(
             'user.userFormSubmission',

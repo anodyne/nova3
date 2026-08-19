@@ -16,21 +16,21 @@ class DuplicatePosition
     public function handle(Position $original, PositionData $data): Position
     {
         return DB::transaction(function () use ($original, $data) {
-            $replica = $original->replicate([
+            $position = $original->replicate([
                 'active_characters_count',
                 'active_users_count',
                 'prefixed_id',
             ]);
-            $replica->forceFill(collect($data->toArray())->filter()->toArray());
-            $replica->save();
+            $position->forceFill(collect($data->toArray())->filter()->toArray());
+            $position->save();
 
             activity()
                 ->performedOn($original)
-                ->withProperty('replica', $replica->id)
+                ->withProperty('replica', $position->id)
                 ->event('duplicated')
                 ->log('duplicated');
 
-            return $replica->refresh();
+            return $position->refresh();
         });
     }
 }

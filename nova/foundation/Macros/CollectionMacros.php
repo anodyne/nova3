@@ -15,15 +15,13 @@ class CollectionMacros
     public function active(): Closure
     {
         /** @this Collection */
-        return function () {
-            return $this->filter(fn (mixed $model) => $model->deleted_at === null);
-        };
+        return fn () => $this->filter(fn (mixed $model): bool => $model->deleted_at === null);
     }
 
     public function paginate(): Closure
     {
         /** @this Collection */
-        return function ($perPage = 15, $page = null, $options = []) {
+        return function ($perPage = 15, $page = null, $options = []): LengthAwarePaginator {
             $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
 
             if (! isset($options['page'])) {
@@ -43,8 +41,6 @@ class CollectionMacros
     public function trashed(): Closure
     {
         /** @this Collection */
-        return function () {
-            return $this->filter(fn (mixed $model) => $model->deleted_at !== null);
-        };
+        return fn () => $this->filter(fn (mixed $model): bool => $model->deleted_at !== null);
     }
 }

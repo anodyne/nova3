@@ -18,9 +18,9 @@ class Action extends \Filament\Actions\Action
         parent::setUp();
 
         $this->modalWidth(Width::Large);
-        $this->modalIcon(null);
+        $this->modalIcon();
         $this->modalHeading('');
-        $this->modalDescription(null);
+        $this->modalDescription();
         $this->modalContent(fn (?Model $record): View => view($this->modalContentView, [
             'record' => $record,
             'action' => $this,

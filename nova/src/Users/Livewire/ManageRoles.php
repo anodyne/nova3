@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Roles\Models\Role;
@@ -21,7 +23,7 @@ class ManageRoles extends Component
         $this->assigned = $this->user?->roles->pluck('id')->all() ?? [];
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.users.livewire.manage-roles', [
             'roles' => Role::get(),

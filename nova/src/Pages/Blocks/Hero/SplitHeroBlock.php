@@ -58,16 +58,16 @@ class SplitHeroBlock extends HeroBlock
                                 ->options(BoxShadow::class)
                                 ->default(BoxShadow::None->value),
                         ])
-                        ->hidden(fn (Get $get) => $get('block.media.type') === MediaType::None->value),
+                        ->hidden(fn (Get $get): bool => $get('block.media.type') === MediaType::None->value),
                     FileUpload::make('block.media.image')
                         ->label('Image')
                         ->disk('media-pages')
                         ->directory((string) $this->getPageDesignerPage())
-                        ->visible(fn (Get $get) => $get('block.media.type') === MediaType::Image->value),
+                        ->visible(fn (Get $get): bool => $get('block.media.type') === MediaType::Image->value),
                     TextInput::make('block.media.video')
                         ->label('Video URL')
                         ->url()
-                        ->visible(fn (Get $get) => $get('block.media.type') === MediaType::Video->value),
+                        ->visible(fn (Get $get): bool => $get('block.media.type') === MediaType::Video->value),
                 ]),
         ];
     }

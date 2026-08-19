@@ -38,15 +38,11 @@ enum LeaderboardTimeframe: string implements HasLabel
     {
         return match ($this) {
             self::ThisYear => $query->where(Post::column('updated_at'), '>=', Date::now()->startOfYear()),
-            self::LastYear => $query->where(function (Builder $q): Builder {
-                return $q->where(Post::column('updated_at'), '>=', Date::now()->subYear()->startOfYear())
-                    ->where(Post::column('updated_at'), '<=', Date::now()->subYear()->endOfYear());
-            }),
+            self::LastYear => $query->where(fn (Builder $q): Builder => $q->where(Post::column('updated_at'), '>=', Date::now()->subYear()->startOfYear())
+                ->where(Post::column('updated_at'), '<=', Date::now()->subYear()->endOfYear())),
             self::ThisMonth => $query->where(Post::column('updated_at'), '>=', Date::now()->startOfMonth()),
-            self::LastMonth => $query->where(function (Builder $q): Builder {
-                return $q->where(Post::column('updated_at'), '>=', Date::now()->subMonth()->startOfMonth())
-                    ->where(Post::column('updated_at'), '<=', Date::now()->subMonth()->endOfMonth());
-            }),
+            self::LastMonth => $query->where(fn (Builder $q): Builder => $q->where(Post::column('updated_at'), '>=', Date::now()->subMonth()->startOfMonth())
+                ->where(Post::column('updated_at'), '<=', Date::now()->subMonth()->endOfMonth())),
             self::Days7 => $query->where(Post::column('updated_at'), '>=', Date::now()->subDays(7)->startOfDay()),
             self::Days14 => $query->where(Post::column('updated_at'), '>=', Date::now()->subDays(14)->startOfDay()),
             self::Days30 => $query->where(Post::column('updated_at'), '>=', Date::now()->subDays(30)->startOfDay()),

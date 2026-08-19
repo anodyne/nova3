@@ -26,7 +26,7 @@ class DeactivateCharacterButton extends Component
             ->notify("{$this->character->name} was deactivated");
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
             <x-button type="button" wire:click="deactivate">Deactivate</x-button>

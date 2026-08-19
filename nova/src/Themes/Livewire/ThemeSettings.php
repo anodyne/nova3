@@ -7,6 +7,8 @@ namespace Nova\Themes\Livewire;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Schemas\Schema;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Themes\Data\ThemeSettings as ThemeSettingsData;
@@ -43,12 +45,12 @@ class ThemeSettings extends SlideOver implements HasForms
 
     public function save(): void
     {
-        $settings = ThemeSettingsData::from([
+        $themeSettings = ThemeSettingsData::from([
             'fonts' => $this->fonts,
             'settings' => $this->form->getState(),
         ]);
 
-        $this->theme->update(['settings' => $settings]);
+        $this->theme->update(['settings' => $themeSettings]);
 
         $this->close();
 
@@ -65,7 +67,7 @@ class ThemeSettings extends SlideOver implements HasForms
         $this->form->fill($this->theme->settings->settings);
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.themes.livewire.theme-settings');
     }

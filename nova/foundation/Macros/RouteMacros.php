@@ -14,8 +14,6 @@ class RouteMacros
     public function findPageFromRoute(): Closure
     {
         /** @this Route */
-        return function () {
-            return Page::key($this->getName())->first();
-        };
+        return fn () => Page::key($this->getName())->first();
     }
 }

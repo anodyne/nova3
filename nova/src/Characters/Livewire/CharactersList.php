@@ -109,13 +109,13 @@ class CharactersList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->eventDescriptions([
-                                        'removed-avatar' => fn (Activity $activity) => __('activity.characters.removed-avatar', [
+                                        'removed-avatar' => fn (Activity $activity): string => __('activity.characters.removed-avatar', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                         ]),
-                                        'uploaded-avatar' => fn (Activity $activity) => __('activity.characters.uploaded-avatar', [
+                                        'uploaded-avatar' => fn (Activity $activity): string => __('activity.characters.uploaded-avatar', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                         ]),
                                     ])
@@ -266,7 +266,7 @@ class CharactersList extends TableComponent
             ->filters([
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn (): array => Character::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
+                    ->options(fn (): array => Character::getStatesFor('status')->flatMap(fn ($state): array => [$state => ucfirst($state)])->all())
                     ->default(fn () => request()->query('status', ['active'])),
                 SelectFilter::make('type')
                     ->multiple()

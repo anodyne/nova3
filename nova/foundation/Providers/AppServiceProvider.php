@@ -104,17 +104,15 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDatabaseRepositories();
         $this->configureDataMigrationCommands();
 
-        $this->app->extend('blade.compiler', function ($compiler, Application $app) {
-            return tap(new BladeCompiler(
-                $app['files'],
-                $app['config']['view.compiled'],
-                $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
-                $app['config']->get('view.cache', true),
-                $app['config']->get('view.compiled_extension', 'php'),
-            ), function ($blade) {
-                $blade->component('dynamic-component', DynamicComponent::class);
-            });
-        });
+        $this->app->extend('blade.compiler', fn ($compiler, Application $app) => tap(new BladeCompiler(
+            $app['files'],
+            $app['config']['view.compiled'],
+            $app['config']->get('view.relative_hash', false) ? $app->basePath() : '',
+            $app['config']->get('view.cache', true),
+            $app['config']->get('view.compiled_extension', 'php'),
+        ), function ($blade): void {
+            $blade->component('dynamic-component', DynamicComponent::class);
+        }));
     }
 
     public function boot(): void
@@ -123,16 +121,12 @@ class AppServiceProvider extends ServiceProvider
 
         Date::use(CarbonImmutable::class);
 
-        RedirectIfAuthenticated::redirectUsing(fn () => route('admin.dashboard'));
+        RedirectIfAuthenticated::redirectUsing(fn (): string => route('admin.dashboard'));
 
         // Make sure the file finder can find Javascript files
         $this->app['view']->addExtension('js', 'file');
 
-        $this->app->scoped('nova.environment', function () {
-            $environment = Environment::make();
-
-            return $environment;
-        });
+        $this->app->scoped('nova.environment', fn (): Environment => Environment::make());
 
         $this->app->scoped('nova.settings', function () {
             if (Nova::isInstalled()) {
@@ -172,28 +166,28 @@ class AppServiceProvider extends ServiceProvider
         ViewFactory::mixin(new ViewMacros);
 
         Route::macro('findPageFromRoute', function () {
-            /** @var Route */
+            /** @var Route $route */
             $route = $this;
 
             return once(fn () => Page::key($route->getName())->first());
         });
 
-        ComponentAttributeBag::macro('hasStartsWith', function ($key) {
-            /** @var ComponentAttributeBag */
+        ComponentAttributeBag::macro('hasStartsWith', function ($key): bool {
+            /** @var ComponentAttributeBag $bag */
             $bag = $this;
 
             return (bool) $bag->whereStartsWith($key)->first();
         });
 
-        HasMany::macro('createUpdateOrDelete', function (iterable $records) {
-            /** @var HasMany */
+        HasMany::macro('createUpdateOrDelete', function (iterable $records): void {
+            /** @var HasMany $hasMany */
             $hasMany = $this;
 
-            return (new CreateUpdateOrDelete($hasMany, $records))();
+            (new CreateUpdateOrDelete($hasMany, $records))();
         });
 
         Blueprint::macro('prefixedId', function (string $name = 'prefixed_id') {
-            /** @var Blueprint */
+            /** @var Blueprint $table */
             $table = $this;
 
             return $table->string($name)->nullable()->unique();
@@ -227,20 +221,16 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('tips', Tips::class);
 
-        Blade::directive('icon', [NovaBladeDirectives::class, 'icon']);
-        Blade::directive('novaAdminScripts', [NovaBladeDirectives::class, 'novaAdminScripts']);
-        Blade::directive('novaAdminStyles', [NovaBladeDirectives::class, 'novaAdminStyles']);
-        Blade::directive('novaPublicScripts', [NovaBladeDirectives::class, 'novaPublicScripts']);
-        Blade::directive('novaPublicStyles', [NovaBladeDirectives::class, 'novaPublicStyles']);
-        Blade::directive('novaSetupScripts', [NovaBladeDirectives::class, 'novaSetupScripts']);
+        Blade::directive('icon', NovaBladeDirectives::icon(...));
+        Blade::directive('novaAdminScripts', NovaBladeDirectives::novaAdminScripts(...));
+        Blade::directive('novaAdminStyles', NovaBladeDirectives::novaAdminStyles(...));
+        Blade::directive('novaPublicScripts', NovaBladeDirectives::novaPublicScripts(...));
+        Blade::directive('novaPublicStyles', NovaBladeDirectives::novaPublicStyles(...));
+        Blade::directive('novaSetupScripts', NovaBladeDirectives::novaSetupScripts(...));
 
-        Blade::directive('mysql', function ($expression) {
-            return '<?php if(app("nova.environment")->database->isMysql()): ?>';
-        });
+        Blade::directive('mysql', fn ($expression): string => '<?php if(app("nova.environment")->database->isMysql()): ?>');
 
-        Blade::directive('endmysql', function ($expression) {
-            return '<?php endif; ?>';
-        });
+        Blade::directive('endmysql', fn ($expression): string => '<?php endif; ?>');
     }
 
     protected function configureLivewireComponents()
@@ -254,14 +244,14 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             'nova.response-filters',
-            fn () => new FiltersManager
+            fn (): FiltersManager => new FiltersManager
         );
     }
 
     protected function configureDatabaseFactories()
     {
         Factory::guessFactoryNamesUsing(
-            fn ($model) => 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory'
+            fn ($model): string => 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory'
         );
     }
 
@@ -295,22 +285,16 @@ class AppServiceProvider extends ServiceProvider
             SupportIconAlias::PAGINATION_NEXT_BUTTON => Tabler::ChevronRight,
         ]);
 
-        Table::configureUsing(function (Table $table) {
+        Table::configureUsing(function (Table $table): void {
             $table
-                ->filtersTriggerAction(function (Action $action) {
-                    return $action->size(Size::Large)->color('gray');
-                })
-                ->columnManagerTriggerAction(function (Action $action) {
-                    return $action->size(Size::Large)->color('gray');
-                })
-                ->reorderRecordsTriggerAction(function (Action $action, bool $isReordering) {
-                    return $action
-                        ->size(Size::Large)
-                        ->color($isReordering ? 'primary' : 'gray');
-                });
+                ->filtersTriggerAction(fn (Action $action): Action => $action->size(Size::Large)->color('gray'))
+                ->columnManagerTriggerAction(fn (Action $action): Action => $action->size(Size::Large)->color('gray'))
+                ->reorderRecordsTriggerAction(fn (Action $action, bool $isReordering): Action => $action
+                    ->size(Size::Large)
+                    ->color($isReordering ? 'primary' : 'gray'));
         });
 
-        Timeline::configureUsing(function (Timeline $timeline) {
+        Timeline::configureUsing(function (Timeline $timeline): void {
             $timeline
                 ->attributeLabels([
                     'order_column' => 'sort order',
@@ -340,7 +324,7 @@ class AppServiceProvider extends ServiceProvider
                     'created' => 'success',
                     'duplicated' => 'success',
                 ])
-                ->modifyEventDescriptionUsing(function (string $eventDescription, Activity $activity, string $recordTitle, ?string $causerName, ?string $changesSummary) {
+                ->modifyEventDescriptionUsing(function (string $eventDescription, Activity $activity, string $recordTitle, ?string $causerName, ?string $changesSummary): string {
                     if ($activity->log_name === 'impersonation') {
                         return __('activity.impersonated', [
                             'user' => User::find($activity->getExtraProperty('impersonated_by'))?->name,
@@ -352,7 +336,7 @@ class AppServiceProvider extends ServiceProvider
                 });
         });
 
-        TimelineAction::configureUsing(function (TimelineAction $action) {
+        TimelineAction::configureUsing(function (TimelineAction $action): void {
             $action
                 ->icon(Tabler::History)
                 ->label('Activity history');
@@ -386,25 +370,19 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureRateLimiting(): void
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(60)->by($request->user()?->id ?: $request->ip()));
 
-        RateLimiter::for('join', function (Request $request) {
-            return Limit::perMinute(15)->by($request->ip());
-        });
+        RateLimiter::for('join', fn (Request $request) => Limit::perMinute(15)->by($request->ip()));
 
-        RateLimiter::for('contact', function (Request $request) {
-            return Limit::perMinute(15)->by($request->ip());
-        });
+        RateLimiter::for('contact', fn (Request $request) => Limit::perMinute(15)->by($request->ip()));
     }
 
     protected function configureAddonProviders(): void
     {
         collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))
-            ->reject(fn ($addon) => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
-            ->flatMap(fn ($addon) => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
-            ->each(fn ($addon) => (new $addon($this->app))->boot());
+            ->reject(fn ($addon): bool => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
+            ->flatMap(fn ($addon): array => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
+            ->each(fn ($addon) => new $addon($this->app)->boot());
     }
 
     protected function configureDatabaseRepositories(): void
@@ -428,7 +406,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             'command.migrate-data.install',
-            fn (Application $app) => new InstallDataMigrations($app['migration.data.repository'])
+            fn (Application $app): InstallDataMigrations => new InstallDataMigrations($app['migration.data.repository'])
         );
     }
 }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Foundation\Providers;
 
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -21,7 +23,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::loginView('pages.auth.login');
         Fortify::requestPasswordResetLinkView('pages.auth.forgot-password');
-        Fortify::resetPasswordView(fn (Request $request) => view('pages.auth.reset-password', ['request' => $request]));
+        Fortify::resetPasswordView(fn (Request $request): Factory|View => view('pages.auth.reset-password', ['request' => $request]));
 
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
@@ -34,8 +36,6 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($throttleKey);
         });
 
-        RateLimiter::for('two-factor', function (Request $request) {
-            return Limit::perMinute(5)->by($request->session()->get('login.id'));
-        });
+        RateLimiter::for('two-factor', fn (Request $request) => Limit::perMinute(5)->by($request->session()->get('login.id')));
     }
 }

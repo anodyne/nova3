@@ -19,7 +19,7 @@ class ClearNovaCacheButton extends Component
         Artisan::call('icons:cache');
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
             <x-button type="button" wire:click="clear">

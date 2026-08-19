@@ -13,7 +13,7 @@ class TextColumnMacros
     public function titleColumn(): Closure
     {
         /** @this TextColumn */
-        return function () {
+        return function (): static {
             $this->weight('medium');
             $this->extraAttributes(['class' => 'fi-ta-title-column']);
 

@@ -9,7 +9,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Mchev\Banhammer\Commands\DeleteExpired;
 use Nova\Stories\Actions\PruneAbandonedPosts;
 use Nova\Stories\Actions\ReleaseExpiredPostLocks;
-use Spatie\MediaLibrary\MediaCollections\Commands\CleanCommand;
 
 class Kernel extends ConsoleKernel
 {

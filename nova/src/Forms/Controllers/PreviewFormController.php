@@ -7,6 +7,7 @@ namespace Nova\Forms\Controllers;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Responses\PreviewFormResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class PreviewFormController extends Controller
 {
@@ -17,7 +18,7 @@ class PreviewFormController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Form $form, ?string $theme = 'public')
+    public function __invoke(Form $form, ?string $theme = 'public'): Responsable
     {
         return PreviewFormResponse::sendWith([
             'form' => $form,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Departments\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\PositionFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -57,29 +58,29 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  *
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position active()
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position available()
- * @method static \Database\Factories\PositionFactory factory($count = null, $state = [])
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position forDepartment($id)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position hasTags(array $tags)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position inactive()
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position newModelQuery()
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position newQuery()
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position ordered(string $direction = 'asc')
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position query()
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position searchFor($search)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position uniqueTags()
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereAvailable($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereCreatedAt($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereDepartmentId($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereDescription($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereId($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereName($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereOrderColumn($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position wherePrefixedId($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereStatus($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereTags($value)
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereUpdatedAt($value)
+ * @method static PositionBuilder<static>|Position active()
+ * @method static PositionBuilder<static>|Position available()
+ * @method static PositionFactory factory($count = null, $state = [])
+ * @method static PositionBuilder<static>|Position forDepartment($id)
+ * @method static PositionBuilder<static>|Position hasTags(array $tags)
+ * @method static PositionBuilder<static>|Position inactive()
+ * @method static PositionBuilder<static>|Position newModelQuery()
+ * @method static PositionBuilder<static>|Position newQuery()
+ * @method static PositionBuilder<static>|Position ordered(string $direction = 'asc')
+ * @method static PositionBuilder<static>|Position query()
+ * @method static PositionBuilder<static>|Position searchFor($search)
+ * @method static PositionBuilder<static>|Position uniqueTags()
+ * @method static PositionBuilder<static>|Position whereAvailable($value)
+ * @method static PositionBuilder<static>|Position whereCreatedAt($value)
+ * @method static PositionBuilder<static>|Position whereDepartmentId($value)
+ * @method static PositionBuilder<static>|Position whereDescription($value)
+ * @method static PositionBuilder<static>|Position whereId($value)
+ * @method static PositionBuilder<static>|Position whereName($value)
+ * @method static PositionBuilder<static>|Position whereOrderColumn($value)
+ * @method static PositionBuilder<static>|Position wherePrefixedId($value)
+ * @method static PositionBuilder<static>|Position whereStatus($value)
+ * @method static PositionBuilder<static>|Position whereTags($value)
+ * @method static PositionBuilder<static>|Position whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */
@@ -148,7 +149,7 @@ class Position extends Model implements Sortable
     public function tagsAsString(): Attribute
     {
         return Attribute::make(
-            get: fn () => implode(', ', $this->tags ?? [])
+            get: fn (): string => implode(', ', $this->tags ?? [])
         );
     }
 

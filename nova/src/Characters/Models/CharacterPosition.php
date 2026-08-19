@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Nova\Foundation\Models\Concerns\HasTableHelpers;
 
@@ -12,12 +13,12 @@ use Nova\Foundation\Models\Concerns\HasTableHelpers;
  * @property int $character_id
  * @property int $position_id
  *
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition whereCharacterId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition wherePositionId($value)
+ * @method static Builder<static>|CharacterPosition newModelQuery()
+ * @method static Builder<static>|CharacterPosition newQuery()
+ * @method static Builder<static>|CharacterPosition query()
+ * @method static Builder<static>|CharacterPosition whereCharacterId($value)
+ * @method static Builder<static>|CharacterPosition whereId($value)
+ * @method static Builder<static>|CharacterPosition wherePositionId($value)
  *
  * @mixin \Eloquent
  */

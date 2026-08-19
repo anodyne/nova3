@@ -29,16 +29,16 @@ readonly class Fields extends Bag
     public function enabledFields(): Collection
     {
         return collect(get_object_vars($this))
-            ->filter(fn ($var) => $var instanceof Field)
-            ->filter(fn (Field $field) => $field->enabled);
+            ->filter(fn ($var): bool => $var instanceof Field)
+            ->filter(fn (Field $field): bool => $field->enabled);
     }
 
     public function requiredFields(): Collection
     {
         return collect(get_object_vars($this))
-            ->filter(fn ($var) => $var instanceof Field)
-            ->filter(fn (Field $field) => $field->required)
-            ->filter(fn (Field $field, $key) => $key !== 'rating');
+            ->filter(fn ($var): bool => $var instanceof Field)
+            ->filter(fn (Field $field): bool => $field->required)
+            ->filter(fn (Field $field, $key): bool => $key !== 'rating');
     }
 
     public function showMetaFields(): bool

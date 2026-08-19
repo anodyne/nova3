@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Setup\Actions\Migration\MigrateMission;
 use Nova\Setup\Models\Upgrade;
 use Nova\Stories\Models\Story;
@@ -26,7 +27,7 @@ class MigrateMissions extends MigrationStep
 
         $this->query()
             ->whereNotIn('mission_id', Upgrade::type('mission')->pluck('old_id'))
-            ->chunkById(100, function (Collection $missions) use ($missionGroupMap) {
+            ->chunkById(100, function (Collection $missions) use ($missionGroupMap): void {
                 foreach ($missions as $mission) {
                     MigrateMission::run(
                         model: $mission,
@@ -57,6 +58,6 @@ class MigrateMissions extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($mission) => MigrateMission::makeJob($mission));
+            ->map(fn ($mission): JobDecorator => MigrateMission::makeJob($mission));
     }
 }

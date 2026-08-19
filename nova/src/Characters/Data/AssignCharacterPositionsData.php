@@ -25,7 +25,7 @@ readonly class AssignCharacterPositionsData extends Bag
     protected static function fromRequest(Request $request): array
     {
         return [
-            'positions' => array_map('trim', explode(',', $request->input('assigned_positions') ?? '')),
+            'positions' => array_map(trim(...), explode(',', $request->input('assigned_positions') ?? '')),
         ];
     }
 }

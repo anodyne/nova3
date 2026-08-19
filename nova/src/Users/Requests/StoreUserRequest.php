@@ -13,7 +13,7 @@ use Nova\Users\Data\UserData;
 
 class StoreUserRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return array_merge(
             [

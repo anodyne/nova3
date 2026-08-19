@@ -16,6 +16,7 @@ use Nova\Departments\Responses\EditPositionResponse;
 use Nova\Departments\Responses\ListPositionsResponse;
 use Nova\Departments\Responses\ShowPositionResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class PositionController extends Controller
 {
@@ -28,12 +29,12 @@ class PositionController extends Controller
         $this->authorizeResource(Position::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListPositionsResponse::send();
     }
 
-    public function show(Position $position)
+    public function show(Position $position): Responsable
     {
         $position->load('department', 'activeCharacters.users', 'activeUsers');
         $position->loadCount(['activeCharacters']);
@@ -43,7 +44,7 @@ class PositionController extends Controller
         ]);
     }
 
-    public function create(Request $request)
+    public function create(Request $request): Responsable
     {
         return CreatePositionResponse::sendWith([
             'departments' => Department::ordered()->get(),
@@ -59,7 +60,7 @@ class PositionController extends Controller
             ->notify("{$position->name} was created");
     }
 
-    public function edit(Position $position)
+    public function edit(Position $position): Responsable
     {
         return EditPositionResponse::sendWith([
             'departments' => Department::ordered()->get(),

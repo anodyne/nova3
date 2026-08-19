@@ -18,7 +18,7 @@ class MigrateGameSettings
 
     public function handle(): void
     {
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             Settings::unguard();
 
             DB::connection('nova2')
@@ -30,7 +30,7 @@ class MigrateGameSettings
                     'default_email_address',
                 ])
                 ->get()
-                ->each(function ($setting) {
+                ->each(function ($setting): void {
                     match ($setting->setting_key) {
                         'contact_form_enabled' => $this->updateContactFormEnabled($setting->setting_value),
                         'email_subject' => $this->updateEmailSubject($setting->setting_value),

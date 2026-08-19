@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Characters\Models\Character;
 use Nova\Setup\Actions\Migration\MigrateCharacter;
 use Nova\Setup\Models\Upgrade;
@@ -33,7 +34,7 @@ class MigrateCharacters extends MigrationStep
 
         $this->query()
             ->whereNotIn('charid', Upgrade::type('character')->pluck('old_id'))
-            ->chunkById(100, function (Collection $legacyCharacters) use ($userMap, $positionMap) {
+            ->chunkById(100, function (Collection $legacyCharacters) use ($userMap, $positionMap): void {
                 foreach ($legacyCharacters as $legacyCharacter) {
                     MigrateCharacter::run(
                         model: $legacyCharacter,
@@ -65,6 +66,6 @@ class MigrateCharacters extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($character) => MigrateCharacter::makeJob($character));
+            ->map(fn ($character): JobDecorator => MigrateCharacter::makeJob($character));
     }
 }

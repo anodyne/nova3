@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Reporting\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Reporting\Reports\ActivityReporter;
 use Nova\Reporting\Responses\PlayerActivityResponse;
 
@@ -17,12 +18,12 @@ class PlayerActivityController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
-        $activity = ActivityReporter::make();
+        $activityReporter = ActivityReporter::make();
 
         return PlayerActivityResponse::sendWith([
-            'activity' => $activity,
+            'activity' => $activityReporter,
             'settings' => settings('posting_activity'),
         ]);
     }

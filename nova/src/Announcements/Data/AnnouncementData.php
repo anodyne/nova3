@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
+use RuntimeException;
 
 /**
  * @method static static from(string $title, ?string $category, PublishStatus $status, ?string $content)
@@ -30,7 +31,7 @@ readonly class AnnouncementData extends Bag
         $user = Auth::user();
 
         if (! $user) {
-            throw new \RuntimeException('User must be authenticated to create announcements');
+            throw new RuntimeException('User must be authenticated to create announcements');
         }
 
         return $user;

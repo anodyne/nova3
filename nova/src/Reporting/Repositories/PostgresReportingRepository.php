@@ -20,7 +20,7 @@ class PostgresReportingRepository implements ReportingRepositoryInterface
     public function getActivityQuery(?CarbonInterface $start, ?CarbonInterface $end): Builder
     {
         return DB::table('users')
-            ->join('status_history', function ($join) {
+            ->join('status_history', function ($join): void {
                 $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
                     ->where(StatusHistory::column('statusable_type'), '=', 'user');
             })
@@ -28,9 +28,9 @@ class PostgresReportingRepository implements ReportingRepositoryInterface
             ->leftJoin('post_author', User::column('id'), '=', PostAuthor::column('user_id'))
             ->leftJoin('posts', PostAuthor::column('post_id'), '=', Post::column('id'))
             ->leftJoin('post_types', Post::column('post_type_id'), '=', PostType::column('id')) // Include post_types for JSON filtering
-            ->where(function ($query) use ($start, $end) {
+            ->where(function ($query) use ($start, $end): void {
                 $query->where(StatusHistory::column('started_at'), '<=', $end)
-                    ->where(function ($query) use ($start) {
+                    ->where(function ($query) use ($start): void {
                         $query->whereNull(StatusHistory::column('ended_at'))
                             ->orWhere(StatusHistory::column('ended_at'), '>=', $start);
                     });
@@ -111,7 +111,7 @@ class PostgresReportingRepository implements ReportingRepositoryInterface
         CarbonInterface $endOfTimeframe
     ): Builder {
         return DB::table('characters')
-            ->join('status_history', function ($join) {
+            ->join('status_history', function ($join): void {
                 $join->on(Character::column('id'), '=', StatusHistory::column('statusable_id'))
                     ->where(StatusHistory::column('statusable_type'), '=', 'character');
             })
@@ -352,7 +352,7 @@ class PostgresReportingRepository implements ReportingRepositoryInterface
         CarbonInterface $endOfTimeframe
     ): Builder {
         return DB::table('users')
-            ->join('status_history', function ($join) {
+            ->join('status_history', function ($join): void {
                 $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
                     ->where(StatusHistory::column('statusable_type'), '=', 'user');
             })
@@ -383,16 +383,16 @@ class PostgresReportingRepository implements ReportingRepositoryInterface
     public function getParticipantionQuery(?CarbonInterface $start, ?CarbonInterface $end): Builder
     {
         return DB::table('users')
-            ->join('status_history', function ($join) {
+            ->join('status_history', function ($join): void {
                 $join->on(User::column('id'), '=', StatusHistory::column('statusable_id'))
                     ->where(StatusHistory::column('statusable_type'), '=', 'user');
             })
             ->leftJoin('post_author', User::column('id'), '=', PostAuthor::column('user_id'))
             ->leftJoin('posts', PostAuthor::column('post_id'), '=', Post::column('id'))
             ->leftJoin('post_types', Post::column('post_type_id'), '=', PostType::column('id'))
-            ->where(function ($query) use ($start, $end) {
+            ->where(function ($query) use ($start, $end): void {
                 $query->where(StatusHistory::column('started_at'), '<=', $end)
-                    ->where(function ($query) use ($start) {
+                    ->where(function ($query) use ($start): void {
                         $query->whereNull(StatusHistory::column('ended_at'))
                             ->orWhere(StatusHistory::column('ended_at'), '>=', $start);
                     });

@@ -25,7 +25,7 @@ class MigrateNewsItem
             upgradeKey: 'user'
         );
 
-        DB::transaction(function () use ($model, $newUserId) {
+        DB::transaction(function () use ($model, $newUserId): void {
             $newsId = DB::table('announcements')->insertGetId([
                 'title' => $model->news_title,
                 'category' => $model->newscat_name,

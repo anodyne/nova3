@@ -24,7 +24,7 @@ readonly class UserModerations extends Bag
 
     public function isModerated(): bool
     {
-        return $this->announcements === true || $this->posts === true;
+        return $this->announcements || $this->posts;
     }
 
     public static function resources(): array

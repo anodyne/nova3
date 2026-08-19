@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Dashboards\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
@@ -112,12 +114,12 @@ class PostingLeaderboard extends Component
         return settings('dashboard.leaderboard');
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->timeframe = $this->settings->timeframe->value;
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.dashboards.livewire.posting-leaderboard', [
             'leaderboard' => $this->leaderboard,

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Announcements\Models\Announcement;
 use Nova\Setup\Actions\Migration\MigrateNewsItem;
 use Nova\Setup\Models\Upgrade;
@@ -26,10 +27,10 @@ class MigrateNewsItems extends MigrationStep
 
         $this->query()
             ->whereNotIn('news_id', Upgrade::type('news-item')->pluck('old_id'))
-            ->chunkById(100, function (Collection $newsItems) use ($userMap) {
-                foreach ($newsItems as $newsItem) {
+            ->chunkById(100, function (Collection $newsItems) use ($userMap): void {
+                foreach ($newsItems as $newItem) {
                     MigrateNewsItem::run(
-                        model: $newsItem,
+                        model: $newItem,
                         users: $userMap
                     );
                 }
@@ -60,6 +61,6 @@ class MigrateNewsItems extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($newsItem) => MigrateNewsItem::makeJob(model: $newsItem));
+            ->map(fn ($newsItem): JobDecorator => MigrateNewsItem::makeJob(model: $newsItem));
     }
 }

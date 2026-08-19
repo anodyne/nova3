@@ -6,6 +6,7 @@ namespace Nova\Pages\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Pages\Models\Page;
 use Nova\Pages\Responses\DesignPageResponse;
 
@@ -18,7 +19,7 @@ class DesignPageController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request, Page $page)
+    public function __invoke(Request $request, Page $page): Responsable
     {
         $this->authorize('design', $page);
 

@@ -16,7 +16,7 @@ class DeleteRankGroupManager
     public function handle(RankGroup $group): RankGroup
     {
         return DB::transaction(function () use ($group) {
-            $group->ranks->each(fn (RankItem $item) => DeleteRankItemManager::run($item));
+            $group->ranks->each(fn (RankItem $item): mixed => DeleteRankItemManager::run($item));
 
             return DeleteRankGroup::run($group);
         });

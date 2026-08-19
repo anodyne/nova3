@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\PublicSite\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Stories\Models\Story;
@@ -29,7 +31,7 @@ class StoriesTimeline extends Component
             ->toTree();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.public-site.livewire.stories-timeline', [
             'stories' => $this->stories,

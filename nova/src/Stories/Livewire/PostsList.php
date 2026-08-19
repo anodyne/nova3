@@ -148,7 +148,7 @@ class PostsList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->itemIcon('locked', Tabler::Lock->value)
                                     ->itemIcon('unlocked', Tabler::LockOpen->value)
@@ -195,7 +195,7 @@ class PostsList extends TableComponent
                     ->preload(),
                 SelectFilter::make('status')
                     ->multiple()
-                    ->options(fn (): array => Post::getStatesFor('status')->flatMap(fn ($state) => [$state => ucfirst($state)])->all())
+                    ->options(fn (): array => Post::getStatesFor('status')->flatMap(fn ($state): array => [$state => ucfirst($state)])->all())
                     ->default(fn () => request()->query('status', [])),
                 TernaryFilter::make('published')
                     ->nullable()

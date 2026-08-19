@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Onboarding\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Onboarding\Responses\OnboardingOverviewResponse;
 
 class OnboardingController extends Controller
@@ -16,7 +17,7 @@ class OnboardingController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
         return OnboardingOverviewResponse::send();
     }

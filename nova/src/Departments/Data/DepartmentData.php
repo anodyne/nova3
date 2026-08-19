@@ -29,7 +29,7 @@ readonly class DepartmentData extends Bag
         return [
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'tags' => array_map('trim', explode(',', $request->input('tags') ?? '')),
+            'tags' => array_map(trim(...), explode(',', $request->input('tags') ?? '')),
             'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
         ];
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Roles\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Roles\Models\Permission;
 use Nova\Roles\Responses\ListPermissionsResponse;
 
@@ -19,7 +20,7 @@ class PermissionController extends Controller
         $this->authorizeResource(Permission::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListPermissionsResponse::send();
     }

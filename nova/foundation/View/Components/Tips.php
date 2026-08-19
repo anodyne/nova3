@@ -11,6 +11,9 @@ class Tips extends Component
 {
     public $tips;
 
+    /**
+     * @var string
+     */
     public $section;
 
     public function __construct(string $section)

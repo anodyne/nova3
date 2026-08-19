@@ -40,7 +40,7 @@ class AddonBuilder extends Builder
 
     public function searchFor($column, $search): self
     {
-        return $this->where(function ($query) use ($column, $search) {
+        return $this->where(function ($query) use ($column, $search): void {
             $query->whereFullText($column, $search)
                 ->orWhereLike($column, "%{$search}%");
         });

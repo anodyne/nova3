@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
@@ -15,7 +17,6 @@ use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Settings\Actions\UpdateApplicationReviewers;
 use Nova\Settings\Data\ApplicationReviewers;
 use Nova\Setup\Enums\SetupType;
-use Nova\Setup\Telemetry;
 use Nova\Users\Actions\PopulateAccountPreferences;
 use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Actions\PopulateUserModerations;
@@ -90,7 +91,7 @@ class SetupAccount extends Component
         return $this->isFinished;
     }
 
-    public function mount()
+    public function mount(): void
     {
         if (User::count() > 0) {
             $this->isFinished = true;
@@ -99,7 +100,7 @@ class SetupAccount extends Component
         }
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('setup.account.index', [
             'shouldShowForm' => $this->shouldShowForm,

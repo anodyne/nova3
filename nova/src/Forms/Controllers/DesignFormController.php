@@ -7,6 +7,7 @@ namespace Nova\Forms\Controllers;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Responses\DesignFormResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class DesignFormController extends Controller
 {
@@ -17,7 +18,7 @@ class DesignFormController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Form $form)
+    public function __invoke(Form $form): Responsable
     {
         $this->authorize('design', $form);
 

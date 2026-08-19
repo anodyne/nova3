@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Foundation\Models;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Nova\Foundation\Enums\CacheKeys;
@@ -16,14 +17,14 @@ use Nova\Foundation\Enums\CacheKeys;
  * @property CarbonImmutable|null $created_at
  * @property CarbonImmutable|null $updated_at
  *
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\ExternalContent newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\ExternalContent newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\ExternalContent query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\ExternalContent whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\ExternalContent whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\ExternalContent whereKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\ExternalContent whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\ExternalContent whereValue($value)
+ * @method static Builder<static>|ExternalContent newModelQuery()
+ * @method static Builder<static>|ExternalContent newQuery()
+ * @method static Builder<static>|ExternalContent query()
+ * @method static Builder<static>|ExternalContent whereCreatedAt($value)
+ * @method static Builder<static>|ExternalContent whereId($value)
+ * @method static Builder<static>|ExternalContent whereKey($value)
+ * @method static Builder<static>|ExternalContent whereUpdatedAt($value)
+ * @method static Builder<static>|ExternalContent whereValue($value)
  *
  * @mixin \Eloquent
  */

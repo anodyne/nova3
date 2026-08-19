@@ -71,7 +71,7 @@ abstract class Field extends BuilderBlock
         return [
             TextInput::make('details.label')
                 ->live(onBlur: true)
-                ->afterStateUpdated(fn ($state, Set $set) => $set('attrs.name', str($state)->slug()->toString())),
+                ->afterStateUpdated(fn ($state, Set $set): mixed => $set('attrs.name', str($state)->slug()->toString())),
 
             Textarea::make('details.description')
                 ->rows(3)

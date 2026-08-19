@@ -18,14 +18,14 @@ class Dropdown extends Component
     public function placementStyles(): string
     {
         return collect(explode(' ', $this->placement))
-            ->map(function ($placement) {
-                $string = str($placement);
+            ->map(function ($placement): string {
+                $stringable = str($placement);
 
-                if ($string->contains(':')) {
-                    return $this->placement($string->after(':'), $string->before(':'));
+                if ($stringable->contains(':')) {
+                    return $this->placement($stringable->after(':'), $stringable->before(':'));
                 }
 
-                return $this->placement($string, '');
+                return $this->placement($stringable, '');
             })
             ->implode(' ');
     }
@@ -49,7 +49,7 @@ class Dropdown extends Component
         $prefix = $breakpoint ? "{$breakpoint}:" : '';
 
         return collect($styles)
-            ->map(fn ($style) => "{$prefix}{$style}")
+            ->map(fn ($style): string => "{$prefix}{$style}")
             ->implode(' ');
     }
 }

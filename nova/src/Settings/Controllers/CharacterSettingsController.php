@@ -6,6 +6,7 @@ namespace Nova\Settings\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Settings\Actions\UpdateSettings;
 use Nova\Settings\Data\Characters;
 use Nova\Settings\Responses\CharacterSettingsResponse;
@@ -19,7 +20,7 @@ class CharacterSettingsController extends Controller
         $this->middleware('auth');
     }
 
-    public function edit()
+    public function edit(): Responsable
     {
         $this->authorize('update', $settings = settings());
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Announcements\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\AnnouncementFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -43,27 +44,27 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read int|null $notifications_count
  * @property-read User|null $user
  *
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement draft()
- * @method static \Database\Factories\AnnouncementFactory factory($count = null, $state = [])
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement newModelQuery()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement newQuery()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement pending()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement published()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement query()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement searchFor($search)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement uniqueCategories()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereCategory($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereContent($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereCreatedAt($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereId($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement wherePrefixedId($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement wherePublishedAt($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereStatus($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereTitle($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereUpdatedAt($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereUserId($value)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement withReadNotificationsForUser(\Nova\Users\Models\User $user)
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement withUnreadNotificationsForUser(\Nova\Users\Models\User $user)
+ * @method static AnnouncementBuilder<static>|Announcement draft()
+ * @method static AnnouncementFactory factory($count = null, $state = [])
+ * @method static AnnouncementBuilder<static>|Announcement newModelQuery()
+ * @method static AnnouncementBuilder<static>|Announcement newQuery()
+ * @method static AnnouncementBuilder<static>|Announcement pending()
+ * @method static AnnouncementBuilder<static>|Announcement published()
+ * @method static AnnouncementBuilder<static>|Announcement query()
+ * @method static AnnouncementBuilder<static>|Announcement searchFor($search)
+ * @method static AnnouncementBuilder<static>|Announcement uniqueCategories()
+ * @method static AnnouncementBuilder<static>|Announcement whereCategory($value)
+ * @method static AnnouncementBuilder<static>|Announcement whereContent($value)
+ * @method static AnnouncementBuilder<static>|Announcement whereCreatedAt($value)
+ * @method static AnnouncementBuilder<static>|Announcement whereId($value)
+ * @method static AnnouncementBuilder<static>|Announcement wherePrefixedId($value)
+ * @method static AnnouncementBuilder<static>|Announcement wherePublishedAt($value)
+ * @method static AnnouncementBuilder<static>|Announcement whereStatus($value)
+ * @method static AnnouncementBuilder<static>|Announcement whereTitle($value)
+ * @method static AnnouncementBuilder<static>|Announcement whereUpdatedAt($value)
+ * @method static AnnouncementBuilder<static>|Announcement whereUserId($value)
+ * @method static AnnouncementBuilder<static>|Announcement withReadNotificationsForUser(User $user)
+ * @method static AnnouncementBuilder<static>|Announcement withUnreadNotificationsForUser(User $user)
  *
  * @mixin \Eloquent
  */

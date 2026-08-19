@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models;
 
+use BackedEnum;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -171,58 +175,58 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read int $unread_messages_count
  * @property-read FormSubmission|null $userFormSubmission
  *
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User active()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User activeBetween(\Carbon\CarbonInterface $start, \Carbon\CarbonInterface $end)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User activeOrInactive()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User banned(bool $banned = true)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User bannedByType(string $className)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User countDistinct()
- * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User hidden()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User inactive()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User moderatedOn(string $key)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User newModelQuery()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User newQuery()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User notBanned()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User notHidden()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User notPending()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\User onlyTrashed()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User orWhereHasPermission(\BackedEnum|array|string $permission = '', ?mixed $team = null)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User orWhereHasRole(\BackedEnum|array|string $role = '', ?mixed $team = null)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User orWhereNotState(string $column, $states)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User orWhereState(string $column, $states)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User pending()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User query()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User searchFor(string $search)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User searchForBasic($search)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User searchForWithoutCharacters(string $search)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User selectTotalCount()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereBansMeta(string $key, $value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereCreatedAt($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereDeletedAt($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereDoesntHavePermissions()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereDoesntHaveRoles()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereEmail($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereEmailVerifiedAt($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereForcePasswordReset($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereHasPermission(\BackedEnum|array|string $permission = '', ?mixed $team = null, string $boolean = 'and')
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereHasRole(\BackedEnum|array|string $role = '', ?mixed $team = null, string $boolean = 'and')
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereId($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereModerationDoesntHaveTrue()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereModerationHasTrue()
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereModerations($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereName($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereNotState(string $column, $states)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User wherePassword($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User wherePreferences($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User wherePrefixedId($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User wherePronouns($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereRememberToken($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereState(string $column, $states)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereStatus($value)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\User withTrashed(bool $withTrashed = true)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\User withoutTrashed()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User active()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User activeBetween(CarbonInterface $start, CarbonInterface $end)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User activeOrInactive()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User banned(bool $banned = true)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User bannedByType(string $className)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User countDistinct()
+ * @method static UserFactory factory($count = null, $state = [])
+ * @method static UserBuilder<static>|\Nova\Users\Models\User hidden()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User inactive()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User moderatedOn(string $key)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User newModelQuery()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User newQuery()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User notBanned()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User notHidden()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User notPending()
+ * @method static Builder<static>|\Nova\Users\Models\User onlyTrashed()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User orWhereHasPermission(BackedEnum|array|string $permission = '', ?mixed $team = null)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User orWhereHasRole(BackedEnum|array|string $role = '', ?mixed $team = null)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User orWhereNotState(string $column, $states)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User orWhereState(string $column, $states)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User pending()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User query()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User searchFor(string $search)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User searchForBasic($search)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User searchForWithoutCharacters(string $search)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User selectTotalCount()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereBansMeta(string $key, $value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereCreatedAt($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereDeletedAt($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereDoesntHavePermissions()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereDoesntHaveRoles()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereEmail($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereEmailVerifiedAt($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereForcePasswordReset($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereHasPermission(BackedEnum|array|string $permission = '', ?mixed $team = null, string $boolean = 'and')
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereHasRole(BackedEnum|array|string $role = '', ?mixed $team = null, string $boolean = 'and')
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereId($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereModerationDoesntHaveTrue()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereModerationHasTrue()
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereModerations($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereName($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereNotState(string $column, $states)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User wherePassword($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User wherePreferences($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User wherePrefixedId($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User wherePronouns($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereRememberToken($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereState(string $column, $states)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereStatus($value)
+ * @method static UserBuilder<static>|\Nova\Users\Models\User whereUpdatedAt($value)
+ * @method static Builder<static>|\Nova\Users\Models\User withTrashed(bool $withTrashed = true)
+ * @method static Builder<static>|\Nova\Users\Models\User withoutTrashed()
  *
  * @mixin \Eloquent
  */
@@ -326,7 +330,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     public function hasAvatar(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->getFirstMedia('avatar') !== null
+            get: fn (): bool => $this->getFirstMedia('avatar') instanceof Media
         );
     }
 

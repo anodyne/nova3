@@ -6,6 +6,7 @@ namespace Nova\Users\Controllers;
 
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Users\Actions\CreateUserManager;
 use Nova\Users\Actions\UpdateUserManager;
 use Nova\Users\Events\UserCreatedByAdmin;
@@ -29,12 +30,12 @@ class UserController extends Controller
         $this->authorizeResource(User::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListUsersResponse::send();
     }
 
-    public function show(User $user)
+    public function show(User $user): Responsable
     {
         return ShowUserResponse::sendWith([
             'user' => $user->load('roles', 'latestLogin', 'latestPost', 'userFormSubmission')->loadCount('activeCharacters', 'characters', 'publishedPosts'),
@@ -43,7 +44,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateUserResponse::sendWith([
             'form' => Form::key('userBio')->first(),
@@ -60,7 +61,7 @@ class UserController extends Controller
             ->notify("An account for {$user->name} was created", 'The user has been notified of their account and their password.');
     }
 
-    public function edit(User $user)
+    public function edit(User $user): Responsable
     {
         return EditUserResponse::sendWith([
             'user' => $user->load('roles', 'characters', 'userFormSubmission'),

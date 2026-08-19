@@ -36,7 +36,7 @@ use Nova\Users\Notifications\UserDeletedAccount;
 
 class NotificationSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 

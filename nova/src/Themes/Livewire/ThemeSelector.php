@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -34,7 +36,7 @@ class ThemeSelector extends Component
         $this->selected = settings('appearance.theme');
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.themes.livewire.theme-selector', [
             'availableThemes' => $this->availableThemes,

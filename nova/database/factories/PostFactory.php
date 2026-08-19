@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 use Nova\Characters\Models\Character;
@@ -23,7 +24,7 @@ class PostFactory extends Factory
 
     public function configure(): static
     {
-        return $this->afterCreating(function (Post $post) {
+        return $this->afterCreating(function (Post $post): void {
             $maxAuthors = min(5, max(1, Character::with('users')->count()));
             $numberOfAuthors = random_int(1, $maxAuthors);
 
@@ -93,11 +94,11 @@ class PostFactory extends Factory
                 };
 
                 return collect(fake()->paragraphs($paragraphCount))
-                    ->map(fn ($line) => "<p>{$line}</p>")
+                    ->map(fn ($line): string => "<p>{$line}</p>")
                     ->implode('');
             },
 
-            'word_count' => fn (array $attributes) => str_word_count(strip_tags($attributes['content'])),
+            'word_count' => fn (array $attributes): int => str_word_count(strip_tags($attributes['content'])),
 
             'rating_language' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
 
@@ -105,7 +106,7 @@ class PostFactory extends Factory
 
             'rating_violence' => fn () => fake()->randomElement(ContentRatingValue::casesForRatings()),
 
-            'published_at' => fn (array $attributes) => $attributes['status'] === Published::class ? now() : null,
+            'published_at' => fn (array $attributes): ?CarbonInterface => $attributes['status'] === Published::class ? now() : null,
 
             'location' => fake()->randomElement([
                 'Main Bridge',
@@ -199,7 +200,7 @@ class PostFactory extends Factory
         }
 
         // Generate random split points between 0 and total words
-        $splitPoints = array_map(fn () => rand(1, $words - 1), range(1, $count - 1));
+        $splitPoints = array_map(fn (): int => random_int(1, $words - 1), range(1, $count - 1));
 
         // Sort the points to create segments
         sort($splitPoints);
@@ -208,9 +209,9 @@ class PostFactory extends Factory
         $distributedWords = [];
         $previous = 0;
 
-        foreach ($splitPoints as $point) {
-            $distributedWords[] = $point - $previous;
-            $previous = $point;
+        foreach ($splitPoints as $splitPoint) {
+            $distributedWords[] = $splitPoint - $previous;
+            $previous = $splitPoint;
         }
 
         // Add the last segment

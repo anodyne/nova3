@@ -26,7 +26,7 @@ class ApplicationFactory extends Factory
 
     public function configure(): static
     {
-        return $this->afterCreating(function (Application $application) {
+        return $this->afterCreating(function (Application $application): void {
             $application->discussion()->create();
         });
     }

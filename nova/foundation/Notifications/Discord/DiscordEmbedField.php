@@ -31,9 +31,8 @@ class DiscordEmbedField
      * Set the name of the field.
      *
      * @param  string  $name
-     * @return $this
      */
-    public function name($name)
+    public function name($name): static
     {
         $this->name = $name;
 
@@ -44,9 +43,8 @@ class DiscordEmbedField
      * Set the value of the field.
      *
      * @param  string  $value
-     * @return $this
      */
-    public function value($value)
+    public function value($value): static
     {
         $this->value = $value;
 
@@ -57,9 +55,8 @@ class DiscordEmbedField
      * Set the name of the field.
      *
      * @param  bool|null  $inline
-     * @return $this
      */
-    public function inline($inline = true)
+    public function inline($inline = true): static
     {
         $this->inline = boolval($inline);
 
@@ -68,10 +65,8 @@ class DiscordEmbedField
 
     /**
      * Get an array representation of the embedded field.
-     *
-     * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'name' => $this->name,

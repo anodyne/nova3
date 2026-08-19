@@ -35,13 +35,11 @@ class ViewCharacter extends SpotlightCommand
     {
         return Character::where('name', 'like', "%{$query}%")
             ->get()
-            ->map(function (Character $character) {
-                return new SpotlightSearchResult(
-                    $character->id,
-                    $character->name,
-                    sprintf('View %s', $character->name)
-                );
-            });
+            ->map(fn (Character $character): SpotlightSearchResult => new SpotlightSearchResult(
+                $character->id,
+                $character->name,
+                sprintf('View %s', $character->name)
+            ));
     }
 
     public function execute(Spotlight $spotlight, Character $character): void

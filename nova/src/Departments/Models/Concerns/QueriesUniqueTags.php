@@ -15,7 +15,7 @@ trait QueriesUniqueTags
 
         return match (true) {
             $versionInfo->isPostgres => $this->whereRaw('tags @> ?', [json_encode($tags)]),
-            default => $this->where(function ($query) use ($tags) {
+            default => $this->where(function ($query) use ($tags): void {
                 foreach ($tags as $tag) {
                     $query->whereRaw('JSON_CONTAINS(tags, ?)', [json_encode($tag)]);
                 }

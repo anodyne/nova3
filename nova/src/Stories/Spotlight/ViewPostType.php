@@ -36,13 +36,11 @@ class ViewPostType extends SpotlightCommand
     {
         return PostType::where('name', 'like', "%{$query}%")
             ->get()
-            ->map(function ($postType) {
-                return new SpotlightSearchResult(
-                    $postType->id,
-                    $postType->name,
-                    sprintf('View %s', $postType->name)
-                );
-            });
+            ->map(fn ($postType): SpotlightSearchResult => new SpotlightSearchResult(
+                $postType->id,
+                $postType->name,
+                sprintf('View %s', $postType->name)
+            ));
     }
 
     public function execute(Spotlight $spotlight, PostType $postType): void

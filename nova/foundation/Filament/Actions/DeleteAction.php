@@ -22,24 +22,20 @@ class DeleteAction extends \Filament\Actions\DeleteAction
 
         $this->requiresConfirmation(false);
 
-        $this->successNotificationTitle(function (Model $record): string {
-            return trans('messages.table.delete-success', [
-                'title' => $this->getRecordTitle($record),
-                'label' => $this->getRecordTitle(),
-            ]);
-        });
+        $this->successNotificationTitle(fn (Model $record): string => trans('messages.table.delete-success', [
+            'title' => $this->getRecordTitle($record),
+            'label' => $this->getRecordTitle(),
+        ]));
 
-        $this->failureNotificationTitle(function (Model $record): string {
-            return trans('messages.table.delete-failure', [
-                'title' => $this->getRecordTitle($record),
-                'label' => $this->getRecordTitle(),
-            ]);
-        });
+        $this->failureNotificationTitle(fn (Model $record): string => trans('messages.table.delete-failure', [
+            'title' => $this->getRecordTitle($record),
+            'label' => $this->getRecordTitle(),
+        ]));
 
         $this->modalWidth(Width::Large);
-        $this->modalIcon(null);
+        $this->modalIcon();
         $this->modalHeading('');
-        $this->modalDescription(null);
+        $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, delete it');
         $this->modalCancelActionLabel('No, keep it');
         $this->modalContent(fn (Model $record): View => view($this->modalContentView, [

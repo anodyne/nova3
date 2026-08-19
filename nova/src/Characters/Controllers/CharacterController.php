@@ -17,6 +17,7 @@ use Nova\Characters\Responses\ListCharactersResponse;
 use Nova\Characters\Responses\ShowCharacterResponse;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class CharacterController extends Controller
 {
@@ -27,12 +28,12 @@ class CharacterController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListCharactersResponse::send();
     }
 
-    public function show(Character $character)
+    public function show(Character $character): Responsable
     {
         $this->authorize('view', $character);
 
@@ -42,7 +43,7 @@ class CharacterController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         $this->authorize('createAny', Character::class);
 
@@ -66,7 +67,7 @@ class CharacterController extends Controller
             ->notify("{$character->name} was created");
     }
 
-    public function edit(Character $character)
+    public function edit(Character $character): Responsable
     {
         $this->authorize('update', $character);
 

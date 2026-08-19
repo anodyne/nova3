@@ -17,7 +17,7 @@ use Nova\Users\Models\User;
 
 class UserSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         DB::disableQueryLog();
         activity()->disableLogging();
@@ -38,10 +38,10 @@ class UserSeeder extends Seeder
         $actives = User::factory()
             ->count(15)
             ->active()
-            ->sequence(fn ($seq) => ['email' => 'user'.($seq->index + 1).'@user.com', 'password' => $password])
+            ->sequence(fn ($seq): array => ['email' => 'user'.($seq->index + 1).'@user.com', 'password' => $password])
             ->create();
 
-        $actives->each(function ($user) use ($form) {
+        $actives->each(function ($user) use ($form): void {
             $user->addRoles(['active', 'writer']);
             CreateFormSubmission::run($form, $user);
             StartOnboarding::run(OnboardingProcess::NewUser, $user);

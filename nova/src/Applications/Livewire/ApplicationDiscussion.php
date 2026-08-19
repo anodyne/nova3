@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -75,7 +77,7 @@ class ApplicationDiscussion extends Component
         return filled($this->applicationReviewForm?->published_fields);
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.applications.livewire.discussion', [
             'discussion' => $this->discussion,

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Users\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\MessageBag;
@@ -40,7 +42,7 @@ class DeleteMyAccount extends Component
         return $this->getErrorBag();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.users.livewire.delete-my-account', [
             'errors' => $this->errors,

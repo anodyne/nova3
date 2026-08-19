@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
@@ -31,12 +33,12 @@ class EmailSettings extends Component
             ->send();
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->form->setEmailSettings();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.settings.livewire.email-settings');
     }

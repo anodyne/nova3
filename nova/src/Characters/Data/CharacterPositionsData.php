@@ -45,7 +45,7 @@ readonly class CharacterPositionsData extends Bag
     public function getNewActionableIds(): array
     {
         return $this->newPositions
-            ?->when($this->oldPositions !== null, fn ($collection) => $collection->diff($this->oldPositions))
+            ?->when($this->oldPositions instanceof Collection, fn ($collection) => $collection->diff($this->oldPositions))
             ->pluck('id')
             ->all() ?? [];
     }
@@ -53,7 +53,7 @@ readonly class CharacterPositionsData extends Bag
     public function getOldActionableIds(): array
     {
         return $this->oldPositions
-            ?->when($this->newPositions !== null, fn ($collection) => $collection->diff($this->newPositions))
+            ?->when($this->newPositions instanceof Collection, fn ($collection) => $collection->diff($this->newPositions))
             ->pluck('id')
             ->all() ?? [];
     }

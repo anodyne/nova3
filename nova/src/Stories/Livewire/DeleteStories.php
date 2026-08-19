@@ -55,18 +55,16 @@ class DeleteStories extends Component
     {
         $this->stories = $stories->loadMissing('parent');
 
-        $this->actions = $stories->mapWithKeys(function (Story $story) {
-            return [$story->id => [
-                'story' => [
-                    'action' => 'delete',
-                    'actionId' => null,
-                ],
-                'posts' => [
-                    'action' => 'delete',
-                    'actionId' => null,
-                ],
-            ]];
-        })->toArray();
+        $this->actions = $stories->mapWithKeys(fn (Story $story): array => [$story->id => [
+            'story' => [
+                'action' => 'delete',
+                'actionId' => null,
+            ],
+            'posts' => [
+                'action' => 'delete',
+                'actionId' => null,
+            ],
+        ]])->toArray();
     }
 
     public function render(): View

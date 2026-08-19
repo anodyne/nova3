@@ -36,16 +36,14 @@ class EditStory extends SpotlightCommand
     {
         return Story::where('title', 'like', "%{$query}%")
             ->get()
-            ->map(function ($story) {
-                return new SpotlightSearchResult(
-                    $story->id,
-                    $story->title,
-                    sprintf('Edit %s', $story->title)
-                );
-            });
+            ->map(fn ($story): SpotlightSearchResult => new SpotlightSearchResult(
+                $story->id,
+                $story->title,
+                sprintf('Edit %s', $story->title)
+            ));
     }
 
-    public function execute(Spotlight $spotlight, Story $story)
+    public function execute(Spotlight $spotlight, Story $story): void
     {
         $spotlight->redirectRoute('admin.stories.edit', $story);
     }

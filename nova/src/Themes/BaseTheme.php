@@ -26,7 +26,7 @@ abstract class BaseTheme
             $this->model = $this->getModel();
 
             $this->setThemeProperties();
-        } catch (Throwable $th) {
+        } catch (Throwable) {
             // Don't do anything
         }
     }

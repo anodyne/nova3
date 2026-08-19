@@ -83,7 +83,7 @@ class PostAuthors extends Component
             ));
 
             $this->dispatch('save-post-completed')->to(PostComposer::class);
-        } catch (ModelNotFoundException $th) {
+        } catch (ModelNotFoundException) {
             Notification::make()->danger()
                 ->title('Post authors could not be saved')
                 ->send();

@@ -18,7 +18,7 @@ class DeleteRankNameManager
         return DB::transaction(function () use ($name) {
             $name->loadMissing('ranks');
 
-            $name->ranks->each(fn (RankItem $item) => DeleteRankItemManager::run($item));
+            $name->ranks->each(fn (RankItem $item): mixed => DeleteRankItemManager::run($item));
 
             return DeleteRankName::run($name);
         });

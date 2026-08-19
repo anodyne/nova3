@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Roles\Models\Permission;
@@ -21,7 +23,7 @@ class ManagePermissions extends Component
         $this->assigned = $this->role?->permissions->pluck('id')->all() ?? [];
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.roles.livewire.manage-permissions', [
             'permissions' => Permission::get(),

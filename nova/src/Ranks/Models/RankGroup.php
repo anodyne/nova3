@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Ranks\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\RankGroupFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,20 +33,20 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property-read Collection<int, RankItem> $ranks
  * @property-read int|null $ranks_count
  *
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup active()
- * @method static \Database\Factories\RankGroupFactory factory($count = null, $state = [])
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup inactive()
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup newModelQuery()
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup newQuery()
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup ordered(string $direction = 'asc')
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup query()
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup searchFor($search)
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereCreatedAt($value)
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereId($value)
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereName($value)
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereOrderColumn($value)
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereStatus($value)
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereUpdatedAt($value)
+ * @method static RankGroupBuilder<static>|RankGroup active()
+ * @method static RankGroupFactory factory($count = null, $state = [])
+ * @method static RankGroupBuilder<static>|RankGroup inactive()
+ * @method static RankGroupBuilder<static>|RankGroup newModelQuery()
+ * @method static RankGroupBuilder<static>|RankGroup newQuery()
+ * @method static RankGroupBuilder<static>|RankGroup ordered(string $direction = 'asc')
+ * @method static RankGroupBuilder<static>|RankGroup query()
+ * @method static RankGroupBuilder<static>|RankGroup searchFor($search)
+ * @method static RankGroupBuilder<static>|RankGroup whereCreatedAt($value)
+ * @method static RankGroupBuilder<static>|RankGroup whereId($value)
+ * @method static RankGroupBuilder<static>|RankGroup whereName($value)
+ * @method static RankGroupBuilder<static>|RankGroup whereOrderColumn($value)
+ * @method static RankGroupBuilder<static>|RankGroup whereStatus($value)
+ * @method static RankGroupBuilder<static>|RankGroup whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */

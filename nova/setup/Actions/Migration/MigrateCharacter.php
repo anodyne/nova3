@@ -40,7 +40,7 @@ class MigrateCharacter
             upgradeKey: 'position'
         );
 
-        DB::transaction(function () use ($model, $newUserId, $newFirstPositionId, $newSecondPositionId, $characterType) {
+        DB::transaction(function () use ($model, $newUserId, $newFirstPositionId, $newSecondPositionId, $characterType): void {
             $characterId = DB::table('characters')->insertGetId([
                 'name' => collect([$model->first_name, $model->middle_name, $model->last_name, $model->suffix])
                     ->filter()

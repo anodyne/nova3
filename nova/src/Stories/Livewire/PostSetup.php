@@ -89,7 +89,7 @@ class PostSetup extends Component
             'storyId' => [
                 'required',
                 'exists:stories,id',
-                function ($attribute, $value, $fail) {
+                function ($attribute, $value, $fail): void {
                     if (! $this->story?->status->equals(Current::class)) {
                         $fail('Please choose a current :attribute to post in.');
                     }
@@ -98,7 +98,7 @@ class PostSetup extends Component
             'postTypeId' => [
                 'required',
                 'exists:post_types,id',
-                function ($attribute, $value, $fail) {
+                function ($attribute, $value, $fail): void {
                     /** @var User $user */
                     $user = Auth::user();
 
@@ -112,7 +112,7 @@ class PostSetup extends Component
             'characterId' => [
                 'required',
                 'exists:characters,id',
-                function ($attribute, $value, $fail) {
+                function ($attribute, $value, $fail): void {
                     if (! Auth::user()->activeCharacters->pluck('id')->contains($value)) {
                         $fail('Please choose a :attribute assigned to your account.');
                     }

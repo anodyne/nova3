@@ -7,11 +7,12 @@ namespace Nova\PublicSite\Controllers;
 use Nova\Characters\Models\Character;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\PublicSite\Responses\ShowCharacterBioResponse;
 
 class ShowCharacterBioController extends Controller
 {
-    public function __invoke(Character $character)
+    public function __invoke(Character $character): Responsable
     {
         return ShowCharacterBioResponse::sendWith(
             data: [

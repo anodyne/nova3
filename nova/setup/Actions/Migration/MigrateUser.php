@@ -21,7 +21,7 @@ class MigrateUser extends Migration
     {
         $form = Form::key('userBio')->first();
 
-        DB::transaction(function () use ($model, $form) {
+        DB::transaction(function () use ($model, $form): void {
             $userId = DB::table('users')
                 ->insertGetId([
                     'name' => $model->name,

@@ -6,6 +6,7 @@ namespace Nova\Departments\Actions;
 
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\CharacterPositionsData;
+use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Departments\Models\Position;
@@ -21,20 +22,20 @@ class UpdatePositionAvailability
             $data->newStatus === Active::$name &&
             $data->canAutoManageNewType() => $data->newPositions?->pluck('id')->all(),
 
-            $data->oldType === null &&
-            $data->newType !== null &&
+            ! $data->oldType instanceof CharacterType &&
+            $data->newType instanceof CharacterType &&
             $data->canAutoManageNewType() => $data->getNewActionableIds(),
 
             $data->oldType === $data->newType &&
             $data->hasPositionChanges() &&
             $data->canAutoManageNewType() => $data->getNewActionableIds(),
 
-            $data->oldType !== null &&
+            $data->oldType instanceof CharacterType &&
             $data->oldType !== $data->newType &&
             $data->hasPositionChanges() &&
             $data->canAutoManageNewType() => $data->getNewActionableIds(),
 
-            $data->oldType !== null &&
+            $data->oldType instanceof CharacterType &&
             $data->oldType !== $data->newType &&
             ! $data->hasPositionChanges() &&
             ! $data->canAutoManageOldType() &&
@@ -52,12 +53,12 @@ class UpdatePositionAvailability
             $data->hasPositionChanges() &&
             $data->canAutoManageNewType() => $data->getOldActionableIds(),
 
-            $data->oldType !== null &&
+            $data->oldType instanceof CharacterType &&
             $data->oldType !== $data->newType &&
             $data->hasPositionChanges() &&
             $data->canAutoManageOldType() => $data->getOldActionableIds(),
 
-            $data->oldType !== null &&
+            $data->oldType instanceof CharacterType &&
             $data->oldType !== $data->newType &&
             ! $data->hasPositionChanges() &&
             $data->canAutoManageOldType() &&

@@ -21,7 +21,7 @@ class AnnouncementSeeder extends Seeder
         $rows = Announcement::factory()
             ->count(25)
             ->make()
-            ->map(fn ($announcement) => array_merge(
+            ->map(fn ($announcement): array => array_merge(
                 $announcement->getAttributes(),
                 ['created_at' => $now, 'updated_at' => $now]
             ))

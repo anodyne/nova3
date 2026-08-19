@@ -131,9 +131,7 @@ class CharactersManifest extends Component
                 ->when($this->positionStatus === 'inactive', fn (PositionBuilder $query): PositionBuilder => $query->inactive())
                 ->when($this->positionStatus === 'choose', fn (PositionBuilder $query): PositionBuilder => $query->whereIn('id', $this->selectedPositions))
                 ->when($this->positionStatus === 'tags', fn (PositionBuilder $query): PositionBuilder => $query->hasTags($this->taggedPositions))
-                ->when($this->showCharacters === true && $this->showAvailablePositions === false, function (PositionBuilder $query): PositionBuilder {
-                    return $query->whereHas('characters', $this->filterCharacters());
-                });
+                ->when($this->showCharacters && $this->showAvailablePositions === false, fn (PositionBuilder $query): PositionBuilder => $query->whereHas('characters', $this->filterCharacters()));
 
             return $query;
         };

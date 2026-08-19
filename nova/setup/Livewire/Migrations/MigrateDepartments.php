@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Departments\Models\Department;
 use Nova\Setup\Actions\Migration\MigrateDepartment;
 use Nova\Setup\Models\Upgrade;
@@ -27,7 +28,7 @@ class MigrateDepartments extends MigrationStep
 
         $this->query()
             ->whereNotIn('dept_id', Upgrade::type('department')->pluck('old_id'))
-            ->chunkById(100, function (Collection $legacyDepartments) {
+            ->chunkById(100, function (Collection $legacyDepartments): void {
                 foreach ($legacyDepartments as $legacyDepartment) {
                     MigrateDepartment::run($legacyDepartment);
                 }
@@ -57,7 +58,7 @@ class MigrateDepartments extends MigrationStep
 
         return $this->query()
             ->get()
-            ->map(fn ($department) => MigrateDepartment::makeJob($department));
+            ->map(fn ($department): JobDecorator => MigrateDepartment::makeJob($department));
     }
 
     protected function truncateTable(): void

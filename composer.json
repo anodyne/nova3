@@ -138,20 +138,30 @@
             "find ./media/users -mindepth 1 ! -name '.gitignore' -delete"
         ],
         "lint": [
-            "rector",
-            "pint --parallel",
-            "bun run lint"
+            "@rector",
+            "pint --parallel"
         ],
         "lint:test": [
-            "pint --parallel --test",
-            "rector --dry-run",
-            "bun run test:lint"
+            "@rector:test",
+            "pint --parallel --test"
+        ],
+        "rector": [
+            "Composer\\Config::disableProcessTimeout",
+            "rector --memory-limit=-1"
+        ],
+        "rector:test": [
+            "Composer\\Config::disableProcessTimeout",
+            "rector --memory-limit=-1 --dry-run"
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
-            "@lint:test",
-            "@test:type-coverage",
-            "@analyse"
+            "@lint",
+            "@analyse",
+            "@test:suite"
+        ],
+        "test:suite": [
+            "Composer\\Config::disableProcessTimeout",
+            "pest --parallel"
         ],
         "test:type-coverage": "pest --type-coverage --min=100",
         "post-autoload-dump": [

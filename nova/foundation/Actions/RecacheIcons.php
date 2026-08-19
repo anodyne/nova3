@@ -18,7 +18,7 @@ class RecacheIcons
         Cache::forget(CacheKeys::SearchableIcons->value);
 
         $searchableIcons = collect(Tabler::cases())
-            ->map(fn ($icon) => [
+            ->map(fn ($icon): array => [
                 'name' => $name = str($icon->name)->headline()->toString(),
                 'value' => $icon->value,
                 'searchable' => strtolower($name.' '.$icon->value),

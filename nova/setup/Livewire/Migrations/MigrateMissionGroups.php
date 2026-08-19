@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 use Nova\Setup\Actions\Migration\MigrateMissionGroup;
 use Nova\Setup\Models\Legacy\MissionGroup as LegacyMissionGroup;
 use Nova\Setup\Models\Upgrade;
@@ -25,7 +26,7 @@ class MigrateMissionGroups extends MigrationStep
     {
         $this->query()
             ->whereNotIn('misgroup_id', Upgrade::type('mission-group')->pluck('old_id'))
-            ->chunkById(100, function (Collection $missionGroups) {
+            ->chunkById(100, function (Collection $missionGroups): void {
                 foreach ($missionGroups as $missionGroup) {
                     MigrateMissionGroup::run(model: $missionGroup);
                 }
@@ -53,6 +54,6 @@ class MigrateMissionGroups extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($missionGroup) => MigrateMissionGroup::makeJob($missionGroup));
+            ->map(fn ($missionGroup): JobDecorator => MigrateMissionGroup::makeJob($missionGroup));
     }
 }

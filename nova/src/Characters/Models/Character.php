@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Nova\Characters\Models;
 
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+use Database\Factories\CharacterFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -94,46 +97,46 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
  *
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character active()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character activeBetween(\Carbon\CarbonInterface $start, \Carbon\CarbonInterface $end)
- * @method static \Database\Factories\CharacterFactory factory($count = null, $state = [])
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character hidden()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character inactive()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character isAssignedTo(\Nova\Users\Models\User $user)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character newModelQuery()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character newQuery()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notHidden()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notPending()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notPrimary()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notSecondary()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character notSupport()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\Character onlyTrashed()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character orWhereNotState(string $column, $states)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character orWhereState(string $column, $states)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character pending()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character primary()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character query()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchFor($search)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchForBasic($search)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchForWithoutUsers($search)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character secondary()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character selectTotalCount()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character selectTypeCounts()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character support()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereCreatedAt($value)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereDeletedAt($value)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereId($value)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereIsPrimaryCharacter()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereName($value)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereNotState(string $column, $states)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character wherePrefixedId($value)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereRankId($value)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereState(string $column, $states)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereStatus($value)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereType($value)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\Character withTrashed(bool $withTrashed = true)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\Character withoutTrashed()
+ * @method static CharacterBuilder<static>|Character active()
+ * @method static CharacterBuilder<static>|Character activeBetween(CarbonInterface $start, CarbonInterface $end)
+ * @method static CharacterFactory factory($count = null, $state = [])
+ * @method static CharacterBuilder<static>|Character hidden()
+ * @method static CharacterBuilder<static>|Character inactive()
+ * @method static CharacterBuilder<static>|Character isAssignedTo(User $user)
+ * @method static CharacterBuilder<static>|Character newModelQuery()
+ * @method static CharacterBuilder<static>|Character newQuery()
+ * @method static CharacterBuilder<static>|Character notHidden()
+ * @method static CharacterBuilder<static>|Character notPending()
+ * @method static CharacterBuilder<static>|Character notPrimary()
+ * @method static CharacterBuilder<static>|Character notSecondary()
+ * @method static CharacterBuilder<static>|Character notSupport()
+ * @method static Builder<static>|Character onlyTrashed()
+ * @method static CharacterBuilder<static>|Character orWhereNotState(string $column, $states)
+ * @method static CharacterBuilder<static>|Character orWhereState(string $column, $states)
+ * @method static CharacterBuilder<static>|Character pending()
+ * @method static CharacterBuilder<static>|Character primary()
+ * @method static CharacterBuilder<static>|Character query()
+ * @method static CharacterBuilder<static>|Character searchFor($search)
+ * @method static CharacterBuilder<static>|Character searchForBasic($search)
+ * @method static CharacterBuilder<static>|Character searchForWithoutUsers($search)
+ * @method static CharacterBuilder<static>|Character secondary()
+ * @method static CharacterBuilder<static>|Character selectTotalCount()
+ * @method static CharacterBuilder<static>|Character selectTypeCounts()
+ * @method static CharacterBuilder<static>|Character support()
+ * @method static CharacterBuilder<static>|Character whereCreatedAt($value)
+ * @method static CharacterBuilder<static>|Character whereDeletedAt($value)
+ * @method static CharacterBuilder<static>|Character whereId($value)
+ * @method static CharacterBuilder<static>|Character whereIsPrimaryCharacter()
+ * @method static CharacterBuilder<static>|Character whereName($value)
+ * @method static CharacterBuilder<static>|Character whereNotState(string $column, $states)
+ * @method static CharacterBuilder<static>|Character wherePrefixedId($value)
+ * @method static CharacterBuilder<static>|Character whereRankId($value)
+ * @method static CharacterBuilder<static>|Character whereState(string $column, $states)
+ * @method static CharacterBuilder<static>|Character whereStatus($value)
+ * @method static CharacterBuilder<static>|Character whereType($value)
+ * @method static CharacterBuilder<static>|Character whereUpdatedAt($value)
+ * @method static Builder<static>|Character withTrashed(bool $withTrashed = true)
+ * @method static Builder<static>|Character withoutTrashed()
  *
  * @mixin \Eloquent
  */
@@ -206,7 +209,7 @@ class Character extends Model implements HasMedia
     public function hasAvatar(): Attribute
     {
         return new Attribute(
-            get: fn (): bool => $this->getFirstMedia('avatar') !== null
+            get: fn (): bool => $this->getFirstMedia('avatar') instanceof Media
         );
     }
 

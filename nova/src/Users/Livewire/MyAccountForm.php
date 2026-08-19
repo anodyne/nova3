@@ -97,7 +97,7 @@ class MyAccountForm extends Form
         $this->violenceContentRatingWarningThreshold = $user->preferences->violenceContentRatingWarningThreshold ?? ContentRatingValue::Game;
     }
 
-    public function setProfilePhoto($path): void
+    public function setProfilePhoto(?string $path): void
     {
         $this->croppedImage = $path;
     }
@@ -144,7 +144,7 @@ class MyAccountForm extends Form
         $this->reset('currentPassword', 'newPassword', 'newPasswordConfirmation');
     }
 
-    public function updatedPronouns($value): void
+    public function updatedPronouns(string $value): void
     {
         $this->pronounSubject = PronounsData::getSubjectPronouns($value, null);
         $this->pronounObject = PronounsData::getObjectPronouns($value, null);

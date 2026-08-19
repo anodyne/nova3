@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Themes\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Themes\Actions\CreateThemeManager;
 use Nova\Themes\Actions\UpdateTheme;
 use Nova\Themes\Models\Theme;
@@ -26,19 +27,19 @@ class ThemeController extends Controller
         $this->authorizeResource(Theme::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListThemesResponse::send();
     }
 
-    public function show(Theme $theme)
+    public function show(Theme $theme): Responsable
     {
         return ShowThemeResponse::sendWith([
             'theme' => $theme,
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateThemeResponse::send();
     }
@@ -51,7 +52,7 @@ class ThemeController extends Controller
             ->notify("{$theme->name} theme was created", 'A folder has been created in the themes directory to help you get started creating your theme.');
     }
 
-    public function edit(Theme $theme)
+    public function edit(Theme $theme): Responsable
     {
         return EditThemeResponse::sendWith([
             'theme' => $theme,

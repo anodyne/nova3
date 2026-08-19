@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
@@ -31,7 +33,7 @@ class ContentRatingsSettings extends Component
         $this->form->setRatings(settings("ratings.{$this->category}"));
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.settings.livewire.content-ratings-settings');
     }

@@ -14,6 +14,7 @@ use Nova\Addons\Responses\EditAddonResponse;
 use Nova\Addons\Responses\ListAddonsResponse;
 use Nova\Addons\Responses\ShowAddonResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class AddonController extends Controller
 {
@@ -26,19 +27,19 @@ class AddonController extends Controller
         $this->authorizeResource(Addon::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListAddonsResponse::send();
     }
 
-    public function show(Addon $addon)
+    public function show(Addon $addon): Responsable
     {
         return ShowAddonResponse::sendWith([
             'addon' => $addon,
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateAddonResponse::send();
     }
@@ -54,7 +55,7 @@ class AddonController extends Controller
             );
     }
 
-    public function edit(Addon $addon)
+    public function edit(Addon $addon): Responsable
     {
         return EditAddonResponse::sendWith([
             'addon' => $addon,

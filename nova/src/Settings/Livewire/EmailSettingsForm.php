@@ -25,39 +25,39 @@ class EmailSettingsForm extends Form
     #[Validate('required')]
     public string $fromName;
 
-    public ?string $subjectPrefix;
+    public ?string $subjectPrefix = null;
 
-    public ?string $replyTo;
+    public ?string $replyTo = null;
 
-    public ?string $sendmailPath;
+    public ?string $sendmailPath = null;
 
-    public ?string $mailgunDomain;
+    public ?string $mailgunDomain = null;
 
-    public ?string $mailgunSecret;
+    public ?string $mailgunSecret = null;
 
-    public ?string $mailgunEndpoint;
+    public ?string $mailgunEndpoint = null;
 
-    public ?string $postmarkToken;
+    public ?string $postmarkToken = null;
 
-    public ?string $mailersendApiKey;
+    public ?string $mailersendApiKey = null;
 
-    public ?string $resendApiKey;
+    public ?string $resendApiKey = null;
 
-    public ?string $awsAccessKeyId;
+    public ?string $awsAccessKeyId = null;
 
-    public ?string $awsSecretAccessKey;
+    public ?string $awsSecretAccessKey = null;
 
-    public ?string $awsDefaultRegion;
+    public ?string $awsDefaultRegion = null;
 
-    public ?string $smtpHost;
+    public ?string $smtpHost = null;
 
-    public ?string $smtpPort;
+    public ?string $smtpPort = null;
 
-    public ?string $smtpUsername;
+    public ?string $smtpUsername = null;
 
-    public ?string $smtpPassword;
+    public ?string $smtpPassword = null;
 
-    public ?string $smtpEncryption;
+    public ?string $smtpEncryption = null;
 
     public ImageAction $imageAction;
 
@@ -67,7 +67,7 @@ class EmailSettingsForm extends Form
     {
         $this->validate();
 
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             UpdateSettings::run('email', $data = Email::from($this->except(['imageAction', 'imageTempPath'])));
 
             UpdateEmail::run($data, EmailConfiguration::from($this->except(['imageAction', 'imageTempPath'])));

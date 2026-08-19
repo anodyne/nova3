@@ -21,18 +21,18 @@ use Nova\Menus\Models\Builders\MenuBuilder;
  * @property-read Collection<int, MenuItem> $items
  * @property-read int|null $items_count
  *
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu active()
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu inactive()
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu newModelQuery()
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu newQuery()
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu public()
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu query()
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu whereCreatedAt($value)
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu whereId($value)
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu whereKey($value)
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu whereName($value)
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu whereStatus($value)
- * @method static \Nova\Menus\Models\Builders\MenuBuilder<static>|\Nova\Menus\Models\Menu whereUpdatedAt($value)
+ * @method static MenuBuilder<static>|Menu active()
+ * @method static MenuBuilder<static>|Menu inactive()
+ * @method static MenuBuilder<static>|Menu newModelQuery()
+ * @method static MenuBuilder<static>|Menu newQuery()
+ * @method static MenuBuilder<static>|Menu public()
+ * @method static MenuBuilder<static>|Menu query()
+ * @method static MenuBuilder<static>|Menu whereCreatedAt($value)
+ * @method static MenuBuilder<static>|Menu whereId($value)
+ * @method static MenuBuilder<static>|Menu whereKey($value)
+ * @method static MenuBuilder<static>|Menu whereName($value)
+ * @method static MenuBuilder<static>|Menu whereStatus($value)
+ * @method static MenuBuilder<static>|Menu whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */

@@ -16,7 +16,7 @@ class AvatarEditor extends Modal
 
     public ?string $temporaryUrl = null;
 
-    public function updatedCroppedImage()
+    public function updatedCroppedImage(): void
     {
         if (! $this->croppedImage) {
             logger()->warning('No croppedImage file found on update.');

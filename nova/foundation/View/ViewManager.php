@@ -25,8 +25,8 @@ class ViewManager
             $scopes = [$scopes];
         }
 
-        foreach ($scopes as $scopeName) {
-            $this->renderHooks[$name][$scopeName][] = $hook;
+        foreach ($scopes as $scope) {
+            $this->renderHooks[$name][$scope][] = $hook;
         }
     }
 
@@ -56,12 +56,12 @@ class ViewManager
             $this->renderHooks[$name][null] ?? [],
         );
 
-        foreach ($scopes as $scopeName) {
+        foreach ($scopes as $scope) {
             $hooks = [
                 ...$hooks,
                 ...array_map(
                     $renderHook,
-                    $this->renderHooks[$name][$scopeName] ?? [],
+                    $this->renderHooks[$name][$scope] ?? [],
                 ),
             ];
         }

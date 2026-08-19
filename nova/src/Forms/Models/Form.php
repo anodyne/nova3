@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Forms\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\FormFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
@@ -51,30 +52,30 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read array $validation_messages
  * @property-read array $validation_rules
  *
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form active()
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form basic()
- * @method static \Database\Factories\FormFactory factory($count = null, $state = [])
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form inactive()
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form key(string $key)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form newModelQuery()
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form newQuery()
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form query()
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form searchFor($search)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form submissible()
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereCreatedAt($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereDescription($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereFields($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereId($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereIsLocked($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereKey($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereName($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereOptions($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form wherePrefixedId($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form wherePublishedAt($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form wherePublishedFields($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereStatus($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereType($value)
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereUpdatedAt($value)
+ * @method static FormBuilder<static>|Form active()
+ * @method static FormBuilder<static>|Form basic()
+ * @method static FormFactory factory($count = null, $state = [])
+ * @method static FormBuilder<static>|Form inactive()
+ * @method static FormBuilder<static>|Form key(string $key)
+ * @method static FormBuilder<static>|Form newModelQuery()
+ * @method static FormBuilder<static>|Form newQuery()
+ * @method static FormBuilder<static>|Form query()
+ * @method static FormBuilder<static>|Form searchFor($search)
+ * @method static FormBuilder<static>|Form submissible()
+ * @method static FormBuilder<static>|Form whereCreatedAt($value)
+ * @method static FormBuilder<static>|Form whereDescription($value)
+ * @method static FormBuilder<static>|Form whereFields($value)
+ * @method static FormBuilder<static>|Form whereId($value)
+ * @method static FormBuilder<static>|Form whereIsLocked($value)
+ * @method static FormBuilder<static>|Form whereKey($value)
+ * @method static FormBuilder<static>|Form whereName($value)
+ * @method static FormBuilder<static>|Form whereOptions($value)
+ * @method static FormBuilder<static>|Form wherePrefixedId($value)
+ * @method static FormBuilder<static>|Form wherePublishedAt($value)
+ * @method static FormBuilder<static>|Form wherePublishedFields($value)
+ * @method static FormBuilder<static>|Form whereStatus($value)
+ * @method static FormBuilder<static>|Form whereType($value)
+ * @method static FormBuilder<static>|Form whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */
@@ -160,7 +161,7 @@ class Form extends Model
                 if ($form->type === FormType::Basic) {
                     return collect($this->published_fields ?? [])
                         ->filter(fn ($field) => data_get($field, 'data.details.required', false))
-                        ->flatMap(fn ($field) => [
+                        ->flatMap(fn ($field): array => [
                             sprintf('%s.%s.required', 'values', data_get($field, 'data.attrs.id')) => data_get($field, 'data.details.label').' field is required',
                         ])
                         ->all();
@@ -168,7 +169,7 @@ class Form extends Model
 
                 return collect($this->published_fields ?? [])
                     ->filter(fn ($field) => data_get($field, 'data.details.required', false))
-                    ->flatMap(fn ($field) => [
+                    ->flatMap(fn ($field): array => [
                         sprintf('%s.%s.required', $form->key, data_get($field, 'data.attrs.id')) => data_get($field, 'data.details.label').' field is required',
                     ])
                     ->all();
@@ -185,7 +186,7 @@ class Form extends Model
                 if ($form->type === FormType::Basic) {
                     return collect($this->published_fields ?? [])
                         ->filter(fn ($field) => data_get($field, 'data.details.required', false))
-                        ->flatMap(fn ($field) => [
+                        ->flatMap(fn ($field): array => [
                             sprintf('%s.%s', 'values', data_get($field, 'data.attrs.id')) => 'required',
                         ])
                         ->all();
@@ -193,7 +194,7 @@ class Form extends Model
 
                 return collect($this->published_fields ?? [])
                     ->filter(fn ($field) => data_get($field, 'data.details.required', false))
-                    ->flatMap(fn ($field) => [
+                    ->flatMap(fn ($field): array => [
                         sprintf('%s.%s', $this->key, data_get($field, 'data.attrs.id')) => 'required',
                     ])
                     ->all();
@@ -206,12 +207,12 @@ class Form extends Model
         $content = null;
 
         if (filled($this->published_fields)) {
-            foreach ($this->published_fields as $publishedField) {
-                if (View::exists('components.form-fields.'.$publishedField['type'])) {
+            foreach ($this->published_fields as $published_field) {
+                if (View::exists('components.form-fields.'.$published_field['type'])) {
                     $content .= Blade::render('<x-dynamic-component :$component :$details :$attrs />', [
-                        'component' => 'form-fields.'.$publishedField['type'],
-                        'details' => data_get($publishedField, 'data.details'),
-                        'attrs' => data_get($publishedField, 'data.attrs'),
+                        'component' => 'form-fields.'.$published_field['type'],
+                        'details' => data_get($published_field, 'data.details'),
+                        'attrs' => data_get($published_field, 'data.attrs'),
                     ]);
                 }
             }

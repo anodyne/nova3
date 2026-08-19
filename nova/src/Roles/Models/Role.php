@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Roles\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\RoleFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,25 +41,25 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read Collection<int, User> $user
  * @property-read int|null $user_count
  *
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role atOrAboveOrderColumn($maxSortValue)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role atOrBelowOrderColumn($maxSortValue)
- * @method static \Database\Factories\RoleFactory factory($count = null, $state = [])
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role isDefault()
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role newModelQuery()
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role newQuery()
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role ordered(string $direction = 'asc')
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role query()
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role searchFor($search)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereCreatedAt($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereDescription($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereDisplayName($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereId($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereIsDefault($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereIsLocked($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereName($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereOrderColumn($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role wherePrefixedId($value)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereUpdatedAt($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role atOrAboveOrderColumn($maxSortValue)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role atOrBelowOrderColumn($maxSortValue)
+ * @method static RoleFactory factory($count = null, $state = [])
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role isDefault()
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role newModelQuery()
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role newQuery()
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role ordered(string $direction = 'asc')
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role query()
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role searchFor($search)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereCreatedAt($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereDescription($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereDisplayName($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereId($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereIsDefault($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereIsLocked($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereName($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereOrderColumn($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role wherePrefixedId($value)
+ * @method static RoleBuilder<static>|\Nova\Roles\Models\Role whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */
@@ -106,9 +107,9 @@ class Role extends LaratrustRole implements Sortable
      */
     public function user(): MorphToMany
     {
-        /** @var MorphToMany<User, $this> $relation */
-        $relation = $this->getMorphByUserRelation('user');
+        /** @var MorphToMany<User, $this> $morphToMany */
+        $morphToMany = $this->getMorphByUserRelation('user');
 
-        return $relation;
+        return $morphToMany;
     }
 }

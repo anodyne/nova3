@@ -30,14 +30,14 @@ class CharacterSeeder extends Seeder
             foreach ($pairs as $pair) {
                 $pivot[$pair['id']] = array_key_exists('primary', $pair) ? ['primary' => (bool) $pair['primary']] : [];
             }
-            if (! empty($pivot)) {
+            if ($pivot !== []) {
                 $character->users()->attach($pivot);
             }
         };
 
         $attachPositions = function (Character $character, array $ids) use ($positions): void {
             $ids = array_values(array_intersect($ids, $positions->keys()->all()));
-            if (! empty($ids)) {
+            if ($ids !== []) {
                 $character->positions()->attach($ids);
             }
         };

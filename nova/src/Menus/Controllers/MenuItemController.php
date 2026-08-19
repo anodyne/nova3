@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Menus\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Menus\Actions\CreateMenuItem;
 use Nova\Menus\Actions\UpdateMenuItem;
 use Nova\Menus\Models\MenuItem;
@@ -27,14 +28,14 @@ class MenuItemController extends Controller
         $this->authorizeResource(MenuItem::class, 'menuItem');
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListMenuItemsResponse::send();
     }
 
     public function show(MenuItem $menuItem) {}
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateMenuItemResponse::sendWith([
             'pages' => Page::query()->public()->verb(PageVerb::Get)->get(),
@@ -50,7 +51,7 @@ class MenuItemController extends Controller
             ->notify("{$menuItem->label} menu item was created");
     }
 
-    public function edit(MenuItem $menuItem)
+    public function edit(MenuItem $menuItem): Responsable
     {
         return EditMenuItemResponse::sendWith([
             'menuItem' => $menuItem,

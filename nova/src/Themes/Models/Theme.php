@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Themes\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\ThemeFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,24 +43,24 @@ use Spatie\Activitylog\Models\Activity;
  * @property-read string|null $latest_version
  * @property-read string|null $update_url
  *
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme active()
- * @method static \Database\Factories\ThemeFactory factory($count = null, $state = [])
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme inactive()
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme location($location)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme newModelQuery()
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme newQuery()
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme query()
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereCreatedAt($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereCredits($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereId($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereLocation($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereName($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme wherePreview($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereRepository($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereSettings($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereStatus($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereUpdatedAt($value)
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme whereVersion($value)
+ * @method static ThemeBuilder<static>|Theme active()
+ * @method static ThemeFactory factory($count = null, $state = [])
+ * @method static ThemeBuilder<static>|Theme inactive()
+ * @method static ThemeBuilder<static>|Theme location($location)
+ * @method static ThemeBuilder<static>|Theme newModelQuery()
+ * @method static ThemeBuilder<static>|Theme newQuery()
+ * @method static ThemeBuilder<static>|Theme query()
+ * @method static ThemeBuilder<static>|Theme whereCreatedAt($value)
+ * @method static ThemeBuilder<static>|Theme whereCredits($value)
+ * @method static ThemeBuilder<static>|Theme whereId($value)
+ * @method static ThemeBuilder<static>|Theme whereLocation($value)
+ * @method static ThemeBuilder<static>|Theme whereName($value)
+ * @method static ThemeBuilder<static>|Theme wherePreview($value)
+ * @method static ThemeBuilder<static>|Theme whereRepository($value)
+ * @method static ThemeBuilder<static>|Theme whereSettings($value)
+ * @method static ThemeBuilder<static>|Theme whereStatus($value)
+ * @method static ThemeBuilder<static>|Theme whereUpdatedAt($value)
+ * @method static ThemeBuilder<static>|Theme whereVersion($value)
  *
  * @mixin \Eloquent
  */

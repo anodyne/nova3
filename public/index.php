@@ -7,22 +7,17 @@ use Illuminate\Http\Request;
 define('LARAVEL_START', microtime(true));
 
 if (str_contains($_SERVER['REQUEST_URI'], 'public/')) {
-    require_once 'messages/document-root.php';
-    exit();
-}
-
-if (version_compare(PHP_VERSION, '8.4', '<')) {
-    require_once 'messages/php-version.php';
+    require_once __DIR__.'/messages/document-root.php';
     exit();
 }
 
 if (! is_dir('../vendor')) {
     if (! function_exists('exec')) {
-        require_once 'messages/vendor-error.php.php';
+        require_once __DIR__.'/messages/vendor-error.php.php';
         exit();
     }
 
-    require_once 'messages/vendor-install.php';
+    require_once __DIR__.'/messages/vendor-install.php';
     exit();
 }
 

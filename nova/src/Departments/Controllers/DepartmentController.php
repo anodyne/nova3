@@ -14,6 +14,7 @@ use Nova\Departments\Responses\EditDepartmentResponse;
 use Nova\Departments\Responses\ListDepartmentsResponse;
 use Nova\Departments\Responses\ShowDepartmentResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Users\Models\Builders\UserBuilder;
 
 class DepartmentController extends Controller
@@ -27,24 +28,24 @@ class DepartmentController extends Controller
         $this->authorizeResource(Department::class);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateDepartmentResponse::send();
     }
 
-    public function edit(Department $department)
+    public function edit(Department $department): Responsable
     {
         return EditDepartmentResponse::sendWith([
             'department' => $department,
         ]);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListDepartmentsResponse::send();
     }
 
-    public function show(Department $department)
+    public function show(Department $department): Responsable
     {
         $department->load([
             'positions' => [

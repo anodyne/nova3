@@ -16,9 +16,7 @@ trait InteractsWithModel
 
     public function getModel(): Addon
     {
-        return once(function () {
-            return Addon::location($this->location)->firstOrFail();
-        });
+        return once(fn () => Addon::location($this->location)->firstOrFail());
     }
 
     public function setAddonProperties(): self

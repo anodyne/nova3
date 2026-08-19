@@ -6,6 +6,7 @@ namespace Nova\Menus\Models;
 
 use Anodyne\TablerIcons\Tabler;
 use Carbon\CarbonImmutable;
+use Database\Factories\MenuItemFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -52,28 +53,28 @@ use Spatie\EloquentSortable\SortableTrait;
  * @property-read Page|null $page
  * @property-read MenuItem|null $parent
  *
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem active()
- * @method static \Database\Factories\MenuItemFactory factory($count = null, $state = [])
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem inactive()
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem newModelQuery()
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem newQuery()
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem ordered(string $direction = 'asc')
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem public()
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem query()
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem searchFor($search)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereCreatedAt($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereIcon($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereId($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereLabel($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereLinkType($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereMenuId($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereOrderColumn($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem wherePageId($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereParentId($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereStatus($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereTarget($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereUpdatedAt($value)
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereUrl($value)
+ * @method static MenuItemBuilder<static>|MenuItem active()
+ * @method static MenuItemFactory factory($count = null, $state = [])
+ * @method static MenuItemBuilder<static>|MenuItem inactive()
+ * @method static MenuItemBuilder<static>|MenuItem newModelQuery()
+ * @method static MenuItemBuilder<static>|MenuItem newQuery()
+ * @method static MenuItemBuilder<static>|MenuItem ordered(string $direction = 'asc')
+ * @method static MenuItemBuilder<static>|MenuItem public()
+ * @method static MenuItemBuilder<static>|MenuItem query()
+ * @method static MenuItemBuilder<static>|MenuItem searchFor($search)
+ * @method static MenuItemBuilder<static>|MenuItem whereCreatedAt($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereIcon($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereId($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereLabel($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereLinkType($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereMenuId($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereOrderColumn($value)
+ * @method static MenuItemBuilder<static>|MenuItem wherePageId($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereParentId($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereStatus($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereTarget($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereUpdatedAt($value)
+ * @method static MenuItemBuilder<static>|MenuItem whereUrl($value)
  *
  * @mixin \Eloquent
  */

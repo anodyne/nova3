@@ -30,7 +30,7 @@ class StoryFactory extends Factory
 
     public function configure(): static
     {
-        return $this->afterCreating(function (Story $story) {
+        return $this->afterCreating(function (Story $story): void {
             $this->addRandomMedia(
                 model: $story,
                 source: 'media/samples/stories',

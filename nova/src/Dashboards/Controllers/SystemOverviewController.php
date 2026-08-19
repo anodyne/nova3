@@ -6,6 +6,7 @@ namespace Nova\Dashboards\Controllers;
 
 use Nova\Dashboards\Responses\SystemOverviewResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class SystemOverviewController extends Controller
 {
@@ -19,7 +20,7 @@ class SystemOverviewController extends Controller
         ]);
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
         return SystemOverviewResponse::send();
     }

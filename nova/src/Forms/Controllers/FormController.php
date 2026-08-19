@@ -14,6 +14,7 @@ use Nova\Forms\Responses\EditFormResponse;
 use Nova\Forms\Responses\ListFormsResponse;
 use Nova\Forms\Responses\ShowFormResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class FormController extends Controller
 {
@@ -26,19 +27,19 @@ class FormController extends Controller
         $this->authorizeResource(Form::class);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListFormsResponse::send();
     }
 
-    public function show(Form $form)
+    public function show(Form $form): Responsable
     {
         return ShowFormResponse::sendWith([
             'form' => $form,
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateFormResponse::send();
     }
@@ -51,10 +52,10 @@ class FormController extends Controller
             ->notify("{$form->name} form was created");
     }
 
-    public function edit(Form $form)
+    public function edit(Form $form): Responsable
     {
         $fields = collect($form->published_fields ?? [])
-            ->flatMap(fn ($field) => [
+            ->flatMap(fn ($field): array => [
                 data_get($field, 'data.attrs.id') => data_get($field, 'data.details.label'),
             ]);
 

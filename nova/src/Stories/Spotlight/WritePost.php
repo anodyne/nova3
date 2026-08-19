@@ -19,7 +19,7 @@ class WritePost extends SpotlightCommand
         'compose post', 'create post',
     ];
 
-    public function execute(Spotlight $spotlight)
+    public function execute(Spotlight $spotlight): void
     {
         $spotlight->redirectRoute('admin.posts.create');
     }

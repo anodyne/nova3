@@ -6,6 +6,7 @@ namespace Nova\Users\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Users\Actions\BanUserManager;
 use Nova\Users\Models\Ban;
 use Nova\Users\Models\User;
@@ -24,14 +25,14 @@ class BanController extends Controller
         $this->authorizeResource(Ban::class);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         return CreateBanResponse::sendWith([
             'users' => User::query()->active()->whereNotIn('id', [Auth::id()])->get(),
         ]);
     }
 
-    public function index()
+    public function index(): Responsable
     {
         return ListBansResponse::send();
     }

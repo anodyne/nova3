@@ -23,7 +23,7 @@ class InstallTheme
     {
         $data = json_decode(Storage::disk('themes')->get("{$path}/theme.json"), true);
 
-        $settings = new ThemeSettings(
+        $themeSettings = new ThemeSettings(
             fonts: FontFamilies::from(data_get($data, 'settings.fonts', [
                 'headerProvider' => 'local',
                 'headerFamily' => Randomize::publicHeaderFont(),
@@ -40,7 +40,7 @@ class InstallTheme
             credits: data_get($data, 'credits'),
             status: BasicStatus::Active,
             preview: data_get($data, 'preview'),
-            settings: $settings,
+            settings: $themeSettings,
             repository: AddonRepository::from(data_get($data, 'repository') ?? []),
         );
 

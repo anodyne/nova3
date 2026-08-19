@@ -59,7 +59,7 @@ trait InteractsWithCharacterAuthors
     {
         $this->dispatch('dropdown-close');
 
-        $this->characterAuthorsArr = Arr::reject($this->characterAuthorsArr, fn ($character) => $character['id'] === $characterId);
+        $this->characterAuthorsArr = Arr::reject($this->characterAuthorsArr, fn ($character): bool => $character['id'] === $characterId);
 
         unset($this->characterAuthorsPivotData[$characterId]);
 
@@ -79,11 +79,11 @@ trait InteractsWithCharacterAuthors
         $this->syncCharacterAuthorsPivotData();
     }
 
-    public function updatedCharacterAuthorsPivotData($value, $property)
+    public function updatedCharacterAuthorsPivotData($value, $property): void
     {
         $id = str($property)->before('.user_id')->toInteger();
 
-        $this->characterAuthorsArr = array_map(function ($character) use ($id, $value) {
+        $this->characterAuthorsArr = array_map(function (array $character) use ($id, $value): array {
             if ($character['id'] === $id) {
                 $character['pivot'] = [
                     'user' => User::find($value),

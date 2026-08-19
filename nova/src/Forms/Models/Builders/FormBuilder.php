@@ -42,9 +42,7 @@ class FormBuilder extends Builder
     {
         return $this->where('type', FormType::Basic)
             ->where('options->singleSubmission', false)
-            ->orWhere(function (Builder $query): Builder {
-                return $query->where('options->singleSubmission', true)
-                    ->whereDoesntHave('submissions', fn ($q) => $q->where('owner_type', 'user')->where('owner_id', Auth::id()));
-            });
+            ->orWhere(fn (Builder $query): Builder => $query->where('options->singleSubmission', true)
+                ->whereDoesntHave('submissions', fn ($q) => $q->where('owner_type', 'user')->where('owner_id', Auth::id())));
     }
 }

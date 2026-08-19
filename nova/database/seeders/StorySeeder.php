@@ -17,7 +17,7 @@ class StorySeeder extends Seeder
         DB::disableQueryLog();
         activity()->disableLogging();
 
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 
             $columns = ['title', 'status', 'parent_id', 'order_column', 'created_at', 'updated_at'];
@@ -33,7 +33,7 @@ class StorySeeder extends Seeder
                 }
 
                 foreach ($columns as $column) {
-                    $data[$column] = array_key_exists($column, $data) ? $data[$column] : null;
+                    $data[$column] ??= null;
                 }
 
                 return Arr::only($data, $columns);

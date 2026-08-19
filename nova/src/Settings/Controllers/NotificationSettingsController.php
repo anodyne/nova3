@@ -6,6 +6,7 @@ namespace Nova\Settings\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Models\NotificationType;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Settings\Responses\NotificationSettingsResponse;
 
 class NotificationSettingsController extends Controller
@@ -17,7 +18,7 @@ class NotificationSettingsController extends Controller
         $this->middleware('auth');
     }
 
-    public function edit()
+    public function edit(): Responsable
     {
         $this->authorize('update', $settings = settings());
 

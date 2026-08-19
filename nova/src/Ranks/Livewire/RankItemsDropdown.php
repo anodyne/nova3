@@ -19,7 +19,7 @@ class RankItemsDropdown extends Component
 {
     public ?int $selected = null;
 
-    public function mount(?int $rank = null)
+    public function mount(?int $rank = null): void
     {
         $this->selected = $rank;
     }

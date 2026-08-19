@@ -53,20 +53,14 @@ class PostTypeReporter
     {
         return PostType::query()
             ->withCount([
-                'posts as published_posts_count' => function (PostBuilder $query) use ($start, $end): PostBuilder {
-                    return $query
-                        ->whereBetween('published_at', [$start, $end])
-                        ->published();
-                },
-                'posts as draft_posts_count' => function (PostBuilder $query) use ($start, $end): PostBuilder {
-                    return $query
-                        ->whereBetween('updated_at', [$start, $end])
-                        ->draft();
-                },
+                'posts as published_posts_count' => fn (PostBuilder $query): PostBuilder => $query
+                    ->whereBetween('published_at', [$start, $end])
+                    ->published(),
+                'posts as draft_posts_count' => fn (PostBuilder $query): PostBuilder => $query
+                    ->whereBetween('updated_at', [$start, $end])
+                    ->draft(),
             ])
-            ->withSum(['posts as published_posts_sum_word_count' => function (PostBuilder $query) use ($start, $end): PostBuilder {
-                return $query->whereBetween('updated_at', [$start, $end]);
-            }], 'word_count')
+            ->withSum(['posts as published_posts_sum_word_count' => fn (PostBuilder $query): PostBuilder => $query->whereBetween('updated_at', [$start, $end])], 'word_count')
             ->get();
     }
 }

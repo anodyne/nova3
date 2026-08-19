@@ -57,7 +57,7 @@ abstract class DomainServiceProvider extends ServiceProvider
         return null;
     }
 
-    public function boot()
+    public function boot(): void
     {
         $this->domainBooting();
 
@@ -73,7 +73,7 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->domainBooted();
     }
 
-    public function register()
+    public function register(): void
     {
         $this->registerMorphMaps();
     }
@@ -106,7 +106,7 @@ abstract class DomainServiceProvider extends ServiceProvider
     private function registerSpotlightCommands(): void
     {
         if (Nova::isInstalled()) {
-            collect($this->spotlightCommands())->each(fn ($command) => Spotlight::registerCommand($command));
+            collect($this->spotlightCommands())->each(fn (string $command) => Spotlight::registerCommand($command));
         }
     }
 
@@ -123,7 +123,7 @@ abstract class DomainServiceProvider extends ServiceProvider
 
     private function registerListeners(): void
     {
-        collect($this->eventListeners())->each(function ($listeners, $event) {
+        collect($this->eventListeners())->each(function ($listeners, $event): void {
             collect($listeners)->each(
                 fn ($listener) => Event::listen($event, $listener)
             );

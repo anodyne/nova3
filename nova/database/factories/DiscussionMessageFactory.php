@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Discussions\Enums\MessageType;
 use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Models\DiscussionMessage;
-use Nova\Model;
 use Nova\Users\Models\User;
 
 /** @extends Factory<DiscussionMessage> */
@@ -33,21 +32,21 @@ class DiscussionMessageFactory extends Factory
 
     public function system()
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'type' => MessageType::System,
         ]);
     }
 
     public function systemDanger()
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'type' => MessageType::SystemDanger,
         ]);
     }
 
     public function text()
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn (array $attributes): array => [
             'type' => MessageType::Text,
         ]);
     }

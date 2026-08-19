@@ -25,7 +25,7 @@ class MigratePrivateMessage
             upgradeKey: 'user'
         );
 
-        DB::transaction(function () use ($model, $newAuthorId, $users) {
+        DB::transaction(function () use ($model, $newAuthorId, $users): void {
             $discussionId = DB::table('discussions')->insertGetId([
                 'subject' => $model->privmsgs_subject,
                 'created_at' => $created = $this->convertDate($model->privmsgs_date, now('UTC')),
@@ -71,7 +71,7 @@ class MigratePrivateMessage
                 ->groupBy('privmsgs_to.pmto_recipient_user')
                 ->selectRaw("{$prefix}privmsgs_to.pmto_recipient_user, ANY_VALUE({$prefix}privmsgs_to.pmto_id) as pmto_id, ANY_VALUE({$prefix}privmsgs_to.pmto_unread) as pmto_unread")
                 ->get()
-                ->each(function ($recipient) use ($discussionId, $users, $created, $model, $messageId) {
+                ->each(function ($recipient) use ($discussionId, $users, $created, $model, $messageId): void {
                     $newUserId = $this->getNewId(
                         id: $recipient->pmto_recipient_user,
                         collection: $users,

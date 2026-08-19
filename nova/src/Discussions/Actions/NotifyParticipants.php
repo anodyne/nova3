@@ -18,7 +18,7 @@ class NotifyParticipants
 
     public function handle(Discussion $discussion, DiscussionMessage $message, DiscussionParticipantsData $data): void
     {
-        $discussion->allParticipants->each(function (User $user) use ($data, $message) {
+        $discussion->allParticipants->each(function (User $user) use ($data, $message): void {
             DiscussionNotification::create([
                 'discussion_id' => $message->discussion_id,
                 'discussion_message_id' => $message->id,

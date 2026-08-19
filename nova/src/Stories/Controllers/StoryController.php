@@ -6,6 +6,7 @@ namespace Nova\Stories\Controllers;
 
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Stories\Actions\CreateStoryManager;
 use Nova\Stories\Actions\DeleteStoriesManager;
 use Nova\Stories\Actions\UpdateStoryManager;
@@ -27,14 +28,14 @@ class StoryController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(): Responsable
     {
         $this->authorize('viewAny', Story::class);
 
         return ListStoriesResponse::send();
     }
 
-    public function show(Story $story)
+    public function show(Story $story): Responsable
     {
         $this->authorize('view', $story);
 
@@ -44,7 +45,7 @@ class StoryController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): Responsable
     {
         $this->authorize('create', Story::class);
 
@@ -61,7 +62,7 @@ class StoryController extends Controller
             ->notify("{$story->title} story was created");
     }
 
-    public function edit(Story $story)
+    public function edit(Story $story): Responsable
     {
         $this->authorize('update', $story);
 
@@ -79,7 +80,7 @@ class StoryController extends Controller
         return back()->notify("{$story->title} was updated");
     }
 
-    public function delete($id)
+    public function delete($id): Responsable
     {
         $this->authorize('delete', new Story);
 

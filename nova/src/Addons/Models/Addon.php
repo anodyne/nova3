@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Addons\Models;
 
 use Carbon\CarbonImmutable;
+use Database\Factories\AddonFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,30 +47,30 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @property-read string|null $latest_version
  * @property-read string|null $update_url
  *
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon active()
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon extension()
- * @method static \Database\Factories\AddonFactory factory($count = null, $state = [])
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon genre()
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon inactive()
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon location(string $location)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon newModelQuery()
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon newQuery()
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon query()
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon rankSet()
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon searchFor($column, $search)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereCreatedAt($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereCredits($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereId($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereLocation($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereName($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon wherePrefixedId($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon wherePreview($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereRepository($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereSettings($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereStatus($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereType($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereUpdatedAt($value)
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereVersion($value)
+ * @method static AddonBuilder<static>|Addon active()
+ * @method static AddonBuilder<static>|Addon extension()
+ * @method static AddonFactory factory($count = null, $state = [])
+ * @method static AddonBuilder<static>|Addon genre()
+ * @method static AddonBuilder<static>|Addon inactive()
+ * @method static AddonBuilder<static>|Addon location(string $location)
+ * @method static AddonBuilder<static>|Addon newModelQuery()
+ * @method static AddonBuilder<static>|Addon newQuery()
+ * @method static AddonBuilder<static>|Addon query()
+ * @method static AddonBuilder<static>|Addon rankSet()
+ * @method static AddonBuilder<static>|Addon searchFor($column, $search)
+ * @method static AddonBuilder<static>|Addon whereCreatedAt($value)
+ * @method static AddonBuilder<static>|Addon whereCredits($value)
+ * @method static AddonBuilder<static>|Addon whereId($value)
+ * @method static AddonBuilder<static>|Addon whereLocation($value)
+ * @method static AddonBuilder<static>|Addon whereName($value)
+ * @method static AddonBuilder<static>|Addon wherePrefixedId($value)
+ * @method static AddonBuilder<static>|Addon wherePreview($value)
+ * @method static AddonBuilder<static>|Addon whereRepository($value)
+ * @method static AddonBuilder<static>|Addon whereSettings($value)
+ * @method static AddonBuilder<static>|Addon whereStatus($value)
+ * @method static AddonBuilder<static>|Addon whereType($value)
+ * @method static AddonBuilder<static>|Addon whereUpdatedAt($value)
+ * @method static AddonBuilder<static>|Addon whereVersion($value)
  *
  * @mixin \Eloquent
  */
@@ -140,7 +141,7 @@ class Addon extends Model
     {
         return collect(Storage::disk('addons')->directories())
             ->diff(static::pluck('location')->all())
-            ->reject(fn ($path) => ! file_exists(addon_path($path.DIRECTORY_SEPARATOR.'addon.json')))
+            ->reject(fn ($path): bool => ! file_exists(addon_path($path.DIRECTORY_SEPARATOR.'addon.json')))
             ->flatMap(function (string $addon): array {
                 $disk = Storage::disk('addons');
 

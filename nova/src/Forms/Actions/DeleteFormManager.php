@@ -22,7 +22,7 @@ class DeleteFormManager
             FormSubmission::query()
                 ->forForm($form)
                 ->get()
-                ->each(fn (FormSubmission $submission) => DeleteFormSubmission::run($submission));
+                ->each(fn (FormSubmission $submission): mixed => DeleteFormSubmission::run($submission));
 
             $form->formFields()->delete();
 

@@ -23,7 +23,7 @@ use Throwable;
 
 class NovaManager
 {
-    public function adminScripts($options = [])
+    public function adminScripts($options = []): string
     {
         $debug = config('app.debug');
 
@@ -38,7 +38,7 @@ class NovaManager
         return implode("\n", $html);
     }
 
-    public function adminStyles($options = [])
+    public function adminStyles($options = []): string
     {
         $debug = config('app.debug');
 
@@ -77,7 +77,7 @@ class NovaManager
 
     public function environment(): Environment
     {
-        return once(fn () => Environment::make());
+        return once(fn (): Environment => Environment::make());
     }
 
     public function filesVersion(): string
@@ -129,7 +129,7 @@ class NovaManager
     {
         try {
             return once(fn () => Schema::hasTable('migrations'));
-        } catch (Throwable $th) {
+        } catch (Throwable) {
             return false;
         }
     }
@@ -141,10 +141,8 @@ class NovaManager
 
     /**
      * Provide data from the backend for the frontend to use.
-     *
-     * @return Collection
      */
-    public function provideScriptVariables()
+    public function provideScriptVariables(): Collection
     {
         $theme = app('nova.theme');
 
@@ -155,7 +153,7 @@ class NovaManager
         ]);
     }
 
-    public function publicScripts($options = [])
+    public function publicScripts($options = []): string
     {
         $debug = config('app.debug');
 
@@ -170,7 +168,7 @@ class NovaManager
         return implode("\n", $html);
     }
 
-    public function publicStyles($options = [])
+    public function publicStyles($options = []): string
     {
         $debug = config('app.debug');
 
@@ -185,7 +183,7 @@ class NovaManager
         return implode("\n", $html);
     }
 
-    public function setupScripts($options = [])
+    public function setupScripts($options = []): string
     {
         $debug = config('app.debug');
 
@@ -205,7 +203,7 @@ class NovaManager
         return once(fn () => User::count());
     }
 
-    protected function cssAdminAssets()
+    protected function cssAdminAssets(): string
     {
         $appUrl = url('');
         $appStylesPath = "{$appUrl}/dist/css/admin.css";
@@ -215,7 +213,7 @@ class NovaManager
 HTML;
     }
 
-    protected function cssPublicAssets()
+    protected function cssPublicAssets(): string
     {
         $appUrl = url('');
         $appStylesPath = "{$appUrl}/dist/css/public.css";
@@ -225,9 +223,9 @@ HTML;
 HTML;
     }
 
-    protected function javaScriptAdminAssets($options)
+    protected function javaScriptAdminAssets($options): string
     {
-        $jsonEncodedOptions = $options ? json_encode($options) : '';
+        $options ? json_encode($options) : '';
 
         $appUrl = url('');
         $jsPath = "{$appUrl}/dist/js/app.js";
@@ -239,9 +237,9 @@ HTML;
 HTML;
     }
 
-    protected function javaScriptPublicAssets($options)
+    protected function javaScriptPublicAssets($options): string
     {
-        $jsonEncodedOptions = $options ? json_encode($options) : '';
+        $options ? json_encode($options) : '';
 
         $appUrl = url('');
         $jsPath = "{$appUrl}/dist/js/app.js";
@@ -253,9 +251,9 @@ HTML;
 HTML;
     }
 
-    protected function javaScriptSetupAssets($options)
+    protected function javaScriptSetupAssets($options): string
     {
-        $jsonEncodedOptions = $options ? json_encode($options) : '';
+        $options ? json_encode($options) : '';
 
         $appUrl = url('');
         $jsPath = "{$appUrl}/dist/js/setup.js";
@@ -267,7 +265,7 @@ HTML;
 HTML;
     }
 
-    protected function minify($subject)
+    protected function minify($subject): string|array|null
     {
         return preg_replace('~(\v|\t|\s{2,})~m', '', $subject);
     }

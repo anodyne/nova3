@@ -29,7 +29,7 @@ class ProcessContactFormController extends Controller
             $executed = RateLimiter::attempt(
                 key: 'process-contact:'.$request->ip(),
                 maxAttempts: 1,
-                callback: fn () => HandleContactForm::run($request),
+                callback: fn (): mixed => HandleContactForm::run($request),
                 decaySeconds: 15 * 60
             );
 

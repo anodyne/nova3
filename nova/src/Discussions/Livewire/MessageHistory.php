@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
@@ -44,15 +46,13 @@ class MessageHistory extends Component
             return null;
         }
 
-        return once(function () {
-            return Discussion::query()
-                ->with([
-                    'messages',
-                    'participants',
-                    'notifications' => fn (HasMany $query): HasMany => $query->where('user_id', Auth::id()),
-                ])
-                ->find($this->discussionId);
-        });
+        return once(fn () => Discussion::query()
+            ->with([
+                'messages',
+                'participants',
+                'notifications' => fn (HasMany $query): HasMany => $query->where('user_id', Auth::id()),
+            ])
+            ->find($this->discussionId));
     }
 
     #[Computed]
@@ -147,7 +147,7 @@ class MessageHistory extends Component
         $this->remainingMessagesLoaded = false;
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.discussions.livewire.message-history', [
             'discussion' => $this->discussion,

@@ -54,9 +54,8 @@ class DiscordMessage
      * Set the content of the message.
      *
      * @param  string  $content
-     * @return $this
      */
-    public function content($content)
+    public function content($content): static
     {
         $this->content = $content;
 
@@ -68,9 +67,8 @@ class DiscordMessage
      *
      * @param  string  $username
      * @param  string|null  $avatar_url
-     * @return $this
      */
-    public function from($username, $avatar_url = null)
+    public function from($username, $avatar_url = null): static
     {
         $this->username = $username;
 
@@ -85,9 +83,8 @@ class DiscordMessage
      * Send as a TTS message.
      *
      * @param  bool|null  $enabled
-     * @return $this
      */
-    public function tts($enabled = true)
+    public function tts($enabled = true): static
     {
         $this->tts = $enabled ? 'true' : 'false';
 
@@ -96,25 +93,20 @@ class DiscordMessage
 
     /**
      * Define an embedded rich content for the message.
-     *
-     *
-     * @return $this
      */
-    public function embed(Closure $callback)
+    public function embed(Closure $callback): static
     {
-        $this->embeds[] = $embed = new DiscordEmbed;
+        $this->embeds[] = $discordEmbed = new DiscordEmbed;
 
-        $callback($embed);
+        $callback($discordEmbed);
 
         return $this;
     }
 
     /**
      * Set additional request options for the Guzzle HTTP client.
-     *
-     * @return $this
      */
-    public function http(array $options)
+    public function http(array $options): static
     {
         $this->http = $options;
 

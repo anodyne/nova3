@@ -14,16 +14,16 @@ class DuplicateRankName
 
     public function handle(RankName $original, RankNameData $data): RankName
     {
-        $replica = $original->replicate(['ranks_count']);
-        $replica->fill($data->toArray());
-        $replica->save();
+        $rankName = $original->replicate(['ranks_count']);
+        $rankName->fill($data->toArray());
+        $rankName->save();
 
         activity()
             ->performedOn($original)
-            ->withProperty('replica', $replica->id)
+            ->withProperty('replica', $rankName->id)
             ->event('duplicated')
             ->log('duplicated');
 
-        return $replica->refresh();
+        return $rankName->refresh();
     }
 }

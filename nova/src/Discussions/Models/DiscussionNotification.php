@@ -20,21 +20,21 @@ use Nova\Foundation\Models\Model;
  * @property CarbonImmutable|null $updated_at
  * @property string|null $deleted_at
  *
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification discussion(int $discussionId)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification newModelQuery()
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification newQuery()
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification query()
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification unread()
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification user(int $userId)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereCreatedAt($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereDeletedAt($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereDiscussionId($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereDiscussionMessageId($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereId($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereIsSeen($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereIsSender($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereUpdatedAt($value)
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereUserId($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification discussion(int $discussionId)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification newModelQuery()
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification newQuery()
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification query()
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification unread()
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification user(int $userId)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereCreatedAt($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereDeletedAt($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereDiscussionId($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereDiscussionMessageId($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereId($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereIsSeen($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereIsSender($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereUpdatedAt($value)
+ * @method static DiscussionNotificationBuilder<static>|DiscussionNotification whereUserId($value)
  *
  * @mixin \Eloquent
  */

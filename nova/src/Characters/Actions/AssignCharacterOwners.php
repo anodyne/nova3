@@ -16,7 +16,7 @@ class AssignCharacterOwners
     {
         $users = collect($data->users)
             ->filter()
-            ->mapWithKeys(function ($user) use ($data) {
+            ->mapWithKeys(function ($user) use ($data): array {
                 $primary = (! isset($data->primaryUsers))
                     ? ['primary' => false]
                     : ['primary' => in_array($user, $data->primaryUsers)];

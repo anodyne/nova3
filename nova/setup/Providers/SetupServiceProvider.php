@@ -6,13 +6,10 @@ namespace Nova\Setup\Providers;
 
 use BladeUI\Icons\Console\CacheCommand;
 use Filament\Support\Facades\FilamentColor;
-use Livewire\Commands\DiscoverCommand;
 use Livewire\Livewire;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Colors\Color;
 use Nova\Foundation\Nova;
-use Nova\Setup\Actions\SeedRealStories;
-use Nova\Setup\Actions\SetDatabaseInitialState;
 use Nova\Setup\Livewire\ConfigureDatabase;
 use Nova\Setup\Livewire\InstallNova;
 use Nova\Setup\Livewire\MigrateNovaData;

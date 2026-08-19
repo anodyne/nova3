@@ -97,7 +97,7 @@ class AddonsList extends TableComponent
                     ActionGroup::make([
                         TimelineAction::make()
                             ->authorize('view')
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->itemIcons([
                                         'installed' => Tabler::Plus->value,
@@ -116,34 +116,34 @@ class AddonsList extends TableComponent
                                         'ran-uninstall' => 'danger',
                                     ])
                                     ->attributeValues([
-                                        'status' => fn ($value) => strtolower($value->getLabel() ?? ''),
+                                        'status' => fn ($value): string => strtolower($value->getLabel() ?? ''),
                                     ])
                                     ->eventDescriptions([
-                                        'ran-append' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                        'ran-append' => fn (Activity $activity): string => __('activity.addons.ran-script', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'rank image append',
                                         ]),
-                                        'ran-install' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                        'ran-install' => fn (Activity $activity): string => __('activity.addons.ran-script', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'install',
                                         ]),
-                                        'ran-migrations' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                        'ran-migrations' => fn (Activity $activity): string => __('activity.addons.ran-script', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'database migrations',
                                         ]),
-                                        'ran-migrations-rollback' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                        'ran-migrations-rollback' => fn (Activity $activity): string => __('activity.addons.ran-script', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'database migrations rollback',
                                         ]),
-                                        'ran-replace' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                        'ran-replace' => fn (Activity $activity): string => __('activity.addons.ran-script', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'rank image replacement',
                                         ]),
-                                        'ran-uninstall' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                        'ran-uninstall' => fn (Activity $activity): string => __('activity.addons.ran-script', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'uninstall',
                                         ]),
-                                        'ran-update' => fn (Activity $activity) => __('activity.addons.ran-script', [
+                                        'ran-update' => fn (Activity $activity): string => __('activity.addons.ran-script', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                             'script' => 'update',
                                         ]),
@@ -158,13 +158,11 @@ class AddonsList extends TableComponent
                             ->slideOver()
                             ->icon(Tabler::Settings)
                             ->modalWidth(Width::Large)
-                            ->modalIcon(null)
                             ->modalHeading(fn (Addon $record): string => $record->name.' add-on settings')
-                            ->modalDescription(null)
                             ->fillForm(fn (Addon $record): array => $record->settings->settings ?? [])
                             ->schema(fn (Addon $record): array => $record->getAddonClass()->settingsForm())
                             ->successNotificationTitle('Add-on settings have been updated')
-                            ->action(function (Addon $record, array $data) {
+                            ->action(function (Addon $record, array $data): void {
                                 UpdateAddonSettings::run($record, new AddonSettings(settings: $data));
                             }),
                         Action::make('openActionsPanel')
@@ -172,9 +170,7 @@ class AddonsList extends TableComponent
                             ->slideOver()
                             ->icon(Tabler::Automation)
                             ->modalWidth(Width::ExtraLarge)
-                            ->modalIcon(null)
                             ->modalHeading('')
-                            ->modalDescription(null)
                             ->modalSubmitAction(false)
                             ->modalCancelActionLabel('Done')
                             ->modalContent(fn (Addon $record, Action $action): View => view('pages.add-ons.actions', [
@@ -211,10 +207,8 @@ class AddonsList extends TableComponent
                     ->icon(Tabler::Sparkles)
                     ->color('gray')
                     ->visible(fn (): bool => Addon::hasInstallableAddons())
-                    ->modalWidth(Width::ExtraLarge)
-                    ->modalIcon(null)
-                    ->modalHeading('')
-                    ->modalDescription(null)
+                    ->modalWidth(Width::ExtraLarge)->modalIcon()
+                    ->modalHeading('')->modalDescription()
                     ->modalSubmitActionLabel('Install')
                     ->modalContent(fn (Action $action): View => view('pages.add-ons.pending-addons', [
                         'action' => $action,
@@ -235,7 +229,7 @@ class AddonsList extends TableComponent
                                 InstallAddon::run($addon);
 
                                 $created[] = $addon;
-                            } catch (FileNotFoundException $ex) {
+                            } catch (FileNotFoundException) {
                                 $errored[] = $addon;
                             }
                         }
@@ -305,7 +299,7 @@ class AddonsList extends TableComponent
                 ->color('gray')
                 ->size(Size::Small)
                 ->label('Uninstall')
-                ->action(function (Addon $record) {
+                ->action(function (Addon $record): void {
                     LogBatch::startBatch();
 
                     $record->runScript('uninstall');
@@ -324,7 +318,7 @@ class AddonsList extends TableComponent
                 ->color('gray')
                 ->size(Size::Small)
                 ->label('Update')
-                ->action(function (Addon $record) {
+                ->action(function (Addon $record): void {
                     LogBatch::startBatch();
 
                     $record->runScript('update');

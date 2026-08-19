@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Reporting\Controllers;
 
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 use Nova\Reporting\Reports\ActivityReporter;
 use Nova\Reporting\Reports\ParticipationReporter;
 use Nova\Reporting\Repositories\ReportingRepositoryInterface;
@@ -19,14 +20,14 @@ class GameOverviewController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke()
+    public function __invoke(): Responsable
     {
-        $activity = ActivityReporter::make();
-        $participation = ParticipationReporter::make();
+        $activityReporter = ActivityReporter::make();
+        $participationReporter = ParticipationReporter::make();
 
         return GameOverviewResponse::sendWith([
-            'activity' => $activity,
-            'participation' => $participation,
+            'activity' => $activityReporter,
+            'participation' => $participationReporter,
             'postingStats' => $this->getPostingStats(),
             'settings' => settings('posting_activity'),
         ]);

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -53,7 +55,7 @@ class ConfigureDatabase extends Component
 
     public ?DatabaseConfigStatus $status = null;
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'driver' => ['required'],
@@ -62,7 +64,7 @@ class ConfigureDatabase extends Component
             'database' => ['required'],
             'username' => ['required'],
             'password' => ['nullable'],
-            'prefix' => [Rule::requiredIf(fn () => $this->isMigrating && $this->useSameDatabase)],
+            'prefix' => [Rule::requiredIf(fn (): bool => $this->isMigrating && $this->useSameDatabase)],
             'socket' => ['nullable'],
         ];
     }
@@ -150,7 +152,7 @@ class ConfigureDatabase extends Component
         };
     }
 
-    public function mount()
+    public function mount(): void
     {
         try {
             $this->verifyDatabaseConnection();
@@ -161,7 +163,7 @@ class ConfigureDatabase extends Component
         }
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         $view = ($this->isMigrating)
             ? 'setup.configure-database.nova2-migrate'
@@ -215,7 +217,7 @@ class ConfigureDatabase extends Component
             DB::reconnect($connection)->getPdo();
 
             return true;
-        } catch (Throwable $th) {
+        } catch (Throwable) {
             return false;
         }
     }
@@ -227,7 +229,7 @@ class ConfigureDatabase extends Component
 
             DB::reconnect($connection)->getPdo();
         } catch (Throwable $th) {
-            if ($this->status !== null) {
+            if ($this->status instanceof DatabaseConfigStatus) {
                 $this->status = DatabaseConfigStatus::FailedToVerify;
             }
 

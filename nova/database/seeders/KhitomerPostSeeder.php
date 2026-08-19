@@ -10,7 +10,7 @@ use Nova\Stories\Models\Story;
 
 class KhitomerPostSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         activity()->disableLogging();
 
@@ -25,7 +25,7 @@ class KhitomerPostSeeder extends Seeder
             ->completed()
             ->whereNotNull('parent_id')
             ->get()
-            ->each(function (Story $story) {
+            ->each(function (Story $story): void {
                 Post::factory()
                     ->count(mt_rand(500, 1_000))
                     ->published()

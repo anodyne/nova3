@@ -31,14 +31,14 @@ class ApplicationHistory extends InfolistComponent
                         'rank_id' => 'rank',
                     ])
                     ->attributeValues([
-                        'decision_date' => fn ($value) => filled($value) ? DateHelper::formatDate($value) : null,
+                        'decision_date' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
                         'rank_id' => fn ($value) => filled($value) ? RankItem::find($value)?->name?->name : null,
                     ])
                     ->eventDescriptions([
-                        'message-added' => fn (Activity $activity) => __('activity.applications.message-added', [
+                        'message-added' => fn (Activity $activity): string => __('activity.applications.message-added', [
                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                         ]),
-                        'reviewers-added' => fn (Activity $activity) => trans_choice(
+                        'reviewers-added' => fn (Activity $activity): string => trans_choice(
                             'activity.applications.reviewers-added',
                             count($activity->getExtraProperty('addedReviewers')),
                             [
@@ -49,7 +49,7 @@ class ApplicationHistory extends InfolistComponent
                                     ->join(', '),
                             ]
                         ),
-                        'reviewers-removed' => fn (Activity $activity) => trans_choice(
+                        'reviewers-removed' => fn (Activity $activity): string => trans_choice(
                             'activity.applications.reviewers-removed',
                             count($activity->getExtraProperty('removedReviewers')),
                             [
@@ -60,10 +60,10 @@ class ApplicationHistory extends InfolistComponent
                                     ->join(', '),
                             ]
                         ),
-                        'vote-accept' => fn (Activity $activity) => __('activity.applications.vote-accept', [
+                        'vote-accept' => fn (Activity $activity): string => __('activity.applications.vote-accept', [
                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                         ]),
-                        'vote-deny' => fn (Activity $activity) => __('activity.applications.vote-deny', [
+                        'vote-deny' => fn (Activity $activity): string => __('activity.applications.vote-deny', [
                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                         ]),
                     ])

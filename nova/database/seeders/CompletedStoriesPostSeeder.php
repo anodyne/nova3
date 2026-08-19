@@ -31,10 +31,10 @@ class CompletedStoriesPostSeeder extends Seeder
 
         $ts = Date::now()->subMonths(2)->setMicrosecond(0)->toDateTimeString();
 
-        DB::transaction(function () use ($storyIds, $ts) {
+        DB::transaction(function () use ($storyIds, $ts): void {
             $buffer = [];
 
-            $flush = function () use (&$buffer) {
+            $flush = function () use (&$buffer): void {
                 collect($buffer)->chunk(1000)->each(
                     fn ($chunk) => DB::table('posts')->insert($chunk->toArray())
                 );
@@ -53,7 +53,7 @@ class CompletedStoriesPostSeeder extends Seeder
                         'updated_at' => $ts,
                         'published_at' => $ts,
                     ])
-                    ->map(function ($post) use ($storyId, $ts) {
+                    ->map(function ($post) use ($storyId, $ts): array {
                         $attributes = $post->getAttributes();
                         $attributes['story_id'] = $storyId;
                         $attributes['created_at'] = $ts;

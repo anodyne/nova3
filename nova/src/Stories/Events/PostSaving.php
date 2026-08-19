@@ -13,10 +13,5 @@ class PostSaving
     use Dispatchable;
     use SerializesModels;
 
-    public Post $post;
-
-    public function __construct(Post $post)
-    {
-        $this->post = $post;
-    }
+    public function __construct(public Post $post) {}
 }

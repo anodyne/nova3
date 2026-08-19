@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\PublicSite\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Livewire\Attributes\Computed;
@@ -32,7 +34,7 @@ class PostsTimeline extends Component
             ->get();
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.public-site.livewire.posts-timeline', [
             'posts' => $this->posts,

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -60,13 +62,13 @@ class ManagePositions extends Component
     public function remove(Position $position): void
     {
         $this->assigned = $this->assigned->reject(
-            fn (Position $collectionPosition) => $collectionPosition->id === $position->id
+            fn (Position $collectionPosition): bool => $collectionPosition->id === $position->id
         );
 
         $this->dispatch('positions-updated', positions: $this->assigned->pluck('id')->all());
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('pages.characters.livewire.manage-positions', [
             'assignedPositions' => $this->assignedPositions,

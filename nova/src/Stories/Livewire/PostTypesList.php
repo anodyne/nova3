@@ -15,6 +15,8 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -135,14 +137,14 @@ class PostTypesList extends TableComponent
 
                     ActionGroup::make([
                         TimelineAction::make()
-                            ->modifyTimelineUsing(function (Timeline $timeline) {
+                            ->modifyTimelineUsing(function (Timeline $timeline): void {
                                 $timeline
                                     ->attributeLabels([
                                         'role_id' => 'role',
                                     ])
                                     ->attributeValues([
                                         'role_id' => fn ($value) => Role::find($value)?->display_name,
-                                        'visibility' => fn ($value) => match ($value) {
+                                        'visibility' => fn ($value): string => match ($value) {
                                             'out-of-character' => 'Out of Character',
                                             default => 'In Character',
                                         },
@@ -224,7 +226,7 @@ class PostTypesList extends TableComponent
                                     ->title($record->name.' post type was deleted')
                                     ->when(
                                         $newPostType,
-                                        fn (Notification $notification) => $notification->body('All posts have been re-assigned to the '.$newPostType->name.' post type.')
+                                        fn (Notification $notification): Notification => $notification->body('All posts have been re-assigned to the '.$newPostType->name.' post type.')
                                     );
                             }),
                         ForceDeleteAction::make()
@@ -255,7 +257,7 @@ class PostTypesList extends TableComponent
                                     ->title($record->name.' post type was force deleted')
                                     ->when(
                                         isset($newPostType),
-                                        fn (Notification $notification) => $notification->body('All posts have been re-assigned to the '.$newPostType->name.' post type.')
+                                        fn (Notification $notification): Notification => $notification->body('All posts have been re-assigned to the '.$newPostType->name.' post type.')
                                     );
                             }),
                     ])->divided(),
@@ -282,13 +284,11 @@ class PostTypesList extends TableComponent
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('post type was|post types were', count($records)).' restored')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
+                            ->when($ignoredRecords > 0, fn (Notification $notification): Notification => $notification->body(sprintf(
+                                '%d %s ignored due to being ineligible for this action.',
+                                $ignoredRecords,
+                                trans_choice('record was|records were', $ignoredRecords)
+                            )))
                             ->send();
                     }),
                 DeleteBulkAction::make()
@@ -311,13 +311,11 @@ class PostTypesList extends TableComponent
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('post type was|post types were', count($records)).' deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
+                            ->when($ignoredRecords > 0, fn (Notification $notification): Notification => $notification->body(sprintf(
+                                '%d %s ignored due to being ineligible for this action.',
+                                $ignoredRecords,
+                                trans_choice('record was|records were', $ignoredRecords)
+                            )))
                             ->send();
                     }),
                 ForceDeleteBulkAction::make()
@@ -340,13 +338,11 @@ class PostTypesList extends TableComponent
 
                         Notification::make()->success()
                             ->title(count($records).' '.trans_choice('character was|characters were', count($records)).' force deleted')
-                            ->when($ignoredRecords > 0, function (Notification $notification) use ($ignoredRecords) {
-                                return $notification->body(sprintf(
-                                    '%d %s ignored due to being ineligible for this action.',
-                                    $ignoredRecords,
-                                    trans_choice('record was|records were', $ignoredRecords)
-                                ));
-                            })
+                            ->when($ignoredRecords > 0, fn (Notification $notification): Notification => $notification->body(sprintf(
+                                '%d %s ignored due to being ineligible for this action.',
+                                $ignoredRecords,
+                                trans_choice('record was|records were', $ignoredRecords)
+                            )))
                             ->send();
                     }),
             ])
@@ -371,7 +367,7 @@ class PostTypesList extends TableComponent
                 TrashedFilter::make()->label('Deleted post types'),
             ])
             ->columnManagerWidth(Width::Small)
-            ->header(fn () => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
+            ->header(fn (): Factory|View|null => $this->isTableReordering() ? view('filament.tables.reordering-notice') : null)
             ->emptyStateIcon(Illustration::PenAndQuill)
             ->emptyStateHeading('No post types found')
             ->emptyStateDescription('Post types allow you to control the type of content users can create inside of stories.')

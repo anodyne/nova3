@@ -7,6 +7,7 @@ namespace Nova\Dashboards\Controllers;
 use Illuminate\Http\Request;
 use Nova\Dashboards\Responses\ErrorLogResponse;
 use Nova\Foundation\Controllers\Controller;
+use Nova\Foundation\Responses\Responsable;
 
 class ErrorLogController extends Controller
 {
@@ -17,7 +18,7 @@ class ErrorLogController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Responsable
     {
         abort_unless($request->user()->isAbleTo('system.error-logs'), 403);
 

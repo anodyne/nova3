@@ -26,7 +26,7 @@ class ActivateCharacterButton extends Component
             ->notify("{$this->character->name} was activated");
     }
 
-    public function render()
+    public function render(): string
     {
         return <<<'blade'
             <x-button type="button" wire:click="activate">Activate</x-button>

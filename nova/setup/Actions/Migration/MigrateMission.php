@@ -25,7 +25,7 @@ class MigrateMission
             upgradeKey: 'mission-group'
         );
 
-        DB::transaction(function () use ($model, $newParentStoryId) {
+        DB::transaction(function () use ($model, $newParentStoryId): void {
             $storyId = DB::table('stories')->insertGetId([
                 'title' => $model->mission_title,
                 'description' => $model->mission_desc,

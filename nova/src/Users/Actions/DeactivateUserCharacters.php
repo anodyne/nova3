@@ -15,7 +15,7 @@ class DeactivateUserCharacters
     public function handle(User $user): User
     {
         $user->activeCharacters->each(
-            fn ($character) => DeactivateCharacter::run($character)
+            fn ($character): mixed => DeactivateCharacter::run($character)
         );
 
         return $user->refresh();

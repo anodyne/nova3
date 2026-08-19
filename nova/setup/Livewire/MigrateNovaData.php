@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
 use Livewire\Attributes\Computed;
@@ -79,7 +81,7 @@ class MigrateNovaData extends Component
         $this->dispatch('startMigrationStep', step: $this->migrators[$this->currentStep]);
     }
 
-    public function render()
+    public function render(): Factory|View
     {
         return view('setup.migrate-nova.steps.index', [
             'hasErrors' => $this->hasErrors,
@@ -96,7 +98,7 @@ class MigrateNovaData extends Component
     #[Computed]
     public function hasErrors(): bool
     {
-        return ! empty($this->errors);
+        return $this->errors !== [];
     }
 
     #[On('finishMigration')]
