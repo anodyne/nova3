@@ -14,27 +14,20 @@ enum PostingTimeframe: string implements HasDescription, HasLabel
 {
     use HasSelectOptions;
 
+    case Monthly = 'monthly';
+    case Rolling = 'rolling';
     case Weekly = 'weekly';
 
-    case Monthly = 'monthly';
-
-    case Rolling = 'rolling';
-
-    public function getLabel(): ?string
-    {
-        return ucfirst($this->value);
-    }
-
-    public function getDescription(): ?string
+    public function endDate(): CarbonInterface
     {
         return match ($this) {
-            self::Monthly => 'A calendar month starting on the 1st and ending on the last day of the month',
-            self::Rolling => 'A rolling period encompassing the last specified number of days from today',
-            self::Weekly => 'A calendar week starting on Sunday and ending on Saturday',
+            self::Monthly => Date::now()->endOfMonth(),
+            self::Weekly => Date::now()->endOfWeek(),
+            self::Rolling => Date::now()->endOfDay(),
         };
     }
 
-    public function getActivityLabel(): ?string
+    public function getActivityLabel(): string
     {
         $days = settings('posting_activity.rollingDays');
 
@@ -44,18 +37,21 @@ enum PostingTimeframe: string implements HasDescription, HasLabel
         };
     }
 
-    public function getStatsLabel(): ?string
+    public function getDescription(): string
     {
-        $days = settings('posting_activity.rollingDays');
-
         return match ($this) {
-            self::Monthly => 'This Month',
-            self::Rolling => 'Last '.$days.' days',
-            self::Weekly => 'This Week',
+            self::Monthly => 'A calendar month starting on the 1st and ending on the last day of the month',
+            self::Rolling => 'A rolling period encompassing the last specified number of days from today',
+            self::Weekly => 'A calendar week starting on Sunday and ending on Saturday',
         };
     }
 
-    public function getStatsDescription(): ?string
+    public function getLabel(): string
+    {
+        return ucfirst($this->value);
+    }
+
+    public function getStatsDescription(): string
     {
         $days = settings('posting_activity.rollingDays');
 
@@ -66,12 +62,23 @@ enum PostingTimeframe: string implements HasDescription, HasLabel
         };
     }
 
-    public function startDate(): CarbonInterface
+    public function getStatsLabel(): string
+    {
+        $days = settings('posting_activity.rollingDays');
+
+        return match ($this) {
+            self::Monthly => 'This Month',
+            self::Rolling => 'Last '.$days.' days',
+            self::Weekly => 'This Week',
+        };
+    }
+
+    public function previousEndDate(): CarbonInterface
     {
         return match ($this) {
-            self::Monthly => Date::now()->startOfMonth(),
-            self::Weekly => Date::now()->startOfWeek(),
-            self::Rolling => Date::now()->subDays(settings('posting_activity.rollingDays'))->startOfDay(),
+            self::Monthly => Date::now()->subMonth()->endOfMonth(),
+            self::Weekly => Date::now()->subWeek()->endOfWeek(),
+            self::Rolling => Date::now()->subDays(settings('posting_activity.rollingDays'))->endOfDay(),
         };
     }
 
@@ -84,21 +91,12 @@ enum PostingTimeframe: string implements HasDescription, HasLabel
         };
     }
 
-    public function endDate(): CarbonInterface
+    public function startDate(): CarbonInterface
     {
         return match ($this) {
-            self::Monthly => Date::now()->endOfMonth(),
-            self::Weekly => Date::now()->endOfWeek(),
-            self::Rolling => Date::now()->endOfDay(),
-        };
-    }
-
-    public function previousEndDate(): CarbonInterface
-    {
-        return match ($this) {
-            self::Monthly => Date::now()->subMonth()->endOfMonth(),
-            self::Weekly => Date::now()->subWeek()->endOfWeek(),
-            self::Rolling => Date::now()->subDays(settings('posting_activity.rollingDays'))->endOfDay(),
+            self::Monthly => Date::now()->startOfMonth(),
+            self::Weekly => Date::now()->startOfWeek(),
+            self::Rolling => Date::now()->subDays(settings('posting_activity.rollingDays'))->startOfDay(),
         };
     }
 }

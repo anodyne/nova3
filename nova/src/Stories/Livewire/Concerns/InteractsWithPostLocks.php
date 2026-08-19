@@ -11,6 +11,12 @@ use Nova\Stories\Actions\UnlockPost;
 
 trait InteractsWithPostLocks
 {
+    #[Computed]
+    public function canBeEditedByCurrentUser(): bool
+    {
+        return ! $this->post->isLocked() || $this->post->lockIsOwnedBy(Auth::user());
+    }
+
     public function checkLock(): void
     {
         if ($this->shouldUsePostLock) {
@@ -22,12 +28,6 @@ trait InteractsWithPostLocks
                 $this->redirectRoute('admin.writing-overview');
             }
         }
-    }
-
-    #[Computed]
-    public function canBeEditedByCurrentUser(): bool
-    {
-        return ! $this->post->isLocked() || ($this->post->isLocked() && $this->post->lockIsOwnedBy(Auth::user()));
     }
 
     #[Computed]

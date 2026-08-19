@@ -13,14 +13,11 @@ enum PageVerb: string implements HasColor, HasLabel
     use HasSelectOptions;
 
     case Delete = 'delete';
-
     case Get = 'get';
-
     case Post = 'post';
-
     case Put = 'put';
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::Get => 'primary',
@@ -30,7 +27,7 @@ enum PageVerb: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return strtoupper($this->value);
     }

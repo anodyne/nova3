@@ -171,7 +171,7 @@ class CharactersList extends TableComponent
                             ->color('gray')
                             ->icon(Tabler::Progress)
                             ->visible(fn (Character $record): bool => Gate::allows('vote', $record->application))
-                            ->url(fn (Character $record): ?string => route('admin.applications.show', $record->application)),
+                            ->url(fn (Character $record): string => route('admin.applications.show', $record->application)),
                     ])->visible(fn (Character $record): bool => Gate::allows('vote', $record->application))->divided(),
 
                     ActionGroup::make([

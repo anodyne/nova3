@@ -161,8 +161,8 @@ class AddonsList extends TableComponent
                             ->modalIcon(null)
                             ->modalHeading(fn (Addon $record): string => $record->name.' add-on settings')
                             ->modalDescription(null)
-                            ->fillForm(fn (Addon $record): ?array => $record->settings?->settings ?? [])
-                            ->schema(fn (Addon $record): ?array => $record->getAddonClass()->settingsForm())
+                            ->fillForm(fn (Addon $record): array => $record->settings->settings ?? [])
+                            ->schema(fn (Addon $record): array => $record->getAddonClass()->settingsForm())
                             ->successNotificationTitle('Add-on settings have been updated')
                             ->action(function (Addon $record, array $data) {
                                 UpdateAddonSettings::run($record, new AddonSettings(settings: $data));

@@ -115,12 +115,9 @@ return new class extends Migration
 
         $now = Date::now();
 
-        $encodedSettings = [];
-        foreach ($settings as $column => $value) {
-            $encodedSettings[$column] = is_array($value)
-                ? json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR)
-                : $value;
-        }
+        $encodedSettings = array_map(function ($value) {
+            return json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+        }, $settings);
 
         $base = [
             'created_at' => $now,

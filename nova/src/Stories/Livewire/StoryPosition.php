@@ -39,7 +39,7 @@ class StoryPosition extends Component
             $previousNeighbor = $this->story->previousSibling();
 
             $this->neighbor = $previousNeighbor ?? $nextNeighbor;
-            $this->neighborId = $previousNeighbor?->id ?? $nextNeighbor?->id;
+            $this->neighborId = $previousNeighbor->id ?? $nextNeighbor?->id;
 
             $this->direction = filled($previousNeighbor) ? 'after' : 'before';
 

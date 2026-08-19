@@ -315,7 +315,7 @@ class AppServiceProvider extends ServiceProvider
                     'order_column' => 'sort order',
                 ])
                 ->attributeValues([
-                    'status' => fn (?BasicStatus $value) => strtolower($value?->value ?? ''),
+                    'status' => fn (?BasicStatus $value): string => strtolower($value->value ?? ''),
                 ], [
                     Addon::class,
                     Department::class,
@@ -330,7 +330,7 @@ class AppServiceProvider extends ServiceProvider
                     Theme::class,
                 ])
                 ->causerName(null, 'System')
-                ->itemDateTimeTimezone(fn () => Auth::user()?->preferences?->timezone ?? 'UTC')
+                ->itemDateTimeTimezone(fn (): string => Auth::user()->preferences->timezone ?? 'UTC')
                 ->itemIcons([
                     'created' => Tabler::Plus->value,
                     'duplicated' => Tabler::Copy->value,

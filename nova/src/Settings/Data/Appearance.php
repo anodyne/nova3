@@ -34,6 +34,15 @@ readonly class Appearance extends Bag
         public FontFamilies $adminFonts
     ) {}
 
+    public function getColorFromSemanticColor(string $semanticColor): string
+    {
+        $semanticColor = ucfirst($semanticColor);
+
+        $property = "colors{$semanticColor}";
+
+        return strtolower($this->{$property});
+    }
+
     public function getColors(): array
     {
         return [
@@ -46,22 +55,13 @@ readonly class Appearance extends Bag
         ];
     }
 
-    public function getColorFromSemanticColor(string $semanticColor): string
-    {
-        $semanticColor = ucfirst($semanticColor);
-
-        $property = "colors{$semanticColor}";
-
-        return strtolower($this->{$property});
-    }
-
     protected function processColor(string $color): array
     {
-        if (is_string($color) && str_starts_with($color, '#')) {
+        if (str_starts_with($color, '#')) {
             return Color::generateV3Palette($color);
         }
 
-        if (is_string($color) && str_starts_with($color, 'rgb')) {
+        if (str_starts_with($color, 'rgb')) {
             return Color::generateV3Palette($color);
         }
 

@@ -98,7 +98,7 @@ class UploadImage extends Component
     public function previewUrl(): ?string
     {
         if (filled($this->image)) {
-            return $this->image?->temporaryUrl();
+            return $this->image->temporaryUrl();
         }
 
         return $this->existingImage;
@@ -139,7 +139,7 @@ class UploadImage extends Component
         if (filled($this->image)) {
             // If there was existing media at mount time, we're replacing; otherwise, adding.
             $this->imageAction = $this->initialHasExisting ? ImageAction::Replace : ImageAction::Add;
-            $this->imageTempPath = $this->image?->getRealPath() ?: null;
+            $this->imageTempPath = $this->image->getRealPath() ?: null;
 
             $this->dispatch('mediaUploaded', action: $this->imageAction->value, path: $this->imageTempPath);
         } else {

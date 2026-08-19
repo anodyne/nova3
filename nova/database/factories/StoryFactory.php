@@ -84,7 +84,7 @@ class StoryFactory extends Factory
     public function withParent(?Story $parent = null): static
     {
         return $this->state([
-            'parent_id' => $parent?->id ?? Story::factory(),
+            'parent_id' => $parent->id ?? Story::factory(),
         ]);
     }
 

@@ -21,8 +21,9 @@ class ShowJoinFormController extends Controller
             'characterBioForm' => Form::key('characterBio')->first(),
             'userBioForm' => Form::key('userBio')->first(),
             'departments' => Department::query()
-                ->whereHas('positions', fn (PositionBuilder|HasMany $query): PositionBuilder|HasMany => $query->active()->available())
-                ->with(['positions' => fn (PositionBuilder|HasMany $query): PositionBuilder|HasMany => $query->active()->available()])
+                ->withWhereHas('positions', function (PositionBuilder|HasMany $query): void {
+                    $query->active()->available();
+                })
                 ->active()
                 ->ordered()
                 ->get(),

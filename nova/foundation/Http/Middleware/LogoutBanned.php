@@ -13,11 +13,9 @@ class LogoutBanned
     public function handle($request, Closure $next): Response
     {
         if ($request->user() && $request->user()->isBanned()) {
-            if ($request->user()) {
-                auth()->logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-            }
+            auth()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
             throw new BanhammerException(config('ban.messages.user'));
         }

@@ -47,16 +47,64 @@ class PostComposer extends Component
     use InteractsWithPostTypeChanges;
     use InteractsWithStories;
 
+    public ?CarbonInterface $lastUpdate = null;
+
     #[Locked]
     public Post $post;
-
-    public ?CarbonInterface $lastUpdate = null;
 
     public int $savedChildrenCount = 0;
 
     public bool $saveSilently = false;
 
     public ?string $validationErrors = null;
+
+    #[Computed]
+    public function canPublish(): bool
+    {
+        try {
+            $this->validate();
+
+            $this->validationErrors = null;
+
+            return true;
+        } catch (ValidationException $th) {
+            $fields = collect($th->errors())
+                ->keys()
+                ->flatMap(fn (string $key) => [str($key)->after('post.')->toString()])
+                ->join(', ', ' and ');
+
+            $message = __('messages.post-validation-errors', [
+                'type' => str($this->postType->name)->lower()->toString(),
+                'fields' => $fields,
+            ]);
+
+            $this->validationErrors = str($message)->inlineMarkdown()->toString();
+
+            return false;
+        }
+    }
+
+    #[On('save-post-completed')]
+    public function checkAllSaved(): void
+    {
+        $this->savedChildrenCount++;
+
+        $totalChildren = count($this->childrenComponents());
+
+        if ($this->savedChildrenCount === $totalChildren) {
+            if (! $this->saveSilently) {
+                $this->post->participatingUsers
+                    ->filter(fn (User $user): bool => $user->id !== Auth::id())
+                    ->each->notify(new PostSaved($this->post, Auth::user()));
+
+                Notification::make()->success()
+                    ->title('Post saved')
+                    ->send();
+            }
+
+            $this->savedChildrenCount = 0;
+        }
+    }
 
     public function delete(): void
     {
@@ -115,42 +163,10 @@ class PostComposer extends Component
         $this->lastUpdate = now();
     }
 
-    public function openForPublishing(): void
+    #[Computed]
+    public function isDirty(): bool
     {
-        $this->save(silently: true);
-
-        $this->dispatch(
-            'modal-open',
-            modal: 'posts-publish',
-            props: ['postId' => $this->post->id]
-        );
-    }
-
-    public function save(bool $silently = false): void
-    {
-        $this->saveSilently = $silently;
-
-        $this->savedChildrenCount = 0;
-
-        foreach ($this->childrenComponents() as $component) {
-            $this->dispatch('save-post')->to($component);
-        }
-
-        $this->lastUpdate = null;
-    }
-
-    public function saveAndFinish(bool $silently = false): void
-    {
-        $this->save($silently);
-
-        UnlockPost::run($this->post, Auth::user());
-
-        Notification::make()->success()
-            ->title('Post unlocked')
-            ->body('Your post has been saved and unlocked for editing by other authors.')
-            ->send();
-
-        $this->redirectRoute('admin.writing-overview');
+        return $this->lastUpdate !== null;
     }
 
     public function mount(?Post $post = null): void
@@ -169,6 +185,17 @@ class PostComposer extends Component
         $this->authorize('write', [$this->post, $this->postType]);
 
         $this->lockPost();
+    }
+
+    public function openForPublishing(): void
+    {
+        $this->save(silently: true);
+
+        $this->dispatch(
+            'modal-open',
+            modal: 'posts-publish',
+            props: ['postId' => $this->post->id]
+        );
     }
 
     public function render(): View
@@ -200,58 +227,31 @@ class PostComposer extends Component
             ->toArray();
     }
 
-    #[Computed]
-    public function canPublish(): bool
+    public function save(bool $silently = false): void
     {
-        try {
-            $this->validate();
+        $this->saveSilently = $silently;
 
-            $this->validationErrors = null;
+        $this->savedChildrenCount = 0;
 
-            return true;
-        } catch (ValidationException $th) {
-            $fields = collect($th->errors())
-                ->keys()
-                ->flatMap(fn (string $key) => [str($key)->after('post.')->toString()])
-                ->join(', ', ' and ');
-
-            $message = __('messages.post-validation-errors', [
-                'type' => str($this->postType->name)->lower()->toString(),
-                'fields' => $fields,
-            ]);
-
-            $this->validationErrors = str($message)->inlineMarkdown()->toString();
-
-            return false;
+        foreach ($this->childrenComponents() as $component) {
+            $this->dispatch('save-post')->to($component);
         }
+
+        $this->lastUpdate = null;
     }
 
-    #[Computed]
-    public function isDirty(): bool
+    public function saveAndFinish(bool $silently = false): void
     {
-        return $this->lastUpdate !== null;
-    }
+        $this->save($silently);
 
-    #[On('save-post-completed')]
-    public function checkAllSaved(): void
-    {
-        $this->savedChildrenCount++;
+        UnlockPost::run($this->post, Auth::user());
 
-        $totalChildren = count($this->childrenComponents());
+        Notification::make()->success()
+            ->title('Post unlocked')
+            ->body('Your post has been saved and unlocked for editing by other authors.')
+            ->send();
 
-        if ($this->savedChildrenCount === $totalChildren) {
-            if (! $this->saveSilently) {
-                $this->post->participatingUsers
-                    ->filter(fn (User $user): bool => $user->id !== Auth::id())
-                    ->each->notify(new PostSaved($this->post, Auth::user()));
-
-                Notification::make()->success()
-                    ->title('Post saved')
-                    ->send();
-            }
-
-            $this->savedChildrenCount = 0;
-        }
+        $this->redirectRoute('admin.writing-overview');
     }
 
     private function childrenComponents(): array
@@ -261,11 +261,11 @@ class PostComposer extends Component
             PostAuthors::class,
         ];
 
-        if ($this->post?->postType?->fields?->rating?->enabled) {
+        if ($this->post->postType?->fields?->rating?->enabled) {
             $components[] = PostRatings::class;
         }
 
-        if ($this->post?->postType?->fields?->summary?->enabled) {
+        if ($this->post->postType?->fields?->summary?->enabled) {
             $components[] = PostSummary::class;
         }
 

@@ -20,7 +20,7 @@ class FormSubmissionBuilder extends Builder
 {
     public function forForm(Form|int $form): self
     {
-        return $this->where('form_id', $form?->id ?? $form);
+        return $this->where('form_id', $form->id ?? $form);
     }
 
     public function onlySubmissionsForCurrentUser(): self

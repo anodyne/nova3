@@ -15,18 +15,19 @@ enum AvatarShape: string implements HasIcon, HasLabel
     use HasSelectOptions;
 
     case Circle = 'circle';
-
     case Square = 'square';
+    case Squircle = 'squircle';
 
-    public function getIcon(): string|BackedEnum|null
+    public function getIcon(): BackedEnum
     {
         return match ($this) {
             self::Circle => Tabler::Circle,
             self::Square => Tabler::Square,
+            self::Squircle => Tabler::SquareRounded,
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

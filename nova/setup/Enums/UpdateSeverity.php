@@ -10,21 +10,17 @@ use Filament\Support\Contracts\HasLabel;
 enum UpdateSeverity: string implements HasColor, HasLabel
 {
     case Major = 'major';
-
     case Minor = 'minor';
-
     case Patch = 'patch';
-
     case Security = 'security';
-
     case Critical = 'critical';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::Major => 'primary',

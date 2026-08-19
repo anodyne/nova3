@@ -13,7 +13,6 @@ enum FormType: string implements HasColor, HasLabel
     use HasSelectOptions;
 
     case Advanced = 'advanced';
-
     case Basic = 'basic';
 
     public function bgColor(): string
@@ -24,7 +23,7 @@ enum FormType: string implements HasColor, HasLabel
         };
     }
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::Advanced => 'primary',
@@ -32,7 +31,7 @@ enum FormType: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

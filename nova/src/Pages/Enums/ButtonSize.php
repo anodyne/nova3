@@ -9,18 +9,13 @@ use Filament\Support\Contracts\HasLabel;
 enum ButtonSize: string implements HasLabel
 {
     case Text = 'text';
-
     case ExtraSmall = 'xs';
-
     case Small = 'sm';
-
     case Medium = 'md';
-
     case Large = 'lg';
-
     case ExtraLarge = 'xl';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::Text => 'Text only',
@@ -32,7 +27,7 @@ enum ButtonSize: string implements HasLabel
         };
     }
 
-    public function getTailwindClasses(): ?string
+    public function getTailwindClasses(): string
     {
         return match ($this) {
             self::Text => 'px-0 py-0 text-sm/6 font-semibold',

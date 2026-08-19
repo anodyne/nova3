@@ -447,7 +447,7 @@ class Post extends Model implements Sortable
     public function timeline(): Attribute
     {
         return Attribute::make(
-            get: fn (): ?string => collect([$this->day, $this->time])->filter()->join(', ')
+            get: fn (): string => collect([$this->day, $this->time])->filter()->join(', ')
         );
     }
 

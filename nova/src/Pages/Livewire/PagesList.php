@@ -77,6 +77,7 @@ class PagesList extends TableComponent
                     ->color(fn (string $state): string => match ($state) {
                         'Basic' => 'info',
                         'Advanced' => 'primary',
+                        default => 'gray',
                     })
                     ->toggleable(),
                 TextColumn::make('layout')

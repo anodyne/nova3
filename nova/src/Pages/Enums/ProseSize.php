@@ -9,16 +9,12 @@ use Filament\Support\Contracts\HasLabel;
 enum ProseSize: string implements HasLabel
 {
     case Small = 'sm';
-
     case Base = 'base';
-
     case Large = 'lg';
-
     case ExtraLarge = 'xl';
-
     case TwoExtraLarge = '2xl';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::Small => 'Small',
@@ -29,7 +25,7 @@ enum ProseSize: string implements HasLabel
         };
     }
 
-    public function getTailwindClasses(): ?string
+    public function getTailwindClasses(): string
     {
         return match ($this) {
             self::Small => 'prose-sm',

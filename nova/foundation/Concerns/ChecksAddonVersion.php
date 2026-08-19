@@ -20,7 +20,7 @@ trait ChecksAddonVersion
     public function hasUpdate(): Attribute
     {
         return Attribute::make(
-            get: fn (): bool => version_compare($this->version, $this->latest_version ?? '0.0', '<') ?? false
+            get: fn (): bool => version_compare($this->version, $this->latest_version ?? '0.0', '<')
         );
     }
 

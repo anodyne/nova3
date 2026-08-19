@@ -13,10 +13,9 @@ enum LinkType: string implements HasColor, HasLabel
     use HasSelectOptions;
 
     case Page = 'page';
-
     case Url = 'url';
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::Page => 'primary',
@@ -24,7 +23,7 @@ enum LinkType: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::Url => 'URL',

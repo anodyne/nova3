@@ -9,26 +9,17 @@ use Filament\Support\Contracts\HasLabel;
 enum Radius: string implements HasLabel
 {
     case None = 'none';
-
     case ExtraSmall = 'xs';
-
     case Small = 'sm';
-
     case Medium = 'md';
-
     case Large = 'lg';
-
     case ExtraLarge = 'xl';
-
     case TwoExtraLarge = '2xl';
-
     case ThreeExtraLarge = '3xl';
-
     case FourExtraLarge = '4xl';
-
     case Full = 'full';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::None => 'None',
@@ -44,23 +35,7 @@ enum Radius: string implements HasLabel
         };
     }
 
-    public function getTailwindClasses(): ?string
-    {
-        return match ($this) {
-            self::None => 'rounded-none',
-            self::ExtraSmall => 'rounded-xs',
-            self::Small => 'rounded-sm',
-            self::Medium => 'rounded-md',
-            self::Large => 'rounded-lg',
-            self::ExtraLarge => 'rounded-xl',
-            self::TwoExtraLarge => 'rounded-2xl',
-            self::ThreeExtraLarge => 'rounded-3xl',
-            self::FourExtraLarge => 'rounded-4xl',
-            self::Full => 'rounded-full',
-        };
-    }
-
-    public function getRawValue(): ?string
+    public function getRawValue(): string
     {
         return match ($this) {
             self::None => '0',
@@ -73,6 +48,22 @@ enum Radius: string implements HasLabel
             self::ThreeExtraLarge => '1.5rem',
             self::FourExtraLarge => '2rem',
             self::Full => '9999px',
+        };
+    }
+
+    public function getTailwindClasses(): string
+    {
+        return match ($this) {
+            self::None => 'rounded-none',
+            self::ExtraSmall => 'rounded-xs',
+            self::Small => 'rounded-sm',
+            self::Medium => 'rounded-md',
+            self::Large => 'rounded-lg',
+            self::ExtraLarge => 'rounded-xl',
+            self::TwoExtraLarge => 'rounded-2xl',
+            self::ThreeExtraLarge => 'rounded-3xl',
+            self::FourExtraLarge => 'rounded-4xl',
+            self::Full => 'rounded-full',
         };
     }
 }

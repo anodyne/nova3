@@ -23,7 +23,7 @@ class DateTimeCast implements CastsAttributes
         }
 
         return CarbonImmutable::parse($value)
-            ->setTimezone(Auth::user()?->preferences?->timezone ?? 'UTC');
+            ->setTimezone(Auth::user()->preferences->timezone ?? 'UTC');
     }
 
     /**
@@ -38,7 +38,7 @@ class DateTimeCast implements CastsAttributes
         }
 
         return CarbonImmutable::parse($value)
-            ->shiftTimezone(Auth::user()?->preferences?->timezone ?? 'UTC')
+            ->shiftTimezone(Auth::user()->preferences->timezone ?? 'UTC')
             ->setTimezone('UTC');
     }
 }

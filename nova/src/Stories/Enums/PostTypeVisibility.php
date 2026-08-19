@@ -12,10 +12,9 @@ enum PostTypeVisibility: string implements HasLabel
     use HasSelectOptions;
 
     case InCharacter = 'in-character';
-
     case OutOfCharacter = 'out-of-character';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::InCharacter => 'In character',
@@ -23,7 +22,7 @@ enum PostTypeVisibility: string implements HasLabel
         };
     }
 
-    public function htmlId(): ?string
+    public function htmlId(): string
     {
         return match ($this) {
             self::InCharacter => 'in_character',

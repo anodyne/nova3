@@ -26,7 +26,7 @@ trait SetSEOValues
 
     protected function setSEOTitle(): void
     {
-        $title = data_get($this->seoData, 'title', $this->page?->seo_title ?? $this->page?->name);
+        $title = data_get($this->seoData, 'title', $this->page->seo_title ?? $this->page?->name);
 
         SEOTools::setTitle($title);
     }

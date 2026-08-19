@@ -12,10 +12,9 @@ enum PostingTarget: string implements HasLabel
     use HasSelectOptions;
 
     case Posts = 'posts';
-
     case Words = 'words';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

@@ -73,7 +73,7 @@ trait InteractsWithPostTypeChanges
          * our old post type did allow multiple authors, so we need to make
          * some changes to our post.
          */
-        if ($oldPostType->options->allowsMultipleAuthors && ! $newPostType->options->allowsMultipleAuthors) {
+        if ($oldPostType->options->allowsMultipleAuthors) {
             // It doesn't matter, because we only have 1 author on the post.
             if ($this->post->characterAuthors->count() + $this->post->userAuthors->count() === 1) {
                 return;

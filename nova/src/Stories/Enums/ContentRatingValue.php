@@ -9,23 +9,18 @@ use Filament\Support\Contracts\HasLabel;
 enum ContentRatingValue: string implements HasLabel
 {
     case Game = 'game';
-
+    case Level0 = '0';
+    case Level1 = '1';
+    case Level2 = '2';
+    case Level3 = '3';
     case None = 'none';
 
-    case Level0 = '0';
-
-    case Level1 = '1';
-
-    case Level2 = '2';
-
-    case Level3 = '3';
-
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return $this->value;
     }
 
-    public function getLabelForThreshold(): ?string
+    public function getLabelForThreshold(): string
     {
         return match ($this) {
             self::Game => 'Follow game',

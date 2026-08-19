@@ -9,9 +9,7 @@ use Filament\Support\Contracts\HasLabel;
 enum NotificationAudience: string implements HasLabel
 {
     case Admin = 'admin';
-
     case Group = 'group';
-
     case Personal = 'personal';
 
     public function bgColor(): string
@@ -40,17 +38,16 @@ enum NotificationAudience: string implements HasLabel
         };
     }
 
-    public function description(): ?string
+    public function description(): string
     {
         return match ($this) {
             self::Admin => 'Admin notifications are automated messages sent to various game admins. These cannot be configured individually.',
             self::Group => 'Group notifications are messages sent out to all active members of the game.',
             self::Personal => 'Personal notifications are messages sent out to individual players.',
-            default => null,
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

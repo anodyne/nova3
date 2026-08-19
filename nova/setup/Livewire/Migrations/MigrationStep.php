@@ -112,8 +112,8 @@ abstract class MigrationStep extends Component
     {
         return match (true) {
             $this->isFinished && $this->wasSuccessfullyMigrated => 'success',
-            $this->isFinished && ! $this->wasSuccessfullyMigrated && filled($this->batchId) => 'warning',
-            $this->isFinished && ! $this->wasSuccessfullyMigrated => 'danger',
+            $this->isFinished && filled($this->batchId) => 'warning',
+            $this->isFinished => 'danger',
             default => 'gray',
         };
     }

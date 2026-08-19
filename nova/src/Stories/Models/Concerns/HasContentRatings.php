@@ -18,10 +18,10 @@ trait HasContentRatings
             return $globalThreshold->value;
         }
 
-        /** @var User */
+        /** @var User $user */
         $user = Auth::user();
 
-        $preferences = $user?->preferences;
+        $preferences = $user->preferences;
 
         if (! $preferences?->hasContentRatingPreferences()) {
             return $globalThreshold->value;
@@ -29,7 +29,7 @@ trait HasContentRatings
 
         $property = "{$category}ContentRatingWarningThreshold";
 
-        return $preferences?->{$property}->value;
+        return $preferences->{$property}->value;
     }
 
     public function showContentWarningForAdminSite(): Attribute

@@ -10,9 +10,7 @@ use Filament\Support\Contracts\HasLabel;
 enum CharacterType: string implements HasColor, HasLabel
 {
     case Primary = 'primary';
-
     case Secondary = 'secondary';
-
     case Support = 'support';
 
     public function getColor(): string
@@ -24,7 +22,7 @@ enum CharacterType: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

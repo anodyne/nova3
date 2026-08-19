@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Livewire;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use Livewire\Attributes\Locked;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
@@ -26,6 +28,8 @@ class ApplicationDecisionModal extends Modal
         $notification = match ($this->form->result) {
             ApplicationResult::Accept => Notification::make()->success()->title('Application accepted'),
             ApplicationResult::Deny => Notification::make()->success()->title('Application denied'),
+            ApplicationResult::Pending => Notification::make()->warning()->title('Something went wrong'),
+            default => null,
         };
 
         $notification
@@ -35,7 +39,7 @@ class ApplicationDecisionModal extends Modal
         $this->close();
     }
 
-    public function mount(Application $application)
+    public function mount(Application $application): void
     {
         $this->authorize('decide', $application);
 
@@ -44,7 +48,7 @@ class ApplicationDecisionModal extends Modal
         $this->form->setApplication($this->application);
     }
 
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|Factory|View
     {
         return view('pages.applications.livewire.decision-modal');
     }

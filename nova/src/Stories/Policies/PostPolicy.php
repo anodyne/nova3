@@ -17,16 +17,16 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user): Response
+    public function approve(User $user, Post $post): Response
     {
-        return $user->isAbleTo('post.*')
+        return $this->approveAny($user)->allowed() && $post->status->equals(Pending::class)
             ? $this->allow()
             : $this->deny();
     }
 
-    public function view(User $user, Post $post): Response
+    public function approveAny(User $user): Response
     {
-        return $user->isAbleTo('post.view')
+        return $user->isAbleTo('post.approve')
             ? $this->allow()
             : $this->deny();
     }
@@ -36,6 +36,40 @@ class PostPolicy
         return $user->isAbleTo('post.create')
             ? $this->allow()
             : $this->deny();
+    }
+
+    public function delete(User $user, Post $post): Response
+    {
+        return $user->isAbleTo('post.delete') && $post->is_published
+            ? $this->allow()
+            : $this->deny();
+    }
+
+    public function discard(User $user, Post $post): Response
+    {
+        return $this->canTakeActionOnDraftPost($user, $post, 'post.delete');
+    }
+
+    public function duplicate(User $user, Post $post): Response
+    {
+        return $user->isAbleTo('post.create') && $user->isAbleTo('post.update')
+            ? $this->allow()
+            : $this->deny();
+    }
+
+    public function forceDelete(User $user, Post $post): Response
+    {
+        return $this->denyWithStatus(418);
+    }
+
+    public function publish(User $user, Post $post): Response
+    {
+        return $this->canTakeActionOnDraftPost($user, $post, 'post.update');
+    }
+
+    public function restore(User $user, Post $post): Response
+    {
+        return $this->denyWithStatus(418);
     }
 
     public function unlock(User $user, Post $post): Response
@@ -73,33 +107,18 @@ class PostPolicy
         return $this->deny();
     }
 
-    public function delete(User $user, Post $post): Response
+    public function view(User $user, Post $post): Response
     {
-        return $user->isAbleTo('post.delete') && $post->is_published
+        return $user->isAbleTo('post.view')
             ? $this->allow()
             : $this->deny();
     }
 
-    public function discard(User $user, Post $post): Response
+    public function viewAny(User $user): Response
     {
-        return $this->canTakeActionOnDraftPost($user, $post, 'post.delete');
-    }
-
-    public function duplicate(User $user, Post $post): Response
-    {
-        return $user->isAbleTo('post.create') && $user->isAbleTo('post.update')
+        return $user->isAbleTo('post.*')
             ? $this->allow()
             : $this->deny();
-    }
-
-    public function restore(User $user, Post $post): Response
-    {
-        return $this->denyWithStatus(418);
-    }
-
-    public function forceDelete(User $user, Post $post): Response
-    {
-        return $this->denyWithStatus(418);
     }
 
     public function write(User $user, Post $post, ?PostType $postType): Response
@@ -111,25 +130,6 @@ class PostPolicy
         return $this->deny();
     }
 
-    public function publish(User $user, Post $post): Response
-    {
-        return $this->canTakeActionOnDraftPost($user, $post, 'post.update');
-    }
-
-    public function approve(User $user, Post $post): Response
-    {
-        return $this->approveAny($user)->allowed() && $post->status->equals(Pending::class)
-            ? $this->allow()
-            : $this->deny();
-    }
-
-    public function approveAny(User $user): Response
-    {
-        return $user->isAbleTo('post.approve')
-            ? $this->allow()
-            : $this->deny();
-    }
-
     private function canTakeActionOnDraftPost(User $user, Post $post, string $permission): Response
     {
         if (! $post->exists) {
@@ -137,8 +137,8 @@ class PostPolicy
         }
 
         if (
-            $post?->is_draft &&
-            ($post?->participatingUsers->contains('id', $user->id) || $user->isAbleTo($permission))
+            $post->is_draft &&
+            ($post->participatingUsers->contains('id', $user->id) || $user->isAbleTo($permission))
         ) {
             return $this->allow();
         }

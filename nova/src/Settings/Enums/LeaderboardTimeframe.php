@@ -12,22 +12,15 @@ use Nova\Stories\Models\Post;
 enum LeaderboardTimeframe: string implements HasLabel
 {
     case AllTime = 'all-time';
-
+    case Days14 = '14-days';
+    case Days30 = '30-days';
+    case Days7 = '7-days';
+    case LastMonth = 'last-month';
+    case LastYear = 'last-year';
+    case ThisMonth = 'this-month';
     case ThisYear = 'this-year';
 
-    case LastYear = 'last-year';
-
-    case ThisMonth = 'this-month';
-
-    case LastMonth = 'last-month';
-
-    case Days7 = '7-days';
-
-    case Days14 = '14-days';
-
-    case Days30 = '30-days';
-
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::AllTime => 'All-Time',
@@ -38,7 +31,6 @@ enum LeaderboardTimeframe: string implements HasLabel
             self::Days7 => 'Last 7 days',
             self::Days14 => 'Last 14 days',
             self::Days30 => 'Last 30 days',
-            default => null
         };
     }
 

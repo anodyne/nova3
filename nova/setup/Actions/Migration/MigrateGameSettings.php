@@ -36,6 +36,7 @@ class MigrateGameSettings
                         'email_subject' => $this->updateEmailSubject($setting->setting_value),
                         'default_email_name' => $this->updateDefaultEmailName($setting->setting_value),
                         'default_email_address' => $this->updateDefaultEmailAddress($setting->setting_value),
+                        default => null,
                     };
                 });
 
@@ -53,7 +54,7 @@ class MigrateGameSettings
     protected function updateContactFormEnabled(string $value): void
     {
         settings()->update([
-            'general->contactFormEnabled' => (bool) $value === 'y',
+            'general->contactFormEnabled' => $value === 'y',
         ]);
     }
 

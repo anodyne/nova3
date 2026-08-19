@@ -10,18 +10,13 @@ use Filament\Support\Contracts\HasLabel;
 enum ReleaseSeverity: string implements HasColor, HasLabel
 {
     case Major = 'major';
-
     case Minor = 'minor';
-
     case Patch = 'patch';
-
     case Critical = 'critical';
-
     case Security = 'security';
-
     case Dependency = 'dependency';
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::Critical => 'danger',
@@ -32,7 +27,7 @@ enum ReleaseSeverity: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

@@ -99,10 +99,12 @@ class PostSetup extends Component
                 'required',
                 'exists:post_types,id',
                 function ($attribute, $value, $fail) {
-                    /** @var User */
+                    /** @var User $user */
                     $user = Auth::user();
 
-                    if ($this->postType?->role && ! $user->hasRole($this->postType?->role?->name)) {
+                    $role = $this->postType?->role;
+
+                    if ($role !== null && ! $user->hasRole($role->name)) {
                         $fail('Please choose a :attribute that you are authorized to use.');
                     }
                 },

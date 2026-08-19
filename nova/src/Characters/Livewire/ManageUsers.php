@@ -49,9 +49,9 @@ class ManageUsers extends Component
 
     public function mount(): void
     {
-        $this->assigned = $this->character?->users ?? Collection::make();
+        $this->assigned = $this->character->users ?? Collection::make();
 
-        $this->primary = $this->character?->primaryUsers ?? Collection::make();
+        $this->primary = $this->character->primaryUsers ?? Collection::make();
     }
 
     public function render()

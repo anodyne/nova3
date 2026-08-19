@@ -43,7 +43,6 @@ class SetupAddonDirectory
                 AddonType::Extension => $this->createExtension(),
                 AddonType::Genre => $this->createGenre(),
                 AddonType::Rank => $this->createRankSet(),
-                default => null,
             };
         } catch (Throwable $th) {
             throw $th;
@@ -127,7 +126,6 @@ class SetupAddonDirectory
                 AddonType::Extension => 'extension.php.stub',
                 AddonType::Genre => 'genre.php.stub',
                 AddonType::Rank => 'rankset.php.stub',
-                default => 'addon.php.stub',
             },
             path: '/Addon.php'
         );

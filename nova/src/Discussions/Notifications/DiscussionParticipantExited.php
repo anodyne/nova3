@@ -24,7 +24,7 @@ class DiscussionParticipantExited extends PreferenceBasedNotification
         return [
             'discussion_id' => $this->discussion->id,
             'discussion_subject' => $this->discussion->subject,
-            'user_name' => $this->user?->name,
+            'user_name' => $this->user->name,
         ];
     }
 

@@ -21,7 +21,7 @@ trait HandlesBatching
     public function updateBatchProgress(): void
     {
         if ($this->isBatchable()) {
-            $this->batchProgress = (int) $this->batch?->progress() ?? 0;
+            $this->batchProgress = $this->batch->progress();
 
             if ($this->batchProgress >= 100) {
                 $this->isRunning = false;

@@ -23,8 +23,8 @@ class PendingCharacterApproved extends PreferenceBasedNotification
             'character_id' => $this->character->id,
             'character_name' => $this->character->name,
             'position_count' => $this->character->positions->count(),
-            'position_names' => $this->character->positions?->pluck('name')?->join(',', ', and '),
-            'rank_name' => $this->character?->rank?->name->name,
+            'position_names' => $this->character->positions->pluck('name')->join(',', ', and '),
+            'rank_name' => $this->character->rank?->name->name,
         ];
     }
 

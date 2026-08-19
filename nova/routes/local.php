@@ -18,7 +18,6 @@ use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Models\SystemInfo;
 use Nova\Foundation\Nova;
-use Nova\Foundation\Values\LatestVersion;
 use Nova\Onboarding\Actions\StartOnboarding;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
@@ -31,8 +30,6 @@ Route::get('discussions', function () {
     $data = DiscussionData::from($discussion);
 
     dd($data);
-
-    dd('done');
 });
 
 Route::get('manifest-test', function () {
@@ -142,7 +139,7 @@ Route::get('telemetry', function () {
 
     $data = [
         'url' => url('/'),
-        'genre' => Addon::active()->genre()->first()?->location ?? 'blank',
+        'genre' => Addon::active()->genre()->first()->location ?? 'blank',
         'php_version' => phpversion(),
         'db_driver' => Nova::environment()->database->driver,
         'db_version' => Nova::environment()->database->version,
@@ -299,11 +296,6 @@ Route::get('version', function () {
         ->collect();
 
     dd($url, $githubVersion);
-
-    $versionAnodyne = LatestVersion::fromAnodyne($latestVersion);
-    $versionGithub = LatestVersion::fromGithub($githubVersion);
-
-    dd($latestVersion, $githubVersion, $versionAnodyne, $versionGithub);
 });
 
 Route::get('migrate', function () {

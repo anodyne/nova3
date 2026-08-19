@@ -26,7 +26,7 @@
                 "method_private",
                 "method_private_static"
             ],
-            "sort_algorithm": "alpha"
+            "sort_algorithm": "none"
         },
         "ordered_interfaces": {
             "direction": "ascend",

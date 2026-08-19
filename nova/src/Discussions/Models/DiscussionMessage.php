@@ -83,7 +83,7 @@ class DiscussionMessage extends Model
     {
         return $this->notifications()
             ->where('is_seen', false)
-            ->where('user_id', $user?->id ?? Auth::id())
+            ->where('user_id', $user->id ?? Auth::id())
             ->where('is_sender', false)
             ->count();
     }

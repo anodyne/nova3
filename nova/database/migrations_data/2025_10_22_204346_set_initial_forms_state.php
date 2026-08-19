@@ -144,12 +144,13 @@ return new class extends Migration
             $formFieldRows = [];
             foreach ($forms as $key => $form) {
                 $formId = $idsByKey[$key] ?? null;
-                if (! $formId || empty($form['published_fields']) || ! is_array($form['published_fields'])) {
+
+                if (! is_array($form['published_fields'])) {
                     continue;
                 }
 
                 foreach ($form['published_fields'] as $index => $field) {
-                    if (($field['type'] ?? null) === 'content') {
+                    if ($field['type'] === 'content') {
                         continue;
                     }
 

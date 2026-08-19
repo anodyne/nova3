@@ -15,29 +15,24 @@ use Nova\Onboarding\Onboarding\OnboardingChecklist;
 enum OnboardingProcess: string implements HasDescription, HasLabel
 {
     case FreshInstall = 'fresh-install';
-
     case NewUser = 'new-user';
-
     case NovaMigration = 'nova-migration';
 
-    public function getCallToActionDescription(): ?string
+    public function getCallToActionDescription(): string
     {
         return match ($this) {
             self::FreshInstall => 'Configure Nova for your game and players for the best experience',
             self::NewUser => 'Let’s make sure your account is setup and ready to use',
             self::NovaMigration => 'Configure Nova for your game and players for the best experience and verify that the migration worked as expected',
-            default => $this->getDescription(),
         };
     }
 
-    public function getCallToActionLabel(): ?string
+    public function getCallToActionLabel(): string
     {
-        return match ($this) {
-            default => 'Get started with Nova',
-        };
+        return 'Get started with Nova';
     }
 
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return match ($this) {
             self::FreshInstall => 'Configure Nova for your game and players for the best experience',
@@ -46,7 +41,7 @@ enum OnboardingProcess: string implements HasDescription, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::FreshInstall => 'Finalize Nova setup',
@@ -55,12 +50,11 @@ enum OnboardingProcess: string implements HasDescription, HasLabel
         };
     }
 
-    public function getNotificationTitle(): ?string
+    public function getNotificationTitle(): string
     {
         return match ($this) {
-            self::FreshInstall => 'Nova setup has been finalized',
+            self::FreshInstall, self::NovaMigration => 'Nova setup has been finalized',
             self::NewUser => 'Your account has been successfully setup',
-            self::NovaMigration => 'Nova setup has been finalized',
         };
     }
 

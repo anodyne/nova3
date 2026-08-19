@@ -85,10 +85,9 @@ class NovaUpdatePanel extends SlideOver
     {
         return match (true) {
             ! $this->needsFilesUpdate && ! $this->needsDatabaseUpdate => 'success',
-            ! $this->needsFilesUpdate && $this->needsDatabaseUpdate => 'info',
-            $this->needsFilesUpdate && $this->hasCriticalUpdate => 'danger',
-            $this->needsFilesUpdate && ! $this->hasCriticalUpdate => 'warning',
-            default => 'gray',
+            ! $this->needsFilesUpdate => 'info',
+            $this->hasCriticalUpdate => 'danger',
+            default => 'warning',
         };
     }
 

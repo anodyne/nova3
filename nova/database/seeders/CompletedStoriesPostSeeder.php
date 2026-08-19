@@ -35,12 +35,10 @@ class CompletedStoriesPostSeeder extends Seeder
             $buffer = [];
 
             $flush = function () use (&$buffer) {
-                if ($buffer) {
-                    collect($buffer)->chunk(1000)->each(
-                        fn ($chunk) => DB::table('posts')->insert($chunk->toArray())
-                    );
-                    $buffer = [];
-                }
+                collect($buffer)->chunk(1000)->each(
+                    fn ($chunk) => DB::table('posts')->insert($chunk->toArray())
+                );
+                $buffer = [];
             };
 
             foreach ($storyIds as $storyId) {

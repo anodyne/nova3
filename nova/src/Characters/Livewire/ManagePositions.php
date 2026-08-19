@@ -37,18 +37,18 @@ class ManagePositions extends Component
     #[Computed]
     public function models(): Collection
     {
-        /** @var User */
+        /** @var User $user */
         $user = Auth::user();
 
         return Position::query()
             ->select(['id', 'department_id', 'available', 'name', 'status'])
-            ->unless($user?->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
+            ->unless($user->can('create', Character::class), fn (Builder $query) => $query->where('available', '>', 0))
             ->get();
     }
 
     public function mount(): void
     {
-        $this->assigned = $this->character?->positions ?? Collection::make();
+        $this->assigned = $this->character->positions ?? Collection::make();
     }
 
     #[Computed]

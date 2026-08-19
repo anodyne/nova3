@@ -18,7 +18,7 @@ class LockPost
             return;
         }
 
-        if (! $post->isLocked() || ($post->isLocked() && $post->lockIsOwnedBy($user))) {
+        if (! $post->isLocked() || $post->lockIsOwnedBy($user)) {
             $post->lock($user);
         }
     }

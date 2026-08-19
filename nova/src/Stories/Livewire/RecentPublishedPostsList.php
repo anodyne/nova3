@@ -39,7 +39,7 @@ class RecentPublishedPostsList extends TableComponent
                     ->where('published_at', '>=', now()->subMonth())
             )
             ->defaultSort('published_at', 'desc')
-            ->recordUrl(fn (Post $record): ?string => route('admin.posts.show', ['story' => $record->story_id, 'post' => $record->id]))
+            ->recordUrl(fn (Post $record): string => route('admin.posts.show', ['story' => $record->story_id, 'post' => $record->id]))
             ->columns([
                 Stack::make([
                     Split::make([

@@ -47,7 +47,7 @@ class UploadAvatar extends UploadImage
 
         return $this->croppedPath
             ? Storage::disk('public')->path($this->croppedPath)
-            : $this->image?->getRealPath();
+            : $this->image->getRealPath();
     }
 
     #[Computed]

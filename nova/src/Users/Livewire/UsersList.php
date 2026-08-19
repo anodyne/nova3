@@ -126,7 +126,7 @@ class UsersList extends TableComponent
                             ->label('View application')
                             ->color('gray')
                             ->icon(Tabler::Progress)
-                            ->url(fn (User $record): ?string => route('admin.applications.show', $record->application)),
+                            ->url(fn (User $record): string => route('admin.applications.show', $record->application)),
                     ])->visible(fn (User $record): bool => filled($record->application))->divided(),
 
                     ActionGroup::make([
@@ -168,7 +168,7 @@ class UsersList extends TableComponent
                                     })
                                     ->attributeValue(
                                         'pronouns',
-                                        fn (?PronounsData $value): ?string => (string) $value
+                                        fn (?PronounsData $value): string => (string) $value
                                     );
                             }),
                     ])->divided(),

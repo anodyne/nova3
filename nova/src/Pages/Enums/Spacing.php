@@ -9,30 +9,13 @@ use Filament\Support\Contracts\HasLabel;
 enum Spacing: string implements HasLabel
 {
     case None = 'none';
-
     case ExtraSmall = 'xs';
-
     case Small = 'sm';
-
     case Medium = 'md';
-
     case Large = 'lg';
-
     case ExtraLarge = 'xl';
 
-    public function getLabel(): ?string
-    {
-        return match ($this) {
-            self::ExtraSmall => 'Extra small',
-            self::Small => 'Small',
-            self::Medium => 'Medium',
-            self::Large => 'Large',
-            self::ExtraLarge => 'Extra large',
-            self::None => 'None',
-        };
-    }
-
-    public function getHorizontalTailwindClasses(): ?string
+    public function getHorizontalTailwindClasses(): string
     {
         return match ($this) {
             self::ExtraSmall => 'px-2',
@@ -44,7 +27,19 @@ enum Spacing: string implements HasLabel
         };
     }
 
-    public function getVerticalTailwindClasses(): ?string
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::ExtraSmall => 'Extra small',
+            self::Small => 'Small',
+            self::Medium => 'Medium',
+            self::Large => 'Large',
+            self::ExtraLarge => 'Extra large',
+            self::None => 'None',
+        };
+    }
+
+    public function getVerticalTailwindClasses(): string
     {
         return match ($this) {
             self::ExtraSmall => 'py-2',

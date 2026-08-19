@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Stories\Enums;
 
 use Filament\Support\Contracts\HasLabel;
-use Illuminate\Contracts\Support\Htmlable;
 
 enum PostSorting: string implements HasLabel
 {
@@ -14,7 +13,7 @@ enum PostSorting: string implements HasLabel
     case TimelineAscending = 'timeline_ascending';
     case TimelineDescending = 'timeline_descending';
 
-    public function getLabel(): string|Htmlable|null
+    public function getLabel(): string
     {
         return match ($this) {
             self::PublishedAscending => 'Publish date ascending',

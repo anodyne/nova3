@@ -38,6 +38,6 @@ class TimeHelper
 
     public static function getUserTimezone(): string
     {
-        return Auth::user()?->preferences?->timezone ?? 'UTC';
+        return Auth::user()->preferences->timezone ?? 'UTC';
     }
 }

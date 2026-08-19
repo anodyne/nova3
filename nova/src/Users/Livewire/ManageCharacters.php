@@ -19,52 +19,14 @@ use Nova\Users\Models\User;
  */
 class ManageCharacters extends Component
 {
-    #[Locked]
-    public ?User $user = null;
-
     public Collection $assigned;
 
     public ?Character $primary = null;
 
     public ?string $selected = null;
 
-    public function remove(Character $character): void
-    {
-        $this->assigned = $this->assigned->reject(
-            fn (Character $collectionCharacter) => $collectionCharacter->id === $character->id
-        );
-
-        $this->dispatch('characters-updated', characters: $this->assigned->pluck('id')->all());
-    }
-
-    public function setAsPrimaryCharacter(Character $character): void
-    {
-        $this->primary = $character;
-    }
-
-    public function updatedSelected(Character $value): void
-    {
-        $this->assigned->push($value);
-
-        $this->selected = null;
-    }
-
-    public function mount(): void
-    {
-        $this->assigned = $this->user?->characters ?? Collection::make();
-
-        $this->primary = $this->user?->primaryCharacter->first();
-    }
-
-    public function render()
-    {
-        return view('pages.users.livewire.manage-characters', [
-            'assignedCharacters' => $this->assignedCharacters,
-            'models' => $this->models,
-            'primaryCharacter' => $this->primaryCharacter,
-            'characters' => $this->characters,
-        ]);
-    }
+    #[Locked]
+    public ?User $user = null;
 
     #[Computed]
     public function assignedCharacters(): string
@@ -86,9 +48,47 @@ class ManageCharacters extends Component
         return Character::get();
     }
 
+    public function mount(): void
+    {
+        $this->assigned = $this->user->characters ?? Collection::make();
+
+        $this->primary = $this->user?->primaryCharacter->first();
+    }
+
     #[Computed]
     public function primaryCharacter(): string
     {
         return (string) $this->primary?->id;
+    }
+
+    public function remove(Character $character): void
+    {
+        $this->assigned = $this->assigned->reject(
+            fn (Character $collectionCharacter) => $collectionCharacter->id === $character->id
+        );
+
+        $this->dispatch('characters-updated', characters: $this->assigned->pluck('id')->all());
+    }
+
+    public function render()
+    {
+        return view('pages.users.livewire.manage-characters', [
+            'assignedCharacters' => $this->assignedCharacters,
+            'models' => $this->models,
+            'primaryCharacter' => $this->primaryCharacter,
+            'characters' => $this->characters,
+        ]);
+    }
+
+    public function setAsPrimaryCharacter(Character $character): void
+    {
+        $this->primary = $character;
+    }
+
+    public function updatedSelected(Character $value): void
+    {
+        $this->assigned->push($value);
+
+        $this->selected = null;
     }
 }

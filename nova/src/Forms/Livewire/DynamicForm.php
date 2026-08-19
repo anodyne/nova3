@@ -97,10 +97,10 @@ class DynamicForm extends Component
             }
 
             if ($this->form->options?->emailResponses) {
-                if (filled($this->form->options?->emailRecipients)) {
+                if (filled($this->form->options->emailRecipients)) {
                     $emailValues = $this->transformValuesForEmail();
 
-                    Mail::to($this->form->options?->getEmailRecipients() ?? [])
+                    Mail::to($this->form->options->getEmailRecipients())
                         ->queue(new SendNewFormSubmission(
                             user: $this->owner,
                             values: $emailValues,
@@ -129,10 +129,10 @@ class DynamicForm extends Component
             }
 
             if ($this->form->options?->emailResponses) {
-                if (filled($this->form->options?->emailRecipients)) {
+                if (filled($this->form->options->emailRecipients)) {
                     $emailValues = $this->transformValuesForEmail();
 
-                    Mail::to($this->form->options?->getEmailRecipients() ?? [])
+                    Mail::to($this->form->options->getEmailRecipients())
                         ->queue(new SendUpdatedFormSubmission(
                             user: $this->owner,
                             values: $emailValues,

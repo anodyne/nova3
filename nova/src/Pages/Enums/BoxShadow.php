@@ -9,28 +9,18 @@ use Filament\Support\Contracts\HasLabel;
 enum BoxShadow: string implements HasLabel
 {
     case None = 'none';
-
     case TwoExtraSmall = '2xs';
-
     case ExtraSmall = 'xs';
-
     case Small = 'sm';
-
     case Medium = 'md';
-
     case Large = 'lg';
-
     case ExtraLarge = 'xl';
-
     case TwoExtraLarge = '2xl';
-
     case InsetNone = 'inset-none';
-
     case InsetExtraSmall = 'inset-xs';
-
     case InsetSmall = 'inset-sm';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::None => 'None',
@@ -47,7 +37,7 @@ enum BoxShadow: string implements HasLabel
         };
     }
 
-    public function getTailwindClasses(): ?string
+    public function getTailwindClasses(): string
     {
         return match ($this) {
             self::None => 'shadow-none',

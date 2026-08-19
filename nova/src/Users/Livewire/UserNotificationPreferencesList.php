@@ -24,7 +24,7 @@ class UserNotificationPreferencesList extends TableComponent
             ->groups([
                 Group::make('notificationType.audience')
                     ->label('Audience')
-                    ->getDescriptionFromRecordUsing(fn (UserNotificationPreference $record): ?string => $record->notificationType->audience->description()),
+                    ->getDescriptionFromRecordUsing(fn (UserNotificationPreference $record): string => $record->notificationType->audience->description()),
             ])
             ->defaultGroup('notificationType.audience')
             ->defaultPaginationPageOption(25)

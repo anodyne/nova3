@@ -31,7 +31,7 @@ class NotificationTypesList extends TableComponent
             ->query(NotificationType::query())
             ->groups([
                 Group::make('audience')
-                    ->getDescriptionFromRecordUsing(fn (NotificationType $record): ?string => $record->audience->description()),
+                    ->getDescriptionFromRecordUsing(fn (NotificationType $record): string => $record->audience->description()),
             ])
             ->defaultGroup('audience')
             ->defaultPaginationPageOption(25)

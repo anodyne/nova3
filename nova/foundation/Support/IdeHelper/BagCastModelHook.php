@@ -35,7 +35,7 @@ class BagCastModelHook implements ModelHookInterface
             $command->setProperty(
                 name: $attribute,
                 type: '\\'.ltrim($castClass, '\\'),
-                nullable: is_array($column) && ($column['nullable'] ?? false),
+                nullable: $column['nullable'] ?? false
             );
         }
     }

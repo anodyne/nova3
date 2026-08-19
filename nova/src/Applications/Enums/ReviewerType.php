@@ -10,7 +10,6 @@ use Filament\Support\Contracts\HasLabel;
 enum ReviewerType: string implements HasColor, HasLabel
 {
     case Global = 'global';
-
     case Conditional = 'conditional';
 
     public function bgColor(): string
@@ -29,7 +28,7 @@ enum ReviewerType: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

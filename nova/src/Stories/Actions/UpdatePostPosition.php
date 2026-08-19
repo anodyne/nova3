@@ -17,7 +17,7 @@ class UpdatePostPosition
         if ($data->hasPositionChange) {
             $method = $data->moveMethodName();
 
-            if ($data->direction && $data->neighbor) {
+            if ($data->neighbor) {
                 $post->$method($data->neighbor);
             } else {
                 $post->$method();

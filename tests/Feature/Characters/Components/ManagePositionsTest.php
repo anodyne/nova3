@@ -12,6 +12,8 @@ use function Pest\Livewire\livewire;
 uses()->group('characters');
 uses()->group('components');
 
+beforeEach(fn () => signIn(permissions: 'character.create'));
+
 it('can mount without a character', function () {
     livewire(ManagePositions::class)
         ->assertOk()

@@ -44,7 +44,7 @@ class ManageUsers extends Component
 
     public function mount(): void
     {
-        $this->assigned = $this->role?->user ?? Collection::make();
+        $this->assigned = $this->role->user ?? Collection::make();
     }
 
     public function remove(User $user): void

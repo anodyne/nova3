@@ -49,7 +49,7 @@ class DraftPostsList extends TableComponent
                     )
             )
             ->defaultSort('updated_at', 'desc')
-            ->recordUrl(fn (Post $record): ?string => route('admin.posts.edit', $record))
+            ->recordUrl(fn (Post $record): string => route('admin.posts.edit', $record))
             ->columns([
                 Split::make([
                     Stack::make([

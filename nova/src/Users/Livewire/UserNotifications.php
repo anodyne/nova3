@@ -79,7 +79,7 @@ class UserNotifications extends SlideOver
         $startYesterday = $now->copy()->subDay()->startOfDay();
         $startLast7 = $now->copy()->subDays(7)->startOfDay();
 
-        $grouped = collect($items->items() ?? $items)
+        $grouped = collect($items->items())
             ->groupBy(function (
                 DatabaseNotification $notification,
             ) use ($startToday, $startYesterday, $startLast7) {

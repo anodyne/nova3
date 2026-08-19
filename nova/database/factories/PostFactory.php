@@ -185,10 +185,10 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function withStory(?Story $story)
+    public function withStory(?Story $story): PostFactory|Factory
     {
         return $this->state([
-            'story_id' => $story?->id ?? Story::factory(),
+            'story_id' => $story->id ?? Story::factory(),
         ]);
     }
 

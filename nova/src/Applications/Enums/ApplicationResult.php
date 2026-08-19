@@ -10,9 +10,7 @@ use Filament\Support\Contracts\HasLabel;
 enum ApplicationResult: string implements HasColor, HasLabel
 {
     case Accept = 'accept';
-
     case Deny = 'deny';
-
     case Pending = 'pending';
 
     public function bgColor(): string
@@ -33,18 +31,17 @@ enum ApplicationResult: string implements HasColor, HasLabel
         };
     }
 
-    public function getShortLabel(): ?string
+    public function getShortLabel(): string
     {
         return ucfirst($this->value);
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::Accept => 'Accepted',
             self::Deny => 'Denied',
             self::Pending => 'Pending',
-            default => null
         };
     }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
@@ -37,46 +36,6 @@ class PostAuthorsEditor extends SlideOver
 
     public ?string $selected = null;
 
-    public function canSave(): bool
-    {
-        return count($this->characterAuthorsValidationErrors) === 0;
-    }
-
-    public function save(): void
-    {
-        if ($this->canSave()) {
-            $this->close(andDispatch: [
-                'update-post-authors' => [
-                    $this->characterAuthorsArr,
-                    $this->characterAuthorsPivotData,
-                    $this->userAuthorsArr,
-                    $this->userAuthorsPivotData,
-                ],
-            ]);
-        }
-    }
-
-    public function mount(array $characterAuthors, array $userAuthors): void
-    {
-        $this->setCharacterAuthors($characterAuthors);
-        $this->setUserAuthors($userAuthors);
-    }
-
-    public function render(): View
-    {
-        return view('pages.posts.livewire.post-authors-editor', [
-            'allUsers' => $this->allUsers,
-            'authorSearchPlaceholder' => $this->authorSearchPlaceholder,
-            'canAddAuthors' => $this->canAddAuthors,
-            'canSave' => $this->canSave(),
-            'filteredCharacters' => $this->filteredCharacters,
-            'filteredUsers' => $this->filteredUsers,
-            'characterAuthors' => $this->characterAuthors(),
-            'postType' => $this->postType,
-            'userAuthors' => $this->userAuthors(),
-        ]);
-    }
-
     #[Computed]
     public function allUsers(): Collection
     {
@@ -88,9 +47,13 @@ class PostAuthorsEditor extends SlideOver
     {
         $options = $this->postType?->options;
 
+        if ($options === null) {
+            return 'Find a character or user to add as an author';
+        }
+
         return match (true) {
-            $options?->allowsCharacterAuthors && ! $options?->allowsUserAuthors => 'Find a character to add as an author',
-            ! $options?->allowsCharacterAuthors && $options?->allowsUserAuthors => 'Find a user to add as an author',
+            $options->allowsCharacterAuthors && ! $options->allowsUserAuthors => 'Find a character to add as an author',
+            ! $options->allowsCharacterAuthors && $options->allowsUserAuthors => 'Find a user to add as an author',
             default => 'Find a character or user to add as an author',
         };
     }
@@ -107,6 +70,11 @@ class PostAuthorsEditor extends SlideOver
         }
 
         return true;
+    }
+
+    public function canSave(): bool
+    {
+        return count($this->characterAuthorsValidationErrors) === 0;
     }
 
     #[Computed]
@@ -134,6 +102,41 @@ class PostAuthorsEditor extends SlideOver
             ->whereNotIn('id', array_keys($this->userAuthorsPivotData))
             // ->when(filled($this->search), fn (Builder $query): Builder => $query->searchForWithoutCharacters($this->search))
             ->get();
+    }
+
+    public function mount(array $characterAuthors, array $userAuthors): void
+    {
+        $this->setCharacterAuthors($characterAuthors);
+        $this->setUserAuthors($userAuthors);
+    }
+
+    public function render(): View
+    {
+        return view('pages.posts.livewire.post-authors-editor', [
+            'allUsers' => $this->allUsers,
+            'authorSearchPlaceholder' => $this->authorSearchPlaceholder,
+            'canAddAuthors' => $this->canAddAuthors,
+            'canSave' => $this->canSave(),
+            'filteredCharacters' => $this->filteredCharacters,
+            'filteredUsers' => $this->filteredUsers,
+            'characterAuthors' => $this->characterAuthors(),
+            'postType' => $this->postType,
+            'userAuthors' => $this->userAuthors(),
+        ]);
+    }
+
+    public function save(): void
+    {
+        if ($this->canSave()) {
+            $this->close(andDispatch: [
+                'update-post-authors' => [
+                    $this->characterAuthorsArr,
+                    $this->characterAuthorsPivotData,
+                    $this->userAuthorsArr,
+                    $this->userAuthorsPivotData,
+                ],
+            ]);
+        }
     }
 
     public static function size(): string

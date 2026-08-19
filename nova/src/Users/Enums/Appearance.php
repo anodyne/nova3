@@ -8,13 +8,11 @@ use Anodyne\TablerIcons\Tabler;
 use BackedEnum;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
-use Illuminate\Contracts\Support\Htmlable;
 
 enum Appearance: string implements HasIcon, HasLabel
 {
-    case Light = 'light';
-
     case Dark = 'dark';
+    case Light = 'light';
 
     public function getClasses(): ?string
     {
@@ -24,7 +22,7 @@ enum Appearance: string implements HasIcon, HasLabel
         };
     }
 
-    public function getIcon(): string|BackedEnum|null
+    public function getIcon(): BackedEnum
     {
         return match ($this) {
             self::Dark => Tabler::MoonStars,
@@ -32,7 +30,7 @@ enum Appearance: string implements HasIcon, HasLabel
         };
     }
 
-    public function getLabel(): string|Htmlable|null
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

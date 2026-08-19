@@ -22,10 +22,6 @@ class NotifyUsers
         /** @var User $currentUser */
         $currentUser = Auth::user();
 
-        if (! $currentUser) {
-            throw new \RuntimeException('User must be authenticated to notify about announcements');
-        }
-
         User::query()->active()->chunk(100, function ($users) use ($announcement, $currentUser) {
             DB::transaction(function () use ($users, $announcement, $currentUser) {
                 $notifications = [];

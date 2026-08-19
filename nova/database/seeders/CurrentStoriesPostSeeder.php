@@ -33,10 +33,8 @@ class CurrentStoriesPostSeeder extends Seeder
             $buffer = [];
 
             $flush = function () use (&$buffer) {
-                if ($buffer) {
-                    DB::table('posts')->insert($buffer);
-                    $buffer = [];
-                }
+                DB::table('posts')->insert($buffer);
+                $buffer = [];
             };
 
             foreach ($storyIds as $storyId) {

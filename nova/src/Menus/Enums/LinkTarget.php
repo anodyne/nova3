@@ -12,10 +12,9 @@ enum LinkTarget: string implements HasLabel
     use HasSelectOptions;
 
     case Self = '_self';
-
     case Blank = '_blank';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::Self => 'Same tab',

@@ -24,11 +24,6 @@ class BanController extends Controller
         $this->authorizeResource(Ban::class);
     }
 
-    public function index()
-    {
-        return ListBansResponse::send();
-    }
-
     public function create()
     {
         return CreateBanResponse::sendWith([
@@ -36,11 +31,16 @@ class BanController extends Controller
         ]);
     }
 
+    public function index()
+    {
+        return ListBansResponse::send();
+    }
+
     public function store(StoreBanRequest $request)
     {
         $ban = BanUserManager::run($request->getBanData());
 
-        $banString = $ban->bannable?->name ?? "the IP address {$ban->ip}";
+        $banString = $ban->bannable->name ?? "the IP address {$ban->ip}";
 
         return to_route('admin.bans.index')
             ->notify("A ban was created for {$banString}");

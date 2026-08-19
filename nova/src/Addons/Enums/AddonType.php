@@ -10,9 +10,7 @@ use Filament\Support\Contracts\HasLabel;
 enum AddonType: string implements HasColor, HasLabel
 {
     case Extension = 'extension';
-
     case Genre = 'genre';
-
     case Rank = 'rank';
 
     public function bgColor(): string

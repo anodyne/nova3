@@ -54,6 +54,6 @@ class PostAuthorBuilder extends Builder
 
     public function whereUser(int|User $user): self
     {
-        return $this->where('user_id', $user?->id);
+        return $this->where('user_id', $user->id ?? $user);
     }
 }

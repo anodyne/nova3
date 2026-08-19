@@ -9,22 +9,15 @@ use Filament\Support\Contracts\HasLabel;
 enum Blur: string implements HasLabel
 {
     case None = 'none';
-
     case ExtraSmall = 'xs';
-
     case Small = 'sm';
-
     case Medium = 'md';
-
     case Large = 'lg';
-
     case ExtraLarge = 'xl';
-
     case TwoExtraLarge = '2xl';
-
     case ThreeExtraLarge = '3xl';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::None => 'None',
@@ -38,7 +31,7 @@ enum Blur: string implements HasLabel
         };
     }
 
-    public function getTailwindClasses(): ?string
+    public function getTailwindClasses(): string
     {
         return match ($this) {
             self::None => 'backdrop-blur-none',

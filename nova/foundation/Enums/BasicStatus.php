@@ -10,9 +10,7 @@ use Filament\Support\Contracts\HasLabel;
 enum BasicStatus: string implements HasColor, HasLabel
 {
     case Active = 'active';
-
     case Inactive = 'inactive';
-
     case Pending = 'pending';
 
     public function bgColor(): string
@@ -24,7 +22,7 @@ enum BasicStatus: string implements HasColor, HasLabel
         };
     }
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::Active => 'success',
@@ -33,7 +31,7 @@ enum BasicStatus: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return ucfirst($this->value);
     }

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use BackedEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Nova\Foundation\Enums\ReleaseSeverity;
-use UnitEnum;
 
 class ChangelogSeeder extends Seeder
 {
@@ -205,11 +203,7 @@ class ChangelogSeeder extends Seeder
 
         $rows = array_map(function (array $values) use ($now) {
             $severity = $values['severity'];
-            if ($severity instanceof BackedEnum) {
-                $severity = $severity->value;
-            } elseif ($severity instanceof UnitEnum) {
-                $severity = $severity->name;
-            }
+            $severity = $severity->value;
 
             return [
                 'version' => $values['version'],

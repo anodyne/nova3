@@ -109,7 +109,7 @@ class FormsList extends TableComponent
                         Action::make('submissions')
                             ->icon(Tabler::Clipboard)
                             ->url(route('admin.form-submissions.index'))
-                            ->visible(fn (Form $record): bool => $record->options?->collectResponses ?? false),
+                            ->visible(fn (Form $record): bool => $record->options->collectResponses ?? false),
                     ])->divided(),
 
                     ActionGroup::make([

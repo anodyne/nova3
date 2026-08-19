@@ -61,8 +61,8 @@ class Telemetry
             'name' => settings('general.gameName'),
             'url' => url('/'),
             'version' => Nova::filesVersion(),
-            'genre' => Addon::active()->genre()->first()?->location ?? 'blank',
-            'install_date' => $this->systemInfo?->install_date?->format('Y-m-d h:i:s'),
+            'genre' => Addon::active()->genre()->first()->location ?? 'blank',
+            'install_date' => $this->systemInfo->install_date?->format('Y-m-d h:i:s'),
         ];
     }
 
@@ -75,7 +75,7 @@ class Telemetry
             'db_driver' => $environment->database->driver,
             'db_version' => $environment->database->version,
             'server_software' => $_SERVER['SERVER_SOFTWARE'] ?? 'Unknown',
-            'previous_version' => $this->systemInfo?->version,
+            'previous_version' => $this->systemInfo->version,
         ];
     }
 

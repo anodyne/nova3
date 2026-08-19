@@ -26,4 +26,6 @@ return RectorConfig::configure()
         naming: true,
         earlyReturn: true,
     )
-    ->withPhpSets();
+    ->withPhpSets()
+    ->withAttributesSets()
+    ->withImportNames();

@@ -20,40 +20,26 @@ trait RendersTheme
         }
     }
 
-    public function structure(array $data = []): array
-    {
-        return [
-            'view' => 'app-server',
-            'data' => $data,
-        ];
-
-        $this->structure = view('app-server', (array) $data);
-
-        return $this;
-    }
-
-    public function layout($view, array $data = [])
+    public function layout($view, array $data = []): static
     {
         $this->structure->layout = view("layouts.{$view}", (array) $data);
 
         return $this;
     }
 
-    public function template($view, array $data = [])
-    {
-        $this->structure->layout->template = view("templates.{$view}", (array) $data);
-
-        return $this;
-    }
-
-    public function page($view, array $data = [])
+    public function page($view, array $data = []): static
     {
         $this->structure->layout->template->content = view("pages.{$view}", (array) $data);
 
         return $this;
     }
 
-    public function scripts(array $scripts)
+    public function prepareData(): array
+    {
+        return [];
+    }
+
+    public function scripts(array $scripts): static
     {
         $output = [];
 
@@ -76,8 +62,18 @@ trait RendersTheme
         return $this;
     }
 
-    public function prepareData(): array
+    public function structure(array $data = []): array
     {
-        return [];
+        return [
+            'view' => 'app-server',
+            'data' => $data,
+        ];
+    }
+
+    public function template($view, array $data = []): static
+    {
+        $this->structure->layout->template = view("templates.{$view}", (array) $data);
+
+        return $this;
     }
 }

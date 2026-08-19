@@ -8,4 +8,4 @@ parameters:
         - phpstan/stubs/FilamentTextColumn.stub
     paths:
         - nova/
-    level: 3
+    level: 4

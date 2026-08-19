@@ -11,19 +11,20 @@ enum PostEditTimeframe: string implements HasLabel
 {
     use HasSelectOptions;
 
-    case Never = 'never';
-    case Min5 = '5m';
-    case Min15 = '15m';
-    case Min30 = '30m';
     case Hour1 = '1h';
+    case Hour12 = '12h';
     case Hour2 = '2h';
+    case Hour24 = '24h';
     case Hour4 = '4h';
     case Hour6 = '6h';
     case Hour8 = '8h';
-    case Hour12 = '12h';
-    case Hour24 = '24h';
+    case Min15 = '15m';
+    case Min30 = '30m';
+    case Min5 = '5m';
 
-    public function getLabel(): ?string
+    case Never = 'never';
+
+    public function getLabel(): string
     {
         return match ($this) {
             self::Min5 => '5 minutes',

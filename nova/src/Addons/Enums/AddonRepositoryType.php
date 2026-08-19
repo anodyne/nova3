@@ -10,7 +10,6 @@ use Filament\Support\Contracts\HasLabel;
 enum AddonRepositoryType: string implements HasColor, HasLabel
 {
     case Anodyne = 'anodyne';
-
     case Github = 'github';
 
     public function bgColor(): string
@@ -21,7 +20,7 @@ enum AddonRepositoryType: string implements HasColor, HasLabel
         };
     }
 
-    public function getColor(): string|array|null
+    public function getColor(): string
     {
         return match ($this) {
             self::Anodyne => 'primary',
@@ -29,7 +28,7 @@ enum AddonRepositoryType: string implements HasColor, HasLabel
         };
     }
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::Anodyne => 'Nova Add-on Exchange',

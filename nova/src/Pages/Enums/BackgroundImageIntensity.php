@@ -9,18 +9,13 @@ use Filament\Support\Contracts\HasLabel;
 enum BackgroundImageIntensity: string implements HasLabel
 {
     case None = 'none';
-
     case Intense = 'intense';
-
     case Vivid = 'vivid';
-
     case Neutral = 'neutral';
-
     case Muted = 'muted';
-
     case Subtle = 'subtle';
 
-    public function getLabel(): ?string
+    public function getLabel(): string
     {
         return match ($this) {
             self::None => 'No overlay',
@@ -28,7 +23,7 @@ enum BackgroundImageIntensity: string implements HasLabel
         };
     }
 
-    public function getTailwindClasses(): ?string
+    public function getTailwindClasses(): string
     {
         return match ($this) {
             self::None => 'bg-white/0 dark:bg-black/0',

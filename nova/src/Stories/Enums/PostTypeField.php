@@ -4,28 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Enums;
 
+use Closure;
 use Filament\Support\Contracts\HasLabel;
 
 enum PostTypeField: string implements HasLabel
 {
-    case Title = 'title';
-
-    case Location = 'location';
-
-    case Day = 'day';
-
-    case Time = 'time';
-
     case Content = 'content';
-
+    case Day = 'day';
+    case Location = 'location';
     case Rating = 'rating';
-
     case Summary = 'summary';
-
-    public function getLabel(): ?string
-    {
-        return ucfirst($this->value);
-    }
+    case Time = 'time';
+    case Title = 'title';
 
     public function canBeDisabled(): bool
     {
@@ -43,7 +33,12 @@ enum PostTypeField: string implements HasLabel
         };
     }
 
-    public function requiredValidationRule(): mixed
+    public function getLabel(): string
+    {
+        return ucfirst($this->value);
+    }
+
+    public function requiredValidationRule(): string|Closure
     {
         return match ($this) {
             self::Content, self::Summary => function ($attribute, $value, $fail) {
