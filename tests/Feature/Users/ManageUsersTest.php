@@ -225,13 +225,19 @@ describe('authorized user', function () {
         });
     });
 
-    test('can search users by name or email', function () {
+    test('can search users by name, email, or character name', function () {
         $token = str()->random(8);
+        $characterToken = str()->random(8);
 
         $user = User::factory()->create([
             'name' => "ManageUsers {$token}",
             'email' => "manage-users-{$token}@example.com",
         ]);
+        $characterUser = User::factory()->create();
+
+        Character::factory()
+            ->hasAttached($characterUser)
+            ->create(['name' => "Character {$characterToken}"]);
 
         livewire(UsersList::class)
             ->removeTableFilters()
@@ -242,7 +248,10 @@ describe('authorized user', function () {
             ->assertCanSeeTableRecords([$user])
             ->removeTableFilters()
             ->searchTable("manage-users-{$token}")
-            ->assertCanSeeTableRecords([$user]);
+            ->assertCanSeeTableRecords([$user])
+            ->removeTableFilters()
+            ->searchTable($characterToken)
+            ->assertCanSeeTableRecords([$characterUser]);
     });
 });
 

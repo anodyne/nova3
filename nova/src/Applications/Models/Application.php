@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Factories\ApplicationFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -17,60 +14,14 @@ use Nova\Applications\Events\ApplicationCreated;
 use Nova\Applications\Models\Builders\ApplicationBuilder;
 use Nova\Characters\Models\Character;
 use Nova\Discussions\Concerns\Discussable;
-use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
- * @property int $id
- * @property string|null $prefixed_id
- * @property int $user_id
- * @property int|null $character_id
- * @property string|null $ip_address
- * @property ApplicationResult $result
- * @property string|null $decision_message
- * @property CarbonImmutable|null $decision_date
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property-read ApplicationReview|null $pivot
- * @property-read Collection<int, User> $acceptedReviews
- * @property-read int|null $accepted_reviews_count
- * @property-read Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read FormSubmission|null $applicationFormSubmission
- * @property-read Character|null $character
- * @property-read Collection<int, User> $deniedReviews
- * @property-read int|null $denied_reviews_count
- * @property-read Discussion|null $discussion
- * @property-read Collection<int, User> $noResultReviews
- * @property-read int|null $no_result_reviews_count
- * @property-read Collection<int, User> $reviews
- * @property-read int|null $reviews_count
- * @property-read User|null $user
- *
- * @method static ApplicationFactory factory($count = null, $state = [])
- * @method static ApplicationBuilder<static>|Application newModelQuery()
- * @method static ApplicationBuilder<static>|Application newQuery()
- * @method static ApplicationBuilder<static>|Application pending()
- * @method static ApplicationBuilder<static>|Application query()
- * @method static ApplicationBuilder<static>|Application reviewedBy(User $user)
- * @method static ApplicationBuilder<static>|Application searchFor($search)
- * @method static ApplicationBuilder<static>|Application whereCharacterId($value)
- * @method static ApplicationBuilder<static>|Application whereCreatedAt($value)
- * @method static ApplicationBuilder<static>|Application whereDecisionDate($value)
- * @method static ApplicationBuilder<static>|Application whereDecisionMessage($value)
- * @method static ApplicationBuilder<static>|Application whereId($value)
- * @method static ApplicationBuilder<static>|Application whereIpAddress($value)
- * @method static ApplicationBuilder<static>|Application wherePrefixedId($value)
- * @method static ApplicationBuilder<static>|Application whereResult($value)
- * @method static ApplicationBuilder<static>|Application whereUpdatedAt($value)
- * @method static ApplicationBuilder<static>|Application whereUserId($value)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperApplication
  */
 #[UseEloquentBuilder(ApplicationBuilder::class)]
 class Application extends Model
@@ -124,6 +75,9 @@ class Application extends Model
         return $this->reviews()->wherePivotNull('result');
     }
 
+    /**
+     * @return BelongsToMany<User, $this, ApplicationReview, 'pivot'>
+     */
     public function reviews(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'application_review')

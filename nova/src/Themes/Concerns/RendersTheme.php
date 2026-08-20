@@ -41,7 +41,7 @@ trait RendersTheme
 
     public function scripts(array $scripts): static
     {
-        $output = [];
+        $output = collect();
 
         foreach ($scripts as $script) {
             if (str($script)->startsWith(['http://', 'https://', '//'])) {
@@ -54,10 +54,10 @@ trait RendersTheme
             }
 
             // Finally, add a script tag
-            $output[] = Element::withTag('script')->attribute('src', $path)->render();
+            $output->push(Element::withTag('script')->attribute('src', $path)->render());
         }
 
-        $this->structure->scripts = implode("\r\n", $output);
+        $this->structure->scripts = $output->join("\r\n");
 
         return $this;
     }

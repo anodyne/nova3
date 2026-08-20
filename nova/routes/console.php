@@ -31,11 +31,11 @@ use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 use Nova\Users\Models\UserNotificationPreference;
 
-Artisan::command('inspire', function () {
+Artisan::command('inspire', function (): void {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-Artisan::command('nova:refresh', function () {
+Artisan::command('nova:refresh', function (): void {
     $this->call('db:wipe');
     $this->call('migrate:fresh');
     $this->call('migrate-data');
@@ -51,7 +51,7 @@ Artisan::command('nova:refresh', function () {
     $this->call('storage:link');
 });
 
-Artisan::command('nova:reset-migration', function () {
+Artisan::command('nova:reset-migration', function (): void {
     Schema::disableForeignKeyConstraints();
 
     collect([
@@ -94,13 +94,13 @@ Artisan::command('nova:reset-migration', function () {
     $this->info('Migration reset complete');
 });
 
-Artisan::command('nova:get-timezones {token}', function (string $token) {
+Artisan::command('nova:get-timezones {token}', function (string $token): void {
     $response = Http::withToken($token)
         ->get('https://api.savvycal.com/v1/time_zones');
 
     $collection = collect($response->json())
-        ->filter(fn ($tz) => $tz['golden'])
-        ->map(fn ($tz) => [
+        ->filter(fn ($tz): mixed => $tz['golden'])
+        ->map(fn ($tz): array => [
             'id' => data_get($tz, 'id'),
             'name' => sprintf(
                 '(GMT%s) %s',
@@ -114,7 +114,7 @@ Artisan::command('nova:get-timezones {token}', function (string $token) {
     $this->info('Timezones updated');
 });
 
-Artisan::command('nova:sync-external-content', function () {
+Artisan::command('nova:sync-external-content', function (): void {
     ExternalChangelog::syncFromAnodyne();
     ExternalContent::syncFromAnodyne();
 

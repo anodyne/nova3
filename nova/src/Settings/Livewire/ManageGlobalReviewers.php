@@ -18,6 +18,9 @@ use Nova\Users\Models\User;
  */
 class ManageGlobalReviewers extends Component
 {
+    /**
+     * @var Collection<int, User>
+     */
     public Collection $assigned;
 
     public ?string $selected = null;

@@ -7,6 +7,7 @@ namespace Nova\Stories\Livewire\Concerns;
 use Illuminate\Database\Eloquent\Collection as DatabaseCollection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 
 trait InteractsWithUserAuthors
@@ -44,6 +45,9 @@ trait InteractsWithUserAuthors
         unset($this->userAuthorsPivotData[$userId]);
     }
 
+    /**
+     * @param  array<array-key, mixed>|DatabaseCollection<int, User>  $userAuthors
+     */
     public function setUserAuthors(array|DatabaseCollection $userAuthors): void
     {
         if (is_array($userAuthors)) {
@@ -90,9 +94,21 @@ trait InteractsWithUserAuthors
 
     private function userArrayStructure(User $user, ?int $pivotUserId = null): array
     {
-        $pivotArray = empty($user->pivot)
-            ? ['user' => User::find($pivotUserId), 'user_id' => $pivotUserId, 'as' => null]
-            : ['user' => $user->pivot->user, 'user_id' => $user->pivot->user_id, 'as' => $user->pivot->as];
+        $pivot = $user->relationLoaded('pivot')
+            ? $user->getRelation('pivot')
+            : null;
+
+        $pivotArray = $pivot instanceof PostAuthor
+            ? [
+                'user' => $pivot->user,
+                'user_id' => $pivot->user_id,
+                'as' => $pivot->as,
+            ]
+            : [
+                'user' => User::find($pivotUserId),
+                'user_id' => $pivotUserId,
+                'as' => null,
+            ];
 
         return [
             'id' => $user->id,

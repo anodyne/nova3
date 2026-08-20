@@ -7,7 +7,7 @@ namespace Nova\Discussions\Livewire;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -61,7 +61,9 @@ class MessagesList extends Component
         return Discussion::conversation()
             ->with([
                 'participants',
-                'notifications' => fn (HasMany $query): HasMany => $query->where('user_id', Auth::id()),
+                'notifications' => function (Relation $query): void {
+                    $query->where('user_id', Auth::id());
+                },
                 'lastMessage.user',
             ])
             ->select([

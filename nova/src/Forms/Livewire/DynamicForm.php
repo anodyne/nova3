@@ -21,6 +21,7 @@ use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
 use Nova\Forms\Models\FormSubmissionResponse;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Users\Models\User;
 
 /**
  * @property-read array|null $fields
@@ -100,9 +101,12 @@ class DynamicForm extends Component
                 if (filled($this->form->options->emailRecipients)) {
                     $emailValues = $this->transformValuesForEmail();
 
+                    /** @var User $owner */
+                    $owner = $this->owner;
+
                     Mail::to($this->form->options->getEmailRecipients())
                         ->queue(new SendNewFormSubmission(
-                            user: $this->owner,
+                            user: $owner,
                             values: $emailValues,
                             form: $this->form->name,
                         ));
@@ -132,9 +136,12 @@ class DynamicForm extends Component
                 if (filled($this->form->options->emailRecipients)) {
                     $emailValues = $this->transformValuesForEmail();
 
+                    /** @var User $owner */
+                    $owner = $this->owner;
+
                     Mail::to($this->form->options->getEmailRecipients())
                         ->queue(new SendUpdatedFormSubmission(
-                            user: $this->owner,
+                            user: $owner,
                             values: $emailValues,
                             form: $this->form->name,
                         ));

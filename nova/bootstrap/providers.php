@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Lab404\Impersonate\ImpersonateServiceProvider;
 use Livewire\LivewireServiceProvider;

@@ -51,6 +51,9 @@ class DeleteStories extends Component
             ->get();
     }
 
+    /**
+     * @param  Collection<int, Story>  $stories
+     */
     public function mount(Collection $stories): void
     {
         $this->stories = $stories->loadMissing('parent');

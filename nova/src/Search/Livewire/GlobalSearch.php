@@ -7,7 +7,9 @@ namespace Nova\Search\Livewire;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
 use Nova\Announcements\Models\Announcement;
 use Nova\Characters\Models\Character;
@@ -30,10 +32,14 @@ class GlobalSearch extends Modal
         'posts',
     ];
 
+    /**
+     * @return Collection<string, EloquentCollection<int, Model>>
+     */
     #[Computed]
     public function results(): Collection
     {
-        $results = Collection::make();
+        /** @var Collection<string, EloquentCollection<int, Model>> $results */
+        $results = collect();
 
         if (blank($this->search)) {
             return $results;
@@ -72,8 +78,7 @@ class GlobalSearch extends Modal
     public function numberOfResults(): int
     {
         return $this->results
-            ->map(fn ($collection) => count($collection))
-            ->sum();
+            ->sum(fn (EloquentCollection $results): int => $results->count());
     }
 
     public function render(): Factory|View

@@ -46,17 +46,21 @@ class AnnouncementBuilder extends Builder
 
     public function withReadNotificationsForUser(User $user): self
     {
-        return $this->whereHas(
-            'notifications',
-            fn (AnnouncementNotificationBuilder $query): AnnouncementNotificationBuilder => $query->user($user->id)->read()
-        );
+        return $this->whereHas('notifications', function (Builder $query) use ($user): void {
+            /** @var AnnouncementNotificationBuilder $announcementNotificationQuery */
+            $announcementNotificationQuery = $query;
+
+            $announcementNotificationQuery->user($user->id)->read();
+        });
     }
 
     public function withUnreadNotificationsForUser(User $user): self
     {
-        return $this->whereHas(
-            'notifications',
-            fn (AnnouncementNotificationBuilder $query): AnnouncementNotificationBuilder => $query->user($user->id)->unread()
-        );
+        return $this->whereHas('notifications', function (Builder $query) use ($user): void {
+            /** @var AnnouncementNotificationBuilder $announcementNotificationQuery */
+            $announcementNotificationQuery = $query;
+
+            $announcementNotificationQuery->user($user->id)->unread();
+        });
     }
 }

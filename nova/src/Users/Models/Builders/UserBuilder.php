@@ -31,10 +31,13 @@ class UserBuilder extends Builder
 
     public function activeOrInactive(): self
     {
-        return $this->whereAny('status', [
-            Active::class,
-            Inactive::class,
-        ]);
+        return $this->whereAny(
+            columns: ['status'],
+            value: [
+                Active::class,
+                Inactive::class,
+            ]
+        );
     }
 
     public function countDistinct(): self
@@ -81,7 +84,14 @@ class UserBuilder extends Builder
     public function searchFor(string $search): self
     {
         return $this
-            ->where(fn (Builder $query): Builder => $query->whereAny([User::column('name'), User::column('email')], 'like', "%{$search}%"))
+            ->whereAny(
+                columns: [
+                    User::column('name'),
+                    User::column('email'),
+                ],
+                operator: 'like',
+                value: "%{$search}%"
+            )
             ->orWhereRelation('characters', Character::column('name'), 'like', "%{$search}%");
     }
 

@@ -1,5 +1,10 @@
 text=auto eol=lf
 *.css linguist-vendored
-*.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.github export-ignore
+/.gitignore export-ignore
+/phpunit.xml.dist export-ignore
+/tests export-ignore

@@ -69,12 +69,12 @@ class FormPolicy
 
     public function restore(User $user, Form $form): Response
     {
-        return $this->denyAsNotFound(418);
+        return $this->denyAsNotFound();
     }
 
     public function forceDelete(User $user, Form $form): Response
     {
-        return $this->denyWithStatus(418);
+        return $this->denyAsNotFound();
     }
 
     public function design(User $user, Form $form): Response

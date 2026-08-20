@@ -24,15 +24,15 @@ use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 use Opcodes\LogViewer\Facades\LogViewer;
 
-Route::get('discussions', function () {
+Route::get('discussions', function (): void {
     $discussion = Discussion::find(2);
 
-    $data = DiscussionData::from($discussion);
+    $discussionData = DiscussionData::from($discussion);
 
-    dd($data);
+    dd($discussionData);
 });
 
-Route::get('manifest-test', function () {
+Route::get('manifest-test', function (): string {
     $active = Department::query()
         ->with([
             'positions' => fn ($query) => $query->whereHas('characters'),
@@ -107,12 +107,12 @@ Route::get('manifest-test', function () {
 
     echo '<h1>Positions</h1>';
     echo '<ul>';
-    foreach ($depts as $department) {
+    foreach ($depts as $dept) {
         echo '<li>';
-        echo $department->name;
+        echo $dept->name;
 
         echo '<ul>';
-        foreach ($department->positions as $position) {
+        foreach ($dept->positions as $position) {
             echo '<li>';
             echo $position->name;
             echo '</li>';
@@ -125,7 +125,7 @@ Route::get('manifest-test', function () {
     return 'done';
 });
 
-Route::get('error-logs', function () {
+Route::get('error-logs', function (): void {
     $files = LogViewer::getFiles();
 
     $file = LogViewer::getFile('c119df65-laravel-2024-12-27.log');
@@ -134,7 +134,7 @@ Route::get('error-logs', function () {
     // dd();
 });
 
-Route::get('telemetry', function () {
+Route::get('telemetry', function (): void {
     $systemInfo = SystemInfo::first();
 
     $data = [
@@ -165,7 +165,7 @@ Route::get('telemetry', function () {
     dd($data);
 });
 
-Route::get('leaderboard', function () {
+Route::get('leaderboard', function (): string {
     // $leaderboard = User::with('posts')->get();
 
     // $leaderboard = User::query()
@@ -192,13 +192,13 @@ Route::get('leaderboard', function () {
     return 'Done';
 });
 
-Route::get('attention', function () {
+Route::get('attention', function (): void {
     $post = Post::find(50);
 
     dd($post->participatingUsers()->latest('pivot_updated_at')->first()?->pivot?->toArray());
 });
 
-Route::get('participation', function () {
+Route::get('participation', function (): void {
     $startDate = now()->subDays(7)->startOfDay();
     $endDate = now()->endOfDay();
 
@@ -230,7 +230,7 @@ Route::get('participation', function () {
     //     ->get();
 
     $results = DB::table('users')
-        ->join('status_history', function ($join) {
+        ->join('status_history', function ($join): void {
             $join->on('users.id', '=', 'status_history.statusable_id')
                 ->where('status_history.statusable_type', '=', 'user');
         })
@@ -238,9 +238,9 @@ Route::get('participation', function () {
         ->leftJoin('post_author', 'users.id', '=', 'post_author.user_id')
         ->leftJoin('posts', 'post_author.post_id', '=', 'posts.id')
         ->leftJoin('post_types', 'posts.post_type_id', '=', 'post_types.id') // Include post_types for JSON filtering
-        ->where(function ($query) use ($startDate, $endDate) {
+        ->where(function ($query) use ($startDate, $endDate): void {
             $query->where('status_history.started_at', '<=', $endDate)
-                ->where(function ($query) use ($startDate) {
+                ->where(function ($query) use ($startDate): void {
                     $query->whereNull('status_history.ended_at')
                         ->orWhere('status_history.ended_at', '>=', $startDate);
                 });
@@ -282,11 +282,11 @@ Route::get('participation', function () {
     dd($results->toArray());
 });
 
-Route::get('external', function () {
+Route::get('external', function (): void {
     dd(external_content('discord'));
 });
 
-Route::get('version', function () {
+Route::get('version', function (): void {
     $latestVersion = Http::get(config('services.anodyne.api.latest-version'))->json();
 
     $url = Str::replaceArray('{id}', ['anodyne/nova3'], config('services.github.api.all-releases'));
@@ -298,7 +298,7 @@ Route::get('version', function () {
     dd($url, $githubVersion);
 });
 
-Route::get('migrate', function () {
+Route::get('migrate', function (): void {
     $form = Form::key('characterBio')->first();
 
     $freshForm = DB::table('forms')->find($form->id);
@@ -306,21 +306,21 @@ Route::get('migrate', function () {
     dd(json_decode((string) data_get($freshForm, 'fields'), associative: true));
 });
 
-Route::get('tags', function () {
+Route::get('tags', function (): void {
     dd(Position::query()->uniqueTags());
 });
 
-Route::get('onboarding', function () {
+Route::get('onboarding', function (): string {
     StartOnboarding::run('new-user', User::find(2));
 
     return 'Done!';
 });
 
-Route::get('forms-test', function () {
+Route::get('forms-test', function (): void {
     dd(json_decode('[{"type":"short-text","data":{"details":{"label":"Label","description":"Cupidatat nulla ipsum est aliqua.","required":false,"hideWhenEmpty":false},"attrs":{"name":"label","id":"pVrlCJv8bDDw","placeholder":"Placeholder","other":[]}}}]', true));
 });
 
-Route::get('images', function () {
+Route::get('images', function (): void {
     $disk = Storage::disk('media-pages');
 
     dd(

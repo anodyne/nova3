@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Factories\StoryFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,122 +26,15 @@ use Nova\Stories\Models\States\StoryStatus\Current;
 use Nova\Stories\Models\States\StoryStatus\Ongoing;
 use Nova\Stories\Models\States\StoryStatus\Upcoming;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
 
 /**
- * @property int $id
- * @property string|null $prefixed_id
- * @property int|null $parent_id
- * @property int|null $order_column
- * @property StoryStatus\StoryStatus $status
- * @property string $title
- * @property string|null $description
- * @property string|null $summary
- * @property mixed|null $started_at
- * @property mixed|null $ended_at
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Post> $allPosts
- * @property-read int|null $all_posts_count
- * @property-read bool $can_post
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $children
- * @property-read int|null $children_count
- * @property-read bool $has_summary
- * @property-read bool $is_completed
- * @property-read bool $is_current
- * @property-read bool $is_ongoing
- * @property-read bool $is_upcoming
- * @property-read MediaCollection<int, Media> $media
- * @property-read int|null $media_count
- * @property-read Story|null $parent
- * @property-read Story|null $parentStory
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Post> $posts
- * @property-read int|null $posts_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $recursiveStories
- * @property-read int|null $recursive_stories_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $stories
- * @property-read int|null $stories_count
- * @property-read int $depth
- * @property-read string $path
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $ancestors The model's recursive parents.
- * @property-read int|null $ancestors_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $ancestorsAndSelf The model's recursive parents and itself.
- * @property-read int|null $ancestors_and_self_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $bloodline The model's ancestors, descendants and itself.
- * @property-read int|null $bloodline_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $childrenAndSelf The model's direct children and itself.
- * @property-read int|null $children_and_self_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $descendants The model's recursive children.
- * @property-read int|null $descendants_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $descendantsAndSelf The model's recursive children and itself.
- * @property-read int|null $descendants_and_self_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $parentAndSelf The model's direct parent and itself.
- * @property-read int|null $parent_and_self_count
- * @property-read Story|null $rootAncestor The model's topmost parent.
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $siblings The parent's other children.
- * @property-read int|null $siblings_count
- * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, Story> $siblingsAndSelf All the parent's children.
- * @property-read int|null $siblings_and_self_count
- *
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, static> all($columns = ['*'])
- * @method static StoryBuilder<static>|Story breadthFirst()
- * @method static StoryBuilder<static>|Story completed()
- * @method static StoryBuilder<static>|Story current()
- * @method static StoryBuilder<static>|Story depthFirst()
- * @method static StoryBuilder<static>|Story doesntHaveChildren()
- * @method static StoryBuilder<static>|Story exceptCompleted()
- * @method static StoryBuilder<static>|Story exceptUpcoming()
- * @method static StoryFactory factory($count = null, $state = [])
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, static> get($columns = ['*'])
- * @method static StoryBuilder<static>|Story getExpressionGrammar()
- * @method static StoryBuilder<static>|Story hasChildren()
- * @method static StoryBuilder<static>|Story hasParent()
- * @method static StoryBuilder<static>|Story isLeaf()
- * @method static StoryBuilder<static>|Story isRoot()
- * @method static StoryBuilder<static>|Story newModelQuery()
- * @method static StoryBuilder<static>|Story newQuery()
- * @method static StoryBuilder<static>|Story ongoing()
- * @method static StoryBuilder<static>|Story orWhereNotState(string $column, $states)
- * @method static StoryBuilder<static>|Story orWhereState(string $column, $states)
- * @method static StoryBuilder<static>|Story ordered(string $direction = 'asc')
- * @method static StoryBuilder<static>|Story query()
- * @method static StoryBuilder<static>|Story searchFor($search)
- * @method static StoryBuilder<static>|Story selectStatusCounts()
- * @method static StoryBuilder<static>|Story selectTotalCount()
- * @method static StoryBuilder<static>|Story tree($maxDepth = null)
- * @method static StoryBuilder<static>|Story treeOf(\Illuminate\Database\Eloquent\Model|callable $constraint, $maxDepth = null)
- * @method static StoryBuilder<static>|Story upcoming()
- * @method static StoryBuilder<static>|Story whereCreatedAt($value)
- * @method static StoryBuilder<static>|Story whereDepth($operator, $value = null)
- * @method static StoryBuilder<static>|Story whereDescription($value)
- * @method static StoryBuilder<static>|Story whereEndedAt($value)
- * @method static StoryBuilder<static>|Story whereId($value)
- * @method static StoryBuilder<static>|Story whereNotState(string $column, $states)
- * @method static StoryBuilder<static>|Story whereOrderColumn($value)
- * @method static StoryBuilder<static>|Story whereParent(Story|int|null $parent)
- * @method static StoryBuilder<static>|Story whereParentId($value)
- * @method static StoryBuilder<static>|Story wherePrefixedId($value)
- * @method static StoryBuilder<static>|Story whereStartedAt($value)
- * @method static StoryBuilder<static>|Story whereState(string $column, $states)
- * @method static StoryBuilder<static>|Story whereStatus($value)
- * @method static StoryBuilder<static>|Story whereSummary($value)
- * @method static StoryBuilder<static>|Story whereTitle($value)
- * @method static StoryBuilder<static>|Story whereUpdatedAt($value)
- * @method static StoryBuilder<static>|Story withCountsAndSums()
- * @method static StoryBuilder<static>|Story withGlobalScopes(array $scopes)
- * @method static StoryBuilder<static>|Story withRelationshipExpression($direction, callable $constraint, $initialDepth, $from = null, $maxDepth = null)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperStory
  */
 class Story extends Model implements HasMedia, Sortable
 {
@@ -252,11 +143,6 @@ class Story extends Model implements HasMedia, Sortable
             ->loadSum('posts', 'word_count');
     }
 
-    public function newEloquentBuilder($query): StoryBuilder
-    {
-        return new StoryBuilder($query);
-    }
-
     public function nextSibling(): ?self
     {
         return $this->getSibling('next');
@@ -312,6 +198,14 @@ class Story extends Model implements HasMedia, Sortable
             'prefixed_id' => $this->prefixed_id,
             'title' => $this->title,
         ];
+    }
+
+    /**
+     * @param  \Illuminate\Database\Query\Builder  $query
+     */
+    public function newEloquentBuilder($query): StoryBuilder
+    {
+        return new StoryBuilder($query);
     }
 
     public static function getMediaPath(): string

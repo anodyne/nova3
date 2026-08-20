@@ -22,6 +22,7 @@ use Nova\Users\Models\User;
  */
 class ManagePositions extends Component
 {
+    /** @var Collection<int, Position> */
     public Collection $assigned;
 
     public ?Character $character = null;
@@ -36,6 +37,9 @@ class ManagePositions extends Component
             ->join(',');
     }
 
+    /**
+     * @return Collection<int, Position>
+     */
     #[Computed]
     public function models(): Collection
     {
@@ -53,6 +57,9 @@ class ManagePositions extends Component
         $this->assigned = $this->character->positions ?? Collection::make();
     }
 
+    /**
+     * @return Collection<int, Position>
+     */
     #[Computed]
     public function positions(): Collection
     {

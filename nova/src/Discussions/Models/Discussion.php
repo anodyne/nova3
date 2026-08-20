@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Factories\DiscussionFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,55 +16,10 @@ use Nova\Discussions\Models\Builders\DiscussionBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
- * @property int $id
- * @property string|null $prefixed_id
- * @property string|null $discussable_type
- * @property int|null $discussable_id
- * @property string|null $subject
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property-read Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read DiscussionParticipant|null $pivot
- * @property-read Collection<int, User> $allParticipants
- * @property-read int|null $all_participants_count
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $discussable
- * @property-read bool $has_unread_messages
- * @property-read bool $is_direct_message
- * @property-read bool $is_group_message
- * @property-read DiscussionMessage|null $lastMessage
- * @property-read Collection<int, DiscussionMessage> $messages
- * @property-read int|null $messages_count
- * @property-read Collection<int, DiscussionNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read Collection<int, User> $participants
- * @property-read int|null $participants_count
- * @property-read string $participants_string
- * @property-read string $truncated_participants_string
- *
- * @method static DiscussionBuilder<static>|Discussion conversation()
- * @method static DiscussionBuilder<static>|Discussion directMessage()
- * @method static DiscussionFactory factory($count = null, $state = [])
- * @method static DiscussionBuilder<static>|Discussion forCurrentUser()
- * @method static DiscussionBuilder<static>|Discussion groupMessage()
- * @method static DiscussionBuilder<static>|Discussion newModelQuery()
- * @method static DiscussionBuilder<static>|Discussion newQuery()
- * @method static DiscussionBuilder<static>|Discussion query()
- * @method static DiscussionBuilder<static>|Discussion searchFor(string $search)
- * @method static DiscussionBuilder<static>|Discussion whereCreatedAt($value)
- * @method static DiscussionBuilder<static>|Discussion whereDiscussableId($value)
- * @method static DiscussionBuilder<static>|Discussion whereDiscussableType($value)
- * @method static DiscussionBuilder<static>|Discussion whereId($value)
- * @method static DiscussionBuilder<static>|Discussion wherePrefixedId($value)
- * @method static DiscussionBuilder<static>|Discussion whereSubject($value)
- * @method static DiscussionBuilder<static>|Discussion whereUpdatedAt($value)
- * @method static DiscussionBuilder<static>|Discussion withoutCurrentUser()
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperDiscussion
  */
 #[UseEloquentBuilder(DiscussionBuilder::class)]
 class Discussion extends Model

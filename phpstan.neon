@@ -2,10 +2,16 @@ includes:
     - vendor/larastan/larastan/extension.neon
 
 parameters:
-    bootstrapFiles:
-        - phpstan/phpstan-bootstrap.php
-    stubFiles:
-        - phpstan/stubs/FilamentTextColumn.stub
+    level: 5
+
     paths:
         - nova/
-    level: 4
+
+    bootstrapFiles:
+        - phpstan/phpstan-bootstrap.php
+
+    scanFiles:
+        - _ide_helper_models.php
+
+    stubFiles:
+        - phpstan/stubs/FilamentTextColumn.stub

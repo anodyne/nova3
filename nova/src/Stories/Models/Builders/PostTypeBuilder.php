@@ -31,8 +31,9 @@ class PostTypeBuilder extends Builder
 
     public function userHasAccess(Authenticatable $user): self
     {
-        return $this->where(
-            fn (Builder $query): Builder => $query->whereNull('role_id')->orWhereIn('role_id', $user->roles()->pluck('id')->all())
-        );
+        return $this->where(function (Builder $query) use ($user): void {
+            $query->whereNull('role_id')
+                ->orWhereIn('role_id', $user->roles()->pluck('id')->all());
+        });
     }
 }

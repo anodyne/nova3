@@ -25,7 +25,7 @@ readonly class AssignUserCharactersData extends Bag
     {
         return [
             'characters' => explode(',', $request->input('assigned_characters', '') ?? ''),
-            'primaryCharacter' => $request->integer('primary_character', null),
+            'primaryCharacter' => $request->filled('primary_character') ? $request->integer('primary_character') : null,
         ];
     }
 }

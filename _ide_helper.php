@@ -31,7 +31,6 @@ namespace Illuminate\Support\Facades {
         /**
          * Set the nova directory.
          *
-         * @return \Nova\Foundation\Application
          * @static
          */
         public static function useNovaPath($path)
@@ -54,7 +53,6 @@ namespace Illuminate\Support\Facades {
         /**
          * Set the themes directory.
          *
-         * @return \Nova\Foundation\Application
          * @static
          */
         public static function useThemePath($path)
@@ -77,7 +75,6 @@ namespace Illuminate\Support\Facades {
         /**
          * Set the add-ons directory.
          *
-         * @return \Nova\Foundation\Application
          * @static
          */
         public static function useAddonPath($path)
@@ -100,7 +97,6 @@ namespace Illuminate\Support\Facades {
         /**
          * Set the ranks directory.
          *
-         * @return \Nova\Foundation\Application
          * @static
          */
         public static function useRankPath($path)
@@ -15240,8 +15236,9 @@ namespace Illuminate\Support\Facades {
 
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notify()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notify($title, $message = null)
@@ -15251,8 +15248,9 @@ namespace Illuminate\Support\Facades {
 
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notifyOfError()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notifyOfError($title, $message = null)
@@ -15262,8 +15260,9 @@ namespace Illuminate\Support\Facades {
 
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notifyOfWarning()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notifyOfWarning($title, $message = null)
@@ -24330,6 +24329,7 @@ namespace Illuminate\Support\Facades {
          * @see \Nova\Foundation\Macros\ViewMacros::component()
          * @param mixed $name
          * @param mixed $data
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
          * @static
          */
         public static function component($name, $data)
@@ -24887,7 +24887,6 @@ namespace Nova\Foundation {
         /**
          * Provide data from the backend for the frontend to use.
          *
-         * @return \Illuminate\Support\Collection
          * @static
          */
         public static function provideScriptVariables()
@@ -29292,6 +29291,7 @@ namespace Illuminate\Support {
         /**
          * @see \Nova\Foundation\Macros\ArrMacros::build()
          * @param array $array
+         * @return array
          * @static
          */
         public static function build($array)
@@ -29980,6 +29980,7 @@ namespace Illuminate\Support {
         /**
          * @see \Nova\Foundation\Macros\StrMacros::readDuration()
          * @param mixed $text
+         * @return int
          * @static
          */
         public static function readDuration($text)
@@ -30108,8 +30109,9 @@ namespace Illuminate\Http {
     class RedirectResponse extends \Symfony\Component\HttpFoundation\RedirectResponse {
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notify()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notify($title, $message = null)
@@ -30119,8 +30121,9 @@ namespace Illuminate\Http {
 
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notifyOfError()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notifyOfError($title, $message = null)
@@ -30130,8 +30133,9 @@ namespace Illuminate\Http {
 
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notifyOfWarning()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notifyOfWarning($title, $message = null)
@@ -30207,8 +30211,9 @@ namespace Illuminate\Routing {
     class Redirector {
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notify()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notify($title, $message = null)
@@ -30218,8 +30223,9 @@ namespace Illuminate\Routing {
 
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notifyOfError()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notifyOfError($title, $message = null)
@@ -30229,8 +30235,9 @@ namespace Illuminate\Routing {
 
         /**
          * @see \Nova\Foundation\Macros\NotificationMacros::notifyOfWarning()
-         * @param mixed $title
-         * @param mixed $message
+         * @param \Closure|string|null $title
+         * @param \Closure|string|null $message
+         * @return static
          * @static
          */
         public static function notifyOfWarning($title, $message = null)
@@ -30516,11 +30523,12 @@ namespace Illuminate\Database\Eloquent\Relations {
         /**
          * @see \Nova\Foundation\Providers\AppServiceProvider::configureMacros()
          * @param iterable $records
+         * @return void
          * @static
          */
         public static function createUpdateOrDelete($records)
         {
-            return \Illuminate\Database\Eloquent\Relations\Relation::createUpdateOrDelete($records);
+            \Illuminate\Database\Eloquent\Relations\Relation::createUpdateOrDelete($records);
         }
 
             }
@@ -33341,6 +33349,7 @@ namespace Illuminate\View {
         /**
          * @see \Nova\Foundation\Providers\AppServiceProvider::configureMacros()
          * @param mixed $key
+         * @return bool
          * @static
          */
         public static function hasStartsWith($key)
@@ -33365,6 +33374,7 @@ namespace Illuminate\View {
          * @see \Nova\Foundation\Macros\ViewMacros::component()
          * @param mixed $name
          * @param mixed $data
+         * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
          * @static
          */
         public static function component($name, $data)

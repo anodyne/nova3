@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Nova\Menus\Models;
 
 use Anodyne\TablerIcons\Tabler;
-use Carbon\CarbonImmutable;
-use Database\Factories\MenuItemFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,57 +23,11 @@ use Nova\Menus\Events\MenuItemUpdated;
 use Nova\Menus\Models\Builders\MenuItemBuilder;
 use Nova\Menus\Observers\MenuItemObserver;
 use Nova\Pages\Models\Page;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
 /**
- * @property int $id
- * @property int $menu_id
- * @property int|null $parent_id
- * @property string $label
- * @property Tabler|null $icon
- * @property LinkType $link_type
- * @property int|null $page_id
- * @property string|null $url
- * @property LinkTarget $target
- * @property BasicStatus $status
- * @property int|null $order_column
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property-read Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read Collection<int, MenuItem> $items
- * @property-read int|null $items_count
- * @property-read mixed $link
- * @property-read Menu $menu
- * @property-read Page|null $page
- * @property-read MenuItem|null $parent
- *
- * @method static MenuItemBuilder<static>|MenuItem active()
- * @method static MenuItemFactory factory($count = null, $state = [])
- * @method static MenuItemBuilder<static>|MenuItem inactive()
- * @method static MenuItemBuilder<static>|MenuItem newModelQuery()
- * @method static MenuItemBuilder<static>|MenuItem newQuery()
- * @method static MenuItemBuilder<static>|MenuItem ordered(string $direction = 'asc')
- * @method static MenuItemBuilder<static>|MenuItem public()
- * @method static MenuItemBuilder<static>|MenuItem query()
- * @method static MenuItemBuilder<static>|MenuItem searchFor($search)
- * @method static MenuItemBuilder<static>|MenuItem whereCreatedAt($value)
- * @method static MenuItemBuilder<static>|MenuItem whereIcon($value)
- * @method static MenuItemBuilder<static>|MenuItem whereId($value)
- * @method static MenuItemBuilder<static>|MenuItem whereLabel($value)
- * @method static MenuItemBuilder<static>|MenuItem whereLinkType($value)
- * @method static MenuItemBuilder<static>|MenuItem whereMenuId($value)
- * @method static MenuItemBuilder<static>|MenuItem whereOrderColumn($value)
- * @method static MenuItemBuilder<static>|MenuItem wherePageId($value)
- * @method static MenuItemBuilder<static>|MenuItem whereParentId($value)
- * @method static MenuItemBuilder<static>|MenuItem whereStatus($value)
- * @method static MenuItemBuilder<static>|MenuItem whereTarget($value)
- * @method static MenuItemBuilder<static>|MenuItem whereUpdatedAt($value)
- * @method static MenuItemBuilder<static>|MenuItem whereUrl($value)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperMenuItem
  */
 #[ObservedBy([MenuItemObserver::class])]
 #[UseEloquentBuilder(MenuItemBuilder::class)]
@@ -119,6 +70,9 @@ class MenuItem extends Model implements Sortable
         return static::query()->where('menu_id', $this->menu_id);
     }
 
+    /**
+     * @return HasMany<MenuItem, $this>
+     */
     public function items(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
@@ -134,16 +88,25 @@ class MenuItem extends Model implements Sortable
         );
     }
 
+    /**
+     * @return BelongsTo<Menu, $this>
+     */
     public function menu(): BelongsTo
     {
         return $this->belongsTo(Menu::class);
     }
 
+    /**
+     * @return BelongsTo<Page, $this>
+     */
     public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class);
     }
 
+    /**
+     * @return BelongsTo<MenuItem, $this>
+     */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');

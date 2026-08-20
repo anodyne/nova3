@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Foundation\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
-use LogicException;
 
 /**
  * @phpstan-require-extends Model
@@ -28,13 +27,7 @@ trait HasTableHelpers
 
     public static function model(): static
     {
-        $model = static::query()->getModel();
-
-        if (! $model instanceof static) {
-            throw new LogicException('The query builder model must match '.static::class.'.');
-        }
-
-        return $model;
+        return static::query()->getModel();
     }
 
     public static function prefixedColumn(string $columnName, ?string $tableAlias = null): string

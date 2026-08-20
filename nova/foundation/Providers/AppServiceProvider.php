@@ -46,7 +46,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
 use Illuminate\View\DynamicComponent;
-use Illuminate\View\Factory as ViewFactory;
 use Livewire\Livewire;
 use Nova\Addons\Models\Addon;
 use Nova\Departments\Models\Department;
@@ -69,7 +68,6 @@ use Nova\Foundation\Macros\CreateUpdateOrDelete;
 use Nova\Foundation\Macros\NotificationMacros;
 use Nova\Foundation\Macros\StrMacros;
 use Nova\Foundation\Macros\TextColumnMacros;
-use Nova\Foundation\Macros\ViewMacros;
 use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
@@ -163,7 +161,6 @@ class AppServiceProvider extends ServiceProvider
         RedirectResponse::mixin(new NotificationMacros);
         Str::mixin(new StrMacros);
         TextColumn::mixin(new TextColumnMacros);
-        ViewFactory::mixin(new ViewMacros);
 
         Route::macro('findPageFromRoute', function () {
             /** @var Route $route */

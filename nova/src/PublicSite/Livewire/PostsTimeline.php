@@ -6,6 +6,7 @@ namespace Nova\PublicSite\Livewire;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Livewire\Attributes\Computed;
@@ -29,7 +30,12 @@ class PostsTimeline extends Component
         return Post::query()
             ->published()
             ->forStory($this->story?->id)
-            ->whereHas('postType', fn (PostTypeBuilder $query): PostTypeBuilder => $query->inCharacter())
+            ->whereHas('postType', function (Builder $query): void {
+                /** @var PostTypeBuilder $postTypeQuery */
+                $postTypeQuery = $query;
+
+                $postTypeQuery->inCharacter();
+            })
             ->orderBy('order_column', 'asc')
             ->get();
     }

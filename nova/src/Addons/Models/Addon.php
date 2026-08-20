@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Factories\AddonFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,56 +21,10 @@ use Nova\Foundation\Concerns\ChecksAddonVersion;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
- * @property int $id
- * @property string|null $prefixed_id
- * @property string $name
- * @property string $location
- * @property string $version
- * @property string|null $credits
- * @property string|null $preview
- * @property AddonType $type
- * @property BasicStatus $status
- * @property AddonSettings|null $settings
- * @property AddonRepository|null $repository
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read bool $has_addon_class
- * @property-read bool $has_update
- * @property-read string|null $latest_version
- * @property-read string|null $update_url
- *
- * @method static AddonBuilder<static>|Addon active()
- * @method static AddonBuilder<static>|Addon extension()
- * @method static AddonFactory factory($count = null, $state = [])
- * @method static AddonBuilder<static>|Addon genre()
- * @method static AddonBuilder<static>|Addon inactive()
- * @method static AddonBuilder<static>|Addon location(string $location)
- * @method static AddonBuilder<static>|Addon newModelQuery()
- * @method static AddonBuilder<static>|Addon newQuery()
- * @method static AddonBuilder<static>|Addon query()
- * @method static AddonBuilder<static>|Addon rankSet()
- * @method static AddonBuilder<static>|Addon searchFor($column, $search)
- * @method static AddonBuilder<static>|Addon whereCreatedAt($value)
- * @method static AddonBuilder<static>|Addon whereCredits($value)
- * @method static AddonBuilder<static>|Addon whereId($value)
- * @method static AddonBuilder<static>|Addon whereLocation($value)
- * @method static AddonBuilder<static>|Addon whereName($value)
- * @method static AddonBuilder<static>|Addon wherePrefixedId($value)
- * @method static AddonBuilder<static>|Addon wherePreview($value)
- * @method static AddonBuilder<static>|Addon whereRepository($value)
- * @method static AddonBuilder<static>|Addon whereSettings($value)
- * @method static AddonBuilder<static>|Addon whereStatus($value)
- * @method static AddonBuilder<static>|Addon whereType($value)
- * @method static AddonBuilder<static>|Addon whereUpdatedAt($value)
- * @method static AddonBuilder<static>|Addon whereVersion($value)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperAddon
  */
 #[UseEloquentBuilder(AddonBuilder::class)]
 class Addon extends Model

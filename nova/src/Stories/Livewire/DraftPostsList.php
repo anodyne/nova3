@@ -42,7 +42,12 @@ class DraftPostsList extends TableComponent
                         'time',
                         'title',
                     ])
-                    ->whereHas('story', fn (StoryBuilder $query): StoryBuilder => $query->current())
+                    ->whereHas('story', function (Builder $query): void {
+                        /** @var StoryBuilder $storyQuery */
+                        $storyQuery = $query;
+
+                        $storyQuery->current();
+                    })
                     ->whereHas(
                         'participatingUsers',
                         fn (Builder $query): Builder => $query->where('post_author.user_id', Auth::id())

@@ -26,16 +26,21 @@ class FormSubmissionBuilder extends Builder
     public function onlySubmissionsForCurrentUser(): self
     {
         return $this
-            ->where(fn (Builder $query): Builder => $query
-                ->where(fn (Builder $query): Builder => $query->where('owner_type', 'user')
-                    ->where('owner_id', Auth::id()))
-                ->orWhere(fn (Builder $query): Builder => $query->where('owner_type', 'character')
-                    ->whereIn('owner_id', function ($subQuery): void {
-                        $subQuery->select(Character::column('id'))
-                            ->from('characters')
-                            ->join('character_user', Character::column('id'), '=', 'character_user.character_id')
-                            ->where('character_user.user_id', Auth::id());
-                    })));
+            ->where(function (Builder $query): void {
+                $query
+                    ->where(function (Builder $query): void {
+                        $query->where('owner_type', 'user')->where('owner_id', Auth::id());
+                    })
+                    ->orWhere(function (Builder $query): void {
+                        $query->where('owner_type', 'character')
+                            ->whereIn('owner_id', function ($subQuery): void {
+                                $subQuery->select(Character::column('id'))
+                                    ->from('characters')
+                                    ->join('character_user', Character::column('id'), '=', 'character_user.character_id')
+                                    ->where('character_user.user_id', Auth::id());
+                            });
+                    });
+            });
     }
 
     public function ownerIsUser(User $user): self

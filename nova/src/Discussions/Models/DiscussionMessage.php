@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Factories\DiscussionMessageFactory;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,37 +13,9 @@ use Nova\Discussions\Enums\MessageType;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Models\Activity;
 
 /**
- * @property int $id
- * @property int $discussion_id
- * @property int|null $user_id
- * @property string $content
- * @property MessageType $type
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property-read Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read Discussion $discussion
- * @property-read bool $has_unread_messages
- * @property-read Collection<int, DiscussionNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read User|null $user
- *
- * @method static DiscussionMessageFactory factory($count = null, $state = [])
- * @method static Builder<static>|DiscussionMessage newModelQuery()
- * @method static Builder<static>|DiscussionMessage newQuery()
- * @method static Builder<static>|DiscussionMessage query()
- * @method static Builder<static>|DiscussionMessage whereContent($value)
- * @method static Builder<static>|DiscussionMessage whereCreatedAt($value)
- * @method static Builder<static>|DiscussionMessage whereDiscussionId($value)
- * @method static Builder<static>|DiscussionMessage whereId($value)
- * @method static Builder<static>|DiscussionMessage whereType($value)
- * @method static Builder<static>|DiscussionMessage whereUpdatedAt($value)
- * @method static Builder<static>|DiscussionMessage whereUserId($value)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperDiscussionMessage
  */
 class DiscussionMessage extends Model
 {

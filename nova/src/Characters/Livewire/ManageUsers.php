@@ -22,8 +22,14 @@ class ManageUsers extends Component
 {
     public ?Character $character = null;
 
+    /**
+     * @var Collection<int, User>
+     */
     public Collection $assigned;
 
+    /**
+     * @var Collection<int, User>
+     */
     public Collection $primary;
 
     public ?string $selected = null;
@@ -74,6 +80,9 @@ class ManageUsers extends Component
             ->join(',');
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     #[Computed]
     public function models(): Collection
     {
@@ -90,6 +99,9 @@ class ManageUsers extends Component
             ->join(',');
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     #[Computed]
     public function users(): Collection
     {

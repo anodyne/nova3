@@ -4,29 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Models;
 
-use Carbon\CarbonImmutable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Nova\Foundation\Enums\CacheKeys;
 
 /**
- * @property int $id
- * @property string $key
- * @property string $value
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- *
- * @method static Builder<static>|ExternalContent newModelQuery()
- * @method static Builder<static>|ExternalContent newQuery()
- * @method static Builder<static>|ExternalContent query()
- * @method static Builder<static>|ExternalContent whereCreatedAt($value)
- * @method static Builder<static>|ExternalContent whereId($value)
- * @method static Builder<static>|ExternalContent whereKey($value)
- * @method static Builder<static>|ExternalContent whereUpdatedAt($value)
- * @method static Builder<static>|ExternalContent whereValue($value)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperExternalContent
  */
 class ExternalContent extends Model
 {

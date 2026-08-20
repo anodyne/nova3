@@ -12,6 +12,7 @@
 /vendor
 /.claude
 /.idea
+/.rector.cache
 /.vscode
 /.vagrant
 .env

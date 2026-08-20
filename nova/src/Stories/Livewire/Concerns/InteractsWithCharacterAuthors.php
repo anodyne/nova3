@@ -66,6 +66,9 @@ trait InteractsWithCharacterAuthors
         $this->removeCharacterAuthorValidationErrors($characterId);
     }
 
+    /**
+     * @param  array<array-key, mixed>|DatabaseCollection<int, Character>  $characterAuthors
+     */
     public function setCharacterAuthors(array|DatabaseCollection $characterAuthors): void
     {
         if (is_array($characterAuthors)) {

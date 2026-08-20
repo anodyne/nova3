@@ -13,7 +13,7 @@ use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Auth;
 use Nova\Announcements\Actions\ApproveAnnouncement;
 use Nova\Announcements\Actions\DeleteAnnouncement;
@@ -45,7 +45,9 @@ class AnnouncementsList extends TableComponent
                 Announcement::query()
                     ->with([
                         'user',
-                        'notifications' => fn (HasMany $query): HasMany => $query->where('user_id', $user->id),
+                        'notifications' => function (Relation $query) use ($user): void {
+                            $query->where('user_id', $user->id);
+                        },
                     ])
                     ->select([
                         'id',

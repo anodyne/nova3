@@ -18,11 +18,9 @@ use Nova\Foundation\Controllers\Api\SyncExternalContentController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')->get('/user', fn (Request $request) => $request->user());
 
-Route::name('api.')->group(function () {
+Route::name('api.')->group(function (): void {
     Route::get('heartbeat', HeartbeatController::class)
         ->name('heartbeat');
 

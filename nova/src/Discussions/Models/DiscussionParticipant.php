@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Models;
 
-use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -13,28 +12,7 @@ use Nova\Foundation\Models\Concerns\HasTableHelpers;
 use Nova\Users\Models\User;
 
 /**
- * @property int $id
- * @property int $discussion_id
- * @property int $user_id
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property string|null $deleted_at
- * @property-read Discussion|null $discussion
- * @property-read User|null $user
- *
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant discussion(int $discussionId)
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant newModelQuery()
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant newQuery()
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant query()
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant user(int $userId)
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereCreatedAt($value)
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereDeletedAt($value)
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereDiscussionId($value)
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereId($value)
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereUpdatedAt($value)
- * @method static DiscussionParticipantBuilder<static>|DiscussionParticipant whereUserId($value)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperDiscussionParticipant
  */
 #[UseEloquentBuilder(DiscussionParticipantBuilder::class)]
 class DiscussionParticipant extends Pivot

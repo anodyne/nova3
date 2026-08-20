@@ -30,15 +30,17 @@ readonly class Dashboard extends Bag
             'leaderboard' => Leaderboard::from(
                 title: $request->input('leaderboard.title'),
                 icon: Tabler::tryFrom($request->input('leaderboard.icon')) ?? null,
-                onlyActiveUsers: $request->boolean('leaderboard.onlyActiveUsers', true),
                 target: PostingTarget::tryFrom($request->input('leaderboard.target')) ?? PostingTarget::Words,
                 userSelectableTimeframe: $request->boolean('leaderboard.userSelectableTimeframe', false),
                 timeframe: LeaderboardTimeframe::tryFrom($request->input('leaderboard.timeframe')) ?? LeaderboardTimeframe::Days7,
-                numberOfSpotsToShow: $request->integer('leaderboard.numberOfSpotsToShow', null),
+                numberOfSpotsToShow: $request->filled('leaderboard.numberOfSpotsToShow')
+                    ? $request->integer('leaderboard.numberOfSpotsToShow')
+                    : null,
                 showRankNumbers: $request->boolean('leaderboard.showRankNumbers', false),
                 hideUsersWithZero: $request->boolean('leaderboard.hideUsersWithZero', true),
-                showPodium: $request->boolean('leaderboard.showPodium', false),
+                onlyActiveUsers: $request->boolean('leaderboard.onlyActiveUsers', true),
                 enabled: $request->boolean('leaderboard.enabled', true),
+                showPodium: $request->boolean('leaderboard.showPodium', false),
             ),
             'milestonesTarget' => PostingTarget::tryFrom($request->input('milestonesTarget')) ?? PostingTarget::Words,
         ];

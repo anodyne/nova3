@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -40,121 +37,12 @@ use Nova\Stories\Models\States\PostStatus\Started;
 use Nova\Stories\Observers\PostObserver;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
- * @property int $id
- * @property string|null $prefixed_id
- * @property int|null $story_id
- * @property int|null $post_type_id
- * @property int|null $order_column
- * @property PostStatus\PostStatus $status
- * @property string|null $title
- * @property string|null $content
- * @property string|null $day
- * @property string|null $time
- * @property string|null $location
- * @property int $word_count
- * @property ContentRatingValue|null $rating_language
- * @property ContentRatingValue|null $rating_sex
- * @property ContentRatingValue|null $rating_violence
- * @property string|null $summary
- * @property array<array-key, mixed>|null $participants
- * @property int|null $neighbor
- * @property string|null $direction
- * @property CarbonImmutable|null $published_at
- * @property CarbonImmutable|null $locked_at
- * @property int|null $locked_by
- * @property int|null $last_update_by
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property CarbonImmutable|null $deleted_at
- * @property-read Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read array $authors_avatars
- * @property-read string $authors_string
- * @property-read Collection<int, Character> $characterAuthors
- * @property-read int|null $character_authors_count
- * @property-read bool $has_location_and_time
- * @property-read bool $is_draft
- * @property-read bool $is_pending
- * @property-read bool $is_published
- * @property-read bool $is_setup
- * @property-read bool $is_started
- * @property-read string $location_day_time
- * @property-read User|null $lockOwner
- * @property-read bool $needs_attention
- * @property-read Collection<int, User> $participatingUsers
- * @property-read int|null $participating_users_count
- * @property-read PostType|null $postType
- * @property-read string $reading_time
- * @property-read bool $show_content_warning_for_admin_site
- * @property-read bool $show_content_warning_for_public_site
- * @property-read Story|null $story
- * @property-read string|null $timeline
- * @property-read Collection<int, User> $userAuthors
- * @property-read int|null $user_authors_count
- *
- * @method static PostBuilder<static>|Post abandoned()
- * @method static PostBuilder<static>|Post currentMonth()
- * @method static PostBuilder<static>|Post currentYear()
- * @method static PostBuilder<static>|Post draft()
- * @method static PostFactory factory($count = null, $state = [])
- * @method static PostBuilder<static>|Post forStory(Story|int $story)
- * @method static PostBuilder<static>|Post hasExpiredPostLock()
- * @method static PostBuilder<static>|Post locked()
- * @method static PostBuilder<static>|Post newModelQuery()
- * @method static PostBuilder<static>|Post newQuery()
- * @method static Builder<static>|Post onlyTrashed()
- * @method static PostBuilder<static>|Post orWhereNotState(string $column, $states)
- * @method static PostBuilder<static>|Post orWhereState(string $column, $states)
- * @method static PostBuilder<static>|Post ordered(string $direction = 'asc')
- * @method static PostBuilder<static>|Post pending()
- * @method static PostBuilder<static>|Post previousMonth()
- * @method static PostBuilder<static>|Post previousYear()
- * @method static PostBuilder<static>|Post published()
- * @method static PostBuilder<static>|Post query()
- * @method static PostBuilder<static>|Post searchFor($search)
- * @method static PostBuilder<static>|Post unlocked()
- * @method static PostBuilder<static>|Post whereContent($value)
- * @method static PostBuilder<static>|Post whereCreatedAt($value)
- * @method static PostBuilder<static>|Post whereDay($value)
- * @method static PostBuilder<static>|Post whereDeletedAt($value)
- * @method static PostBuilder<static>|Post whereDirection($value)
- * @method static PostBuilder<static>|Post whereHasUser(User $user)
- * @method static PostBuilder<static>|Post whereId($value)
- * @method static PostBuilder<static>|Post whereLastUpdateBy($value)
- * @method static PostBuilder<static>|Post whereLocation($value)
- * @method static PostBuilder<static>|Post whereLockedAt($value)
- * @method static PostBuilder<static>|Post whereLockedBy($value)
- * @method static PostBuilder<static>|Post whereNeighbor($value)
- * @method static PostBuilder<static>|Post whereNotPost(Post $post)
- * @method static PostBuilder<static>|Post whereNotRootPost()
- * @method static PostBuilder<static>|Post whereNotState(string $column, $states)
- * @method static PostBuilder<static>|Post whereOrderColumn($value)
- * @method static PostBuilder<static>|Post whereParticipants($value)
- * @method static PostBuilder<static>|Post wherePostType($postTypeId)
- * @method static PostBuilder<static>|Post wherePostTypeId($value)
- * @method static PostBuilder<static>|Post wherePrefixedId($value)
- * @method static PostBuilder<static>|Post wherePublishedAt($value)
- * @method static PostBuilder<static>|Post whereRatingLanguage($value)
- * @method static PostBuilder<static>|Post whereRatingSex($value)
- * @method static PostBuilder<static>|Post whereRatingViolence($value)
- * @method static PostBuilder<static>|Post whereState(string $column, $states)
- * @method static PostBuilder<static>|Post whereStatus($value)
- * @method static PostBuilder<static>|Post whereStoryId($value)
- * @method static PostBuilder<static>|Post whereSummary($value)
- * @method static PostBuilder<static>|Post whereTime($value)
- * @method static PostBuilder<static>|Post whereTitle($value)
- * @method static PostBuilder<static>|Post whereUpdatedAt($value)
- * @method static PostBuilder<static>|Post whereWordCount($value)
- * @method static Builder<static>|Post withTrashed(bool $withTrashed = true)
- * @method static Builder<static>|Post withoutTrashed()
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperPost
  */
 #[ObservedBy([PostObserver::class])]
 #[UseEloquentBuilder(PostBuilder::class)]

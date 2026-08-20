@@ -103,9 +103,19 @@ class NotificationSeeder extends Seeder
 
         $user->notify(new ApplicationReadyForReview(application: $application));
 
-        $user->notify(new ApplicationReviewerVotedToAccept(application: $application, reviewer: $activeUser, review: $application->reviews->first()->pivot));
+        $review = $application->reviews()->firstOrFail()->pivot;
 
-        $user->notify(new ApplicationReviewerVotedToDeny(application: $application, reviewer: $activeUser, review: $application->reviews->first()->pivot));
+        $user->notify(new ApplicationReviewerVotedToAccept(
+            application: $application,
+            reviewer: $activeUser,
+            review: $review,
+        ));
+
+        $user->notify(new ApplicationReviewerVotedToDeny(
+            application: $application,
+            reviewer: $activeUser,
+            review: $review,
+        ));
 
         $user->notify(new ApplicationAccepted(application: $application));
 

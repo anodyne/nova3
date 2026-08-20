@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Actions;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Cache;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Foundation\Enums\BasicStatus;
@@ -19,7 +19,9 @@ class RecacheMenus
     {
         Cache::rememberForever(CacheKeys::BasicMenu->value, fn () => Menu::public()
             ->with([
-                'items' => fn (HasMany $query): HasMany => $query->where('status', BasicStatus::Active),
+                'items' => function (Relation $query): void {
+                    $query->where('status', BasicStatus::Active);
+                },
                 'items.page',
                 'items.items',
             ])

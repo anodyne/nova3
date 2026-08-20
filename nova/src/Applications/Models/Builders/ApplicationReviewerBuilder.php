@@ -30,6 +30,11 @@ class ApplicationReviewerBuilder extends Builder
     {
         return $this->withoutGlobalScopes()
             ->global()
-            ->whereHas('user', fn (UserBuilder $query): UserBuilder => $query->active()->whereHasPermission('application.approve'));
+            ->whereHas('user', function (Builder $query): void {
+                /** @var UserBuilder $userQuery */
+                $userQuery = $query;
+
+                $userQuery->active()->whereHasPermission('application.approve');
+            });
     }
 }

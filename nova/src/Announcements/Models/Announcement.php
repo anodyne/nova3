@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Factories\AnnouncementFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,50 +20,10 @@ use Nova\Foundation\Enums\PublishStatus;
 use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
- * @property int $id
- * @property string|null $prefixed_id
- * @property int|null $user_id
- * @property string $title
- * @property string|null $category
- * @property string $content
- * @property PublishStatus $status
- * @property CarbonImmutable|null $published_at
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property-read Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read bool $is_published
- * @property-read Collection<int, AnnouncementNotification> $notifications
- * @property-read int|null $notifications_count
- * @property-read User|null $user
- *
- * @method static AnnouncementBuilder<static>|Announcement draft()
- * @method static AnnouncementFactory factory($count = null, $state = [])
- * @method static AnnouncementBuilder<static>|Announcement newModelQuery()
- * @method static AnnouncementBuilder<static>|Announcement newQuery()
- * @method static AnnouncementBuilder<static>|Announcement pending()
- * @method static AnnouncementBuilder<static>|Announcement published()
- * @method static AnnouncementBuilder<static>|Announcement query()
- * @method static AnnouncementBuilder<static>|Announcement searchFor($search)
- * @method static AnnouncementBuilder<static>|Announcement uniqueCategories()
- * @method static AnnouncementBuilder<static>|Announcement whereCategory($value)
- * @method static AnnouncementBuilder<static>|Announcement whereContent($value)
- * @method static AnnouncementBuilder<static>|Announcement whereCreatedAt($value)
- * @method static AnnouncementBuilder<static>|Announcement whereId($value)
- * @method static AnnouncementBuilder<static>|Announcement wherePrefixedId($value)
- * @method static AnnouncementBuilder<static>|Announcement wherePublishedAt($value)
- * @method static AnnouncementBuilder<static>|Announcement whereStatus($value)
- * @method static AnnouncementBuilder<static>|Announcement whereTitle($value)
- * @method static AnnouncementBuilder<static>|Announcement whereUpdatedAt($value)
- * @method static AnnouncementBuilder<static>|Announcement whereUserId($value)
- * @method static AnnouncementBuilder<static>|Announcement withReadNotificationsForUser(User $user)
- * @method static AnnouncementBuilder<static>|Announcement withUnreadNotificationsForUser(User $user)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperAnnouncement
  */
 #[UseEloquentBuilder(AnnouncementBuilder::class)]
 class Announcement extends Model

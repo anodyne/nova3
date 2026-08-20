@@ -27,7 +27,7 @@ readonly class CharacterData extends Bag
     {
         return [
             'name' => $request->input('name'),
-            'rank_id' => $request->integer('rank_id', null),
+            'rank_id' => $request->filled('rank_id') ? $request->integer('rank_id') : null,
         ];
     }
 }

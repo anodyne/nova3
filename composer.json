@@ -137,6 +137,11 @@
             "find ./media/stories -mindepth 1 ! -name '.gitignore' -delete",
             "find ./media/users -mindepth 1 ! -name '.gitignore' -delete"
         ],
+        "ide-helpers": [
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:models -R --nowrite --write-mixin"
+        ],
         "lint": [
             "@rector",
             "pint --parallel"
@@ -178,9 +183,7 @@
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:models -RW",
-            "@php artisan ide-helper:meta"
+            "@ide-helpers"
         ],
         "update-requirements": [
             "composer bump",

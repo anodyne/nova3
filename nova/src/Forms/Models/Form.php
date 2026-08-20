@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
-use Carbon\CarbonImmutable;
-use Database\Factories\FormFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Blade;
@@ -23,61 +20,10 @@ use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
- * @property int $id
- * @property string|null $prefixed_id
- * @property string $name
- * @property string $key
- * @property FormType $type
- * @property string|null $description
- * @property bool $is_locked
- * @property FormOptions|null $options
- * @property array<array-key, mixed>|null $fields
- * @property array<array-key, mixed>|null $published_fields
- * @property BasicStatus $status
- * @property CarbonImmutable|null $published_at
- * @property CarbonImmutable|null $created_at
- * @property CarbonImmutable|null $updated_at
- * @property-read Collection<int, Activity> $activities
- * @property-read int|null $activities_count
- * @property-read Collection<int, FormField> $formFields
- * @property-read int|null $form_fields_count
- * @property-read bool $has_published_fields
- * @property-read string|null $rendered_block_content
- * @property-read Collection<int, FormSubmission> $submissions
- * @property-read int|null $submissions_count
- * @property-read array $validation_messages
- * @property-read array $validation_rules
- *
- * @method static FormBuilder<static>|Form active()
- * @method static FormBuilder<static>|Form basic()
- * @method static FormFactory factory($count = null, $state = [])
- * @method static FormBuilder<static>|Form inactive()
- * @method static FormBuilder<static>|Form key(string $key)
- * @method static FormBuilder<static>|Form newModelQuery()
- * @method static FormBuilder<static>|Form newQuery()
- * @method static FormBuilder<static>|Form query()
- * @method static FormBuilder<static>|Form searchFor($search)
- * @method static FormBuilder<static>|Form submissible()
- * @method static FormBuilder<static>|Form whereCreatedAt($value)
- * @method static FormBuilder<static>|Form whereDescription($value)
- * @method static FormBuilder<static>|Form whereFields($value)
- * @method static FormBuilder<static>|Form whereId($value)
- * @method static FormBuilder<static>|Form whereIsLocked($value)
- * @method static FormBuilder<static>|Form whereKey($value)
- * @method static FormBuilder<static>|Form whereName($value)
- * @method static FormBuilder<static>|Form whereOptions($value)
- * @method static FormBuilder<static>|Form wherePrefixedId($value)
- * @method static FormBuilder<static>|Form wherePublishedAt($value)
- * @method static FormBuilder<static>|Form wherePublishedFields($value)
- * @method static FormBuilder<static>|Form whereStatus($value)
- * @method static FormBuilder<static>|Form whereType($value)
- * @method static FormBuilder<static>|Form whereUpdatedAt($value)
- *
- * @mixin \Eloquent
+ * @mixin IdeHelperForm
  */
 #[UseEloquentBuilder(FormBuilder::class)]
 class Form extends Model

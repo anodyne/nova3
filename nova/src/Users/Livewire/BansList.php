@@ -120,9 +120,12 @@ class BansList extends TableComponent
                     ->authorize('deleteAny')
                     ->modalContentView('pages.bans.delete-bulk')
                     ->action(function (Collection $records): void {
+                        /** @var Collection<int|string, Ban> $banRecords */
+                        $banRecords = $records;
+
                         $ignoredRecords = 0;
 
-                        $records = $records
+                        $records = $banRecords
                             ->filter(function (Ban $record) use (&$ignoredRecords): bool {
                                 if (Gate::allows('delete', $record)) {
                                     return true;
@@ -135,7 +138,7 @@ class BansList extends TableComponent
                             ->each(fn (Ban $record) => $record->delete());
 
                         Notification::make()->success()
-                            ->title(count($records).' '.trans_choice('ban was|bans were', count($records)).' deleted')
+                            ->title(count($banRecords).' '.trans_choice('ban was|bans were', count($banRecords)).' deleted')
                             ->when($ignoredRecords > 0, fn (Notification $notification): Notification => $notification->body(sprintf(
                                 '%d %s ignored due to being ineligible for this action.',
                                 $ignoredRecords,

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
-use Nova\Stories\Models\Builders\StoryBuilder;
 use Nova\Stories\Models\Story;
 
 /**
@@ -84,8 +83,7 @@ class StoryPosition extends Component
     public function storiesForOrdering(): Collection
     {
         return Story::query()
-            ->when(filled($this->parentId), fn (StoryBuilder $query): StoryBuilder => $query->whereParent($this->parentId))
-            ->when(blank($this->parentId), fn (StoryBuilder $query): StoryBuilder => $query->whereNull('parent_id'))
+            ->whereParent($this->parentId)
             ->ordered()
             ->get();
     }

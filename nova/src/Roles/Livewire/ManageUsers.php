@@ -20,6 +20,9 @@ use Nova\Users\Models\User;
  */
 class ManageUsers extends Component
 {
+    /**
+     * @var Collection<int, User>
+     */
     public Collection $assigned;
 
     #[Locked]

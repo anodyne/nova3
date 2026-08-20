@@ -18,8 +18,8 @@ try {
 
     $basicPages = Cache::get(CacheKeys::BasicPages->value);
 
-    $basicPages->each(function (Page $page) {
-        return Route::get($page->uri, BasicPageController::class)
+    $basicPages->each(function (Page $page): void {
+        Route::get($page->uri, BasicPageController::class)
             ->name($page->key)
             ->middleware(array_merge(
                 $page->middleware ?? [],
@@ -39,8 +39,8 @@ try {
 
     $advancedPages = Cache::get(CacheKeys::AdvancedPages->value);
 
-    $advancedPages->each(function (Page $page) {
-        return Route::match([$page->verb->value], $page->uri, $page->resource)
+    $advancedPages->each(function (Page $page): void {
+        Route::match([$page->verb->value], $page->uri, $page->resource)
             ->name($page->key)
             ->middleware([
                 ...($page->middleware ?? []),
@@ -48,7 +48,7 @@ try {
                 IPBanned::class,
             ]);
     });
-} catch (Throwable $th) {
+} catch (Throwable) {
     Route::view('/', 'pages.welcome')->middleware(CheckInstallStatus::class);
 }
 

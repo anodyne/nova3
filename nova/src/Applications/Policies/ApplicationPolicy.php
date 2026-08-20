@@ -86,14 +86,16 @@ class ApplicationPolicy
             return $this->deny();
         }
 
-        if ($application->reviews->contains($user)) {
-            $userReview = $application->reviews()->wherePivot('user_id', $user->id)->first();
+        $review = ApplicationReview::query()
+            ->where('application_id', $application->id)
+            ->where('user_id', $user->id)
+            ->first();
 
-            $review = $userReview?->pivot;
-
-            if ($review instanceof ApplicationReview && (blank($review->result) || settings('applications.allowVoteChanging'))) {
-                return $this->allow();
-            }
+        if (
+            $review !== null
+            && (blank($review->result) || settings('applications.allowVoteChanging'))
+        ) {
+            return $this->allow();
         }
 
         return $this->deny();

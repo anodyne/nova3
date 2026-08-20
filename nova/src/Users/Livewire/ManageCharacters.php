@@ -15,12 +15,13 @@ use Nova\Users\Models\User;
 
 /**
  * @property-read string $assignedCharacters
- * @property-read Collection $characters
- * @property-read Collection $models
+ * @property-read Collection<int, Character> $characters
+ * @property-read Collection<int, Character> $models
  * @property-read string $primaryCharacter
  */
 class ManageCharacters extends Component
 {
+    /** @var Collection<int, Character> */
     public Collection $assigned;
 
     public ?Character $primary = null;
@@ -34,16 +35,22 @@ class ManageCharacters extends Component
     public function assignedCharacters(): string
     {
         return $this->assigned
-            ->map(fn (Character $character) => $character->id)
+            ->map(fn (Character $character): int => $character->id)
             ->join(',');
     }
 
+    /**
+     * @return Collection<int, Character>
+     */
     #[Computed]
     public function characters(): Collection
     {
         return $this->assigned;
     }
 
+    /**
+     * @return Collection<int, Character>
+     */
     #[Computed]
     public function models(): Collection
     {
