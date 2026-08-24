@@ -10,9 +10,7 @@ use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of Announcement
- *
- * @extends Builder<TModel>
+ * @extends Builder<Announcement>
  */
 class AnnouncementBuilder extends Builder
 {
@@ -31,7 +29,7 @@ class AnnouncementBuilder extends Builder
         return $this->where('status', PublishStatus::Published);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->where(function ($query) use ($search): void {
             $query->whereFullText('title', $search)

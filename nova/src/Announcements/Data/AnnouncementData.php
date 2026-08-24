@@ -37,6 +37,14 @@ readonly class AnnouncementData extends Bag
         return $user;
     }
 
+    /**
+     * @return array{
+     *      title: mixed,
+     *      category: mixed,
+     *      status: mixed,
+     *      content: mixed
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

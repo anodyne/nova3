@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Requests;
 
+use Illuminate\Contracts\Validation\Rule as ValidationRuleContract;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Nova\Announcements\Data\AnnouncementData;
@@ -11,6 +12,9 @@ use Nova\Foundation\Enums\PublishStatus;
 
 class StoreAnnouncementRequest extends FormRequest
 {
+    /**
+     * @return array<string, array<int, ValidationRuleContract|string>>
+     */
     public function rules(): array
     {
         return [

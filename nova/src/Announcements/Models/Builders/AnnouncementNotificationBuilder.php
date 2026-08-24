@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Nova\Announcements\Models\Builders;
 
 use Illuminate\Database\Eloquent\Builder;
+use Nova\Announcements\Models\Announcement;
 use Nova\Announcements\Models\AnnouncementNotification;
+use Nova\Users\Models\User;
 
 /**
- * @template TModel of AnnouncementNotification
- *
- * @extends Builder<TModel>
+ * @extends Builder<AnnouncementNotification>
  */
 class AnnouncementNotificationBuilder extends Builder
 {
-    public function announcement(int $announcementId): self
+    public function announcement(Announcement|int $announcement): self
     {
-        return $this->where('announcement_id', $announcementId);
+        return $this->where('announcement_id', $announcement->id ?? $announcement);
     }
 
     public function read(): self
@@ -29,8 +29,8 @@ class AnnouncementNotificationBuilder extends Builder
         return $this->where('is_seen', false);
     }
 
-    public function user(int $userId): self
+    public function user(User|int $user): self
     {
-        return $this->where('user_id', $userId);
+        return $this->where('user_id', $user->id ?? $user);
     }
 }

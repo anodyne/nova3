@@ -30,7 +30,7 @@ class AnnouncementFactory extends Factory
         });
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => str(fake()->words(mt_rand(3, 10), asText: true))->title()->toString(),
@@ -45,7 +45,7 @@ class AnnouncementFactory extends Factory
         ];
     }
 
-    public function draft()
+    public function draft(): static
     {
         return $this->state([
             'status' => PublishStatus::Draft,
@@ -53,7 +53,7 @@ class AnnouncementFactory extends Factory
         ]);
     }
 
-    public function pending()
+    public function pending(): static
     {
         return $this->state([
             'status' => PublishStatus::Pending,
@@ -61,7 +61,7 @@ class AnnouncementFactory extends Factory
         ]);
     }
 
-    public function published()
+    public function published(): static
     {
         return $this->state([
             'status' => PublishStatus::Published,

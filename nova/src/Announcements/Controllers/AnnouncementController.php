@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Nova\Announcements\Actions\CreateAnnouncement;
 use Nova\Announcements\Actions\MarkAnnouncementRead;
@@ -50,7 +51,7 @@ class AnnouncementController extends Controller
         ]);
     }
 
-    public function store(StoreAnnouncementRequest $request)
+    public function store(StoreAnnouncementRequest $request): RedirectResponse
     {
         $announcement = CreateAnnouncement::run($request->getAnnouncementData());
 
@@ -66,7 +67,7 @@ class AnnouncementController extends Controller
         ]);
     }
 
-    public function update(UpdateAnnouncementRequest $request, Announcement $announcement)
+    public function update(UpdateAnnouncementRequest $request, Announcement $announcement): RedirectResponse
     {
         $announcement = UpdateAnnouncement::run(
             $announcement,

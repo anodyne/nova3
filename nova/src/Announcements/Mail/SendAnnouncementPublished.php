@@ -34,9 +34,4 @@ class SendAnnouncementPublished extends Mailable implements ShouldQueue
             markdown: 'emails.announcement-published',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

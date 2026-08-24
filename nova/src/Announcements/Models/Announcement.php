@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Models;
 
+use Database\Factories\AnnouncementFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +29,9 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(AnnouncementBuilder::class)]
 class Announcement extends Model
 {
+    /** @use HasFactory<AnnouncementFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use LogsActivity {
         LogsActivity::getActivitylogOptions as baseActivitylogOptions;
@@ -55,32 +58,31 @@ class Announcement extends Model
         'user_id',
     ];
 
-    public function getActivitylogOptions(): LogOptions
-    {
-        return $this->baseActivitylogOptions()->logExcept(['content']);
-    }
-
-    public function isPublished(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): bool => $this->published_at?->lte(Date::now()) ?? false,
-        );
-    }
-
+    /**
+     * @return HasMany<AnnouncementNotification, $this>
+     */
     public function notifications(): HasMany
     {
         return $this->hasMany(AnnouncementNotification::class);
     }
 
-    public function toSearchableArray(): array
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
     {
-        return [
-            'id' => $this->id,
-            'prefixed_id' => $this->prefixed_id,
-            'title' => $this->title,
-            'category' => $this->category,
-            'content' => $this->content,
-        ];
+        /** @var BelongsTo<User, $this> $relation */
+        $relation = $this->belongsTo(User::class)->withTrashed();
+
+        return $relation;
+    }
+
+    /** @return Attribute<bool, never> */
+    public function isPublished(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->published_at?->lte(Date::now()) ?? false,
+        );
     }
 
     public function unreadFor(User $user): bool
@@ -91,11 +93,22 @@ class Announcement extends Model
             ->exists();
     }
 
-    public function user(): BelongsTo
+    public function getActivitylogOptions(): LogOptions
     {
-        /** @var BelongsTo $relation */
-        $relation = $this->belongsTo(User::class)->withTrashed();
+        return $this->baseActivitylogOptions()->logExcept(['content']);
+    }
 
-        return $relation;
+    /**
+     * @return array{id: int, prefixed_id: ?string, title: string, category: string|null, content: string}
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'prefixed_id' => $this->prefixed_id,
+            'title' => $this->title,
+            'category' => $this->category,
+            'content' => $this->content,
+        ];
     }
 }

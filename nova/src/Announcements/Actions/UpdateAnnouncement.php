@@ -38,6 +38,9 @@ class UpdateAnnouncement
         });
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function setUpdateData(Announcement $announcement, AnnouncementData $data, bool $wasPublishing): array
     {
         if (! $wasPublishing) {

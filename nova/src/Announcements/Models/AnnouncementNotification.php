@@ -22,11 +22,17 @@ class AnnouncementNotification extends Model
 
     protected $fillable = ['announcement_id', 'is_seen', 'user_id'];
 
+    /**
+     * @return BelongsTo<Announcement, $this>
+     */
     public function announcement(): BelongsTo
     {
         return $this->belongsTo(Announcement::class);
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
