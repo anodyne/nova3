@@ -29,6 +29,19 @@ readonly class AddonData extends Bag
         public ?AddonRepository $repository
     ) {}
 
+    /**
+     * @return array{
+     *     name: mixed,
+     *     location: mixed,
+     *     version: mixed,
+     *     credits: mixed,
+     *     type: AddonType,
+     *     status: BasicStatus|null,
+     *     preview: mixed,
+     *     settings: AddonSettings,
+     *     repository: AddonRepository|null
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

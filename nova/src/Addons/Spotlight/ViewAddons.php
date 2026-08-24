@@ -15,6 +15,7 @@ class ViewAddons extends SpotlightCommand
 
     protected string $description = 'View all add-ons';
 
+    /** @var array<int, string> */
     protected array $synonyms = [
         'show all add-ons',
         'show all extensions',

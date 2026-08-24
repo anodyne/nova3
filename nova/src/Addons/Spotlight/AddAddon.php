@@ -15,6 +15,7 @@ class AddAddon extends SpotlightCommand
 
     protected string $description = 'Add a new add-on';
 
+    /** @var array<int, string> */
     protected array $synonyms = [
         'create new add-on',
         'create new extension',

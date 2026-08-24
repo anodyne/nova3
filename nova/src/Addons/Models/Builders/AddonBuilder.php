@@ -10,9 +10,7 @@ use Nova\Addons\Models\Addon;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 /**
- * @template TModel of Addon
- *
- * @extends Builder<TModel>
+ * @extends Builder<Addon>
  */
 class AddonBuilder extends Builder
 {
@@ -38,7 +36,7 @@ class AddonBuilder extends Builder
         return $this->where('type', AddonType::Rank);
     }
 
-    public function searchFor($column, $search): self
+    public function searchFor(string $column, string $search): self
     {
         return $this->where(function ($query) use ($column, $search): void {
             $query->whereFullText($column, $search)

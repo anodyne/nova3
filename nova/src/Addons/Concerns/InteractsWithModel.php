@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Concerns;
 
+use Nova\Addons\Data\AddonSettings;
 use Nova\Addons\Models\Addon;
 
 trait InteractsWithModel
 {
-    public $name;
+    public string $name;
 
-    public $credits;
+    public ?string $credits;
 
-    public $settings;
+    public ?AddonSettings $settings;
 
     public function getModel(): Addon
     {

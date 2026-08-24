@@ -270,6 +270,9 @@ class AddonsList extends TableComponent
             ]);
     }
 
+    /**
+     * @return list<Action>
+     */
     protected function actionPanelActions(): array
     {
         return [

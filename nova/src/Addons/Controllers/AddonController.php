@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Addons\Actions\CreateAddonManager;
 use Nova\Addons\Actions\UpdateAddon;
 use Nova\Addons\Models\Addon;
@@ -44,7 +45,7 @@ class AddonController extends Controller
         return CreateAddonResponse::send();
     }
 
-    public function store(StoreAddonRequest $request)
+    public function store(StoreAddonRequest $request): RedirectResponse
     {
         $addon = CreateAddonManager::run($request);
 
@@ -62,7 +63,7 @@ class AddonController extends Controller
         ]);
     }
 
-    public function update(UpdateAddonRequest $request, Addon $addon)
+    public function update(UpdateAddonRequest $request, Addon $addon): RedirectResponse
     {
         $addon = UpdateAddon::run($addon, $request->getAddonData());
 

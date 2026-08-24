@@ -16,14 +16,14 @@ class AddonFactory extends Factory
 {
     protected $model = Addon::class;
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->words(mt_rand(2, 4), asText: true);
 
@@ -37,7 +37,7 @@ class AddonFactory extends Factory
         ];
     }
 
-    public function extension()
+    public function extension(): static
     {
         return $this->state([
             'type' => AddonType::Extension,
@@ -63,21 +63,21 @@ class AddonFactory extends Factory
         return FactoryRequestData::from(model: $model, payload: $payload);
     }
 
-    public function genre()
+    public function genre(): static
     {
         return $this->state([
             'type' => AddonType::Genre,
         ]);
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,
         ]);
     }
 
-    public function rank()
+    public function rank(): static
     {
         return $this->state([
             'type' => AddonType::Rank,

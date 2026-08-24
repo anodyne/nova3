@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Models;
 
+use Database\Factories\AddonFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,6 +23,7 @@ use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
+use UnexpectedValueException;
 
 /**
  * @mixin IdeHelperAddon
@@ -30,7 +32,10 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 class Addon extends Model
 {
     use ChecksAddonVersion;
+
+    /** @use HasFactory<AddonFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use LogsActivity;
 
@@ -75,10 +80,11 @@ class Addon extends Model
         return new $addonClass;
     }
 
+    /** @return Attribute<bool, never> */
     public function hasAddonClass(): Attribute
     {
-        return Attribute::make(
-            get: fn (): bool => class_exists('Addons\\'.$this->location.'\\Addon')
+        return Attribute::get(
+            fn (): bool => class_exists('Addons\\'.$this->location.'\\Addon')
         );
     }
 
@@ -89,6 +95,7 @@ class Addon extends Model
         $addonClass->runScript($name);
     }
 
+    /** @return Collection<string, string> */
     public static function getInstallableAddons(): Collection
     {
         return collect(Storage::disk('addons')->directories())
@@ -97,7 +104,16 @@ class Addon extends Model
             ->flatMap(function (string $addon): array {
                 $disk = Storage::disk('addons');
 
-                $json = json_decode($disk->get($addon.DIRECTORY_SEPARATOR.'addon.json'));
+                $json = json_decode(
+                    $disk->get($addon.DIRECTORY_SEPARATOR.'addon.json'),
+                    flags: JSON_THROW_ON_ERROR,
+                );
+
+                if (! is_object($json) || ! isset($json->name) || ! is_string($json->name)) {
+                    throw new UnexpectedValueException(
+                        "Addon [{$addon}] has an invalid name."
+                    );
+                }
 
                 return [$addon => $json->name];
             })

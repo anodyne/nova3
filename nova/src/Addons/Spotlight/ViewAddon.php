@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Spotlight;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class ViewAddon extends SpotlightCommand
 
     protected string $name = 'View Add-on';
 
+    /** @var array<int, string> */
     protected array $synonyms = [
         'show an add-on',
         'show an extension',
@@ -43,7 +45,10 @@ class ViewAddon extends SpotlightCommand
         $spotlight->redirectRoute('admin.addons.show', $addon);
     }
 
-    public function searchAddon($query)
+    /**
+     * @return Collection<int, Addon>
+     */
+    public function searchAddon(string $query): Collection
     {
         return Addon::query()
             ->searchFor('name', $query)

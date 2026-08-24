@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons;
 
+use Filament\Schemas\Components\Component;
 use Illuminate\Support\Facades\Artisan;
 
 abstract class Extension extends BaseAddon
@@ -19,6 +20,7 @@ abstract class Extension extends BaseAddon
 
     public function update(): void {}
 
+    /** @return list<Component> */
     public function settingsForm(): array
     {
         return [];

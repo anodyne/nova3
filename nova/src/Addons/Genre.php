@@ -14,14 +14,39 @@ use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 
+/**
+ * @phpstan-type PositionData array{
+ *     name: string,
+ *     description: string
+ * }
+ * @phpstan-type DepartmentData array{
+ *     name: string,
+ *     description: string,
+ *     positions: list<PositionData>
+ * }
+ * @phpstan-type RankItemData array{
+ *     name: string,
+ *     base_image: string,
+ *     overlay_image: string
+ * }
+ * @phpstan-type RankGroupData array{
+ *     name: string,
+ *     items: list<RankItemData>
+ * }
+ */
 abstract class Genre extends BaseAddon
 {
     use MovesRankImages;
 
+    /** @return list<DepartmentData> */
     abstract public function departmentAndPositionsData(): array;
 
+    /** @return list<RankGroupData> */
     abstract public function rankGroupsAndItemsData(): array;
 
+    /**
+     * @return list<array{name: string}>
+     */
     abstract public function rankNamesData(): array;
 
     public function install(): void
