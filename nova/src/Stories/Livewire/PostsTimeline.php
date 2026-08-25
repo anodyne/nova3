@@ -23,6 +23,7 @@ class PostsTimeline extends Component
 {
     public bool $admin = true;
 
+    /** @var 'asc'|'desc' */
     public string $sortDirection = 'desc';
 
     public string $sortField = 'order_column';

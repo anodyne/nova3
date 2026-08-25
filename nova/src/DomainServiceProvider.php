@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Event;
@@ -12,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use LivewireUI\Spotlight\Spotlight;
+use Nova\Foundation\Application;
 use Nova\Foundation\Nova;
 use Spatie\PrefixedIds\PrefixedIds;
 
+/** @property Application $app */
 abstract class DomainServiceProvider extends ServiceProvider
 {
     /** @return array<string, class-string> */
@@ -41,7 +44,7 @@ abstract class DomainServiceProvider extends ServiceProvider
         return [];
     }
 
-    /** @return array<string, class-string> */
+    /** @return array<string, class-string<Model>> */
     public function morphMaps(): array
     {
         return [];

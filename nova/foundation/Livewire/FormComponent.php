@@ -20,6 +20,7 @@ abstract class FormComponent extends Component implements HasActions, HasForms
     /** @var array<string, mixed>|null */
     public ?array $data = [];
 
+    /** @var view-string */
     protected string $view = 'livewire.filament-form';
 
     abstract public function form(Schema $schema): Schema;

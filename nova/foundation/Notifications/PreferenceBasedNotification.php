@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notification;
 use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Foundation\Enums\NotificationChannel;
 use Nova\Foundation\Models\NotificationType;
+use Nova\Users\Models\User;
 
 abstract class PreferenceBasedNotification extends Notification implements ShouldQueue
 {
@@ -28,6 +29,7 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
     abstract public function mailable(): Mailable;
 
     /**
+     * @param  User  $notifiable
      * @return array<int, string>
      */
     public function via(object $notifiable): array
@@ -40,6 +42,7 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
         };
     }
 
+    /** @param User $notifiable */
     public function toMail(object $notifiable): Mailable
     {
         return $this->mailable()->to($notifiable->email);
@@ -52,9 +55,7 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
         return $this->notificationType;
     }
 
-    /**
-     * @return array<int, string>
-     */
+    /** @return array<int, string> */
     protected function setAdminAudienceChannels(): array
     {
         $channels = [];
@@ -69,6 +70,7 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
     }
 
     /**
+     * @param  User  $notifiable
      * @return array<int, string>
      */
     protected function setNonAdminAudienceChannels(object $notifiable): array

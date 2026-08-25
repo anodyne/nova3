@@ -53,6 +53,7 @@ class UploadImage extends Component
 
     public string $supportMessage = 'PNG, JPG, or GIF (max. 10MB)';
 
+    /** @var view-string */
     protected string $filename = 'livewire.media.upload-image';
 
     #[Computed]

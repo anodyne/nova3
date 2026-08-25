@@ -17,6 +17,7 @@ class StoriesTimeline extends Component
 {
     public string $sortField = 'order_column';
 
+    /** @var 'asc'|'desc' */
     public string $sortDirection = 'desc';
 
     /** @return Collection<int, Story> */

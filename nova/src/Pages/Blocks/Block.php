@@ -29,6 +29,7 @@ use Nova\Pages\Enums\Radius;
 use Nova\Pages\Enums\Spacing;
 use Nova\Pages\Enums\TextShadow;
 
+/** @property string $preview */
 abstract class Block extends BuilderBlock
 {
     protected ?string $component = null;

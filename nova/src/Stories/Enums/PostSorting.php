@@ -31,6 +31,7 @@ enum PostSorting: string implements HasLabel
         };
     }
 
+    /** @return 'asc'|'desc' */
     public function getSortDirection(): string
     {
         return match ($this) {

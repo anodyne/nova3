@@ -14,7 +14,7 @@ use Nova\Foundation\Actions\RecacheIcons;
 use Nova\Foundation\Enums\CacheKeys;
 
 /**
- * @property-read list<string> $filteredIcons
+ * @property-read array<int, string> $filteredIcons
  */
 class IconPicker extends Component
 {
@@ -38,7 +38,7 @@ class IconPicker extends Component
         ]);
     }
 
-    /** @return list<string> */
+    /** @return array<int, string> */
     #[Computed]
     public function filteredIcons(): array
     {

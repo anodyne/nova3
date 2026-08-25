@@ -53,7 +53,7 @@ class DiscordAlert
         ], $optionalFields);
     }
 
-    /** @return list<array<string, mixed>> */
+    /** @return array<int, array<string, mixed>> */
     protected function embeds(DiscordMessage $message): array
     {
         return collect($message->embeds)->map(fn (DiscordEmbed $embed): array => array_filter([
@@ -69,7 +69,7 @@ class DiscordAlert
         ]))->all();
     }
 
-    /** @return list<array{name: mixed, value: mixed, inline: bool}> */
+    /** @return array<int, array{name: int|string, value: string, inline: bool}> */
     protected function embedFields(DiscordEmbed $embed): array
     {
         return collect($embed->fields)->map(function ($value, $key): array {

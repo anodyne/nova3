@@ -25,6 +25,9 @@ use Nova\Users\Models\User;
  * @property-read Collection<int, User> $filteredUsers
  * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
+ *
+ * @phpstan-import-type CharacterAuthor from \Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors
+ * @phpstan-import-type UserAuthor from \Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors
  */
 #[On('post-authors-modified')]
 class PostAuthorsEditor extends SlideOver
@@ -104,8 +107,8 @@ class PostAuthorsEditor extends SlideOver
     }
 
     /**
-     * @param  array<int, array<string, mixed>>  $characterAuthors
-     * @param  array<int, array<string, mixed>>  $userAuthors
+     * @param  array<int, CharacterAuthor>  $characterAuthors
+     * @param  array<int, UserAuthor>  $userAuthors
      */
     public function mount(array $characterAuthors, array $userAuthors): void
     {

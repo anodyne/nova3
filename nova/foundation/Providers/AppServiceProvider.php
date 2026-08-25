@@ -95,6 +95,7 @@ use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
 use Spatie\Activitylog\Models\Activity;
 
+/** @property Application $app */
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void

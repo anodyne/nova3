@@ -16,6 +16,7 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Set;
 use Illuminate\Support\Str;
 
+/** @property string $preview */
 abstract class Field extends BuilderBlock
 {
     protected ?string $component = null;

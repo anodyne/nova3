@@ -23,6 +23,11 @@ use Nova\Stories\Models\PostType;
 /**
  * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
+ *
+ * @phpstan-import-type CharacterAuthor from \Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors
+ * @phpstan-import-type CharacterAuthorPivotData from \Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors
+ * @phpstan-import-type UserAuthor from \Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors
+ * @phpstan-import-type UserAuthorPivotData from \Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors
  */
 class PostAuthors extends Component
 {
@@ -91,10 +96,10 @@ class PostAuthors extends Component
     }
 
     /**
-     * @param  array<int, array<string, mixed>>  $characterAuthors
-     * @param  array<int, array<string, mixed>>  $characterAuthorsPivotData
-     * @param  array<int, array<string, mixed>>  $userAuthors
-     * @param  array<int, array<string, mixed>>  $userAuthorsPivotData
+     * @param  array<int, CharacterAuthor>  $characterAuthors
+     * @param  array<int, CharacterAuthorPivotData>  $characterAuthorsPivotData
+     * @param  array<int, UserAuthor>  $userAuthors
+     * @param  array<int, UserAuthorPivotData>  $userAuthorsPivotData
      */
     #[On('update-post-authors')]
     public function handleAuthorUpdates(array $characterAuthors, array $characterAuthorsPivotData, array $userAuthors, array $userAuthorsPivotData): void

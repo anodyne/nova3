@@ -31,7 +31,7 @@ class CsvCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        if (is_null($value)) {
+        if (is_null($value) || is_string($value)) {
             return $value;
         }
 

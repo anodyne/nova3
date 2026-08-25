@@ -16,6 +16,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
  */
 class StoriesTimeline extends Component
 {
+    /** @var 'asc'|'desc' */
     public string $sortDirection = 'asc';
 
     public string $bgColor = '#ffffff';

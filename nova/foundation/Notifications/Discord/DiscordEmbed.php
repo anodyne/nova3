@@ -34,7 +34,7 @@ class DiscordEmbed
     /**
      * The color code of the embed.
      *
-     * @var int
+     * @var float|int
      */
     public $color;
 

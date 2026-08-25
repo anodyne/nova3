@@ -14,7 +14,10 @@ readonly class PhpExtensions
 
     public function __construct()
     {
-        $this->required = collect($this->requiredExtensions())->flatMap(fn ($e): array => [$e['key']])->all();
+        $this->required = array_map(
+            fn (array $extension): string => $extension['key'],
+            $this->requiredExtensions(),
+        );
         $this->loaded = get_loaded_extensions();
     }
 
