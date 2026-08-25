@@ -8,13 +8,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Nova\Roles\Models\Permission;
 
 /**
- * @template TModel of Permission
- *
- * @extends Builder<TModel>
+ * @extends Builder<Permission>
  */
 class PermissionBuilder extends Builder
 {
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->whereAny([
             'name',

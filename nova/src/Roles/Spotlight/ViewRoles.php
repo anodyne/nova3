@@ -15,6 +15,7 @@ class ViewRoles extends SpotlightCommand
 
     protected string $description = 'View all roles';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show all roles',
         'display all roles',

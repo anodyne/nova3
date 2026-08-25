@@ -16,14 +16,14 @@ class RoleFactory extends Factory
 
     protected $model = Role::class;
 
-    public function default()
+    public function default(): static
     {
         return $this->state([
             'is_default' => true,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->words(4, true);
 
@@ -35,14 +35,14 @@ class RoleFactory extends Factory
         ];
     }
 
-    public function locked()
+    public function locked(): static
     {
         return $this->state([
             'is_locked' => true,
         ]);
     }
 
-    public function notDefault()
+    public function notDefault(): static
     {
         return $this->state([
             'is_default' => false,

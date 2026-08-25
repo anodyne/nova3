@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Models;
 
+use Database\Factories\RoleFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -25,7 +26,9 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(RoleBuilder::class)]
 class Role extends LaratrustRole implements Sortable
 {
+    /** @use HasFactory<RoleFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use HasTableHelpers;
     use LogsActivity;
@@ -53,6 +56,9 @@ class Role extends LaratrustRole implements Sortable
      *
      * NOTE: This method is being overridden by Nova to ensure we always return
      * the users for a role in alphabetical order.
+     */
+    /**
+     * @return MorphToMany<User, $this>
      */
     public function getMorphByUserRelation(string $relationship): MorphToMany
     {

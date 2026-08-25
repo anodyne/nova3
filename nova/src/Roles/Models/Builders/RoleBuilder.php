@@ -8,18 +8,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Nova\Roles\Models\Role;
 
 /**
- * @template TModel of Role
- *
- * @extends Builder<TModel>
+ * @extends Builder<Role>
  */
 class RoleBuilder extends Builder
 {
-    public function atOrAboveOrderColumn($maxSortValue): self
+    public function atOrAboveOrderColumn(int $maxSortValue): self
     {
         return $this->where('order_column', '<=', $maxSortValue);
     }
 
-    public function atOrBelowOrderColumn($maxSortValue): self
+    public function atOrBelowOrderColumn(int $maxSortValue): self
     {
         return $this->where('order_column', '>=', $maxSortValue);
     }
@@ -29,7 +27,7 @@ class RoleBuilder extends Builder
         return $this->where('is_default', true);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->whereAny([
             'name',

@@ -15,6 +15,7 @@ class AddRole extends SpotlightCommand
 
     protected string $description = 'Add a new role';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'create new role',
     ];

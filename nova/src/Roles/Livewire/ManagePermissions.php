@@ -16,6 +16,7 @@ class ManagePermissions extends Component
     #[Locked]
     public ?Role $role = null;
 
+    /** @var list<int> */
     public array $assigned = [];
 
     public function mount(): void

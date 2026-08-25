@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Requests;
 
+use Illuminate\Contracts\Validation\Rule as LegacyValidationRule;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Nova\Foundation\Rules\Boolean;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Data\RolePermissionsData;
 use Nova\Roles\Data\RoleUsersData;
+use Stringable;
 
 class StoreRoleRequest extends FormRequest
 {
+    /**
+     * @return array<string, list<string|Stringable|LegacyValidationRule|ValidationRule>>
+     */
     public function rules(): array
     {
         return [

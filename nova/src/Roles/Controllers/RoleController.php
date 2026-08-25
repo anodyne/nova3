@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Roles\Actions\CreateRoleManager;
@@ -44,7 +45,7 @@ class RoleController extends Controller
         return CreateRoleResponse::send();
     }
 
-    public function store(StoreRoleRequest $request)
+    public function store(StoreRoleRequest $request): RedirectResponse
     {
         $role = CreateRoleManager::run($request);
 
@@ -59,7 +60,7 @@ class RoleController extends Controller
         ]);
     }
 
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(UpdateRoleRequest $request, Role $role): RedirectResponse
     {
         $role = UpdateRoleManager::run($role, $request);
 

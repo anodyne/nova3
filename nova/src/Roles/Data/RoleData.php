@@ -27,6 +27,14 @@ readonly class RoleData extends Bag
         public bool $isDefault = false,
     ) {}
 
+    /**
+     * @return array{
+     *     name: mixed,
+     *     displayName: mixed,
+     *     description: mixed,
+     *     isDefault: bool
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {
