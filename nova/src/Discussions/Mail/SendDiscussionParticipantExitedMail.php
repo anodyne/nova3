@@ -36,9 +36,4 @@ class SendDiscussionParticipantExitedMail extends Mailable implements ShouldQueu
             markdown: 'emails.discussion-participant-exited',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

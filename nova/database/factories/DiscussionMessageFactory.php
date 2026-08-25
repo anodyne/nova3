@@ -15,11 +15,6 @@ class DiscussionMessageFactory extends Factory
 {
     protected $model = DiscussionMessage::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
@@ -30,21 +25,21 @@ class DiscussionMessageFactory extends Factory
         ];
     }
 
-    public function system()
+    public function system(): static
     {
         return $this->state(fn (array $attributes): array => [
             'type' => MessageType::System,
         ]);
     }
 
-    public function systemDanger()
+    public function systemDanger(): static
     {
         return $this->state(fn (array $attributes): array => [
             'type' => MessageType::SystemDanger,
         ]);
     }
 
-    public function text()
+    public function text(): static
     {
         return $this->state(fn (array $attributes): array => [
             'type' => MessageType::Text,

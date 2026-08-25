@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Actions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Discussions\Models\Discussion;
@@ -15,13 +16,20 @@ class LeaveDiscussion
 
     public function handle(Discussion $discussion): Discussion
     {
-        $discussion = RemoveParticipantsFromDiscussion::run($discussion, [Auth::id()]);
+        $user = Auth::user();
 
-        $discussion->refresh();
+        if ($user === null) {
+            throw new AuthenticationException;
+        }
+
+        $discussion = RemoveParticipantsFromDiscussion::run(
+            $discussion,
+            [$user->id]
+        );
 
         $discussion->participants->each->notify(new DiscussionParticipantExited(
             discussion: $discussion,
-            user: Auth::user()
+            user: $user
         ));
 
         return $discussion;

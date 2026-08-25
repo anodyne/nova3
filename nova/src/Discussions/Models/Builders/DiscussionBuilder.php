@@ -12,9 +12,7 @@ use Nova\Discussions\Models\DiscussionParticipant;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of Discussion
- *
- * @extends Builder<TModel>
+ * @extends Builder<Discussion>
  */
 class DiscussionBuilder extends Builder
 {

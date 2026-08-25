@@ -11,6 +11,7 @@ class RemoveParticipantsFromDiscussion
 {
     use AsAction;
 
+    /** @param list<int|string> $participants */
     public function handle(Discussion $discussion, array $participants): Discussion
     {
         $discussion->notifications()->whereIn('user_id', $participants)->delete();

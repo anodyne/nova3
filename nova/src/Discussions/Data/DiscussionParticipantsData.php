@@ -7,12 +7,13 @@ namespace Nova\Discussions\Data;
 use Bag\Bag;
 
 /**
- * @method static static from(int $sender, array $recipients)
+ * @method static static from(int $sender, list<int|string> $recipients)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
 readonly class DiscussionParticipantsData extends Bag
 {
+    /** @param list<int|string> $recipients */
     public function __construct(
         public int $sender,
         public array $recipients

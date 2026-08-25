@@ -36,9 +36,4 @@ class SendDiscussionMessageReceived extends Mailable implements ShouldQueue
             markdown: 'emails.discussion-message-received',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

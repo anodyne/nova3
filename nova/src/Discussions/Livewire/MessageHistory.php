@@ -26,7 +26,7 @@ use Throwable;
 /**
  * @property-read ?Discussion $discussion
  * @property-read ?DiscussionMessage $latestMessage
- * @property-read ?Collection $remainingMessages
+ * @property-read Collection<int, DiscussionMessage>|null $remainingMessages
  * @property-read ?User $participant
  */
 #[On('message-sent')]
@@ -69,6 +69,9 @@ class MessageHistory extends Component
         return $this->discussion->messages->last();
     }
 
+    /**
+     * @return Collection<int, DiscussionMessage>|null
+     */
     #[Computed]
     public function remainingMessages(): ?Collection
     {

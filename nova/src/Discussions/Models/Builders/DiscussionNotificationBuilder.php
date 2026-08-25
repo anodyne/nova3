@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Nova\Discussions\Models\DiscussionNotification;
 
 /**
- * @template TModel of DiscussionNotification
- *
- * @extends Builder<TModel>
+ * @extends Builder<DiscussionNotification>
  */
 class DiscussionNotificationBuilder extends Builder
 {

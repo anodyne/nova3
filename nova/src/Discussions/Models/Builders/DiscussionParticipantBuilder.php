@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Nova\Discussions\Models\DiscussionParticipant;
 
 /**
- * @template TModel of DiscussionParticipant
- *
- * @extends Builder<TModel>
+ * @extends Builder<DiscussionParticipant>
  */
 class DiscussionParticipantBuilder extends Builder
 {

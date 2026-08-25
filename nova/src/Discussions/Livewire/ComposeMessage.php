@@ -27,10 +27,11 @@ use Throwable;
  * @property-read ?Discussion $discussion
  * @property-read bool $isChangingSubject
  * @property-read bool $isReplying
- * @property-read Collection $users
+ * @property-read Collection<int, User> $users
  */
 class ComposeMessage extends Modal
 {
+    /** @var list<int|string> */
     #[Validate('required')]
     public array $recipients = [];
 
@@ -61,6 +62,9 @@ class ComposeMessage extends Modal
         return filled($this->discussionId) && $this->mode === ComposeMode::Reply;
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     #[Computed]
     public function users(): Collection
     {

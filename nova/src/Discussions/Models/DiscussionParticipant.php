@@ -24,14 +24,20 @@ class DiscussionParticipant extends Pivot
         'deleted_at',
     ];
 
+    /**
+     * @return BelongsTo<Discussion, $this>
+     */
     public function discussion(): BelongsTo
     {
         return $this->belongsTo(Discussion::class);
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
-        /** @var BelongsTo $relation */
+        /** @var BelongsTo<User, $this> $relation */
         $relation = $this->belongsTo(User::class)->withTrashed();
 
         return $relation;

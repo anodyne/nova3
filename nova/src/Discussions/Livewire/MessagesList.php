@@ -21,7 +21,7 @@ use Nova\Discussions\Models\Discussion;
 
 /**
  * @property-read ?Discussion $selectedDiscussion
- * @property-read Paginator $discussions
+ * @property-read Paginator<int, Discussion> $discussions
  */
 #[On('discussion-started')]
 #[On('discussion-updated')]
@@ -33,11 +33,11 @@ class MessagesList extends Component
 
     public string $filter = 'all';
 
-    public $pageHeading;
+    public ?string $pageHeading = null;
 
-    public $pageIntro;
+    public ?string $pageIntro = null;
 
-    public $pageSubheading;
+    public ?string $pageSubheading = null;
 
     public ?string $search = null;
 
@@ -55,6 +55,9 @@ class MessagesList extends Component
         $this->selected = null;
     }
 
+    /**
+     * @return Paginator<int, Discussion>
+     */
     #[Computed]
     public function discussions(): Paginator
     {
