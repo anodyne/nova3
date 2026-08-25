@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
-use Stringable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -20,6 +19,7 @@ use Nova\Setup\Livewire\Concerns\HandlesMigration;
 use Nova\Setup\Livewire\Concerns\InteractsWithEnvFile;
 use Nova\Setup\Livewire\Concerns\InteractsWithRoute;
 use PDO;
+use Stringable;
 use Throwable;
 
 /**
