@@ -7,6 +7,12 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
 
+$logStack = env('LOG_STACK', 'daily');
+
+if (! is_string($logStack)) {
+    $logStack = 'daily';
+}
+
 return [
 
     /*
@@ -57,7 +63,7 @@ return [
 
         'stack' => [
             'driver' => 'stack',
-            'channels' => explode(',', env('LOG_STACK', 'daily')),
+            'channels' => explode(',', $logStack),
             'ignore_exceptions' => false,
         ],
 

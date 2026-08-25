@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 use Illuminate\Support\Str;
 
+$appName = env('APP_NAME', 'Nova 3');
+
+if (! is_string($appName)) {
+    $appName = 'Nova 3';
+}
+
 return [
 
     /*
@@ -130,7 +136,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
+        Str::slug($appName, '_').'_session'
     ),
 
     /*

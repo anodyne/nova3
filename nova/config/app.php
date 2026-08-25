@@ -115,9 +115,13 @@ return [
     'key' => env('APP_KEY', 'base64:seCuVALiMMNM/CZZCw4NLK4D7Zm4905Y5Pe7SCASiqs='),
 
     'previous_keys' => [
-        ...array_filter(
-            explode(',', env('APP_PREVIOUS_KEYS', ''))
-        ),
+        ...(static function (): array {
+            $keys = env('APP_PREVIOUS_KEYS', '');
+
+            return is_string($keys)
+                ? array_filter(explode(',', $keys))
+                : [];
+        })(),
     ],
 
     /*

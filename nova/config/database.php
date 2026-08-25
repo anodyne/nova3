@@ -5,6 +5,12 @@ declare(strict_types=1);
 use Illuminate\Support\Str;
 use Pdo\Mysql;
 
+$appName = env('APP_NAME', 'Nova 3');
+
+if (! is_string($appName)) {
+    $appName = 'Nova 3';
+}
+
 return [
 
     /*
@@ -209,7 +215,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug($appName, '_').'_database_'),
         ],
 
         'default' => [
