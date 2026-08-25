@@ -11,7 +11,8 @@
         "filament/filament",
         "anousss007/blatui",
         "ralphjsmit/laravel-filament-activitylog",
-        "spatie/laravel-medialibrary"
+        "spatie/laravel-medialibrary",
+        "lorisleiva/laravel-actions"
     ],
     "sail": false,
     "skills": [
@@ -24,6 +25,7 @@
         "pest-testing",
         "tailwindcss-development",
         "blatui-development",
+        "laravel-actions",
         "filament-activitylog-pro",
         "medialibrary-development"
     ]

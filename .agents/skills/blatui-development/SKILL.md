@@ -22,7 +22,7 @@ component package — editing a component file is the supported way to customize
 
 1. **Check before adding.** A component is usable only if its file exists in
    `resources/views/components/ui/`. Glob that directory first.
-2. **Add missing components** (copies source + prints required Composer/Bun peer dependencies):
+2. **Add missing components** (copies source + prints required composer/npm peers):
    ```shell
    php artisan blatui:add <name> [<name> ...]
    php artisan blatui:list          # all available families
