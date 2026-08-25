@@ -24,6 +24,15 @@ readonly class RankItemData extends Bag
         public BasicStatus $status
     ) {}
 
+    /**
+     * @return array{
+     *      base_image: mixed,
+     *      overlay_image: mixed,
+     *      group_id: mixed|null,
+     *      name_id: mixed|null,
+     *      status: ?BasicStatus
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

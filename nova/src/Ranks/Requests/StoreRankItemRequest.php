@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Requests;
 
+use Illuminate\Contracts\Validation\Rule as ValidationRuleContract;
 use Illuminate\Foundation\Http\FormRequest;
 use Nova\Ranks\Data\RankItemData;
 
 class StoreRankItemRequest extends FormRequest
 {
+    /**
+     * @return array<string, array<int, ValidationRuleContract|string>>
+     */
     public function rules(): array
     {
         return [
@@ -20,6 +24,9 @@ class StoreRankItemRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function attributes(): array
     {
         return [

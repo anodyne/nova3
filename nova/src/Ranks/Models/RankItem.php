@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Models;
 
+use Database\Factories\RankItemFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -25,7 +26,9 @@ use Spatie\EloquentSortable\SortableTrait;
 #[UseEloquentBuilder(RankItemBuilder::class)]
 class RankItem extends Model implements Sortable
 {
+    /** @use HasFactory<RankItemFactory> */
     use HasFactory;
+
     use LogsActivity;
     use SortableTrait;
 
@@ -48,18 +51,28 @@ class RankItem extends Model implements Sortable
 
     protected $table = 'rank_items';
 
+    /** @var list<string> */
     protected $with = ['name'];
 
+    /**
+     * @return HasMany<Character, $this>
+     */
     public function characters(): HasMany
     {
         return $this->hasMany(Character::class, 'rank_id');
     }
 
+    /**
+     * @return BelongsTo<RankGroup, $this>
+     */
     public function group(): BelongsTo
     {
         return $this->belongsTo(RankGroup::class, 'group_id');
     }
 
+    /**
+     * @return BelongsTo<RankName, $this>
+     */
     public function name(): BelongsTo
     {
         return $this->belongsTo(RankName::class, 'name_id');

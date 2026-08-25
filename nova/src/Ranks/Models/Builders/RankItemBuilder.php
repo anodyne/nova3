@@ -10,25 +10,23 @@ use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 
 /**
- * @template TModel of RankItem
- *
- * @extends Builder<TModel>
+ * @extends Builder<RankItem>
  */
 class RankItemBuilder extends Builder
 {
     use QueriesStatus;
 
-    public function group($group): self
+    public function group(int $group): self
     {
         return $this->where('group_id', $group);
     }
 
-    public function name($name): self
+    public function name(int $name): self
     {
         return $this->where('name_id', $name);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->whereRelation('name', RankName::column('name'), 'like', "%{$search}%");
     }

@@ -16,14 +16,14 @@ class RankNameFactory extends Factory
 
     protected $model = RankName::class;
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => ucfirst($this->faker->words(3, asText: true)),
@@ -31,7 +31,7 @@ class RankNameFactory extends Factory
         ];
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,

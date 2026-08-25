@@ -8,16 +8,19 @@ use Symfony\Component\Finder\Finder;
 
 trait FindRankImages
 {
+    /** @return array<string, string> */
     protected function getRankBaseImages(): array
     {
         return $this->getRankImages('base');
     }
 
+    /** @return array<string, string> */
     protected function getRankOverlayImages(): array
     {
         return $this->getRankImages('overlay');
     }
 
+    /** @return array<string, string> */
     protected function getRankImages(string $path): array
     {
         $finder = new Finder;

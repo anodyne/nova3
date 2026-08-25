@@ -18,14 +18,14 @@ class RankItemFactory extends Factory
 
     protected $model = RankItem::class;
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'group_id' => fn () => RankGroup::factory(),
@@ -36,7 +36,7 @@ class RankItemFactory extends Factory
         ];
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,

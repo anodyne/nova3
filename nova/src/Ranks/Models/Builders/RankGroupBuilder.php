@@ -9,15 +9,13 @@ use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Ranks\Models\RankGroup;
 
 /**
- * @template TModel of RankGroup
- *
- * @extends Builder<TModel>
+ * @extends Builder<RankGroup>
  */
 class RankGroupBuilder extends Builder
 {
     use QueriesStatus;
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->where('name', 'like', "%{$search}%");
     }

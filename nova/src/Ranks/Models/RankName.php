@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Models;
 
+use Database\Factories\RankNameFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,7 +24,9 @@ use Spatie\EloquentSortable\SortableTrait;
 #[UseEloquentBuilder(RankNameBuilder::class)]
 class RankName extends Model implements Sortable
 {
+    /** @use HasFactory<RankNameFactory> */
     use HasFactory;
+
     use LogsActivity;
     use SortableTrait;
 
@@ -42,9 +45,15 @@ class RankName extends Model implements Sortable
 
     protected $table = 'rank_names';
 
+    /**
+     * @return HasMany<RankItem, $this>
+     */
     public function ranks(): HasMany
     {
-        return $this->hasMany(RankItem::class, 'name_id')
+        /** @var HasMany<RankItem, $this> $relation */
+        $relation = $this->hasMany(RankItem::class, 'name_id')
             ->orderBy('order_column', 'asc');
+
+        return $relation;
     }
 }

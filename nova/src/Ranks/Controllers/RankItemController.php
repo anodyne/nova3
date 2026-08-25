@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Ranks\Actions\CreateRankItem;
@@ -54,7 +55,7 @@ class RankItemController extends Controller
         ]);
     }
 
-    public function store(StoreRankItemRequest $request)
+    public function store(StoreRankItemRequest $request): RedirectResponse
     {
         CreateRankItem::run($request->getRankItemData());
 
@@ -73,7 +74,7 @@ class RankItemController extends Controller
         ]);
     }
 
-    public function update(UpdateRankItemRequest $request, RankItem $item)
+    public function update(UpdateRankItemRequest $request, RankItem $item): RedirectResponse
     {
         UpdateRankItem::run($item, $request->getRankItemData());
 

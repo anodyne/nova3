@@ -11,7 +11,7 @@ use Livewire\Component;
 use Nova\Ranks\Models\RankName;
 
 /**
- * @property-read Collection $rankNames
+ * @property-read Collection<int, RankName> $rankNames
  */
 class RankNamesDropdown extends Component
 {
@@ -24,6 +24,7 @@ class RankNamesDropdown extends Component
         ]);
     }
 
+    /** @return Collection<int, RankName> */
     #[Computed]
     public function rankNames(): Collection
     {

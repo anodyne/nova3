@@ -22,6 +22,13 @@ readonly class RankGroupData extends Bag
         public ?string $base_image
     ) {}
 
+    /**
+     * @return array{
+     *      name: mixed,
+     *      status: ?BasicStatus,
+     *      base_image: mixed
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

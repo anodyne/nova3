@@ -11,7 +11,7 @@ use Livewire\Component;
 use Nova\Ranks\Models\RankGroup;
 
 /**
- * @property-read Collection $rankGroups
+ * @property-read Collection<int, RankGroup> $rankGroups
  */
 class RankGroupsDropdown extends Component
 {
@@ -24,6 +24,7 @@ class RankGroupsDropdown extends Component
         ]);
     }
 
+    /** @return Collection<int, RankGroup> */
     #[Computed]
     public function rankGroups(): Collection
     {

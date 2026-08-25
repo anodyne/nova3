@@ -21,6 +21,12 @@ readonly class RankNameData extends Bag
         public BasicStatus $status
     ) {}
 
+    /**
+     * @return array{
+     *      name: mixed,
+     *      status: ?BasicStatus
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

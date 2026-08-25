@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Ranks\Actions\CreateRankGroup;
@@ -44,7 +45,7 @@ class RankGroupController extends Controller
         return CreateRankGroupResponse::send();
     }
 
-    public function store(StoreRankGroupRequest $request)
+    public function store(StoreRankGroupRequest $request): RedirectResponse
     {
         $group = CreateRankGroup::run($request->getRankGroupData());
 
@@ -59,7 +60,7 @@ class RankGroupController extends Controller
         ]);
     }
 
-    public function update(UpdateRankGroupRequest $request, RankGroup $group)
+    public function update(UpdateRankGroupRequest $request, RankGroup $group): RedirectResponse
     {
         $group = UpdateRankGroup::run($group, $request->getRankGroupData());
 

@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Nova\Ranks\Livewire;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 
 /**
- * @property-read Collection $rankGroups
+ * @property-read Collection<int, RankGroup> $rankGroups
  * @property-read ?RankItem $selectedRank
  */
 class RankItemsDropdown extends Component
@@ -32,6 +32,7 @@ class RankItemsDropdown extends Component
         ]);
     }
 
+    /** @return Collection<int, RankGroup> */
     #[Computed]
     public function rankGroups(): Collection
     {

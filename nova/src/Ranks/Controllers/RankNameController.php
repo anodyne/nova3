@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Ranks\Actions\CreateRankName;
@@ -44,7 +45,7 @@ class RankNameController extends Controller
         return CreateRankNameResponse::send();
     }
 
-    public function store(StoreRankNameRequest $request)
+    public function store(StoreRankNameRequest $request): RedirectResponse
     {
         $name = CreateRankName::run($request->getRankNameData());
 
@@ -59,7 +60,7 @@ class RankNameController extends Controller
         ]);
     }
 
-    public function update(UpdateRankNameRequest $request, RankName $name)
+    public function update(UpdateRankNameRequest $request, RankName $name): RedirectResponse
     {
         $name = UpdateRankName::run($name, $request->getRankNameData());
 
