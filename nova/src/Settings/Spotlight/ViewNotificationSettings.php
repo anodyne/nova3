@@ -14,6 +14,7 @@ class ViewNotificationSettings extends SpotlightCommand
 
     protected string $description = "View Nova's notification settings";
 
+    /** @var list<string> */
     protected array $synonyms = [
         'discord settings', 'webhook',
     ];

@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Nova\Settings\Models\Settings;
 
 /**
- * @template TModel of Settings
- *
- * @extends Builder<TModel>
+ * @extends Builder<Settings>
  */
 class SettingsBuilder extends Builder
 {

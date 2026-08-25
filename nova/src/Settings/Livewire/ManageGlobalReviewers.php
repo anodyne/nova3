@@ -13,8 +13,8 @@ use Nova\Users\Models\User;
 
 /**
  * @property-read string $globalReviewers
- * @property-read Collection $models
- * @property-read Collection $reviewers
+ * @property-read Collection<int, User> $models
+ * @property-read Collection<int, User> $reviewers
  */
 class ManageGlobalReviewers extends Component
 {
@@ -66,6 +66,7 @@ class ManageGlobalReviewers extends Component
             ->join(',');
     }
 
+    /** @return Collection<int, User> */
     #[Computed]
     public function models(): Collection
     {
@@ -74,6 +75,7 @@ class ManageGlobalReviewers extends Component
             ->get();
     }
 
+    /** @return Collection<int, User> */
     #[Computed]
     public function reviewers(): Collection
     {

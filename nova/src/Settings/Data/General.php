@@ -27,6 +27,13 @@ readonly class General extends Bag
         public ?string $contactFormDisabledMessage
     ) {}
 
+    /**
+     * @return array{
+     *     gameName: mixed,
+     *     contactFormEnabled: bool,
+     *     contactFormDisabledMessage: mixed
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

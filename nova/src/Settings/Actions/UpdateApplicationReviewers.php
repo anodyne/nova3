@@ -27,7 +27,7 @@ class UpdateApplicationReviewers
         ApplicationReviewer::whereNotIn('user_id', $data->globalReviewers)->delete();
 
         collect($data->globalReviewers)->each(
-            fn (int $userId) => ApplicationReviewer::firstOrCreate(['user_id' => $userId], ['type' => ReviewerType::Global])
+            fn (int|string $userId) => ApplicationReviewer::firstOrCreate(['user_id' => $userId], ['type' => ReviewerType::Global])
         );
     }
 }

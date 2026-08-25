@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
@@ -29,7 +30,7 @@ class CharacterSettingsController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         $this->authorize('update', settings());
 

@@ -23,6 +23,15 @@ readonly class Applications extends Bag
         public bool $showDecisionMessage
     ) {}
 
+    /**
+     * @return array{
+     *     enabled: bool,
+     *     disabledMessage: mixed,
+     *     alwaysShowResults: bool,
+     *     allowVoteChanging: bool,
+     *     showDecisionMessage: bool
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

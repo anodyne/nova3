@@ -11,7 +11,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 /**
- * @property-read array $localFonts
+ * @property-read array<string, string> $localFonts
  * @property-read ?string $fontFamilyInputName
  * @property-read ?string $fontProviderInputName
  */
@@ -29,7 +29,7 @@ class FontSelector extends Component
 
     public ?string $familyInputName = null;
 
-    public function updatedFamily($value): void
+    public function updatedFamily(?string $value): void
     {
         $this->dispatch('font-updated', data: [
             'section' => $this->section,
@@ -63,6 +63,7 @@ class FontSelector extends Component
         ]);
     }
 
+    /** @return array<string, string> */
     #[Computed]
     public function localFonts(): array
     {

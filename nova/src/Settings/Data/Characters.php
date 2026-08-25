@@ -26,6 +26,18 @@ readonly class Characters extends Bag
         public bool $autoAvailabilityForSupport
     ) {}
 
+    /**
+     * @return array{
+     *     approvePrimary: bool,
+     *     approveSecondary: bool,
+     *     approveSupport: bool,
+     *     enforceCharacterLimits: bool,
+     *     characterLimit: int,
+     *     autoAvailabilityForPrimary: bool,
+     *     autoAvailabilityForSecondary: bool,
+     *     autoAvailabilityForSupport: bool
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

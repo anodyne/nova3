@@ -27,6 +27,7 @@ class ContentRatingsSettingsForm extends Form
 
     public ?string $warningThresholdMessage = null;
 
+    /** @return array<string, list<string>> */
     public function rules(): array
     {
         return [

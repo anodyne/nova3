@@ -14,6 +14,7 @@ class ViewGeneralSettings extends SpotlightCommand
 
     protected string $description = "View Nova's general settings";
 
+    /** @var list<string> */
     protected array $synonyms = [];
 
     public function execute(Spotlight $spotlight): void

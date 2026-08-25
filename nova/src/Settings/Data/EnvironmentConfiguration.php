@@ -25,6 +25,9 @@ readonly class EnvironmentConfiguration extends Bag
         public bool $debugMode
     ) {}
 
+    /**
+     * @return array{url: mixed, environment: ServerEnvironment, debugMode: bool}
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

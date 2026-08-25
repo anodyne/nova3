@@ -14,6 +14,7 @@ class ViewPostingActivitySettings extends SpotlightCommand
 
     protected string $description = "View Nova's posting activity settings";
 
+    /** @var list<string> */
     protected array $synonyms = [
         'story posts', 'post words', 'word count', 'per month', 'statistics',
         'stats', 'monthly', 'required', 'requirements', 'attribute', 'reporting',

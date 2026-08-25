@@ -43,6 +43,7 @@ readonly class Appearance extends Bag
         return strtolower($this->{$property});
     }
 
+    /** @return array<string, array<int, string>> */
     public function getColors(): array
     {
         return [
@@ -55,6 +56,7 @@ readonly class Appearance extends Bag
         ];
     }
 
+    /** @return array<int, string> */
     protected function processColor(string $color): array
     {
         if (str_starts_with($color, '#')) {
@@ -65,11 +67,37 @@ readonly class Appearance extends Bag
             return Color::generateV3Palette($color);
         }
 
-        return collect(constant('Nova\Foundation\Colors\Color::'.$color))
-            ->union(Color::additionalShades($color))
-            ->all();
+        $palette = constant('Nova\Foundation\Colors\Color::'.$color);
+
+        if (! is_array($palette)) {
+            return [];
+        }
+
+        $processedPalette = [];
+
+        foreach ($palette + Color::additionalShades($color) as $shade => $value) {
+            if (is_int($shade) && is_string($value)) {
+                $processedPalette[$shade] = $value;
+            }
+        }
+
+        return $processedPalette;
     }
 
+    /**
+     * @return array{
+     *     theme: mixed,
+     *     avatarShape: AvatarShape,
+     *     avatarStyle: AvatarStyle,
+     *     colorsGray: mixed,
+     *     colorsPrimary: mixed,
+     *     colorsDanger: mixed,
+     *     colorsWarning: mixed,
+     *     colorsSuccess: mixed,
+     *     colorsInfo: mixed,
+     *     adminFonts: FontFamilies
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

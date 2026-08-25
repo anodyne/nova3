@@ -23,6 +23,9 @@ readonly class Dashboard extends Bag
         public PostingTarget $milestonesTarget
     ) {}
 
+    /**
+     * @return array{leaderboard: Leaderboard, milestonesTarget: PostingTarget}
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

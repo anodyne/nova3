@@ -14,6 +14,7 @@ class ViewCharacterSettings extends SpotlightCommand
 
     protected string $description = "View Nova's character settings";
 
+    /** @var list<string> */
     protected array $synonyms = [
         'character creation', 'link characters', 'approval', 'character limits',
         'automatic position availability',

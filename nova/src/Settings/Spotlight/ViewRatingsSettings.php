@@ -14,6 +14,7 @@ class ViewRatingsSettings extends SpotlightCommand
 
     protected string $description = "View Nova's content ratings settings";
 
+    /** @var list<string> */
     protected array $synonyms = [
         'language', 'sex', 'violence', 'content warnings', 'offensive', 'vulgar',
         'violent', 'mature',

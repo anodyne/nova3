@@ -25,7 +25,7 @@ class ThemeBuilder extends SlideOver
 
     public string $gray;
 
-    public function isOutOfBounds($color): bool
+    public function isOutOfBounds(string $color): bool
     {
         $inBoundsColors = $this->getInBoundsColorsFor($color);
 
@@ -65,15 +65,19 @@ class ThemeBuilder extends SlideOver
             ->send();
     }
 
-    public function updatedPrimary($value): void
+    public function updatedPrimary(string $value): void
     {
-        $recs = data_get($this->pairings(), $value);
+        $recs = $this->pairings()[$value] ?? null;
 
-        $this->gray = data_get($recs, 'gray');
-        $this->danger = data_get($recs, 'danger');
-        $this->info = data_get($recs, 'info');
-        $this->success = data_get($recs, 'success');
-        $this->warning = data_get($recs, 'warning');
+        if ($recs === null) {
+            return;
+        }
+
+        $this->gray = $recs['gray'];
+        $this->danger = $recs['danger'];
+        $this->info = $recs['info'];
+        $this->success = $recs['success'];
+        $this->warning = $recs['warning'];
     }
 
     public function mount(): void
@@ -94,7 +98,8 @@ class ThemeBuilder extends SlideOver
         ]);
     }
 
-    public function getInBoundsColorsFor($color): array
+    /** @return list<string> */
+    public function getInBoundsColorsFor(string $color): array
     {
         $inBounds = [
             'danger' => [
@@ -117,9 +122,10 @@ class ThemeBuilder extends SlideOver
             ],
         ];
 
-        return data_get($inBounds, $color) ?? [];
+        return $inBounds[$color] ?? [];
     }
 
+    /** @return list<string> */
     protected function colors(): array
     {
         return [
@@ -143,6 +149,7 @@ class ThemeBuilder extends SlideOver
         ];
     }
 
+    /** @return list<string> */
     protected function grays(): array
     {
         return [
@@ -154,6 +161,15 @@ class ThemeBuilder extends SlideOver
         ];
     }
 
+    /**
+     * @return array<string, array{
+     *     gray: string,
+     *     danger: string,
+     *     info: string,
+     *     success: string,
+     *     warning: string
+     * }>
+     */
     protected function pairings(): array
     {
         return [

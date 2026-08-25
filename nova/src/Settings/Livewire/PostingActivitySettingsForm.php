@@ -10,6 +10,7 @@ use Nova\Settings\Actions\UpdateSettings;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Enums\PostingTarget;
 use Nova\Settings\Enums\PostingTimeframe;
+use Stringable;
 
 class PostingActivitySettingsForm extends Form
 {
@@ -38,6 +39,7 @@ class PostingActivitySettingsForm extends Form
         UpdateSettings::run('posting_activity', $postingActivity);
     }
 
+    /** @return array<string, list<string|Stringable>> */
     protected function rules(): array
     {
         return [

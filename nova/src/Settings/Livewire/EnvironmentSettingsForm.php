@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Livewire;
 
+use Illuminate\Contracts\Validation\Rule as LegacyValidationRule;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 use Nova\Foundation\Rules\Boolean;
@@ -35,6 +37,7 @@ class EnvironmentSettingsForm extends Form
         UpdateEnvironment::run($environmentConfiguration);
     }
 
+    /** @return array<string, list<string|LegacyValidationRule|ValidationRule>> */
     protected function rules(): array
     {
         return [

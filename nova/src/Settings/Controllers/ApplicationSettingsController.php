@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Settings\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Nova\Applications\Models\ApplicationReviewer;
@@ -34,7 +35,7 @@ class ApplicationSettingsController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(Request $request): RedirectResponse
     {
         $this->authorize('update', settings());
 

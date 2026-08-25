@@ -16,7 +16,7 @@ class EmailSettings extends Component
     public EmailSettingsForm $form;
 
     #[On('mediaUploaded')]
-    public function handleImagePath($action, $path): void
+    public function handleImagePath(string $action, ?string $path): void
     {
         $this->form->imageAction = ImageAction::tryFrom($action) ?? ImageAction::Unchanged;
         $this->form->imageTempPath = $path;

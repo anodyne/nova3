@@ -13,7 +13,7 @@ class UpdateSettings
 {
     use AsAction;
 
-    public function handle($field, Bag $data): Settings
+    public function handle(string $field, Bag $data): Settings
     {
         $settings = settings() ?? throw new LogicException('Settings are unavailable.');
 

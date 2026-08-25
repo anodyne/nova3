@@ -73,6 +73,14 @@ readonly class FontFamilies extends Bag
         };
     }
 
+    /**
+     * @return array{
+     *     headerProvider: mixed,
+     *     headerFamily: mixed,
+     *     bodyProvider: mixed,
+     *     bodyFamily: mixed
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

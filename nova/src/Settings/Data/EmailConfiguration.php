@@ -48,6 +48,7 @@ readonly class EmailConfiguration extends Bag
         public ?string $resendApiKey
     ) {}
 
+    /** @return array<string, string|null> */
     public function getEnvVariables(): array
     {
         return match ($this->mailer) {

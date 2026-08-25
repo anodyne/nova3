@@ -14,6 +14,7 @@ class ViewEmailSettings extends SpotlightCommand
 
     protected string $description = "View Nova's email settings";
 
+    /** @var list<string> */
     protected array $synonyms = [
         'smtp',
     ];

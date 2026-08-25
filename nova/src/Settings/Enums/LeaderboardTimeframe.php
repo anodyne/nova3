@@ -34,6 +34,10 @@ enum LeaderboardTimeframe: string implements HasLabel
         };
     }
 
+    /**
+     * @param  Builder<Post>  $query
+     * @return Builder<Post>
+     */
     public function query(Builder $query): Builder
     {
         return match ($this) {

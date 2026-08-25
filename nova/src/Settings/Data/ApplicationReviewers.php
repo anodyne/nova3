@@ -9,16 +9,18 @@ use Bag\Bag;
 use Illuminate\Http\Request;
 
 /**
- * @method static static from(array $globalReviewers)
+ * @method static static from(list<int|string> $globalReviewers)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ApplicationReviewers extends Bag
 {
+    /** @param list<int|string> $globalReviewers */
     public function __construct(
         public array $globalReviewers = []
     ) {}
 
+    /** @return array{globalReviewers: list<string>} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {
