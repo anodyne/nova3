@@ -52,6 +52,9 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * @return array{activityPercentage: int, activityStatement: string}
+     */
     protected function getDataForActivity(UserPostingReport $report): array
     {
         $settings = settings('posting_activity');
@@ -74,6 +77,15 @@ class DashboardController extends Controller
         ];
     }
 
+    /**
+     * @return array{
+     *      currentPostingMilestone: float|1,
+     *      currentPostingMilestoneValue: int,
+     *      nextPostingMilestone: int|float,
+     *      postingLevelPercentage: int,
+     *      postingMilestoneLabel: mixed
+     * }
+     */
     protected function getDataForPostBasedStats(UserPostingReport $report): array
     {
         $postingMilestoneIncrement = 100;
@@ -94,6 +106,16 @@ class DashboardController extends Controller
         ];
     }
 
+    /**
+     * @return array{
+     *      wordsLifetime: int,
+     *      currentPostingMilestone: float|1,
+     *      currentPostingMilestoneValue: int,
+     *      nextPostingMilestone: int|float,
+     *      postingLevelPercentage: int,
+     *      postingMilestoneLabel: mixed
+     * }
+     */
     protected function getDataForWordBasedStats(UserPostingReport $report): array
     {
         $postingMilestoneIncrement = 10_000;

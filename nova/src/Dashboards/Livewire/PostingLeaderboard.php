@@ -17,9 +17,9 @@ use Nova\Users\Models\User;
 
 /**
  * @property-read LeaderboardTimeframe $selectedTimeframe
- * @property-read ?Collection $leaderboard
- * @property-read Collection $calculateLeaderboardByPosts
- * @property-read Collection $calculateLeaderboardByWords
+ * @property-read Collection<int, User>|null $leaderboard
+ * @property-read Collection<int, User> $calculateLeaderboardByPosts
+ * @property-read Collection<int, User> $calculateLeaderboardByWords
  * @property-read Leaderboard $settings
  */
 class PostingLeaderboard extends Component
@@ -32,6 +32,9 @@ class PostingLeaderboard extends Component
         return LeaderboardTimeframe::tryFrom($this->timeframe);
     }
 
+    /**
+     * @return Collection<int, User>|null
+     */
     #[Computed]
     public function leaderboard(): ?Collection
     {
@@ -46,6 +49,9 @@ class PostingLeaderboard extends Component
         return $this->calculateLeaderboardByPosts;
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     #[Computed]
     public function calculateLeaderboardByPosts(): Collection
     {
@@ -77,6 +83,9 @@ class PostingLeaderboard extends Component
             ->get();
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     #[Computed]
     public function calculateLeaderboardByWords(): Collection
     {

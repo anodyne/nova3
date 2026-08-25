@@ -14,6 +14,7 @@ class ViewSystemDashboard extends SpotlightCommand
 
     protected string $name = 'View System Dashboard';
 
+    /** @var array<int, string> */
     protected array $synonyms = [
         'nova version', 'database version', 'php version', 'laravel version',
     ];

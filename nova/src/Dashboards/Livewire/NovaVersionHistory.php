@@ -16,7 +16,7 @@ use Nova\Foundation\Nova;
 /**
  * @property-read string $filesVersion
  * @property-read ?string $databaseVersion
- * @property-read Collection $versionHistory
+ * @property-read Collection<int, ExternalChangelog> $versionHistory
  */
 class NovaVersionHistory extends Component
 {
@@ -36,6 +36,9 @@ class NovaVersionHistory extends Component
         return Nova::databaseVersion();
     }
 
+    /**
+     * @return Collection<int, ExternalChangelog>
+     */
     #[Computed]
     public function versionHistory(): Collection
     {

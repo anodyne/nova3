@@ -15,7 +15,7 @@ class MaintenanceModeSwitch extends Component
 {
     public bool $maintenance;
 
-    public function updatedMaintenance($value): void
+    public function updatedMaintenance(bool $value): void
     {
         if ($value === true) {
             $secret = Str::uuid();

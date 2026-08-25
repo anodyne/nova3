@@ -13,6 +13,7 @@ class ViewUserDashboard extends SpotlightCommand
 
     protected string $description = 'View the main dashboard';
 
+    /** @var array<int, string> */
     protected array $synonyms = [
         'admin control panel',
     ];

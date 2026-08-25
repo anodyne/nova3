@@ -49,9 +49,19 @@ class CopyDiagnosticDataButton extends Component
         $queueDriver = config('queue.default');
         $broadcastingDriver = config('broadcasting.default');
 
-        $activeExtensions = collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))->join(', ') ?: 'None';
-        $activeGenre = collect(data_get(Cache::get(CacheKeys::Addons->value), 'genre', []))->join(', ') ?: 'None';
-        $activeRankSet = collect(data_get(Cache::get(CacheKeys::Addons->value), 'rank', []))->join(', ') ?: 'None';
+        $activeAddons = Cache::get(CacheKeys::Addons->value);
+
+        $activeExtensions = $this->formatAddonList(
+            data_get($activeAddons, 'extension')
+        );
+
+        $activeGenre = $this->formatAddonList(
+            data_get($activeAddons, 'genre')
+        );
+
+        $activeRankSet = $this->formatAddonList(
+            data_get($activeAddons, 'rank')
+        );
 
         return <<<EOT
         ```
@@ -110,5 +120,14 @@ class CopyDiagnosticDataButton extends Component
                 </x-button>
             </div>
         blade;
+    }
+
+    private function formatAddonList(mixed $addons): string
+    {
+        if (! is_array($addons)) {
+            return 'None';
+        }
+
+        return collect($addons)->join(', ') ?: 'None';
     }
 }

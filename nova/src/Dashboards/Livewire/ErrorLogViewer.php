@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
  * @property-read ?LogFile $logFile
- * @property-read ?array $logs
+ * @property-read list<Log>|null $logs
  * @property-read LogFileCollection $files
  */
 class ErrorLogViewer extends Component
@@ -31,6 +31,9 @@ class ErrorLogViewer extends Component
         return LogViewer::getFile($this->selectedLogFile);
     }
 
+    /**
+     * @return list<Log>|null
+     */
     #[Computed]
     public function logs(): ?array
     {
