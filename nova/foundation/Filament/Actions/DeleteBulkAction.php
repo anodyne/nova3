@@ -47,7 +47,7 @@ class DeleteBulkAction extends \Filament\Actions\DeleteBulkAction
         $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, delete them');
         $this->modalCancelActionLabel('No, keep them');
-        $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
+        $this->modalContent(fn (Collection $records): View => view($this->getModalContentView(), [
             'records' => $records,
             'action' => $this,
         ]));

@@ -28,7 +28,7 @@ class RestoreBulkAction extends \Filament\Actions\RestoreBulkAction
         $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, restore them');
         $this->modalCancelActionLabel('No, keep them deleted');
-        $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
+        $this->modalContent(fn (Collection $records): View => view($this->getModalContentView(), [
             'records' => $records,
             'action' => $this,
         ]));

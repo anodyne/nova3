@@ -28,7 +28,7 @@ class RestoreAction extends \Filament\Actions\RestoreAction
         $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, restore it');
         $this->modalCancelActionLabel('No, keep it deleted');
-        $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
+        $this->modalContent(fn (Model $record): View => view($this->getModalContentView(), [
             'record' => $record,
             'action' => $this,
         ]));

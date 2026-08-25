@@ -21,7 +21,7 @@ class Action extends \Filament\Actions\Action
         $this->modalIcon();
         $this->modalHeading('');
         $this->modalDescription();
-        $this->modalContent(fn (?Model $record): View => view($this->modalContentView, [
+        $this->modalContent(fn (?Model $record): View => view($this->getModalContentView(), [
             'record' => $record,
             'action' => $this,
         ]));

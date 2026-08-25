@@ -29,7 +29,7 @@ class ForceDeleteAction extends \Filament\Actions\ForceDeleteAction
         $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, delete it forever');
         $this->modalCancelActionLabel('No, keep it');
-        $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
+        $this->modalContent(fn (Model $record): View => view($this->getModalContentView(), [
             'record' => $record,
             'action' => $this,
         ]));

@@ -39,7 +39,7 @@ class ReplicateAction extends \Filament\Actions\ReplicateAction
         $this->modalHeading('');
         $this->modalDescription();
         $this->modalSubmitActionLabel('Yes, duplicate it');
-        $this->modalContent(fn (Model $record): View => view($this->modalContentView, [
+        $this->modalContent(fn (Model $record): View => view($this->getModalContentView(), [
             'record' => $record,
             'action' => $this,
         ]));

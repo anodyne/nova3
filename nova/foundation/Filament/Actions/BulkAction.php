@@ -21,7 +21,7 @@ class BulkAction extends \Filament\Actions\BulkAction
         $this->modalIcon();
         $this->modalHeading('');
         $this->modalDescription();
-        $this->modalContent(fn (Collection $records): View => view($this->modalContentView, [
+        $this->modalContent(fn (Collection $records): View => view($this->getModalContentView(), [
             'records' => $records,
             'action' => $this,
         ]));
