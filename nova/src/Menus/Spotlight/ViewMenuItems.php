@@ -15,6 +15,7 @@ class ViewMenuItems extends SpotlightCommand
 
     protected string $description = 'View all menu items';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show all menu items',
         'display all menu items',

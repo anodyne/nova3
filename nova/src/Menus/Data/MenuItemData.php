@@ -29,6 +29,18 @@ readonly class MenuItemData extends Bag
         public BasicStatus $status
     ) {}
 
+    /**
+     * @return array{
+     *      label: mixed,
+     *      icon: mixed,
+     *      url: mixed,
+     *      page_id: mixed|null,
+     *      parent_id: mixed|null,
+     *      link_type: LinkType,
+     *      target: LinkTarget,
+     *      status: ?BasicStatus
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

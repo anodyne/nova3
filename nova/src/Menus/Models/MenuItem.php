@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Menus\Models;
 
 use Anodyne\TablerIcons\Tabler;
+use Database\Factories\MenuItemFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,7 +34,9 @@ use Spatie\EloquentSortable\SortableTrait;
 #[UseEloquentBuilder(MenuItemBuilder::class)]
 class MenuItem extends Model implements Sortable
 {
+    /** @use HasFactory<MenuItemFactory> */
     use HasFactory;
+
     use LogsActivity;
     use SortableTrait;
 
@@ -65,27 +68,12 @@ class MenuItem extends Model implements Sortable
         'url',
     ];
 
-    public function buildSortQuery(): Builder
-    {
-        return static::query()->where('menu_id', $this->menu_id);
-    }
-
     /**
      * @return HasMany<MenuItem, $this>
      */
     public function items(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
-    }
-
-    public function link(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => match ($this->link_type) {
-                LinkType::Page => route($this->page->key),
-                default => $this->url,
-            }
-        );
     }
 
     /**
@@ -110,5 +98,26 @@ class MenuItem extends Model implements Sortable
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    /**
+     * @return Attribute<string, never>
+     */
+    public function link(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => match ($this->link_type) {
+                LinkType::Page => route($this->page->key),
+                default => $this->url,
+            }
+        );
+    }
+
+    /**
+     * @return Builder<MenuItem>
+     */
+    public function buildSortQuery(): Builder
+    {
+        return static::query()->where('menu_id', $this->menu_id);
     }
 }

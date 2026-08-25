@@ -18,14 +18,14 @@ class MenuItemFactory extends Factory
 
     protected $model = MenuItem::class;
 
-    public function active(): Factory
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'label' => $this->faker->word(),
@@ -39,7 +39,7 @@ class MenuItemFactory extends Factory
         ];
     }
 
-    public function inactive(): Factory
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,

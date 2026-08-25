@@ -9,9 +9,7 @@ use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Menus\Models\Menu;
 
 /**
- * @template TModel of Menu
- *
- * @extends Builder<TModel>
+ * @extends Builder<Menu>
  */
 class MenuBuilder extends Builder
 {

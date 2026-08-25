@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Requests;
 
+use Illuminate\Contracts\Validation\Rule as ValidationRuleContract;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Nova\Menus\Data\MenuItemData;
@@ -12,6 +13,9 @@ use Nova\Menus\Enums\LinkType;
 
 class StoreMenuItemRequest extends FormRequest
 {
+    /**
+     * @return array<string, array<int, ValidationRuleContract|string>>
+     */
     public function rules(): array
     {
         return [

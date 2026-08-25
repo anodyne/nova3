@@ -15,6 +15,7 @@ class AddMenuItem extends SpotlightCommand
 
     protected string $description = 'Add a new menu item';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'create menu item',
     ];

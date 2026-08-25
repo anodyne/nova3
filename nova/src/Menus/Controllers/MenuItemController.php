@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Menus\Actions\CreateMenuItem;
@@ -33,8 +34,6 @@ class MenuItemController extends Controller
         return ListMenuItemsResponse::send();
     }
 
-    public function show(MenuItem $menuItem) {}
-
     public function create(): Responsable
     {
         return CreateMenuItemResponse::sendWith([
@@ -43,7 +42,7 @@ class MenuItemController extends Controller
         ]);
     }
 
-    public function store(StoreMenuItemRequest $request)
+    public function store(StoreMenuItemRequest $request): RedirectResponse
     {
         $menuItem = CreateMenuItem::run($request->getMenuItemData());
 
@@ -60,7 +59,7 @@ class MenuItemController extends Controller
         ]);
     }
 
-    public function update(UpdateMenuItemRequest $request, MenuItem $menuItem)
+    public function update(UpdateMenuItemRequest $request, MenuItem $menuItem): RedirectResponse
     {
         $menuItem = UpdateMenuItem::run($menuItem, $request->getMenuItemData());
 

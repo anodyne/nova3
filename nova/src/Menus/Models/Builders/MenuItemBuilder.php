@@ -9,9 +9,7 @@ use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Menus\Models\MenuItem;
 
 /**
- * @template TModel of MenuItem
- *
- * @extends Builder<TModel>
+ * @extends Builder<MenuItem>
  */
 class MenuItemBuilder extends Builder
 {
@@ -22,7 +20,7 @@ class MenuItemBuilder extends Builder
         return $this->whereRelation('menu', 'key', '=', 'public');
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->where('label', 'like', "%{$search}%");
     }

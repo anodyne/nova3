@@ -22,8 +22,11 @@ class Menu extends Model
      */
     public function items(): HasMany
     {
-        return $this->hasMany(MenuItem::class)
+        /** @var HasMany<MenuItem, $this> $relation */
+        $relation = $this->hasMany(MenuItem::class)
             ->whereNull('parent_id')
             ->ordered();
+
+        return $relation;
     }
 }

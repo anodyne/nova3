@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class EditMenuItem extends SpotlightCommand
 
     protected string $description = 'Edit a menu item';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'update menu item',
     ];
@@ -31,11 +33,14 @@ class EditMenuItem extends SpotlightCommand
             );
     }
 
-    public function searchMenuItem($query)
+    /**
+     * @return Collection<int, SpotlightSearchResult>
+     */
+    public function searchMenuItem(string $query): Collection
     {
         return MenuItem::where('label', 'like', "%{$query}%")
             ->get()
-            ->map(fn ($menuItem): SpotlightSearchResult => new SpotlightSearchResult(
+            ->map(fn (MenuItem $menuItem): SpotlightSearchResult => new SpotlightSearchResult(
                 $menuItem->id,
                 $menuItem->label,
                 sprintf('Edit %s menu item', $menuItem->label)
