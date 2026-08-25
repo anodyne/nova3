@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Media\Livewire;
 
 use Illuminate\Contracts\View\View;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use Nova\Foundation\Livewire\Modal;
 
@@ -12,7 +13,7 @@ class AvatarEditor extends Modal
 {
     use WithFileUploads;
 
-    public $croppedImage;
+    public ?TemporaryUploadedFile $croppedImage = null;
 
     public ?string $temporaryUrl = null;
 

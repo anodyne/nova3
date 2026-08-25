@@ -35,7 +35,7 @@ class UploadImage extends Component
     public string $fieldName = 'image';
 
     #[Validate('image:allow_svg|max:10240')]
-    public $image;
+    public ?TemporaryUploadedFile $image = null;
 
     public ImageAction $imageAction = ImageAction::Unchanged;
 
@@ -74,13 +74,13 @@ class UploadImage extends Component
     }
 
     #[Computed]
-    public function imageInfo()
+    public function imageInfo(): ?TemporaryUploadedFile
     {
         if (filled($this->image)) {
             return $this->image;
         }
 
-        // return $this->existingImage;
+        return null;
     }
 
     public function mount(): void
@@ -136,7 +136,7 @@ class UploadImage extends Component
         ]);
     }
 
-    public function updatedImage($value): void
+    public function updatedImage(): void
     {
         if (filled($this->image)) {
             // If there was existing media at mount time, we're replacing; otherwise, adding.
