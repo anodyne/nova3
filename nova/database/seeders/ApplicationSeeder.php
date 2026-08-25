@@ -31,9 +31,21 @@ class ApplicationSeeder extends Seeder
                 ->get()
                 ->keyBy('key');
 
-            $reviewerIds = User::query()->orderBy('id')->limit(3)->pluck('id')->all();
+            $reviewerIds = array_values(
+                User::query()
+                    ->orderBy('id')
+                    ->limit(3)
+                    ->get(['id'])
+                    ->map(fn (User $user): int => $user->id)
+                    ->all()
+            );
 
-            $positionIds = Position::query()->pluck('id')->all();
+            $positionIds = array_values(
+                Position::query()
+                    ->get(['id'])
+                    ->map(fn (Position $position): int => $position->id)
+                    ->all()
+            );
 
             $this->makeApplication(
                 result: ApplicationResult::Accept,
@@ -122,7 +134,14 @@ class ApplicationSeeder extends Seeder
 
         $authorIds = $authorPool !== []
             ? $authorPool
-            : User::query()->orderBy('id')->limit(3)->pluck('id')->all();
+            : array_values(
+                User::query()
+                    ->orderBy('id')
+                    ->limit(3)
+                    ->get(['id'])
+                    ->map(fn (User $user): int => $user->id)
+                    ->all()
+            );
 
         $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 

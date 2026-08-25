@@ -26,9 +26,9 @@ class BanFactory extends Factory
     {
         return [
             'bannable_id' => User::factory(),
-            'bannable_type' => fn (array $attributes) => User::find($attributes['bannable_id'])->getMorphClass(),
+            'bannable_type' => (new User)->getMorphClass(),
             'created_by_id' => User::factory(),
-            'created_by_type' => fn (array $attributes) => User::find($attributes['created_by_id'])->getMorphClass(),
+            'created_by_type' => (new User)->getMorphClass(),
             'comment' => fake()->paragraph(),
         ];
     }

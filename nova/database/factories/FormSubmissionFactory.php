@@ -40,7 +40,7 @@ class FormSubmissionFactory extends Factory
         return [
             'form_id' => Form::factory(),
             'owner_id' => User::factory(),
-            'owner_type' => fn (array $attributes) => User::find($attributes['owner_id'])->getMorphClass(),
+            'owner_type' => (new User)->getMorphClass(),
         ];
     }
 

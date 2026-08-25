@@ -46,7 +46,7 @@ class AddonFactory extends Factory
 
     public function forRequest(): FactoryRequestData
     {
-        $model = $this->make();
+        $model = $this->makeOne();
 
         $payload = [
             'name' => $model->name,
