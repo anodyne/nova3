@@ -50,10 +50,10 @@ class RankName extends Model implements Sortable
      */
     public function ranks(): HasMany
     {
-        /** @var HasMany<RankItem, $this> $relation */
-        $relation = $this->hasMany(RankItem::class, 'name_id')
+        /** @var HasMany<RankItem, $this> $builder */
+        $builder = $this->hasMany(RankItem::class, 'name_id')
             ->orderBy('order_column', 'asc');
 
-        return $relation;
+        return $builder;
     }
 }

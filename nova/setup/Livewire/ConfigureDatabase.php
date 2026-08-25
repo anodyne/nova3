@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Livewire;
 
+use Stringable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +56,7 @@ class ConfigureDatabase extends Component
 
     public ?DatabaseConfigStatus $status = null;
 
-    /** @return array<string, list<string|\Stringable>> */
+    /** @return array<string, list<string|Stringable>> */
     public function rules(): array
     {
         return [

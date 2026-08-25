@@ -104,7 +104,7 @@ class NotificationSeeder extends Seeder
 
         $user->notify(new ApplicationReadyForReview(application: $application));
 
-        $review = ApplicationReview::query()
+        $applicationReview = ApplicationReview::query()
             ->where('application_id', $application->id)
             ->where('user_id', $activeUser->id)
             ->firstOrFail();
@@ -112,13 +112,13 @@ class NotificationSeeder extends Seeder
         $user->notify(new ApplicationReviewerVotedToAccept(
             application: $application,
             reviewer: $activeUser,
-            review: $review,
+            review: $applicationReview,
         ));
 
         $user->notify(new ApplicationReviewerVotedToDeny(
             application: $application,
             reviewer: $activeUser,
-            review: $review,
+            review: $applicationReview,
         ));
 
         $user->notify(new ApplicationAccepted(application: $application));

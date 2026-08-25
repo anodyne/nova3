@@ -19,7 +19,7 @@ trait HasModalContentView
         return $this;
     }
 
-    /** @return view-string */
+    /** @return view-string The configured modal content view. */
     protected function getModalContentView(): string
     {
         if ($this->modalContentView === null) {

@@ -24,10 +24,10 @@ use Nova\Stories\Models\PostType;
  * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
  *
- * @phpstan-import-type CharacterAuthor from \Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors
- * @phpstan-import-type CharacterAuthorPivotData from \Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors
- * @phpstan-import-type UserAuthor from \Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors
- * @phpstan-import-type UserAuthorPivotData from \Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors
+ * @phpstan-import-type CharacterAuthor from InteractsWithCharacterAuthors
+ * @phpstan-import-type CharacterAuthorPivotData from InteractsWithCharacterAuthors
+ * @phpstan-import-type UserAuthor from InteractsWithUserAuthors
+ * @phpstan-import-type UserAuthorPivotData from InteractsWithUserAuthors
  */
 class PostAuthors extends Component
 {

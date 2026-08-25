@@ -100,7 +100,7 @@ class MigrateForm
                                 ]);
 
                             $legacyFormFields
-                                ->each(function ($field) use (&$fields, $form): void {
+                                ->each(function (object $field) use (&$fields, $form): void {
                                     $fieldUid = Str::random(12);
 
                                     $formFieldId = DB::table('form_fields')->insertGetId([

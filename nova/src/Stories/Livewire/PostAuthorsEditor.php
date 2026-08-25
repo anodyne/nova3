@@ -26,8 +26,8 @@ use Nova\Users\Models\User;
  * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
  *
- * @phpstan-import-type CharacterAuthor from \Nova\Stories\Livewire\Concerns\InteractsWithCharacterAuthors
- * @phpstan-import-type UserAuthor from \Nova\Stories\Livewire\Concerns\InteractsWithUserAuthors
+ * @phpstan-import-type CharacterAuthor from InteractsWithCharacterAuthors
+ * @phpstan-import-type UserAuthor from InteractsWithUserAuthors
  */
 #[On('post-authors-modified')]
 class PostAuthorsEditor extends SlideOver

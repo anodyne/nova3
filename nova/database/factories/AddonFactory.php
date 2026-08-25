@@ -46,21 +46,21 @@ class AddonFactory extends Factory
 
     public function forRequest(): FactoryRequestData
     {
-        $model = $this->makeOne();
+        $addon = $this->makeOne();
 
         $payload = [
-            'name' => $model->name,
-            'location' => $model->location,
-            'version' => $model->version,
-            'type' => $model->type->value,
-            'preview' => $model->preview,
+            'name' => $addon->name,
+            'location' => $addon->location,
+            'version' => $addon->version,
+            'type' => $addon->type->value,
+            'preview' => $addon->preview,
         ];
 
-        if ($model->status === BasicStatus::Active) {
+        if ($addon->status === BasicStatus::Active) {
             $payload['status'] = 'true';
         }
 
-        return FactoryRequestData::from(model: $model, payload: $payload);
+        return FactoryRequestData::from(model: $addon, payload: $payload);
     }
 
     public function genre(): static

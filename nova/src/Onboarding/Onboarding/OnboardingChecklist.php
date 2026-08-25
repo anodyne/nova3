@@ -26,10 +26,10 @@ abstract class OnboardingChecklist
         $total = 0;
         $completed = 0;
 
-        foreach ($this->steps() as $step) {
+        foreach ($this->steps() as $onboardingChecklistStep) {
             $total += 1;
 
-            if ($step->completed()) {
+            if ($onboardingChecklistStep->completed()) {
                 $completed += 1;
             }
         }
@@ -58,7 +58,7 @@ abstract class OnboardingChecklist
     protected function buildSteps(array $stepClasses): array
     {
         return array_map(
-            fn ($class): OnboardingChecklistStep => new $class($this->model->steps),
+            fn (string $class): OnboardingChecklistStep => new $class($this->model->steps),
             $stepClasses
         );
     }

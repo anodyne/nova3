@@ -112,7 +112,7 @@ class UserNotifications extends SlideOver
             'older' => $grouped->get('older'),
         ])
             ->filter(fn ($value): bool => $value && $value->isNotEmpty())
-            ->map(fn ($value) => $toArray($value))
+            ->map(fn ($value): array => $toArray($value))
             ->all();
     }
 
