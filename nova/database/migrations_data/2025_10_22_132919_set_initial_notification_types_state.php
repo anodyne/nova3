@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +23,9 @@ return new class extends Migration
         DB::table('notification_types')->whereIn('key', $keys)->delete();
     }
 
+    /**
+     * @return array<string, list<array<string, bool|string>>>
+     */
     protected function definitions(): array
     {
         return [
@@ -57,6 +61,9 @@ return new class extends Migration
         ];
     }
 
+    /**
+     * @return list<array<string, bool|CarbonImmutable|string|null>>
+     */
     protected function buildRows(): array
     {
         $now = Date::now();

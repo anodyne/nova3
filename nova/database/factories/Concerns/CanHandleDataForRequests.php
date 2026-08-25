@@ -12,6 +12,7 @@ use Nova\Foundation\Support\FactoryRequestData;
 
 trait CanHandleDataForRequests
 {
+    /** @param array<string, mixed> $attributes */
     public function forRequest(array $attributes = []): FactoryRequestData
     {
         $model = $this->make($attributes);

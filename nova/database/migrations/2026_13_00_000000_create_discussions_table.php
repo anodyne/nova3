@@ -8,19 +8,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('discussion_notifications');
-        Schema::dropIfExists('discussion_messages');
-        Schema::dropIfExists('discussions');
-    }
-
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('discussions', function (Blueprint $table) {
@@ -62,5 +49,12 @@ return new class extends Migration
 
             $table->unique(['discussion_id', 'user_id'], 'discussion_participants_index');
         });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('discussion_notifications');
+        Schema::dropIfExists('discussion_messages');
+        Schema::dropIfExists('discussions');
     }
 };
