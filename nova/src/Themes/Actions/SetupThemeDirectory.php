@@ -134,6 +134,11 @@ class SetupThemeDirectory
     protected function readStub(string $stubFile): string
     {
         $path = __DIR__.'/../stubs/'.$stubFile;
+
+        if (! is_readable($path)) {
+            throw new RuntimeException("Unable to read theme stub [{$path}].");
+        }
+
         $contents = file_get_contents($path);
 
         if ($contents === false) {

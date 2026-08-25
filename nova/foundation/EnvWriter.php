@@ -141,10 +141,16 @@ class EnvWriter
     {
         $this->isEnvWritable();
 
-        $contents = file_get_contents($this->envFilePath());
+        $path = $this->envFilePath();
+
+        if (! is_readable($path)) {
+            throw new RuntimeException("Unable to read environment file [{$path}].");
+        }
+
+        $contents = file_get_contents($path);
 
         if ($contents === false) {
-            throw new RuntimeException("Unable to read environment file [{$this->envFilePath()}].");
+            throw new RuntimeException("Unable to read environment file [{$path}].");
         }
 
         $this->envFileContents = $contents;

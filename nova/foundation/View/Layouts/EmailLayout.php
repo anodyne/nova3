@@ -24,7 +24,13 @@ class EmailLayout extends Component
             return null;
         }
 
-        $contents = file_get_contents($userUploadedLogo->getPath());
+        $path = $userUploadedLogo->getPath();
+
+        if (! is_readable($path)) {
+            return null;
+        }
+
+        $contents = file_get_contents($path);
 
         return $contents === false ? null : base64_encode($contents);
     }

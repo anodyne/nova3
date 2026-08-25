@@ -43,7 +43,13 @@ class MyAccount extends Component
     #[Computed]
     public function timezones(): Collection
     {
-        $contents = file_get_contents(nova_path('timezones.json'));
+        $path = nova_path('timezones.json');
+
+        if (! is_readable($path)) {
+            return collect();
+        }
+
+        $contents = file_get_contents($path);
 
         if ($contents === false) {
             return collect();
