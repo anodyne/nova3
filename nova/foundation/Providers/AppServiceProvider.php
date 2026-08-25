@@ -72,6 +72,7 @@ use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
 use Nova\Foundation\Responses\FiltersManager;
+use Nova\Foundation\Values\DatabaseVersionInfo;
 use Nova\Foundation\View\Compilers\BladeCompiler;
 use Nova\Foundation\View\Components\Tips;
 use Nova\Foundation\View\Layouts\AdminLayout;
@@ -190,19 +191,11 @@ class AppServiceProvider extends ServiceProvider
             return $table->string($name)->nullable()->unique();
         });
 
-        DB::macro('versionInfo', function (): object {
+        DB::macro('versionInfo', function (): DatabaseVersionInfo {
             $pdo = DB::getPdo();
             $driver = DB::getDriverName();
 
-            $rawVersion = $pdo->query('SELECT VERSION()')->fetchColumn();
-
-            return (object) [
-                'driver' => $driver,
-                'version' => $rawVersion,
-                'isMaria' => $driver === 'mysql' && str_contains($rawVersion, 'MariaDB'),
-                'isMysql' => $driver === 'mysql' && ! str_contains($rawVersion, 'MariaDB'),
-                'isPostgres' => $driver === 'pgsql',
-            ];
+            return DatabaseVersionInfo::fromPdo($pdo, $driver);
         });
     }
 
