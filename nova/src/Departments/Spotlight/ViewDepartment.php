@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class ViewDepartment extends SpotlightCommand
 
     protected string $description = 'View a department';
 
+    /** @var array<string> */
     protected array $synonyms = [
         'show department',
     ];
@@ -31,11 +33,14 @@ class ViewDepartment extends SpotlightCommand
             );
     }
 
-    public function searchDepartment($query)
+    /**
+     * @return Collection<int, SpotlightSearchResult>
+     */
+    public function searchDepartment(string $query): Collection
     {
         return Department::where('name', 'like', "{$query}%")
             ->get()
-            ->map(fn ($department): SpotlightSearchResult => new SpotlightSearchResult(
+            ->map(fn (Department $department): SpotlightSearchResult => new SpotlightSearchResult(
                 $department->id,
                 $department->name,
                 sprintf('Visit %s', $department->name)

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Departments\Actions\CreateDepartmentManager;
 use Nova\Departments\Actions\UpdateDepartmentManager;
 use Nova\Departments\Models\Department;
@@ -26,18 +27,6 @@ class DepartmentController extends Controller
         $this->middleware('auth');
 
         $this->authorizeResource(Department::class);
-    }
-
-    public function create(): Responsable
-    {
-        return CreateDepartmentResponse::send();
-    }
-
-    public function edit(Department $department): Responsable
-    {
-        return EditDepartmentResponse::sendWith([
-            'department' => $department,
-        ]);
     }
 
     public function index(): Responsable
@@ -64,7 +53,12 @@ class DepartmentController extends Controller
         ]);
     }
 
-    public function store(StoreDepartmentRequest $request)
+    public function create(): Responsable
+    {
+        return CreateDepartmentResponse::send();
+    }
+
+    public function store(StoreDepartmentRequest $request): RedirectResponse
     {
         $department = CreateDepartmentManager::run($request);
 
@@ -72,7 +66,14 @@ class DepartmentController extends Controller
             ->notify("{$department->name} department was created");
     }
 
-    public function update(UpdateDepartmentRequest $request, Department $department)
+    public function edit(Department $department): Responsable
+    {
+        return EditDepartmentResponse::sendWith([
+            'department' => $department,
+        ]);
+    }
+
+    public function update(UpdateDepartmentRequest $request, Department $department): RedirectResponse
     {
         $department = UpdateDepartmentManager::run($department, $request);
 

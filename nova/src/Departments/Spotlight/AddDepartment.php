@@ -15,6 +15,7 @@ class AddDepartment extends SpotlightCommand
 
     protected string $description = 'Add a new department';
 
+    /** @var array<string> */
     protected array $synonyms = [
         'create department',
     ];

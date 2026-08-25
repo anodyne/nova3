@@ -10,12 +10,13 @@ use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
 /**
- * @method static static from(string $name, ?string $description, array $tags, BasicStatus $status)
+ * @method static static from(string $name, ?string $description, list<string> $tags, BasicStatus $status)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
 readonly class DepartmentData extends Bag
 {
+    /** @param list<string> $tags */
     public function __construct(
         public string $name,
         public ?string $description,
@@ -23,6 +24,14 @@ readonly class DepartmentData extends Bag
         public BasicStatus $status,
     ) {}
 
+    /**
+     * @return array{
+     *      name: mixed,
+     *      description: mixed,
+     *      tags: list<string>,
+     *      status: ?BasicStatus
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

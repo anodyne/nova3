@@ -11,9 +11,7 @@ use Nova\Departments\Models\Position;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 /**
- * @template TModel of Position
- *
- * @extends Builder<TModel>
+ * @extends Builder<Position>
  */
 class PositionBuilder extends Builder
 {
@@ -25,12 +23,12 @@ class PositionBuilder extends Builder
         return $this->where('available', '>', 0);
     }
 
-    public function forDepartment($id): self
+    public function forDepartment(Department|int $department): self
     {
-        return $this->where('department_id', $id);
+        return $this->where('department_id', $department->id ?? $department);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->where(Position::column('name'), 'like', "%{$search}%")
             ->orWhereRelation('department', Department::column('name'), 'like', "%{$search}%");

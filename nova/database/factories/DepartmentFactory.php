@@ -16,14 +16,14 @@ class DepartmentFactory extends Factory
 
     protected $model = Department::class;
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => ucfirst($this->faker->word),
@@ -32,7 +32,7 @@ class DepartmentFactory extends Factory
         ];
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,

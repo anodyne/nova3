@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 trait QueriesUniqueTags
 {
+    /** @param list<string> $tags */
     public function hasTags(array $tags): self
     {
         $versionInfo = DB::versionInfo();
@@ -23,6 +24,7 @@ trait QueriesUniqueTags
         };
     }
 
+    /** @return Collection<string, string> */
     public function uniqueTags(): Collection
     {
         $versionInfo = DB::versionInfo();

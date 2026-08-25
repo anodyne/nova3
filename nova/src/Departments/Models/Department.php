@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models;
 
+use Database\Factories\DepartmentFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +34,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 #[UseEloquentBuilder(DepartmentBuilder::class)]
 class Department extends Model implements HasMedia, Sortable
 {
+    /** @use HasFactory<DepartmentFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use HasRelationships;
     use InteractsWithMedia;
@@ -56,12 +59,21 @@ class Department extends Model implements HasMedia, Sortable
 
     protected $table = 'departments';
 
+    /**
+     * @return HasManyDeep<Character, $this>
+     */
     public function activeCharacters(): HasManyDeep
     {
-        return $this->characters()
+        /** @var HasManyDeep<Character, $this> $relation */
+        $relation = $this->characters()
             ->whereState(Character::column('status'), CharacterActive::class);
+
+        return $relation;
     }
 
+    /**
+     * @return HasManyDeep<User, $this>
+     */
     public function activeUsers(): HasManyDeep
     {
         return $this->users()
@@ -69,6 +81,9 @@ class Department extends Model implements HasMedia, Sortable
             ->where(Character::column('status'), CharacterActive::$name);
     }
 
+    /**
+     * @return HasManyDeep<Character, $this>
+     */
     public function characters(): HasManyDeep
     {
         return $this->hasManyDeep(
@@ -77,9 +92,36 @@ class Department extends Model implements HasMedia, Sortable
         );
     }
 
+    /**
+     * @return HasMany<Position, $this>
+     */
     public function positions(): HasMany
     {
-        return $this->hasMany(Position::class)->ordered();
+        /** @var HasMany<Position, $this> $relation */
+        $relation = $this->hasMany(Position::class)->ordered();
+
+        return $relation;
+    }
+
+    /**
+     * @return HasManyDeep<User, $this>
+     */
+    public function users(): HasManyDeep
+    {
+        return $this->hasManyDeep(
+            User::class,
+            [Position::class, 'character_position', Character::class, 'character_user']
+        );
+    }
+
+    /**
+     * @return Attribute<string, never>
+     */
+    public function tagsAsString(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): string => implode(', ', $this->tags ?? [])
+        );
     }
 
     public function registerMediaCollections(): void
@@ -88,21 +130,6 @@ class Department extends Model implements HasMedia, Sortable
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'])
             ->singleFile()
             ->useDisk('media-departments');
-    }
-
-    public function tagsAsString(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): string => implode(', ', $this->tags ?? [])
-        );
-    }
-
-    public function users(): HasManyDeep
-    {
-        return $this->hasManyDeep(
-            User::class,
-            [Position::class, 'character_position', Character::class, 'character_user']
-        );
     }
 
     public static function getMediaPath(): string

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Nova\Departments\Actions\CreatePosition;
 use Nova\Departments\Actions\UpdatePosition;
@@ -52,7 +53,7 @@ class PositionController extends Controller
         ]);
     }
 
-    public function store(StorePositionRequest $request)
+    public function store(StorePositionRequest $request): RedirectResponse
     {
         $position = CreatePosition::run($request->getPositionData());
 
@@ -68,7 +69,7 @@ class PositionController extends Controller
         ]);
     }
 
-    public function update(UpdatePositionRequest $request, Position $position)
+    public function update(UpdatePositionRequest $request, Position $position): RedirectResponse
     {
         $position = UpdatePosition::run(
             $position,

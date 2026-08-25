@@ -71,6 +71,9 @@ class UpdatePositionAvailability
         $this->increment($incrementData ?? []);
     }
 
+    /**
+     * @param  list<int>  $ids
+     */
     protected function decrement(array $ids): void
     {
         Position::query()
@@ -79,6 +82,9 @@ class UpdatePositionAvailability
             ->decrement('available');
     }
 
+    /**
+     * @param  list<int>|null  $ids
+     */
     protected function increment(?array $ids): void
     {
         Position::query()

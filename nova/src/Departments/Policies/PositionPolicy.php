@@ -20,52 +20,52 @@ class PositionPolicy
             : $this->deny();
     }
 
-    public function view(User $user, Position $position)
+    public function view(User $user, Position $position): Response
     {
         return $user->isAbleTo('department.view')
             ? $this->allow()
             : $this->deny();
     }
 
-    public function create(User $user)
+    public function create(User $user): Response
     {
         return $user->isAbleTo('department.create')
             ? $this->allow()
             : $this->deny();
     }
 
-    public function update(User $user, Position $position)
+    public function update(User $user, Position $position): Response
     {
         return $user->isAbleTo('department.update')
             ? $this->allow()
             : $this->deny();
     }
 
-    public function deleteAny(User $user)
+    public function deleteAny(User $user): Response
     {
         return $user->isAbleTo('department.delete')
             ? $this->allow()
             : $this->deny();
     }
 
-    public function delete(User $user, Position $position)
+    public function delete(User $user, Position $position): Response
     {
         return $this->deleteAny($user);
     }
 
-    public function duplicate(User $user, Position $position)
+    public function duplicate(User $user, Position $position): Response
     {
         return $user->isAbleTo('department.create') && $user->isAbleTo('department.update')
             ? $this->allow()
             : $this->deny();
     }
 
-    public function restore(User $user, Position $position)
+    public function restore(User $user, Position $position): Response
     {
         return $this->denyWithStatus(418);
     }
 
-    public function forceDelete(User $user, Position $position)
+    public function forceDelete(User $user, Position $position): Response
     {
         return $this->denyWithStatus(418);
     }

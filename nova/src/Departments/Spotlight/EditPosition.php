@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -19,6 +20,7 @@ class EditPosition extends SpotlightCommand
 
     protected string $description = 'Edit a position';
 
+    /** @var array<string> */
     protected array $synonyms = [
         'update position',
     ];
@@ -32,11 +34,14 @@ class EditPosition extends SpotlightCommand
             );
     }
 
-    public function searchPosition($query)
+    /**
+     * @return Collection<int, SpotlightSearchResult>
+     */
+    public function searchPosition(string $query): Collection
     {
         return Position::where('name', 'like', "%{$query}%")
             ->get()
-            ->map(fn ($position): SpotlightSearchResult => new SpotlightSearchResult(
+            ->map(fn (Position $position): SpotlightSearchResult => new SpotlightSearchResult(
                 $position->id,
                 $position->name,
                 sprintf('Edit %s position', $position->name)

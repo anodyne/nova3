@@ -17,14 +17,14 @@ class PositionFactory extends Factory
 
     protected $model = Position::class;
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => ucwords($this->faker->words($this->faker->numberBetween(1, 3), true)),
@@ -35,14 +35,14 @@ class PositionFactory extends Factory
         ];
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,
         ]);
     }
 
-    public function unavailable()
+    public function unavailable(): static
     {
         return $this->state([
             'available' => 0,
