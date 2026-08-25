@@ -5,44 +5,35 @@ declare(strict_types=1);
 namespace Nova\Themes\Concerns;
 
 use Nova\Themes\BaseTheme;
+use Nova\Themes\Data\ThemeSettings;
 use Nova\Themes\Models\Theme;
 
 trait InteractsWithModel
 {
-    public $name;
+    public string $name;
 
-    public $credits;
+    public ?string $credits;
 
-    public $layoutAuth;
+    public ?string $layoutAuth = null;
 
-    public $layoutAdmin;
+    public ?string $layoutAdmin = null;
 
-    public $layoutPublic;
+    public ?string $layoutPublic = null;
 
-    public $layoutAuthSettings;
+    public ?string $layoutAuthSettings = null;
 
-    public $layoutAdminSettings;
+    public ?string $layoutAdminSettings = null;
 
-    public $layoutPublicSettings;
+    public ?string $layoutPublicSettings = null;
 
-    public $settings;
+    public ?ThemeSettings $settings;
 
-    /**
-     * Get the model for the theme.
-     *
-     * @return Theme
-     */
-    public function getModel()
+    public function getModel(): Theme
     {
         return once(fn () => Theme::location($this->location)->firstOrFail());
     }
 
-    /**
-     * Set the properties of the class from the model.
-     *
-     * @return BaseTheme
-     */
-    public function setThemeProperties()
+    public function setThemeProperties(): BaseTheme
     {
         $this->name = $this->model->name;
         $this->credits = $this->model->credits;

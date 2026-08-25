@@ -28,6 +28,17 @@ readonly class ThemeData extends Bag
         public ?AddonRepository $repository
     ) {}
 
+    /**
+     * @return array{
+     *     name: mixed,
+     *     location: mixed,
+     *     version: mixed,
+     *     credits: mixed,
+     *     status: BasicStatus|null,
+     *     preview: mixed,
+     *     settings: ThemeSettings
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

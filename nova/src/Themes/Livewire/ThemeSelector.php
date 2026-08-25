@@ -12,13 +12,14 @@ use Livewire\Component;
 use Nova\Themes\Models\Theme;
 
 /**
- * @property-read Collection $availableThemes
+ * @property-read Collection<int, Theme> $availableThemes
  * @property-read Theme $selectedTheme
  */
 class ThemeSelector extends Component
 {
     public ?string $selected = null;
 
+    /** @return Collection<int, Theme> */
     #[Computed]
     public function availableThemes(): Collection
     {

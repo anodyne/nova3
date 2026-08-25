@@ -9,15 +9,13 @@ use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 use Nova\Themes\Models\Theme;
 
 /**
- * @template TModel of Theme
- *
- * @extends Builder<TModel>
+ * @extends Builder<Theme>
  */
 class ThemeBuilder extends Builder
 {
     use QueriesStatus;
 
-    public function location($location): self
+    public function location(string $location): self
     {
         return $this->where('location', $location);
     }

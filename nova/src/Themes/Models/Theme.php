@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Models;
 
+use Database\Factories\ThemeFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +29,10 @@ use Nova\Themes\Models\Builders\ThemeBuilder;
 class Theme extends Model
 {
     use ChecksAddonVersion;
+
+    /** @use HasFactory<ThemeFactory> */
     use HasFactory;
+
     use LogsActivity;
 
     protected $casts = [
@@ -54,6 +58,7 @@ class Theme extends Model
         return 'nova-themes-latest-versions';
     }
 
+    /** @return Attribute<bool, never> */
     public function isCurrentPublicTheme(): Attribute
     {
         return Attribute::make(
@@ -68,6 +73,7 @@ class Theme extends Model
         return new $themeClass;
     }
 
+    /** @return Collection<int, string> */
     public static function getInstallableThemes(): Collection
     {
         $disk = Storage::disk('themes');

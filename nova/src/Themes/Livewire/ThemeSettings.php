@@ -21,8 +21,10 @@ class ThemeSettings extends SlideOver implements HasForms
 {
     use InteractsWithForms;
 
+    /** @var array<string, string> */
     public array $fonts = [];
 
+    /** @var array<string, mixed>|null */
     public ?array $data = [];
 
     public string|Theme $theme;
@@ -35,7 +37,8 @@ class ThemeSettings extends SlideOver implements HasForms
             ->model($this->theme);
     }
 
-    public function fontUpdated(array $data = []): void
+    /** @param array{type: string, provider: string, family: string} $data */
+    public function fontUpdated(array $data): void
     {
         $type = $data['type'];
 

@@ -9,9 +9,9 @@ use Spatie\Html\Elements\Element;
 
 trait RendersTheme
 {
-    public $structure;
+    public mixed $structure;
 
-    public function __toString()
+    public function __toString(): string
     {
         try {
             return $this->structure->render();
@@ -20,25 +20,29 @@ trait RendersTheme
         }
     }
 
-    public function layout($view, array $data = []): static
+    /** @param array<string, mixed> $data */
+    public function layout(string $view, array $data = []): static
     {
         $this->structure->layout = view("layouts.{$view}", $data);
 
         return $this;
     }
 
-    public function page($view, array $data = []): static
+    /** @param array<string, mixed> $data */
+    public function page(string $view, array $data = []): static
     {
         $this->structure->layout->template->content = view("pages.{$view}", $data);
 
         return $this;
     }
 
+    /** @return array<string, mixed> */
     public function prepareData(): array
     {
         return [];
     }
 
+    /** @param list<string> $scripts */
     public function scripts(array $scripts): static
     {
         $output = collect();
@@ -62,6 +66,10 @@ trait RendersTheme
         return $this;
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array{view: string, data: array<string, mixed>}
+     */
     public function structure(array $data = []): array
     {
         return [
@@ -70,7 +78,8 @@ trait RendersTheme
         ];
     }
 
-    public function template($view, array $data = []): static
+    /** @param array<string, mixed> $data */
+    public function template(string $view, array $data = []): static
     {
         $this->structure->layout->template = view("templates.{$view}", $data);
 

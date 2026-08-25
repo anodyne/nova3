@@ -13,7 +13,7 @@ class ThemeException extends Exception
         return new self('A Quick Install file could not be found.');
     }
 
-    public static function themeAlreadyExists($location): self
+    public static function themeAlreadyExists(string $location): self
     {
         return new self("Theme scaffold could not be created because the theme [{$location}] already exists.");
     }

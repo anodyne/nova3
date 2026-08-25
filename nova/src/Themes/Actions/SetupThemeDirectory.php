@@ -59,7 +59,7 @@ class SetupThemeDirectory
         $this->createThemeLayout();
     }
 
-    protected function createStylesheet($stylesheet): void
+    protected function createStylesheet(string $stylesheet): void
     {
         $stub = file_get_contents(__DIR__.'/../stubs/theme.css.stub');
 
@@ -115,7 +115,7 @@ class SetupThemeDirectory
         $this->files->put($this->getThemeLocation().'/theme.json', $stub);
     }
 
-    protected function createThemeLayout()
+    protected function createThemeLayout(): void
     {
         $this->files->makeDirectory($this->getThemeLocation().'/views/components/layouts');
 

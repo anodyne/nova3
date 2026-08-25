@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Themes\Actions\CreateThemeManager;
@@ -44,7 +45,7 @@ class ThemeController extends Controller
         return CreateThemeResponse::send();
     }
 
-    public function store(StoreThemeRequest $request)
+    public function store(StoreThemeRequest $request): RedirectResponse
     {
         $theme = CreateThemeManager::run($request);
 
@@ -59,7 +60,7 @@ class ThemeController extends Controller
         ]);
     }
 
-    public function update(UpdateThemeRequest $request, Theme $theme)
+    public function update(UpdateThemeRequest $request, Theme $theme): RedirectResponse
     {
         $theme = UpdateTheme::run($theme, $request->getThemeData());
 

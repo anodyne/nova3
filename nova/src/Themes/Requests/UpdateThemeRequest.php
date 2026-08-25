@@ -6,6 +6,7 @@ namespace Nova\Themes\Requests;
 
 class UpdateThemeRequest extends StoreThemeRequest
 {
+    /** @return array<string, list<string>> */
     public function rules(): array
     {
         return array_merge(parent::rules(), [

@@ -9,6 +9,7 @@ use Nova\Themes\Data\ThemeData;
 
 class StoreThemeRequest extends FormRequest
 {
+    /** @return array<string, list<string>> */
     public function rules(): array
     {
         return [

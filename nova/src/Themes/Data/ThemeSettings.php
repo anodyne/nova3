@@ -10,13 +10,14 @@ use Bag\Mappers\SnakeCase;
 use Nova\Settings\Data\FontFamilies;
 
 /**
- * @method static static from(FontFamilies $fonts, array $settings)
+ * @method static static from(FontFamilies $fonts, array<string, mixed> $settings)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
 #[MapInputName(SnakeCase::class)]
 readonly class ThemeSettings extends Bag
 {
+    /** @param array<string, mixed> $settings */
     public function __construct(
         public FontFamilies $fonts,
         public array $settings = []
