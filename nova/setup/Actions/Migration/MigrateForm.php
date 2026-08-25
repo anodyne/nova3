@@ -12,7 +12,19 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesFormFields;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
+use stdClass;
 
+/**
+ * @phpstan-type LegacyCharacterFormField object{
+ *     field_id: int,
+ *     field_name: string,
+ *     field_label_page: string,
+ *     field_help: string|null,
+ *     field_type: string,
+ *     field_order: int,
+ *     field_rows: int|string|null
+ * }
+ */
 class MigrateForm
 {
     use AsAction;
@@ -70,12 +82,25 @@ class MigrateForm
                                 ],
                             ];
 
-                            DB::connection('nova2')
+                            $legacyFormFields = DB::connection('nova2')
                                 ->table('characters_fields')
                                 ->where('field_section', $section->section_id)
                                 ->orderBy('field_order', 'asc')
                                 ->get()
-                                ->each(function (object $field) use (&$fields, $form): void {
+                                ->map(fn (stdClass $field) => (object) [
+                                    'field_id' => (int) $field->field_id,
+                                    'field_name' => (string) $field->field_name,
+                                    'field_label_page' => (string) $field->field_label_page,
+                                    'field_help' => is_string($field->field_help) ? $field->field_help : null,
+                                    'field_type' => (string) $field->field_type,
+                                    'field_order' => (int) $field->field_order,
+                                    'field_rows' => is_int($field->field_rows) || is_string($field->field_rows)
+                                        ? $field->field_rows
+                                        : null,
+                                ]);
+
+                            $legacyFormFields
+                                ->each(function ($field) use (&$fields, $form): void {
                                     $fieldUid = Str::random(12);
 
                                     $formFieldId = DB::table('form_fields')->insertGetId([

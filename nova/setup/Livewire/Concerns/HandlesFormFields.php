@@ -14,10 +14,17 @@ use Illuminate\Support\Str;
  *         attrs: array<string, mixed>
  *     }
  * }
+ * @phpstan-type LegacyFormField object{
+ *     field_label_page: string,
+ *     field_help: string|null,
+ *     field_name: string,
+ *     field_rows: int|string|null
+ * }
  */
 trait HandlesFormFields
 {
     /**
+     * @param  LegacyFormField  $model
      * @param  array<array-key, mixed>  $options
      * @return FormFieldJson
      */
@@ -88,7 +95,10 @@ trait HandlesFormFields
         ];
     }
 
-    /** @return FormFieldJson */
+    /**
+     * @param  LegacyFormField  $model
+     * @return FormFieldJson
+     */
     protected function buildLongTextFieldJson(object $model, string $uid): array
     {
         return [
@@ -132,7 +142,10 @@ trait HandlesFormFields
         ];
     }
 
-    /** @return FormFieldJson */
+    /**
+     * @param  LegacyFormField  $model
+     * @return FormFieldJson
+     */
     protected function buildShortTextFieldJson(object $model, string $uid): array
     {
         return [
