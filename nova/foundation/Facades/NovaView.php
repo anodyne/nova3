@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Facade;
 use Nova\Foundation\View\ViewManager;
 
 /**
- * @method static Htmlable renderHook(string $name, string | array | null $scopes = null)
+ * @method static Htmlable renderHook(string $name, string | array<string> | null $scopes = null)
  *
  * @see ViewManager
  */

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Models;
 
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
@@ -20,6 +21,7 @@ class StatusHistory extends Model
 
     protected $table = 'status_history';
 
+    /** @return MorphTo<EloquentModel, $this> */
     public function statusable(): MorphTo
     {
         return $this->morphTo();

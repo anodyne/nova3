@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\View\Components;
 
+use Illuminate\Support\Stringable;
 use Illuminate\View\Component;
 
 class Dropdown extends Component
@@ -35,7 +36,7 @@ class Dropdown extends Component
         return view('components.dropdown.index');
     }
 
-    protected function placement($placement, $breakpoint): string
+    protected function placement(Stringable|string $placement, Stringable|string $breakpoint): string
     {
         $styles = match ((string) $placement) {
             'bottom-center' => ['left-0', 'right-auto', 'origin-top'],

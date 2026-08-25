@@ -8,6 +8,7 @@ use BadMethodCallException;
 use Illuminate\Contracts\Support\Responsable as LaravelResponsable;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
@@ -18,26 +19,28 @@ use Nova\Foundation\Enums\CacheKeys;
 use Nova\Menus\Actions\RecacheMenus;
 use Nova\Menus\Models\Menu;
 use Nova\Pages\Models\Page;
+use Nova\Themes\BaseTheme;
 
 abstract class Responsable implements LaravelResponsable
 {
     use SetSEOValues;
 
-    public $layout;
+    public ?string $layout = null;
 
     public ?string $subnav = null;
 
-    public $template;
+    public ?string $template = null;
 
     public string $view;
 
+    /** @var array<string, mixed> */
     protected array $data = [];
 
-    protected $output;
+    protected mixed $output = null;
 
-    protected $page;
+    protected ?Page $page;
 
-    protected $theme;
+    protected ?BaseTheme $theme;
 
     final public function __construct(?Page $page)
     {
@@ -45,6 +48,7 @@ abstract class Responsable implements LaravelResponsable
         $this->theme = app('nova.theme');
     }
 
+    /** @param list<mixed> $parameters */
     public function __call(string $method, array $parameters): self
     {
         if (! Str::startsWith($method, 'with')) {
@@ -67,6 +71,7 @@ abstract class Responsable implements LaravelResponsable
         return null;
     }
 
+    /** @return array<string, mixed> */
     public function prepareData(): array
     {
         return app(Pipeline::class)
@@ -114,6 +119,7 @@ abstract class Responsable implements LaravelResponsable
         return null;
     }
 
+    /** @param Request $request */
     public function toResponse($request): Response|JsonResponse
     {
         if ($request->expectsJson()) {
@@ -123,7 +129,8 @@ abstract class Responsable implements LaravelResponsable
         return response($this->render(), Response::HTTP_OK);
     }
 
-    public function with($key, $value = null): self
+    /** @param string|array<string, mixed> $key */
+    public function with(string|array $key, mixed $value = null): self
     {
         if (is_array($key)) {
             $this->data = array_merge($this->data, $key);
@@ -134,6 +141,7 @@ abstract class Responsable implements LaravelResponsable
         return $this;
     }
 
+    /** @param array<string, mixed> $seo */
     public static function send(?Page $page = null, array $seo = []): self
     {
         $static = new static($page);
@@ -143,6 +151,10 @@ abstract class Responsable implements LaravelResponsable
         return $static;
     }
 
+    /**
+     * @param  array<string, mixed>  $data
+     * @param  array<string, mixed>  $seo
+     */
     public static function sendWith(array $data, ?Page $page = null, array $seo = []): self
     {
         $static = new static($page);

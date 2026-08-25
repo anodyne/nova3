@@ -20,10 +20,16 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
 
     protected ?NotificationType $notificationType = null;
 
+    /**
+     * @return array<string, mixed>
+     */
     abstract public function toArray(object $notifiable): array;
 
     abstract public function mailable(): Mailable;
 
+    /**
+     * @return array<int, string>
+     */
     public function via(object $notifiable): array
     {
         $this->getNotificationType();
@@ -46,6 +52,9 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
         return $this->notificationType;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function setAdminAudienceChannels(): array
     {
         $channels = [];
@@ -59,6 +68,9 @@ abstract class PreferenceBasedNotification extends Notification implements Shoul
         return $channels;
     }
 
+    /**
+     * @return array<int, string>
+     */
     protected function setNonAdminAudienceChannels(object $notifiable): array
     {
         $channels = [];

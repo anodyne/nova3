@@ -48,6 +48,7 @@ class EnvWriter
         Dotenv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
     }
 
+    /** @param string|array<string, mixed> $key */
     public function set(string|array $key, mixed $value = null): bool
     {
         if (is_array($key)) {
@@ -57,6 +58,7 @@ class EnvWriter
         return $this->writeLine($key, $value);
     }
 
+    /** @param array<string, mixed> $keys */
     public function writeMultipleLines(array $keys = []): bool
     {
         return array_all($keys, fn ($value, string $key): bool => $this->writeLine($key, $value));
@@ -134,7 +136,7 @@ class EnvWriter
         return (bool) preg_match('/^base64:[A-Za-z0-9+\/=]+$/', $value);
     }
 
-    protected function loadEnvContent()
+    protected function loadEnvContent(): void
     {
         $this->isEnvWritable();
 

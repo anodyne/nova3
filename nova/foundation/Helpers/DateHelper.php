@@ -97,7 +97,7 @@ class DateHelper
     /**
      * Return the first letter of the month, like "Jan" for January.
      */
-    public static function formatMonthNumber($date, ?string $timezone = null): string
+    public static function formatMonthNumber(CarbonInterface $date, ?string $timezone = null): string
     {
         $date->setTimezone($timezone ?? static::getUserTimezone());
 
@@ -137,6 +137,8 @@ class DateHelper
 
     /**
      * Return a collection of days.
+     *
+     * @return Collection<int, array{id: int, name: int}>
      */
     public static function getDays(): Collection
     {
@@ -153,6 +155,8 @@ class DateHelper
 
     /**
      * Return a collection of months.
+     *
+     * @return Collection<int, array{id: int, name: string}>
      */
     public static function getMonths(): Collection
     {

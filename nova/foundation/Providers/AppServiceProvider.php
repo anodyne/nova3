@@ -149,12 +149,12 @@ class AppServiceProvider extends ServiceProvider
         }
     }
 
-    protected function configureNovaSingleton()
+    protected function configureNovaSingleton(): void
     {
         $this->app->scoped('nova', NovaManager::class);
     }
 
-    protected function configureMacros()
+    protected function configureMacros(): void
     {
         Arr::mixin(new ArrMacros);
         Redirector::mixin(new NotificationMacros);
@@ -177,7 +177,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         HasMany::macro('createUpdateOrDelete', function (iterable $records): void {
-            /** @var HasMany $hasMany */
+            /** @var HasMany<Model, Model> $hasMany */
             $hasMany = $this;
 
             (new CreateUpdateOrDelete($hasMany, $records))();
@@ -230,7 +230,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('endmysql', fn ($expression): string => '<?php endif; ?>');
     }
 
-    protected function configureLivewireComponents()
+    protected function configureLivewireComponents(): void
     {
         Livewire::addComponent(name: 'rating', class: Rating::class);
         Livewire::addComponent(name: 'icon-picker', class: IconPicker::class);
@@ -245,7 +245,7 @@ class AppServiceProvider extends ServiceProvider
         );
     }
 
-    protected function configureDatabaseFactories()
+    protected function configureDatabaseFactories(): void
     {
         Factory::guessFactoryNamesUsing(
             fn ($model): string => 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory'
@@ -350,9 +350,9 @@ class AppServiceProvider extends ServiceProvider
         if (class_exists(AboutCommand::class)) {
             AboutCommand::add('Nova', [
                 'Version' => 'v'.Nova::filesVersion(),
-                'Extensions' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))->join(', '),
-                'Genre' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'genre', []))->join(', '),
-                'Rank set' => collect(data_get(Cache::get(CacheKeys::Addons->value), 'rank', []))->join(', '),
+                'Extensions' => collect(Arr::wrap(data_get(Cache::get(CacheKeys::Addons->value), 'extension', [])))->join(', '),
+                'Genre' => collect(Arr::wrap(data_get(Cache::get(CacheKeys::Addons->value), 'genre', [])))->join(', '),
+                'Rank set' => collect(Arr::wrap(data_get(Cache::get(CacheKeys::Addons->value), 'rank', [])))->join(', '),
             ]);
         }
     }
@@ -376,7 +376,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureAddonProviders(): void
     {
-        collect(data_get(Cache::get(CacheKeys::Addons->value), 'extension', []))
+        collect(Arr::wrap(data_get(Cache::get(CacheKeys::Addons->value), 'extension', [])))
             ->reject(fn ($addon): bool => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
             ->flatMap(fn ($addon): array => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
             ->each(fn ($addon) => new $addon($this->app)->boot());

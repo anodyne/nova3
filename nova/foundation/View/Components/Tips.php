@@ -9,7 +9,8 @@ use Illuminate\View\Component;
 
 class Tips extends Component
 {
-    public $tips;
+    /** @var list<string> */
+    public array $tips;
 
     /**
      * @var string

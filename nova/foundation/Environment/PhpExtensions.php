@@ -6,8 +6,10 @@ namespace Nova\Foundation\Environment;
 
 readonly class PhpExtensions
 {
+    /** @var list<string> */
     public array $required;
 
+    /** @var list<string> */
     public array $loaded;
 
     public function __construct()
@@ -26,11 +28,13 @@ readonly class PhpExtensions
         return empty($this->missingExtensions());
     }
 
+    /** @return array<int, string> */
     public function missingExtensions(): array
     {
         return array_diff($this->required, $this->loaded);
     }
 
+    /** @return list<array{key: string, name: string}> */
     public function requiredExtensions(): array
     {
         return [

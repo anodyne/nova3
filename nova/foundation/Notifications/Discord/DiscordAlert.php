@@ -37,6 +37,7 @@ class DiscordAlert
         return app(static::class, ['notificationKey' => $notificationKey]);
     }
 
+    /** @return array<string, mixed> */
     protected function buildJsonPayload(DiscordMessage $message): array
     {
         $optionalFields = array_filter([
@@ -52,7 +53,8 @@ class DiscordAlert
         ], $optionalFields);
     }
 
-    protected function embeds(DiscordMessage $message)
+    /** @return list<array<string, mixed>> */
+    protected function embeds(DiscordMessage $message): array
     {
         return collect($message->embeds)->map(fn (DiscordEmbed $embed): array => array_filter([
             'color' => $embed->color,
@@ -67,7 +69,8 @@ class DiscordAlert
         ]))->all();
     }
 
-    protected function embedFields(DiscordEmbed $embed)
+    /** @return list<array{name: mixed, value: mixed, inline: bool}> */
+    protected function embedFields(DiscordEmbed $embed): array
     {
         return collect($embed->fields)->map(function ($value, $key): array {
             if ($value instanceof DiscordEmbedField) {

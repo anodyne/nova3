@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
+use Closure;
+
 class ArrMacros
 {
-    public static function boolean()
+    public static function boolean(): Closure
     {
         return function (array $target, $key, $default = false): ?bool {
             if ($default === null) {
@@ -17,7 +19,7 @@ class ArrMacros
         };
     }
 
-    public static function build()
+    public static function build(): Closure
     {
         return function (array $array): array {
             $items = [];
@@ -34,7 +36,7 @@ class ArrMacros
         };
     }
 
-    public static function isMultiDimensional()
+    public static function isMultiDimensional(): Closure
     {
         return fn (array $array): bool => array_any($array, fn ($item): bool => is_array($item));
     }
@@ -53,7 +55,7 @@ class ArrMacros
     //        };
     //    }
 
-    public static function randomWeightedElement()
+    public static function randomWeightedElement(): Closure
     {
         return function (array $array) {
             $rand = mt_rand(1, (int) array_sum($array));

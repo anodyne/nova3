@@ -25,7 +25,7 @@ trait HasTableHelpers
         return "{$original} as {$as}";
     }
 
-    public static function model(): static
+    public static function model(): Model
     {
         return static::query()->getModel();
     }

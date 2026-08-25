@@ -72,6 +72,7 @@ class AuthenticationEventSubscriber
         ));
     }
 
+    /** @return array<class-string, string> */
     public function subscribe(Dispatcher $dispatcher): array
     {
         return [
@@ -83,6 +84,7 @@ class AuthenticationEventSubscriber
         ];
     }
 
+    /** @param array<string, mixed> $context */
     protected function info(object $event, string $message, array $context = []): void
     {
         $class = class_basename($event::class);

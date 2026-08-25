@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\URL;
 
 trait SetSEOValues
 {
+    /** @var array<string, mixed> */
     protected array $seoData = [];
 
     protected function setSEOValues(): void

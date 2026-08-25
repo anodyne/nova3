@@ -6,6 +6,7 @@ namespace Nova\Foundation\Concerns;
 
 trait HasSelectOptions
 {
+    /** @return array<string, string> */
     public static function toOptions(): array
     {
         return collect(static::cases())

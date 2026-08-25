@@ -9,19 +9,25 @@ use Illuminate\Support\Str;
 
 class Locator
 {
-    protected $paths = [];
+    /** @var list<string> */
+    protected array $paths = [];
 
     // locate()->page('dashboard')
     // locate()->layout('app-sidebar')
     // locate()->template('simple')
     // locate()->structure('app-server')
 
-    public function __call(string $method, array $parameters)
+    /**
+     * @param  list<mixed>  $parameters
+     * @return Collection<int, non-falsy-string>
+     */
+    public function __call(string $method, array $parameters): Collection
     {
         return $this->buildLocationMap($parameters[0], Str::plural($method));
     }
 
-    protected function buildLocationMap($view, $directory): Collection
+    /** @return Collection<int, non-falsy-string> */
+    protected function buildLocationMap(string $view, string $directory): Collection
     {
         return collect($this->paths)
             ->map(fn ($path): string => implode('.', [

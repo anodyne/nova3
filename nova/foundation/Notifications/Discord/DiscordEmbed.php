@@ -41,35 +41,35 @@ class DiscordEmbed
     /**
      * The footer information.
      *
-     * @var array
+     * @var array{text: string, icon_url: string|null}
      */
     public $footer;
 
     /**
      * The image information.
      *
-     * @var array
+     * @var array{url: string}
      */
     public $image;
 
     /**
      * The thumbnail information.
      *
-     * @var array
+     * @var array{url: string}
      */
     public $thumbnail;
 
     /**
      * The author information.
      *
-     * @var array
+     * @var array{name: string, url: string|null, icon_url: string|null}
      */
     public $author;
 
     /**
      * The fields information.
      *
-     * @var array
+     * @var array<array-key, DiscordEmbedField|string>
      */
     public $fields;
 
@@ -173,7 +173,7 @@ class DiscordEmbed
         return $this;
     }
 
-    public function field($title, $content = ''): static
+    public function field(callable|string $title, string $content = ''): static
     {
         if (is_callable($title)) {
             $callback = $title;
@@ -192,6 +192,8 @@ class DiscordEmbed
 
     /**
      * Set the fields of the attachment.
+     *
+     * @param  array<array-key, DiscordEmbedField|string>  $fields
      */
     public function fields(array $fields): static
     {

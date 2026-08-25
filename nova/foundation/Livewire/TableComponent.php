@@ -30,6 +30,7 @@ abstract class TableComponent extends Component implements HasActions, HasForms,
 
     abstract public function table(Table $table): Table;
 
+    /** @param array<int|string, int|string> $order */
     public function reorderTable(array $order, int|string|null $draggedRecordKey = null): void
     {
         $this->filamentReorderTable($order, $draggedRecordKey);

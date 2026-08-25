@@ -8,6 +8,7 @@ use Filament\Support\Colors\Color as FilamentColor;
 
 class Color extends FilamentColor
 {
+    /** @return array<int, string> */
     public static function additionalShades(string $color): array
     {
         $shades = [

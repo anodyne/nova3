@@ -10,10 +10,8 @@ abstract class AuthorizesRequest extends FormRequest
 {
     /**
      * Is the current user authorized to take the action on this request?
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return false;
     }
@@ -21,9 +19,9 @@ abstract class AuthorizesRequest extends FormRequest
     /**
      * The validation rules for this request.
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
@@ -31,9 +29,9 @@ abstract class AuthorizesRequest extends FormRequest
     /**
      * The validation messages for this request.
      *
-     * @return array
+     * @return array<string, string>
      */
-    public function messages()
+    public function messages(): array
     {
         return [];
     }

@@ -9,18 +9,18 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
-/** @mixin Collection */
+/** @mixin Collection<array-key, mixed> */
 class CollectionMacros
 {
     public function active(): Closure
     {
-        /** @this Collection */
+        /** @this Collection<array-key, mixed> */
         return fn () => $this->filter(fn (mixed $model): bool => $model->deleted_at === null);
     }
 
     public function paginate(): Closure
     {
-        /** @this Collection */
+        /** @this Collection<array-key, mixed> */
         return function ($perPage = 15, $page = null, $options = []): LengthAwarePaginator {
             $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
 
@@ -40,7 +40,7 @@ class CollectionMacros
 
     public function trashed(): Closure
     {
-        /** @this Collection */
+        /** @this Collection<array-key, mixed> */
         return fn () => $this->filter(fn (mixed $model): bool => $model->deleted_at !== null);
     }
 }

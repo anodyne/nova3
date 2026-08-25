@@ -42,6 +42,7 @@ class NotificationType extends Model
 
     protected $table = 'notification_types';
 
+    /** @return Attribute<string|null, never> */
     public function discordColor(): Attribute
     {
         return Attribute::make(
@@ -59,6 +60,7 @@ class NotificationType extends Model
         );
     }
 
+    /** @return Attribute<string|null, never> */
     public function discordWebhook(): Attribute
     {
         return Attribute::make(
@@ -84,6 +86,7 @@ class NotificationType extends Model
             ->firstOrFail();
     }
 
+    /** @return HasMany<UserNotificationPreference, $this> */
     public function userNotificationPreferences(): HasMany
     {
         return $this->hasMany(UserNotificationPreference::class);

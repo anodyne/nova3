@@ -10,6 +10,7 @@ trait ChecksAddonVersion
 {
     abstract public function addonVersionCacheKey(): string;
 
+    /** @return Attribute<string|null, never> */
     public function latestVersion(): Attribute
     {
         return Attribute::make(
@@ -17,6 +18,7 @@ trait ChecksAddonVersion
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function hasUpdate(): Attribute
     {
         return Attribute::make(
@@ -24,6 +26,7 @@ trait ChecksAddonVersion
         );
     }
 
+    /** @return Attribute<string|null, never> */
     public function updateUrl(): Attribute
     {
         return Attribute::make(

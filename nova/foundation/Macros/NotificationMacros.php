@@ -9,7 +9,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 
 class NotificationMacros
 {
-    public function notify()
+    public function notify(): Closure
     {
         return function (string|Closure|null $title, string|Closure|null $message = null): static {
             Notification::make()
@@ -22,7 +22,7 @@ class NotificationMacros
         };
     }
 
-    public function notifyOfError()
+    public function notifyOfError(): Closure
     {
         return function (string|Closure|null $title, string|Closure|null $message = null): static {
             Notification::make()
@@ -35,7 +35,7 @@ class NotificationMacros
         };
     }
 
-    public function notifyOfWarning()
+    public function notifyOfWarning(): Closure
     {
         return function (string|Closure|null $title, string|Closure|null $message = null): static {
             Notification::make()

@@ -17,11 +17,13 @@ class LatestVersion implements Wireable
         public readonly ReleaseSeverity $severity,
         public readonly ?string $notes,
         public readonly ?string $details,
+        /** @var list<string> */
         public readonly array $tags,
         public readonly ?string $downloadLink
     ) {}
 
-    public function toLivewire()
+    /** @return array<string, mixed> */
+    public function toLivewire(): array
     {
         return [
             'version' => $this->version,
@@ -34,6 +36,7 @@ class LatestVersion implements Wireable
         ];
     }
 
+    /** @param array<string, mixed> $data */
     public static function fromAnodyne(array $data): self
     {
         $releaseDate = data_get($data, 'date');
@@ -49,6 +52,7 @@ class LatestVersion implements Wireable
         );
     }
 
+    /** @param array<string, mixed> $data */
     public static function fromGithub(array $data): self
     {
         return new self(
@@ -62,7 +66,8 @@ class LatestVersion implements Wireable
         );
     }
 
-    public static function fromLivewire($value): self
+    /** @param array<string, mixed> $value */
+    public static function fromLivewire(mixed $value): self
     {
         return new self(
             version: data_get($value, 'name'),

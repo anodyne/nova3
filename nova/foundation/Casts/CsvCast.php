@@ -7,6 +7,7 @@ namespace Nova\Foundation\Casts;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
+/** @implements CastsAttributes<array<int, string>|null, array<int, string>|string|null> */
 class CsvCast implements CastsAttributes
 {
     /**

@@ -5,15 +5,27 @@ declare(strict_types=1);
 namespace Nova\Foundation\Macros;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * @template TRelatedModel of Model
+ * @template TDeclaringModel of Model
+ */
 class CreateUpdateOrDelete
 {
+    /** @var HasMany<TRelatedModel, TDeclaringModel> */
     protected HasMany $query;
 
-    protected $records;
+    /** @var Collection<array-key, Closure|array<string, mixed>> */
+    protected Collection $records;
 
+    /**
+     * @param  HasMany<TRelatedModel, TDeclaringModel>  $query
+     * @param  iterable<array-key, Closure|array<string, mixed>>  $records
+     */
     public function __construct(HasMany $query, iterable $records)
     {
         $relatedKeyName = $query->getRelated()->getKeyName();
@@ -39,7 +51,7 @@ class CreateUpdateOrDelete
         });
     }
 
-    protected function deleteMissingRecords()
+    protected function deleteMissingRecords(): void
     {
         $recordKeyName = $this->query->getRelated()->getKeyName();
 
@@ -52,7 +64,7 @@ class CreateUpdateOrDelete
             ->delete();
     }
 
-    protected function updateOrCreateRecords()
+    protected function updateOrCreateRecords(): void
     {
         $recordKeyName = $this->query->getRelated()->getKeyName();
 

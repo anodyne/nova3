@@ -39,14 +39,14 @@ class DiscordMessage
     /**
      * Embedded rich content.
      *
-     * @var array
+     * @var list<DiscordEmbed>
      */
     public $embeds;
 
     /**
      * Http options
      *
-     * @var array
+     * @var array<string, mixed>
      */
     public $http = [];
 
@@ -105,6 +105,8 @@ class DiscordMessage
 
     /**
      * Set additional request options for the Guzzle HTTP client.
+     *
+     * @param  array<string, mixed>  $options
      */
     public function http(array $options): static
     {

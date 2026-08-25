@@ -65,6 +65,8 @@ class DiscordEmbedField
 
     /**
      * Get an array representation of the embedded field.
+     *
+     * @return array{name: string, value: string, inline: bool}
      */
     public function toArray(): array
     {

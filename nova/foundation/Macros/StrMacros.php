@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
+use Closure;
+
 class StrMacros
 {
-    public function readDuration()
+    public function readDuration(): Closure
     {
         return function ($text): int {
             $totalWords = str_word_count(implode(' ', $text));

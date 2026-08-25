@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Nova\Foundation\Casts;
 
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
+/** @implements CastsAttributes<CarbonImmutable|null, CarbonInterface|string|null> */
 class DateTimeCast implements CastsAttributes
 {
     /**

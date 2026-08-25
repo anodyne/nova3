@@ -36,6 +36,7 @@ enum PublishStatus: string implements HasColor, HasLabel
         return ucfirst($this->value);
     }
 
+    /** @return array<int, self> */
     public static function options(bool $withPending = false): array
     {
         return collect(self::cases())

@@ -18,12 +18,15 @@ use Nova\Foundation\Fonts\Contracts\FontProvider;
 use Nova\Foundation\Fonts\GoogleFontProvider;
 use Nova\Foundation\Fonts\LocalFontProvider;
 use Nova\Foundation\Models\SystemInfo;
+use Nova\Pages\Models\Page;
+use Nova\Themes\BaseTheme;
 use Nova\Users\Models\User;
 use Throwable;
 
 class NovaManager
 {
-    public function adminScripts($options = []): string
+    /** @param array<string, mixed> $options */
+    public function adminScripts(array $options = []): string
     {
         $debug = config('app.debug');
 
@@ -38,7 +41,8 @@ class NovaManager
         return implode("\n", $html);
     }
 
-    public function adminStyles($options = []): string
+    /** @param array<string, mixed> $options */
+    public function adminStyles(array $options = []): string
     {
         $debug = config('app.debug');
 
@@ -141,6 +145,8 @@ class NovaManager
 
     /**
      * Provide data from the backend for the frontend to use.
+     *
+     * @return Collection<string, Page|BaseTheme|User|null>
      */
     public function provideScriptVariables(): Collection
     {
@@ -153,7 +159,8 @@ class NovaManager
         ]);
     }
 
-    public function publicScripts($options = []): string
+    /** @param array<string, mixed> $options */
+    public function publicScripts(array $options = []): string
     {
         $debug = config('app.debug');
 
@@ -168,7 +175,8 @@ class NovaManager
         return implode("\n", $html);
     }
 
-    public function publicStyles($options = []): string
+    /** @param array<string, mixed> $options */
+    public function publicStyles(array $options = []): string
     {
         $debug = config('app.debug');
 
@@ -183,7 +191,8 @@ class NovaManager
         return implode("\n", $html);
     }
 
-    public function setupScripts($options = []): string
+    /** @param array<string, mixed> $options */
+    public function setupScripts(array $options = []): string
     {
         $debug = config('app.debug');
 
@@ -223,7 +232,8 @@ HTML;
 HTML;
     }
 
-    protected function javaScriptAdminAssets($options): string
+    /** @param array<string, mixed> $options */
+    protected function javaScriptAdminAssets(array $options): string
     {
         $options ? json_encode($options) : '';
 
@@ -237,7 +247,8 @@ HTML;
 HTML;
     }
 
-    protected function javaScriptPublicAssets($options): string
+    /** @param array<string, mixed> $options */
+    protected function javaScriptPublicAssets(array $options): string
     {
         $options ? json_encode($options) : '';
 
@@ -251,7 +262,8 @@ HTML;
 HTML;
     }
 
-    protected function javaScriptSetupAssets($options): string
+    /** @param array<string, mixed> $options */
+    protected function javaScriptSetupAssets(array $options): string
     {
         $options ? json_encode($options) : '';
 
@@ -265,8 +277,8 @@ HTML;
 HTML;
     }
 
-    protected function minify($subject): string|array|null
+    protected function minify(string $subject): string
     {
-        return preg_replace('~(\v|\t|\s{2,})~m', '', $subject);
+        return preg_replace('~(\v|\t|\s{2,})~m', '', $subject) ?? $subject;
     }
 }
