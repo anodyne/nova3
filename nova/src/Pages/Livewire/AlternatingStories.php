@@ -19,6 +19,7 @@ use Nova\Stories\Models\Story;
  */
 class AlternatingStories extends Component
 {
+    /** @var array<string, mixed> */
     public array $blockSettings = [];
 
     public ?string $type = null;

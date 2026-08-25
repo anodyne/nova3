@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Requests;
 
+use Illuminate\Contracts\Validation\Rule as ValidationRuleContract;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Nova\Pages\Data\PageData;
@@ -11,6 +12,9 @@ use Nova\Pages\Enums\PageVerb;
 
 class StorePageRequest extends FormRequest
 {
+    /**
+     * @return array<string, array<int, ValidationRuleContract|string>>
+     */
     public function rules(): array
     {
         return [

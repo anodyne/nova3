@@ -10,6 +10,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Section;
 use Nova\Pages\Blocks\Block as PageBuilderBlock;
 
@@ -17,6 +18,7 @@ abstract class ImageGalleryBlock extends PageBuilderBlock
 {
     protected string|Closure $section = 'Image Gallery';
 
+    /** @return array<int, Component> */
     protected function galleryBlock(): array
     {
         return [

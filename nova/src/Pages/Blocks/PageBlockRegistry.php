@@ -26,6 +26,7 @@ use Nova\Pages\Blocks\Stories\StoriesTimelineBlock;
 
 class PageBlockRegistry
 {
+    /** @return array<int, Block> */
     public static function blocks(): array
     {
         return [

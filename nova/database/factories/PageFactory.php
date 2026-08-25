@@ -19,21 +19,21 @@ class PageFactory extends Factory
 
     protected $model = Page::class;
 
-    public function active(): Factory
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function advanced(): Factory
+    public function advanced(): static
     {
         return $this->state([
             'resource' => 'Nova\Test\Controllers\TestController@index',
         ]);
     }
 
-    public function basic(): Factory
+    public function basic(): static
     {
         return $this->state([
             'resource' => null,
@@ -54,14 +54,14 @@ class PageFactory extends Factory
         ];
     }
 
-    public function inactive(): Factory
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,
         ]);
     }
 
-    public function published(array $blocks = []): Factory
+    public function published(array $blocks = []): static
     {
         return $this->state([
             'published_at' => Date::now(),
@@ -69,28 +69,28 @@ class PageFactory extends Factory
         ]);
     }
 
-    public function verbDelete(): Factory
+    public function verbDelete(): static
     {
         return $this->state([
             'verb' => PageVerb::Delete,
         ]);
     }
 
-    public function verbGet(): Factory
+    public function verbGet(): static
     {
         return $this->state([
             'verb' => PageVerb::Get,
         ]);
     }
 
-    public function verbPost(): Factory
+    public function verbPost(): static
     {
         return $this->state([
             'verb' => PageVerb::Post,
         ]);
     }
 
-    public function verbPut(): Factory
+    public function verbPut(): static
     {
         return $this->state([
             'verb' => PageVerb::Put,

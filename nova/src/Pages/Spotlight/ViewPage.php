@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class ViewPage extends SpotlightCommand
 
     protected string $description = 'View a page';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show a page',
         'display a page',
@@ -32,7 +34,10 @@ class ViewPage extends SpotlightCommand
             );
     }
 
-    public function searchRole($query)
+    /**
+     * @return Collection<int|string, SpotlightSearchResult>
+     */
+    public function searchRole(string $query): Collection
     {
         return Page::query()
             ->searchFor($query)

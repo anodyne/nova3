@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
@@ -45,7 +46,7 @@ class PageController extends Controller
         return CreatePageResponse::send();
     }
 
-    public function store(StorePageRequest $request)
+    public function store(StorePageRequest $request): RedirectResponse
     {
         $page = CreatePageManager::run($request);
 
@@ -66,7 +67,7 @@ class PageController extends Controller
         ]);
     }
 
-    public function update(UpdatePageRequest $request, Page $page)
+    public function update(UpdatePageRequest $request, Page $page): RedirectResponse
     {
         $page = UpdatePageManager::run($page, $request);
 

@@ -12,6 +12,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -37,6 +38,7 @@ class FormSchema
             ->options($options);
     }
 
+    /** @return array<int, Component> */
     public static function backgroundSection(): array
     {
         $page = Cache::get(CacheKeys::PageDesignerPage->value);
@@ -143,6 +145,7 @@ class FormSchema
         ];
     }
 
+    /** @return array<int, Component> */
     public static function backgroundColor(): array
     {
         return [
@@ -164,6 +167,7 @@ class FormSchema
         ];
     }
 
+    /** @return array<int, Component> */
     public static function dark(?string $label = null): array
     {
 
@@ -172,6 +176,10 @@ class FormSchema
         ];
     }
 
+    /**
+     * @param  array<int, Component>  $fields
+     * @return array<int, Component>
+     */
     public static function heading(array $fields = [], bool $withOrientation = false): array
     {
         return [
@@ -196,6 +204,7 @@ class FormSchema
         ];
     }
 
+    /** @return array<int, Component> */
     public static function mediaLeftRight(): array
     {
         $page = Cache::get(CacheKeys::PageDesignerPage->value);
@@ -230,6 +239,7 @@ class FormSchema
         ];
     }
 
+    /** @return array<int, Component> */
     public static function mediaTopBottom(): array
     {
         $page = Cache::get(CacheKeys::PageDesignerPage->value);
@@ -263,6 +273,7 @@ class FormSchema
         ];
     }
 
+    /** @return array<int, Component> */
     public static function primaryButtonSection(): array
     {
         return [
@@ -285,6 +296,7 @@ class FormSchema
         ];
     }
 
+    /** @return array<int, Component> */
     public static function secondaryButtonSection(): array
     {
         return [
@@ -300,6 +312,7 @@ class FormSchema
         ];
     }
 
+    /** @return array<int, Component> */
     public static function spacing(bool $withHorizontal = true, bool $withVertical = true): array
     {
         return [

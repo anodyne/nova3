@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class DesignPage extends SpotlightCommand
 
     protected string $description = 'Update the design of a basic page';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'build a page',
     ];
@@ -31,7 +33,10 @@ class DesignPage extends SpotlightCommand
             );
     }
 
-    public function searchPage($query)
+    /**
+     * @return Collection<int|string, SpotlightSearchResult>
+     */
+    public function searchPage(string $query): Collection
     {
         return Page::query()
             ->basic()

@@ -52,6 +52,7 @@ abstract class StatsBlock extends PageBuilderBlock
         ];
     }
 
+    /** @return array<string, string> */
     protected function getStatOptions(): array
     {
         return [

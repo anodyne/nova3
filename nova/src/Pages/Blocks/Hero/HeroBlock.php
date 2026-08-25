@@ -11,6 +11,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
@@ -25,6 +26,7 @@ abstract class HeroBlock extends PageBuilderBlock
 {
     protected string|Closure $section = 'Hero';
 
+    /** @return array<int, Component> */
     protected function buttonsRepeater(): array
     {
         return [

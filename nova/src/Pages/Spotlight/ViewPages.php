@@ -15,6 +15,7 @@ class ViewPages extends SpotlightCommand
 
     protected string $description = 'View all pages';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show all pages',
         'display all pages',

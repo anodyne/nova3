@@ -10,9 +10,7 @@ use Nova\Pages\Enums\PageVerb;
 use Nova\Pages\Models\Page;
 
 /**
- * @template TModel of Page
- *
- * @extends Builder<TModel>
+ * @extends Builder<Page>
  */
 class PageBuilder extends Builder
 {

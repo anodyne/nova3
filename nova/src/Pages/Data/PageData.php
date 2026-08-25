@@ -33,6 +33,23 @@ readonly class PageData extends Bag
         public ?string $intro,
     ) {}
 
+    /**
+     * @return array{
+     *      name: mixed,
+     *      key: mixed,
+     *      uri: mixed,
+     *      verb: PageVerb,
+     *      status: ?BasicStatus,
+     *      resource: mixed,
+     *      layout: mixed,
+     *      seo_title: mixed,
+     *      seo_description: mixed,
+     *      seo_keywords: mixed,
+     *      heading: mixed,
+     *      subheading: mixed,
+     *      intro: mixed
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

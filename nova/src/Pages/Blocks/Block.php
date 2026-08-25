@@ -12,6 +12,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
+use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
@@ -61,8 +62,14 @@ abstract class Block extends BuilderBlock
             ->preview('components.pages.blocks.'.$this->preview);
     }
 
+    /**
+     * @return array<int, Component>
+     */
     abstract public function blockSchema(): array;
 
+    /**
+     * @return array<int, Component>
+     */
     public function containerSchema(): array
     {
         return [
@@ -118,6 +125,9 @@ abstract class Block extends BuilderBlock
         ];
     }
 
+    /**
+     * @return array<int, Component>
+     */
     public function contentSchema(): array
     {
         return [
@@ -318,11 +328,12 @@ abstract class Block extends BuilderBlock
         ];
     }
 
-    protected function getPageDesignerPage()
+    protected function getPageDesignerPage(): int
     {
-        return Cache::get(CacheKeys::PageDesignerPage->value);
+        return (int) Cache::get(CacheKeys::PageDesignerPage->value);
     }
 
+    /** @return array<string, string|array<string, string>> */
     protected function getBackgroundOptions(): array
     {
         return [

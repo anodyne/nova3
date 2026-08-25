@@ -21,9 +21,9 @@ use Nova\Departments\Models\Position;
 use Nova\Foundation\Enums\BasicStatus;
 
 /**
- * @property-read ?Collection $characters
- * @property-read ?Collection $departments
- * @property-read ?Collection $positions
+ * @property-read Collection<int, Character>|null $characters
+ * @property-read Collection<int, Department>|null $departments
+ * @property-read Collection<int, Position>|null $positions
  */
 class CharactersManifest extends Component
 {
@@ -31,12 +31,14 @@ class CharactersManifest extends Component
 
     public ?string $cardOrientation = 'center';
 
+    /** @var array<int, string> */
     public array $characterOptions = [];
 
     public ?string $characterStatus = null;
 
     public ?string $characterType = null;
 
+    /** @var array<int, array<string, mixed>> */
     public array $columns = [];
 
     public ?string $departmentStatus = null;
@@ -45,10 +47,13 @@ class CharactersManifest extends Component
 
     public ?string $positionStatus = null;
 
+    /** @var array<int, int|string> */
     public array $selectedAvailablePositions = [];
 
+    /** @var array<int, int|string> */
     public array $selectedDepartments = [];
 
+    /** @var array<int, int|string> */
     public array $selectedPositions = [];
 
     public bool $showAvailablePositions = false;
@@ -57,12 +62,16 @@ class CharactersManifest extends Component
 
     public bool $showDepartments = false;
 
+    /** @var array<int, string> */
     public array $taggedAvailablePositions = [];
 
+    /** @var array<int, string> */
     public array $taggedDepartments = [];
 
+    /** @var array<int, string> */
     public array $taggedPositions = [];
 
+    /** @return Collection<int, Character>|null */
     #[Computed]
     public function characters(): ?Collection
     {
@@ -76,6 +85,7 @@ class CharactersManifest extends Component
         )->get();
     }
 
+    /** @return Collection<int, Department>|null */
     #[Computed]
     public function departments(): ?Collection
     {
@@ -137,6 +147,7 @@ class CharactersManifest extends Component
         };
     }
 
+    /** @return Collection<int, Position>|null */
     #[Computed]
     public function positions(): ?Collection
     {

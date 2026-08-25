@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Models;
 
+use Database\Factories\PageFactory;
 use Illuminate\Database\Eloquent\Attributes\CollectedBy;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
@@ -36,7 +37,9 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(PageBuilder::class)]
 class Page extends Model implements HasMedia
 {
+    /** @use HasFactory<PageFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use InteractsWithMedia;
     use LogsActivity {
@@ -87,6 +90,7 @@ class Page extends Model implements HasMedia
         ]);
     }
 
+    /** @return Attribute<bool, never> */
     public function isAdvanced(): Attribute
     {
         return Attribute::make(
@@ -94,6 +98,7 @@ class Page extends Model implements HasMedia
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isBasic(): Attribute
     {
         return Attribute::make(
@@ -101,6 +106,7 @@ class Page extends Model implements HasMedia
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isPreviewable(): Attribute
     {
         return Attribute::make(
@@ -114,6 +120,7 @@ class Page extends Model implements HasMedia
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isPublished(): Attribute
     {
         return Attribute::make(
@@ -121,6 +128,7 @@ class Page extends Model implements HasMedia
         );
     }
 
+    /** @return HasMany<MenuItem, $this> */
     public function menuItems(): HasMany
     {
         return $this->hasMany(MenuItem::class);
@@ -137,6 +145,7 @@ class Page extends Model implements HasMedia
             ->useDisk('media-pages');
     }
 
+    /** @return Attribute<?string, never> */
     public function renderedBlockContent(): Attribute
     {
         return Attribute::make(
