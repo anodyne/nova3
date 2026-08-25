@@ -73,7 +73,7 @@
             </div>
         @endif
 
-        @forelse ($messages->loadMissing('user') as $message)
+        @forelse ($messages as $message)
             @php
                 $isMe = $message->user->is(auth()->user());
                 $accepted = $message instanceof ApplicationReview && $message->result === ApplicationResult::Accept;
