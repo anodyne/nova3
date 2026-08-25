@@ -8,9 +8,10 @@ use Bag\Bag;
 use Illuminate\Support\Collection;
 use Livewire\Wireable;
 use Nova\Foundation\Data\Concerns\WireableBag;
+use stdClass;
 
 /**
- * @method static static from(int $active, int $total, ?Collection $results)
+ * @method static static from(int $active, int $total, ?Collection<int, stdClass> $results)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -21,6 +22,7 @@ readonly class ActivityReport extends Bag implements Wireable
     public function __construct(
         public int $active,
         public int $total,
+        /** @var Collection<int, stdClass>|null */
         public ?Collection $results
     ) {}
 

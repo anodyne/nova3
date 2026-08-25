@@ -49,6 +49,9 @@ class PostTypeReporter
         return new self;
     }
 
+    /**
+     * @return Collection<int, PostType>
+     */
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection
     {
         return PostType::query()

@@ -12,6 +12,7 @@ use Nova\Reporting\Data\ActivityReport;
 use Nova\Reporting\Repositories\ReportingRepositoryInterface;
 use Nova\Settings\Data\PostingActivity;
 use Nova\Settings\Enums\PostingTarget;
+use stdClass;
 
 class ActivityReporter
 {
@@ -84,6 +85,9 @@ class ActivityReporter
         return new self;
     }
 
+    /**
+     * @param  Collection<int, stdClass>  $result
+     */
     protected function calculateActive(Collection $result): int
     {
         $settings = settings('posting_activity');
@@ -101,6 +105,9 @@ class ActivityReporter
             ->count();
     }
 
+    /**
+     * @return Collection<int, stdClass>
+     */
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection
     {
         return app(ReportingRepositoryInterface::class)

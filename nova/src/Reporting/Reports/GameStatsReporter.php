@@ -11,6 +11,7 @@ use Nova\Reporting\Data\GameStatLine;
 use Nova\Reporting\Data\GameStats;
 use Nova\Reporting\Repositories\ReportingRepositoryInterface;
 use Nova\Settings\Data\PostingActivity;
+use stdClass;
 
 class GameStatsReporter
 {
@@ -187,7 +188,7 @@ class GameStatsReporter
         return new self;
     }
 
-    protected function applicationQuery()
+    protected function applicationQuery(): stdClass
     {
         $startOfLastMonth = Date::now()->subMonth()->startOfMonth();
         $endOfLastMonth = Date::now()->subMonth()->endOfMonth();
@@ -203,7 +204,7 @@ class GameStatsReporter
                 startOfTimeframe: $this->postingActivitySettings->timeframe->startDate(),
                 endOfTimeframe: $this->postingActivitySettings->timeframe->endDate(),
             )
-            ->first();
+            ->firstOrFail();
     }
 
     protected function average(int $numerator, int $denominator): ?string
@@ -215,7 +216,7 @@ class GameStatsReporter
         return null;
     }
 
-    protected function characterQuery()
+    protected function characterQuery(): stdClass
     {
         $settings = $this->postingActivitySettings;
 
@@ -233,10 +234,10 @@ class GameStatsReporter
                 startOfTimeframe: $settings->timeframe->startDate(),
                 endOfTimeframe: $settings->timeframe->endDate()
             )
-            ->first();
+            ->firstOrFail();
     }
 
-    protected function postQuery()
+    protected function postQuery(): stdClass
     {
         $settings = $this->postingActivitySettings;
 
@@ -254,10 +255,10 @@ class GameStatsReporter
                 startOfTimeframe: $settings->timeframe->startDate(),
                 endOfTimeframe: $settings->timeframe->endDate()
             )
-            ->first();
+            ->firstOrFail();
     }
 
-    protected function storyQuery()
+    protected function storyQuery(): stdClass
     {
         $settings = $this->postingActivitySettings;
 
@@ -275,10 +276,10 @@ class GameStatsReporter
                 startOfTimeframe: $settings->timeframe->startDate(),
                 endOfTimeframe: $settings->timeframe->endDate()
             )
-            ->first();
+            ->firstOrFail();
     }
 
-    protected function userQuery()
+    protected function userQuery(): stdClass
     {
         $startOfLastMonth = Date::now()->subMonth()->startOfMonth();
         $endOfLastMonth = Date::now()->subMonth()->endOfMonth();
@@ -294,6 +295,6 @@ class GameStatsReporter
                 startOfTimeframe: $this->postingActivitySettings->timeframe->startDate(),
                 endOfTimeframe: $this->postingActivitySettings->timeframe->endDate()
             )
-            ->first();
+            ->firstOrFail();
     }
 }

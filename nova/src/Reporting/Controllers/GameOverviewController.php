@@ -10,6 +10,7 @@ use Nova\Reporting\Reports\ActivityReporter;
 use Nova\Reporting\Reports\ParticipationReporter;
 use Nova\Reporting\Repositories\ReportingRepositoryInterface;
 use Nova\Reporting\Responses\GameOverviewResponse;
+use stdClass;
 
 class GameOverviewController extends Controller
 {
@@ -33,7 +34,7 @@ class GameOverviewController extends Controller
         ]);
     }
 
-    protected function getPostingStats()
+    protected function getPostingStats(): ?stdClass
     {
         $start = settings('posting_activity')->timeframe->startDate();
         $end = settings('posting_activity')->timeframe->endDate();

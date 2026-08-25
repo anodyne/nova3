@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Blade;
 use Nova\Reporting\Data\ParticipationReport;
 use Nova\Reporting\Repositories\ReportingRepositoryInterface;
 use Nova\Settings\Data\PostingActivity;
+use stdClass;
 
 class ParticipationReporter
 {
@@ -82,6 +83,9 @@ class ParticipationReporter
         return new self;
     }
 
+    /**
+     * @return Collection<int, stdClass>
+     */
     protected function query(?CarbonInterface $start = null, ?CarbonInterface $end = null): Collection
     {
         return app(ReportingRepositoryInterface::class)
