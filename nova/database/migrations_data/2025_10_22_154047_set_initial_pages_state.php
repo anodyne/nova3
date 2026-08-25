@@ -44,6 +44,7 @@ return new class extends Migration
         DB::table('pages')->truncate();
     }
 
+    /** @param array<string, mixed> $data */
     protected function createPage(array $data): void
     {
         $additionalData = [];
@@ -55,6 +56,7 @@ return new class extends Migration
         Page::create(array_merge($additionalData, $data));
     }
 
+    /** @return list<array<string, mixed>> */
     protected function adminPages(): array
     {
         return [
@@ -239,6 +241,7 @@ return new class extends Migration
         ];
     }
 
+    /** @return list<array<string, mixed>> */
     protected function publicPages(): array
     {
         return [
@@ -276,6 +279,11 @@ return new class extends Migration
         ];
     }
 
+    /**
+     * @param  list<array<string, mixed>>  $rows
+     * @param  array<string, mixed>  $template
+     * @return list<array<string, mixed>>
+     */
     protected function conformRows(array $rows, array $template): array
     {
         foreach ($rows as &$row) {
@@ -293,6 +301,10 @@ return new class extends Migration
         return $rows;
     }
 
+    /**
+     * @param  list<array<string, mixed>>  $rows
+     * @return list<array<string, mixed>>
+     */
     protected function prepareRows(array $rows, CarbonInterface $now, bool $setPublished): array
     {
         foreach ($rows as &$row) {
@@ -314,6 +326,7 @@ return new class extends Migration
         return $rows;
     }
 
+    /** @return array<string, mixed> */
     private function pageTemplate(CarbonInterface $now): array
     {
         return [

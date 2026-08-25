@@ -98,14 +98,16 @@ Artisan::command('nova:get-timezones {token}', function (string $token): void {
     $response = Http::withToken($token)
         ->get('https://api.savvycal.com/v1/time_zones');
 
-    $collection = collect($response->json())
-        ->filter(fn ($tz): mixed => $tz['golden'])
-        ->map(fn ($tz): array => [
-            'id' => data_get($tz, 'id'),
+    $timezones = $response->json();
+
+    $collection = collect(is_array($timezones) ? $timezones : [])
+        ->filter(fn (mixed $timezone): bool => is_array($timezone) && (bool) data_get($timezone, 'golden'))
+        ->map(fn (mixed $timezone): array => [
+            'id' => data_get($timezone, 'id'),
             'name' => sprintf(
                 '(GMT%s) %s',
-                data_get($tz, 'formatted_offset'),
-                data_get($tz, 'long_name')
+                data_get($timezone, 'formatted_offset'),
+                data_get($timezone, 'long_name')
             ),
         ]);
 

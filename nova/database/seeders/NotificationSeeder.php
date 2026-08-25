@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Nova\Announcements\Models\Announcement;
 use Nova\Announcements\Notifications\AnnouncementPublished;
 use Nova\Applications\Models\Application;
+use Nova\Applications\Models\ApplicationReview;
 use Nova\Applications\Notifications\ApplicationAccepted;
 use Nova\Applications\Notifications\ApplicationDenied;
 use Nova\Applications\Notifications\ApplicationReadyForReview;
@@ -59,7 +60,7 @@ class NotificationSeeder extends Seeder
         $post = Post::factory()->create(['story_id' => $story->id]);
 
         $application = Application::factory()->create();
-        $application->reviews()->save($activeUser);
+        $application->reviews()->attach($activeUser);
 
         $user->notify(new CharacterRequiresApproval(
             character: $pendingCharacter,
@@ -103,7 +104,10 @@ class NotificationSeeder extends Seeder
 
         $user->notify(new ApplicationReadyForReview(application: $application));
 
-        $review = $application->reviews()->firstOrFail()->pivot;
+        $review = ApplicationReview::query()
+            ->where('application_id', $application->id)
+            ->where('user_id', $activeUser->id)
+            ->firstOrFail();
 
         $user->notify(new ApplicationReviewerVotedToAccept(
             application: $application,

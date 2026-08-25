@@ -62,6 +62,10 @@ class ApplicationSeeder extends Seeder
 
     /**
      * Build a single application end-to-end (user + character + application + discussion).
+     *
+     * @param  Collection<string, Form>  $forms
+     * @param  list<int>  $reviewerIds
+     * @param  list<int>  $positionIds
      */
     protected function makeApplication(
         ApplicationResult $result,
@@ -107,6 +111,8 @@ class ApplicationSeeder extends Seeder
 
     /**
      * Bulk insert discussion messages for speed.
+     *
+     * @param  list<int>  $authorPool
      */
     protected function bulkCreateDiscussionMessages(int $discussionId, int $count, array $authorPool): void
     {

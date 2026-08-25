@@ -6,9 +6,11 @@ use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Mistralys\VersionParser\VersionParser;
+use Nova\Addons\BaseAddon;
 use Nova\Foundation\Application;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
+use Nova\Foundation\NovaManager;
 use Nova\Settings\Models\Settings;
 
 if (! function_exists('__s')) {
@@ -19,14 +21,14 @@ if (! function_exists('__s')) {
 }
 
 if (! function_exists('gate')) {
-    function gate()
+    function gate(): GateContract
     {
         return app(GateContract::class);
     }
 }
 
 if (! function_exists('pipe')) {
-    function pipe($passable)
+    function pipe(mixed $passable): Pipeline
     {
         return app(Pipeline::class)->send($passable);
     }
@@ -36,7 +38,7 @@ if (! function_exists('settings')) {
     /**
      * @return ($key is null ? Settings|null : mixed)
      */
-    function settings($key = null): mixed
+    function settings(?string $key = null): mixed
     {
         $settings = app('nova.settings');
 
@@ -49,14 +51,14 @@ if (! function_exists('settings')) {
 }
 
 if (! function_exists('nova')) {
-    function nova()
+    function nova(): NovaManager
     {
         return app('nova');
     }
 }
 
 if (! function_exists('nova_path')) {
-    function nova_path($path = '')
+    function nova_path(string $path = ''): string
     {
         $application = app();
 
@@ -69,7 +71,7 @@ if (! function_exists('nova_path')) {
 }
 
 if (! function_exists('theme')) {
-    function theme(?string $property = null)
+    function theme(?string $property = null): mixed
     {
         $theme = app('nova.theme');
 
@@ -82,7 +84,7 @@ if (! function_exists('theme')) {
 }
 
 if (! function_exists('theme_path')) {
-    function theme_path($path = '')
+    function theme_path(string $path = ''): string
     {
         $application = app();
 
@@ -95,11 +97,11 @@ if (! function_exists('theme_path')) {
 }
 
 if (! function_exists('addon')) {
-    function addon(string $location)
+    function addon(string $location): ?BaseAddon
     {
         $className = "Addons\\$location\\Addon";
 
-        if (! class_exists($className)) {
+        if (! is_subclass_of($className, BaseAddon::class)) {
             return null;
         }
 
@@ -108,7 +110,7 @@ if (! function_exists('addon')) {
 }
 
 if (! function_exists('addon_path')) {
-    function addon_path($path = '')
+    function addon_path(string $path = ''): string
     {
         $application = app();
 
@@ -121,7 +123,7 @@ if (! function_exists('addon_path')) {
 }
 
 if (! function_exists('rank_path')) {
-    function rank_path($path = '')
+    function rank_path(string $path = ''): string
     {
         $application = app();
 
@@ -134,20 +136,18 @@ if (! function_exists('rank_path')) {
 }
 
 if (! function_exists('get_class_name')) {
-    function get_class_name($value)
+    function get_class_name(string $value): string
     {
-        $parts = explode('\\', $value);
-
-        return array_pop($parts);
+        return class_basename($value);
     }
 }
 
 if (! function_exists('external_content')) {
-    function external_content($key, $default = null)
+    function external_content(string $key, mixed $default = null): ?string
     {
         $subject = data_get(Cache::get(CacheKeys::ExternalContent->value), $key, $default);
 
-        if (blank($subject)) {
+        if (! is_string($subject) || blank($subject)) {
             return null;
         }
 
@@ -164,7 +164,8 @@ if (! function_exists('external_content')) {
 }
 
 if (! function_exists('parse')) {
-    function parse(string $subject, array $variables, string $escapeChar = '@', $errPlaceholder = null)
+    /** @param array<string, string> $variables */
+    function parse(string $subject, array $variables, string $escapeChar = '@', ?string $errPlaceholder = null): string
     {
         $esc = preg_quote($escapeChar);
         $expr = "/
@@ -173,7 +174,7 @@ if (! function_exists('parse')) {
           | {(\w+)}
         /x";
 
-        $callback = function ($match) use ($variables, $escapeChar, $errPlaceholder) {
+        $callback = function (array $match) use ($variables, $escapeChar, $errPlaceholder): string {
             switch ($match[0]) {
                 case $escapeChar.$escapeChar:
                     return $escapeChar;
@@ -190,6 +191,6 @@ if (! function_exists('parse')) {
             }
         };
 
-        return preg_replace_callback($expr, $callback, $subject);
+        return preg_replace_callback($expr, $callback, $subject) ?? $subject;
     }
 }

@@ -193,6 +193,7 @@ class PostFactory extends Factory
         ]);
     }
 
+    /** @return list<int> */
     protected function distributeWordsRandomly(int $words, int $count): array
     {
         if ($count === 1) {

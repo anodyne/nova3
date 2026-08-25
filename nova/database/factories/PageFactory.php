@@ -61,6 +61,7 @@ class PageFactory extends Factory
         ]);
     }
 
+    /** @param array<int, mixed> $blocks */
     public function published(array $blocks = []): static
     {
         return $this->state([
