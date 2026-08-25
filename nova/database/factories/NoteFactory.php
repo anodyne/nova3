@@ -13,7 +13,7 @@ class NoteFactory extends Factory
 {
     protected $model = Note::class;
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id' => fn () => User::factory(),

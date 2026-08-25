@@ -27,6 +27,12 @@ readonly class NoteData extends Bag
         return Auth::user();
     }
 
+    /**
+     * @return array{
+     *      title: mixed,
+     *      content: mixed
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

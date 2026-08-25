@@ -15,6 +15,7 @@ class ViewNotes extends SpotlightCommand
 
     protected string $description = 'View all my notes';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show notes',
     ];

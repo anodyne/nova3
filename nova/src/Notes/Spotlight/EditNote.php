@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class EditNote extends SpotlightCommand
 
     protected string $description = 'Edit one of my existing notes';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'update note',
     ];
@@ -31,7 +33,10 @@ class EditNote extends SpotlightCommand
             );
     }
 
-    public function searchNote($query)
+    /**
+     * @return Collection<int, SpotlightSearchResult>
+     */
+    public function searchNote(string $query): Collection
     {
         return Note::query()
             ->currentUser()

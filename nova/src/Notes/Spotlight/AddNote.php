@@ -15,6 +15,7 @@ class AddNote extends SpotlightCommand
 
     protected string $description = 'Add a new note';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'create note',
     ];

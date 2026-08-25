@@ -10,9 +10,7 @@ use Nova\Notes\Models\Note;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of Note
- *
- * @extends Builder<TModel>
+ * @extends Builder<Note>
  */
 class NoteBuilder extends Builder
 {
@@ -26,7 +24,7 @@ class NoteBuilder extends Builder
         return $this->where('user_id', Auth::id());
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->whereAny(['title', 'content'], 'like', "%{$search}%");
     }

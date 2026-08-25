@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Notes\Models;
 
+use Database\Factories\NoteFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,7 +24,9 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(NoteBuilder::class)]
 class Note extends Model
 {
+    /** @use HasFactory<NoteFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use LogsActivity {
         LogsActivity::getActivitylogOptions as baseActivitylogOptions;
@@ -37,6 +40,9 @@ class Note extends Model
 
     protected $fillable = ['user_id', 'title', 'content'];
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
