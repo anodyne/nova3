@@ -10,10 +10,28 @@ use Illuminate\Support\Collection;
 use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 
+/**
+ * @phpstan-type UserAuthor array{
+ *     id: int,
+ *     name: string,
+ *     avatar_url: string,
+ *     pivot: array{
+ *         user: mixed,
+ *         user_id: int|string|null,
+ *         as: mixed
+ *     }
+ * }
+ * @phpstan-type UserAuthorPivotData array{
+ *     user_id: int|string|null,
+ *     as: mixed
+ * }
+ */
 trait InteractsWithUserAuthors
 {
+    /** @var array<int, UserAuthor> */
     public array $userAuthorsArr = [];
 
+    /** @var array<int, UserAuthorPivotData> */
     public array $userAuthorsPivotData = [];
 
     public function addUserAuthor(int $userId): void
@@ -45,9 +63,7 @@ trait InteractsWithUserAuthors
         unset($this->userAuthorsPivotData[$userId]);
     }
 
-    /**
-     * @param  array<array-key, mixed>|DatabaseCollection<int, User>  $userAuthors
-     */
+    /** @param array<int, UserAuthor>|DatabaseCollection<int, User> $userAuthors */
     public function setUserAuthors(array|DatabaseCollection $userAuthors): void
     {
         if (is_array($userAuthors)) {
@@ -61,7 +77,7 @@ trait InteractsWithUserAuthors
         $this->syncUserAuthorsPivotData();
     }
 
-    public function updatedUserAuthorsPivotData($value, $property): void
+    public function updatedUserAuthorsPivotData(mixed $value, string $property): void
     {
         $id = str($property)->before('.as')->toInteger();
 
@@ -74,6 +90,7 @@ trait InteractsWithUserAuthors
         }, $this->userAuthorsArr);
     }
 
+    /** @return Collection<int, object> */
     public function userAuthors(): Collection
     {
         return collect($this->userAuthorsArr)
@@ -92,6 +109,7 @@ trait InteractsWithUserAuthors
             ->toArray();
     }
 
+    /** @return UserAuthor */
     private function userArrayStructure(User $user, ?int $pivotUserId = null): array
     {
         $pivot = $user->relationLoaded('pivot')
@@ -118,6 +136,7 @@ trait InteractsWithUserAuthors
         ];
     }
 
+    /** @param UserAuthor $user */
     private function userObjectStructure(array $user): object
     {
         return (object) [

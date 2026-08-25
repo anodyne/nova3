@@ -30,6 +30,20 @@ readonly class PostTypeData extends Bag
         public ?string $color,
     ) {}
 
+    /**
+     * @return array{
+     *     name: mixed,
+     *     key: mixed,
+     *     description: mixed,
+     *     status: BasicStatus|null,
+     *     fields: Fields,
+     *     options: Options,
+     *     role_id: mixed,
+     *     visibility: PostTypeVisibility,
+     *     icon: mixed,
+     *     color: mixed
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

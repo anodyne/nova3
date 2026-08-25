@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Livewire;
 
+use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +84,7 @@ class PostSetup extends Component
         ]);
     }
 
+    /** @return array<string, array<int, Closure|string>> */
     public function rules(): array
     {
         return [
@@ -148,6 +150,7 @@ class PostSetup extends Component
         $this->redirectRoute('admin.posts.edit', $this->post);
     }
 
+    /** @return array<string, string> */
     protected function validationAttributes(): array
     {
         return [

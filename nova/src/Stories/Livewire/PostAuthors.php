@@ -21,7 +21,7 @@ use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 
 /**
- * @property-read Collection $availablePostTypes
+ * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
  */
 class PostAuthors extends Component
@@ -90,6 +90,12 @@ class PostAuthors extends Component
         }
     }
 
+    /**
+     * @param  array<int, array<string, mixed>>  $characterAuthors
+     * @param  array<int, array<string, mixed>>  $characterAuthorsPivotData
+     * @param  array<int, array<string, mixed>>  $userAuthors
+     * @param  array<int, array<string, mixed>>  $userAuthorsPivotData
+     */
     #[On('update-post-authors')]
     public function handleAuthorUpdates(array $characterAuthors, array $characterAuthorsPivotData, array $userAuthors, array $userAuthorsPivotData): void
     {

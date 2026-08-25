@@ -18,12 +18,12 @@ use Nova\Stories\Models\PostType;
 use Nova\Users\Models\User;
 
 /**
- * @property-read Collection $allUsers
+ * @property-read Collection<int, User> $allUsers
  * @property-read string $authorSearchPlaceholder
  * @property-read bool $canAddAuthors
- * @property-read Collection $filteredCharacters
- * @property-read Collection $filteredUsers
- * @property-read Collection $availablePostTypes
+ * @property-read Collection<int, Character> $filteredCharacters
+ * @property-read Collection<int, User> $filteredUsers
+ * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
  */
 #[On('post-authors-modified')]
@@ -36,6 +36,7 @@ class PostAuthorsEditor extends SlideOver
 
     public ?string $selected = null;
 
+    /** @return Collection<int, User> */
     #[Computed]
     public function allUsers(): Collection
     {
@@ -73,6 +74,7 @@ class PostAuthorsEditor extends SlideOver
         return count($this->characterAuthorsValidationErrors) === 0;
     }
 
+    /** @return Collection<int, Character> */
     #[Computed]
     public function filteredCharacters(): Collection
     {
@@ -86,6 +88,7 @@ class PostAuthorsEditor extends SlideOver
             ->get();
     }
 
+    /** @return Collection<int, User> */
     #[Computed]
     public function filteredUsers(): Collection
     {
@@ -100,6 +103,10 @@ class PostAuthorsEditor extends SlideOver
             ->get();
     }
 
+    /**
+     * @param  array<int, array<string, mixed>>  $characterAuthors
+     * @param  array<int, array<string, mixed>>  $userAuthors
+     */
     public function mount(array $characterAuthors, array $userAuthors): void
     {
         $this->setCharacterAuthors($characterAuthors);

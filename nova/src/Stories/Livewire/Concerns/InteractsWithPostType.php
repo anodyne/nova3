@@ -12,13 +12,14 @@ use Nova\Stories\Models\PostType;
 use Nova\Users\Models\User;
 
 /**
- * @property-read Collection $availablePostTypes
+ * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
  */
 trait InteractsWithPostType
 {
     public ?int $postTypeId = null;
 
+    /** @return Collection<int, PostType> */
     #[Computed]
     public function availablePostTypes(): Collection
     {

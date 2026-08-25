@@ -26,6 +26,7 @@ readonly class Fields extends Bag
         public Field $summary,
     ) {}
 
+    /** @return Collection<string, Field> */
     public function enabledFields(): Collection
     {
         return collect(get_object_vars($this))
@@ -33,6 +34,7 @@ readonly class Fields extends Bag
             ->filter(fn (Field $field): bool => $field->enabled);
     }
 
+    /** @return Collection<string, Field> */
     public function requiredFields(): Collection
     {
         return collect(get_object_vars($this))
@@ -46,6 +48,7 @@ readonly class Fields extends Bag
         return $this->location->enabled || $this->day->enabled || $this->time->enabled;
     }
 
+    /** @return array{title: Field, day: Field, time: Field, location: Field, content: Field, rating: Field, summary: Field} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

@@ -18,6 +18,7 @@ class PostObserver
         }
     }
 
+    /** @return list<int> */
     private function getNewParticipants(Post $post, int $userId): array
     {
         return collect($post->participants)

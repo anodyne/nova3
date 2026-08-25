@@ -11,9 +11,7 @@ use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of PostAuthor
- *
- * @extends Builder<TModel>
+ * @extends Builder<PostAuthor>
  */
 class PostAuthorBuilder extends Builder
 {

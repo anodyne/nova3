@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Database\Factories\StoryFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,7 +39,9 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
  */
 class Story extends Model implements HasMedia, Sortable
 {
+    /** @use HasFactory<StoryFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use HasRecursiveRelationships;
     use HasStates;
@@ -70,16 +73,19 @@ class Story extends Model implements HasMedia, Sortable
 
     protected $table = 'stories';
 
+    /** @return HasMany<Post, $this> */
     public function allPosts(): HasMany
     {
         return $this->hasMany(Post::class, 'story_id')->ordered();
     }
 
+    /** @return StoryBuilder */
     public function buildSortQuery(): Builder
     {
         return static::query()->whereParent($this->parent_id);
     }
 
+    /** @return Attribute<bool, never> */
     public function canPost(): Attribute
     {
         return new Attribute(
@@ -95,6 +101,7 @@ class Story extends Model implements HasMedia, Sortable
         ]);
     }
 
+    /** @return Attribute<bool, never> */
     public function hasSummary(): Attribute
     {
         return new Attribute(
@@ -102,6 +109,7 @@ class Story extends Model implements HasMedia, Sortable
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isCompleted(): Attribute
     {
         return new Attribute(
@@ -109,6 +117,7 @@ class Story extends Model implements HasMedia, Sortable
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isCurrent(): Attribute
     {
         return new Attribute(
@@ -116,6 +125,7 @@ class Story extends Model implements HasMedia, Sortable
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isOngoing(): Attribute
     {
         return new Attribute(
@@ -123,6 +133,7 @@ class Story extends Model implements HasMedia, Sortable
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isUpcoming(): Attribute
     {
         return new Attribute(
@@ -148,11 +159,13 @@ class Story extends Model implements HasMedia, Sortable
         return $this->getSibling('next');
     }
 
+    /** @return BelongsTo<Story, $this> */
     public function parentStory(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
 
+    /** @return HasMany<Post, $this> */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'story_id')
@@ -165,6 +178,7 @@ class Story extends Model implements HasMedia, Sortable
         return $this->getSibling('previous');
     }
 
+    /** @return HasManyOfDescendants<Post, $this> */
     public function recursivePosts(): HasManyOfDescendants
     {
         return $this->hasManyOfDescendantsAndSelf(Post::class)
@@ -172,6 +186,7 @@ class Story extends Model implements HasMedia, Sortable
             ->ordered();
     }
 
+    /** @return HasMany<Story, $this> */
     public function recursiveStories(): HasMany
     {
         return $this->stories()->with('recursiveStories');
@@ -185,11 +200,13 @@ class Story extends Model implements HasMedia, Sortable
             ->useDisk('media-stories');
     }
 
+    /** @return HasMany<Story, $this> */
     public function stories(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
     }
 
+    /** @return array<string, mixed> */
     public function toSearchableArray(): array
     {
         return [
@@ -213,16 +230,18 @@ class Story extends Model implements HasMedia, Sortable
         return '{model_id}/';
     }
 
+    /** @return Collection<int, StoryStatus\StoryStatus> */
     public static function getStatuses(): Collection
     {
         $model = new self;
 
         return StoryStatus\StoryStatus::all()
             ->flatMap(fn (string $className): array => [new $className($model)])
+            ->map(fn (object $status): StoryStatus\StoryStatus => $status)
             ->sortBy(fn (StoryStatus\StoryStatus $status): int => $status->order());
     }
 
-    protected function getSibling($direction): ?self
+    protected function getSibling(string $direction): ?self
     {
         $query = self::query()->whereParent($this->parent_id);
 

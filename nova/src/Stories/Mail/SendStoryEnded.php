@@ -34,9 +34,4 @@ class SendStoryEnded extends Mailable implements ShouldQueue
             markdown: 'emails.story-ended',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class ViewStory extends SpotlightCommand
 
     protected string $description = 'View a story';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show story', 'view mission', 'show mission', 'view mission group',
         'show mission group',
@@ -32,7 +34,8 @@ class ViewStory extends SpotlightCommand
             );
     }
 
-    public function searchStory($query)
+    /** @return Collection<int, SpotlightSearchResult> */
+    public function searchStory(string $query): Collection
     {
         return Story::where('title', 'like', "%{$query}%")
             ->get()

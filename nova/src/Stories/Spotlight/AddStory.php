@@ -15,6 +15,7 @@ class AddStory extends SpotlightCommand
 
     protected string $description = 'Add a new story';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'create story', 'add mission', 'create mission', 'add mission group',
         'create mission group',

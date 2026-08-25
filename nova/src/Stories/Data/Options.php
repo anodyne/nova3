@@ -26,6 +26,7 @@ readonly class Options extends Bag
         public PostEditTimeframe $editTimeframe,
     ) {}
 
+    /** @return array{notifiesUsers: bool, includedInPostTracking: bool, allowsMultipleAuthors: bool, allowsCharacterAuthors: bool, allowsUserAuthors: bool, showContentInTimelineView: bool, editTimeframe: PostEditTimeframe} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

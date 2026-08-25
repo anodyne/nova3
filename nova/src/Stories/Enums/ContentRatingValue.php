@@ -29,16 +29,19 @@ enum ContentRatingValue: string implements HasLabel
         };
     }
 
+    /** @return array<int, self> */
     public static function casesForGameThreshold(): array
     {
         return array_filter(self::cases(), fn (ContentRatingValue $case): bool => $case !== self::Game);
     }
 
+    /** @return array<int, self> */
     public static function casesForRatings(): array
     {
         return array_filter(self::cases(), fn (ContentRatingValue $case): bool => ! in_array($case, [self::Game, self::None], true));
     }
 
+    /** @return list<self> */
     public static function casesForUserThreshold(): array
     {
         return self::cases();

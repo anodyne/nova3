@@ -11,8 +11,10 @@ use Nova\Stories\Models\Story;
 
 class DeleteStories extends Component
 {
+    /** @var array<int, array{story: array{action: string, actionId: int|null}, posts: array{action: string, actionId: int|null}}> */
     public array $actions = [];
 
+    /** @var Collection<int, Story> */
     public Collection $stories;
 
     /**

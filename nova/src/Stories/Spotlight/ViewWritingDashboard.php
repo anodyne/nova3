@@ -13,6 +13,7 @@ class ViewWritingDashboard extends SpotlightCommand
 
     protected string $description = 'View the writing dashboard';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'saved posts', 'in progres posts', 'write',
     ];

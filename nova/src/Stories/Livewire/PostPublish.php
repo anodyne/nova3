@@ -26,13 +26,14 @@ use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\States\PostStatus\Published;
+use Nova\Users\Models\User;
 
 /**
  * @property-read bool $hasNonParticipants
- * @property-read Collection $searchResults
+ * @property-read Collection<int, Post> $searchResults
  * @property-read bool $shouldShowParticipantsPanel
  * @property-read bool $shouldShowPositionPanel
- * @property-read Collection $availablePostTypes
+ * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
  */
 class PostPublish extends SlideOver
@@ -46,6 +47,7 @@ class PostPublish extends SlideOver
 
     public ?Post $nextPost = null;
 
+    /** @var Collection<int, User>|null */
     public ?Collection $participatingUsers = null;
 
     #[Locked]
@@ -162,6 +164,7 @@ class PostPublish extends SlideOver
         ]);
     }
 
+    /** @return Collection<int, Post> */
     #[Computed]
     public function searchResults(): Collection
     {
@@ -185,7 +188,7 @@ class PostPublish extends SlideOver
         return $this->post->story->posts()->count() > 0;
     }
 
-    public function updatedDirection($value): void
+    public function updatedDirection(mixed $value): void
     {
         if (in_array($this->direction, [PositionDirection::End, PositionDirection::Start])) {
             $this->neighbor = null;

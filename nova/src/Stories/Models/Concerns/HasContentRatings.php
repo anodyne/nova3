@@ -32,6 +32,7 @@ trait HasContentRatings
         return $preferences->{$property}->value;
     }
 
+    /** @return Attribute<bool, never> */
     public function showContentWarningForAdminSite(): Attribute
     {
         return Attribute::make(
@@ -50,6 +51,7 @@ trait HasContentRatings
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function showContentWarningForPublicSite(): Attribute
     {
         return Attribute::make(

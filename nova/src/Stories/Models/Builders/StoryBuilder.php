@@ -12,9 +12,7 @@ use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Builder;
 
 /**
- * @template TModel of Story
- *
- * @extends Builder<TModel>
+ * @extends Builder<Story>
  */
 class StoryBuilder extends Builder
 {
@@ -43,7 +41,7 @@ class StoryBuilder extends Builder
         return $this->whereState('status', Ongoing::class);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->whereAny([
             'title',

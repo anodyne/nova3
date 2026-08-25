@@ -20,7 +20,7 @@ use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 
 /**
- * @property-read Collection $availablePostTypes
+ * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
  */
 class PostDetails extends Component
@@ -38,7 +38,7 @@ class PostDetails extends Component
 
     public ?string $content = null;
 
-    public function updated($property, $value): void
+    public function updated(string $property, mixed $value): void
     {
         if ($property === 'content' && blank(str($value)->pipe('strip_tags'))) {
             return;

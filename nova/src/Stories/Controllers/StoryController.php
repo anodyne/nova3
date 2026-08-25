@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
@@ -52,7 +53,7 @@ class StoryController extends Controller
         return CreateStoryResponse::send();
     }
 
-    public function store(StoreStoryRequest $request)
+    public function store(StoreStoryRequest $request): RedirectResponse
     {
         $this->authorize('create', Story::class);
 
@@ -71,7 +72,7 @@ class StoryController extends Controller
         ]);
     }
 
-    public function update(UpdateStoryRequest $request, Story $story)
+    public function update(UpdateStoryRequest $request, Story $story): RedirectResponse
     {
         $this->authorize('update', $story);
 
@@ -80,7 +81,7 @@ class StoryController extends Controller
         return back()->notify("{$story->title} was updated");
     }
 
-    public function delete($id): Responsable
+    public function delete(int $id): Responsable
     {
         $this->authorize('delete', new Story);
 
@@ -95,7 +96,7 @@ class StoryController extends Controller
         ]);
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request): RedirectResponse
     {
         $this->authorize('delete', new Story);
 

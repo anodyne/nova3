@@ -34,9 +34,4 @@ class SendStoryStarted extends Mailable implements ShouldQueue
             markdown: 'emails.story-started',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

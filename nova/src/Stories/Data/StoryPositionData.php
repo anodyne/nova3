@@ -30,6 +30,7 @@ readonly class StoryPositionData extends Bag
         public bool $hasPositionChange = false
     ) {}
 
+    /** @return array{direction: PositionDirection, neighbor: Story|null, hasPositionChange: bool} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

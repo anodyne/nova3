@@ -7,9 +7,11 @@ namespace Nova\Stories\Models\States\StoryStatus;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasDescription;
 use Filament\Support\Contracts\HasLabel;
+use Nova\Stories\Models\Story;
 use Spatie\ModelStates\State;
 use Spatie\ModelStates\StateConfig;
 
+/** @extends State<Story> */
 abstract class StoryStatus extends State implements HasColor, HasDescription, HasLabel
 {
     abstract public function getColor(): string;

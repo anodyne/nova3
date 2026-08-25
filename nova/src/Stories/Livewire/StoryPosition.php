@@ -20,7 +20,7 @@ class StoryPosition extends Component
 {
     public ?string $direction = 'after';
 
-    public $hasPositionChange = false;
+    public bool $hasPositionChange = false;
 
     public ?Story $neighbor = null;
 
@@ -88,12 +88,12 @@ class StoryPosition extends Component
             ->get();
     }
 
-    public function updated($property): void
+    public function updated(string $property): void
     {
         $this->hasPositionChange = true;
     }
 
-    protected function getStory($id): ?Story
+    protected function getStory(?int $id): ?Story
     {
         return Story::withCount('stories')->find($id);
     }

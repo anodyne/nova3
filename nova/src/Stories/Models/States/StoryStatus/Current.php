@@ -6,7 +6,7 @@ namespace Nova\Stories\Models\States\StoryStatus;
 
 class Current extends StoryStatus
 {
-    public static $name = 'current';
+    public static string $name = 'current';
 
     public function getColor(): string
     {

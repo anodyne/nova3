@@ -6,7 +6,7 @@ namespace Nova\Stories\Models\States\PostStatus;
 
 class Draft extends PostStatus
 {
-    public static $name = 'draft';
+    public static string $name = 'draft';
 
     public function getColor(): string
     {

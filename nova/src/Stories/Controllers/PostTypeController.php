@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
 use Nova\Roles\Models\Role;
@@ -49,7 +50,7 @@ class PostTypeController extends Controller
         ]);
     }
 
-    public function store(StorePostTypeRequest $request)
+    public function store(StorePostTypeRequest $request): RedirectResponse
     {
         $postType = CreatePostType::run($request->getPostTypeData());
 
@@ -66,7 +67,7 @@ class PostTypeController extends Controller
         ]);
     }
 
-    public function update(UpdatePostTypeRequest $request, PostType $postType)
+    public function update(UpdatePostTypeRequest $request, PostType $postType): RedirectResponse
     {
         $postType = UpdatePostType::run(
             $postType,

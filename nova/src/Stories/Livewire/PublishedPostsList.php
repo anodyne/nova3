@@ -18,10 +18,10 @@ use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\Story;
 
 /**
- * @property-read LengthAwarePaginator $posts
- * @property-read Collection $postTypes
+ * @property-read LengthAwarePaginator<int, Post> $posts
+ * @property-read Collection<int, PostType> $postTypes
  * @property-read ?Story $selectedStory
- * @property-read Collection $stories
+ * @property-read Collection<int, Story> $stories
  */
 class PublishedPostsList extends Component
 {
@@ -41,6 +41,7 @@ class PublishedPostsList extends Component
 
     public ?Story $story = null;
 
+    /** @var list<int> */
     public array $types = [];
 
     public function mount(): void
@@ -48,6 +49,7 @@ class PublishedPostsList extends Component
         $this->types = $this->initialPostTypes();
     }
 
+    /** @return LengthAwarePaginator<int, Post> */
     #[Computed]
     public function posts(): LengthAwarePaginator
     {
@@ -63,6 +65,7 @@ class PublishedPostsList extends Component
             ->paginate(25);
     }
 
+    /** @return Collection<int, PostType> */
     #[Computed]
     public function postTypes(): Collection
     {
@@ -92,12 +95,14 @@ class PublishedPostsList extends Component
         return Story::find($this->selected);
     }
 
+    /** @return Collection<int, Story> */
     #[Computed]
     public function stories(): Collection
     {
         return Story::query()->exceptUpcoming()->get();
     }
 
+    /** @return list<int> */
     protected function initialPostTypes(): array
     {
         return PostType::active()->pluck('id')->toArray();

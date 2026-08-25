@@ -11,9 +11,7 @@ use Nova\Stories\Enums\PostTypeVisibility;
 use Nova\Stories\Models\PostType;
 
 /**
- * @template TModel of PostType
- *
- * @extends Builder<TModel>
+ * @extends Builder<PostType>
  */
 class PostTypeBuilder extends Builder
 {
@@ -24,7 +22,7 @@ class PostTypeBuilder extends Builder
         return $this->where('visibility', PostTypeVisibility::InCharacter);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->where('name', 'like', "%{$search}%");
     }

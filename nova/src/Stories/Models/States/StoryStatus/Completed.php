@@ -6,7 +6,7 @@ namespace Nova\Stories\Models\States\StoryStatus;
 
 class Completed extends StoryStatus
 {
-    public static $name = 'completed';
+    public static string $name = 'completed';
 
     public function getColor(): string
     {

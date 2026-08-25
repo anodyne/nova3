@@ -15,6 +15,7 @@ class ViewPostTypes extends SpotlightCommand
 
     protected string $description = 'View all post types';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show all post types',
         'display all post types',

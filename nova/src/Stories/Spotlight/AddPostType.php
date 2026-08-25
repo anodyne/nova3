@@ -15,6 +15,7 @@ class AddPostType extends SpotlightCommand
 
     protected string $description = 'Add a new post type';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'create new post type',
     ];

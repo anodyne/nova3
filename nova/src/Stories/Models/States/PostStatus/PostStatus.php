@@ -6,9 +6,11 @@ namespace Nova\Stories\Models\States\PostStatus;
 
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
+use Nova\Stories\Models\Post;
 use Spatie\ModelStates\State;
 use Spatie\ModelStates\StateConfig;
 
+/** @extends State<Post> */
 abstract class PostStatus extends State implements HasColor, HasLabel
 {
     abstract public function getColor(): string;

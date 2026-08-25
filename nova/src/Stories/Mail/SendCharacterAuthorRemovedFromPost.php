@@ -36,9 +36,4 @@ class SendCharacterAuthorRemovedFromPost extends Mailable implements ShouldQueue
             markdown: 'emails.character-author-removed-from-post',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

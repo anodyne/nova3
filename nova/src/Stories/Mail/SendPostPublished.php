@@ -34,9 +34,4 @@ class SendPostPublished extends Mailable implements ShouldQueue
             markdown: 'emails.post-published',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

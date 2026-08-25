@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Models;
 
 use Anodyne\TablerIcons\Tabler;
+use Database\Factories\PostTypeFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,7 +36,9 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(PostTypeBuilder::class)]
 class PostType extends Model implements Sortable
 {
+    /** @use HasFactory<PostTypeFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use HasStates;
     use LogsActivity;
@@ -78,6 +81,7 @@ class PostType extends Model implements Sortable
     /**
      * This attribute exists to allow for the table to have a column for this data.
      */
+    /** @return Attribute<bool, never> */
     public function includedInPostTracking(): Attribute
     {
         return Attribute::make(
@@ -88,6 +92,7 @@ class PostType extends Model implements Sortable
     /**
      * This attribute exists to allow for the table to have a column for this data.
      */
+    /** @return Attribute<bool, never> */
     public function notifiesUsers(): Attribute
     {
         return Attribute::make(
@@ -119,6 +124,7 @@ class PostType extends Model implements Sortable
         return $this->belongsTo(Role::class);
     }
 
+    /** @return Attribute<string, never> */
     public function title(): Attribute
     {
         return Attribute::make(

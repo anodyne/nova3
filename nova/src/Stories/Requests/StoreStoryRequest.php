@@ -6,6 +6,7 @@ namespace Nova\Stories\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 use Nova\Media\Enums\ImageAction;
 use Nova\Stories\Data\StoryData;
 use Nova\Stories\Data\StoryPositionData;
@@ -13,6 +14,7 @@ use Nova\Stories\Enums\PositionDirection;
 
 class StoreStoryRequest extends FormRequest
 {
+    /** @return array<string, list<Enum|string>> */
     public function rules(): array
     {
         return [

@@ -35,6 +35,7 @@ readonly class StoryData extends Bag
         return Story::find($this->parentId);
     }
 
+    /** @return array{title: mixed, description: mixed, started_at: mixed, ended_at: mixed, parent_id: mixed, summary: mixed} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

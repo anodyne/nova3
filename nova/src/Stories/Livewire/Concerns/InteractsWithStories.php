@@ -29,6 +29,7 @@ trait InteractsWithStories
         $this->redirectRoute('admin.posts.edit', $this->post);
     }
 
+    /** @return Collection<int, Story> */
     #[Computed]
     public function currentStories(): Collection
     {

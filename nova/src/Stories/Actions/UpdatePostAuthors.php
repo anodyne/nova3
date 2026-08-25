@@ -78,11 +78,13 @@ class UpdatePostAuthors
             ->each->notify(new UserAuthorRemovedFromPost($post));
     }
 
+    /** @param array<int|string, mixed> $authors */
     private function updateCharacterAuthors(Post $post, array $authors): void
     {
         $post->characterAuthors()->sync($authors);
     }
 
+    /** @param array<int|string, mixed> $authors */
     private function updateUserAuthors(Post $post, array $authors): void
     {
         $post->userAuthors()->sync($authors);

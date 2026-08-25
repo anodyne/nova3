@@ -34,9 +34,4 @@ class SendUserAuthorAddedToPost extends Mailable implements ShouldQueue
             markdown: 'emails.user-author-added-to-post',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

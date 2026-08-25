@@ -15,6 +15,7 @@ class UpdatePostStatus
 {
     use AsAction;
 
+    /** @var array<string, class-string> */
     protected array $statuses = [
         'draft' => Draft::class,
         'pending' => Pending::class,

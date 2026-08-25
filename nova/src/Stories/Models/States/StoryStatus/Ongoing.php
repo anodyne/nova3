@@ -6,7 +6,7 @@ namespace Nova\Stories\Models\States\StoryStatus;
 
 class Ongoing extends StoryStatus
 {
-    public static $name = 'ongoing';
+    public static string $name = 'ongoing';
 
     public function getColor(): string
     {

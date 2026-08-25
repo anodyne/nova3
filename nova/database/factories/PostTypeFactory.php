@@ -19,14 +19,14 @@ class PostTypeFactory extends Factory
 {
     protected $model = PostType::class;
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         $word = $this->faker->word;
 
@@ -80,7 +80,7 @@ class PostTypeFactory extends Factory
         ];
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,

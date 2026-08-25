@@ -15,6 +15,7 @@ class WritePost extends SpotlightCommand
 
     protected string $description = 'Start a new story post';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'compose post', 'create post',
     ];

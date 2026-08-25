@@ -21,6 +21,8 @@ readonly class PostAuthorsData extends Bag
     /**
      * @param  Collection<int, Character>|null  $originalCharacters
      * @param  Collection<int, User>|null  $originalUsers
+     * @param  array<int|string, mixed>  $characters
+     * @param  array<int|string, mixed>  $users
      */
     public function __construct(
         public array $characters = [],
@@ -29,6 +31,7 @@ readonly class PostAuthorsData extends Bag
         public ?Collection $originalUsers = null
     ) {}
 
+    /** @return list<int> */
     public function getUserIds(): array
     {
         return collect(array_keys($this->users))

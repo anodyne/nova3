@@ -14,7 +14,7 @@ use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Models\Post;
 
 /**
- * @property-read Collection $searchResults
+ * @property-read Collection<int, Post> $searchResults
  */
 class PostPositionEditor extends SlideOver
 {
@@ -68,6 +68,7 @@ class PostPositionEditor extends SlideOver
         ]);
     }
 
+    /** @return Collection<int, Post> */
     #[Computed]
     public function searchResults(): Collection
     {
@@ -79,7 +80,7 @@ class PostPositionEditor extends SlideOver
             ->get();
     }
 
-    public function updatedDirection($value): void
+    public function updatedDirection(mixed $value): void
     {
         if (in_array($this->direction, [PositionDirection::End, PositionDirection::Start])) {
             $this->neighbor = null;

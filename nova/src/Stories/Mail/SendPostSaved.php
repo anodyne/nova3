@@ -36,9 +36,4 @@ class SendPostSaved extends Mailable implements ShouldQueue
             markdown: 'emails.post-saved',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

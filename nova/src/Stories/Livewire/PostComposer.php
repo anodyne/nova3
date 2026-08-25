@@ -35,9 +35,9 @@ use Nova\Users\Models\User;
  * @property-read bool $canBeEditedByCurrentUser
  * @property-read bool $postIsLocked
  * @property-read bool $shouldUsePostLock
- * @property-read Collection $availablePostTypes
+ * @property-read Collection<int, PostType> $availablePostTypes
  * @property-read ?PostType $postType
- * @property-read Collection $currentStories
+ * @property-read Collection<int, Story> $currentStories
  * @property-read ?Story $story
  */
 class PostComposer extends Component
@@ -215,7 +215,8 @@ class PostComposer extends Component
         ]);
     }
 
-    public function rules()
+    /** @return array<string, string> */
+    public function rules(): array
     {
         return $this->postType->fields
             ->enabledFields()
@@ -254,6 +255,7 @@ class PostComposer extends Component
         $this->redirectRoute('admin.writing-overview');
     }
 
+    /** @return list<class-string<Component>> */
     private function childrenComponents(): array
     {
         $components = [

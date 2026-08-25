@@ -66,7 +66,7 @@ class PostFactory extends Factory
         });
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'title' => ucwords(fake()->words(mt_rand(2, 8), asText: true)),
@@ -128,7 +128,7 @@ class PostFactory extends Factory
         ];
     }
 
-    public function draft()
+    public function draft(): static
     {
         return $this->state([
             'status' => Draft::class,
@@ -136,21 +136,21 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function markerPost()
+    public function markerPost(): static
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'marker')->first()->id,
         ]);
     }
 
-    public function notePost()
+    public function notePost(): static
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'note')->first()->id,
         ]);
     }
 
-    public function pending()
+    public function pending(): static
     {
         return $this->state([
             'status' => Pending::class,
@@ -158,7 +158,7 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function personalPost()
+    public function personalPost(): static
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'personal')->first()->id,
@@ -168,7 +168,7 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function published()
+    public function published(): static
     {
         return $this->state([
             'status' => Published::class,
@@ -176,7 +176,7 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function storyPost()
+    public function storyPost(): static
     {
         return $this->state([
             'post_type_id' => PostType::where('key', 'post')->first()->id,
@@ -186,7 +186,7 @@ class PostFactory extends Factory
         ]);
     }
 
-    public function withStory(?Story $story): PostFactory|Factory
+    public function withStory(?Story $story): static
     {
         return $this->state([
             'story_id' => $story->id ?? Story::factory(),

@@ -11,12 +11,29 @@ use Nova\Characters\Models\Character;
 use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 
+/**
+ * @phpstan-type CharacterAuthor array{
+ *     id: int,
+ *     name: string,
+ *     type: string,
+ *     avatar_url: string,
+ *     activeUsers: array<int, array<string, mixed>>,
+ *     pivot: array{
+ *         user: mixed,
+ *         user_id: int|string|null
+ *     }
+ * }
+ * @phpstan-type CharacterAuthorPivotData array{user_id: int|string|null}
+ */
 trait InteractsWithCharacterAuthors
 {
+    /** @var array<int, CharacterAuthor> */
     public array $characterAuthorsArr = [];
 
+    /** @var array<int, CharacterAuthorPivotData> */
     public array $characterAuthorsPivotData = [];
 
+    /** @var array<int, int> */
     public array $characterAuthorsValidationErrors = [];
 
     public function addCharacterAuthor(int $characterId): void
@@ -49,6 +66,7 @@ trait InteractsWithCharacterAuthors
         }
     }
 
+    /** @return Collection<int, object> */
     public function characterAuthors(): Collection
     {
         return collect($this->characterAuthorsArr)
@@ -66,9 +84,7 @@ trait InteractsWithCharacterAuthors
         $this->removeCharacterAuthorValidationErrors($characterId);
     }
 
-    /**
-     * @param  array<array-key, mixed>|DatabaseCollection<int, Character>  $characterAuthors
-     */
+    /** @param array<int, CharacterAuthor>|DatabaseCollection<int, Character> $characterAuthors */
     public function setCharacterAuthors(array|DatabaseCollection $characterAuthors): void
     {
         if (is_array($characterAuthors)) {
@@ -82,7 +98,7 @@ trait InteractsWithCharacterAuthors
         $this->syncCharacterAuthorsPivotData();
     }
 
-    public function updatedCharacterAuthorsPivotData($value, $property): void
+    public function updatedCharacterAuthorsPivotData(mixed $value, string $property): void
     {
         $id = str($property)->before('.user_id')->toInteger();
 
@@ -109,6 +125,7 @@ trait InteractsWithCharacterAuthors
         $this->characterAuthorsValidationErrors[$id] = $id;
     }
 
+    /** @return CharacterAuthor */
     private function characterArrayStructure(Character $character, ?int $pivotUserId = null): array
     {
         $authorship = $character->relationLoaded('pivot')
@@ -135,6 +152,7 @@ trait InteractsWithCharacterAuthors
         ];
     }
 
+    /** @param CharacterAuthor $character */
     private function characterObjectStructure(array $character): object
     {
         return (object) [

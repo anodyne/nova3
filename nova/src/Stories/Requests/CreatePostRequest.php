@@ -8,6 +8,7 @@ use Nova\Foundation\Http\Requests\ValidatesRequest;
 
 class CreatePostRequest extends ValidatesRequest
 {
+    /** @return array<string, list<string>> */
     public function rules(): array
     {
         return [

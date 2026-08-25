@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Models;
 
+use Database\Factories\PostFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
@@ -49,7 +50,10 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 class Post extends Model implements Sortable
 {
     use HasContentRatings;
+
+    /** @use HasFactory<PostFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use HasStates;
     use LogsActivity {
@@ -59,7 +63,8 @@ class Post extends Model implements Sortable
     use SoftDeletes;
     use SortableTrait;
 
-    public $sortable = [
+    /** @var array{order_column_name: string, sort_when_creating: bool} */
+    public array $sortable = [
         'order_column_name' => 'order_column',
         'sort_when_creating' => false,
     ];
@@ -108,6 +113,7 @@ class Post extends Model implements Sortable
         $this->fill(['participants' => $participants])->save();
     }
 
+    /** @return Attribute<array<int, string>, never> */
     public function authorsAvatars(): Attribute
     {
         return Attribute::make(
@@ -118,6 +124,7 @@ class Post extends Model implements Sortable
         );
     }
 
+    /** @return Attribute<string, never> */
     public function authorsString(): Attribute
     {
         return Attribute::make(
@@ -136,6 +143,7 @@ class Post extends Model implements Sortable
         );
     }
 
+    /** @return PostBuilder */
     public function buildSortQuery(): Builder
     {
         return static::query()
@@ -143,6 +151,7 @@ class Post extends Model implements Sortable
             ->whereNotState('status', Started::class);
     }
 
+    /** @return MorphToMany<Character, $this, PostAuthor, 'pivot'> */
     public function characterAuthors(): MorphToMany
     {
         return $this->morphedByMany(Character::class, 'authorable', 'post_author')
@@ -162,6 +171,7 @@ class Post extends Model implements Sortable
         ]);
     }
 
+    /** @return Attribute<bool, never> */
     public function hasLocationAndTime(): Attribute
     {
         return Attribute::make(
@@ -169,6 +179,7 @@ class Post extends Model implements Sortable
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isDraft(): Attribute
     {
         return Attribute::make(
@@ -181,6 +192,7 @@ class Post extends Model implements Sortable
         return $this->locked_by !== null && $this->locked_at !== null && $this->locked_at->diffInMinutes(now()) < 5;
     }
 
+    /** @return Attribute<bool, never> */
     public function isPending(): Attribute
     {
         return Attribute::make(
@@ -188,6 +200,7 @@ class Post extends Model implements Sortable
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isPublished(): Attribute
     {
         return Attribute::make(
@@ -195,6 +208,7 @@ class Post extends Model implements Sortable
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isSetup(): Attribute
     {
         return Attribute::make(
@@ -202,6 +216,7 @@ class Post extends Model implements Sortable
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isStarted(): Attribute
     {
         return Attribute::make(
@@ -209,6 +224,7 @@ class Post extends Model implements Sortable
         );
     }
 
+    /** @return Attribute<string, never> */
     public function locationDayTime(): Attribute
     {
         return Attribute::make(
@@ -237,14 +253,16 @@ class Post extends Model implements Sortable
         return $this->locked_by === $user->id;
     }
 
+    /** @return BelongsTo<User, $this> */
     public function lockOwner(): BelongsTo
     {
-        /** @var BelongsTo $relation */
+        /** @var BelongsTo<User, $this> $relation */
         $relation = $this->belongsTo(User::class, 'locked_by')->withTrashed();
 
         return $relation;
     }
 
+    /** @return Attribute<bool, never> */
     public function needsAttention(): Attribute
     {
         return Attribute::make(
@@ -253,7 +271,11 @@ class Post extends Model implements Sortable
         );
     }
 
-    public function nextSibling($status = null, array $types = [], int $skip = 0): ?self
+    /**
+     * @param  class-string<PostStatus\PostStatus>|null  $status
+     * @param  list<string>  $types
+     */
+    public function nextSibling(?string $status = null, array $types = [], int $skip = 0): ?self
     {
         return $this->getSibling('next', $status, $types, $skip);
     }
@@ -268,19 +290,25 @@ class Post extends Model implements Sortable
             ->withPivot(['post_id', 'user_id', 'updated_at', 'word_count']);
     }
 
+    /** @return BelongsTo<PostType, $this> */
     public function postType(): BelongsTo
     {
-        /** @var BelongsTo $relation */
+        /** @var BelongsTo<PostType, $this> $relation */
         $relation = $this->belongsTo(PostType::class)->withTrashed();
 
         return $relation;
     }
 
-    public function previousSibling($status = null, array $types = [], int $skip = 0): ?self
+    /**
+     * @param  class-string<PostStatus\PostStatus>|null  $status
+     * @param  list<string>  $types
+     */
+    public function previousSibling(?string $status = null, array $types = [], int $skip = 0): ?self
     {
         return $this->getSibling('previous', $status, $types, $skip);
     }
 
+    /** @return Attribute<string, never> */
     public function readingTime(): Attribute
     {
         return Attribute::make(
@@ -324,11 +352,13 @@ class Post extends Model implements Sortable
         return true;
     }
 
+    /** @return BelongsTo<Story, $this> */
     public function story(): BelongsTo
     {
         return $this->belongsTo(Story::class);
     }
 
+    /** @return Attribute<string, never> */
     public function timeline(): Attribute
     {
         return Attribute::make(
@@ -336,6 +366,7 @@ class Post extends Model implements Sortable
         );
     }
 
+    /** @return array<string, mixed> */
     public function toSearchableArray(): array
     {
         return [
@@ -361,6 +392,7 @@ class Post extends Model implements Sortable
         });
     }
 
+    /** @return MorphToMany<User, $this, PostAuthor, 'pivot'> */
     public function userAuthors(): MorphToMany
     {
         return $this->morphedByMany(User::class, 'authorable', 'post_author')
@@ -370,7 +402,11 @@ class Post extends Model implements Sortable
             ->withTimestamps();
     }
 
-    protected function getSibling($direction, $status, array $types = [], int $skip = 0)
+    /**
+     * @param  class-string<PostStatus\PostStatus>|null  $status
+     * @param  list<string>  $types
+     */
+    protected function getSibling(string $direction, ?string $status, array $types = [], int $skip = 0): ?self
     {
         $query = self::query()
             ->forStory($this->story_id)

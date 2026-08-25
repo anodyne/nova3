@@ -36,9 +36,4 @@ class SendPostDraftDiscarded extends Mailable implements ShouldQueue
             markdown: 'emails.draft-post-discarded',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

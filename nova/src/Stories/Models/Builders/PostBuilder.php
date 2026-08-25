@@ -15,9 +15,7 @@ use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of Post
- *
- * @extends Builder<TModel>
+ * @extends Builder<Post>
  */
 class PostBuilder extends Builder
 {
@@ -95,7 +93,7 @@ class PostBuilder extends Builder
         return $this->whereState('status', Published::class);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->whereAny([
             'title',
@@ -128,7 +126,7 @@ class PostBuilder extends Builder
         return $this->whereNotNull('parent_id');
     }
 
-    public function wherePostType($postTypeId): self
+    public function wherePostType(int $postTypeId): self
     {
         return $this->where('post_type_id', $postTypeId);
     }

@@ -15,6 +15,7 @@ class ViewStories extends SpotlightCommand
 
     protected string $description = 'View the story timeline';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show story', 'view mission', 'show mission',
     ];

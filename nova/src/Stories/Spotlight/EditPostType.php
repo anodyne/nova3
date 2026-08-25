@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class EditPostType extends SpotlightCommand
 
     protected string $description = 'Edit a post type';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'update existing post type',
     ];
@@ -31,7 +33,8 @@ class EditPostType extends SpotlightCommand
             );
     }
 
-    public function searchPostType($query)
+    /** @return Collection<int, SpotlightSearchResult> */
+    public function searchPostType(string $query): Collection
     {
         return PostType::where('name', 'like', "%{$query}%")
             ->get()
