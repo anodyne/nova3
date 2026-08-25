@@ -15,6 +15,9 @@ class CreateFormSubmission
 {
     use AsAction;
 
+    /**
+     * @param  array<string, mixed>|null  $meta
+     */
     public function handle(Form $form, ?Model $owner, ?array $meta = null): FormSubmission
     {
         return DB::transaction(function () use ($form, $owner, $meta) {

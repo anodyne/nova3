@@ -17,6 +17,9 @@ class SendUpdatedFormSubmission extends Mailable implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
+    /**
+     * @param  array<string, mixed>  $values
+     */
     public function __construct(
         public ?User $user,
         public array $values,
@@ -35,10 +38,5 @@ class SendUpdatedFormSubmission extends Mailable implements ShouldQueue
         return new Content(
             markdown: 'emails.forms.updated-form-submission',
         );
-    }
-
-    public function attachments(): array
-    {
-        return [];
     }
 }

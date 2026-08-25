@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class DesignForm extends SpotlightCommand
 
     protected string $description = 'Update the design of a form';
 
+    /** @var array<string> */
     protected array $synonyms = [
         'build a form',
     ];
@@ -31,7 +33,10 @@ class DesignForm extends SpotlightCommand
             );
     }
 
-    public function searchForm($query)
+    /**
+     * @return Collection<int, SpotlightSearchResult>
+     */
+    public function searchForm(string $query): Collection
     {
         return Form::query()
             ->searchFor($query)

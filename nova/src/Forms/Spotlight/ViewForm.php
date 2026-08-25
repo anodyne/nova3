@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class ViewForm extends SpotlightCommand
 
     protected string $name = 'View Form';
 
+    /** @var array<string> */
     protected array $synonyms = [
         'show a form',
         'display a form',
@@ -37,7 +39,10 @@ class ViewForm extends SpotlightCommand
         $spotlight->redirectRoute('admin.forms.show', $form);
     }
 
-    public function searchForm($query)
+    /**
+     * @return Collection<int, SpotlightSearchResult>
+     */
+    public function searchForm(string $query): Collection
     {
         return Form::query()
             ->searchFor($query)

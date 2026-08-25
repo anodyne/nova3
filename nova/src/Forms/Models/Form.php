@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Database\Factories\FormFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +29,9 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(FormBuilder::class)]
 class Form extends Model
 {
+    /** @use HasFactory<FormFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use LogsActivity {
         LogsActivity::getActivitylogOptions as baseActivitylogOptions;
@@ -62,32 +65,12 @@ class Form extends Model
         'options',
     ];
 
+    /**
+     * @return HasMany<FormField, $this>
+     */
     public function formFields(): HasMany
     {
         return $this->hasMany(FormField::class);
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return $this->baseActivitylogOptions()
-            ->logExcept([
-                'fields',
-                'published_fields',
-            ]);
-    }
-
-    public function hasPublishedFields(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): bool => filled($this->published_fields)
-        );
-    }
-
-    public function renderedBlockContent(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): ?string => $this->generateBlockContent()
-        );
     }
 
     /**
@@ -98,6 +81,29 @@ class Form extends Model
         return $this->hasMany(FormSubmission::class);
     }
 
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function hasPublishedFields(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => filled($this->published_fields)
+        );
+    }
+
+    /**
+     * @return Attribute<?string, never>
+     */
+    public function renderedBlockContent(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->generateBlockContent()
+        );
+    }
+
+    /**
+     * @return Attribute<array<string, string>, never>
+     */
     public function validationMessages(): Attribute
     {
         $form = $this;
@@ -123,6 +129,9 @@ class Form extends Model
         );
     }
 
+    /**
+     * @return Attribute<array<string, string>, never>
+     */
     public function validationRules(): Attribute
     {
         $form = $this;
@@ -146,6 +155,15 @@ class Form extends Model
                     ->all();
             }
         );
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return $this->baseActivitylogOptions()
+            ->logExcept([
+                'fields',
+                'published_fields',
+            ]);
     }
 
     protected function generateBlockContent(): ?string

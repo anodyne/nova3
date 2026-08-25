@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Forms\Actions\CreateForm;
 use Nova\Forms\Actions\UpdateForm;
 use Nova\Forms\Models\Form;
@@ -44,7 +45,7 @@ class FormController extends Controller
         return CreateFormResponse::send();
     }
 
-    public function store(StoreFormRequest $request)
+    public function store(StoreFormRequest $request): RedirectResponse
     {
         $form = CreateForm::run($request->getFormData());
 
@@ -65,7 +66,7 @@ class FormController extends Controller
         ]);
     }
 
-    public function update(UpdateFormRequest $request, Form $form)
+    public function update(UpdateFormRequest $request, Form $form): RedirectResponse
     {
         $form = UpdateForm::run($form, $request->getFormData());
 

@@ -11,9 +11,7 @@ use Nova\Forms\Models\Form;
 use Nova\Foundation\Models\Builders\Concerns\QueriesStatus;
 
 /**
- * @template TModel of Form
- *
- * @extends Builder<TModel>
+ * @extends Builder<Form>
  */
 class FormBuilder extends Builder
 {
@@ -29,7 +27,7 @@ class FormBuilder extends Builder
         return $this->where('key', $key);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this->whereAny([
             'name',

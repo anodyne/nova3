@@ -6,6 +6,9 @@ namespace Nova\Forms\Fields;
 
 class FormFieldRegistry
 {
+    /**
+     * @return list<Field>
+     */
     public static function fields(): array
     {
         return [

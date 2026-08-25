@@ -14,28 +14,28 @@ class FormSubmissionFactory extends Factory
 {
     protected $model = FormSubmission::class;
 
-    public function applicationInfo()
+    public function applicationInfo(): static
     {
         return $this->state([
             'form_id' => Form::key('applicationInfo')->first(),
         ]);
     }
 
-    public function applicationReview()
+    public function applicationReview(): static
     {
         return $this->state([
             'form_id' => Form::key('applicationReview')->first(),
         ]);
     }
 
-    public function characterBio()
+    public function characterBio(): static
     {
         return $this->state([
             'form_id' => Form::key('characterBio')->first(),
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'form_id' => Form::factory(),
@@ -44,7 +44,7 @@ class FormSubmissionFactory extends Factory
         ];
     }
 
-    public function userBio()
+    public function userBio(): static
     {
         return $this->state([
             'form_id' => Form::key('userBio')->first(),

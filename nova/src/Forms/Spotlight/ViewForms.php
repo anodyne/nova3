@@ -15,6 +15,7 @@ class ViewForms extends SpotlightCommand
 
     protected string $description = 'View all forms';
 
+    /** @var array<string> */
     protected array $synonyms = [
         'show all forms',
         'display all forms',

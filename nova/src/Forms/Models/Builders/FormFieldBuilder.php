@@ -9,18 +9,16 @@ use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormField;
 
 /**
- * @template TModel of FormField
- *
- * @extends Builder<TModel>
+ * @extends Builder<FormField>
  */
 class FormFieldBuilder extends Builder
 {
-    public function form(Form|int $form): Builder
+    public function form(Form|int $form): self
     {
-        return $this->where('form_id', is_int($form) ? $form : $form->id);
+        return $this->where('form_id', $form->id ?? $form);
     }
 
-    public function uid(string $uid): Builder
+    public function uid(string $uid): self
     {
         return $this->where('uid', $uid);
     }

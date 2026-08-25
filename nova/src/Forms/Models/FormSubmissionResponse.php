@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Database\Factories\FormSubmissionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Nova\Forms\Casts\ResponseValue;
@@ -15,7 +16,9 @@ use Nova\Foundation\Models\Model;
  */
 class FormSubmissionResponse extends Model
 {
+    /** @use HasFactory<FormSubmissionFactory> */
     use HasFactory;
+
     use LogsActivity;
 
     protected $casts = [
@@ -30,11 +33,17 @@ class FormSubmissionResponse extends Model
         'value',
     ];
 
+    /**
+     * @return BelongsTo<FormField, $this>
+     */
     public function field(): BelongsTo
     {
         return $this->belongsTo(FormField::class, 'field_uid', 'uid');
     }
 
+    /**
+     * @return BelongsTo<FormSubmission, $this>
+     */
     public function submission(): BelongsTo
     {
         return $this->belongsTo(FormSubmission::class, 'submission_id');

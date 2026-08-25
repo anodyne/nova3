@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Requests;
 
+use Illuminate\Contracts\Validation\Rule as LegacyValidationRule;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Nova\Forms\Data\FormData;
@@ -12,6 +14,12 @@ use Nova\Foundation\Rules\Boolean;
 
 class StoreFormRequest extends FormRequest
 {
+    /**
+     * @return array<
+     *     string,
+     *     list<string|LegacyValidationRule|ValidationRule>
+     * >
+     */
     public function rules(): array
     {
         return [

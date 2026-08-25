@@ -26,6 +26,16 @@ readonly class FormData extends Bag
         public BasicStatus $status
     ) {}
 
+    /**
+     * @return array{
+     *      name: mixed,
+     *      key: mixed,
+     *      type: FormType,
+     *      description: mixed,
+     *      options: FormOptions,
+     *      status: ?BasicStatus
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

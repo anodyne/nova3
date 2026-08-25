@@ -14,7 +14,7 @@ class FormSubmissionResponseFactory extends Factory
 {
     protected $model = FormSubmissionResponse::class;
 
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->words(2, true);
 

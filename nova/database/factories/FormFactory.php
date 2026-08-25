@@ -17,28 +17,28 @@ class FormFactory extends Factory
 
     protected $model = Form::class;
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => BasicStatus::Active,
         ]);
     }
 
-    public function advanced()
+    public function advanced(): static
     {
         return $this->state([
             'type' => FormType::Advanced,
         ]);
     }
 
-    public function basic()
+    public function basic(): static
     {
         return $this->state([
             'type' => FormType::Basic,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         $name = $this->faker->words(3, true);
 
@@ -52,14 +52,14 @@ class FormFactory extends Factory
         ];
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => BasicStatus::Inactive,
         ]);
     }
 
-    public function locked()
+    public function locked(): static
     {
         return $this->state([
             'is_locked' => true,

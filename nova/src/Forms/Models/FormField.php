@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Models;
 
+use Database\Factories\FormFieldFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +21,9 @@ use Spatie\EloquentSortable\Sortable;
 #[UseEloquentBuilder(FormFieldBuilder::class)]
 class FormField extends Model implements Sortable
 {
+    /** @use HasFactory<FormFieldFactory> */
     use HasFactory;
+
     use LogsActivity;
     use SortableTrait;
 
@@ -33,11 +36,17 @@ class FormField extends Model implements Sortable
         'order_column',
     ];
 
+    /**
+     * @return BelongsTo<Form, $this>
+     */
     public function form(): BelongsTo
     {
         return $this->belongsTo(Form::class);
     }
 
+    /**
+     * @return HasMany<FormSubmissionResponse, $this>
+     */
     public function responses(): HasMany
     {
         return $this->hasMany(FormSubmissionResponse::class, 'field_uid', 'uid');

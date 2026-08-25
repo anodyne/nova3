@@ -12,9 +12,7 @@ use Nova\Forms\Models\FormSubmission;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of FormSubmission
- *
- * @extends Builder<TModel>
+ * @extends Builder<FormSubmission>
  */
 class FormSubmissionBuilder extends Builder
 {

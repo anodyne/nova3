@@ -14,7 +14,7 @@ class FormFieldFactory extends Factory
 {
     protected $model = FormField::class;
 
-    public function definition()
+    public function definition(): array
     {
         $name = fake()->words(3, asText: true);
 

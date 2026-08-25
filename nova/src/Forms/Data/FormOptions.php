@@ -24,6 +24,9 @@ readonly class FormOptions extends Bag
         public ?string $emailRecipients = null
     ) {}
 
+    /**
+     * @return array<string>
+     */
     public function getEmailRecipients(): array
     {
         if (blank($this->emailRecipients)) {
@@ -33,6 +36,16 @@ readonly class FormOptions extends Bag
         return array_map(trim(...), explode(',', $this->emailRecipients ?? ''));
     }
 
+    /**
+     * @return array{
+     *      onlyAuthenticatedUsers: mixed,
+     *      collectResponses: mixed,
+     *      singleSubmission: mixed,
+     *      submissionTitleField: mixed,
+     *      emailResponses: mixed,
+     *      emailRecipients: mixed
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

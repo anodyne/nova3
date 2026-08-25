@@ -24,7 +24,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Users\Models\User;
 
 /**
- * @property-read array|null $fields
+ * @property-read list<array<string, mixed>>|null $fields
  * @property-read FormMode $mode
  * @property-read bool $showsFormControls
  */
@@ -44,10 +44,14 @@ class DynamicForm extends Component
     #[Locked]
     public bool $static = false;
 
+    /** @var array<string, mixed> */
     public array $values = [];
 
+    /**
+     * @return list<array<string, mixed>>|null
+     */
     #[Computed]
-    public function fields()
+    public function fields(): ?array
     {
         return $this->form->fields;
     }
@@ -74,11 +78,17 @@ class DynamicForm extends Component
         };
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function rules(): array
     {
         return $this->form->validation_rules;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return $this->form->validation_messages;
@@ -197,6 +207,9 @@ class DynamicForm extends Component
         }
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function transformValuesForEmail(): array
     {
         $emailValues = [];

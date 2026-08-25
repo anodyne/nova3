@@ -10,6 +10,7 @@ use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Set;
@@ -58,10 +59,19 @@ abstract class Field extends BuilderBlock
             ->preview('components.form-fields.'.$this->preview);
     }
 
+    /**
+     * @return array<int, Component>
+     */
     abstract public function attributesSchema(): array;
 
+    /**
+     * @return array<int, Component>
+     */
     abstract public function detailsSchema(): array;
 
+    /**
+     * @return array<int, Component>
+     */
     protected function infoSchema(): array
     {
         if ($this->isContentField) {
@@ -79,6 +89,9 @@ abstract class Field extends BuilderBlock
         ];
     }
 
+    /**
+     * @return array<int, Component>
+     */
     protected function requiredSchema(): array
     {
         if ($this->isContentField) {
@@ -94,6 +107,10 @@ abstract class Field extends BuilderBlock
         ];
     }
 
+    /**
+     * @param  array<mixed>  $fieldDefinedAttributes
+     * @return array<int, Component>
+     */
     protected function baseAttributesSchema(array $fieldDefinedAttributes = []): array
     {
         $attributes = [

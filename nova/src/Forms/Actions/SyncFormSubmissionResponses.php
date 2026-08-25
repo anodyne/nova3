@@ -12,6 +12,9 @@ class SyncFormSubmissionResponses
 {
     use AsAction;
 
+    /**
+     * @param  array<string, mixed>  $values  Field UID to submitted value.
+     */
     public function handle(FormSubmission $submission, array $values = []): FormSubmission
     {
         $data = collect($values)
