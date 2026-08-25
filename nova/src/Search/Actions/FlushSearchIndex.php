@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Search\Actions;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Models\Announcement;
@@ -42,6 +43,7 @@ class FlushSearchIndex
         Artisan::call('scout:flush', ['model' => $model]);
     }
 
+    /** @return list<class-string<Model>> */
     protected function getSearchables(): array
     {
         return [
