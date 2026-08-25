@@ -9,6 +9,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use LogicException;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\SlideOver;
 use Nova\Themes\Data\ThemeSettings as ThemeSettingsData;
@@ -27,14 +28,16 @@ class ThemeSettings extends SlideOver implements HasForms
     /** @var array<string, mixed>|null */
     public ?array $data = [];
 
-    public Theme $theme;
+    public string|Theme $theme;
 
     public function form(Schema $schema): Schema
     {
+        $theme = $this->getThemeModel();
+
         return $schema
-            ->components($this->theme->themeClass()->settingsForm())
+            ->components($theme->themeClass()->settingsForm())
             ->statePath('data')
-            ->model($this->theme);
+            ->model($theme);
     }
 
     /** @param array{type: string, provider: string, family: string} $data */
@@ -48,12 +51,14 @@ class ThemeSettings extends SlideOver implements HasForms
 
     public function save(): void
     {
+        $theme = $this->getThemeModel();
+
         $themeSettings = ThemeSettingsData::from([
             'fonts' => $this->fonts,
             'settings' => $this->form->getState(),
         ]);
 
-        $this->theme->update(['settings' => $themeSettings]);
+        $theme->update(['settings' => $themeSettings]);
 
         $this->close();
 
@@ -73,5 +78,12 @@ class ThemeSettings extends SlideOver implements HasForms
     public function render(): Factory|View
     {
         return view('pages.themes.livewire.theme-settings');
+    }
+
+    protected function getThemeModel(): Theme
+    {
+        return $this->theme instanceof Theme
+            ? $this->theme
+            : throw new LogicException('The theme has not been initialized.');
     }
 }

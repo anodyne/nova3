@@ -28,7 +28,7 @@ use Nova\Users\Models\User;
 class ApplicationReviewModal extends Modal
 {
     #[Locked]
-    public Application $application;
+    public int|Application $application;
 
     public ApplicationReviewForm $form;
 
@@ -36,7 +36,7 @@ class ApplicationReviewModal extends Modal
     public ?ApplicationReview $review = null;
 
     #[Locked]
-    public ?User $user = null;
+    public int|User|null $user = null;
 
     /** @var array<string, mixed> */
     public array $values = [];
@@ -60,14 +60,14 @@ class ApplicationReviewModal extends Modal
             ->firstOrFail();
 
         $this->form->setReview(
-            application: $this->application,
+            application: $application,
             review: $this->review,
             user: $this->owner
         );
 
         $submission = FormSubmission::query()
             ->whereMorphRelation('owner', User::class, 'id', $this->owner->id)
-            ->where('meta->application_id', $this->application->id)
+            ->where('meta->application_id', $application->id)
             ->first();
 
         if (blank($submission)) {
@@ -84,7 +84,9 @@ class ApplicationReviewModal extends Modal
     #[Computed]
     public function owner(): User
     {
-        return $this->user ?? Auth::user() ?? throw new LogicException('An authenticated user is required.');
+        return $this->user instanceof User
+            ? $this->user
+            : Auth::user() ?? throw new LogicException('An authenticated user is required.');
     }
 
     public function render(): Factory|View
@@ -96,7 +98,9 @@ class ApplicationReviewModal extends Modal
 
     public function save(): void
     {
-        $this->authorize('vote', $this->application);
+        $application = $this->getApplicationModel();
+
+        $this->authorize('vote', $application);
 
         $this->form->save();
 
@@ -104,7 +108,7 @@ class ApplicationReviewModal extends Modal
             $submission = CreateFormSubmission::run(
                 form: $this->applicationReviewForm,
                 owner: $this->owner,
-                meta: ['application_id' => $this->application->id]
+                meta: ['application_id' => $application->id]
             );
 
             SyncFormSubmissionResponses::run($submission, $this->values);
@@ -117,5 +121,12 @@ class ApplicationReviewModal extends Modal
         Notification::make()->success()
             ->title('Review submitted')
             ->send();
+    }
+
+    protected function getApplicationModel(): Application
+    {
+        return $this->application instanceof Application
+            ? $this->application
+            : throw new LogicException('The application has not been initialized.');
     }
 }

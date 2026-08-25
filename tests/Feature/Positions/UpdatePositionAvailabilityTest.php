@@ -1029,13 +1029,15 @@ it('handles positions that do not exist in the database', function () {
     });
 
     $character = Character::factory()->active()->primary()->create();
+    $position = Position::factory()->create();
+    $position->delete();
 
     $data = CharacterPositionsData::from(
         character: $character,
         oldType: CharacterType::Primary,
         newType: $character->type,
         oldPositions: null,
-        newPositions: collect([9999]),
+        newPositions: collect([$position]),
         oldStatus: 'active',
         newStatus: 'active'
     );

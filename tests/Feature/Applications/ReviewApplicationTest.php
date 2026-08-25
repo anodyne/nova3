@@ -39,7 +39,7 @@ describe('authorized reviewer', function () {
         Event::fake();
         Notification::fake();
 
-        livewire(ApplicationReviewModal::class, ['application' => $this->application, 'user' => Auth::id()])
+        livewire(ApplicationReviewModal::class, ['application' => $this->application->id, 'user' => Auth::id()])
             ->set('form.result', ApplicationResult::Accept)
             ->assertSet('form.result', ApplicationResult::Accept)
             ->set('form.comments', 'Great application!')
