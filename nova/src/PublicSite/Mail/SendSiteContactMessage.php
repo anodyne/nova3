@@ -38,9 +38,4 @@ class SendSiteContactMessage extends Mailable implements ShouldQueue
             markdown: 'emails.site-contact-message',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

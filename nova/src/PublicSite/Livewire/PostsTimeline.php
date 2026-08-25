@@ -8,7 +8,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -17,15 +16,16 @@ use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
 /**
- * @property-read Collection $posts
+ * @property-read Collection<int, Post> $posts
  */
 class PostsTimeline extends Component
 {
     #[Locked]
     public ?Story $story = null;
 
+    /** @return Collection<int, Post> */
     #[Computed]
-    public function posts(): EloquentCollection
+    public function posts(): Collection
     {
         return Post::query()
             ->published()

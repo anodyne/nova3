@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\PublicSite\Controllers;
 
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\RateLimiter;
 use Nova\Applications\Actions\CreateApplicationFromJoinFormManager;
 use Nova\Foundation\Controllers\Controller;
@@ -13,7 +14,7 @@ use Throwable;
 
 class ProcessJoinFormController extends Controller
 {
-    public function __invoke(StoreApplicationRequest $request)
+    public function __invoke(StoreApplicationRequest $request): RedirectResponse
     {
         abort_unless(settings('applications.enabled'), 404);
 

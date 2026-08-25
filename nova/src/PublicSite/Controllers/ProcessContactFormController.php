@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\PublicSite\Controllers;
 
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\RateLimiter;
 use Nova\Foundation\Controllers\Controller;
 use Nova\PublicSite\Actions\HandleContactForm;
@@ -21,7 +22,7 @@ class ProcessContactFormController extends Controller
         $this->middleware(ProtectAgainstSpam::class);
     }
 
-    public function __invoke(ContactRequest $request)
+    public function __invoke(ContactRequest $request): RedirectResponse
     {
         abort_unless(settings('general.contactFormEnabled'), 404);
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\PublicSite\Requests;
 
+use Illuminate\Contracts\Validation\Rule as ValidationRuleContract;
 use Illuminate\Foundation\Http\FormRequest;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Data\CharacterData;
@@ -11,6 +12,9 @@ use Nova\Forms\Models\Form;
 
 class StoreApplicationRequest extends FormRequest
 {
+    /**
+     * @return array<string, array<int, ValidationRuleContract|string>>
+     */
     public function rules(): array
     {
         $rules = [
@@ -41,6 +45,9 @@ class StoreApplicationRequest extends FormRequest
         return $rules;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         $messages = [

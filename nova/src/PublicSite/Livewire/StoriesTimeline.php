@@ -12,7 +12,7 @@ use Nova\Stories\Models\Story;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
 
 /**
- * @property-read Collection $stories
+ * @property-read Collection<int, Story> $stories
  */
 class StoriesTimeline extends Component
 {
@@ -20,6 +20,7 @@ class StoriesTimeline extends Component
 
     public string $bgColor = '#ffffff';
 
+    /** @return Collection<int, Story> */
     #[Computed]
     public function stories(): Collection
     {
