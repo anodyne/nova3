@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Requests;
 
+use Illuminate\Contracts\Validation\Rule as ValidationRuleContract;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Nova\Characters\Data\AssignCharacterOwnersData;
@@ -31,6 +32,9 @@ class StoreCharacterRequest extends FormRequest
         };
     }
 
+    /**
+     * @return array<string, array<int, ValidationRuleContract|string>>
+     */
     public function rules(): array
     {
         return array_merge(
@@ -42,6 +46,9 @@ class StoreCharacterRequest extends FormRequest
         );
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return array_merge(

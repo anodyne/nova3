@@ -19,14 +19,14 @@ class CharacterFactory extends Factory
 
     protected $model = Character::class;
 
-    public function active()
+    public function active(): static
     {
         return $this->state([
             'status' => Active::class,
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->name,
@@ -35,42 +35,42 @@ class CharacterFactory extends Factory
         ];
     }
 
-    public function inactive()
+    public function inactive(): static
     {
         return $this->state([
             'status' => Inactive::class,
         ]);
     }
 
-    public function pending()
+    public function pending(): static
     {
         return $this->state([
             'status' => Pending::class,
         ]);
     }
 
-    public function primary()
+    public function primary(): static
     {
         return $this->state([
             'type' => CharacterType::Primary,
         ]);
     }
 
-    public function secondary()
+    public function secondary(): static
     {
         return $this->state([
             'type' => CharacterType::Secondary,
         ]);
     }
 
-    public function support()
+    public function support(): static
     {
         return $this->state([
             'type' => CharacterType::Support,
         ]);
     }
 
-    public function trashed()
+    public function trashed(): static
     {
         return $this->state([
             'deleted_at' => now(),

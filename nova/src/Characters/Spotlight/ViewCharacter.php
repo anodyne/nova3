@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class ViewCharacter extends SpotlightCommand
 
     protected string $description = 'View a character bio';
 
+    /** @var array<string> */
     protected array $synonyms = [
         'show character',
     ];
@@ -31,7 +33,10 @@ class ViewCharacter extends SpotlightCommand
             );
     }
 
-    public function searchCharacter($query)
+    /**
+     * @return Collection<int, SpotlightSearchResult>
+     */
+    public function searchCharacter(string $query): Collection
     {
         return Character::where('name', 'like', "%{$query}%")
             ->get()

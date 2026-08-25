@@ -34,9 +34,4 @@ class SendCharacterDenial extends Mailable implements ShouldQueue
             markdown: 'emails.pending-character-denied',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

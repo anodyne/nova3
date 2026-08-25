@@ -34,9 +34,4 @@ class SendCharacterApproval extends Mailable implements ShouldQueue
             markdown: 'emails.pending-character-approved',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

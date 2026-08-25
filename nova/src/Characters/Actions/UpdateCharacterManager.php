@@ -65,7 +65,8 @@ class UpdateCharacterManager
         });
     }
 
-    protected function updateFormSubmission(Character $character, ?array $data = []): void
+    /** @param array<string, mixed> $data */
+    protected function updateFormSubmission(Character $character, array $data = []): void
     {
         $submission = UpdateFormSubmission::run($character->characterFormSubmission);
 

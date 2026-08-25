@@ -36,9 +36,4 @@ class SendRequestForCharacterApproval extends Mailable implements ShouldQueue
             markdown: 'emails.character-requires-approval',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

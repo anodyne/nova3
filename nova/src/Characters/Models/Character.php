@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
+use Database\Factories\CharacterFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -39,6 +40,7 @@ use Nova\Foundation\Nova;
 use Nova\Media\Concerns\InteractsWithMedia;
 use Nova\Ranks\Models\RankItem;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostAuthor;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\ModelStates\HasStates;
@@ -50,7 +52,9 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 #[UseEloquentBuilder(CharacterBuilder::class)]
 class Character extends Model implements HasMedia
 {
+    /** @use HasFactory<CharacterFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use HasStates;
     use HasUsers;
@@ -76,23 +80,17 @@ class Character extends Model implements HasMedia
         'name', 'status', 'rank_id', 'type',
     ];
 
+    /**
+     * @return HasOne<Application, $this>
+     */
     public function application(): HasOne
     {
         return $this->hasOne(Application::class);
     }
 
-    public function avatarUrl(): Attribute
-    {
-        return new Attribute(
-            get: fn (): string => $this->getFirstMediaUrl('avatar')
-        );
-    }
-
-    public function canBeDeleted(): bool
-    {
-        return $this->posts()->count() === 0;
-    }
-
+    /**
+     * @return MorphOne<FormSubmission, $this>
+     */
     public function characterFormSubmission(): MorphOne
     {
         return $this->morphOne(FormSubmission::class, 'owner')
@@ -104,75 +102,35 @@ class Character extends Model implements HasMedia
             });
     }
 
-    public function displayName(): Attribute
-    {
-        $this->loadMissing('rank.name');
-
-        return new Attribute(
-            get: fn (): string => trim($this->rank?->name?->name.' '.$this->name)
-        );
-    }
-
+    /**
+     * @return MorphMany<FormSubmission, $this>
+     */
     public function formSubmissions(): MorphMany
     {
         return $this->morphMany(FormSubmission::class, 'owner');
     }
 
-    public function hasAvatar(): Attribute
-    {
-        return new Attribute(
-            get: fn (): bool => $this->getFirstMedia('avatar') instanceof Media
-        );
-    }
-
-    public function isActive(): Attribute
-    {
-        return new Attribute(
-            get: fn (): bool => $this->status->equals(Active::class)
-        );
-    }
-
-    public function isDeleted(): Attribute
-    {
-        return new Attribute(
-            get: fn (): bool => $this->trashed()
-        );
-    }
-
-    public function isHidden(): Attribute
-    {
-        return new Attribute(
-            get: fn (): bool => $this->status->equals(Hidden::class)
-        );
-    }
-
-    public function isInactive(): Attribute
-    {
-        return new Attribute(
-            get: fn (): bool => $this->status->equals(Inactive::class)
-        );
-    }
-
-    public function isPending(): Attribute
-    {
-        return new Attribute(
-            get: fn (): bool => $this->status->equals(Pending::class)
-        );
-    }
-
+    /**
+     * @return BelongsToMany<Position, $this, CharacterPosition, 'pivot'>
+     */
     public function positions(): BelongsToMany
     {
         return $this->belongsToMany(Position::class)
             ->using(CharacterPosition::class);
     }
 
+    /**
+     * @return MorphToMany<Post, $this, PostAuthor, 'pivot'>
+     */
     public function postAuthors(): MorphToMany
     {
         return $this->morphToMany(
             Post::class,
             'authorable',
             'post_author',
-        )->withPivot(['user_id', 'authorable_type'])
+        )
+            ->using(PostAuthor::class)
+            ->withPivot(['user_id', 'authorable_type'])
             ->select([
                 'posts.id as post_id', // ✅ Explicitly selecting "id" from posts
                 'posts.title', // Select only necessary columns
@@ -182,21 +140,129 @@ class Character extends Model implements HasMedia
             ]);
     }
 
+    /**
+     * @return MorphToMany<Post, $this, PostAuthor, 'pivot'>
+     */
     public function posts(): MorphToMany
     {
-        return $this->morphToMany(Post::class, 'authorable', 'post_author');
+        return $this->morphToMany(
+            Post::class,
+            'authorable',
+            'post_author'
+        )->using(PostAuthor::class);
     }
 
+    /**
+     * @return HasOne<RankItem, $this>
+     */
     public function rank(): HasOne
     {
         return $this->hasOne(RankItem::class, 'id', 'rank_id');
     }
 
+    /**
+     * @return MorphMany<StatusHistory, $this>
+     */
+    public function statusHistories(): MorphMany
+    {
+        return $this->morphMany(StatusHistory::class, 'statusable');
+    }
+
+    /**
+     * @return Attribute<string, never>
+     */
+    public function avatarUrl(): Attribute
+    {
+        return new Attribute(
+            get: fn (): string => $this->getFirstMediaUrl('avatar')
+        );
+    }
+
+    /**
+     * @return Attribute<string, never>
+     */
+    public function displayName(): Attribute
+    {
+        $this->loadMissing('rank.name');
+
+        return new Attribute(
+            get: fn (): string => trim($this->rank?->name?->name.' '.$this->name)
+        );
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function hasAvatar(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->getFirstMedia('avatar') instanceof Media
+        );
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function isActive(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Active::class)
+        );
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function isDeleted(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->trashed()
+        );
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function isHidden(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Hidden::class)
+        );
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function isInactive(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Inactive::class)
+        );
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function isPending(): Attribute
+    {
+        return new Attribute(
+            get: fn (): bool => $this->status->equals(Pending::class)
+        );
+    }
+
+    /**
+     * @return Attribute<?int, never>
+     */
     public function rankId(): Attribute
     {
         return new Attribute(
             set: fn ($value): ?int => $value === 0 ? null : $value
         );
+    }
+
+    public function canBeDeleted(): bool
+    {
+        return $this->posts()->count() === 0;
     }
 
     public function registerMediaCollections(): void
@@ -213,11 +279,13 @@ class Character extends Model implements HasMedia
         return ! $this->is_pending;
     }
 
-    public function statusHistories(): MorphMany
-    {
-        return $this->morphMany(StatusHistory::class, 'statusable');
-    }
-
+    /**
+     * @return array{
+     *     id: int,
+     *     prefixed_id: string|null,
+     *     name: string
+     * }
+     */
     public function toSearchableArray(): array
     {
         return [

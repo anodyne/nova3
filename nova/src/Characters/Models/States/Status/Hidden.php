@@ -6,7 +6,7 @@ namespace Nova\Characters\Models\States\Status;
 
 class Hidden extends CharacterStatus
 {
-    public static $name = 'hidden';
+    public static string $name = 'hidden';
 
     public function bgColor(): string
     {

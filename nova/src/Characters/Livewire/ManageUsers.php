@@ -14,9 +14,9 @@ use Nova\Users\Models\User;
 
 /**
  * @property-read string $assignedUsers
- * @property-read Collection $models
+ * @property-read Collection<int, User> $models
  * @property-read string $primaryUsers
- * @property-read Collection $users
+ * @property-read Collection<int, User> $users
  */
 class ManageUsers extends Component
 {

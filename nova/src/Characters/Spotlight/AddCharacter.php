@@ -15,6 +15,7 @@ class AddCharacter extends SpotlightCommand
 
     protected string $description = 'Add a new character';
 
+    /** @var array<string> */
     protected array $synonyms = [
         'create character',
     ];

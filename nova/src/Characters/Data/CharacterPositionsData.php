@@ -8,14 +8,19 @@ use Bag\Bag;
 use Illuminate\Support\Collection;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\Character;
+use Nova\Departments\Models\Position;
 
 /**
- * @method static static from(Character $character, ?CharacterType $oldType, ?CharacterType $newType, ?Collection $oldPositions, ?Collection $newPositions, ?string $oldStatus, ?string $newStatus)
+ * @method static static from(Character $character, ?CharacterType $oldType, ?CharacterType $newType, ?Collection<int, Position> $oldPositions, ?Collection<int, Position> $newPositions, ?string $oldStatus, ?string $newStatus)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
 readonly class CharacterPositionsData extends Bag
 {
+    /**
+     * @param  Collection<int, Position>|null  $oldPositions
+     * @param  Collection<int, Position>|null  $newPositions
+     */
     public function __construct(
         public Character $character,
         public ?CharacterType $oldType = null,
@@ -42,6 +47,7 @@ readonly class CharacterPositionsData extends Bag
         ));
     }
 
+    /** @return list<int> */
     public function getNewActionableIds(): array
     {
         return $this->newPositions
@@ -50,6 +56,7 @@ readonly class CharacterPositionsData extends Bag
             ->all() ?? [];
     }
 
+    /** @return list<int> */
     public function getOldActionableIds(): array
     {
         return $this->oldPositions

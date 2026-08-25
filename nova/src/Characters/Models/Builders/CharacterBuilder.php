@@ -18,9 +18,7 @@ use Nova\Foundation\Models\Builders\Concerns\ActiveBetween;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of Character
- *
- * @extends Builder<TModel>
+ * @extends Builder<Character>
  */
 class CharacterBuilder extends Builder
 {
@@ -81,7 +79,7 @@ class CharacterBuilder extends Builder
         return $this->where('type', CharacterType::Primary);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         /** @var User */
         $user = Auth::user();
@@ -96,12 +94,12 @@ class CharacterBuilder extends Builder
             );
     }
 
-    public function searchForBasic($search): self
+    public function searchForBasic(string $search): self
     {
         return $this->where('name', 'like', "%{$search}%");
     }
 
-    public function searchForWithoutUsers($search): self
+    public function searchForWithoutUsers(string $search): self
     {
         return $this->where(fn (Builder $query): Builder => $query->where('name', 'like', "%{$search}%"))
             ->orWhereRelation('positions', Position::column('name'), 'like', "%{$search}%")

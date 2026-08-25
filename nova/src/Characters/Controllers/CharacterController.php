@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Characters\Actions\CreateCharacterManager;
 use Nova\Characters\Actions\UpdateCharacterManager;
 use Nova\Characters\Events\CharacterCreatedByAdmin;
@@ -52,7 +53,7 @@ class CharacterController extends Controller
         ]);
     }
 
-    public function store(StoreCharacterRequest $request)
+    public function store(StoreCharacterRequest $request): RedirectResponse
     {
         $this->authorize('createAny', Character::class);
 
@@ -80,7 +81,7 @@ class CharacterController extends Controller
     public function update(
         UpdateCharacterRequest $request,
         Character $character
-    ) {
+    ): RedirectResponse {
         $this->authorize('update', $character);
 
         $character = UpdateCharacterManager::run($character, $request);

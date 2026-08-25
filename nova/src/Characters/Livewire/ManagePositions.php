@@ -17,8 +17,8 @@ use Nova\Users\Models\User;
 
 /**
  * @property-read string $assignedPositions
- * @property-read Collection $models
- * @property-read Collection $positions
+ * @property-read Collection<int, Position> $models
+ * @property-read Collection<int, Position> $positions
  */
 class ManagePositions extends Component
 {

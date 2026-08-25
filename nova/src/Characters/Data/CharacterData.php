@@ -22,6 +22,9 @@ readonly class CharacterData extends Bag
         public ?int $rank_id
     ) {}
 
+    /**
+     * @return array{name: mixed, rank_id: mixed|null}
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

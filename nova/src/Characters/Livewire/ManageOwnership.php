@@ -14,7 +14,7 @@ use Nova\Characters\Models\Character;
 
 /**
  * @property-read bool $hasReachedCharacterLimit
- * @property-read array $characterStatus
+ * @property-read array<string, string> $characterStatus
  * @property-read CharacterType $characterType
  * @property-read bool $linkToUserValue
  * @property-read bool $linkToUserDisabled
@@ -33,6 +33,9 @@ class ManageOwnership extends Component
             Auth::user()->activeCharacters()->count() >= settings('characters.characterLimit');
     }
 
+    /**
+     * @return array{color: string, label: string}
+     */
     #[Computed]
     public function characterStatus(): array
     {

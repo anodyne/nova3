@@ -34,7 +34,7 @@ class PendingToActive extends Transition
         return $this->character->refresh();
     }
 
-    protected function resetCharacterState()
+    protected function resetCharacterState(): void
     {
         // Get a list of users that have this character as their primary character
         User::whereHas('primaryCharacter', fn (Builder $query): Builder => $query->where('characters.id', $this->character->id))

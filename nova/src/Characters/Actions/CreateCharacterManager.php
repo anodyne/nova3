@@ -90,7 +90,8 @@ class CreateCharacterManager
         }
     }
 
-    protected function createFormSubmission(Character $character, ?array $data = []): void
+    /** @param array<string, mixed> $data */
+    protected function createFormSubmission(Character $character, array $data = []): void
     {
         $submission = CreateFormSubmission::run(
             Form::key('characterBio')->first(),
