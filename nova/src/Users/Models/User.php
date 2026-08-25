@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models;
 
+use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -67,7 +68,10 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
     use CausesActivity;
     use HasAnnouncements;
     use HasCharacters;
+
+    /** @use HasFactory<UserFactory> */
     use HasFactory;
+
     use HasFormSubmissions;
     use HasLogins;
     use HasNotes;
@@ -109,11 +113,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         'password', 'remember_token', 'force_password_reset',
     ];
 
+    /** @return HasOne<Application, $this> */
     public function application(): HasOne
     {
         return $this->hasOne(Application::class);
     }
 
+    /** @return Attribute<string, never> */
     public function avatarUrl(): Attribute
     {
         return new Attribute(
@@ -126,12 +132,14 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return $this->isAbleTo('user.impersonate');
     }
 
+    /** @return BelongsToMany<Discussion, $this> */
     public function discussions(): BelongsToMany
     {
         return $this->belongsToMany(Discussion::class)
             ->withTimestamps();
     }
 
+    /** @return Attribute<string, never> */
     public function displayName(): Attribute
     {
         return new Attribute(
@@ -151,11 +159,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return $this->name;
     }
 
+    /** @return HasOne<ApplicationReviewer, $this> */
     public function globalApplicationReviewer(): HasOne
     {
         return $this->hasOne(ApplicationReviewer::class)->global();
     }
 
+    /** @return Attribute<bool, never> */
     public function hasAvatar(): Attribute
     {
         return new Attribute(
@@ -168,6 +178,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return $this->unreadNotifications()->where('id', $notification->id)->count() > 0;
     }
 
+    /** @return Attribute<bool, never> */
     public function isActive(): Attribute
     {
         return new Attribute(
@@ -175,6 +186,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isDeleted(): Attribute
     {
         return new Attribute(
@@ -182,6 +194,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isHidden(): Attribute
     {
         return new Attribute(
@@ -189,6 +202,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isInactive(): Attribute
     {
         return new Attribute(
@@ -196,6 +210,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isModerated(): Attribute
     {
         return Attribute::make(
@@ -203,6 +218,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function isPending(): Attribute
     {
         return new Attribute(
@@ -210,6 +226,7 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         );
     }
 
+    /** @return HasMany<UserNotificationPreference, $this> */
     public function notificationPreferences(): HasMany
     {
         return $this->hasMany(UserNotificationPreference::class);
@@ -224,11 +241,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
             ->singleFile();
     }
 
+    /** @return MorphMany<StatusHistory, $this> */
     public function statusHistories(): MorphMany
     {
         return $this->morphMany(StatusHistory::class, 'statusable');
     }
 
+    /** @return Attribute<int, never> */
     public function unreadMessagesCount(): Attribute
     {
         return new Attribute(

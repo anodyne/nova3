@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class EditUser extends SpotlightCommand
 
     protected string $description = 'Edit a user';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'update user', 'edit user account', 'update user account',
     ];
@@ -31,7 +33,8 @@ class EditUser extends SpotlightCommand
             );
     }
 
-    public function searchUser($query)
+    /** @return Collection<int, SpotlightSearchResult> */
+    public function searchUser(string $query): Collection
     {
         return User::where('name', 'like', "%{$query}%")
             ->get()

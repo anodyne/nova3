@@ -9,6 +9,7 @@ use Nova\Users\Data\BanData;
 
 class StoreBanRequest extends FormRequest
 {
+    /** @return array<string, list<string>> */
     public function rules(): array
     {
         return [

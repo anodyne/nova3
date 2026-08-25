@@ -6,7 +6,7 @@ namespace Nova\Users\Models\States\Status;
 
 class Hidden extends UserStatus
 {
-    public static $name = 'hidden';
+    public static string $name = 'hidden';
 
     public function simple(): string
     {

@@ -54,7 +54,8 @@ class SyncUserCharacters
         return $user->refresh();
     }
 
-    protected function updateCharacterTypes(array $characterIds)
+    /** @param list<string> $characterIds */
+    protected function updateCharacterTypes(array $characterIds): void
     {
         $characters = Character::whereIn('id', $characterIds)->get();
 

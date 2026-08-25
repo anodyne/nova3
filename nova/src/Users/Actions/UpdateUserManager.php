@@ -41,6 +41,7 @@ class UpdateUserManager
         });
     }
 
+    /** @param array<string, mixed>|null $data */
     protected function updateFormSubmission(User $user, ?array $data = []): void
     {
         $submission = UpdateFormSubmission::run($user->userFormSubmission);

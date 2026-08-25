@@ -34,9 +34,4 @@ class SendUserDeletedAccount extends Mailable implements ShouldQueue
             markdown: 'emails.user-deleted-account',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

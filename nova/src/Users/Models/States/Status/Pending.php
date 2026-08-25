@@ -6,7 +6,7 @@ namespace Nova\Users\Models\States\Status;
 
 class Pending extends UserStatus
 {
-    public static $name = 'pending';
+    public static string $name = 'pending';
 
     public function simple(): string
     {

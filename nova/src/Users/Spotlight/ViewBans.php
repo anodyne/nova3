@@ -15,6 +15,7 @@ class ViewBans extends SpotlightCommand
 
     protected string $description = 'View all bans';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show all bans',
     ];

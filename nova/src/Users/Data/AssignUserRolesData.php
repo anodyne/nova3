@@ -9,16 +9,18 @@ use Bag\Bag;
 use Illuminate\Http\Request;
 
 /**
- * @method static static from(?array $roles)
+ * @method static static from(list<string> $roles)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
 readonly class AssignUserRolesData extends Bag
 {
+    /** @param list<string> $roles */
     public function __construct(
-        public ?array $roles
+        public array $roles
     ) {}
 
+    /** @return array{roles: list<string>} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

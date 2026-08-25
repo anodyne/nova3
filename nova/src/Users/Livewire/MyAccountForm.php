@@ -7,6 +7,7 @@ namespace Nova\Users\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Nova\Stories\Enums\ContentRatingValue;
@@ -57,6 +58,7 @@ class MyAccountForm extends Form
 
     public ?string $croppedImage = null;
 
+    /** @return array<string, list<Enum|string>> */
     public function rules(): array
     {
         return [
@@ -72,6 +74,7 @@ class MyAccountForm extends Form
         ];
     }
 
+    /** @return array<string, string> */
     public function messages(): array
     {
         return [

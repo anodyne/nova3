@@ -56,6 +56,7 @@ readonly class PronounsData extends Bag implements Stringable
         };
     }
 
+    /** @return array{value: mixed, subject: string|null, object: string|null} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

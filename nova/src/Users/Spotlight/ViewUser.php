@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Spotlight;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -18,6 +19,7 @@ class ViewUser extends SpotlightCommand
 
     protected string $description = 'View a user profile';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show user', 'view user account', 'show user account', 'show user profile',
     ];
@@ -31,7 +33,8 @@ class ViewUser extends SpotlightCommand
             );
     }
 
-    public function searchUser($query)
+    /** @return Collection<int, SpotlightSearchResult> */
+    public function searchUser(string $query): Collection
     {
         return User::where('name', 'like', "%{$query}%")
             ->get()

@@ -27,11 +27,13 @@ readonly class UserModerations extends Bag
         return $this->announcements || $this->posts;
     }
 
+    /** @return list<string> */
     public static function resources(): array
     {
         return ['announcements', 'posts'];
     }
 
+    /** @return array{announcements: bool, posts: bool} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Nova\Users\Exceptions;
 
 use Exception;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class AdminForcedPasswordResetException extends Exception
 {
@@ -13,7 +15,7 @@ class AdminForcedPasswordResetException extends Exception
         parent::__construct('An admin has required that you to reset your password before you can continue.');
     }
 
-    public function render($request)
+    public function render(Request $request): RedirectResponse
     {
         return redirect()
             ->route('password.request')

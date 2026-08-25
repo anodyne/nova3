@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Nova\Forms\Models\Form;
 use Nova\Media\Rules\MaxFileSize;
@@ -13,6 +14,7 @@ use Nova\Users\Data\UserData;
 
 class StoreUserRequest extends FormRequest
 {
+    /** @return array<string, ValidationRule|array<mixed>|string> */
     public function rules(): array
     {
         return array_merge(
@@ -28,7 +30,8 @@ class StoreUserRequest extends FormRequest
         );
     }
 
-    public function messages()
+    /** @return array<string, string> */
+    public function messages(): array
     {
         return array_merge(
             [

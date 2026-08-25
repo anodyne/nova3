@@ -6,7 +6,7 @@ namespace Nova\Users\Models\States\Status;
 
 class Active extends UserStatus
 {
-    public static $name = 'active';
+    public static string $name = 'active';
 
     public function simple(): string
     {

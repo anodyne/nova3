@@ -54,6 +54,7 @@ class CreateUserManager
         });
     }
 
+    /** @param array<string, mixed>|null $data */
     protected function createFormSubmission(User $user, ?array $data = []): void
     {
         $submission = CreateFormSubmission::run(

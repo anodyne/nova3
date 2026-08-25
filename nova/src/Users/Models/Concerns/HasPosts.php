@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Auth;
-use Nova\Stories\Models\Builders\PostBuilder;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostAuthor;
+use Nova\Stories\Models\States\PostStatus\Draft;
+use Nova\Stories\Models\States\PostStatus\Published;
 
 trait HasPosts
 {
@@ -22,10 +23,7 @@ trait HasPosts
     {
         $relation = $this->posts();
 
-        /** @var PostBuilder<Post> $query */
-        $query = $relation->getQuery();
-
-        $query->draft();
+        $relation->whereState('status', Draft::class);
 
         return $relation;
     }
@@ -47,10 +45,7 @@ trait HasPosts
     {
         $relation = $this->posts();
 
-        /** @var PostBuilder<Post> $query */
-        $query = $relation->getQuery();
-
-        $query->published();
+        $relation->whereState('status', Published::class);
 
         return $relation
             ->latest('published_at')
@@ -88,10 +83,7 @@ trait HasPosts
     {
         $relation = $this->posts();
 
-        /** @var PostBuilder<Post> $query */
-        $query = $relation->getQuery();
-
-        $query->published();
+        $relation->whereState('status', Published::class);
 
         return $relation;
     }

@@ -16,6 +16,7 @@ class ManageRoles extends Component
     #[Locked]
     public ?User $user = null;
 
+    /** @var list<int> */
     public array $assigned = [];
 
     public function mount(): void

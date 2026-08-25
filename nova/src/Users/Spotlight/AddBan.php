@@ -15,6 +15,7 @@ class AddBan extends SpotlightCommand
 
     protected string $description = 'Add a new ban';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'create new ban',
     ];

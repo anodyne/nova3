@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
@@ -51,7 +52,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): RedirectResponse
     {
         $user = CreateUserManager::run($request);
 
@@ -69,7 +70,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
         $user = UpdateUserManager::run($user, $request);
 

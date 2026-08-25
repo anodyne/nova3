@@ -35,9 +35,4 @@ class SendAccountCreation extends Mailable implements ShouldQueue
             markdown: 'emails.account-created',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

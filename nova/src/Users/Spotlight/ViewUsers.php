@@ -15,6 +15,7 @@ class ViewUsers extends SpotlightCommand
 
     protected string $description = 'View all users';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'show all users',
     ];

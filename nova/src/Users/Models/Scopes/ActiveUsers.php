@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace Nova\Users\Models\Scopes;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use Nova\Users\Models\Builders\UserBuilder;
-use Nova\Users\Models\User;
+use Nova\Applications\Models\ApplicationReviewer;
+use Nova\Users\Models\States\Status\Active;
 
+/** @implements Scope<ApplicationReviewer> */
 class ActiveUsers implements Scope
 {
+    /**
+     * @param  Builder<covariant ApplicationReviewer>  $builder
+     * @param  ApplicationReviewer  $model
+     */
     public function apply(Builder $builder, Model $model): void
     {
         $builder->whereHas('user', function (Builder $query): void {
-            /** @var UserBuilder<User> $query */
-            $query->active();
+            $query->whereState('status', Active::class);
         });
     }
 }

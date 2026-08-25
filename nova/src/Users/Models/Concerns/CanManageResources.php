@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 trait CanManageResources
 {
+    /** @return Attribute<bool, never> */
     public function canManage(): Attribute
     {
         return new Attribute(
@@ -19,6 +20,7 @@ trait CanManageResources
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function canManageUsers(): Attribute
     {
         return new Attribute(
@@ -27,6 +29,7 @@ trait CanManageResources
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function canManageForms(): Attribute
     {
         return new Attribute(
@@ -35,6 +38,7 @@ trait CanManageResources
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function canManageSystem(): Attribute
     {
         return new Attribute(
@@ -45,6 +49,7 @@ trait CanManageResources
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function canWrite(): Attribute
     {
         return new Attribute(
@@ -54,6 +59,7 @@ trait CanManageResources
         );
     }
 
+    /** @return Attribute<bool, never> */
     public function canManageStorytelling(): Attribute
     {
         return new Attribute(

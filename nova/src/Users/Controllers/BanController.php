@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Foundation\Responses\Responsable;
@@ -37,7 +38,7 @@ class BanController extends Controller
         return ListBansResponse::send();
     }
 
-    public function store(StoreBanRequest $request)
+    public function store(StoreBanRequest $request): RedirectResponse
     {
         $ban = BanUserManager::run($request->getBanData());
 

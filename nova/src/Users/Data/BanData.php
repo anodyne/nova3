@@ -31,6 +31,7 @@ readonly class BanData extends Bag
         return User::find($this->bannable_id);
     }
 
+    /** @return array{bannable_type: string|null, bannable_id: mixed, ip: mixed, comment: mixed, expired_at: CarbonInterface|null} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

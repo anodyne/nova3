@@ -27,6 +27,7 @@ trait HasAnnouncements
         return $this->hasMany(Announcement::class);
     }
 
+    /** @return Attribute<int, never> */
     public function unreadAnnouncementsCount(): Attribute
     {
         return new Attribute(

@@ -20,6 +20,7 @@ class Login extends Model
 
     protected $fillable = ['ip_address', 'created_at'];
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -16,9 +16,7 @@ use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of User
- *
- * @extends Builder<TModel>
+ * @extends Builder<User>
  */
 class UserBuilder extends Builder
 {
@@ -95,7 +93,7 @@ class UserBuilder extends Builder
             ->orWhereRelation('characters', Character::column('name'), 'like', "%{$search}%");
     }
 
-    public function searchForBasic($search): self
+    public function searchForBasic(string $search): self
     {
         return $this->where('name', 'like', "%{$search}%");
     }

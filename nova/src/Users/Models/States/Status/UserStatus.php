@@ -6,9 +6,11 @@ namespace Nova\Users\Models\States\Status;
 
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
+use Nova\Users\Models\User;
 use Spatie\ModelStates\State;
 use Spatie\ModelStates\StateConfig;
 
+/** @extends State<User> */
 abstract class UserStatus extends State implements HasColor, HasLabel
 {
     abstract public function bgColor(): string;

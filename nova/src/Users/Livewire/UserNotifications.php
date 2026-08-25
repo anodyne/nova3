@@ -37,7 +37,7 @@ class UserNotifications extends SlideOver
         $this->user->notifications()->delete();
     }
 
-    public function clearNotification($notificationId): void
+    public function clearNotification(string $notificationId): void
     {
         $this->user
             ->notifications()
@@ -50,7 +50,7 @@ class UserNotifications extends SlideOver
         $this->user->unreadNotifications->markAsRead();
     }
 
-    public function markNotificationAsRead($notificationId): void
+    public function markNotificationAsRead(string $notificationId): void
     {
         $this->user
             ->notifications()
@@ -58,13 +58,14 @@ class UserNotifications extends SlideOver
             ->update(['read_at' => now()]);
     }
 
-    public function navigate($notificationId, $href): void
+    public function navigate(string $notificationId, string $href): void
     {
         $this->markNotificationAsRead($notificationId);
 
         $this->redirect($href, true);
     }
 
+    /** @return array<string, list<array<string, mixed>>> */
     #[Computed]
     public function notifications(): array
     {

@@ -17,11 +17,13 @@ class UserNotificationPreference extends Model
 
     protected $fillable = ['user_id', 'database', 'mail', 'discord'];
 
+    /** @return BelongsTo<NotificationType, $this> */
     public function notificationType(): BelongsTo
     {
         return $this->belongsTo(NotificationType::class);
     }
 
+    /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

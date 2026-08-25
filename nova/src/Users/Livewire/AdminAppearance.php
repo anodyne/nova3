@@ -15,7 +15,7 @@ class AdminAppearance extends Component
 {
     public Appearance $appearance;
 
-    public function updatedAppearance($value): void
+    public function updatedAppearance(mixed $value): void
     {
         /** @var User $user */
         $user = Auth::user();

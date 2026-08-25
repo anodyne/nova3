@@ -24,6 +24,7 @@ readonly class UserData extends Bag
         public UserModerations $moderations
     ) {}
 
+    /** @return array{name: mixed, email: mixed, pronouns: PronounsData, moderations: UserModerations} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

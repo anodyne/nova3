@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Users\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Nova\Foundation\Controllers\Controller;
 use Nova\Users\Actions\ForcePasswordReset;
 use Nova\Users\Models\User;
@@ -17,7 +18,7 @@ class ForcePasswordResetController extends Controller
         $this->middleware('auth');
     }
 
-    public function __invoke(User $user)
+    public function __invoke(User $user): RedirectResponse
     {
         $this->authorize('force-password-reset', $user);
 

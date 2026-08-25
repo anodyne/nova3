@@ -6,7 +6,7 @@ namespace Nova\Users\Models\States\Status;
 
 class Banned extends UserStatus
 {
-    public static $name = 'banned';
+    public static string $name = 'banned';
 
     public function simple(): string
     {

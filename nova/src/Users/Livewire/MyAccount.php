@@ -16,7 +16,7 @@ use Nova\Foundation\Filament\Notifications\Notification;
 
 /**
  * @property-read MessageBag $errors
- * @property-read Collection $timezones
+ * @property-read Collection<string, mixed> $timezones
  */
 class MyAccount extends Component
 {
@@ -39,10 +39,13 @@ class MyAccount extends Component
         return $this->getErrorBag();
     }
 
+    /** @return Collection<string, mixed> */
     #[Computed]
     public function timezones(): Collection
     {
-        return collect(json_decode(file_get_contents(nova_path('timezones.json'))));
+        $timezones = json_decode(file_get_contents(nova_path('timezones.json')));
+
+        return collect(is_object($timezones) ? get_object_vars($timezones) : []);
     }
 
     public function mount(): void

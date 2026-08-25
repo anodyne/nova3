@@ -15,6 +15,7 @@ class AddUser extends SpotlightCommand
 
     protected string $description = 'Add a new user';
 
+    /** @var list<string> */
     protected array $synonyms = [
         'create new user', 'add user account', 'create user account',
     ];
