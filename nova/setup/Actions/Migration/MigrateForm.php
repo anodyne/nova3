@@ -146,13 +146,13 @@ class MigrateForm
                                                 upgradeKey: 'character'
                                             );
 
-                                            $characterFormSubmission = $this->getCharacterFormSubmission(
+                                            $characterFormSubmissionId = $this->getCharacterFormSubmissionId(
                                                 characterId: $newCharacterId,
                                                 formId: $form->id
                                             );
 
                                             $responseId = DB::table('form_submission_responses')->insertGetId([
-                                                'submission_id' => $characterFormSubmission->id,
+                                                'submission_id' => $characterFormSubmissionId,
                                                 'field_type' => $fieldType,
                                                 'field_uid' => $fieldUid,
                                                 'value' => $data->data_value,
@@ -186,24 +186,22 @@ class MigrateForm
         return Form::key('characterBio')->first();
     }
 
-    protected function getCharacterFormSubmission(int $characterId, int $formId): object
+    protected function getCharacterFormSubmissionId(int $characterId, int $formId): int
     {
-        $characterSubmission = DB::table('form_submissions')
+        $characterSubmissionId = DB::table('form_submissions')
             ->where('form_id', $formId)
             ->where('owner_type', 'character')
             ->where('owner_id', $characterId)
-            ->first();
+            ->value('id');
 
-        if (! $characterSubmission) {
-            $characterSubmissionId = DB::table('form_submissions')->insertGetId([
+        if (! $characterSubmissionId) {
+            return DB::table('form_submissions')->insertGetId([
                 'form_id' => $formId,
                 'owner_type' => 'character',
                 'owner_id' => $characterId,
             ]);
-
-            $characterSubmission = DB::table('form_submissions')->find($characterSubmissionId);
         }
 
-        return $characterSubmission;
+        return (int) $characterSubmissionId;
     }
 }

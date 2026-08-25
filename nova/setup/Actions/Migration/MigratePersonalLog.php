@@ -11,11 +11,23 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Models\Upgrade;
 use Nova\Stories\Models\Story;
 
+/**
+ * @phpstan-type LegacyPersonalLog object{
+ *     log_title: string,
+ *     log_status: string,
+ *     log_content: string,
+ *     log_date: int|null,
+ *     log_last_update: int|null,
+ *     log_author_character: int|null,
+ *     log_id: int
+ * }
+ */
 class MigratePersonalLog
 {
     use AsAction;
     use HandlesDates;
 
+    /** @param LegacyPersonalLog $model */
     public function handle(object $model, Story $story, int $logPostTypeId): void
     {
         DB::transaction(function () use ($model, $story, $logPostTypeId): void {
@@ -57,6 +69,7 @@ class MigratePersonalLog
         });
     }
 
+    /** @param LegacyPersonalLog $model */
     public function asJob(object $model, Story $story, int $logPostTypeId): void
     {
         $this->handle(

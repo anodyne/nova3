@@ -12,6 +12,21 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyCharacter object{
+ *     charid: int,
+ *     user: int|null,
+ *     position_1: int|null,
+ *     position_2: int|null,
+ *     first_name: string|null,
+ *     middle_name: string|null,
+ *     last_name: string|null,
+ *     suffix: string|null,
+ *     crew_type: string,
+ *     date_activate: int|null,
+ *     date_deactivate: int|null
+ * }
+ */
 class MigrateCharacter
 {
     use AsAction;
@@ -19,6 +34,7 @@ class MigrateCharacter
     use HandlesNewIds;
 
     /**
+     * @param  LegacyCharacter  $model
      * @param  Collection<int, object>|null  $users
      * @param  Collection<int, object>|null  $positions
      */
@@ -98,6 +114,7 @@ class MigrateCharacter
         });
     }
 
+    /** @param LegacyCharacter $model */
     public function asJob(object $model): void
     {
         $this->handle(

@@ -12,6 +12,17 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyApplication object{
+ *     app_character: int|null,
+ *     app_user: int|null,
+ *     app_ip: string|null,
+ *     app_action: string,
+ *     app_message: string|null,
+ *     app_date: int|null,
+ *     app_id: int
+ * }
+ */
 class MigrateApplication
 {
     use AsAction;
@@ -19,6 +30,7 @@ class MigrateApplication
     use HandlesNewIds;
 
     /**
+     * @param  LegacyApplication  $model
      * @param  Collection<int, object>|null  $characters
      * @param  Collection<int, object>|null  $users
      */
@@ -60,6 +72,7 @@ class MigrateApplication
         });
     }
 
+    /** @param LegacyApplication $model */
     public function asJob(object $model): void
     {
         $this->handle(

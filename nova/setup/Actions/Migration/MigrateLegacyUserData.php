@@ -60,7 +60,7 @@ class MigrateLegacyUserData
                         upgradeKey: 'user'
                     );
 
-                    $userFormSubmission = $this->getUserFormSubmission(
+                    $userFormSubmissionId = $this->getUserFormSubmissionId(
                         userId: $newUserId,
                         formId: $form->id
                     );
@@ -77,7 +77,7 @@ class MigrateLegacyUserData
                         $field = $formFields->where('name', $fieldName)->first();
 
                         DB::table('form_submission_responses')->insert([
-                            'submission_id' => $userFormSubmission->id,
+                            'submission_id' => $userFormSubmissionId,
                             'field_type' => $field->type,
                             'field_uid' => $field->uid,
                             'value' => $value,
@@ -97,24 +97,22 @@ class MigrateLegacyUserData
         return Form::key('userBio')->first();
     }
 
-    protected function getUserFormSubmission(int $userId, int $formId): object
+    protected function getUserFormSubmissionId(int $userId, int $formId): int
     {
-        $submission = DB::table('form_submissions')
+        $submissionId = DB::table('form_submissions')
             ->where('form_id', $formId)
             ->where('owner_type', 'user')
             ->where('owner_id', $userId)
-            ->first();
+            ->value('id');
 
-        if (! $submission) {
-            $submissionId = DB::table('form_submissions')->insertGetId([
+        if (! $submissionId) {
+            return DB::table('form_submissions')->insertGetId([
                 'form_id' => $formId,
                 'owner_type' => 'user',
                 'owner_id' => $userId,
             ]);
-
-            $submission = DB::table('form_submissions')->find($submissionId);
         }
 
-        return $submission;
+        return (int) $submissionId;
     }
 }

@@ -15,8 +15,23 @@ use Nova\Users\Data\PronounsData;
 use Nova\Users\Data\UserModerations;
 use Nova\Users\Models\User;
 
+/**
+ * @phpstan-type LegacyUser object{
+ *     name: string,
+ *     email: string,
+ *     status: string,
+ *     moderate_news: string,
+ *     moderate_logs: string,
+ *     moderate_posts: string,
+ *     join_date: int|null,
+ *     last_update: int|null,
+ *     leave_date: int|null,
+ *     userid: int
+ * }
+ */
 class MigrateUser extends Migration
 {
+    /** @param LegacyUser $model */
     public function handle(object $model): void
     {
         $form = Form::key('userBio')->first();
@@ -61,6 +76,7 @@ class MigrateUser extends Migration
         });
     }
 
+    /** @param LegacyUser $model */
     public function asJob(object $model): void
     {
         $this->handle($model);

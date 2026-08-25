@@ -12,6 +12,21 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyPost object{
+ *     post_mission: int|null,
+ *     post_saved: int|null,
+ *     post_title: string,
+ *     post_location: string|null,
+ *     post_timeline: string|null,
+ *     post_status: string,
+ *     post_content: string,
+ *     post_date: int|null,
+ *     post_last_update: int|null,
+ *     post_authors: string|null,
+ *     post_id: int
+ * }
+ */
 class MigratePost
 {
     use AsAction;
@@ -19,6 +34,7 @@ class MigratePost
     use HandlesNewIds;
 
     /**
+     * @param  LegacyPost  $model
      * @param  Collection<int, object>|null  $missions
      * @param  Collection<int, object>|null  $users
      */
@@ -83,6 +99,7 @@ class MigratePost
         });
     }
 
+    /** @param LegacyPost $model */
     public function asJob(object $model, int $postPostTypeId): void
     {
         $this->handle(

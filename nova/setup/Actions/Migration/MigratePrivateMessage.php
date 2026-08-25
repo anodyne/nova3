@@ -11,13 +11,26 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyPrivateMessage object{
+ *     privmsgs_author_user: int|null,
+ *     privmsgs_subject: string,
+ *     privmsgs_date: int|null,
+ *     privmsgs_content: string,
+ *     privmsgs_author_display: string,
+ *     privmsgs_id: int
+ * }
+ */
 class MigratePrivateMessage
 {
     use AsAction;
     use HandlesDates;
     use HandlesNewIds;
 
-    /** @param Collection<int, object>|null $users */
+    /**
+     * @param  LegacyPrivateMessage  $model
+     * @param  Collection<int, object>|null  $users
+     */
     public function handle(object $model, ?Collection $users): void
     {
         $newAuthorId = $this->getNewId(
@@ -113,6 +126,7 @@ class MigratePrivateMessage
         });
     }
 
+    /** @param LegacyPrivateMessage $model */
     public function asJob(object $model): void
     {
         $this->handle(model: $model, users: null);

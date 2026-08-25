@@ -12,13 +12,27 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyPosition object{
+ *     pos_dept: int|null,
+ *     pos_name: string,
+ *     pos_desc: string|null,
+ *     pos_display: string,
+ *     pos_open: int|bool,
+ *     pos_order: int,
+ *     pos_id: int
+ * }
+ */
 class MigratePosition
 {
     use AsAction;
     use HandlesDates;
     use HandlesNewIds;
 
-    /** @param Collection<int, object>|null $departments */
+    /**
+     * @param  LegacyPosition  $model
+     * @param  Collection<int, object>|null  $departments
+     */
     public function handle(object $model, ?Collection $departments): void
     {
         $newDepartmentId = $this->getNewId(
@@ -50,6 +64,7 @@ class MigratePosition
         });
     }
 
+    /** @param LegacyPosition $model */
     public function asJob(object $model): void
     {
         $this->handle(

@@ -9,11 +9,21 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyBan object{
+ *     ban_email: string,
+ *     ban_ip: string|null,
+ *     ban_reason: string|null,
+ *     ban_date: int|null,
+ *     ban_id: int
+ * }
+ */
 class MigrateBan
 {
     use AsAction;
     use HandlesDates;
 
+    /** @param LegacyBan $model */
     public function handle(object $model): void
     {
         DB::transaction(function () use ($model): void {
@@ -42,6 +52,7 @@ class MigrateBan
         });
     }
 
+    /** @param LegacyBan $model */
     public function asJob(object $model): void
     {
         $this->handle($model);

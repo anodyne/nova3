@@ -10,12 +10,22 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyMissionGroup object{
+ *     misgroup_parent: int|null,
+ *     misgroup_name: string,
+ *     misgroup_desc: string|null,
+ *     misgroup_order: int,
+ *     misgroup_id: int
+ * }
+ */
 class MigrateMissionGroup
 {
     use AsAction;
     use HandlesDates;
     use HandlesNewIds;
 
+    /** @param LegacyMissionGroup $model */
     public function handle(object $model): void
     {
         $newParentId = $this->getNewId(
@@ -41,6 +51,7 @@ class MigrateMissionGroup
         });
     }
 
+    /** @param LegacyMissionGroup $model */
     public function asJob(object $model): void
     {
         $this->handle($model);

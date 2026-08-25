@@ -11,13 +11,28 @@ use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyNewsItem object{
+ *     news_author_user: int|null,
+ *     news_title: string,
+ *     newscat_name: string|null,
+ *     news_content: string,
+ *     news_status: string,
+ *     news_date: int|null,
+ *     news_last_update: int|null,
+ *     news_id: int
+ * }
+ */
 class MigrateNewsItem
 {
     use AsAction;
     use HandlesDates;
     use HandlesNewIds;
 
-    /** @param Collection<int, object>|null $users */
+    /**
+     * @param  LegacyNewsItem  $model
+     * @param  Collection<int, object>|null  $users
+     */
     public function handle(object $model, ?Collection $users): void
     {
         $newUserId = $this->getNewId(
@@ -50,6 +65,7 @@ class MigrateNewsItem
         });
     }
 
+    /** @param LegacyNewsItem $model */
     public function asJob(object $model): void
     {
         $this->handle(

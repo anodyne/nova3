@@ -10,11 +10,21 @@ use Nova\Foundation\Enums\BasicStatus;
 use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Models\Upgrade;
 
+/**
+ * @phpstan-type LegacyDepartment object{
+ *     dept_name: string,
+ *     dept_desc: string|null,
+ *     dept_display: string,
+ *     dept_order: int,
+ *     dept_id: int
+ * }
+ */
 class MigrateDepartment
 {
     use AsAction;
     use HandlesDates;
 
+    /** @param LegacyDepartment $model */
     public function handle(object $model): void
     {
         DB::transaction(function () use ($model): void {
@@ -38,6 +48,7 @@ class MigrateDepartment
         });
     }
 
+    /** @param LegacyDepartment $model */
     public function asJob(object $model): void
     {
         $this->handle($model);
