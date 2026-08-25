@@ -6,7 +6,6 @@ namespace Nova\Applications\Livewire;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -16,11 +15,12 @@ use Livewire\Component;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview;
 use Nova\Discussions\Models\Discussion;
+use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Forms\Models\Form;
 
 /**
  * @property-read ?Discussion $discussion
- * @property-read Collection<int, Model>|null $messages
+ * @property-read Collection<int, ApplicationReview|DiscussionMessage>|null $messages
  * @property-read ?Form $applicationReviewForm
  * @property-read bool $hasPublishedForm
  */
@@ -54,7 +54,7 @@ class ApplicationDiscussion extends Component
     }
 
     /**
-     * @return Collection<int, Model>|null
+     * @return Collection<int, ApplicationReview|DiscussionMessage>|null
      */
     #[Computed]
     public function messages(): ?Collection
@@ -65,10 +65,12 @@ class ApplicationDiscussion extends Component
 
         $messages = $this->discussion
             ->messages()
+            ->with('user')
             ->get()
             ->toBase();
 
         $reviews = ApplicationReview::query()
+            ->with('user')
             ->where('application_id', $this->application->id)
             ->whereNotNull('result')
             ->get();

@@ -11,9 +11,9 @@ abstract class AddonServiceProvider extends ServiceProvider
 {
     protected string $location;
 
-    public function boot() {}
+    public function boot(): void {}
 
-    public function register() {}
+    public function register(): void {}
 
     protected function runMigrations(): void
     {

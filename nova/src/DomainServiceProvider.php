@@ -17,36 +17,43 @@ use Spatie\PrefixedIds\PrefixedIds;
 
 abstract class DomainServiceProvider extends ServiceProvider
 {
+    /** @return array<string, class-string> */
     public function bladeComponents(): array
     {
         return [];
     }
 
+    /** @return array<int, class-string> */
     public function consoleCommands(): array
     {
         return [];
     }
 
+    /** @return array<class-string, array<int, class-string>> */
     public function eventListeners(): array
     {
         return [];
     }
 
+    /** @return array<string, class-string> */
     public function livewireComponents(): array
     {
         return [];
     }
 
+    /** @return array<string, class-string> */
     public function morphMaps(): array
     {
         return [];
     }
 
+    /** @return array<string, class-string> */
     public function policies(): array
     {
         return [];
     }
 
+    /** @return array<string, class-string> */
     public function prefixedIds(): array
     {
         return [];
@@ -78,6 +85,7 @@ abstract class DomainServiceProvider extends ServiceProvider
         $this->registerMorphMaps();
     }
 
+    /** @return array<int, class-string> */
     public function spotlightCommands(): array
     {
         return [];

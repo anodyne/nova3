@@ -20,3 +20,13 @@ it('can start an onboarding process for a user', function () {
         'user_id' => $user->id,
     ]);
 });
+
+it('returns the completion state for each onboarding step', function () {
+    $onboarding = StartOnboarding::run(OnboardingProcess::NewUser, createUser());
+
+    $stepsData = $onboarding->process->make($onboarding)->getStepsData();
+
+    expect($stepsData)
+        ->not->toBeEmpty()
+        ->each->toBeFalse();
+});
