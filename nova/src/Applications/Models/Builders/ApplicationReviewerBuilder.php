@@ -10,9 +10,7 @@ use Nova\Applications\Models\ApplicationReviewer;
 use Nova\Users\Models\Builders\UserBuilder;
 
 /**
- * @template TModel of ApplicationReviewer
- *
- * @extends Builder<TModel>
+ * @extends Builder<ApplicationReviewer>
  */
 class ApplicationReviewerBuilder extends Builder
 {

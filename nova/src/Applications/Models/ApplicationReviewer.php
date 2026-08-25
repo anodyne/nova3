@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Models;
 
+use Database\Factories\ApplicationReviewerFactory;
 use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +23,9 @@ use Nova\Users\Models\User;
 #[UseEloquentBuilder(ApplicationReviewerBuilder::class)]
 class ApplicationReviewer extends Model
 {
+    /** @use HasFactory<ApplicationReviewerFactory> */
     use HasFactory;
+
     use LogsActivity;
 
     protected $casts = [
@@ -36,9 +39,12 @@ class ApplicationReviewer extends Model
         'user_id',
     ];
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
-        /** @var BelongsTo $relation */
+        /** @var BelongsTo<User, $this> $relation */
         $relation = $this->belongsTo(User::class)->withTrashed();
 
         return $relation;

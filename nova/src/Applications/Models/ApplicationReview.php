@@ -26,9 +26,43 @@ class ApplicationReview extends Pivot
         'result' => ApplicationResult::class,
     ];
 
+    /**
+     * @return BelongsTo<Application, $this>
+     */
     public function application(): BelongsTo
     {
         return $this->belongsTo(Application::class);
+    }
+
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        /** @var BelongsTo<User, $this> $relation */
+        $relation = $this->belongsTo(User::class)->withTrashed();
+
+        return $relation;
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function isAccepted(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->result === ApplicationResult::Accept
+        );
+    }
+
+    /**
+     * @return Attribute<bool, never>
+     */
+    public function isDenied(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): bool => $this->result === ApplicationResult::Deny
+        );
     }
 
     public function formSubmission(): ?FormSubmission
@@ -38,27 +72,5 @@ class ApplicationReview extends Pivot
             ->whereMorphRelation('owner', User::class, 'id', $this->user_id)
             ->where('meta->application_id', $this->application_id)
             ->first();
-    }
-
-    public function isAccepted(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): bool => $this->result === ApplicationResult::Accept
-        );
-    }
-
-    public function isDenied(): Attribute
-    {
-        return Attribute::make(
-            get: fn (): bool => $this->result === ApplicationResult::Deny
-        );
-    }
-
-    public function user(): BelongsTo
-    {
-        /** @var BelongsTo $relation */
-        $relation = $this->belongsTo(User::class)->withTrashed();
-
-        return $relation;
     }
 }

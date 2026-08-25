@@ -34,9 +34,4 @@ class SendApplicationAcceptedMessage extends Mailable implements ShouldQueue
             markdown: 'emails.application-accepted',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

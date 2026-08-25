@@ -38,9 +38,4 @@ class SendReviewerVotedToAcceptMail extends Mailable implements ShouldQueue
             markdown: 'emails.application-reviewer-voted-to-accept',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

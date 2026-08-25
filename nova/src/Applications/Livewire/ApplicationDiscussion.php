@@ -6,7 +6,8 @@ namespace Nova\Applications\Livewire;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
@@ -19,7 +20,7 @@ use Nova\Forms\Models\Form;
 
 /**
  * @property-read ?Discussion $discussion
- * @property-read ?Collection $messages
+ * @property-read Collection<int, Model>|null $messages
  * @property-read ?Form $applicationReviewForm
  * @property-read bool $hasPublishedForm
  */
@@ -52,17 +53,29 @@ class ApplicationDiscussion extends Component
         return $this->application->discussion;
     }
 
+    /**
+     * @return Collection<int, Model>|null
+     */
     #[Computed]
     public function messages(): ?Collection
     {
-        $messages = $this->discussion?->messages()->get();
+        if ($this->discussion === null) {
+            return null;
+        }
+
+        $messages = $this->discussion
+            ->messages()
+            ->get()
+            ->toBase();
 
         $reviews = ApplicationReview::query()
             ->where('application_id', $this->application->id)
             ->whereNotNull('result')
             ->get();
 
-        return $messages->concat($reviews)->sortByDesc('updated_at');
+        return $messages
+            ->concat($reviews)
+            ->sortByDesc('updated_at');
     }
 
     #[Computed]

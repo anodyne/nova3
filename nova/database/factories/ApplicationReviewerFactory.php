@@ -14,7 +14,7 @@ class ApplicationReviewerFactory extends Factory
 {
     protected $model = ApplicationReviewer::class;
 
-    public function conditional()
+    public function conditional(): static
     {
         return $this->state([
             'type' => ReviewerType::Conditional,
@@ -22,7 +22,7 @@ class ApplicationReviewerFactory extends Factory
         ]);
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id' => User::factory(),
@@ -31,7 +31,7 @@ class ApplicationReviewerFactory extends Factory
         ];
     }
 
-    public function global()
+    public function global(): static
     {
         return $this->state([
             'type' => ReviewerType::Global,

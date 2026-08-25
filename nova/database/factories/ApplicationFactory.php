@@ -15,7 +15,7 @@ class ApplicationFactory extends Factory
 {
     protected $model = Application::class;
 
-    public function accepted()
+    public function accepted(): static
     {
         return $this->state([
             'result' => ApplicationResult::Accept,
@@ -31,7 +31,7 @@ class ApplicationFactory extends Factory
         });
     }
 
-    public function definition()
+    public function definition(): array
     {
         return [
             'user_id' => User::factory()->pending(),
@@ -41,7 +41,7 @@ class ApplicationFactory extends Factory
         ];
     }
 
-    public function denied()
+    public function denied(): static
     {
         return $this->state([
             'result' => ApplicationResult::Deny,
@@ -50,7 +50,7 @@ class ApplicationFactory extends Factory
         ]);
     }
 
-    public function pending()
+    public function pending(): static
     {
         return $this->state([
             'result' => ApplicationResult::Pending,

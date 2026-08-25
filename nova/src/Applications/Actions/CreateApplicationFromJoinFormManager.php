@@ -63,7 +63,10 @@ class CreateApplicationFromJoinFormManager
         return $character->refresh();
     }
 
-    protected function createFormSubmissionForCharacter(Character $character, ?array $data = []): void
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    protected function createFormSubmissionForCharacter(Character $character, array $data = []): void
     {
         $submission = CreateFormSubmission::run(
             Form::key('characterBio')->first(),
@@ -102,7 +105,10 @@ class CreateApplicationFromJoinFormManager
         return $user;
     }
 
-    protected function createFormSubmissionForUser(User $user, ?array $data = []): void
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    protected function createFormSubmissionForUser(User $user, array $data = []): void
     {
         $submission = CreateFormSubmission::run(
             Form::key('userBio')->first(),

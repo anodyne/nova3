@@ -20,6 +20,9 @@ class CreateApplicationManager
 {
     use AsAction;
 
+    /**
+     * @param  array<string, mixed>  $applicationInfoData
+     */
     public function handle(ApplicationData $data, array $applicationInfoData = []): Application
     {
         return DB::transaction(function () use ($data, $applicationInfoData) {
@@ -60,7 +63,10 @@ class CreateApplicationManager
         $application->reviews->each->notify(new ApplicationReadyForReview($application));
     }
 
-    protected function createFormSubmissionForApplication(Application $application, ?array $data = []): void
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    protected function createFormSubmissionForApplication(Application $application, array $data = []): void
     {
         $submission = CreateFormSubmission::run(
             Form::key('applicationInfo')->first(),

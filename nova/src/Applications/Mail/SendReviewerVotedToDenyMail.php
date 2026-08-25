@@ -38,9 +38,4 @@ class SendReviewerVotedToDenyMail extends Mailable implements ShouldQueue
             markdown: 'emails.application-reviewer-voted-to-deny',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

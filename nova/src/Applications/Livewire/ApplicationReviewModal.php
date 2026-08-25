@@ -37,6 +37,7 @@ class ApplicationReviewModal extends Modal
     #[Locked]
     public int|User $user;
 
+    /** @var array<string, mixed> */
     public array $values = [];
 
     #[Computed]

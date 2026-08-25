@@ -16,13 +16,14 @@ use Nova\Foundation\Livewire\Modal;
 use Nova\Users\Models\User;
 
 /**
- * @property-read Collection $users
+ * @property-read Collection<int, User> $users
  */
 class ApplicationReviewersModal extends Modal
 {
     #[Locked]
     public int|Application $application;
 
+    /** @var array<string> */
     public array $selectedReviewers = [];
 
     public function save(): void
@@ -68,6 +69,9 @@ class ApplicationReviewersModal extends Modal
         }
     }
 
+    /**
+     * @return Collection<int, User>
+     */
     #[Computed]
     public function users(): Collection
     {

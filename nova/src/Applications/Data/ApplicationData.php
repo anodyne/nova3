@@ -33,6 +33,9 @@ readonly class ApplicationData extends Bag
         return User::find($this->user_id);
     }
 
+    /**
+     * @return array{character_id: mixed, user_id: mixed, ip_address: mixed}
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

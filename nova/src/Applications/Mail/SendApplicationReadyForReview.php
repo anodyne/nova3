@@ -34,9 +34,4 @@ class SendApplicationReadyForReview extends Mailable implements ShouldQueue
             markdown: 'emails.application-ready-for-review',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

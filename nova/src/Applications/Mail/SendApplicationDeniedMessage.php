@@ -34,9 +34,4 @@ class SendApplicationDeniedMessage extends Mailable implements ShouldQueue
             markdown: 'emails.application-denied',
         );
     }
-
-    public function attachments(): array
-    {
-        return [];
-    }
 }

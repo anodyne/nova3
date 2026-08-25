@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Models;
 
+use Database\Factories\ApplicationFactory;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,7 +28,10 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 class Application extends Model
 {
     use Discussable;
+
+    /** @use HasFactory<ApplicationFactory> */
     use HasFactory;
+
     use HasPrefixedId;
     use LogsActivity;
 
@@ -49,27 +53,42 @@ class Application extends Model
         'user_id',
     ];
 
+    /**
+     * @return BelongsToMany<User, $this, ApplicationReview, 'pivot'>
+     */
     public function acceptedReviews(): BelongsToMany
     {
         return $this->reviews()->wherePivot('result', ApplicationResult::Accept);
     }
 
+    /**
+     * @return MorphOne<FormSubmission, $this>
+     */
     public function applicationFormSubmission(): MorphOne
     {
         return $this->morphOne(FormSubmission::class, 'owner')
             ->whereRelation('form', 'key', '=', 'applicationInfo');
     }
 
+    /**
+     * @return BelongsTo<Character, $this>
+     */
     public function character(): BelongsTo
     {
         return $this->belongsTo(Character::class);
     }
 
+    /**
+     * @return BelongsToMany<User, $this, ApplicationReview, 'pivot'>
+     */
     public function deniedReviews(): BelongsToMany
     {
         return $this->reviews()->wherePivot('result', ApplicationResult::Deny);
     }
 
+    /**
+     * @return BelongsToMany<User, $this, ApplicationReview, 'pivot'>
+     */
     public function noResultReviews(): BelongsToMany
     {
         return $this->reviews()->wherePivotNull('result');
@@ -80,15 +99,21 @@ class Application extends Model
      */
     public function reviews(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'application_review')
+        /** @var BelongsToMany<User, $this, ApplicationReview, 'pivot'> $relation */
+        $relation = $this->belongsToMany(User::class, 'application_review')
             ->withPivot(['result', 'comments', 'id'])
             ->withTrashed()
             ->using(ApplicationReview::class);
+
+        return $relation;
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function user(): BelongsTo
     {
-        /** @var BelongsTo $relation */
+        /** @var BelongsTo<User, $this> $relation */
         $relation = $this->belongsTo(User::class)->withTrashed();
 
         return $relation;

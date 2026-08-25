@@ -26,6 +26,7 @@ class ApplicationDecisionForm extends Form
 
     public ?int $rankId = null;
 
+    /** @var array<int> */
     public array $positions = [];
 
     public function save(): void

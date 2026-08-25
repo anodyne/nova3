@@ -10,9 +10,7 @@ use Nova\Applications\Models\Application;
 use Nova\Users\Models\User;
 
 /**
- * @template TModel of Application
- *
- * @extends Builder<TModel>
+ * @extends Builder<Application>
  */
 class ApplicationBuilder extends Builder
 {
@@ -26,7 +24,7 @@ class ApplicationBuilder extends Builder
         return $this->whereRelation('reviews', User::column('id'), '=', $user->id);
     }
 
-    public function searchFor($search): self
+    public function searchFor(string $search): self
     {
         return $this
             ->whereRelation('character', 'characters.name', 'like', "%{$search}%")
