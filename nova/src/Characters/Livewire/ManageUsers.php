@@ -76,7 +76,7 @@ class ManageUsers extends Component
     public function assignedUsers(): string
     {
         return $this->assigned
-            ->map(fn (User $user) => $user->id)
+            ->map(fn (User $user): string => (string) $user->id)
             ->join(',');
     }
 
@@ -95,7 +95,7 @@ class ManageUsers extends Component
     public function primaryUsers(): string
     {
         return $this->primary
-            ->map(fn (User $user) => $user->id)
+            ->map(fn (User $user): string => (string) $user->id)
             ->join(',');
     }
 

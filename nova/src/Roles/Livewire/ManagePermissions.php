@@ -21,7 +21,10 @@ class ManagePermissions extends Component
 
     public function mount(): void
     {
-        $this->assigned = $this->role?->permissions->pluck('id')->all() ?? [];
+        $this->assigned = array_values($this->role?->permissions
+            ->map(fn (Permission $permission): int => $permission->id)
+            ->values()
+            ->all() ?? []);
     }
 
     public function render(): Factory|View

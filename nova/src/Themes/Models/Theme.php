@@ -21,6 +21,7 @@ use Nova\Themes\Events\ThemeCreated;
 use Nova\Themes\Events\ThemeDeleted;
 use Nova\Themes\Events\ThemeUpdated;
 use Nova\Themes\Models\Builders\ThemeBuilder;
+use UnexpectedValueException;
 
 /**
  * @mixin IdeHelperTheme
@@ -69,6 +70,10 @@ class Theme extends Model
     public function themeClass(): BaseTheme
     {
         $themeClass = 'Themes\\'.$this->location.'\\Theme';
+
+        if (! is_subclass_of($themeClass, BaseTheme::class)) {
+            throw new UnexpectedValueException("Theme class [{$themeClass}] is invalid.");
+        }
 
         return new $themeClass;
     }

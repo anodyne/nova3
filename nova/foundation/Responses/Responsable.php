@@ -104,7 +104,7 @@ abstract class Responsable implements LaravelResponsable
 
         $this->setSEOValues();
 
-        return view("pages.{$this->view}", array_merge($data, [
+        return View::make("pages.{$this->view}", array_merge($data, [
             'subnav' => $this->subnav,
             'meta' => $responseMeta,
         ]));

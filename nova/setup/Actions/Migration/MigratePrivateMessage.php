@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Actions\Migration;
 
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Livewire\Concerns\HandlesNewIds;
@@ -75,6 +77,7 @@ class MigratePrivateMessage
             $migratedIds = Upgrade::type('private-message-recipient')->pluck('old_id');
 
             $prefix = DB::connection('nova2')->getTablePrefix();
+            $this->assertSafeTablePrefix($prefix);
 
             DB::connection('nova2')
                 ->table('privmsgs_to')
@@ -83,7 +86,7 @@ class MigratePrivateMessage
                 ->where('pmto_display', 'y')
                 ->whereNotIn('pmto_id', $migratedIds)
                 ->groupBy('privmsgs_to.pmto_recipient_user')
-                ->selectRaw("{$prefix}privmsgs_to.pmto_recipient_user, ANY_VALUE({$prefix}privmsgs_to.pmto_id) as pmto_id, ANY_VALUE({$prefix}privmsgs_to.pmto_unread) as pmto_unread")
+                ->select(new Expression("{$prefix}privmsgs_to.pmto_recipient_user, ANY_VALUE({$prefix}privmsgs_to.pmto_id) as pmto_id, ANY_VALUE({$prefix}privmsgs_to.pmto_unread) as pmto_unread"))
                 ->get()
                 ->each(function ($recipient) use ($discussionId, $users, $created, $model, $messageId): void {
                     $newUserId = $this->getNewId(
@@ -130,5 +133,13 @@ class MigratePrivateMessage
     public function asJob(object $model): void
     {
         $this->handle(model: $model, users: null);
+    }
+
+    /** @phpstan-assert literal-string $prefix */
+    private function assertSafeTablePrefix(string $prefix): void
+    {
+        if (preg_match('/\A[a-zA-Z0-9_]*\z/', $prefix) !== 1) {
+            throw new InvalidArgumentException("Invalid table prefix [{$prefix}].");
+        }
     }
 }

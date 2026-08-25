@@ -16,7 +16,12 @@ class ShowStoryPostController extends Controller
 {
     public function __invoke(Story $story, Post $post): Responsable
     {
-        $inCharacterPostTypes = PostType::query()->inCharacter()->pluck('key')->all();
+        $inCharacterPostTypes = array_values(PostType::query()
+            ->inCharacter()
+            ->get(['key'])
+            ->map(fn (PostType $postType): string => $postType->key)
+            ->values()
+            ->all());
 
         return ShowStoryPostResponse::sendWith(
             data: [

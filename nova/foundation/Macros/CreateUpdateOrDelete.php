@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Foundation\Macros;
 
-use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
@@ -19,12 +18,12 @@ class CreateUpdateOrDelete
     /** @var HasMany<TRelatedModel, TDeclaringModel> */
     protected HasMany $query;
 
-    /** @var Collection<array-key, Closure|array<string, mixed>> */
+    /** @var Collection<array-key, array<string, mixed>> */
     protected Collection $records;
 
     /**
      * @param  HasMany<TRelatedModel, TDeclaringModel>  $query
-     * @param  iterable<array-key, Closure|array<string, mixed>>  $records
+     * @param  iterable<array-key, array<string, mixed>>  $records
      */
     public function __construct(HasMany $query, iterable $records)
     {
@@ -68,7 +67,7 @@ class CreateUpdateOrDelete
     {
         $recordKeyName = $this->query->getRelated()->getKeyName();
 
-        $this->records->each(function (Closure|array $record) use ($recordKeyName): void {
+        $this->records->each(function (array $record) use ($recordKeyName): void {
             (clone $this->query)->updateOrCreate([
                 $recordKeyName => $record[$recordKeyName] ?? null,
             ], $record);

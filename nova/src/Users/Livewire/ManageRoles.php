@@ -21,7 +21,10 @@ class ManageRoles extends Component
 
     public function mount(): void
     {
-        $this->assigned = $this->user?->roles->pluck('id')->all() ?? [];
+        $this->assigned = array_values($this->user?->roles
+            ->map(fn (Role $role): int => $role->id)
+            ->values()
+            ->all() ?? []);
     }
 
     public function render(): Factory|View

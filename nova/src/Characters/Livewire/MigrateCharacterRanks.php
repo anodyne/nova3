@@ -37,7 +37,9 @@ class MigrateCharacterRanks extends Component
 
     public function getLegacyRank(): ?string
     {
-        return $this->getLegacyCharacter()?->rank_name;
+        $rankName = data_get($this->getLegacyCharacter(), 'rank_name');
+
+        return is_string($rankName) ? $rankName : null;
     }
 
     public function mount(): void

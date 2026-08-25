@@ -212,9 +212,13 @@ class PostTypesList extends TableComponent
                             })
                             ->action(function (PostType $record, array $data): void {
                                 if ($newPostTypeId = data_get($data, 'new_post_type')) {
+                                    $newPostType = is_int($newPostTypeId) || is_string($newPostTypeId)
+                                        ? PostType::find($newPostTypeId)
+                                        : null;
+
                                     MovePostTypePosts::run(
                                         $record,
-                                        $newPostType = PostType::find($newPostTypeId)
+                                        $newPostType
                                     );
 
                                     $record->refresh();
@@ -247,10 +251,13 @@ class PostTypesList extends TableComponent
                             })
                             ->action(function (PostType $record, array $data): void {
                                 $newPostTypeId = data_get($data, 'new_post_type');
+                                $newPostType = is_int($newPostTypeId) || is_string($newPostTypeId)
+                                    ? PostType::find($newPostTypeId)
+                                    : null;
 
                                 MovePostTypePosts::run(
                                     $record,
-                                    $newPostType = PostType::find($newPostTypeId)
+                                    $newPostType
                                 );
 
                                 ForceDeletePostType::run($record);

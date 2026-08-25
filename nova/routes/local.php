@@ -248,27 +248,33 @@ Route::get('participation', function (): void {
         ->select(
             'users.id',
             'users.name',
-            DB::raw('COUNT(DISTINCT CASE WHEN logins.created_at BETWEEN "'.$startDate.'" AND "'.$endDate.'" THEN logins.id END) as total_logins'), // Count of logins for each user
-            DB::raw('COUNT(DISTINCT CASE
+        )
+        ->selectRaw('COUNT(DISTINCT CASE WHEN logins.created_at BETWEEN ? AND ? THEN logins.id END) as total_logins,
+            COUNT(DISTINCT CASE
                 WHEN posts.status = "published"
                     AND JSON_EXTRACT(post_types.options, "$.includedInPostTracking") = true
-                    AND post_author.updated_at BETWEEN "'.$startDate.'" AND "'.$endDate.'"
-                    AND posts.published_at BETWEEN "'.$startDate.'" AND "'.$endDate.'"
+                    AND post_author.updated_at BETWEEN ? AND ?
+                    AND posts.published_at BETWEEN ? AND ?
                 THEN posts.id
-            END) as total_published_posts'), // Count of published posts for each user
-            DB::raw('COUNT(DISTINCT CASE
+            END) as total_published_posts,
+            COUNT(DISTINCT CASE
                 WHEN posts.status = "draft"
                     AND JSON_EXTRACT(post_types.options, "$.includedInPostTracking") = true
-                    AND post_author.updated_at BETWEEN "'.$startDate.'" AND "'.$endDate.'"
+                    AND post_author.updated_at BETWEEN ? AND ?
                 THEN posts.id
-            END) as total_draft_posts'), // Count of draft posts for each user
-            DB::raw('SUM(CASE
+            END) as total_draft_posts,
+            SUM(CASE
                 WHEN JSON_EXTRACT(post_types.options, "$.includedInPostTracking") = true
-                    AND post_author.updated_at BETWEEN "'.$startDate.'" AND "'.$endDate.'"
+                    AND post_author.updated_at BETWEEN ? AND ?
                 THEN post_author.word_count
                 ELSE 0
-            END) as total_words') // Sum of word_count for each user
-        )
+            END) as total_words', [
+            $startDate, $endDate,
+            $startDate, $endDate,
+            $startDate, $endDate,
+            $startDate, $endDate,
+            $startDate, $endDate,
+        ])
         ->groupBy('users.id', 'users.name') // Group by individual users
         ->get();
 

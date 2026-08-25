@@ -27,7 +27,7 @@ readonly class UserModerations extends Bag
         return $this->announcements || $this->posts;
     }
 
-    /** @return list<string> */
+    /** @return list<literal-string> */
     public static function resources(): array
     {
         return ['announcements', 'posts'];

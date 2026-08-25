@@ -21,7 +21,7 @@ use Nova\Users\Models\User;
 class ApplicationReviewersModal extends Modal
 {
     #[Locked]
-    public int|Application $application;
+    public Application $application;
 
     /** @var array<string> */
     public array $selectedReviewers = [];

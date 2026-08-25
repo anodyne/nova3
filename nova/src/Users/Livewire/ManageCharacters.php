@@ -35,7 +35,7 @@ class ManageCharacters extends Component
     public function assignedCharacters(): string
     {
         return $this->assigned
-            ->map(fn (Character $character): int => $character->id)
+            ->map(fn (Character $character): string => (string) $character->id)
             ->join(',');
     }
 

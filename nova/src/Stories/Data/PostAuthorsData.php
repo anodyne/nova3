@@ -34,11 +34,12 @@ readonly class PostAuthorsData extends Bag
     /** @return list<int> */
     public function getUserIds(): array
     {
-        return collect(array_keys($this->users))
+        return array_values(collect(array_keys($this->users))
             ->merge(array_column($this->characters, 'user_id'))
             ->filter()
             ->unique()
             ->values()
-            ->toArray();
+            ->map(fn (mixed $userId): int => (int) $userId)
+            ->all());
     }
 }

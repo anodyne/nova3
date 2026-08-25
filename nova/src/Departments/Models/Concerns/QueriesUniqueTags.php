@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Models\Concerns;
 
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +33,7 @@ trait QueriesUniqueTags
 
         return match (true) {
             $versionInfo->isMysql => $this->selectRaw("JSON_UNQUOTE(JSON_EXTRACT(tag.value, '$')) AS tag")
-                ->fromRaw("$table, JSON_TABLE($table.tags, '$[*]' COLUMNS (value JSON PATH '$')) AS tag")
+                ->from(new Expression("{$table}, JSON_TABLE({$table}.tags, '$[*]' COLUMNS (value JSON PATH '$')) AS tag"))
                 ->distinct()
                 ->pluck('tag', 'tag'),
             $versionInfo->isPostgres => $this->selectRaw('DISTINCT jsonb_array_elements_text(tags) AS tag')->pluck('tag', 'tag'),

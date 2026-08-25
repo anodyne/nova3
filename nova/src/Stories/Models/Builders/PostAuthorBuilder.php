@@ -44,10 +44,11 @@ class PostAuthorBuilder extends Builder
 
     public function wherePost(int|Post|null $post): self
     {
-        return $this->when(
-            filled($post),
-            fn (Builder $query): Builder => $query->where('post_id', $post?->id)
-        );
+        if ($post === null) {
+            return $this;
+        }
+
+        return $this->where('post_id', $post instanceof Post ? $post->id : $post);
     }
 
     public function whereUser(int|User $user): self

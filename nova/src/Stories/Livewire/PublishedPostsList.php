@@ -105,6 +105,10 @@ class PublishedPostsList extends Component
     /** @return list<int> */
     protected function initialPostTypes(): array
     {
-        return PostType::active()->pluck('id')->toArray();
+        return array_values(PostType::active()
+            ->get(['id'])
+            ->map(fn (PostType $postType): int => $postType->id)
+            ->values()
+            ->all());
     }
 }

@@ -33,7 +33,7 @@ class ManagePositions extends Component
     public function assignedPositions(): string
     {
         return $this->assigned
-            ->map(fn (Position $position) => $position->id)
+            ->map(fn (Position $position): string => (string) $position->id)
             ->join(',');
     }
 

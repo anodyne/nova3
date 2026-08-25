@@ -27,7 +27,7 @@ class ThemeSettings extends SlideOver implements HasForms
     /** @var array<string, mixed>|null */
     public ?array $data = [];
 
-    public string|Theme $theme;
+    public Theme $theme;
 
     public function form(Schema $schema): Schema
     {

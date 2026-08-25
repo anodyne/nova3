@@ -100,7 +100,10 @@ class UserNotifications extends SlideOver
                 };
             });
 
-        $toArray = fn (Collection $c) => NotificationResource::collection($c)->toArray(request());
+        $toArray = fn (Collection $notifications): array => array_map(
+            fn (mixed $notification): array => is_array($notification) ? $notification : [],
+            array_values((array) NotificationResource::collection($notifications)->toArray(request())),
+        );
 
         return collect([
             'today' => $grouped->get('today'),

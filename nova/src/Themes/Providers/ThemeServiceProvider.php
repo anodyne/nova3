@@ -7,11 +7,13 @@ namespace Nova\Themes\Providers;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
 use Nova\Themes\Actions\SetupThemeDirectory;
+use Nova\Themes\BaseTheme;
 use Nova\Themes\Livewire\ThemeSelector;
 use Nova\Themes\Livewire\ThemeSettings;
 use Nova\Themes\Livewire\ThemesList;
 use Nova\Themes\Models\PendingTheme;
 use Nova\Themes\Models\Theme;
+use UnexpectedValueException;
 
 class ThemeServiceProvider extends DomainServiceProvider
 {
@@ -30,6 +32,10 @@ class ThemeServiceProvider extends DomainServiceProvider
             $themeNamespace = str($themeName)->studly();
 
             $themeClass = "Themes\\$themeNamespace\\Theme";
+
+            if (! is_subclass_of($themeClass, BaseTheme::class)) {
+                throw new UnexpectedValueException("Theme class [{$themeClass}] is invalid.");
+            }
 
             $theme = new $themeClass;
 

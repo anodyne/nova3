@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\PublicSite\Controllers;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Nova\Departments\Models\Builders\PositionBuilder;
 use Nova\Departments\Models\Department;
 use Nova\Forms\Models\Form;
@@ -22,7 +20,7 @@ class ShowJoinFormController extends Controller
             'characterBioForm' => Form::key('characterBio')->first(),
             'userBioForm' => Form::key('userBio')->first(),
             'departments' => Department::query()
-                ->withWhereHas('positions', function (Builder|HasMany $query): void {
+                ->withWhereHas('positions', function ($query): void {
                     /** @var PositionBuilder $positionQuery */
                     $positionQuery = $query;
 

@@ -33,6 +33,7 @@ use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 use Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants;
+use UnexpectedValueException;
 
 /**
  * @mixin IdeHelperStory
@@ -235,9 +236,14 @@ class Story extends Model implements HasMedia, Sortable
     {
         $model = new self;
 
-        return StoryStatus\StoryStatus::all()
-            ->flatMap(fn (string $className): array => [new $className($model)])
-            ->map(fn (object $status): StoryStatus\StoryStatus => $status)
+        return collect(StoryStatus\StoryStatus::all())
+            ->map(function (string $className) use ($model): StoryStatus\StoryStatus {
+                if (! is_subclass_of($className, StoryStatus\StoryStatus::class)) {
+                    throw new UnexpectedValueException("Story status [{$className}] is invalid.");
+                }
+
+                return new $className($model);
+            })
             ->sortBy(fn (StoryStatus\StoryStatus $status): int => $status->order());
     }
 

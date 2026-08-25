@@ -39,7 +39,7 @@ class ViewManager
 
         $scopes = Arr::wrap($scopes);
 
-        $renderHook = function (callable $hook) use (&$renderedHooks, $scopes): ?string {
+        $renderHook = function (Closure $hook) use (&$renderedHooks, $scopes): ?string {
             $hookId = spl_object_id($hook);
 
             if (in_array($hookId, $renderedHooks)) {

@@ -62,7 +62,7 @@ class ManageGlobalReviewers extends Component
     public function globalReviewers(): string
     {
         return $this->assigned
-            ->map(fn (User $user) => $user->id)
+            ->map(fn (User $user): string => (string) $user->id)
             ->join(',');
     }
 

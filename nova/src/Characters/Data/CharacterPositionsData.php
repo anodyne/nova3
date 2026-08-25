@@ -50,19 +50,21 @@ readonly class CharacterPositionsData extends Bag
     /** @return list<int> */
     public function getNewActionableIds(): array
     {
-        return $this->newPositions
+        return array_values($this->newPositions
             ?->when($this->oldPositions instanceof Collection, fn ($collection) => $collection->diff($this->oldPositions))
-            ->pluck('id')
-            ->all() ?? [];
+            ->map(fn (Position $position): int => $position->id)
+            ->values()
+            ->all() ?? []);
     }
 
     /** @return list<int> */
     public function getOldActionableIds(): array
     {
-        return $this->oldPositions
+        return array_values($this->oldPositions
             ?->when($this->newPositions instanceof Collection, fn ($collection) => $collection->diff($this->newPositions))
-            ->pluck('id')
-            ->all() ?? [];
+            ->map(fn (Position $position): int => $position->id)
+            ->values()
+            ->all() ?? []);
     }
 
     public function hasPositionChanges(): bool

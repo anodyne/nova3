@@ -31,7 +31,7 @@ class FiltersManager
     {
         return array_merge(
             $this->globalFilters,
-            data_get($this->routeFilters, $route, [])
+            $route !== null ? ($this->routeFilters[$route] ?? []) : []
         );
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Themes\Concerns;
 
 use Exception;
+use Illuminate\Support\Facades\View;
 use Spatie\Html\Elements\Element;
 
 trait RendersTheme
@@ -23,7 +24,7 @@ trait RendersTheme
     /** @param array<string, mixed> $data */
     public function layout(string $view, array $data = []): static
     {
-        $this->structure->layout = view("layouts.{$view}", $data);
+        $this->structure->layout = View::make("layouts.{$view}", $data);
 
         return $this;
     }
@@ -31,7 +32,7 @@ trait RendersTheme
     /** @param array<string, mixed> $data */
     public function page(string $view, array $data = []): static
     {
-        $this->structure->layout->template->content = view("pages.{$view}", $data);
+        $this->structure->layout->template->content = View::make("pages.{$view}", $data);
 
         return $this;
     }
@@ -81,7 +82,7 @@ trait RendersTheme
     /** @param array<string, mixed> $data */
     public function template(string $view, array $data = []): static
     {
-        $this->structure->layout->template = view("templates.{$view}", $data);
+        $this->structure->layout->template = View::make("templates.{$view}", $data);
 
         return $this;
     }

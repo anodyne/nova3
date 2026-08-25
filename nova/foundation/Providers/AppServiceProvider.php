@@ -46,6 +46,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\ComponentAttributeBag;
 use Illuminate\View\DynamicComponent;
+use InvalidArgumentException;
 use Livewire\Livewire;
 use Nova\Addons\Models\Addon;
 use Nova\Departments\Models\Department;
@@ -242,7 +243,15 @@ class AppServiceProvider extends ServiceProvider
     protected function configureDatabaseFactories(): void
     {
         Factory::guessFactoryNamesUsing(
-            fn ($model): string => 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory'
+            function (string $model): string {
+                $factory = 'Database\\Factories\\'.Str::afterLast($model, '\\').'Factory';
+
+                if (! is_subclass_of($factory, Factory::class)) {
+                    throw new InvalidArgumentException("Factory [{$factory}] does not exist.");
+                }
+
+                return $factory;
+            }
         );
     }
 
@@ -375,9 +384,16 @@ class AppServiceProvider extends ServiceProvider
     protected function configureAddonProviders(): void
     {
         collect(Arr::wrap(data_get(Cache::get(CacheKeys::Addons->value), 'extension', [])))
-            ->reject(fn ($addon): bool => ! file_exists(addon_path($addon.'/Providers/AddonServiceProvider.php')))
-            ->flatMap(fn ($addon): array => ["Addons\\$addon\\Providers\\AddonServiceProvider"])
-            ->each(fn ($addon) => new $addon($this->app)->boot());
+            ->filter(fn (mixed $addon): bool => is_string($addon))
+            ->map(fn (string $addon): string => "Addons\\{$addon}\\Providers\\AddonServiceProvider")
+            ->filter(fn (string $provider): bool => is_subclass_of($provider, ServiceProvider::class))
+            ->each(function (string $provider): void {
+                $serviceProvider = new $provider($this->app);
+
+                if (method_exists($serviceProvider, 'boot')) {
+                    $serviceProvider->boot();
+                }
+            });
     }
 
     protected function configureDatabaseRepositories(): void

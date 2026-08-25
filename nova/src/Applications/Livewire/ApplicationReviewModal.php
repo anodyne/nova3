@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
+use LogicException;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview;
 use Nova\Forms\Actions\CreateFormSubmission;
@@ -27,7 +28,7 @@ use Nova\Users\Models\User;
 class ApplicationReviewModal extends Modal
 {
     #[Locked]
-    public int|Application $application;
+    public Application $application;
 
     public ApplicationReviewForm $form;
 
@@ -35,7 +36,7 @@ class ApplicationReviewModal extends Modal
     public ?ApplicationReview $review = null;
 
     #[Locked]
-    public int|User $user;
+    public ?User $user = null;
 
     /** @var array<string, mixed> */
     public array $values = [];
@@ -83,7 +84,7 @@ class ApplicationReviewModal extends Modal
     #[Computed]
     public function owner(): User
     {
-        return filled($this->user) ? $this->user : Auth::user();
+        return $this->user ?? Auth::user() ?? throw new LogicException('An authenticated user is required.');
     }
 
     public function render(): Factory|View

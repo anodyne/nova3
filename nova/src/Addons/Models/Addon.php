@@ -77,6 +77,10 @@ class Addon extends Model
 
         $addonClass = 'Addons\\'.$this->location.'\\Addon';
 
+        if (! is_subclass_of($addonClass, BaseAddon::class)) {
+            return null;
+        }
+
         return new $addonClass;
     }
 

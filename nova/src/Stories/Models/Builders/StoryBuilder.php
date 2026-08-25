@@ -72,9 +72,7 @@ class StoryBuilder extends Builder
 
     public function whereParent(Story|int|null $parent): self
     {
-        return $this
-            ->when(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent))
-            ->unless(is_int($parent), fn (Builder $query): Builder => $query->where('parent_id', $parent?->id));
+        return $this->where('parent_id', $parent instanceof Story ? $parent->id : $parent);
     }
 
     public function withCountsAndSums(): self

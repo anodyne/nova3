@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Spotlight;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 use LivewireUI\Spotlight\Spotlight;
 use LivewireUI\Spotlight\SpotlightCommand;
@@ -46,7 +46,7 @@ class ViewAddon extends SpotlightCommand
     }
 
     /**
-     * @return Collection<int, Addon>
+     * @return Collection<int, SpotlightSearchResult>
      */
     public function searchAddon(string $query): Collection
     {
