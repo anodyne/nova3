@@ -10,12 +10,14 @@ abstract class OnboardingChecklist
 {
     public function __construct(protected Onboarding $model) {}
 
+    /** @return list<OnboardingChecklistStep> */
     abstract public function steps(): array;
 
+    /** @return array<string, bool> */
     public function getStepsData(): array
     {
-        return collect($this->model->steps)
-            ->flatMap(fn (OnboardingChecklistStep $step): array => [$step->key() => $step->completed()])
+        return collect($this->steps())
+            ->mapWithKeys(fn (OnboardingChecklistStep $step): array => [$step->key() => $step->completed()])
             ->toArray();
     }
 
@@ -50,7 +52,8 @@ abstract class OnboardingChecklist
     }
 
     /**
-     * @return array<OnboardingChecklistStep>
+     * @param  list<class-string<OnboardingChecklistStep>>  $stepClasses
+     * @return list<OnboardingChecklistStep>
      */
     protected function buildSteps(array $stepClasses): array
     {

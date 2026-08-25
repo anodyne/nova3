@@ -10,9 +10,7 @@ use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Onboarding\Models\Onboarding;
 
 /**
- * @template TModel of Onboarding
- *
- * @extends Builder<TModel>
+ * @extends Builder<Onboarding>
  */
 class OnboardingBuilder extends Builder
 {

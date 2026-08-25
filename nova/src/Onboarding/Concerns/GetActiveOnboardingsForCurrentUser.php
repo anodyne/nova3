@@ -11,6 +11,9 @@ use Nova\Onboarding\Models\Onboarding;
 
 trait GetActiveOnboardingsForCurrentUser
 {
+    /**
+     * @return Collection<int, DashboardOnboardingData>
+     */
     protected function getActiveOnboardingsForCurrentUser(bool $sync): Collection
     {
         return Onboarding::query()

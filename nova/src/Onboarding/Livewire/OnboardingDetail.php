@@ -21,7 +21,8 @@ use Nova\Onboarding\Onboarding\OnboardingChecklist;
  */
 class OnboardingDetail extends Component
 {
-    public $stepsData = [];
+    /** @var array<string, bool> */
+    public array $stepsData = [];
 
     #[Locked]
     public Onboarding $onboarding;
@@ -44,7 +45,7 @@ class OnboardingDetail extends Component
 
     public function mount(): void
     {
-        $this->stepsData = $this->onboarding->steps;
+        $this->stepsData = $this->onboarding->steps ?? [];
     }
 
     public function render(): View

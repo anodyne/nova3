@@ -12,6 +12,7 @@ abstract class OnboardingChecklistStep
 {
     protected bool $stepIsCompleted;
 
+    /** @param array<string, bool>|null $stepsData */
     public function __construct(?array $stepsData = null)
     {
         $this->stepIsCompleted = Arr::boolean($stepsData ?? [], $this->key(), false);
