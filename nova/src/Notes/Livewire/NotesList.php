@@ -79,10 +79,13 @@ class NotesList extends TableComponent
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
                                                 : 'System';
+                                            $replicaId = $activity->getExtraProperty('replica');
 
                                             return __('activity.notes.duplicated', [
                                                 'name' => $causerName,
-                                                'replica' => Note::find($activity->getExtraProperty('replica'))?->title,
+                                                'replica' => is_int($replicaId) || is_string($replicaId)
+                                                    ? Note::find($replicaId)?->title
+                                                    : null,
                                             ]);
                                         },
                                     ]);

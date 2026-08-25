@@ -16,7 +16,7 @@ class ThemeFactory extends Factory
 
     public function definition(): array
     {
-        $name = $this->faker->words(mt_rand(1, 3), true);
+        $name = rtrim($this->faker->sentence(mt_rand(1, 3), variableNbWords: false), '.');
 
         return [
             'name' => ucfirst($name),

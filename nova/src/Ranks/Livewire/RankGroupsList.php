@@ -83,12 +83,13 @@ class RankGroupsList extends TableComponent
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
                                                 : 'System';
+                                            $replicaId = $activity->getExtraProperty('replica');
 
                                             return __('activity.ranks.group-duplicated', [
                                                 'name' => $causerName,
-                                                'rankGroup' => RankGroup::find(
-                                                    $activity->getExtraProperty('replica')
-                                                )?->name,
+                                                'rankGroup' => is_int($replicaId) || is_string($replicaId)
+                                                    ? RankGroup::find($replicaId)?->name
+                                                    : null,
                                             ]);
                                         },
                                     ]);

@@ -93,7 +93,7 @@ class PostTypesList extends TableComponent
                 TextColumn::make('published_posts_count')
                     ->counts('publishedPosts')
                     ->label('# of published posts')
-                    ->formatStateUsing(fn (int $state): string => Number::format($state))
+                    ->formatStateUsing(fn (int $state): string => Number::format($state) ?: number_format($state))
                     ->alignCenter()
                     ->sortable()
                     ->toggleable(),
@@ -101,7 +101,7 @@ class PostTypesList extends TableComponent
                     ->counts('posts')
                     ->label('# of posts')
                     ->alignCenter()
-                    ->formatStateUsing(fn (int $state): string => Number::format($state))
+                    ->formatStateUsing(fn (int $state): string => Number::format($state) ?: number_format($state))
                     ->sortable()
                     ->toggleable(),
                 IconColumn::make('includedInPostTracking')
@@ -143,7 +143,9 @@ class PostTypesList extends TableComponent
                                         'role_id' => 'role',
                                     ])
                                     ->attributeValues([
-                                        'role_id' => fn ($value) => Role::find($value)?->display_name,
+                                        'role_id' => fn ($value) => is_int($value) || is_string($value)
+                                            ? Role::find($value)?->display_name
+                                            : null,
                                         'visibility' => fn ($value): string => match ($value) {
                                             'out-of-character' => 'Out of Character',
                                             default => 'In Character',

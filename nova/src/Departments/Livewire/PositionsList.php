@@ -113,14 +113,22 @@ class PositionsList extends TableComponent
                                         'department_id' => 'department',
                                     ])
                                     ->attributeValues([
-                                        'department_id' => fn ($value) => Department::find($value)?->name,
+                                        'department_id' => fn ($value) => is_int($value) || is_string($value)
+                                            ? Department::find($value)?->name
+                                            : null,
                                         'tags' => fn ($value): string => is_array($value) ? implode(', ', $value) : '',
                                     ])
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity): string => __('activity.positions.duplicated', [
-                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
-                                            'replica' => Position::find($activity->getExtraProperty('replica'))?->name,
-                                        ]),
+                                        'duplicated' => function (Activity $activity): string {
+                                            $replicaId = $activity->getExtraProperty('replica');
+
+                                            return __('activity.positions.duplicated', [
+                                                'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
+                                                'replica' => is_int($replicaId) || is_string($replicaId)
+                                                    ? Position::find($replicaId)?->name
+                                                    : null,
+                                            ]);
+                                        },
                                     ]);
                             }),
                     ])->divided(),

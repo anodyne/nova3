@@ -80,8 +80,12 @@ class RankItemsList extends TableComponent
                                         'name_id' => 'rank name',
                                     ])
                                     ->attributeValues([
-                                        'group_id' => fn ($value) => RankGroup::find($value)?->name,
-                                        'name_id' => fn ($value) => RankName::find($value)?->name,
+                                        'group_id' => fn ($value) => is_int($value) || is_string($value)
+                                            ? RankGroup::find($value)?->name
+                                            : null,
+                                        'name_id' => fn ($value) => is_int($value) || is_string($value)
+                                            ? RankName::find($value)?->name
+                                            : null,
                                     ]);
                             }),
                     ])->divided(),

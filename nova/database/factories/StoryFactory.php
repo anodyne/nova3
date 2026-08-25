@@ -51,7 +51,7 @@ class StoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => ucfirst(fake()->words(mt_rand(1, 8), asText: true)),
+            'title' => ucfirst(rtrim(fake()->sentence(mt_rand(1, 8), variableNbWords: false), '.')),
 
             'description' => fake()->sentences(mt_rand(1, 5), asText: true),
 

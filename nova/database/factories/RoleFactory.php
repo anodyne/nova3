@@ -25,7 +25,7 @@ class RoleFactory extends Factory
 
     public function definition(): array
     {
-        $name = $this->faker->words(4, true);
+        $name = rtrim($this->faker->sentence(4, variableNbWords: false), '.');
 
         return [
             'name' => Str::slug($name),

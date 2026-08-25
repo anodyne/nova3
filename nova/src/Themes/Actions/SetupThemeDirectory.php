@@ -10,6 +10,7 @@ use Illuminate\Filesystem\FilesystemManager;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Exceptions\ThemeException;
+use RuntimeException;
 use Throwable;
 
 class SetupThemeDirectory
@@ -61,14 +62,14 @@ class SetupThemeDirectory
 
     protected function createStylesheet(string $stylesheet): void
     {
-        $stub = file_get_contents(__DIR__.'/../stubs/theme.css.stub');
+        $stub = $this->readStub('theme.css.stub');
 
         $this->files->put($this->getThemeLocation()."/design/{$stylesheet}", $stub);
     }
 
     protected function createThemeClass(): void
     {
-        $stub = file_get_contents(__DIR__.'/../stubs/theme.php.stub');
+        $stub = $this->readStub('theme.php.stub');
 
         $stub = str_replace(
             ['DummyNamespace', 'DummyLocation'],
@@ -100,7 +101,7 @@ class SetupThemeDirectory
 
     protected function createThemeInstallFile(): void
     {
-        $stub = file_get_contents(__DIR__.'/../stubs/theme.json.stub');
+        $stub = $this->readStub('theme.json.stub');
 
         $stub = str_replace(
             ['DummyName', 'DummyLocation', 'DummyPreview'],
@@ -119,7 +120,7 @@ class SetupThemeDirectory
     {
         $this->files->makeDirectory($this->getThemeLocation().'/views/components/layouts');
 
-        $stub = file_get_contents(__DIR__.'/../stubs/theme-layout.blade.php.stub');
+        $stub = $this->readStub('theme-layout.blade.php.stub');
 
         $stub = str_replace(
             ['DummyLocation'],
@@ -128,6 +129,18 @@ class SetupThemeDirectory
         );
 
         $this->files->put($this->getThemeLocation().'/views/components/layouts/theme.blade.php', $stub);
+    }
+
+    protected function readStub(string $stubFile): string
+    {
+        $path = __DIR__.'/../stubs/'.$stubFile;
+        $contents = file_get_contents($path);
+
+        if ($contents === false) {
+            throw new RuntimeException("Unable to read theme stub [{$path}].");
+        }
+
+        return $contents;
     }
 
     protected function getThemeLocation(): string

@@ -111,7 +111,7 @@ Artisan::command('nova:get-timezones {token}', function (string $token): void {
             ),
         ]);
 
-    File::put(nova_path('timezones.json'), json_encode($collection));
+    File::put(nova_path('timezones.json'), json_encode($collection, JSON_THROW_ON_ERROR));
 
     $this->info('Timezones updated');
 });

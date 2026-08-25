@@ -316,8 +316,12 @@ class AppServiceProvider extends ServiceProvider
                 ])
                 ->modifyEventDescriptionUsing(function (string $eventDescription, Activity $activity, string $recordTitle, ?string $causerName, ?string $changesSummary): string {
                     if ($activity->log_name === 'impersonation') {
+                        $impersonatorId = $activity->getExtraProperty('impersonated_by');
+
                         return __('activity.impersonated', [
-                            'user' => User::find($activity->getExtraProperty('impersonated_by'))?->name,
+                            'user' => is_int($impersonatorId) || is_string($impersonatorId)
+                                ? User::find($impersonatorId)?->name
+                                : null,
                             'description' => $eventDescription,
                         ]);
                     }

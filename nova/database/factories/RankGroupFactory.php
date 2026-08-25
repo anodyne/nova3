@@ -26,7 +26,7 @@ class RankGroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucfirst($this->faker->words(3, asText: true)),
+            'name' => ucfirst(rtrim($this->faker->sentence(3, variableNbWords: false), '.')),
             'status' => BasicStatus::Active,
         ];
     }

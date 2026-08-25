@@ -27,7 +27,7 @@ class PositionFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => ucwords($this->faker->words($this->faker->numberBetween(1, 3), true)),
+            'name' => ucwords(rtrim($this->faker->sentence($this->faker->numberBetween(1, 3), variableNbWords: false), '.')),
             'description' => $this->faker->sentence,
             'status' => BasicStatus::Active,
             'available' => $this->faker->numberBetween(1, 5),

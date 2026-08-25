@@ -42,7 +42,7 @@ class PageFactory extends Factory
 
     public function definition(): array
     {
-        $name = $this->faker->words(3, asText: true);
+        $name = rtrim($this->faker->sentence(3, variableNbWords: false), '.');
 
         return [
             'name' => $name,

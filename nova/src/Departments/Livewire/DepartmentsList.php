@@ -103,10 +103,16 @@ class DepartmentsList extends TableComponent
                                         'tags' => fn ($value): string => is_array($value) ? implode(', ', $value) : '',
                                     ])
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity): string => __('activity.departments.duplicated', [
-                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
-                                            'replica' => Department::find($activity->getExtraProperty('replica'))?->name,
-                                        ]),
+                                        'duplicated' => function (Activity $activity): string {
+                                            $replicaId = $activity->getExtraProperty('replica');
+
+                                            return __('activity.departments.duplicated', [
+                                                'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
+                                                'replica' => is_int($replicaId) || is_string($replicaId)
+                                                    ? Department::find($replicaId)?->name
+                                                    : null,
+                                            ]);
+                                        },
                                         'uploaded' => fn (Activity $activity): string => __('activity.departments.uploaded', [
                                             'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
                                         ]),

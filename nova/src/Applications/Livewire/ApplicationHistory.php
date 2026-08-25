@@ -32,7 +32,9 @@ class ApplicationHistory extends InfolistComponent
                     ])
                     ->attributeValues([
                         'decision_date' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
-                        'rank_id' => fn ($value) => filled($value) ? RankItem::find($value)?->name?->name : null,
+                        'rank_id' => fn ($value) => is_int($value) || is_string($value)
+                            ? RankItem::find($value)?->name?->name
+                            : null,
                     ])
                     ->eventDescriptions([
                         'message-added' => fn (Activity $activity): string => __('activity.applications.message-added', [

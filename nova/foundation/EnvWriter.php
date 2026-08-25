@@ -7,6 +7,7 @@ namespace Nova\Foundation;
 use Dotenv\Dotenv;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\App;
+use RuntimeException;
 
 class EnvWriter
 {
@@ -140,6 +141,12 @@ class EnvWriter
     {
         $this->isEnvWritable();
 
-        $this->envFileContents = file_get_contents($this->envFilePath());
+        $contents = file_get_contents($this->envFilePath());
+
+        if ($contents === false) {
+            throw new RuntimeException("Unable to read environment file [{$this->envFilePath()}].");
+        }
+
+        $this->envFileContents = $contents;
     }
 }

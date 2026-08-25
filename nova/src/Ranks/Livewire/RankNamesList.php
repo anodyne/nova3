@@ -78,12 +78,13 @@ class RankNamesList extends TableComponent
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
                                                 : 'System';
+                                            $replicaId = $activity->getExtraProperty('replica');
 
                                             return __('activity.ranks.name-duplicated', [
                                                 'name' => $causerName,
-                                                'rankName' => RankName::find(
-                                                    $activity->getExtraProperty('replica')
-                                                )?->name,
+                                                'rankName' => is_int($replicaId) || is_string($replicaId)
+                                                    ? RankName::find($replicaId)?->name
+                                                    : null,
                                             ]);
                                         },
                                     ]);

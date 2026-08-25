@@ -23,12 +23,12 @@ readonly class UserPostingReport extends Bag
 
     public function formattedPosts(): string
     {
-        return Number::format($this->posts);
+        return Number::format($this->posts) ?: number_format($this->posts);
     }
 
     public function formattedWords(): string
     {
-        return Number::format($this->words);
+        return Number::format($this->words) ?: number_format($this->words);
     }
 
     public function hasMetPostsRequirements(): bool

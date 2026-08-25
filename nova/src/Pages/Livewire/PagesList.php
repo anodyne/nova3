@@ -130,12 +130,13 @@ class PagesList extends TableComponent
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
                                                 : 'System';
+                                            $replicaId = $activity->getExtraProperty('replica');
 
                                             return __('activity.pages.duplicated', [
                                                 'name' => $causerName,
-                                                'replica' => Page::find(
-                                                    $activity->getExtraProperty('replica')
-                                                )?->name,
+                                                'replica' => is_int($replicaId) || is_string($replicaId)
+                                                    ? Page::find($replicaId)?->name
+                                                    : null,
                                             ]);
                                         },
                                         'uploaded' => function (Activity $activity): string {

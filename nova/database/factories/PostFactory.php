@@ -69,7 +69,7 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => ucwords(fake()->words(mt_rand(2, 8), asText: true)),
+            'title' => ucwords(rtrim(fake()->sentence(mt_rand(2, 8), variableNbWords: false), '.')),
 
             'post_type_id' => fn () => Arr::randomWeightedElement([
                 1 => 50,
@@ -93,8 +93,8 @@ class PostFactory extends Factory
                     default => mt_rand(1, 3),
                 };
 
-                return collect(fake()->paragraphs($paragraphCount))
-                    ->map(fn ($line): string => "<p>{$line}</p>")
+                return collect(range(1, $paragraphCount))
+                    ->map(fn (): string => '<p>'.fake()->paragraph().'</p>')
                     ->implode('');
             },
 
@@ -164,7 +164,7 @@ class PostFactory extends Factory
             'post_type_id' => PostType::where('key', 'personal')->first()->id,
             'day' => 'Day {fake()->numberBetween(1, 5)}',
             'time' => fake()->time('Hi').' hours',
-            'location' => ucfirst(fake()->words(3, true)),
+            'location' => ucfirst(rtrim(fake()->sentence(3, variableNbWords: false), '.')),
         ]);
     }
 
@@ -182,7 +182,7 @@ class PostFactory extends Factory
             'post_type_id' => PostType::where('key', 'post')->first()->id,
             'day' => 'Day {fake()->numberBetween(1, 5)}',
             'time' => fake()->time('Hi').' hours',
-            'location' => ucfirst(fake()->words(3, true)),
+            'location' => ucfirst(rtrim(fake()->sentence(3, variableNbWords: false), '.')),
         ]);
     }
 

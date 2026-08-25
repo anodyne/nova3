@@ -13,6 +13,7 @@ use Nova\Addons\Data\AddonData;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Exceptions\AddonAlreadyExistsException;
 use Nova\Addons\Exceptions\AddonRanksAlreadyExistsException;
+use RuntimeException;
 use Throwable;
 
 class SetupAddonDirectory
@@ -166,7 +167,7 @@ class SetupAddonDirectory
 
     protected function makeFileFromStub(string $stubFile, string $path): void
     {
-        $stub = file_get_contents(__DIR__.'/../stubs/'.$stubFile);
+        $stub = $this->readStub($stubFile);
 
         $stub = str_replace(
             ['DummyNamespace', 'DummyLocation', 'DummyPreview', 'DummyName'],
@@ -180,5 +181,17 @@ class SetupAddonDirectory
         );
 
         $this->files->put($this->getAddonLocation().$path, $stub);
+    }
+
+    protected function readStub(string $stubFile): string
+    {
+        $path = __DIR__.'/../stubs/'.$stubFile;
+        $contents = file_get_contents($path);
+
+        if ($contents === false) {
+            throw new RuntimeException("Unable to read add-on stub [{$path}].");
+        }
+
+        return $contents;
     }
 }

@@ -25,7 +25,7 @@ class AddonFactory extends Factory
 
     public function definition(): array
     {
-        $name = $this->faker->words(mt_rand(2, 4), asText: true);
+        $name = rtrim($this->faker->sentence(mt_rand(2, 4), variableNbWords: false), '.');
 
         return [
             'name' => ucfirst($name),

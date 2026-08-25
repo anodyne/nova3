@@ -33,7 +33,7 @@ class AnnouncementFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => str(fake()->words(mt_rand(3, 10), asText: true))->title()->toString(),
+            'title' => str(fake()->sentence(mt_rand(3, 10), variableNbWords: false))->trim('.')->title()->toString(),
             'category' => fake()->randomElement(['Crew', 'Story', 'Fleet']),
             'content' => fake()->paragraphs(mt_rand(1, 10), asText: true),
             'user_id' => fn () => User::inRandomOrder()->first(),

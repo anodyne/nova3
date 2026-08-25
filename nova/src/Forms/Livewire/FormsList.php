@@ -82,10 +82,16 @@ class FormsList extends TableComponent
                                         'is_locked' => 'locked',
                                     ])
                                     ->eventDescriptions([
-                                        'duplicated' => fn (Activity $activity): string => __('activity.forms.duplicated', [
-                                            'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
-                                            'replica' => Form::find($activity->getExtraProperty('replica'))?->name,
-                                        ]),
+                                        'duplicated' => function (Activity $activity): string {
+                                            $replicaId = $activity->getExtraProperty('replica');
+
+                                            return __('activity.forms.duplicated', [
+                                                'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
+                                                'replica' => is_int($replicaId) || is_string($replicaId)
+                                                    ? Form::find($replicaId)?->name
+                                                    : null,
+                                            ]);
+                                        },
                                     ])
                                     ->itemIconColors([
                                         'published' => 'success',

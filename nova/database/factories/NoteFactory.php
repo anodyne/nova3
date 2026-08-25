@@ -17,7 +17,7 @@ class NoteFactory extends Factory
     {
         return [
             'user_id' => fn () => User::factory(),
-            'title' => ucwords($this->faker->words(mt_rand(3, 10), asText: true)),
+            'title' => ucwords(rtrim($this->faker->sentence(mt_rand(3, 10), variableNbWords: false), '.')),
             'content' => $this->faker->paragraphs(mt_rand(1, 5), asText: true),
         ];
     }

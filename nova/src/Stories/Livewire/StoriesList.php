@@ -192,7 +192,9 @@ class StoriesList extends TableComponent
                                     ])
                                     ->attributeValues([
                                         'ended_at' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
-                                        'parent_id' => fn ($value) => Story::find($value)?->title,
+                                        'parent_id' => fn ($value) => is_int($value) || is_string($value)
+                                            ? Story::find($value)?->title
+                                            : null,
                                         'started_at' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
                                         'status' => fn ($value) => $value?->name(),
                                     ])

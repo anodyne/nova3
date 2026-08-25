@@ -210,7 +210,9 @@ class GameStatsReporter
     protected function average(int $numerator, int $denominator): ?string
     {
         if ($denominator > 0) {
-            return Number::format($numerator / $denominator, 1);
+            $average = $numerator / $denominator;
+
+            return Number::format($average, 1) ?: number_format($average, 1);
         }
 
         return null;

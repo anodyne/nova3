@@ -20,9 +20,12 @@ class EmailLayout extends Component
     {
         $userUploadedLogo = settings()?->getFirstMedia('logo-email');
 
-        return match (filled($userUploadedLogo)) {
-            true => base64_encode(file_get_contents($userUploadedLogo->getPath())),
-            false => null,
-        };
+        if ($userUploadedLogo === null) {
+            return null;
+        }
+
+        $contents = file_get_contents($userUploadedLogo->getPath());
+
+        return $contents === false ? null : base64_encode($contents);
     }
 }

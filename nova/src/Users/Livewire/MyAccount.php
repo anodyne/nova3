@@ -43,7 +43,13 @@ class MyAccount extends Component
     #[Computed]
     public function timezones(): Collection
     {
-        $timezones = json_decode(file_get_contents(nova_path('timezones.json')));
+        $contents = file_get_contents(nova_path('timezones.json'));
+
+        if ($contents === false) {
+            return collect();
+        }
+
+        $timezones = json_decode($contents);
 
         return collect(is_object($timezones) ? get_object_vars($timezones) : []);
     }

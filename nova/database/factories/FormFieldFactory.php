@@ -16,7 +16,7 @@ class FormFieldFactory extends Factory
 
     public function definition(): array
     {
-        $name = fake()->words(3, asText: true);
+        $name = rtrim(fake()->sentence(3, variableNbWords: false), '.');
 
         return [
             'form_id' => Form::factory(),
