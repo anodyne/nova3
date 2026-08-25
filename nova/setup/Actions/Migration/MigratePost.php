@@ -18,6 +18,10 @@ class MigratePost
     use HandlesDates;
     use HandlesNewIds;
 
+    /**
+     * @param  Collection<int, object>|null  $missions
+     * @param  Collection<int, object>|null  $users
+     */
     public function handle(object $model, int $postPostTypeId, ?Collection $missions, ?Collection $users): void
     {
         $newStoryId = $this->getNewId(

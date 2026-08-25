@@ -17,6 +17,7 @@ class Post extends Model
 
     protected $primaryKey = 'post_id';
 
+    /** @return BelongsTo<Mission, $this> */
     public function mission(): BelongsTo
     {
         return $this->belongsTo(Mission::class, 'mission_id', 'post_mission');

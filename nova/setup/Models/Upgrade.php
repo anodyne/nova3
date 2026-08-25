@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Upgrade extends Model
@@ -17,7 +18,11 @@ class Upgrade extends Model
         'old_id' => 'integer',
     ];
 
-    public function scopeType($query, $type)
+    /**
+     * @param  Builder<self>  $query
+     * @return Builder<self>
+     */
+    public function scopeType(Builder $query, string $type): Builder
     {
         return $query->where('type', $type);
     }

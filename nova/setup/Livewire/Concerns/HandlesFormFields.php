@@ -6,8 +6,21 @@ namespace Nova\Setup\Livewire\Concerns;
 
 use Illuminate\Support\Str;
 
+/**
+ * @phpstan-type FormFieldJson array{
+ *     type: 'dropdown'|'date'|'long-text'|'short-text',
+ *     data: array{
+ *         details: array<string, mixed>,
+ *         attrs: array<string, mixed>
+ *     }
+ * }
+ */
 trait HandlesFormFields
 {
+    /**
+     * @param  array<array-key, mixed>  $options
+     * @return FormFieldJson
+     */
     protected function buildDropdownFieldJson(object $model, string $uid, array $options): array
     {
         return [
@@ -29,6 +42,10 @@ trait HandlesFormFields
         ];
     }
 
+    /**
+     * @param  array<array-key, mixed>  $options
+     * @return FormFieldJson
+     */
     protected function createDropdownFieldJson(string $label, string $name, array $options): array
     {
         return [
@@ -50,6 +67,7 @@ trait HandlesFormFields
         ];
     }
 
+    /** @return FormFieldJson */
     protected function createDateFieldJson(string $label, string $name): array
     {
         return [
@@ -70,6 +88,7 @@ trait HandlesFormFields
         ];
     }
 
+    /** @return FormFieldJson */
     protected function buildLongTextFieldJson(object $model, string $uid): array
     {
         return [
@@ -91,6 +110,7 @@ trait HandlesFormFields
         ];
     }
 
+    /** @return FormFieldJson */
     protected function createLongTextFieldJson(string $label, string $name): array
     {
         return [
@@ -112,6 +132,7 @@ trait HandlesFormFields
         ];
     }
 
+    /** @return FormFieldJson */
     protected function buildShortTextFieldJson(object $model, string $uid): array
     {
         return [
@@ -132,6 +153,7 @@ trait HandlesFormFields
         ];
     }
 
+    /** @return FormFieldJson */
     protected function createShortTextFieldJson(string $label, string $name): array
     {
         return [

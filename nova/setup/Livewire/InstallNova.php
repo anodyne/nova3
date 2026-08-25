@@ -34,7 +34,7 @@ use Throwable;
 /**
  * @property-read bool $shouldShowForm
  * @property-read bool $shouldShowSuccessTable
- * @property-read array $availableGenres
+ * @property-read array<string, string> $availableGenres
  */
 #[Layout('layouts.setup', ['type' => SetupType::Install])]
 class InstallNova extends Component
@@ -100,6 +100,7 @@ class InstallNova extends Component
         };
     }
 
+    /** @return array<string, string> */
     #[Computed]
     public function availableGenres(): array
     {

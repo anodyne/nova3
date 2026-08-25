@@ -20,7 +20,7 @@ use Nova\Setup\Enums\SetupType;
 use Nova\Users\Models\User;
 
 /**
- * @property-read Collection $users
+ * @property-read Collection<int, User> $users
  */
 #[Layout('layouts.setup', ['type' => SetupType::Migrate])]
 class UserAccess extends Component
@@ -61,6 +61,7 @@ class UserAccess extends Component
         ]);
     }
 
+    /** @return Collection<int, User> */
     #[Computed]
     public function users(): Collection
     {

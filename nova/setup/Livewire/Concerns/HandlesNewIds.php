@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 trait HandlesNewIds
 {
+    /** @param Collection<int, object>|null $collection */
     protected function getNewId(?int $id, ?Collection $collection, string $upgradeKey): ?int
     {
         $collection ??= DB::table('upgrade')->where('type', $upgradeKey);

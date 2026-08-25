@@ -17,11 +17,13 @@ class MissionGroup extends Model
 
     protected $primaryKey = 'misgroup_id';
 
+    /** @return HasMany<Mission, $this> */
     public function missions(): HasMany
     {
         return $this->hasMany(Mission::class, 'mission_group', 'misgroup_id');
     }
 
+    /** @return HasMany<Post, $this> */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'post_mission', 'post_id');

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Setup\Models\Legacy;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Character extends Model
 {
@@ -16,7 +17,8 @@ class Character extends Model
 
     protected $primaryKey = 'charid';
 
-    public function user()
+    /** @return BelongsTo<User, $this> */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user', 'userid');
     }

@@ -11,9 +11,9 @@ class SetupLayout extends Component
 {
     public SetupType $type;
 
-    public function __construct($type = 'install')
+    public function __construct(SetupType|string $type = 'install')
     {
-        $this->type = SetupType::tryFrom($type);
+        $this->type = $type instanceof SetupType ? $type : SetupType::from($type);
     }
 
     public function render()

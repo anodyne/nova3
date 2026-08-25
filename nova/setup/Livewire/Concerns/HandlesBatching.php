@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Config;
 use Livewire\Attributes\Computed;
+use Lorisleiva\Actions\Decorators\JobDecorator;
 
 trait HandlesBatching
 {
@@ -16,6 +17,7 @@ trait HandlesBatching
 
     public int $batchProgress = 0;
 
+    /** @return Collection<int, JobDecorator> */
     abstract protected function getBatchJobs(): Collection;
 
     public function updateBatchProgress(): void

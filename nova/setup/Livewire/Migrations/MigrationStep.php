@@ -27,6 +27,7 @@ abstract class MigrationStep extends Component
 
     public string $label;
 
+    /** @var list<string> */
     public array $errors = [];
 
     public int $progress = 0;

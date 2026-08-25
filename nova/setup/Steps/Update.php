@@ -6,6 +6,7 @@ namespace Nova\Setup\Steps;
 
 class Update extends SetupSteps
 {
+    /** @return list<Step> */
     public function steps(): array
     {
         return [

@@ -17,7 +17,7 @@ use Nova\Setup\Enums\DatabaseConfigStatus;
 use Nova\Setup\Enums\SetupType;
 use Nova\Setup\Livewire\Concerns\HandlesMigration;
 use Nova\Setup\Livewire\Concerns\InteractsWithEnvFile;
-use Nova\Stories\Livewire\Concerns\InteractsWithRoute;
+use Nova\Setup\Livewire\Concerns\InteractsWithRoute;
 use PDO;
 use Throwable;
 
@@ -55,6 +55,7 @@ class ConfigureDatabase extends Component
 
     public ?DatabaseConfigStatus $status = null;
 
+    /** @return array<string, list<string|\Stringable>> */
     public function rules(): array
     {
         return [
@@ -109,7 +110,7 @@ class ConfigureDatabase extends Component
         }
     }
 
-    public function updatedDriver($value): void
+    public function updatedDriver(string $value): void
     {
         $this->port = match ($value) {
             'pgsql' => '5432',

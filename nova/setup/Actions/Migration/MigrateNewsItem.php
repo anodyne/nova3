@@ -17,6 +17,7 @@ class MigrateNewsItem
     use HandlesDates;
     use HandlesNewIds;
 
+    /** @param Collection<int, object>|null $users */
     public function handle(object $model, ?Collection $users): void
     {
         $newUserId = $this->getNewId(

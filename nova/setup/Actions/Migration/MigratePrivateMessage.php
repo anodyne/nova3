@@ -17,6 +17,7 @@ class MigratePrivateMessage
     use HandlesDates;
     use HandlesNewIds;
 
+    /** @param Collection<int, object>|null $users */
     public function handle(object $model, ?Collection $users): void
     {
         $newAuthorId = $this->getNewId(

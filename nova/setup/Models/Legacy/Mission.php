@@ -18,11 +18,13 @@ class Mission extends Model
 
     protected $primaryKey = 'mission_id';
 
+    /** @return BelongsTo<MissionGroup, $this> */
     public function missionGroup(): BelongsTo
     {
         return $this->belongsTo(MissionGroup::class, 'misgroup_id', 'mission_group');
     }
 
+    /** @return HasMany<Post, $this> */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'post_mission', 'mission_id');

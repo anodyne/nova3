@@ -17,6 +17,7 @@ class MigrateMission
     use HandlesDates;
     use HandlesNewIds;
 
+    /** @param Collection<int, object>|null $missionGroups */
     public function handle(object $model, ?Collection $missionGroups): void
     {
         $newParentStoryId = $this->getNewId(

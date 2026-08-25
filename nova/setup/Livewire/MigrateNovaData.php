@@ -29,6 +29,7 @@ use Nova\Setup\Livewire\Migrations\MigratePrivateMessages;
 use Nova\Setup\Livewire\Migrations\MigrateSettings;
 use Nova\Setup\Livewire\Migrations\MigrateUserForm;
 use Nova\Setup\Livewire\Migrations\MigrateUsers;
+use Nova\Setup\Livewire\Migrations\MigrationStep;
 use Nova\Setup\Livewire\Migrations\UpdatePostOrdering;
 
 /**
@@ -42,8 +43,10 @@ class MigrateNovaData extends Component
 
     public bool $isRunning = false;
 
+    /** @var list<array{step: string, message: string}> */
     public array $errors = [];
 
+    /** @var list<class-string<MigrationStep>> */
     public array $migrators = [
         MigrateUsers::class,
         MigrateUserForm::class,

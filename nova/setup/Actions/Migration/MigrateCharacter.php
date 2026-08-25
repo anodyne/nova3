@@ -18,6 +18,10 @@ class MigrateCharacter
     use HandlesDates;
     use HandlesNewIds;
 
+    /**
+     * @param  Collection<int, object>|null  $users
+     * @param  Collection<int, object>|null  $positions
+     */
     public function handle(object $model, ?Collection $users, ?Collection $positions): void
     {
         $characterType = $this->getCharacterType($model->user, $model->charid);
@@ -42,7 +46,7 @@ class MigrateCharacter
 
         DB::transaction(function () use ($model, $newUserId, $newFirstPositionId, $newSecondPositionId, $characterType): void {
             $characterId = DB::table('characters')->insertGetId([
-                'name' => collect([$model->first_name, $model->middle_name, $model->last_name, $model->suffix])
+                'name' => collect([(string) $model->first_name, (string) $model->middle_name, (string) $model->last_name, (string) $model->suffix])
                     ->filter()
                     ->join(' '),
                 'status' => match ($model->crew_type) {

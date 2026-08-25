@@ -18,6 +18,10 @@ class MigrateApplication
     use HandlesDates;
     use HandlesNewIds;
 
+    /**
+     * @param  Collection<int, object>|null  $characters
+     * @param  Collection<int, object>|null  $users
+     */
     public function handle(object $model, ?Collection $characters, ?Collection $users): void
     {
         $newCharacterId = $this->getNewId(

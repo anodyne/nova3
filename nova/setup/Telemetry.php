@@ -32,6 +32,7 @@ class Telemetry
         $this->send($this->gatherFullHeartbeatData());
     }
 
+    /** @return array<string, mixed> */
     public function gatherSimpleHeartbeatData(): array
     {
         return [
@@ -40,6 +41,7 @@ class Telemetry
         ];
     }
 
+    /** @return array<string, mixed> */
     public function gatherFullHeartbeatData(): array
     {
         $data = [
@@ -55,6 +57,7 @@ class Telemetry
         return $data;
     }
 
+    /** @return array<string, mixed> */
     public function gameInfo(): array
     {
         return [
@@ -66,6 +69,7 @@ class Telemetry
         ];
     }
 
+    /** @return array<string, mixed> */
     public function serverInfo(): array
     {
         $environment = Nova::environment();
@@ -79,6 +83,7 @@ class Telemetry
         ];
     }
 
+    /** @return array<string, int|string|null> */
     public function stats(): array
     {
         return [
@@ -93,6 +98,7 @@ class Telemetry
         ];
     }
 
+    /** @param array<string, mixed> $data */
     protected function send(array $data): void
     {
         $response = Http::post(config('services.anodyne.api.register'), $data);

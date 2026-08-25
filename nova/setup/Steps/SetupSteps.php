@@ -6,5 +6,6 @@ namespace Nova\Setup\Steps;
 
 abstract class SetupSteps
 {
+    /** @return list<Step> */
     abstract public function steps(): array;
 }

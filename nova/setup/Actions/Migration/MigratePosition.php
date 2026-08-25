@@ -18,6 +18,7 @@ class MigratePosition
     use HandlesDates;
     use HandlesNewIds;
 
+    /** @param Collection<int, object>|null $departments */
     public function handle(object $model, ?Collection $departments): void
     {
         $newDepartmentId = $this->getNewId(
