@@ -31,7 +31,7 @@ class MigratePosition
 
     /**
      * @param  LegacyPosition  $model
-     * @param  Collection<int, object>|null  $departments
+     * @param  Collection<int, Upgrade>|null  $departments
      */
     public function handle(object $model, ?Collection $departments): void
     {

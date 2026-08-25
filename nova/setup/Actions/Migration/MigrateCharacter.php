@@ -35,8 +35,8 @@ class MigrateCharacter
 
     /**
      * @param  LegacyCharacter  $model
-     * @param  Collection<int, object>|null  $users
-     * @param  Collection<int, object>|null  $positions
+     * @param  Collection<int, Upgrade>|null  $users
+     * @param  Collection<int, Upgrade>|null  $positions
      */
     public function handle(object $model, ?Collection $users, ?Collection $positions): void
     {

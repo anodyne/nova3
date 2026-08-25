@@ -31,7 +31,7 @@ class MigrateNewsItem
 
     /**
      * @param  LegacyNewsItem  $model
-     * @param  Collection<int, object>|null  $users
+     * @param  Collection<int, Upgrade>|null  $users
      */
     public function handle(object $model, ?Collection $users): void
     {

@@ -32,7 +32,7 @@ class MigrateMission
 
     /**
      * @param  LegacyMission  $model
-     * @param  Collection<int, object>|null  $missionGroups
+     * @param  Collection<int, Upgrade>|null  $missionGroups
      */
     public function handle(object $model, ?Collection $missionGroups): void
     {

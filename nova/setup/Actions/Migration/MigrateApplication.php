@@ -31,8 +31,8 @@ class MigrateApplication
 
     /**
      * @param  LegacyApplication  $model
-     * @param  Collection<int, object>|null  $characters
-     * @param  Collection<int, object>|null  $users
+     * @param  Collection<int, Upgrade>|null  $characters
+     * @param  Collection<int, Upgrade>|null  $users
      */
     public function handle(object $model, ?Collection $characters, ?Collection $users): void
     {

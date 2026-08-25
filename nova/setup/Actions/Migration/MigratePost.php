@@ -35,8 +35,8 @@ class MigratePost
 
     /**
      * @param  LegacyPost  $model
-     * @param  Collection<int, object>|null  $missions
-     * @param  Collection<int, object>|null  $users
+     * @param  Collection<int, Upgrade>|null  $missions
+     * @param  Collection<int, Upgrade>|null  $users
      */
     public function handle(object $model, int $postPostTypeId, ?Collection $missions, ?Collection $users): void
     {

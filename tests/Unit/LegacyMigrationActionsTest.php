@@ -2,13 +2,29 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Nova\Departments\Models\Department;
 use Nova\Forms\Models\Form;
 use Nova\Setup\Actions\Migration\MigrateDepartment;
 use Nova\Setup\Actions\Migration\MigrateForm;
 use Nova\Setup\Actions\Migration\MigrateLegacyUserData;
+use Nova\Setup\Livewire\Concerns\HandlesNewIds;
 use Nova\Setup\Models\Upgrade;
+
+function newIdsTestHarness(): object
+{
+    return new class
+    {
+        use HandlesNewIds;
+
+        /** @param Collection<int, Upgrade>|null $mappings */
+        public function resolve(?int $oldId, ?Collection $mappings, string $type): ?int
+        {
+            return $this->getNewId($oldId, $mappings, $type);
+        }
+    };
+}
 
 it('migrates a typed legacy department record', function () {
     MigrateDepartment::run((object) [
@@ -67,4 +83,28 @@ it('creates and reuses a user form submission id', function () {
             'owner_type' => 'user',
             'owner_id' => 200,
         ])->count())->toBe(1);
+});
+
+it('resolves a new id from cached upgrade mappings', function () {
+    $mappings = collect([
+        new Upgrade([
+            'type' => 'character',
+            'old_id' => 10,
+            'new_id' => 110,
+        ]),
+    ]);
+
+    expect(newIdsTestHarness()->resolve(10, $mappings, 'character'))->toBe(110)
+        ->and(newIdsTestHarness()->resolve(20, $mappings, 'character'))->toBeNull();
+});
+
+it('resolves a new id from the database when mappings are not cached', function () {
+    Upgrade::query()->create([
+        'type' => 'user',
+        'old_id' => 20,
+        'new_id' => 220,
+    ]);
+
+    expect(newIdsTestHarness()->resolve(20, null, 'user'))->toBe(220)
+        ->and(newIdsTestHarness()->resolve(20, null, 'character'))->toBeNull();
 });
