@@ -14,8 +14,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('version')->index();
             $table->string('anodyne_game_id')->nullable();
-            $table->dateTime('install_date')->nullable();
-            $table->dateTime('last_update')->nullable();
+            $table->dateTime('install_date')->useCurrent();
+            $table->dateTime('last_update')->useCurrentOnUpdate();
             $table->timestamps();
         });
     }

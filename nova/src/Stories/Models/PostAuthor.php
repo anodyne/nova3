@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Stories\Models;
 
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
@@ -21,6 +22,7 @@ use Nova\Users\Models\User;
 class PostAuthor extends MorphPivot
 {
     use HasTableHelpers;
+    use HasUuids;
 
     protected $table = 'post_author';
 

@@ -8,7 +8,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class RecordLoginTime implements ShouldQueue
+class RecordLogin implements ShouldQueue
 {
     use InteractsWithQueue;
 

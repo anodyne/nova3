@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('version');
             $table->text('credits')->nullable();
             $table->text('preview')->nullable();
-            $table->string('status')->default('active')->index();
+            $table->string('status')->index();
             $table->json('settings');
             $table->json('repository')->nullable();
             $table->timestamps();

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
 /**
- * @method static static from(string $base_image, ?string $overlay_image, ?int $group_id, ?int $name_id, BasicStatus $status)
+ * @method static static from(string $base_image, ?string $overlay_image, ?string $group_id, ?string $name_id, BasicStatus $status = BasicStatus::Active)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -19,17 +19,17 @@ readonly class RankItemData extends Bag
     public function __construct(
         public string $base_image,
         public ?string $overlay_image,
-        public ?int $group_id,
-        public ?int $name_id,
-        public BasicStatus $status
+        public ?string $group_id,
+        public ?string $name_id,
+        public BasicStatus $status = BasicStatus::Active
     ) {}
 
     /**
      * @return array{
-     *      base_image: mixed,
-     *      overlay_image: mixed,
-     *      group_id: mixed|null,
-     *      name_id: mixed|null,
+     *      base_image: string,
+     *      overlay_image: string|null,
+     *      group_id: string|null,
+     *      name_id: string|null,
      *      status: ?BasicStatus
      * }
      */
@@ -39,8 +39,8 @@ readonly class RankItemData extends Bag
         return [
             'base_image' => $request->input('base_image'),
             'overlay_image' => $request->input('overlay_image'),
-            'group_id' => $request->filled('group_id') ? $request->integer('group_id') : null,
-            'name_id' => $request->filled('name_id') ? $request->integer('name_id') : null,
+            'group_id' => $request->input('group_id'),
+            'name_id' => $request->input('name_id'),
             'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
         ];
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Applications\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Nova\Applications\Enums\ApplicationResult;
@@ -20,6 +21,7 @@ use Nova\Users\Models\User;
 class ApplicationReview extends Pivot
 {
     use HasTableHelpers;
+    use HasUuids;
     use LogsActivity;
 
     protected $casts = [

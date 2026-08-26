@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
 /**
- * @method static static from(string $name, ?string $description, int $available, list<string> $tags, BasicStatus $status, int $department_id)
+ * @method static static from(string $name, ?string $description, string $department_id = null, int $available = 1, list<string> $tags = [], BasicStatus $status = BasicStatus::Active)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -20,20 +20,20 @@ readonly class PositionData extends Bag
     public function __construct(
         public string $name,
         public ?string $description,
-        public int $available,
-        public array $tags,
-        public BasicStatus $status,
-        public int $department_id = 0
+        public string $department_id,
+        public int $available = 1,
+        public array $tags = [],
+        public BasicStatus $status = BasicStatus::Active
     ) {}
 
     /**
      * @return array{
      *     name: mixed,
      *     description: mixed,
+     *     department_id: string,
      *     available: int,
      *     tags: list<string>,
-     *     status: BasicStatus|null,
-     *     department_id: int
+     *     status: BasicStatus|null
      * }
      */
     #[Transforms(Request::class)]
@@ -42,10 +42,10 @@ readonly class PositionData extends Bag
         return [
             'name' => $request->input('name'),
             'description' => $request->input('description'),
+            'department_id' => $request->input('department_id'),
             'available' => $request->integer('available'),
             'tags' => array_map(trim(...), explode(',', $request->input('tags') ?? '')),
             'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
-            'department_id' => $request->integer('department_id'),
         ];
     }
 }

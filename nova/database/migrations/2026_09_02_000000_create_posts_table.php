@@ -15,7 +15,6 @@ return new class extends Migration
             $table->prefixedId();
             $table->foreignUuid('story_id')->nullable()->constrained();
             $table->foreignUuid('post_type_id')->nullable()->constrained();
-            $table->unsignedBigInteger('order_column')->nullable();
             $table->string('status')->index();
             $table->string('title')->nullable()->index();
             $table->longText('content')->nullable();
@@ -34,6 +33,7 @@ return new class extends Migration
             $table->dateTime('locked_at')->nullable();
             $table->unsignedBigInteger('locked_by')->nullable();
             $table->unsignedBigInteger('last_update_by')->nullable();
+            $table->unsignedBigInteger('order_column')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

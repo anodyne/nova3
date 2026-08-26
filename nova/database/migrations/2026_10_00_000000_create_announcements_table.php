@@ -32,7 +32,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('announcement_id')->constrained();
             $table->foreignUuid('user_id')->constrained();
-            $table->boolean('is_seen')->default(false);
+            $table->boolean('is_seen');
             $table->timestamps();
 
             $table->index(['announcement_id', 'user_id']);

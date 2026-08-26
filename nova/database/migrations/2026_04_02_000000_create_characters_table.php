@@ -14,24 +14,24 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->prefixedId();
             $table->string('name')->index();
-            $table->string('type')->default('support')->index();
+            $table->string('type')->nullable()->index();
             $table->string('status')->index();
-            $table->foreignUuid('rank_id')->nullable();
+            $table->foreignUuid('rank_id')->nullable()->constrained('rank_items');
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('character_position', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('character_id');
-            $table->foreignUuid('position_id');
+            $table->foreignUuid('character_id')->constrained();
+            $table->foreignUuid('position_id')->constrained();
         });
 
         Schema::create('character_user', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('character_id');
-            $table->foreignUuid('user_id');
-            $table->boolean('primary')->default(false)->index();
+            $table->foreignUuid('character_id')->constrained();
+            $table->foreignUuid('user_id')->constrained();
+            $table->boolean('primary')->index();
             $table->timestamps();
         });
     }

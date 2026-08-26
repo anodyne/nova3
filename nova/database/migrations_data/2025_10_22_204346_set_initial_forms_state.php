@@ -118,6 +118,7 @@ return new class extends Migration
                 'fields' => null, // JSON string
                 'published_fields' => null, // JSON string
                 'published_at' => null,
+                'status' => 'active',
                 'created_at' => $now,
                 'updated_at' => $now,
             ];

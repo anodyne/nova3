@@ -310,6 +310,7 @@ return new class extends Migration
     {
         foreach ($rows as &$row) {
             $row['id'] = Str::uuid7()->toString();
+            $row['status'] = 'active';
             $row['created_at'] = $now;
             $row['updated_at'] = $now;
 

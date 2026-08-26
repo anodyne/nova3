@@ -45,11 +45,4 @@ return new class extends Migration
             $table->json('discord_settings')->nullable();
         });
     }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('user_notification_preferences');
-        Schema::dropIfExists('notifications');
-        Schema::dropIfExists('notification_types');
-    }
 };

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
 /**
- * @method static static from(string $name, BasicStatus $status, ?string $base_image)
+ * @method static static from(string $name, ?string $base_image, BasicStatus $status = BasicStatus::Active)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -18,15 +18,15 @@ readonly class RankGroupData extends Bag
 {
     public function __construct(
         public string $name,
-        public BasicStatus $status,
-        public ?string $base_image
+        public ?string $base_image,
+        public BasicStatus $status = BasicStatus::Active
     ) {}
 
     /**
      * @return array{
      *      name: mixed,
-     *      status: ?BasicStatus,
-     *      base_image: mixed
+     *      base_image: mixed,
+     *      status: BasicStatus,
      * }
      */
     #[Transforms(Request::class)]
@@ -34,8 +34,8 @@ readonly class RankGroupData extends Bag
     {
         return [
             'name' => $request->input('name'),
-            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
             'base_image' => $request->input('base_image'),
+            'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),
         ];
     }
 }

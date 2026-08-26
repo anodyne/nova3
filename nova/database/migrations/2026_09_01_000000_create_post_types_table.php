@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
             $table->foreignUuid('role_id')->nullable()->constrained();
-            $table->string('status')->default('active')->index();
-            $table->string('visibility')->default('in-character')->index();
+            $table->string('status')->index();
+            $table->string('visibility')->index();
             $table->json('fields')->nullable();
             $table->json('options')->nullable();
             $table->unsignedBigInteger('order_column')->nullable();

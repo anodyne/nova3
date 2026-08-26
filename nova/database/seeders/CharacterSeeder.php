@@ -40,7 +40,7 @@ class CharacterSeeder extends Seeder
             if ($user = $users->get($email)) {
                 $character->users()->attach($user->id, [
                     'id' => Str::uuid7()->toString(),
-                    ...($primary ? ['primary' => true] : []),
+                    'primary' => $primary,
                 ]);
             }
         };

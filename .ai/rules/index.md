@@ -4,5 +4,8 @@ Before planning or editing, find the row whose globs match the file's path and r
 
 | Applies to | Rule file |
 | --- | --- |
+| nova/database/migrations/**/*.php | .ai/rules/database-migrations.md |
 | **/* | .ai/rules/general.md |
+| database/migrations/**/*.php | .ai/rules/migrations.md |
 | nova/**/*.php | .ai/rules/nova.md |
+| nova/database/seeders/**/*.php | .ai/rules/seeders.md |

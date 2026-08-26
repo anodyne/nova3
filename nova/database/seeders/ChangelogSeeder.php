@@ -206,6 +206,7 @@ class ChangelogSeeder extends Seeder
             $severity = $severity->value;
 
             return [
+                'id' => str()->uuid7()->toString(),
                 'version' => $values['version'],
                 'series' => $values['series'],
                 'severity' => $severity,

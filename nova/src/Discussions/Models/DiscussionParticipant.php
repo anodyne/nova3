@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Discussions\Models;
 
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Nova\Discussions\Models\Builders\DiscussionParticipantBuilder;
@@ -18,6 +19,7 @@ use Nova\Users\Models\User;
 class DiscussionParticipant extends Pivot
 {
     use HasTableHelpers;
+    use HasUuids;
 
     protected $fillable = [
         'discussion_id',

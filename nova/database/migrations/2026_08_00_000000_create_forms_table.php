@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('key')->unique();
             $table->string('type');
             $table->text('description')->nullable();
-            $table->boolean('is_locked')->default(false);
+            $table->boolean('is_locked');
             $table->json('options')->nullable();
             $table->longText('fields')->nullable();
             $table->longText('published_fields')->nullable();
-            $table->string('status')->default('active')->index();
+            $table->string('status')->index();
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });

@@ -22,6 +22,9 @@ class PostFactory extends Factory
 {
     protected $model = Post::class;
 
+    /** @var array{post: string, personal: string, marker: string, note: string}|null */
+    protected ?array $postTypeIds = null;
+
     public function configure(): static
     {
         return $this->afterCreating(function (Post $post): void {
@@ -68,14 +71,16 @@ class PostFactory extends Factory
 
     public function definition(): array
     {
+        $postTypeIds = $this->postTypeIds();
+
         return [
             'title' => ucwords(rtrim(fake()->sentence(mt_rand(2, 8), variableNbWords: false), '.')),
 
             'post_type_id' => fn () => Arr::randomWeightedElement([
-                1 => 50,
-                2 => 30,
-                3 => 5,
-                4 => 15,
+                $postTypeIds['post'] => 50,
+                $postTypeIds['personal'] => 30,
+                $postTypeIds['marker'] => 5,
+                $postTypeIds['note'] => 15,
             ]),
 
             'story_id' => fn () => Story::factory(),
@@ -85,11 +90,11 @@ class PostFactory extends Factory
                 Published::class => 75,
             ]),
 
-            'content' => function (array $attributes) {
+            'content' => function (array $attributes) use ($postTypeIds) {
                 $paragraphCount = match ($attributes['post_type_id'] ?? '') {
-                    1 => mt_rand(100, 200),
-                    2 => mt_rand(50, 100),
-                    4 => mt_rand(3, 6),
+                    $postTypeIds['post'] => mt_rand(100, 200),
+                    $postTypeIds['personal'] => mt_rand(50, 100),
+                    $postTypeIds['note'] => mt_rand(3, 6),
                     default => mt_rand(1, 3),
                 };
 
@@ -191,6 +196,22 @@ class PostFactory extends Factory
         return $this->state([
             'story_id' => $story->id ?? Story::factory(),
         ]);
+    }
+
+    /** @return array{post: string, personal: string, marker: string, note: string} */
+    protected function postTypeIds(): array
+    {
+        if ($this->postTypeIds !== null) {
+            return $this->postTypeIds;
+        }
+
+        /** @var array{post: string, personal: string, marker: string, note: string} $postTypeIds */
+        $postTypeIds = PostType::query()
+            ->whereIn('key', ['post', 'personal', 'marker', 'note'])
+            ->pluck('id', 'key')
+            ->all();
+
+        return $this->postTypeIds = $postTypeIds;
     }
 
     /** @return list<int> */

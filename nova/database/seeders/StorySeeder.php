@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Nova\Stories\Models\Story;
 
 class StorySeeder extends Seeder
@@ -20,11 +21,12 @@ class StorySeeder extends Seeder
         DB::transaction(function (): void {
             $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 
-            $columns = ['title', 'status', 'parent_id', 'order_column', 'created_at', 'updated_at'];
+            $columns = ['title', 'status', 'parent_id', 'order_column', 'created_at', 'updated_at', 'id'];
 
             $row = function ($modelAttributes, array $overrides = []) use ($columns, $now) {
                 $data = Arr::only($modelAttributes, $columns);
 
+                $data['id'] = Str::uuid7()->toString();
                 $data['created_at'] = $now;
                 $data['updated_at'] = $now;
 

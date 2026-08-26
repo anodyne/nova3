@@ -20,7 +20,7 @@ class AnnouncementSeeder extends Seeder
             ->make()
             ->map(fn ($announcement): array => array_merge(
                 $announcement->getAttributes(),
-                ['created_at' => $now, 'updated_at' => $now]
+                ['id' => str()->uuid7()->toString(), 'created_at' => $now, 'updated_at' => $now]
             ))
             ->all();
 

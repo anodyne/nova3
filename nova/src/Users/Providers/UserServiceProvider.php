@@ -16,7 +16,7 @@ use Nova\Users\Listeners\ClearForcedPasswordResetFlag;
 use Nova\Users\Listeners\GeneratePassword;
 use Nova\Users\Listeners\LogImpersonationEnd;
 use Nova\Users\Listeners\LogImpersonationStart;
-use Nova\Users\Listeners\RecordLoginTime;
+use Nova\Users\Listeners\RecordLogin;
 use Nova\Users\Livewire\ActivateUserButton;
 use Nova\Users\Livewire\AdminAppearance;
 use Nova\Users\Livewire\BansList;
@@ -47,7 +47,7 @@ class UserServiceProvider extends DomainServiceProvider
                 CheckForForcedPasswordReset::class,
             ],
             Login::class => [
-                RecordLoginTime::class,
+                RecordLogin::class,
             ],
             UserCreatedByAdmin::class => [
                 GeneratePassword::class,

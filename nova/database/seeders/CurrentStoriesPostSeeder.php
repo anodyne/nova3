@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\States\StoryStatus\Current;
 use Nova\Stories\Models\Story;
@@ -55,6 +56,7 @@ class CurrentStoriesPostSeeder extends Seeder
                         ])
                         ->map(function ($post) use ($storyId, $ts) {
                             $attrs = $post->getAttributes();
+                            $attrs['id'] = Str::uuid7()->toString();
                             $attrs['story_id'] = $storyId;
                             $attrs['created_at'] = $ts;
                             $attrs['updated_at'] = $ts;

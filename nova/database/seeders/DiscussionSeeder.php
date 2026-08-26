@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Nova\Discussions\Models\Discussion;
+use Nova\Users\Models\User;
 
 class DiscussionSeeder extends Seeder
 {
@@ -18,10 +19,19 @@ class DiscussionSeeder extends Seeder
 
         $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 
-        $seedChat = function (array $discussionAttrs, array $participantIds, array $authorPool, int $count = 5) use ($now): void {
+        $userIds = array_values(
+            User::query()
+                ->orderBy('id')
+                ->limit(3)
+                ->get(['id'])
+                ->map(fn (User $user): string => $user->id)
+                ->all()
+        );
+
+        $seedChat = function (array $discussionAttributes, array $participantIds, array $authorPool, int $count = 5) use ($now): void {
             /** @var Discussion $discussion */
             $discussion = Discussion::factory()->create(
-                ['created_at' => $now, 'updated_at' => $now] + $discussionAttrs
+                ['created_at' => $now, 'updated_at' => $now] + $discussionAttributes
             );
             $discussion->allParticipants()->sync($participantIds);
 
@@ -29,6 +39,7 @@ class DiscussionSeeder extends Seeder
                 $rows = [];
                 for ($i = 0; $i < $count; $i++) {
                     $rows[] = [
+                        'id' => str()->uuid7()->toString(),
                         'discussion_id' => $discussion->id,
                         'user_id' => $authorPool[array_rand($authorPool)],
                         'type' => 'text',
@@ -41,9 +52,11 @@ class DiscussionSeeder extends Seeder
             }
         };
 
-        $seedChat(['subject' => 'Group message'], [1, 2, 3], [1, 2, 3], 5);
+        $seedChat(['subject' => 'Group message'], $userIds, $userIds, 5);
 
-        $seedChat([], [1, 2], [1, 2], 5);
+        $directMessageUserIds = array_slice($userIds, 0, 2);
+
+        $seedChat([], $directMessageUserIds, $directMessageUserIds, 5);
 
         activity()->enableLogging();
     }

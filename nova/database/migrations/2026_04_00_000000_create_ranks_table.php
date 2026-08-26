@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('rank_groups', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name')->index();
-            $table->string('status')->default('active')->index();
+            $table->string('status')->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
@@ -21,7 +21,7 @@ return new class extends Migration
         Schema::create('rank_names', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name')->index();
-            $table->string('status')->default('active')->index();
+            $table->string('status')->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignUuid('name_id')->constrained('rank_names');
             $table->string('base_image');
             $table->string('overlay_image')->nullable();
-            $table->string('status')->default('active')->index();
+            $table->string('status')->index();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Nova\Foundation\Models\Concerns\HasTableHelpers;
 
@@ -13,10 +14,17 @@ use Nova\Foundation\Models\Concerns\HasTableHelpers;
 class CharacterUser extends Pivot
 {
     use HasTableHelpers;
-
-    protected $casts = [
-        'primary' => 'boolean',
-    ];
+    use HasUuids;
 
     protected $table = 'character_user';
+
+    /**
+     * @return array<string, string>
+     */
+    public function casts(): array
+    {
+        return [
+            'primary' => 'boolean',
+        ];
+    }
 }

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
 /**
- * @method static static from(string $name, ?string $description, list<string> $tags, BasicStatus $status)
+ * @method static static from(string $name, ?string $description, list<string> $tags = [], BasicStatus $status = BasicStatus::Active)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -20,8 +20,8 @@ readonly class DepartmentData extends Bag
     public function __construct(
         public string $name,
         public ?string $description,
-        public array $tags,
-        public BasicStatus $status,
+        public array $tags = [],
+        public BasicStatus $status = BasicStatus::Active,
     ) {}
 
     /**

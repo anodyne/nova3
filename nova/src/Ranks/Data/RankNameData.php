@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Nova\Foundation\Enums\BasicStatus;
 
 /**
- * @method static static from(string $name, BasicStatus $status)
+ * @method static static from(string $name, BasicStatus $status = BasicStatus::Active)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -18,7 +18,7 @@ readonly class RankNameData extends Bag
 {
     public function __construct(
         public string $name,
-        public BasicStatus $status
+        public BasicStatus $status = BasicStatus::Active
     ) {}
 
     /**

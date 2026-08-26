@@ -50,10 +50,10 @@ class NotificationSeeder extends Seeder
         $pendingUser = User::factory()->pending()->create();
 
         $pendingCharacter = Character::factory()->pending()->create();
-        $pendingCharacter->users()->save($pendingUser);
+        $pendingCharacter->users()->save($pendingUser, ['primary' => true]);
 
         $activeCharacter = Character::factory()->active()->create();
-        $activeCharacter->users()->save($activeUser);
+        $activeCharacter->users()->save($activeUser, ['primary' => true]);
 
         $story = Story::factory()->create();
 

@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('discussions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->prefixedId();
-            $table->nullableMorphs('discussable');
+            $table->nullableUuidMorphs('discussable');
             $table->string('subject')->nullable();
             $table->timestamps();
         });
@@ -31,9 +31,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('discussion_id')->constrained();
             $table->foreignUuid('discussion_message_id')->constrained();
-            $table->foreignUuid('user_id');
-            $table->boolean('is_seen')->default(false);
-            $table->boolean('is_sender')->default(false);
+            $table->foreignUuid('user_id')->constrained();
+            $table->boolean('is_seen');
+            $table->boolean('is_sender');
             $table->timestamps();
             $table->softDeletes();
 

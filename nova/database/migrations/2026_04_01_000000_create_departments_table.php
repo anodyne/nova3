@@ -15,9 +15,9 @@ return new class extends Migration
             $table->prefixedId();
             $table->string('name')->index();
             $table->text('description')->nullable();
-            $table->unsignedInteger('order_column')->nullable();
-            $table->string('status')->default('active')->index();
+            $table->string('status')->index();
             $table->json('tags')->nullable();
+            $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
 
@@ -27,8 +27,8 @@ return new class extends Migration
             $table->foreignUuid('department_id')->constrained();
             $table->string('name')->index();
             $table->text('description')->nullable();
-            $table->unsignedSmallInteger('available')->default(1)->index();
-            $table->string('status')->default('active')->index();
+            $table->unsignedSmallInteger('available')->index();
+            $table->string('status')->index();
             $table->json('tags')->nullable();
             $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();

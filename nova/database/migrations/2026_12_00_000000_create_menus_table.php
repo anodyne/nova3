@@ -14,14 +14,14 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('key')->unique();
-            $table->string('status')->default('active')->index();
+            $table->string('status')->index();
             $table->timestamps();
         });
 
         Schema::create('menu_items', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('menu_id')->constrained();
-            $table->uuid('parent_id')->nullable();
+            $table->uuid('parent_id')->nullable()->constrained('menu_items');
             $table->string('label');
             $table->string('icon')->nullable();
             $table->string('link_type');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('url')->nullable();
             $table->string('target')->default('_self');
             $table->string('status')->default('active')->index();
-            $table->integer('order_column')->nullable();
+            $table->unsignedBigInteger('order_column')->nullable();
             $table->timestamps();
         });
     }

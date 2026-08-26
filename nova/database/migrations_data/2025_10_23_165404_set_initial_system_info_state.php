@@ -17,7 +17,7 @@ return new class extends Migration
         DB::table('system_info')->insert([
             'id' => Str::uuid7()->toString(),
             'version' => Nova::filesVersion(),
-            'install_date' => Date::now(),
+            'last_update' => Date::now(),
         ]);
     }
 };

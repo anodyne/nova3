@@ -13,14 +13,14 @@ return new class extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->prefixedId();
-            $table->foreignUuid('parent_id')->nullable();
-            $table->unsignedBigInteger('order_column')->nullable();
+            $table->foreignUuid('parent_id')->nullable()->constrained('stories');
             $table->string('status')->index();
             $table->string('title')->index();
             $table->text('description')->nullable();
             $table->text('summary')->nullable();
             $table->dateTime('started_at')->nullable();
             $table->dateTime('ended_at')->nullable();
+            $table->unsignedBigInteger('order_column')->nullable();
             $table->timestamps();
         });
     }

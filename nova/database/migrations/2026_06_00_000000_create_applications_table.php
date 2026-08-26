@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignUuid('user_id')->constrained();
             $table->foreignUuid('character_id')->nullable()->constrained();
             $table->string('ip_address')->nullable();
-            $table->string('result')->default('pending');
+            $table->string('result');
             $table->longText('decision_message')->nullable();
             $table->dateTime('decision_date')->nullable();
             $table->timestamps();
@@ -41,7 +41,7 @@ return new class extends Migration
         Schema::create('application_reviewers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
-            $table->string('type')->default('conditional');
+            $table->string('type');
             $table->json('conditions')->nullable();
             $table->timestamps();
 

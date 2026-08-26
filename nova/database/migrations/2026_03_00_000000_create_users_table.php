@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->prefixedId();
-            $table->string('name');
+            $table->string('name')->index();
             $table->string('email')->unique();
             $table->dateTime('email_verified_at')->nullable();
             $table->string('password')->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->json('pronouns');
             $table->json('preferences')->nullable();
             $table->json('moderations')->nullable();
-            $table->boolean('force_password_reset')->default(false);
+            $table->boolean('force_password_reset');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -37,7 +37,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained();
             $table->string('ip_address', 50);
-            $table->dateTime('created_at');
+            $table->dateTime('created_at')->useCurrent();
         });
     }
 };

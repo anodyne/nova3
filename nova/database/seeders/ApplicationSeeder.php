@@ -92,7 +92,7 @@ class ApplicationSeeder extends Seeder
         CreateFormSubmission::run($forms['userBio'], $user);
 
         $character = Character::factory()->primary()->pending()->create();
-        $character->users()->attach([$user->id => []]);
+        $character->users()->attach([$user->id => ['primary' => true]]);
 
         if ($positionIds) {
             $character->positions()->attach(collect($positionIds)->random());
@@ -148,6 +148,7 @@ class ApplicationSeeder extends Seeder
         $rows = [];
         for ($i = 0; $i < $count; $i++) {
             $rows[] = [
+                'id' => str()->uuid7()->toString(),
                 'discussion_id' => $discussionId,
                 'content' => fake()->paragraph(),
                 'user_id' => $authorIds[array_rand($authorIds)],

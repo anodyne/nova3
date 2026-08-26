@@ -24,6 +24,7 @@ return new class extends Migration
                     'id' => $menuId,
                     'name' => 'Public',
                     'key' => $menuKey,
+                    'status' => 'active',
                     'created_at' => $now,
                     'updated_at' => $now,
                 ]);
@@ -58,6 +59,7 @@ return new class extends Migration
                     'page_id' => $pageId,
                     'url' => null,
                     'order_column' => $i + 1,
+                    'status' => 'active',
                     'created_at' => $now,
                     'updated_at' => $now,
                 ];

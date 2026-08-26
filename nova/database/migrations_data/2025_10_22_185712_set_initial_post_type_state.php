@@ -144,6 +144,7 @@ return new class extends Migration
                 'options' => null,
                 'role_id' => null,
                 'order_column' => null,
+                'status' => 'active',
                 'created_at' => $now,
                 'updated_at' => $now,
             ];
