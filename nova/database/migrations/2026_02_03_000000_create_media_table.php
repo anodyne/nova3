@@ -13,7 +13,7 @@ return new class extends Migration
         Schema::create('media', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuidMorphs('model');
-            $table->uuid('uuid')->nullable()->unique();
+            $table->uuid()->nullable()->unique();
             $table->string('collection_name');
             $table->string('name');
             $table->string('file_name');
@@ -30,10 +30,5 @@ return new class extends Migration
 
             $table->index(['model_id', 'model_type']);
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('media');
     }
 };
