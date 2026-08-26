@@ -9,14 +9,11 @@ use Nova\Themes\Models\Theme;
 
 class ThemeSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         activity()->disableLogging();
 
-        Theme::factory()->count(10)->create();
+        Theme::factory(10)->create();
 
         activity()->enableLogging();
     }

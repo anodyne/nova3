@@ -17,15 +17,15 @@ return new class extends Migration
                 'name' => 'Pulsar',
                 'location' => 'Pulsar',
                 'version' => '3.0',
-                'credits' => '',
+                'credits' => null,
                 'preview' => 'preview.png',
                 'status' => 'active',
                 'settings' => [
                     'fonts' => [
-                        'headerProvider' => '',
-                        'headerFamily' => '',
-                        'bodyProvider' => '',
-                        'bodyFamily' => '',
+                        'headerProvider' => 'local',
+                        'headerFamily' => 'Inter',
+                        'bodyProvider' => 'local',
+                        'bodyFamily' => 'Inter',
                     ],
                 ],
                 'created_at' => Date::now(),
@@ -47,10 +47,5 @@ return new class extends Migration
         }, $themes);
 
         DB::transaction(fn () => DB::table('themes')->insert($rows));
-    }
-
-    public function down(): void
-    {
-        DB::table('themes')->truncate();
     }
 };
