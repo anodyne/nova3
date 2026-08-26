@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Nova\Settings\Enums\SettingsKey;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\from;
@@ -28,7 +29,7 @@ describe('authorized user', function () {
             ->assertSuccessful();
 
         assertDatabaseHas('settings', [
-            'key' => 'custom',
+            'key' => SettingsKey::Custom->value,
             'general->gameName' => 'Foo',
             'general->contactFormEnabled' => 'true',
             'general->contactFormDisabledMessage' => 'Message',

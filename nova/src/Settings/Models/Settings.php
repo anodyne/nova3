@@ -16,6 +16,7 @@ use Nova\Settings\Data\Discord;
 use Nova\Settings\Data\Email;
 use Nova\Settings\Data\General;
 use Nova\Settings\Data\PostingActivity;
+use Nova\Settings\Enums\SettingsKey;
 use Nova\Settings\Models\Builders\SettingsBuilder;
 use Spatie\MediaLibrary\HasMedia;
 
@@ -27,17 +28,7 @@ class Settings extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $casts = [
-        'general' => General::class,
-        'email' => Email::class,
-        'appearance' => Appearance::class,
-        'characters' => Characters::class,
-        'discord' => Discord::class,
-        'posting_activity' => PostingActivity::class,
-        'ratings' => ContentRatings::class,
-        'applications' => Applications::class,
-        'dashboard' => Dashboard::class,
-    ];
+    protected $table = 'settings';
 
     protected $fillable = [
         'key',
@@ -53,7 +44,22 @@ class Settings extends Model implements HasMedia
         'dashboard',
     ];
 
-    protected $table = 'settings';
+    #[\Override]
+    public function casts(): array
+    {
+        return [
+            'key' => SettingsKey::class,
+            'general' => General::class,
+            'email' => Email::class,
+            'appearance' => Appearance::class,
+            'characters' => Characters::class,
+            'discord' => Discord::class,
+            'posting_activity' => PostingActivity::class,
+            'ratings' => ContentRatings::class,
+            'applications' => Applications::class,
+            'dashboard' => Dashboard::class,
+        ];
+    }
 
     public function registerMediaCollections(): void
     {

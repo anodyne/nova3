@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Nova\Media\Livewire\UploadImage;
 use Nova\Settings\Enums\AvatarShape;
 use Nova\Settings\Enums\AvatarStyle;
+use Nova\Settings\Enums\SettingsKey;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\from;
@@ -45,7 +46,7 @@ describe('authorized user', function () {
             ->assertSuccessful();
 
         assertDatabaseHas('settings', [
-            'key' => 'custom',
+            'key' => SettingsKey::Custom->value,
             'appearance->theme' => 'Pulsar',
             'appearance->avatarShape' => 'square',
             'appearance->avatarStyle' => 'rings',

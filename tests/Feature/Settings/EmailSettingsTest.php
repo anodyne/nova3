@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Nova\Media\Livewire\UploadImage;
+use Nova\Settings\Enums\SettingsKey;
 use Nova\Settings\Livewire\EmailSettings;
 
 use function Pest\Laravel\assertDatabaseHas;
@@ -34,7 +35,7 @@ describe('authorized user', function () {
             ->call('save');
 
         assertDatabaseHas('settings', [
-            'key' => 'custom',
+            'key' => SettingsKey::Custom->value,
             'email->subjectPrefix' => '[Nova 3]',
             'email->replyTo' => 'donotreply@example.com',
         ]);
