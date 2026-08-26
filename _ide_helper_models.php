@@ -14,6 +14,50 @@
 namespace Nova\Foundation\Models{
 /**
  * @property string $id
+ * @property string|null $log_name
+ * @property string $description
+ * @property string|null $subject_type
+ * @property string|null $subject_id
+ * @property string|null $event
+ * @property string|null $causer_type
+ * @property string|null $causer_id
+ * @property \Illuminate\Support\Collection<array-key, mixed>|null $properties
+ * @property string|null $batch_uuid
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Model|null $causer
+ * @property-read \Illuminate\Support\Collection $changes
+ * @property-read \Illuminate\Database\Eloquent\Model|null $subject
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity causedBy(\Illuminate\Database\Eloquent\Model $causer)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity forBatch(string $batchUuid)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity forEvent(string $event)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity forSubject(\Illuminate\Database\Eloquent\Model $subject)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity hasBatch()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity inLog(...$logNames)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereBatchUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereCauserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereCauserType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereEvent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereLogName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereProperties($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereSubjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereSubjectType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\Activity whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperActivity {}
+}
+
+namespace Nova\Foundation\Models{
+/**
+ * @property string $id
  * @property string $version
  * @property string $series
  * @property \Nova\Foundation\Enums\ReleaseSeverity $severity
@@ -174,7 +218,7 @@ namespace Nova\Addons\Models{
  * @property \Nova\Addons\Data\AddonRepository|null $repository
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read bool $has_addon_class
  * @property-read bool $has_update
@@ -222,7 +266,7 @@ namespace Nova\Announcements\Models{
  * @property \Carbon\CarbonImmutable|null $published_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read bool $is_published
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Announcements\Models\AnnouncementNotification> $notifications
@@ -299,7 +343,7 @@ namespace Nova\Applications\Models{
  * @property-read \Nova\Applications\Models\ApplicationReview|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $acceptedReviews
  * @property-read int|null $accepted_reviews_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Forms\Models\FormSubmission|null $applicationFormSubmission
  * @property-read \Nova\Characters\Models\Character|null $character
@@ -343,7 +387,7 @@ namespace Nova\Applications\Models{
  * @property string|null $comments
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Applications\Models\Application $application
  * @property-read bool $is_accepted
@@ -373,7 +417,7 @@ namespace Nova\Applications\Models{
  * @property array<array-key, mixed>|null $conditions
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Users\Models\User|null $user
  * @method static \Nova\Applications\Models\Builders\ApplicationReviewerBuilder<static>|\Nova\Applications\Models\ApplicationReviewer conditional()
@@ -411,7 +455,7 @@ namespace Nova\Characters\Models{
  * @property-read int|null $active_primary_users_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activeUsers
  * @property-read int|null $active_users_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Applications\Models\Application|null $application
  * @property-read string $avatar_url
@@ -537,7 +581,7 @@ namespace Nova\Departments\Models{
  * @property array<array-key, mixed>|null $tags
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Nova\Media\Models\Media> $media
  * @property-read int|null $media_count
@@ -594,7 +638,7 @@ namespace Nova\Departments\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Characters\Models\Character> $activeCharacters
  * @property-read int|null $active_characters_count
  * @property-read int|null $active_users_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Characters\Models\Character> $characters
  * @property-read int|null $characters_count
@@ -641,7 +685,7 @@ namespace Nova\Discussions\Models{
  * @property string|null $subject
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Discussions\Models\DiscussionParticipant|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $allParticipants
@@ -691,7 +735,7 @@ namespace Nova\Discussions\Models{
  * @property \Nova\Discussions\Enums\MessageType $type
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Discussions\Models\Discussion $discussion
  * @property-read bool $has_unread_messages
@@ -790,7 +834,7 @@ namespace Nova\Forms\Models{
  * @property \Carbon\CarbonImmutable|null $published_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormField> $formFields
  * @property-read int|null $form_fields_count
@@ -841,7 +885,7 @@ namespace Nova\Forms\Models{
  * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Forms\Models\Form $form
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormSubmissionResponse> $responses
@@ -877,7 +921,7 @@ namespace Nova\Forms\Models{
  * @property array<array-key, mixed>|null $meta
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Forms\Models\Form $form
  * @property-read \Illuminate\Database\Eloquent\Model|null $owner
@@ -913,7 +957,7 @@ namespace Nova\Forms\Models{
  * @property mixed|null $value
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Forms\Models\FormField|null $field
  * @property-read \Nova\Forms\Models\FormSubmission $submission
@@ -1033,7 +1077,7 @@ namespace Nova\Menus\Models{
  * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Menus\Models\MenuItem> $items
  * @property-read int|null $items_count
@@ -1078,7 +1122,7 @@ namespace Nova\Notes\Models{
  * @property string|null $content
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Users\Models\User|null $author
  * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note author(\Nova\Users\Models\User $user)
@@ -1154,7 +1198,7 @@ namespace Nova\Pages\Models{
  * @property string|null $intro
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read bool $is_advanced
  * @property-read bool $is_basic
@@ -1215,7 +1259,7 @@ namespace Nova\Ranks\Models{
  * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Ranks\Models\RankItem> $ranks
  * @property-read int|null $ranks_count
@@ -1250,7 +1294,7 @@ namespace Nova\Ranks\Models{
  * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Characters\Models\Character> $characters
  * @property-read int|null $characters_count
@@ -1290,7 +1334,7 @@ namespace Nova\Ranks\Models{
  * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Ranks\Models\RankItem> $ranks
  * @property-read int|null $ranks_count
@@ -1322,7 +1366,7 @@ namespace Nova\Roles\Models{
  * @property string|null $description
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Roles\Models\Role> $roles
  * @property-read int|null $roles_count
@@ -1354,7 +1398,7 @@ namespace Nova\Roles\Models{
  * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Roles\Models\Permission> $permissions
  * @property-read int|null $permissions_count
@@ -1393,7 +1437,7 @@ namespace Nova\Roles\Models{
  * @property string|null $description
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Roles\Models\Team newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Roles\Models\Team newQuery()
@@ -1479,7 +1523,7 @@ namespace Nova\Stories\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read array $authors_avatars
  * @property-read string $authors_string
@@ -1624,7 +1668,7 @@ namespace Nova\Stories\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read bool $included_in_post_tracking
  * @property-read bool $notifies_users
@@ -1687,7 +1731,7 @@ namespace Nova\Stories\Models{
  * @property mixed|null $ended_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Stories\Models\Post> $allPosts
  * @property-read int|null $all_posts_count
@@ -1796,7 +1840,47 @@ namespace Nova\Themes\Models{
  * @property \Nova\Addons\Data\AddonRepository|null $repository
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read bool $has_update
+ * @property-read bool $is_current_public_theme
+ * @property-read string|null $latest_version
+ * @property-read string|null $update_url
+ * @method static \Database\Factories\PendingThemeFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereCredits($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme wherePreview($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereRepository($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereSettings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereVersion($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperPendingTheme {}
+}
+
+namespace Nova\Themes\Models{
+/**
+ * @property string $id
+ * @property string $name
+ * @property string $location
+ * @property string $version
+ * @property string|null $credits
+ * @property string|null $preview
+ * @property \Nova\Foundation\Enums\BasicStatus $status
+ * @property \Nova\Themes\Data\ThemeSettings $settings
+ * @property \Nova\Addons\Data\AddonRepository|null $repository
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read bool $has_update
  * @property-read bool $is_current_public_theme
@@ -1909,14 +1993,14 @@ namespace Nova\Users\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $actions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $actions
  * @property-read int|null $actions_count
  * @property-read \Nova\Characters\Models\CharacterUser|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Characters\Models\Character> $activeCharacters
  * @property-read int|null $active_characters_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Onboarding\Models\Onboarding> $activeOnboardings
  * @property-read int|null $active_onboardings_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Announcements\Models\AnnouncementNotification> $announcementNotifications
  * @property-read int|null $announcement_notifications_count

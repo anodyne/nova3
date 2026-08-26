@@ -33597,32 +33597,6 @@ namespace Staudenmeir\LaravelCte\Query {
             }
     }
 
-namespace Bag {
-    /**
-     * @extends LaravelCollection<array-key, mixed>
-     */
-    class Collection extends \Illuminate\Support\Collection {
-            }
-    }
-
-namespace Bag\Property {
-    /**
-     * @extends Collection<string, Value>
-     */
-    class ValueCollection extends \Illuminate\Support\Collection {
-            }
-    /**
-     * @extends Collection<array-key, mixed>
-     */
-    class MapCollection extends \Illuminate\Support\Collection {
-            }
-    /**
-     * @extends Collection<string, mixed>
-     */
-    class ValidatorCollection extends \Illuminate\Support\Collection {
-            }
-    }
-
 namespace Filament\Notifications\Livewire {
     /**
      */
