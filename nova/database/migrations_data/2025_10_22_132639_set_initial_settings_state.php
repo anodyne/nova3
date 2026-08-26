@@ -127,20 +127,15 @@ return new class extends Migration
 
         $rows = [
             array_merge($base, [
-                'key' => 'default',
                 'id' => Str::uuid7()->toString(),
+                'key' => 'default',
             ], $encodedSettings),
             array_merge($base, [
-                'key' => 'custom',
                 'id' => Str::uuid7()->toString(),
+                'key' => 'custom',
             ], $encodedSettings),
         ];
 
         DB::transaction(fn () => DB::table('settings')->insert($rows));
-    }
-
-    public function down(): void
-    {
-        DB::table('settings')->truncate();
     }
 };
