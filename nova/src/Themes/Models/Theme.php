@@ -36,10 +36,10 @@ class Theme extends Model
 
     use LogsActivity;
 
-    protected $casts = [
-        'status' => BasicStatus::class,
-        'settings' => ThemeSettings::class,
-        'repository' => AddonRepository::class,
+    protected $table = 'themes';
+
+    protected $fillable = [
+        'name', 'location', 'version', 'credits', 'status', 'preview', 'settings', 'repository',
     ];
 
     protected $dispatchesEvents = [
@@ -48,15 +48,17 @@ class Theme extends Model
         'updated' => ThemeUpdated::class,
     ];
 
-    protected $fillable = [
-        'name', 'location', 'version', 'credits', 'status', 'preview', 'settings', 'repository',
-    ];
-
-    protected $table = 'themes';
-
-    public function addonVersionCacheKey(): string
+    /**
+     * @return array<string, string>
+     */
+    #[\Override]
+    public function casts(): array
     {
-        return 'nova-themes-latest-versions';
+        return [
+            'status' => BasicStatus::class,
+            'settings' => ThemeSettings::class,
+            'repository' => AddonRepository::class,
+        ];
     }
 
     /** @return Attribute<bool, never> */
@@ -65,6 +67,11 @@ class Theme extends Model
         return Attribute::make(
             get: fn (): bool => settings('appearance.theme') === $this->location
         );
+    }
+
+    public function addonVersionCacheKey(): string
+    {
+        return 'nova-themes-latest-versions';
     }
 
     public function themeClass(): BaseTheme
@@ -78,14 +85,16 @@ class Theme extends Model
         return new $themeClass;
     }
 
-    /** @return Collection<int, string> */
+    /**
+     * @return Collection<int, string>
+     */
     public static function getInstallableThemes(): Collection
     {
         $disk = Storage::disk('themes');
 
         return collect($disk->directories())
             ->diff(static::pluck('location')->all())
-            ->filter(fn ($location) => $disk->exists("{$location}/theme.json"));
+            ->filter(fn (string $location): bool => $disk->exists("{$location}/theme.json"));
     }
 
     public static function hasInstallableThemes(): bool

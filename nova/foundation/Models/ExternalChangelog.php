@@ -21,6 +21,10 @@ class ExternalChangelog extends Model
         'version', 'series', 'description', 'notes', 'release_date', 'tags', 'severity',
     ];
 
+    /**
+     * @return array<string, string>
+     */
+    #[\Override]
     public function casts(): array
     {
         return [
