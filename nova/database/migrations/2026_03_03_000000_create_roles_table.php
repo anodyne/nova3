@@ -68,14 +68,4 @@ return new class extends Migration
             $table->primary(['permission_id', 'role_id']);
         });
     }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('permission_user');
-        Schema::dropIfExists('permission_role');
-        Schema::dropIfExists('permissions');
-        Schema::dropIfExists('role_user');
-        Schema::dropIfExists('roles');
-        Schema::dropIfExists('teams');
-    }
 };

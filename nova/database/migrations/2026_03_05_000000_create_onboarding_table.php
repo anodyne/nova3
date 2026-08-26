@@ -13,15 +13,10 @@ return new class extends Migration
         Schema::create('onboarding', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('process');
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained();
             $table->dateTime('completed_at')->nullable();
             $table->json('steps')->nullable();
             $table->timestamps();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('onboarding');
     }
 };

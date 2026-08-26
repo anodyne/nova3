@@ -54,12 +54,4 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('form_fields');
-        Schema::dropIfExists('form_submissions');
-        Schema::dropIfExists('form_submission_responses');
-        Schema::dropIfExists('forms');
-    }
 };

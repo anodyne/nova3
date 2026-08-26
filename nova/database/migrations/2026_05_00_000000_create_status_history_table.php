@@ -22,9 +22,4 @@ return new class extends Migration
             $table->index('ended_at');
         });
     }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('status_history');
-    }
 };

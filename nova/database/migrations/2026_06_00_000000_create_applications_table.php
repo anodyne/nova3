@@ -26,8 +26,8 @@ return new class extends Migration
 
         Schema::create('application_review', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('application_id')->constrained()->onDelete('cascade');
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('application_id')->constrained();
+            $table->foreignUuid('user_id')->constrained();
             $table->string('result')->nullable();
             $table->longText('comments')->nullable();
             $table->timestamps();
@@ -40,19 +40,12 @@ return new class extends Migration
 
         Schema::create('application_reviewers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained();
             $table->string('type')->default('conditional');
             $table->json('conditions')->nullable();
             $table->timestamps();
 
             $table->index('type');
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('application_reviewers');
-        Schema::dropIfExists('application_review');
-        Schema::dropIfExists('applications');
     }
 };

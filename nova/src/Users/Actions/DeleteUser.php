@@ -20,6 +20,20 @@ class DeleteUser
             CannotDeleteOwnAccountException::class
         );
 
-        return tap($user)->delete();
+        $user->announcementNotifications()->delete();
+
+        $user->logins()->delete();
+
+        $user->notifications()->delete();
+
+        $user->notificationPreferences()->delete();
+
+        $user->onboardings()->delete();
+
+        $user->statusHistories()->delete();
+
+        $user->delete();
+
+        return $user;
     }
 }

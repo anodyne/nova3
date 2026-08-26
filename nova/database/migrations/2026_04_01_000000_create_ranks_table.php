@@ -37,11 +37,4 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('rank_groups');
-        Schema::dropIfExists('rank_names');
-        Schema::dropIfExists('rank_items');
-    }
 };

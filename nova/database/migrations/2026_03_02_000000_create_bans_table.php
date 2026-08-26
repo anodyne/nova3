@@ -16,7 +16,7 @@ return new class extends Migration
             $table->nullableUuidMorphs('created_by');
             $table->text('comment')->nullable();
             $table->string('ip', 45)->nullable();
-            $table->dateTimeTz('expired_at')->nullable();
+            $table->dateTime('expired_at')->nullable();
             $table->json('metas')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -24,10 +24,5 @@ return new class extends Migration
             $table->index('ip');
             $table->index('expired_at');
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists(config('ban.table'));
     }
 };

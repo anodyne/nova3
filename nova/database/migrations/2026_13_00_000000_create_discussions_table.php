@@ -15,7 +15,7 @@ return new class extends Migration
             $table->prefixedId();
             $table->nullableMorphs('discussable');
             $table->string('subject')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('discussion_messages', function (Blueprint $table) {
@@ -29,8 +29,8 @@ return new class extends Migration
 
         Schema::create('discussion_notifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('discussion_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('discussion_message_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('discussion_id')->constrained();
+            $table->foreignUuid('discussion_message_id')->constrained();
             $table->foreignUuid('user_id');
             $table->boolean('is_seen')->default(false);
             $table->boolean('is_sender')->default(false);
@@ -42,19 +42,12 @@ return new class extends Migration
 
         Schema::create('discussion_participant', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('discussion_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('user_id');
+            $table->foreignUuid('discussion_id')->constrained();
+            $table->foreignUuid('user_id')->constrained();
             $table->timestamps();
             $table->softDeletes();
 
             $table->unique(['discussion_id', 'user_id'], 'discussion_participants_index');
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('discussion_notifications');
-        Schema::dropIfExists('discussion_messages');
-        Schema::dropIfExists('discussions');
     }
 };

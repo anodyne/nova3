@@ -30,7 +30,7 @@ return new class extends Migration
 
         Schema::create('announcement_notifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('announcement_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('announcement_id')->constrained();
             $table->foreignUuid('user_id')->constrained();
             $table->boolean('is_seen')->default(false);
             $table->timestamps();
@@ -38,11 +38,5 @@ return new class extends Migration
             $table->index(['announcement_id', 'user_id']);
             $table->index(['user_id', 'is_seen']);
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('announcement_notifications');
-        Schema::dropIfExists('announcements');
     }
 };

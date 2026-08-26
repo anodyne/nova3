@@ -54,10 +54,4 @@ return new class extends Migration
             $table->index('updated_at');
         });
     }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('post_author');
-        Schema::dropIfExists('posts');
-    }
 };

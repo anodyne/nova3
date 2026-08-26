@@ -35,11 +35,4 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('character_position');
-        Schema::dropIfExists('character_user');
-        Schema::dropIfExists('characters');
-    }
 };
