@@ -13,9 +13,9 @@ use Nova\Foundation\Enums\CacheKeys;
  */
 class ExternalContent extends Model
 {
-    protected $fillable = ['key', 'value'];
-
     protected $table = 'external_content';
+
+    protected $fillable = ['key', 'value'];
 
     public static function syncFromAnodyne(): void
     {

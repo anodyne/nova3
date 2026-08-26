@@ -15,17 +15,20 @@ use Nova\Foundation\Enums\ReleaseSeverity;
  */
 class ExternalChangelog extends Model
 {
-    protected $casts = [
-        'release_date' => 'date',
-        'severity' => ReleaseSeverity::class,
-        'tags' => 'array',
-    ];
+    protected $table = 'external_changelog';
 
     protected $fillable = [
         'version', 'series', 'description', 'notes', 'release_date', 'tags', 'severity',
     ];
 
-    protected $table = 'external_changelog';
+    public function casts(): array
+    {
+        return [
+            'release_date' => 'date',
+            'severity' => ReleaseSeverity::class,
+            'tags' => 'array',
+        ];
+    }
 
     public static function syncFromAnodyne(): void
     {
