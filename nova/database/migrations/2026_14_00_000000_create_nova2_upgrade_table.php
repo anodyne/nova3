@@ -11,11 +11,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('upgrade', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('type');
             $table->unsignedBigInteger('old_id');
-            $table->unsignedBigInteger('new_id');
-            $table->datetimes();
+            $table->uuid('new_id');
+            $table->timestamps();
         });
     }
 

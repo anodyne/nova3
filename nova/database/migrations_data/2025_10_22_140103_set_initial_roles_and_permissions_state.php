@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -208,7 +209,7 @@ return new class extends Migration
         ];
 
         DB::table($table)->upsert(
-            array_map(fn ($permission) => $permission + ['created_at' => $now, 'updated_at' => $now], $permissions),
+            array_map(fn ($permission) => $permission + ['id' => Str::uuid7()->toString(), 'created_at' => $now, 'updated_at' => $now], $permissions),
             ['name'],
             ['display_name', 'description', 'updated_at']
         );
@@ -288,6 +289,7 @@ return new class extends Migration
         $order = 1;
         foreach ($roles as $role) {
             $data[] = $role + $defaults + [
+                'id' => Str::uuid7()->toString(),
                 'order_column' => $order++,
             ];
         }

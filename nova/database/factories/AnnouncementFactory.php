@@ -17,19 +17,6 @@ class AnnouncementFactory extends Factory
 {
     protected $model = Announcement::class;
 
-    public function configure(): static
-    {
-        return $this->afterCreating(function (Announcement $announcement): void {
-            $users = User::active()->get();
-
-            $users->each(fn (User $user) => AnnouncementNotification::create([
-                'announcement_id' => $announcement->id,
-                'user_id' => $user->id,
-                'is_seen' => $announcement->user_id === $user->id ? true : fake()->boolean(),
-            ]));
-        });
-    }
-
     public function definition(): array
     {
         return [
@@ -43,6 +30,19 @@ class AnnouncementFactory extends Factory
             ]),
             'published_at' => fn (array $attributes): ?CarbonInterface => $attributes['status'] === PublishStatus::Published->value ? now() : null,
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Announcement $announcement): void {
+            $users = User::active()->get();
+
+            $users->each(fn (User $user) => AnnouncementNotification::create([
+                'announcement_id' => $announcement->id,
+                'user_id' => $user->id,
+                'is_seen' => $announcement->user_id === $user->id ? true : fake()->boolean(),
+            ]));
+        });
     }
 
     public function draft(): static

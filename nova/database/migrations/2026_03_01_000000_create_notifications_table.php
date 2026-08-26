@@ -13,14 +13,14 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type');
-            $table->morphs('notifiable');
+            $table->uuidMorphs('notifiable');
             $table->text('data');
             $table->dateTime('read_at')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('notification_types', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name')->index();
             $table->string('key')->unique();
             $table->text('description')->nullable();
@@ -32,13 +32,13 @@ return new class extends Migration
             $table->boolean('mail_default');
             $table->boolean('discord');
             $table->json('discord_settings')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('user_notification_preferences', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('notification_type_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('notification_type_id')->constrained();
+            $table->foreignUuid('user_id')->constrained();
             $table->boolean('database');
             $table->boolean('mail');
             $table->boolean('discord');

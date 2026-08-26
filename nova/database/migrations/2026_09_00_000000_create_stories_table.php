@@ -11,9 +11,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('stories', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
-            $table->foreignId('parent_id')->nullable();
+            $table->foreignUuid('parent_id')->nullable();
             $table->unsignedBigInteger('order_column')->nullable();
             $table->string('status')->index();
             $table->string('title')->index();

@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
             NotificationSeeder::class,
         ]);
 
-        StartOnboarding::run(OnboardingProcess::FreshInstall, User::find(1));
+        StartOnboarding::run(OnboardingProcess::FreshInstall, User::first());
 
         activity()->enableLogging();
     }

@@ -15,13 +15,14 @@ class ApplicationFactory extends Factory
 {
     protected $model = Application::class;
 
-    public function accepted(): static
+    public function definition(): array
     {
-        return $this->state([
-            'result' => ApplicationResult::Accept,
-            'decision_date' => now(),
-            'decision_message' => $this->faker->paragraphs(3, asText: true),
-        ]);
+        return [
+            'user_id' => User::factory()->pending(),
+            'character_id' => Character::factory()->pending(),
+            'ip_address' => $this->faker->ipv4(),
+            'result' => ApplicationResult::Pending,
+        ];
     }
 
     public function configure(): static
@@ -31,14 +32,13 @@ class ApplicationFactory extends Factory
         });
     }
 
-    public function definition(): array
+    public function accepted(): static
     {
-        return [
-            'user_id' => User::factory()->pending(),
-            'character_id' => Character::factory()->pending(),
-            'ip_address' => $this->faker->ipv4(),
-            'result' => ApplicationResult::Pending,
-        ];
+        return $this->state([
+            'result' => ApplicationResult::Accept,
+            'decision_date' => now(),
+            'decision_message' => $this->faker->paragraphs(3, asText: true),
+        ]);
     }
 
     public function denied(): static

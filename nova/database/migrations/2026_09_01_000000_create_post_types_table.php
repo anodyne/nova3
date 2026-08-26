@@ -11,14 +11,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('post_types', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
             $table->string('key')->unique();
             $table->string('name')->index();
             $table->text('description')->nullable();
             $table->string('color')->nullable();
             $table->string('icon')->nullable();
-            $table->foreignId('role_id')->nullable()->constrained();
+            $table->foreignUuid('role_id')->nullable()->constrained();
             $table->string('status')->default('active')->index();
             $table->string('visibility')->default('in-character')->index();
             $table->json('fields')->nullable();

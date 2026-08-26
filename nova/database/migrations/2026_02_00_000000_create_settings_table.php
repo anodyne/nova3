@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('key')->index();
             $table->json('general')->nullable();
             $table->json('email')->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->json('ratings')->nullable();
             $table->json('applications')->nullable();
             $table->json('dashboard')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

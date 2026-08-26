@@ -11,10 +11,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
-            $table->foreignId('story_id')->nullable()->constrained();
-            $table->foreignId('post_type_id')->nullable()->constrained();
+            $table->foreignUuid('story_id')->nullable()->constrained();
+            $table->foreignUuid('post_type_id')->nullable()->constrained();
             $table->unsignedBigInteger('order_column')->nullable();
             $table->string('status')->index();
             $table->string('title')->nullable()->index();
@@ -34,17 +34,17 @@ return new class extends Migration
             $table->dateTime('locked_at')->nullable();
             $table->unsignedBigInteger('locked_by')->nullable();
             $table->unsignedBigInteger('last_update_by')->nullable();
-            $table->datetimes();
-            $table->softDeletesDatetime();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->index('locked_at');
         });
 
         Schema::create('post_author', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('post_id')->constrained();
-            $table->morphs('authorable');
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('post_id')->constrained();
+            $table->uuidMorphs('authorable');
+            $table->foreignUuid('user_id')->nullable()->constrained();
             $table->text('as')->nullable();
             $table->integer('word_count')->default(0);
             $table->timestamps();

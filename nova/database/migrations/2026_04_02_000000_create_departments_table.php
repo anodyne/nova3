@@ -11,27 +11,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('departments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
             $table->string('name')->index();
             $table->text('description')->nullable();
             $table->unsignedInteger('order_column')->nullable();
             $table->string('status')->default('active')->index();
             $table->json('tags')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('positions', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
-            $table->foreignId('department_id')->constrained();
+            $table->foreignUuid('department_id')->constrained();
             $table->string('name')->index();
             $table->text('description')->nullable();
             $table->unsignedSmallInteger('available')->default(1)->index();
             $table->string('status')->default('active')->index();
             $table->json('tags')->nullable();
             $table->unsignedInteger('order_column')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

@@ -11,26 +11,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('menus', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('key')->unique();
             $table->string('status')->default('active')->index();
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('menu_items', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('menu_id')->constrained();
-            $table->unsignedInteger('parent_id')->nullable();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('menu_id')->constrained();
+            $table->uuid('parent_id')->nullable();
             $table->string('label');
             $table->string('icon')->nullable();
             $table->string('link_type');
-            $table->foreignId('page_id')->nullable()->constrained();
+            $table->foreignUuid('page_id')->nullable()->constrained();
             $table->string('url')->nullable();
             $table->string('target')->default('_self');
             $table->string('status')->default('active')->index();
             $table->integer('order_column')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Nova\Notes\Models\Note;
 use Nova\Users\Models\User;
 
@@ -31,6 +32,7 @@ class NoteSeeder extends Seeder
                     'updated_at' => $now,
                 ])
                 ->map(fn ($note): array => array_replace($note->getAttributes(), [
+                    'id' => Str::uuid7()->toString(),
                     'created_at' => $now,
                     'updated_at' => $now,
                 ]))

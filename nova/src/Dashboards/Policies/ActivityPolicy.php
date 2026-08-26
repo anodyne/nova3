@@ -6,8 +6,8 @@ namespace Nova\Dashboards\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Nova\Foundation\Models\Activity;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Models\Activity;
 
 class ActivityPolicy
 {

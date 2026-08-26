@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('discussions', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
             $table->nullableMorphs('discussable');
             $table->string('subject')->nullable();
@@ -19,33 +19,33 @@ return new class extends Migration
         });
 
         Schema::create('discussion_messages', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('discussion_id')->constrained();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('discussion_id')->constrained();
+            $table->foreignUuid('user_id')->nullable()->constrained();
             $table->longText('content');
             $table->string('type')->default('text');
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('discussion_notifications', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('discussion_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('discussion_message_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('discussion_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('discussion_message_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id');
             $table->boolean('is_seen')->default(false);
             $table->boolean('is_sender')->default(false);
-            $table->datetimes();
-            $table->softDeletesDatetime();
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->index(['user_id', 'discussion_message_id'], 'participant_message_index');
         });
 
         Schema::create('discussion_participant', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('discussion_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('user_id');
-            $table->datetimes();
-            $table->softDeletesDatetime();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('discussion_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('user_id');
+            $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(['discussion_id', 'user_id'], 'discussion_participants_index');
         });

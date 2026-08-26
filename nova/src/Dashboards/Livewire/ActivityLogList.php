@@ -8,8 +8,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Foundation\Models\Activity;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Models\Activity;
 
 class ActivityLogList extends TableComponent
 {

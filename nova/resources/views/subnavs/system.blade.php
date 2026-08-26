@@ -1,17 +1,17 @@
 @use('Nova\Addons\Models\Addon')
 @use('Nova\Menus\Models\MenuItem')
 @use('Nova\Themes\Models\Theme')
-@use('Spatie\Activitylog\Models\Activity')
+@use('Nova\Foundation\Models\Activity')
 
 <x-sidebar.subnav>
     <x-sidebar.subnav.group>
         @permission('system.overview')
-            <x-sidebar.subnav.item
-                href="{{ route('admin.system-overview') }}"
-                :current="request()->routeIs('admin.system-overview')"
-            >
-                Overview
-            </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
+            href="{{ route('admin.system-overview') }}"
+            :current="request()->routeIs('admin.system-overview')"
+        >
+            Overview
+        </x-sidebar.subnav.item>
         @endpermission
 
         @can('viewAny', Addon::class)
@@ -42,12 +42,12 @@
         @endcan
 
         @permission('system.error-logs')
-            <x-sidebar.subnav.item
-                :href="route('admin.error-logs.index')"
-                :current="request()->routeIs('admin.error-logs.*')"
-            >
-                Error logs
-            </x-sidebar.subnav.item>
+        <x-sidebar.subnav.item
+            :href="route('admin.error-logs.index')"
+            :current="request()->routeIs('admin.error-logs.*')"
+        >
+            Error logs
+        </x-sidebar.subnav.item>
         @endpermission
     </x-sidebar.subnav.group>
 </x-sidebar.subnav>

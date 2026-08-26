@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Nova\Setup\Randomize;
 
 return new class extends Migration
@@ -125,8 +126,14 @@ return new class extends Migration
         ];
 
         $rows = [
-            array_merge($base, ['key' => 'default'], $encodedSettings),
-            array_merge($base, ['key' => 'custom'], $encodedSettings),
+            array_merge($base, [
+                'key' => 'default',
+                'id' => Str::uuid7()->toString(),
+            ], $encodedSettings),
+            array_merge($base, [
+                'key' => 'custom',
+                'id' => Str::uuid7()->toString(),
+            ], $encodedSettings),
         ];
 
         DB::transaction(fn () => DB::table('settings')->insert($rows));

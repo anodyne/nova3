@@ -14,14 +14,6 @@ class BanFactory extends Factory
 {
     protected $model = Ban::class;
 
-    public function createdBy(User $user): static
-    {
-        return $this->state([
-            'created_by_id' => $user->id,
-            'created_by_type' => $user->getMorphClass(),
-        ]);
-    }
-
     public function definition(): array
     {
         return [
@@ -31,6 +23,14 @@ class BanFactory extends Factory
             'created_by_type' => (new User)->getMorphClass(),
             'comment' => fake()->paragraph(),
         ];
+    }
+
+    public function createdBy(User $user): static
+    {
+        return $this->state([
+            'created_by_id' => $user->id,
+            'created_by_type' => $user->getMorphClass(),
+        ]);
     }
 
     public function expires(): static

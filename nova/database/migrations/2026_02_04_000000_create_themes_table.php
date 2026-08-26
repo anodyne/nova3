@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('themes', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name')->index();
             $table->string('location')->unique();
             $table->string('version');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('status')->default('active')->index();
             $table->json('settings');
             $table->json('repository')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

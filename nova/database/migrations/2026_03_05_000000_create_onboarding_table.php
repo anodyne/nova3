@@ -11,12 +11,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('onboarding', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('process');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->dateTime('completed_at')->nullable();
             $table->json('steps')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

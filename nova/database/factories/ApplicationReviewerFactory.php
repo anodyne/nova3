@@ -14,14 +14,6 @@ class ApplicationReviewerFactory extends Factory
 {
     protected $model = ApplicationReviewer::class;
 
-    public function conditional(): static
-    {
-        return $this->state([
-            'type' => ReviewerType::Conditional,
-            'conditions' => [],
-        ]);
-    }
-
     public function definition(): array
     {
         return [
@@ -29,6 +21,14 @@ class ApplicationReviewerFactory extends Factory
             'type' => ReviewerType::Global,
             'conditions' => null,
         ];
+    }
+
+    public function conditional(): static
+    {
+        return $this->state([
+            'type' => ReviewerType::Conditional,
+            'conditions' => [],
+        ]);
     }
 
     public function global(): static

@@ -16,6 +16,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Foundation\Models\Activity;
 use Nova\Notes\Actions\DeleteNote;
 use Nova\Notes\Actions\DuplicateNote;
 use Nova\Notes\Events\NoteDuplicated;
@@ -24,7 +25,6 @@ use Nova\Notes\Models\Note;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
-use Spatie\Activitylog\Models\Activity;
 
 class NotesList extends TableComponent
 {

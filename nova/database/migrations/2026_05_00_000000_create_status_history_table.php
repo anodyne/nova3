@@ -11,12 +11,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('status_history', function (Blueprint $table) {
-            $table->id();
-            $table->morphs('statusable');
+            $table->uuid('id')->primary();
+            $table->uuidMorphs('statusable');
             $table->string('status');
             $table->dateTime('started_at');
             $table->dateTime('ended_at')->nullable();
-            $table->datetimes();
+            $table->timestamps();
 
             $table->index('started_at');
             $table->index('ended_at');

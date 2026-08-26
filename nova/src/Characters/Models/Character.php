@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
 use Nova\Applications\Models\Application;
 use Nova\Characters\Enums\CharacterType;
@@ -251,12 +252,14 @@ class Character extends Model implements HasMedia
     }
 
     /**
-     * @return Attribute<?int, never>
+     * @return Attribute<never, ?string>
      */
     public function rankId(): Attribute
     {
         return new Attribute(
-            set: fn ($value): ?int => $value === 0 ? null : $value
+            set: fn (mixed $value): ?string => in_array($value, [null, 0, '0'], strict: true)
+                ? null
+                : (string) $value
         );
     }
 
@@ -274,6 +277,11 @@ class Character extends Model implements HasMedia
             ->singleFile();
     }
 
+    public function searchableAs(): string
+    {
+        return 'characters_index';
+    }
+
     public function shouldBeSearchable(): bool
     {
         return ! $this->is_pending;
@@ -281,15 +289,16 @@ class Character extends Model implements HasMedia
 
     /**
      * @return array{
-     *     id: int,
+     *     id: string,
      *     prefixed_id: string|null,
      *     name: string
      * }
      */
+    #[SearchUsingPrefix(['id', 'prefixed_id', 'name'])]
     public function toSearchableArray(): array
     {
         return [
-            'id' => $this->id,
+            'id' => (string) $this->id,
             'prefixed_id' => $this->prefixed_id,
             'name' => $this->name,
         ];

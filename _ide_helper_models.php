@@ -13,7 +13,7 @@
 
 namespace Nova\Foundation\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $version
  * @property string $series
  * @property \Nova\Foundation\Enums\ReleaseSeverity $severity
@@ -44,7 +44,7 @@ namespace Nova\Foundation\Models{
 
 namespace Nova\Foundation\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $key
  * @property string $value
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -65,7 +65,7 @@ namespace Nova\Foundation\Models{
 
 namespace Nova\Foundation\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string $key
  * @property string|null $description
@@ -108,15 +108,15 @@ namespace Nova\Foundation\Models{
 
 namespace Nova\Foundation\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $statusable_type
- * @property int $statusable_id
+ * @property string $statusable_id
  * @property string $status
  * @property \Carbon\CarbonImmutable $started_at
  * @property \Carbon\CarbonImmutable|null $ended_at
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $statusable
+ * @property-read \Illuminate\Database\Eloquent\Model $statusable
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Foundation\Models\StatusHistory query()
@@ -136,7 +136,7 @@ namespace Nova\Foundation\Models{
 
 namespace Nova\Foundation\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $version
  * @property string|null $anodyne_game_id
  * @property \Carbon\CarbonImmutable|null $install_date
@@ -161,7 +161,7 @@ namespace Nova\Foundation\Models{
 
 namespace Nova\Addons\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string $name
  * @property string $location
@@ -190,7 +190,7 @@ namespace Nova\Addons\Models{
  * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon newQuery()
  * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon query()
  * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon rankSet()
- * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon searchFor($column, $search)
+ * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon searchFor(string $column, string $search)
  * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereCreatedAt($value)
  * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereCredits($value)
  * @method static \Nova\Addons\Models\Builders\AddonBuilder<static>|\Nova\Addons\Models\Addon whereId($value)
@@ -212,9 +212,9 @@ namespace Nova\Addons\Models{
 
 namespace Nova\Announcements\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
- * @property int|null $user_id
+ * @property string|null $user_id
  * @property string $title
  * @property string|null $category
  * @property string $content
@@ -235,7 +235,7 @@ namespace Nova\Announcements\Models{
  * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement pending()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement published()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement query()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement searchFor($search)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement searchFor(string $search)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement uniqueCategories()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereCategory($value)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementBuilder<static>|\Nova\Announcements\Models\Announcement whereContent($value)
@@ -257,21 +257,21 @@ namespace Nova\Announcements\Models{
 
 namespace Nova\Announcements\Models{
 /**
- * @property int $id
- * @property int $announcement_id
- * @property int $user_id
+ * @property string $id
+ * @property string $announcement_id
+ * @property string $user_id
  * @property bool $is_seen
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Nova\Announcements\Models\Announcement $announcement
  * @property-read \Nova\Users\Models\User|null $user
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification announcement(int $announcementId)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification announcement(\Nova\Announcements\Models\Announcement|int $announcement)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification newModelQuery()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification newQuery()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification query()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification read()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification unread()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification user(int $userId)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification user(\Nova\Users\Models\User|int $user)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereAnnouncementId($value)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereCreatedAt($value)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereId($value)
@@ -286,10 +286,10 @@ namespace Nova\Announcements\Models{
 
 namespace Nova\Applications\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
- * @property int $user_id
- * @property int|null $character_id
+ * @property string $user_id
+ * @property string|null $character_id
  * @property string|null $ip_address
  * @property \Nova\Applications\Enums\ApplicationResult $result
  * @property string|null $decision_message
@@ -317,7 +317,7 @@ namespace Nova\Applications\Models{
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application pending()
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application query()
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application reviewedBy(\Nova\Users\Models\User $user)
- * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application searchFor($search)
+ * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application searchFor(string $search)
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereCharacterId($value)
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereCreatedAt($value)
  * @method static \Nova\Applications\Models\Builders\ApplicationBuilder<static>|\Nova\Applications\Models\Application whereDecisionDate($value)
@@ -336,9 +336,9 @@ namespace Nova\Applications\Models{
 
 namespace Nova\Applications\Models{
 /**
- * @property int $id
- * @property int $application_id
- * @property int $user_id
+ * @property string $id
+ * @property string $application_id
+ * @property string $user_id
  * @property \Nova\Applications\Enums\ApplicationResult|null $result
  * @property string|null $comments
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -367,8 +367,8 @@ namespace Nova\Applications\Models{
 
 namespace Nova\Applications\Models{
 /**
- * @property int $id
- * @property int $user_id
+ * @property string $id
+ * @property string $user_id
  * @property \Nova\Applications\Enums\ReviewerType $type
  * @property array<array-key, mixed>|null $conditions
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -397,16 +397,16 @@ namespace Nova\Applications\Models{
 
 namespace Nova\Characters\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string $name
  * @property \Nova\Characters\Enums\CharacterType $type
  * @property \Nova\Characters\Models\States\Status\CharacterStatus $status
- * @property int|null $rank_id
+ * @property mixed|null $rank_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property-read \Nova\Characters\Models\CharacterPosition|\Nova\Characters\Models\CharacterUser|null $pivot
+ * @property-read \Nova\Stories\Models\PostAuthor|\Nova\Characters\Models\CharacterPosition|\Nova\Characters\Models\CharacterUser|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activePrimaryUsers
  * @property-read int|null $active_primary_users_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $activeUsers
@@ -425,7 +425,7 @@ namespace Nova\Characters\Models{
  * @property-read bool $is_hidden
  * @property-read bool $is_inactive
  * @property-read bool $is_pending
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Nova\Media\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Departments\Models\Position> $positions
  * @property-read int|null $positions_count
@@ -459,9 +459,9 @@ namespace Nova\Characters\Models{
  * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character pending()
  * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character primary()
  * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character query()
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchFor($search)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchForBasic($search)
- * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchForWithoutUsers($search)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchFor(string $search)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchForBasic(string $search)
+ * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character searchForWithoutUsers(string $search)
  * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character secondary()
  * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character selectTotalCount()
  * @method static \Nova\Characters\Models\Builders\CharacterBuilder<static>|\Nova\Characters\Models\Character selectTypeCounts()
@@ -488,9 +488,9 @@ namespace Nova\Characters\Models{
 
 namespace Nova\Characters\Models{
 /**
- * @property int $id
- * @property int $character_id
- * @property int $position_id
+ * @property string $id
+ * @property string $character_id
+ * @property string $position_id
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Characters\Models\CharacterPosition query()
@@ -505,9 +505,9 @@ namespace Nova\Characters\Models{
 
 namespace Nova\Characters\Models{
 /**
- * @property int $id
- * @property int $character_id
- * @property int $user_id
+ * @property string $id
+ * @property string $character_id
+ * @property string $user_id
  * @property bool $primary
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
@@ -528,7 +528,7 @@ namespace Nova\Characters\Models{
 
 namespace Nova\Departments\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string $name
  * @property string|null $description
@@ -539,7 +539,7 @@ namespace Nova\Departments\Models{
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Nova\Media\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Departments\Models\Position> $positions
  * @property-read int|null $positions_count
@@ -560,7 +560,7 @@ namespace Nova\Departments\Models{
  * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department newQuery()
  * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department ordered(string $direction = 'asc')
  * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department query()
- * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department searchFor($search)
+ * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department searchFor(string $search)
  * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department uniqueTags()
  * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereCreatedAt($value)
  * @method static \Nova\Departments\Models\Builders\DepartmentBuilder<static>|\Nova\Departments\Models\Department whereDescription($value)
@@ -579,9 +579,9 @@ namespace Nova\Departments\Models{
 
 namespace Nova\Departments\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
- * @property int $department_id
+ * @property string $department_id
  * @property string $name
  * @property string|null $description
  * @property int $available
@@ -606,14 +606,14 @@ namespace Nova\Departments\Models{
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position active()
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position available()
  * @method static \Database\Factories\PositionFactory factory($count = null, $state = [])
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position forDepartment($id)
+ * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position forDepartment(\Nova\Departments\Models\Department|int $department)
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position hasTags(array $tags)
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position inactive()
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position newModelQuery()
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position newQuery()
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position ordered(string $direction = 'asc')
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position query()
- * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position searchFor($search)
+ * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position searchFor(string $search)
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position uniqueTags()
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereAvailable($value)
  * @method static \Nova\Departments\Models\Builders\PositionBuilder<static>|\Nova\Departments\Models\Position whereCreatedAt($value)
@@ -634,7 +634,7 @@ namespace Nova\Departments\Models{
 
 namespace Nova\Discussions\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string|null $discussable_type
  * @property int|null $discussable_id
@@ -646,7 +646,7 @@ namespace Nova\Discussions\Models{
  * @property-read \Nova\Discussions\Models\DiscussionParticipant|null $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $allParticipants
  * @property-read int|null $all_participants_count
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $discussable
+ * @property-read \Illuminate\Database\Eloquent\Model|null $discussable
  * @property-read bool $has_unread_messages
  * @property-read bool $is_direct_message
  * @property-read bool $is_group_message
@@ -684,9 +684,9 @@ namespace Nova\Discussions\Models{
 
 namespace Nova\Discussions\Models{
 /**
- * @property int $id
- * @property int $discussion_id
- * @property int|null $user_id
+ * @property string $id
+ * @property string $discussion_id
+ * @property string|null $user_id
  * @property string $content
  * @property \Nova\Discussions\Enums\MessageType $type
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -717,10 +717,10 @@ namespace Nova\Discussions\Models{
 
 namespace Nova\Discussions\Models{
 /**
- * @property int $id
- * @property int $discussion_id
- * @property int $discussion_message_id
- * @property int $user_id
+ * @property string $id
+ * @property string $discussion_id
+ * @property string $discussion_message_id
+ * @property string $user_id
  * @property int $is_seen
  * @property int $is_sender
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -749,13 +749,13 @@ namespace Nova\Discussions\Models{
 
 namespace Nova\Discussions\Models{
 /**
- * @property int $id
- * @property int $discussion_id
- * @property int $user_id
+ * @property string $id
+ * @property string $discussion_id
+ * @property string $user_id
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string|null $deleted_at
- * @property-read \Nova\Discussions\Models\Discussion|null $discussion
+ * @property-read \Nova\Discussions\Models\Discussion $discussion
  * @property-read \Nova\Users\Models\User|null $user
  * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant discussion(int $discussionId)
  * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant newModelQuery()
@@ -776,7 +776,7 @@ namespace Nova\Discussions\Models{
 
 namespace Nova\Forms\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string $name
  * @property string $key
@@ -808,7 +808,7 @@ namespace Nova\Forms\Models{
  * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form newModelQuery()
  * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form newQuery()
  * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form query()
- * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form searchFor($search)
+ * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form searchFor(string $search)
  * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form submissible()
  * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereCreatedAt($value)
  * @method static \Nova\Forms\Models\Builders\FormBuilder<static>|\Nova\Forms\Models\Form whereDescription($value)
@@ -832,8 +832,8 @@ namespace Nova\Forms\Models{
 
 namespace Nova\Forms\Models{
 /**
- * @property int $id
- * @property int $form_id
+ * @property string $id
+ * @property string $form_id
  * @property string $name
  * @property string $uid
  * @property string $label
@@ -870,17 +870,17 @@ namespace Nova\Forms\Models{
 
 namespace Nova\Forms\Models{
 /**
- * @property int $id
- * @property int $form_id
+ * @property string $id
+ * @property string $form_id
  * @property string|null $owner_type
- * @property int|null $owner_id
+ * @property string|null $owner_id
  * @property array<array-key, mixed>|null $meta
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read int|null $activities_count
  * @property-read \Nova\Forms\Models\Form $form
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $owner
+ * @property-read \Illuminate\Database\Eloquent\Model|null $owner
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Forms\Models\FormSubmissionResponse> $responses
  * @property-read int|null $responses_count
  * @property-read string|null $title_field
@@ -906,8 +906,8 @@ namespace Nova\Forms\Models{
 
 namespace Nova\Forms\Models{
 /**
- * @property int $id
- * @property int $submission_id
+ * @property string $id
+ * @property string $submission_id
  * @property string $field_type
  * @property string $field_uid
  * @property mixed|null $value
@@ -934,9 +934,65 @@ namespace Nova\Forms\Models{
 	class IdeHelperFormSubmissionResponse {}
 }
 
+namespace Nova\Media\Models{
+/**
+ * @property string $id
+ * @property string $model_type
+ * @property string $model_id
+ * @property string|null $uuid
+ * @property string $collection_name
+ * @property string $name
+ * @property string $file_name
+ * @property string|null $mime_type
+ * @property string $disk
+ * @property string|null $conversions_disk
+ * @property int $size
+ * @property array<array-key, mixed> $manipulations
+ * @property array<array-key, mixed> $custom_properties
+ * @property array<array-key, mixed> $generated_conversions
+ * @property array<array-key, mixed> $responsive_images
+ * @property int|null $order_column
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read mixed $extension
+ * @property-read mixed $human_readable_size
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $model
+ * @property-read mixed $original_url
+ * @property-read mixed $preview_url
+ * @property-read mixed $type
+ * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, static> all($columns = ['*'])
+ * @method static \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, static> get($columns = ['*'])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media ordered()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereCollectionName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereConversionsDisk($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereCustomProperties($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereDisk($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereFileName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereGeneratedConversions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereManipulations($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereMimeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereModelId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereModelType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereOrderColumn($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereResponsiveImages($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Media\Models\Media whereUuid($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperMedia {}
+}
+
 namespace Nova\Menus\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string $key
  * @property string $status
@@ -964,8 +1020,8 @@ namespace Nova\Menus\Models{
 
 namespace Nova\Menus\Models{
 /**
- * @property int $id
- * @property int $menu_id
+ * @property string $id
+ * @property string $menu_id
  * @property int|null $parent_id
  * @property string $label
  * @property \Anodyne\TablerIcons\Tabler|null $icon
@@ -993,7 +1049,7 @@ namespace Nova\Menus\Models{
  * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem ordered(string $direction = 'asc')
  * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem public()
  * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem query()
- * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem searchFor($search)
+ * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem searchFor(string $search)
  * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereCreatedAt($value)
  * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereIcon($value)
  * @method static \Nova\Menus\Models\Builders\MenuItemBuilder<static>|\Nova\Menus\Models\MenuItem whereId($value)
@@ -1015,9 +1071,9 @@ namespace Nova\Menus\Models{
 
 namespace Nova\Notes\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
- * @property int $user_id
+ * @property string $user_id
  * @property string $title
  * @property string|null $content
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -1031,7 +1087,7 @@ namespace Nova\Notes\Models{
  * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note newModelQuery()
  * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note newQuery()
  * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note query()
- * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note searchFor($search)
+ * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note searchFor(string $search)
  * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note whereContent($value)
  * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note whereCreatedAt($value)
  * @method static \Nova\Notes\Models\Builders\NoteBuilder<static>|\Nova\Notes\Models\Note whereId($value)
@@ -1047,9 +1103,9 @@ namespace Nova\Notes\Models{
 
 namespace Nova\Onboarding\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property \Nova\Onboarding\Enums\OnboardingProcess $process
- * @property int $user_id
+ * @property string $user_id
  * @property string|null $completed_at
  * @property array<array-key, mixed>|null $steps
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -1076,7 +1132,7 @@ namespace Nova\Onboarding\Models{
 
 namespace Nova\Pages\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string $name
  * @property string $uri
@@ -1104,7 +1160,7 @@ namespace Nova\Pages\Models{
  * @property-read bool $is_basic
  * @property-read bool $is_previewable
  * @property-read bool $is_published
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Nova\Media\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Menus\Models\MenuItem> $menuItems
  * @property-read int|null $menu_items_count
@@ -1153,7 +1209,7 @@ namespace Nova\Pages\Models{
 
 namespace Nova\Ranks\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property \Nova\Foundation\Enums\BasicStatus $status
  * @property int|null $order_column
@@ -1170,7 +1226,7 @@ namespace Nova\Ranks\Models{
  * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup newQuery()
  * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup ordered(string $direction = 'asc')
  * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup query()
- * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup searchFor($search)
+ * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup searchFor(string $search)
  * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereCreatedAt($value)
  * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereId($value)
  * @method static \Nova\Ranks\Models\Builders\RankGroupBuilder<static>|\Nova\Ranks\Models\RankGroup whereName($value)
@@ -1185,7 +1241,7 @@ namespace Nova\Ranks\Models{
 
 namespace Nova\Ranks\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property int $group_id
  * @property int $name_id
  * @property string $base_image
@@ -1202,14 +1258,14 @@ namespace Nova\Ranks\Models{
  * @property-read \Nova\Ranks\Models\RankName $name
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem active()
  * @method static \Database\Factories\RankItemFactory factory($count = null, $state = [])
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem group($group)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem group(int $group)
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem inactive()
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem name($name)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem name(int $name)
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem newModelQuery()
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem newQuery()
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem ordered(string $direction = 'asc')
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem query()
- * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem searchFor($search)
+ * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem searchFor(string $search)
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereBaseImage($value)
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereCreatedAt($value)
  * @method static \Nova\Ranks\Models\Builders\RankItemBuilder<static>|\Nova\Ranks\Models\RankItem whereGroupId($value)
@@ -1228,7 +1284,7 @@ namespace Nova\Ranks\Models{
 
 namespace Nova\Ranks\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property \Nova\Foundation\Enums\BasicStatus $status
  * @property int|null $order_column
@@ -1245,7 +1301,7 @@ namespace Nova\Ranks\Models{
  * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName newQuery()
  * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName ordered(string $direction = 'asc')
  * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName query()
- * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName searchFor($search)
+ * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName searchFor(string $search)
  * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereCreatedAt($value)
  * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereId($value)
  * @method static \Nova\Ranks\Models\Builders\RankNameBuilder<static>|\Nova\Ranks\Models\RankName whereName($value)
@@ -1260,7 +1316,7 @@ namespace Nova\Ranks\Models{
 
 namespace Nova\Roles\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string|null $display_name
  * @property string|null $description
@@ -1273,7 +1329,7 @@ namespace Nova\Roles\Models{
  * @method static \Nova\Roles\Models\Builders\PermissionBuilder<static>|\Nova\Roles\Models\Permission newModelQuery()
  * @method static \Nova\Roles\Models\Builders\PermissionBuilder<static>|\Nova\Roles\Models\Permission newQuery()
  * @method static \Nova\Roles\Models\Builders\PermissionBuilder<static>|\Nova\Roles\Models\Permission query()
- * @method static \Nova\Roles\Models\Builders\PermissionBuilder<static>|\Nova\Roles\Models\Permission searchFor($search)
+ * @method static \Nova\Roles\Models\Builders\PermissionBuilder<static>|\Nova\Roles\Models\Permission searchFor(string $search)
  * @method static \Nova\Roles\Models\Builders\PermissionBuilder<static>|\Nova\Roles\Models\Permission whereCreatedAt($value)
  * @method static \Nova\Roles\Models\Builders\PermissionBuilder<static>|\Nova\Roles\Models\Permission whereDescription($value)
  * @method static \Nova\Roles\Models\Builders\PermissionBuilder<static>|\Nova\Roles\Models\Permission whereDisplayName($value)
@@ -1288,7 +1344,7 @@ namespace Nova\Roles\Models{
 
 namespace Nova\Roles\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string $name
  * @property string|null $display_name
@@ -1304,15 +1360,15 @@ namespace Nova\Roles\Models{
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\User> $user
  * @property-read int|null $user_count
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role atOrAboveOrderColumn($maxSortValue)
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role atOrBelowOrderColumn($maxSortValue)
+ * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role atOrAboveOrderColumn(int $maxSortValue)
+ * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role atOrBelowOrderColumn(int $maxSortValue)
  * @method static \Database\Factories\RoleFactory factory($count = null, $state = [])
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role isDefault()
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role newModelQuery()
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role newQuery()
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role ordered(string $direction = 'asc')
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role query()
- * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role searchFor($search)
+ * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role searchFor(string $search)
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereCreatedAt($value)
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereDescription($value)
  * @method static \Nova\Roles\Models\Builders\RoleBuilder<static>|\Nova\Roles\Models\Role whereDisplayName($value)
@@ -1331,7 +1387,7 @@ namespace Nova\Roles\Models{
 
 namespace Nova\Roles\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string|null $display_name
  * @property string|null $description
@@ -1356,7 +1412,7 @@ namespace Nova\Roles\Models{
 
 namespace Nova\Settings\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $key
  * @property \Nova\Settings\Data\General|null $general
  * @property \Nova\Settings\Data\Email|null $email
@@ -1369,7 +1425,7 @@ namespace Nova\Settings\Models{
  * @property \Nova\Settings\Data\Dashboard|null $dashboard
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Nova\Media\Models\Media> $media
  * @property-read int|null $media_count
  * @method static \Nova\Settings\Models\Builders\SettingsBuilder<static>|\Nova\Settings\Models\Settings custom()
  * @method static \Nova\Settings\Models\Builders\SettingsBuilder<static>|\Nova\Settings\Models\Settings default()
@@ -1397,10 +1453,10 @@ namespace Nova\Settings\Models{
 
 namespace Nova\Stories\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
- * @property int|null $story_id
- * @property int|null $post_type_id
+ * @property string|null $story_id
+ * @property string|null $post_type_id
  * @property int|null $order_column
  * @property \Nova\Stories\Models\States\PostStatus\PostStatus $status
  * @property string|null $title
@@ -1468,7 +1524,7 @@ namespace Nova\Stories\Models{
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post previousYear()
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post published()
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post query()
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post searchFor($search)
+ * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post searchFor(string $search)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post unlocked()
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereContent($value)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereCreatedAt($value)
@@ -1487,7 +1543,7 @@ namespace Nova\Stories\Models{
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereNotState(string $column, $states)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereOrderColumn($value)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereParticipants($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePostType($postTypeId)
+ * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePostType(int $postTypeId)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePostTypeId($value)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePrefixedId($value)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePublishedAt($value)
@@ -1512,16 +1568,16 @@ namespace Nova\Stories\Models{
 
 namespace Nova\Stories\Models{
 /**
- * @property int $id
- * @property int $post_id
+ * @property string $id
+ * @property string $post_id
  * @property string $authorable_type
- * @property int $authorable_id
- * @property int|null $user_id
+ * @property string $authorable_id
+ * @property string|null $user_id
  * @property string|null $as
  * @property int $word_count
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $authorable
+ * @property-read \Illuminate\Database\Eloquent\Model $authorable
  * @property-read \Nova\Characters\Models\Character|null $character
  * @property-read \Nova\Stories\Models\Post|null $post
  * @property-read \Nova\Users\Models\User|null $user
@@ -1552,14 +1608,14 @@ namespace Nova\Stories\Models{
 
 namespace Nova\Stories\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string $key
  * @property string $name
  * @property string|null $description
  * @property string|null $color
  * @property \Anodyne\TablerIcons\Tabler|null $icon
- * @property int|null $role_id
+ * @property string|null $role_id
  * @property \Nova\Foundation\Enums\BasicStatus $status
  * @property \Nova\Stories\Enums\PostTypeVisibility $visibility
  * @property \Nova\Stories\Data\Fields|null $fields
@@ -1589,7 +1645,7 @@ namespace Nova\Stories\Models{
  * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType orWhereState(string $column, $states)
  * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType ordered(string $direction = 'asc')
  * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType query()
- * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType searchFor($search)
+ * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType searchFor(string $search)
  * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType userHasAccess(\Illuminate\Contracts\Auth\Authenticatable $user)
  * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereColor($value)
  * @method static \Nova\Stories\Models\Builders\PostTypeBuilder<static>|\Nova\Stories\Models\PostType whereCreatedAt($value)
@@ -1619,7 +1675,7 @@ namespace Nova\Stories\Models{
 
 namespace Nova\Stories\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property int|null $parent_id
  * @property int|null $order_column
@@ -1643,7 +1699,7 @@ namespace Nova\Stories\Models{
  * @property-read bool $is_current
  * @property-read bool $is_ongoing
  * @property-read bool $is_upcoming
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Nova\Media\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \Nova\Stories\Models\Story|null $parent
  * @property-read \Nova\Stories\Models\Story|null $parentStory
@@ -1675,41 +1731,52 @@ namespace Nova\Stories\Models{
  * @property-read \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, \Nova\Stories\Models\Story> $siblingsAndSelf All the parent's children.
  * @property-read int|null $siblings_and_self_count
  * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, static> all($columns = ['*'])
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story breadthFirst()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story depthFirst()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story doesntHaveChildren()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story breadthFirst()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story completed()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story current()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story depthFirst()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story doesntHaveChildren()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story exceptCompleted()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story exceptUpcoming()
  * @method static \Database\Factories\StoryFactory factory($count = null, $state = [])
  * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection<int, static> get($columns = ['*'])
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story getExpressionGrammar()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story hasChildren()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story hasParent()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story isLeaf()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story isRoot()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story newModelQuery()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story newQuery()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story orWhereNotState(string $column, $states)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story orWhereState(string $column, $states)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story ordered(string $direction = 'asc')
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story query()
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story tree($maxDepth = null)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story treeOf(\Illuminate\Database\Eloquent\Model|callable $constraint, $maxDepth = null)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereCreatedAt($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereDepth($operator, $value = null)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereDescription($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereEndedAt($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereId($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereNotState(string $column, $states)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereOrderColumn($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereParentId($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story wherePrefixedId($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereStartedAt($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereState(string $column, $states)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereStatus($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereSummary($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereTitle($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story whereUpdatedAt($value)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story withGlobalScopes(array $scopes)
- * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder<static>|\Nova\Stories\Models\Story withRelationshipExpression($direction, callable $constraint, $initialDepth, $from = null, $maxDepth = null)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story getExpressionGrammar()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story hasChildren()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story hasParent()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story isLeaf()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story isRoot()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story newModelQuery()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story newQuery()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story ongoing()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story orWhereNotState(string $column, $states)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story orWhereState(string $column, $states)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story ordered(string $direction = 'asc')
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story query()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story searchFor(string $search)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story selectStatusCounts()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story selectTotalCount()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story tree($maxDepth = null)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story treeOf(\Illuminate\Database\Eloquent\Model|callable $constraint, $maxDepth = null)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story upcoming()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereCreatedAt($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereDepth($operator, $value = null)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereDescription($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereEndedAt($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereId($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereNotState(string $column, $states)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereOrderColumn($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereParent(\Nova\Stories\Models\Story|int|null $parent)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereParentId($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story wherePrefixedId($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereStartedAt($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereState(string $column, $states)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereStatus($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereSummary($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereTitle($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereUpdatedAt($value)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story withCountsAndSums()
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story withGlobalScopes(array $scopes)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story withRelationshipExpression($direction, callable $constraint, $initialDepth, $from = null, $maxDepth = null)
  * @mixin \Eloquent
  */
 	#[\AllowDynamicProperties]
@@ -1718,46 +1785,7 @@ namespace Nova\Stories\Models{
 
 namespace Nova\Themes\Models{
 /**
- * @property int $id
- * @property string $name
- * @property string $location
- * @property string $version
- * @property string|null $credits
- * @property string|null $preview
- * @property \Nova\Foundation\Enums\BasicStatus $status
- * @property \Nova\Themes\Data\ThemeSettings $settings
- * @property \Nova\Addons\Data\AddonRepository|null $repository
- * @property \Carbon\CarbonImmutable|null $created_at
- * @property \Carbon\CarbonImmutable|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
- * @property-read int|null $activities_count
- * @property-read bool $has_update
- * @property-read bool $is_current_public_theme
- * @property-read string|null $latest_version
- * @property-read string|null $update_url
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereCredits($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme wherePreview($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereRepository($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereSettings($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereVersion($value)
- * @mixin \Eloquent
- */
-	#[\AllowDynamicProperties]
-	class IdeHelperPendingTheme {}
-}
-
-namespace Nova\Themes\Models{
-/**
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string $location
  * @property string $version
@@ -1777,7 +1805,7 @@ namespace Nova\Themes\Models{
  * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme active()
  * @method static \Database\Factories\ThemeFactory factory($count = null, $state = [])
  * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme inactive()
- * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme location($location)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme location(string $location)
  * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme newModelQuery()
  * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme newQuery()
  * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\Theme query()
@@ -1800,18 +1828,18 @@ namespace Nova\Themes\Models{
 
 namespace Nova\Users\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $bannable_type
- * @property int|null $bannable_id
+ * @property string|null $bannable_id
  * @property string|null $created_by_type
- * @property int|null $created_by_id
+ * @property string|null $created_by_id
  * @property string|null $comment
  * @property string|null $ip
  * @property \Carbon\Carbon|string|null|null $expired_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property array<array-key, mixed>|null $metas
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @property array<array-key, mixed>|null $metas
+ * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $bannable
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $createdBy
  * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Users\Models\Ban expired()
@@ -1846,8 +1874,8 @@ namespace Nova\Users\Models{
 
 namespace Nova\Users\Models{
 /**
- * @property int $id
- * @property int $user_id
+ * @property string $id
+ * @property string $user_id
  * @property string $ip_address
  * @property \Carbon\CarbonImmutable $created_at
  * @property-read \Nova\Users\Models\User|null $user
@@ -1866,7 +1894,7 @@ namespace Nova\Users\Models{
 
 namespace Nova\Users\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string|null $prefixed_id
  * @property string $name
  * @property string $email
@@ -1928,7 +1956,7 @@ namespace Nova\Users\Models{
  * @property-read int|null $latest_post_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Users\Models\Login> $logins
  * @property-read int|null $logins_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Nova\Media\Models\Media> $media
  * @property-read int|null $media_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Notes\Models\Note> $notes
  * @property-read int|null $notes_count
@@ -1984,7 +2012,7 @@ namespace Nova\Users\Models{
  * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User pending()
  * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User query()
  * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User searchFor(string $search)
- * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User searchForBasic($search)
+ * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User searchForBasic(string $search)
  * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User searchForWithoutCharacters(string $search)
  * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User selectTotalCount()
  * @method static \Nova\Users\Models\Builders\UserBuilder<static>|\Nova\Users\Models\User whereBansMeta(string $key, $value)
@@ -2021,9 +2049,9 @@ namespace Nova\Users\Models{
 
 namespace Nova\Users\Models{
 /**
- * @property int $id
- * @property int $notification_type_id
- * @property int $user_id
+ * @property string $id
+ * @property string $notification_type_id
+ * @property string $user_id
  * @property int $database
  * @property int $mail
  * @property int $discord

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -128,7 +129,7 @@ return new class extends Migration
                         $form[$column] = json_encode($form[$column], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
                     }
                 }
-                $formRows[] = array_replace($template, $form, ['created_at' => $now, 'updated_at' => $now]);
+                $formRows[] = array_replace($template, $form, ['id' => Str::uuid7()->toString(), 'created_at' => $now, 'updated_at' => $now]);
             }
 
             DB::table('forms')->upsert(
@@ -160,6 +161,7 @@ return new class extends Migration
                     }
 
                     $formFieldRows[] = [
+                        'id' => Str::uuid7()->toString(),
                         'uid' => $uid,
                         'form_id' => $formId,
                         'name' => data_get($field, 'data.attrs.name'),

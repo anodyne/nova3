@@ -19,13 +19,6 @@ class CharacterFactory extends Factory
 
     protected $model = Character::class;
 
-    public function active(): static
-    {
-        return $this->state([
-            'status' => Active::class,
-        ]);
-    }
-
     public function definition(): array
     {
         return [
@@ -33,6 +26,13 @@ class CharacterFactory extends Factory
             'type' => CharacterType::Support,
             'status' => Active::class,
         ];
+    }
+
+    public function active(): static
+    {
+        return $this->state([
+            'status' => Active::class,
+        ]);
     }
 
     public function inactive(): static

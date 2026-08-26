@@ -25,6 +25,7 @@ use Nova\Foundation\Filament\Actions\ReplicateAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Foundation\Models\Activity;
 use Nova\Pages\Actions\DeletePage;
 use Nova\Pages\Actions\DuplicatePage;
 use Nova\Pages\Data\PageData;
@@ -34,7 +35,6 @@ use Nova\Pages\Models\Page;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
-use Spatie\Activitylog\Models\Activity;
 
 class PagesList extends TableComponent
 {

@@ -5,71 +5,76 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Nova\Characters\Models\Character;
 use Nova\Departments\Models\Position;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Models\Form;
 use Nova\Foundation\Actions\TrackStatusUpdate;
+use Nova\Ranks\Models\RankItem;
 use Nova\Users\Models\User;
 
 class CharacterSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::disableQueryLog();
         activity()->disableLogging();
 
         $form = Form::key('characterBio')->first();
 
-        $users = User::query()->whereIn('id', [1, 2, 4])->get()->keyBy('id');
-        $positions = Position::query()->whereIn('id', [1, 2, 31])->get()->keyBy('id');
+        $users = User::query()
+            ->whereIn('email', ['admin@admin.com', 'user1@user.com', 'user3@user.com'])
+            ->get()
+            ->keyBy('email');
 
-        $attachUsers = function (Character $character, array $pairs): void {
-            $pivot = [];
-            foreach ($pairs as $pair) {
-                $pivot[$pair['id']] = array_key_exists('primary', $pair) ? ['primary' => (bool) $pair['primary']] : [];
-            }
-            if ($pivot !== []) {
-                $character->users()->attach($pivot);
+        $ranks = RankItem::query()
+            ->get()
+            ->keyBy(fn (RankItem $rank): string => "{$rank->base_image}|{$rank->overlay_image}");
+
+        $positions = Position::query()
+            ->whereIn('name', ['Commanding Officer', 'Executive Officer', 'Engineering Officer'])
+            ->get()
+            ->keyBy('name');
+
+        $attachUser = function (Character $character, string $email, bool $primary = false) use ($users): void {
+            if ($user = $users->get($email)) {
+                $character->users()->attach($user->id, [
+                    'id' => Str::uuid7()->toString(),
+                    ...($primary ? ['primary' => true] : []),
+                ]);
             }
         };
 
-        $attachPositions = function (Character $character, array $ids) use ($positions): void {
-            $ids = array_values(array_intersect($ids, $positions->keys()->all()));
-            if ($ids !== []) {
-                $character->positions()->attach($ids);
+        $attachPosition = function (Character $character, string $name) use ($positions): void {
+            if ($position = $positions->get($name)) {
+                $character->positions()->attach($position->id, [
+                    'id' => Str::uuid7()->toString(),
+                ]);
             }
         };
 
         $picard = Character::factory()->secondary()->create([
             'name' => 'Jean-Luc Picard',
-            'rank_id' => 1,
+            'rank_id' => $ranks['red.png|naval/a4.png']->id,
         ]);
-        if ($users->has(1)) {
-            $attachUsers($picard, [['id' => 1]]);
-        }
+        $attachUser($picard, 'admin@admin.com');
         CreateFormSubmission::run($form, $picard);
         TrackStatusUpdate::run($picard);
 
         $riker = Character::factory()->primary()->create([
             'name' => 'William Riker',
-            'rank_id' => 1,
+            'rank_id' => $ranks['red.png|naval/a4.png']->id,
         ]);
-        $attachUsers($riker, array_values(array_filter([
-            $users->has(2) ? ['id' => 2] : null,
-            $users->has(4) ? ['id' => 4, 'primary' => true] : null,
-        ])));
+        $attachUser($riker, 'user1@user.com');
+        $attachUser($riker, 'user3@user.com', primary: true);
         CreateFormSubmission::run($form, $riker);
         TrackStatusUpdate::run($riker);
 
         $laforge = Character::factory()->primary()->create([
             'name' => 'Geordi LaForge',
-            'rank_id' => 4,
+            'rank_id' => $ranks['red.png|naval/a1.png']->id,
         ]);
-        if ($users->has(2)) {
-            $attachUsers($laforge, [['id' => 2, 'primary' => true]]);
-        }
+        $attachUser($laforge, 'user1@user.com', primary: true);
         CreateFormSubmission::run($form, $laforge);
         TrackStatusUpdate::run($laforge);
 
@@ -81,51 +86,43 @@ class CharacterSeeder extends Seeder
 
         $crusher = Character::factory()->create([
             'name' => 'Beverly Crusher',
-            'rank_id' => 4,
+            'rank_id' => $ranks['red.png|naval/a1.png']->id,
         ]);
         CreateFormSubmission::run($form, $crusher);
         TrackStatusUpdate::run($crusher);
 
         $shaw = Character::factory()->primary()->create([
             'name' => 'Liam Shaw',
-            'rank_id' => 5,
+            'rank_id' => $ranks['red.png|naval/o6.png']->id,
         ]);
-        $attachPositions($shaw, [1]);
-        if ($users->has(1)) {
-            $attachUsers($shaw, [['id' => 1, 'primary' => true]]);
-        }
+        $attachPosition($shaw, 'Commanding Officer');
+        $attachUser($shaw, 'admin@admin.com', primary: true);
         CreateFormSubmission::run($form, $shaw);
         TrackStatusUpdate::run($shaw);
 
         $seven = Character::factory()->primary()->create([
             'name' => 'Seven of Nine',
-            'rank_id' => 6,
+            'rank_id' => $ranks['red.png|naval/o5.png']->id,
         ]);
-        $attachPositions($seven, [2]);
-        if ($users->has(2)) {
-            $attachUsers($seven, [['id' => 2, 'primary' => true]]);
-        }
+        $attachPosition($seven, 'Executive Officer');
+        $attachUser($seven, 'user1@user.com', primary: true);
         CreateFormSubmission::run($form, $seven);
         TrackStatusUpdate::run($seven);
 
         $sidney = Character::factory()->secondary()->create([
             'name' => 'Sidney LaForge',
-            'rank_id' => 10,
+            'rank_id' => $ranks['red.png|naval/o1.png']->id,
         ]);
-        if ($users->has(2)) {
-            $attachUsers($sidney, [['id' => 2]]);
-        }
-        $attachPositions($sidney, [31]);
+        $attachUser($sidney, 'user1@user.com');
+        $attachPosition($sidney, 'Engineering Officer');
         CreateFormSubmission::run($form, $sidney);
         TrackStatusUpdate::run($sidney);
 
         $alandra = Character::factory()->secondary()->create([
             'name' => 'Alandra LaForge',
-            'rank_id' => 24,
+            'rank_id' => $ranks['yellow.png|naval/o2.png']->id,
         ]);
-        if ($users->has(2)) {
-            $attachUsers($alandra, [['id' => 2]]);
-        }
+        $attachUser($alandra, 'user1@user.com');
         CreateFormSubmission::run($form, $alandra);
         TrackStatusUpdate::run($alandra);
 
@@ -133,7 +130,5 @@ class CharacterSeeder extends Seeder
             'name' => 'Jack Crusher',
         ]);
         CreateFormSubmission::run($form, $jack);
-
-        activity()->enableLogging();
     }
 }

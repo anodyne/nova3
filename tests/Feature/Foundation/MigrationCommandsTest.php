@@ -5,6 +5,9 @@ declare(strict_types=1);
 use Illuminate\Database\Console\Migrations\InstallCommand;
 use Illuminate\Database\Migrations\DatabaseMigrationRepository;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use Jlorente\DataMigrations\Repositories\DatabaseDataMigrationRepository;
 use Nova\Foundation\Console\Commands\InstallDataMigrations;
 
@@ -43,6 +46,21 @@ describe('migration commands', function () {
         $repository = repositoryOf(Artisan::all()['migrate:install']);
 
         expect(tableOf($repository))->toBe('migrations');
+    });
+
+    it('creates the initial public menu items with the public menu UUID', function () {
+        $menuId = DB::table('menus')->where('key', 'public')->value('id');
+        $menuItems = DB::table('menu_items')->where('menu_id', $menuId)->get();
+
+        expect($menuId)->toBeString()
+            ->and(Str::isUuid($menuId, version: 7))->toBeTrue()
+            ->and($menuItems)->toHaveCount(5)
+            ->and($menuItems->pluck('menu_id')->unique()->all())->toBe([$menuId]);
+    });
+
+    it('uses UUIDs for menu item parent references', function () {
+        expect(Schema::getColumnType('menu_items', 'parent_id'))
+            ->toBe(Schema::getColumnType('menu_items', 'id'));
     });
 });
 

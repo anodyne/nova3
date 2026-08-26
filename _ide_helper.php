@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 13.25.0.
+ * Generated for Laravel 13.29.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -7751,7 +7751,7 @@ namespace Illuminate\Support\Facades {
 
         /**
          * @see \Nova\Foundation\Providers\AppServiceProvider::configureMacros()
-         * @return object
+         * @return \Nova\Foundation\Values\DatabaseVersionInfo
          * @static
          */
         public static function versionInfo()
@@ -13450,7 +13450,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert that a process was recorded matching a given truth test.
          *
-         * @param \Closure|string $callback
+         * @param \Closure|array<array-key, string>|string $callback
          * @return \Illuminate\Process\Factory
          * @static
          */
@@ -13463,7 +13463,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert that a process was recorded a given number of times matching a given truth test.
          *
-         * @param \Closure|string $callback
+         * @param \Closure|array<array-key, string>|string $callback
          * @param int $times
          * @return \Illuminate\Process\Factory
          * @static
@@ -13475,9 +13475,22 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Assert that the given processes were run in the given order.
+         *
+         * @param list<\Closure|array<array-key, string>|string> $callbacks
+         * @return \Illuminate\Process\Factory
+         * @static
+         */
+        public static function assertRanInOrder($callbacks)
+        {
+            /** @var \Illuminate\Process\Factory $instance */
+            return $instance->assertRanInOrder($callbacks);
+        }
+
+        /**
          * Assert that a process was not recorded matching a given truth test.
          *
-         * @param \Closure|string $callback
+         * @param \Closure|array<array-key, string>|string $callback
          * @return \Illuminate\Process\Factory
          * @static
          */
@@ -13490,7 +13503,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert that a process was not recorded matching a given truth test.
          *
-         * @param \Closure|string $callback
+         * @param \Closure|array<array-key, string>|string $callback
          * @return \Illuminate\Process\Factory
          * @static
          */
@@ -13741,6 +13754,21 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Queue\QueueManager $instance */
             $instance->route($class, $queue, $connection);
+        }
+
+        /**
+         * Forward the given queue to another queue and/or connection.
+         *
+         * @param array<string, \UnitEnum|string>|\UnitEnum|string $queue
+         * @param \UnitEnum|string|null $to
+         * @param \UnitEnum|string|null $connection
+         * @return void
+         * @static
+         */
+        public static function forward($queue, $to = null, $connection = null)
+        {
+            /** @var \Illuminate\Queue\QueueManager $instance */
+            $instance->forward($queue, $to, $connection);
         }
 
         /**
@@ -14264,6 +14292,42 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
             return $instance->reservedSize($queue);
+        }
+
+        /**
+         * Get the number of pending jobs across every queue.
+         *
+         * @return int
+         * @static
+         */
+        public static function totalPendingSize()
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+            return $instance->totalPendingSize();
+        }
+
+        /**
+         * Get the number of delayed jobs across every queue.
+         *
+         * @return int
+         * @static
+         */
+        public static function totalDelayedSize()
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+            return $instance->totalDelayedSize();
+        }
+
+        /**
+         * Get the number of reserved jobs across every queue.
+         *
+         * @return int
+         * @static
+         */
+        public static function totalReservedSize()
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+            return $instance->totalReservedSize();
         }
 
         /**
@@ -21439,6 +21503,20 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Create a read-through filesystem driver.
+         *
+         * @param array $config
+         * @param string $name
+         * @return \Illuminate\Filesystem\LocalFilesystemAdapter
+         * @static
+         */
+        public static function createReadThroughDriver($config, $name = 'read-through')
+        {
+            /** @var \Illuminate\Filesystem\FilesystemManager $instance */
+            return $instance->createReadThroughDriver($config, $name);
+        }
+
+        /**
          * Create a scoped driver.
          *
          * @param array $config
@@ -24325,18 +24403,6 @@ namespace Illuminate\Support\Facades {
             return \Illuminate\View\Factory::getCurrentComponentData();
         }
 
-        /**
-         * @see \Nova\Foundation\Macros\ViewMacros::component()
-         * @param mixed $name
-         * @param mixed $data
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-         * @static
-         */
-        public static function component($name, $data)
-        {
-            return \Illuminate\View\Factory::component($name, $data);
-        }
-
             }
     /**
      * @see \Illuminate\Foundation\Vite
@@ -24750,6 +24816,7 @@ namespace Nova\Foundation {
      */
     class Nova {
         /**
+         * @param array<string, mixed> $options
          * @static
          */
         public static function adminScripts($options = [])
@@ -24759,6 +24826,7 @@ namespace Nova\Foundation {
         }
 
         /**
+         * @param array<string, mixed> $options
          * @static
          */
         public static function adminStyles($options = [])
@@ -24887,6 +24955,7 @@ namespace Nova\Foundation {
         /**
          * Provide data from the backend for the frontend to use.
          *
+         * @return Collection<string, Page|BaseTheme|User|null>
          * @static
          */
         public static function provideScriptVariables()
@@ -24896,6 +24965,7 @@ namespace Nova\Foundation {
         }
 
         /**
+         * @param array<string, mixed> $options
          * @static
          */
         public static function publicScripts($options = [])
@@ -24905,6 +24975,7 @@ namespace Nova\Foundation {
         }
 
         /**
+         * @param array<string, mixed> $options
          * @static
          */
         public static function publicStyles($options = [])
@@ -24914,6 +24985,7 @@ namespace Nova\Foundation {
         }
 
         /**
+         * @param array<string, mixed> $options
          * @static
          */
         public static function setupScripts($options = [])
@@ -28019,7 +28091,7 @@ namespace Lorisleiva\Actions\Facades {
         }
 
         /**
-         * @param class-string<JobDecorator&ShouldBeUnique> $uniqueJobDecoratorClass
+         * @param class-string<UniqueJobDecorator> $uniqueJobDecoratorClass
          * @static
          */
         public static function useUniqueJobDecorator($uniqueJobDecoratorClass)
@@ -30574,7 +30646,7 @@ namespace Illuminate\Database {
     class DatabaseManager {
         /**
          * @see \Nova\Foundation\Providers\AppServiceProvider::configureMacros()
-         * @return object
+         * @return \Nova\Foundation\Values\DatabaseVersionInfo
          * @static
          */
         public static function versionInfo()
@@ -33370,18 +33442,6 @@ namespace Illuminate\View {
             return \Illuminate\View\Factory::getCurrentComponentData();
         }
 
-        /**
-         * @see \Nova\Foundation\Macros\ViewMacros::component()
-         * @param mixed $name
-         * @param mixed $data
-         * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-         * @static
-         */
-        public static function component($name, $data)
-        {
-            return \Illuminate\View\Factory::component($name, $data);
-        }
-
             }
     /**
      */
@@ -33389,6 +33449,7 @@ namespace Illuminate\View {
         /**
          * @see \Livewire\Features\SupportPageComponents\SupportPageComponents::registerLayoutViewMacros()
          * @param mixed $data
+         * @return static
          * @static
          */
         public static function layoutData($data = [])
@@ -33399,6 +33460,7 @@ namespace Illuminate\View {
         /**
          * @see \Livewire\Features\SupportPageComponents\SupportPageComponents::registerLayoutViewMacros()
          * @param mixed $section
+         * @return static
          * @static
          */
         public static function section($section)
@@ -33409,6 +33471,7 @@ namespace Illuminate\View {
         /**
          * @see \Livewire\Features\SupportPageComponents\SupportPageComponents::registerLayoutViewMacros()
          * @param mixed $title
+         * @return static
          * @static
          */
         public static function title($title)
@@ -33419,6 +33482,7 @@ namespace Illuminate\View {
         /**
          * @see \Livewire\Features\SupportPageComponents\SupportPageComponents::registerLayoutViewMacros()
          * @param mixed $slot
+         * @return static
          * @static
          */
         public static function slot($slot)
@@ -33430,6 +33494,7 @@ namespace Illuminate\View {
          * @see \Livewire\Features\SupportPageComponents\SupportPageComponents::registerLayoutViewMacros()
          * @param mixed $view
          * @param mixed $params
+         * @return static
          * @static
          */
         public static function extends($view, $params = [])
@@ -33441,6 +33506,7 @@ namespace Illuminate\View {
          * @see \Livewire\Features\SupportPageComponents\SupportPageComponents::registerLayoutViewMacros()
          * @param mixed $view
          * @param mixed $params
+         * @return static
          * @static
          */
         public static function layout($view, $params = [])
@@ -33451,6 +33517,7 @@ namespace Illuminate\View {
         /**
          * @see \Livewire\Features\SupportPageComponents\SupportPageComponents::registerLayoutViewMacros()
          * @param callable $callback
+         * @return static
          * @static
          */
         public static function response($callback)
@@ -33576,7 +33643,7 @@ namespace Nova\Setup\Livewire {
     /**
      * @property-read bool $shouldShowForm
      * @property-read bool $shouldShowSuccessTable
-     * @property-read array $availableGenres
+     * @property-read array<string, string> $availableGenres
      */
     class InstallNova extends \Livewire\Component {
             }
@@ -33597,7 +33664,7 @@ namespace Nova\Setup\Livewire {
     class MigrateNovaData extends \Livewire\Component {
             }
     /**
-     * @property-read Collection $users
+     * @property-read Collection<int, User> $users
      */
     class UserAccess extends \Livewire\Component {
             }
@@ -33611,6 +33678,7 @@ namespace Nova\Setup\Livewire {
 
 namespace Nova\Pages\Models\Collections {
     /**
+     * @extends Collection<int|string, Page>
      */
     class PagesCollection extends \Illuminate\Database\Eloquent\Collection {
             }
@@ -33743,6 +33811,32 @@ namespace  {
         {
             /** @var \Illuminate\Database\Eloquent\Builder $instance */
             return $instance->whereKeyNot($id);
+        }
+
+        /**
+         * Add an "or where" clause on the primary key to the query.
+         *
+         * @param mixed $id
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function orWhereKey($id)
+        {
+            /** @var \Illuminate\Database\Eloquent\Builder $instance */
+            return $instance->orWhereKey($id);
+        }
+
+        /**
+         * Add an "or where not" clause on the primary key to the query.
+         *
+         * @param mixed $id
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function orWhereKeyNot($id)
+        {
+            /** @var \Illuminate\Database\Eloquent\Builder $instance */
+            return $instance->orWhereKeyNot($id);
         }
 
         /**
@@ -36670,6 +36764,65 @@ namespace  {
         }
 
         /**
+         * Add a "where binary" clause to the query.
+         *
+         * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+         * @param string $value
+         * @param string $boolean
+         * @param bool $not
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function whereBinary($column, $value, $boolean = 'and', $not = false)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->whereBinary($column, $value, $boolean, $not);
+        }
+
+        /**
+         * Add an "or where binary" clause to the query.
+         *
+         * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+         * @param string $value
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function orWhereBinary($column, $value)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->orWhereBinary($column, $value);
+        }
+
+        /**
+         * Add a "where not binary" clause to the query.
+         *
+         * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+         * @param string $value
+         * @param string $boolean
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function whereNotBinary($column, $value, $boolean = 'and')
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->whereNotBinary($column, $value, $boolean);
+        }
+
+        /**
+         * Add an "or where not binary" clause to the query.
+         *
+         * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+         * @param string $value
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function orWhereNotBinary($column, $value)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->orWhereNotBinary($column, $value);
+        }
+
+        /**
          * Add a "where like" clause to the query.
          *
          * @param \Illuminate\Contracts\Database\Query\Expression|string $column
@@ -38024,7 +38177,7 @@ namespace  {
          * Add an "order by" clause to order results by a given sequence of values.
          *
          * @param \Illuminate\Contracts\Database\Query\Expression|string $column
-         * @param \Illuminate\Contracts\Support\Arrayable|array $values
+         * @param \Illuminate\Contracts\Support\Arrayable|array<\UnitEnum|string|int|float|bool> $values
          * @return \Illuminate\Database\Eloquent\Builder<static>
          * @static
          */
@@ -40878,9 +41031,11 @@ use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Cache;
 use Mistralys\VersionParser\VersionParser;
+use Nova\Addons\BaseAddon;
 use Nova\Foundation\Application;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Nova;
+use Nova\Foundation\NovaManager;
 use Nova\Settings\Models\Settings;
 
 if (! function_exists('__s')) {
@@ -40891,14 +41046,14 @@ if (! function_exists('__s')) {
 }
 
 if (! function_exists('gate')) {
-    function gate()
+    function gate(): GateContract
     {
         return app(GateContract::class);
     }
 }
 
 if (! function_exists('pipe')) {
-    function pipe($passable)
+    function pipe(mixed $passable): Pipeline
     {
         return app(Pipeline::class)->send($passable);
     }
@@ -40908,7 +41063,7 @@ if (! function_exists('settings')) {
     /**
      * @return ($key is null ? Settings|null : mixed)
      */
-    function settings($key = null): mixed
+    function settings(?string $key = null): mixed
     {
         $settings = app('nova.settings');
 
@@ -40921,14 +41076,14 @@ if (! function_exists('settings')) {
 }
 
 if (! function_exists('nova')) {
-    function nova()
+    function nova(): NovaManager
     {
         return app('nova');
     }
 }
 
 if (! function_exists('nova_path')) {
-    function nova_path($path = '')
+    function nova_path(string $path = ''): string
     {
         $application = app();
 
@@ -40941,7 +41096,7 @@ if (! function_exists('nova_path')) {
 }
 
 if (! function_exists('theme')) {
-    function theme(?string $property = null)
+    function theme(?string $property = null): mixed
     {
         $theme = app('nova.theme');
 
@@ -40954,7 +41109,7 @@ if (! function_exists('theme')) {
 }
 
 if (! function_exists('theme_path')) {
-    function theme_path($path = '')
+    function theme_path(string $path = ''): string
     {
         $application = app();
 
@@ -40967,11 +41122,11 @@ if (! function_exists('theme_path')) {
 }
 
 if (! function_exists('addon')) {
-    function addon(string $location)
+    function addon(string $location): ?BaseAddon
     {
         $className = "Addons\\$location\\Addon";
 
-        if (! class_exists($className)) {
+        if (! is_subclass_of($className, BaseAddon::class)) {
             return null;
         }
 
@@ -40980,7 +41135,7 @@ if (! function_exists('addon')) {
 }
 
 if (! function_exists('addon_path')) {
-    function addon_path($path = '')
+    function addon_path(string $path = ''): string
     {
         $application = app();
 
@@ -40993,7 +41148,7 @@ if (! function_exists('addon_path')) {
 }
 
 if (! function_exists('rank_path')) {
-    function rank_path($path = '')
+    function rank_path(string $path = ''): string
     {
         $application = app();
 
@@ -41006,20 +41161,18 @@ if (! function_exists('rank_path')) {
 }
 
 if (! function_exists('get_class_name')) {
-    function get_class_name($value)
+    function get_class_name(string $value): string
     {
-        $parts = explode('\\', $value);
-
-        return array_pop($parts);
+        return class_basename($value);
     }
 }
 
 if (! function_exists('external_content')) {
-    function external_content($key, $default = null)
+    function external_content(string $key, mixed $default = null): ?string
     {
         $subject = data_get(Cache::get(CacheKeys::ExternalContent->value), $key, $default);
 
-        if (blank($subject)) {
+        if (! is_string($subject) || blank($subject)) {
             return null;
         }
 
@@ -41036,7 +41189,8 @@ if (! function_exists('external_content')) {
 }
 
 if (! function_exists('parse')) {
-    function parse(string $subject, array $variables, string $escapeChar = '@', $errPlaceholder = null)
+    /** @param array<string, string> $variables */
+    function parse(string $subject, array $variables, string $escapeChar = '@', ?string $errPlaceholder = null): string
     {
         $esc = preg_quote($escapeChar);
         $expr = "/
@@ -41045,7 +41199,7 @@ if (! function_exists('parse')) {
           | {(\w+)}
         /x";
 
-        $callback = function ($match) use ($variables, $escapeChar, $errPlaceholder) {
+        $callback = function (array $match) use ($variables, $escapeChar, $errPlaceholder): string {
             switch ($match[0]) {
                 case $escapeChar.$escapeChar:
                     return $escapeChar;
@@ -41062,7 +41216,7 @@ if (! function_exists('parse')) {
             }
         };
 
-        return preg_replace_callback($expr, $callback, $subject);
+        return preg_replace_callback($expr, $callback, $subject) ?? $subject;
     }
 }
 }

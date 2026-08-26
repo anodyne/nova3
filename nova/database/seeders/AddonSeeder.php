@@ -14,10 +14,6 @@ class AddonSeeder extends Seeder
      */
     public function run(): void
     {
-        activity()->disableLogging();
-
         Addon::factory()->count(2)->create();
-
-        activity()->enableLogging();
     }
 }

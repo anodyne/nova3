@@ -22,6 +22,7 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Foundation\Models\Activity;
 use Nova\Stories\Actions\UpdateStory;
 use Nova\Stories\Data\StoryData;
 use Nova\Stories\Models\Builders\StoryBuilder;
@@ -29,7 +30,6 @@ use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
-use Spatie\Activitylog\Models\Activity;
 
 class StoriesList extends TableComponent
 {

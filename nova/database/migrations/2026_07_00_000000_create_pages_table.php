@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pages', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
             $table->string('name');
             $table->string('uri');
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->text('heading')->nullable();
             $table->text('subheading')->nullable();
             $table->longText('intro')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

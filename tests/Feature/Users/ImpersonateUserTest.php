@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
+use Nova\Foundation\Models\Activity;
 use Nova\Users\Livewire\UsersList;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Models\Activity;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;

@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('forms', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
             $table->string('name')->index();
             $table->string('key')->unique();
@@ -23,35 +23,35 @@ return new class extends Migration
             $table->longText('published_fields')->nullable();
             $table->string('status')->default('active')->index();
             $table->dateTime('published_at')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('form_fields', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('form_id')->constrained();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('form_id')->constrained();
             $table->string('name');
             $table->string('uid');
             $table->string('label');
             $table->string('type');
             $table->unsignedInteger('order_column')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('form_submissions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('form_id')->constrained();
-            $table->nullableMorphs('owner');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('form_id')->constrained();
+            $table->nullableUuidMorphs('owner');
             $table->json('meta')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('form_submission_responses', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('submission_id')->constrained('form_submissions');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('submission_id')->constrained('form_submissions');
             $table->string('field_type');
             $table->string('field_uid');
             $table->longText('value')->nullable();
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

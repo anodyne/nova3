@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -12,6 +13,7 @@ return new class extends Migration
     {
         $themes = [
             [
+                'id' => Str::uuid7()->toString(),
                 'name' => 'Pulsar',
                 'location' => 'Pulsar',
                 'version' => '3.0',

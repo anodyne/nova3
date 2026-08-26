@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Spatie\Activitylog\Models\Activity;
+use Nova\Foundation\Models\Activity;
 
 return [
 

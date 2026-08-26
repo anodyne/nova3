@@ -69,6 +69,7 @@ use Nova\Foundation\Macros\CreateUpdateOrDelete;
 use Nova\Foundation\Macros\NotificationMacros;
 use Nova\Foundation\Macros\StrMacros;
 use Nova\Foundation\Macros\TextColumnMacros;
+use Nova\Foundation\Models\Activity;
 use Nova\Foundation\Nova;
 use Nova\Foundation\NovaBladeDirectives;
 use Nova\Foundation\NovaManager;
@@ -94,7 +95,6 @@ use Nova\Themes\Models\Theme;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
-use Spatie\Activitylog\Models\Activity;
 
 /** @property Application $app */
 class AppServiceProvider extends ServiceProvider

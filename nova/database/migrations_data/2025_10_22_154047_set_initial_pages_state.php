@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Carbon\CarbonInterface;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Nova\Pages\Models\Page;
 
 return new class extends Migration
@@ -308,6 +309,7 @@ return new class extends Migration
     protected function prepareRows(array $rows, CarbonInterface $now, bool $setPublished): array
     {
         foreach ($rows as &$row) {
+            $row['id'] = Str::uuid7()->toString();
             $row['created_at'] = $now;
             $row['updated_at'] = $now;
 

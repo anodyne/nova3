@@ -99,7 +99,7 @@ class Announcement extends Model
     }
 
     /**
-     * @return array{id: int, prefixed_id: ?string, title: string, category: string|null, content: string}
+     * @return array{id: string, prefixed_id: ?string, title: string, category: string|null, content: string}
      */
     public function toSearchableArray(): array
     {

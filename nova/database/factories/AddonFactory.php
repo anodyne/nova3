@@ -16,13 +16,6 @@ class AddonFactory extends Factory
 {
     protected $model = Addon::class;
 
-    public function active(): static
-    {
-        return $this->state([
-            'status' => BasicStatus::Active,
-        ]);
-    }
-
     public function definition(): array
     {
         $name = rtrim($this->faker->sentence(mt_rand(2, 4), variableNbWords: false), '.');
@@ -35,6 +28,13 @@ class AddonFactory extends Factory
             'type' => $this->faker->randomElement(AddonType::cases()),
             'preview' => 'preview.jpg',
         ];
+    }
+
+    public function active(): static
+    {
+        return $this->state([
+            'status' => BasicStatus::Active,
+        ]);
     }
 
     public function extension(): static

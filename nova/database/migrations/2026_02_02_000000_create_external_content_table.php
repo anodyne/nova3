@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('external_changelog', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('version');
             $table->string('series');
             $table->string('severity');
@@ -19,14 +19,14 @@ return new class extends Migration
             $table->longText('notes')->nullable();
             $table->json('tags')->nullable();
             $table->dateTime('release_date');
-            $table->datetimes();
+            $table->timestamps();
         });
 
         Schema::create('external_content', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('key')->index();
             $table->longText('value');
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Nova\Foundation\Concerns;
 
 use Illuminate\Support\Facades\Auth;
+use Nova\Foundation\Models\Activity;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity as BaseLogsActivityTrait;
 
 trait LogsActivity

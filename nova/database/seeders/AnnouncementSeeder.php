@@ -13,9 +13,6 @@ class AnnouncementSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::disableQueryLog();
-        activity()->disableLogging();
-
         $now = Date::now()->setMicrosecond(0)->toDateTimeString();
 
         $rows = Announcement::factory()
@@ -28,7 +25,5 @@ class AnnouncementSeeder extends Seeder
             ->all();
 
         DB::table('announcements')->insert($rows);
-
-        activity()->enableLogging();
     }
 }

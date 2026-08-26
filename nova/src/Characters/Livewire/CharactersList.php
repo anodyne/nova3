@@ -43,10 +43,10 @@ use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Foundation\Models\Activity;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
-use Spatie\Activitylog\Models\Activity;
 
 class CharactersList extends TableComponent
 {

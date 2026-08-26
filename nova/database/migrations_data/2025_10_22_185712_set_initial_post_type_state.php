@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -156,6 +157,7 @@ return new class extends Migration
                 }
 
                 $rows[] = array_replace($template, $postType, [
+                    'id' => Str::uuid7()->toString(),
                     'created_at' => $now,
                     'updated_at' => $now,
                 ]);

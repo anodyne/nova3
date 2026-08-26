@@ -211,10 +211,10 @@ class Story extends Model implements HasMedia, Sortable
     public function toSearchableArray(): array
     {
         return [
-            'description' => $this->description,
             'id' => $this->id,
             'prefixed_id' => $this->prefixed_id,
             'title' => $this->title,
+            'description' => $this->description,
         ];
     }
 

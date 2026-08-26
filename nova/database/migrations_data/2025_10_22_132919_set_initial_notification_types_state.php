@@ -6,6 +6,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -88,6 +89,7 @@ return new class extends Migration
         foreach ($this->definitions() as $audience => $items) {
             foreach ($items as $row) {
                 $rows[] = array_replace($template, $row, [
+                    'id' => Str::uuid7()->toString(),
                     'audience' => $audience,
                 ]);
             }

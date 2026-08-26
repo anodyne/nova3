@@ -20,7 +20,7 @@ use Nova\Dashboards\Policies\ActivityPolicy;
 use Nova\Dashboards\Spotlight\ViewSystemDashboard;
 use Nova\Dashboards\Spotlight\ViewUserDashboard;
 use Nova\DomainServiceProvider;
-use Spatie\Activitylog\Models\Activity;
+use Nova\Foundation\Models\Activity;
 
 class DashboardsServiceProvider extends DomainServiceProvider
 {

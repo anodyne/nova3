@@ -11,15 +11,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('announcements', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
-            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignUuid('user_id')->nullable()->constrained();
             $table->string('title');
             $table->string('category')->nullable();
             $table->longText('content');
             $table->string('status')->default('draft');
             $table->dateTime('published_at')->nullable();
-            $table->datetimes();
+            $table->timestamps();
 
             $table->index(['status', 'category']);
             $table->index(['status', 'published_at']);
@@ -29,11 +29,11 @@ return new class extends Migration
         });
 
         Schema::create('announcement_notifications', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('announcement_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('announcement_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained();
             $table->boolean('is_seen')->default(false);
-            $table->datetimes();
+            $table->timestamps();
 
             $table->index(['announcement_id', 'user_id']);
             $table->index(['user_id', 'is_seen']);

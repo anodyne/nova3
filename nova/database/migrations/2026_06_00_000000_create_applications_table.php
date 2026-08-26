@@ -11,26 +11,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('applications', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('character_id')->nullable()->constrained();
+            $table->foreignUuid('user_id')->constrained();
+            $table->foreignUuid('character_id')->nullable()->constrained();
             $table->string('ip_address')->nullable();
             $table->string('result')->default('pending');
             $table->longText('decision_message')->nullable();
             $table->dateTime('decision_date')->nullable();
-            $table->datetimes();
+            $table->timestamps();
 
             $table->index('result');
         });
 
         Schema::create('application_review', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('application_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('application_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->string('result')->nullable();
             $table->longText('comments')->nullable();
-            $table->datetimes();
+            $table->timestamps();
 
             $table->index('application_id');
             $table->index(['application_id', 'user_id']);
@@ -39,11 +39,11 @@ return new class extends Migration
         });
 
         Schema::create('application_reviewers', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->string('type')->default('conditional');
             $table->json('conditions')->nullable();
-            $table->datetimes();
+            $table->timestamps();
 
             $table->index('type');
         });

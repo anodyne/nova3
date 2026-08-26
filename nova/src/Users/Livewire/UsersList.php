@@ -31,6 +31,7 @@ use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
 use Nova\Foundation\Livewire\TableComponent;
+use Nova\Foundation\Models\Activity;
 use Nova\Users\Actions\ActivateUser;
 use Nova\Users\Actions\ActivateUserManager;
 use Nova\Users\Actions\BanUserManager;
@@ -46,7 +47,6 @@ use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
-use Spatie\Activitylog\Models\Activity;
 
 class UsersList extends TableComponent
 {

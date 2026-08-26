@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 return new class extends Migration
 {
@@ -17,7 +18,10 @@ return new class extends Migration
             $menuId = DB::table('menus')->where('key', $menuKey)->value('id');
 
             if (! $menuId) {
-                $menuId = DB::table('menus')->insertGetId([
+                $menuId = Str::uuid7()->toString();
+
+                DB::table('menus')->insert([
+                    'id' => $menuId,
                     'name' => 'Public',
                     'key' => $menuKey,
                     'created_at' => $now,
@@ -47,6 +51,7 @@ return new class extends Migration
                 }
 
                 $items[] = [
+                    'id' => Str::uuid7()->toString(),
                     'menu_id' => $menuId,
                     'label' => $link['label'],
                     'link_type' => 'page',

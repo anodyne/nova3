@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('addons', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
             $table->string('name');
             $table->string('location')->unique();
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('status')->default('active');
             $table->json('settings')->nullable();
             $table->json('repository')->nullable();
-            $table->datetimes();
+            $table->timestamps();
 
             $table->fullText('name');
             $table->fullText('location');

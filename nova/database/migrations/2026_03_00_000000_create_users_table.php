@@ -11,7 +11,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->prefixedId();
             $table->string('name')->index();
             $table->string('email')->unique();
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->dateTime('email_verified_at')->nullable();
             $table->json('preferences')->nullable();
             $table->json('moderations')->nullable();
-            $table->datetimes();
-            $table->softDeletesDatetime();
+            $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -34,8 +34,8 @@ return new class extends Migration
         });
 
         Schema::create('logins', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('user_id');
             $table->string('ip_address', 50);
             $table->dateTime('created_at');
         });

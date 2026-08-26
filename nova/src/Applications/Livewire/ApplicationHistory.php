@@ -10,10 +10,10 @@ use Livewire\Attributes\Locked;
 use Nova\Applications\Models\Application;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\InfolistComponent;
+use Nova\Foundation\Models\Activity;
 use Nova\Ranks\Models\RankItem;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
-use Spatie\Activitylog\Models\Activity;
 
 class ApplicationHistory extends InfolistComponent
 {
