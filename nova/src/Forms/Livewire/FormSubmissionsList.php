@@ -18,7 +18,6 @@ use Nova\Foundation\Filament\Actions\ActionGroup;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\User;
@@ -64,7 +63,7 @@ class FormSubmissionsList extends TableComponent
                 TextColumn::make('created_at')
                     ->label('Submitted on')
                     ->dateTime()
-                    ->formatStateUsing(fn (FormSubmission $record): ?string => filled($record->created_at) ? DateHelper::formatDate($record->created_at) : null)
+                    ->formatStateUsing(fn (FormSubmission $record): ?string => filled($record->created_at) ? $record->created_at->formatDate() : null)
                     ->toggleable()
                     ->sortable(),
             ])

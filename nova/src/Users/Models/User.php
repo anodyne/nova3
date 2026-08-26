@@ -51,8 +51,8 @@ use Nova\Users\Models\States\Status\Hidden;
 use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\States\Status\Pending;
 use Nova\Users\Models\States\Status\UserStatus;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\Models\Concerns\CausesActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\ModelStates\HasStates;
@@ -147,13 +147,6 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return new Attribute(
             get: fn (): string => $this->trashed() ? 'Deleted user' : $this->name
         );
-    }
-
-    public function getActivitylogOptions(): LogOptions
-    {
-        return $this->baseActivitylogOptions()->logExcept([
-            'password',
-        ]);
     }
 
     public function getFilamentName(): string
@@ -255,6 +248,13 @@ class User extends Authenticatable implements HasMedia, LaratrustUser, MustVerif
         return new Attribute(
             get: fn (): int => once(fn () => DiscussionNotification::user($this->id)->unread()->count()),
         );
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return $this->baseActivitylogOptions()->logExcept([
+            'password',
+        ]);
     }
 
     public static function getMediaPath(): string

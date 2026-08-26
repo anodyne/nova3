@@ -6,8 +6,8 @@ namespace Nova\Foundation\Concerns;
 
 use Illuminate\Support\Facades\Auth;
 use Nova\Foundation\Models\Activity;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity as BaseLogsActivityTrait;
+use Spatie\Activitylog\Models\Concerns\LogsActivity as BaseLogsActivityTrait;
+use Spatie\Activitylog\Support\LogOptions;
 
 trait LogsActivity
 {
@@ -20,7 +20,7 @@ trait LogsActivity
             ->logOnlyDirty();
     }
 
-    public function tapActivity(Activity $activity, string $eventName): void
+    public function beforeActivityLogged(Activity $activity, string $eventName): void
     {
         $impersonator = app('impersonate');
 

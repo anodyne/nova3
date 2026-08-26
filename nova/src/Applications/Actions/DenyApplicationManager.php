@@ -14,7 +14,6 @@ use Nova\Applications\Models\Application;
 use Nova\Applications\Notifications\ApplicationDenied;
 use Nova\Characters\Actions\HideCharacter;
 use Nova\Users\Actions\HideUser;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class DenyApplicationManager
 {
@@ -25,8 +24,6 @@ class DenyApplicationManager
         Gate::forUser(Auth::user())->authorize('decide', $application);
 
         DB::transaction(function () use ($application, $data): void {
-            LogBatch::startBatch();
-
             HideCharacter::run($application->character);
 
             HideUser::run($application->user);
@@ -41,8 +38,6 @@ class DenyApplicationManager
                 ->performedOn($application)
                 ->event('denied')
                 ->log('denied');
-
-            LogBatch::endBatch();
         });
     }
 }

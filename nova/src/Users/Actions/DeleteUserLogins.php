@@ -7,12 +7,12 @@ namespace Nova\Users\Actions;
 use Lorisleiva\Actions\Concerns\AsObject;
 use Nova\Users\Models\User;
 
-class DeleteUserCharacters
+class DeleteUserLogins
 {
     use AsObject;
 
     public function handle(User $user): void
     {
-        $user->characters()->delete();
+        $user->logins()->delete();
     }
 }

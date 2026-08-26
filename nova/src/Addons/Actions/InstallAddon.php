@@ -34,7 +34,7 @@ class InstallAddon
             repository: data_get($jsonData, 'repository') ? AddonRepository::from(data_get($jsonData, 'repository')) : null,
         );
 
-        $addon = activity()->withoutLogs(fn (): Addon => CreateAddon::run($addonData));
+        $addon = activity()->withoutLogging(fn (): Addon => CreateAddon::run($addonData));
 
         AddonInstalled::dispatch($addon);
 

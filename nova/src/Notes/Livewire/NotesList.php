@@ -79,7 +79,7 @@ class NotesList extends TableComponent
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
                                                 : 'System';
-                                            $replicaId = $activity->getExtraProperty('replica');
+                                            $replicaId = $activity->getProperty('replica');
 
                                             return __('activity.notes.duplicated', [
                                                 'name' => $causerName,

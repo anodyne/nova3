@@ -1,9 +1,7 @@
-@use('Nova\Foundation\Helpers\DateHelper')
-
 <x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page story-details">
         @if ($story->hasMedia('story-image'))
-            <img src="{{ $story->getFirstMediaUrl('story-image') }}" alt="" class="story-image" />
+            <img src="{{ $story->getFirstMediaUrl('story-image') }}" alt="" class="story-image"/>
         @endif
 
         <div class="story-details-ctn">
@@ -36,11 +34,11 @@
                                     @endif
 
                                     <div class="metadata-item-label">
-                                        {{ DateHelper::formatDate($story->started_at) }}
+                                        {{ $story->started_at->formatDate() }}
 
                                         @if (filled($story->ended_at))
                                             &ndash;
-                                            {{ DateHelper::formatDate($story->ended_at) }}
+                                        {{ $story->ended_at->formatDate() }}
                                         @endif
                                     </div>
                                 </div>
@@ -87,20 +85,20 @@
                             </div>
 
                             @mysql
-                                @if ($story->children->count() > 0)
-                                    <div class="stat">
-                                        <dt>Total posts (all stories within)</dt>
-                                        <dd>
-                                            {{ Number::format($story->recursive_posts_count) }}
-                                        </dd>
-                                    </div>
-                                    <div class="stat">
-                                        <dt>Total words (all stories within)</dt>
-                                        <dd>
-                                            {{ Number::format($story->recursive_posts_sum_word_count ?? 0) }}
-                                        </dd>
-                                    </div>
-                                @endif
+                            @if ($story->children->count() > 0)
+                                <div class="stat">
+                                    <dt>Total posts (all stories within)</dt>
+                                    <dd>
+                                        {{ Number::format($story->recursive_posts_count) }}
+                                    </dd>
+                                </div>
+                                <div class="stat">
+                                    <dt>Total words (all stories within)</dt>
+                                    <dd>
+                                        {{ Number::format($story->recursive_posts_sum_word_count ?? 0) }}
+                                    </dd>
+                                </div>
+                            @endif
                             @endmysql
                         </dl>
                     </div>
@@ -113,7 +111,7 @@
                 </x-public::tabs.pane>
 
                 <x-public::tabs.pane x-show="isTab('posts')" x-cloak>
-                    <livewire:public-posts-timeline :story="$story" />
+                    <livewire:public-posts-timeline :story="$story"/>
                 </x-public::tabs.pane>
             </x-public::tabs>
         </div>

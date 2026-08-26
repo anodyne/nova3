@@ -20,7 +20,6 @@ use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Actions\ViewAction;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Foundation\Models\Activity;
 use Nova\Stories\Actions\UpdateStory;
@@ -101,13 +100,13 @@ class StoriesList extends TableComponent
                 TextColumn::make('started_at')
                     ->wrap()
                     ->date()
-                    ->formatStateUsing(fn (Story $record): ?string => filled($record->started_at) ? DateHelper::formatDate($record->started_at) : null)
+                    ->formatStateUsing(fn (Story $record): ?string => filled($record->started_at) ? $record->started_at->formatDate() : null)
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 TextColumn::make('ended_at')
                     ->wrap()
                     ->date()
-                    ->formatStateUsing(fn (Story $record): ?string => filled($record->ended_at) ? DateHelper::formatDate($record->ended_at) : null)
+                    ->formatStateUsing(fn (Story $record): ?string => filled($record->ended_at) ? $record->ended_at->formatDate() : null)
                     ->toggleable()
                     ->toggledHiddenByDefault(),
                 TextColumn::make('status')
@@ -191,11 +190,11 @@ class StoriesList extends TableComponent
                                         'parent_id' => 'parent story',
                                     ])
                                     ->attributeValues([
-                                        'ended_at' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
+                                        'ended_at' => fn ($value): ?string => filled($value) ? $value->formatDate() : null,
                                         'parent_id' => fn ($value) => is_int($value) || is_string($value)
                                             ? Story::find($value)?->title
                                             : null,
-                                        'started_at' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
+                                        'started_at' => fn ($value): ?string => filled($value) ? $value->formatDate() : null,
                                         'status' => fn ($value) => $value?->name(),
                                     ])
                                     ->eventDescriptions([

@@ -6,8 +6,8 @@ namespace Nova\Users\Actions;
 
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\DeleteStatusHistory;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class DeleteUserManager
 {
@@ -16,13 +16,13 @@ class DeleteUserManager
     public function handle(User $user): User
     {
         return DB::transaction(function () use ($user): User {
-            LogBatch::startBatch();
-
-            DeleteUser::run($user);
-
             DeleteUserCharacters::run($user);
 
-            LogBatch::endBatch();
+            DeleteUserLogins::run($user);
+
+            DeleteStatusHistory::run($user);
+
+            DeleteUser::run($user);
 
             return $user;
         });

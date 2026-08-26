@@ -1,5 +1,3 @@
-@use('Nova\Foundation\Helpers\DateHelper')
-
 <x-admin-layout>
     <x-spacing>
         @if ($story->hasMedia('story-image'))
@@ -33,7 +31,7 @@
 
                 @can('update', $story)
                     <x-button :href="route('admin.stories.edit', $story)" variant="primary">
-                        <x-icon :name="Tabler::Pencil" size="sm" />
+                        <x-icon :name="Tabler::Pencil" size="sm"/>
                         Edit
                     </x-button>
                 @endcan
@@ -67,12 +65,12 @@
                             <x-metadata :icon="Tabler::Calendar">
                                 @if (blank($story->ended_at))
                                     Started on
-                                @endif
+                                    @endif
 
-                                {{ DateHelper::formatDate($story->started_at) }}
-                                @if ($story->ended_at)
-                                    &ndash;
-                                    {{ DateHelper::formatDate($story->ended_at) }}
+                                    {{ $story->started_at->formatDate() }}
+                                    @if ($story->ended_at)
+                                        &ndash;
+                                    {{ $story->ended_at->formatDate() }}
                                 @endif
                             </x-metadata>
 
@@ -101,16 +99,16 @@
                     <x-panel.stat label="Total words" :value="$story->posts_sum_word_count ?? 0"></x-panel.stat>
 
                     @mysql
-                        @if ($story->children->count() > 0)
-                            <x-panel.stat
-                                label="Total posts (all stories within)"
-                                :value="$story->recursive_posts_count"
-                            ></x-panel.stat>
-                            <x-panel.stat
-                                label="Total words (all stories within)"
-                                :value="$story->recursive_posts_sum_word_count"
-                            ></x-panel.stat>
-                        @endif
+                    @if ($story->children->count() > 0)
+                        <x-panel.stat
+                            label="Total posts (all stories within)"
+                            :value="$story->recursive_posts_count"
+                        ></x-panel.stat>
+                        <x-panel.stat
+                            label="Total words (all stories within)"
+                            :value="$story->recursive_posts_sum_word_count"
+                        ></x-panel.stat>
+                    @endif
                     @endmysql
                 </div>
             </x-tab.panel>
@@ -120,7 +118,7 @@
             </x-tab.panel>
 
             <x-tab.panel name="posts">
-                <livewire:stories-published-posts-list :story="$story" />
+                <livewire:stories-published-posts-list :story="$story"/>
             </x-tab.panel>
 
             <x-tab.panel

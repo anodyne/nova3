@@ -1,5 +1,3 @@
-@use('Nova\Foundation\Helpers\DateHelper')
-
 <div wire:poll.300s.keep-alive="checkLock" wire:cloak>
     <div class="grid gap-12 lg:grid-cols-3">
         <section class="space-y-12 lg:col-span-2">
@@ -10,8 +8,8 @@
                             <x-dropdown>
                                 <x-slot name="trigger">
                                     <x-button variant="ghost" size="sm">
-                                        <x-metadata label="Story" :value="$story->title" />
-                                        <x-icon.micro.chevron-up-down class="size-4 text-gray-400 dark:text-gray-600" />
+                                        <x-metadata label="Story" :value="$story->title"/>
+                                        <x-icon.micro.chevron-up-down class="size-4 text-gray-400 dark:text-gray-600"/>
                                     </x-button>
                                 </x-slot>
 
@@ -23,14 +21,14 @@
                                             </div>
 
                                             @if ($currentStory->id === $story->id)
-                                                <x-icon.micro.check class="size-4 shrink-0" />
+                                                <x-icon.micro.check class="size-4 shrink-0"/>
                                             @endif
                                         </div>
                                     </x-dropdown.item>
                                 @endforeach
                             </x-dropdown>
                         @else
-                            <x-metadata label="Story" :value="$story->title" />
+                            <x-metadata label="Story" :value="$story->title"/>
                         @endif
                     </div>
 
@@ -41,8 +39,8 @@
                             <x-dropdown>
                                 <x-slot name="trigger">
                                     <x-button variant="ghost" size="sm">
-                                        <x-metadata label="Post type" :value="$postType->name" />
-                                        <x-icon.micro.chevron-up-down class="size-4 text-gray-400 dark:text-gray-600" />
+                                        <x-metadata label="Post type" :value="$postType->name"/>
+                                        <x-icon.micro.chevron-up-down class="size-4 text-gray-400 dark:text-gray-600"/>
                                     </x-button>
                                 </x-slot>
 
@@ -51,21 +49,21 @@
                                         <div class="flex w-full items-center justify-between">
                                             <div class="flex flex-1 items-center gap-3">
                                                 <div class="shrink-0 text-gray-400 group-focus:text-gray-300">
-                                                    <x-icon :name="$availablePostType->icon" size="sm" />
+                                                    <x-icon :name="$availablePostType->icon" size="sm"/>
                                                 </div>
 
                                                 <div>{{ $availablePostType->name }}</div>
                                             </div>
 
                                             @if ($availablePostType->id === $postType->id)
-                                                <x-icon.micro.check class="size-4 shrink-0" />
+                                                <x-icon.micro.check class="size-4 shrink-0"/>
                                             @endif
                                         </div>
                                     </x-dropdown.item>
                                 @endforeach
                             </x-dropdown>
                         @else
-                            <x-metadata label="Post type" :value="$postType->name" />
+                            <x-metadata label="Post type" :value="$postType->name"/>
                         @endif
                     </div>
 
@@ -76,7 +74,7 @@
                     </div>
                 </div>
 
-                <livewire:posts-details :$post @post-updated="handleUpdateFromChild" />
+                <livewire:posts-details :$post @post-updated="handleUpdateFromChild"/>
             </div>
 
             @if ($post->is_draft)
@@ -138,7 +136,7 @@
                     <div>
                         <x-button class="w-full" wire:click="delete" variant="ghost" data-danger>
                             <div class="flex items-center gap-2">
-                                <x-icon :name="Tabler::Trash" size="sm" />
+                                <x-icon :name="Tabler::Trash" size="sm"/>
                                 Delete post
                             </div>
                         </x-button>
@@ -149,7 +147,7 @@
                     <div>
                         <x-button class="w-full" wire:click="discard" variant="ghost" data-danger>
                             <div class="flex items-center gap-2">
-                                <x-icon :name="Tabler::Trash" size="sm" />
+                                <x-icon :name="Tabler::Trash" size="sm"/>
                                 Discard draft
                             </div>
                         </x-button>
@@ -161,13 +159,13 @@
                 <x-accordion.item expanded transition>
                     <x-accordion.heading>
                         <div class="flex items-center gap-x-2">
-                            <x-icon :name="Tabler::MasksTheater" size="sm" />
+                            <x-icon :name="Tabler::MasksTheater" size="sm"/>
                             <span>Authors</span>
                         </div>
                     </x-accordion.heading>
 
                     <x-accordion.content>
-                        <livewire:posts-authors :$post @post-updated="handleUpdateFromChild" />
+                        <livewire:posts-authors :$post @post-updated="handleUpdateFromChild"/>
                     </x-accordion.content>
                 </x-accordion.item>
 
@@ -175,13 +173,13 @@
                     <x-accordion.item expanded transition>
                         <x-accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon :name="Tabler::Rating18Plus" size="sm" />
+                                <x-icon :name="Tabler::Rating18Plus" size="sm"/>
                                 <span>Content ratings</span>
                             </div>
                         </x-accordion.heading>
 
                         <x-accordion.content>
-                            <livewire:posts-ratings :$post @post-updated="handleUpdateFromChild" />
+                            <livewire:posts-ratings :$post @post-updated="handleUpdateFromChild"/>
                         </x-accordion.content>
                     </x-accordion.item>
                 @endif
@@ -190,13 +188,13 @@
                     <x-accordion.item expanded transition>
                         <x-accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon :name="Tabler::Blockquote" size="sm" />
+                                <x-icon :name="Tabler::Blockquote" size="sm"/>
                                 <span>Summary</span>
                             </div>
                         </x-accordion.heading>
 
                         <x-accordion.content>
-                            <livewire:posts-summary :$post @post-updated="handleUpdateFromChild" />
+                            <livewire:posts-summary :$post @post-updated="handleUpdateFromChild"/>
                         </x-accordion.content>
                     </x-accordion.item>
                 @endif
@@ -205,13 +203,13 @@
                     <x-accordion.item expanded transition>
                         <x-accordion.heading>
                             <div class="flex items-center gap-x-2">
-                                <x-icon :name="Tabler::TimelineEvent" size="sm" />
+                                <x-icon :name="Tabler::TimelineEvent" size="sm"/>
                                 <span>Post position</span>
                             </div>
                         </x-accordion.heading>
 
                         <x-accordion.content>
-                            <livewire:posts-position :$post @post-updated="handleUpdateFromChild" />
+                            <livewire:posts-position :$post @post-updated="handleUpdateFromChild"/>
                         </x-accordion.content>
                     </x-accordion.item>
                 @endif
@@ -219,7 +217,7 @@
                 <x-accordion.item expanded transition>
                     <x-accordion.heading>
                         <div class="flex items-center gap-x-2">
-                            <x-icon :name="Tabler::InfoCircle" size="sm" />
+                            <x-icon :name="Tabler::InfoCircle" size="sm"/>
                             <span>Post info</span>
                         </div>
                     </x-accordion.heading>
@@ -256,7 +254,7 @@
                                 class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/5 dark:odd:bg-white/[.07]"
                             >
                                 <dt class="flex-1 font-medium text-gray-950 dark:text-white">Last update</dt>
-                                <dd>{{ DateHelper::formatShortDateWithTime($post->updated_at) }}</dd>
+                                <dd>{{ $post->updated_at->formatDateWithTime() }}</dd>
                             </div>
                             <div
                                 class="flex w-full items-center justify-between gap-4 rounded-md px-2 py-1 odd:bg-gray-950/5 dark:odd:bg-white/[.07]"
@@ -264,7 +262,7 @@
                                 <dt class="flex-1 font-medium text-gray-950 dark:text-white">Published</dt>
 
                                 @if (filled($post->published_at))
-                                    <dd>{{ DateHelper::formatShortDateWithTime($post->published_at) }}</dd>
+                                    <dd>{{ $post->published_at->formatDateWithTime() }}</dd>
                                 @else
                                     <dd>&mdash;</dd>
                                 @endif

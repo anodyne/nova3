@@ -14,7 +14,7 @@ class RestoreCharacter
     public function handle(Character $character): Character
     {
         if ($character->trashed()) {
-            activity()->withoutLogs(fn () => $character->restore());
+            activity()->withoutLogging(fn () => $character->restore());
 
             activity()
                 ->performedOn($character)

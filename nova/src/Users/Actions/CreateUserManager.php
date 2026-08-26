@@ -13,7 +13,6 @@ use Nova\Onboarding\Actions\StartOnboarding;
 use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\StoreUserRequest;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class CreateUserManager
 {
@@ -22,8 +21,6 @@ class CreateUserManager
     public function handle(StoreUserRequest $request): User
     {
         return DB::transaction(function () use ($request) {
-            LogBatch::startBatch();
-
             $user = CreateUser::run($request->getUserData());
 
             $user = ActivateUser::run($user);
@@ -47,8 +44,6 @@ class CreateUserManager
             $this->createFormSubmission($user, $request->input('userBio', []));
 
             StartOnboarding::run(OnboardingProcess::NewUser, $user);
-
-            LogBatch::endBatch();
 
             return $user->fresh();
         });

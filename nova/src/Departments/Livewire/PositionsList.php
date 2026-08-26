@@ -120,7 +120,7 @@ class PositionsList extends TableComponent
                                     ])
                                     ->eventDescriptions([
                                         'duplicated' => function (Activity $activity): string {
-                                            $replicaId = $activity->getExtraProperty('replica');
+                                            $replicaId = $activity->getProperty('replica');
 
                                             return __('activity.positions.duplicated', [
                                                 'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,31 @@ use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 use Opcodes\LogViewer\Facades\LogViewer;
+
+Route::get('system-info', function () {
+    $info = SystemInfo::first();
+
+    dd($info, $info->versionInfo->toArray());
+});
+
+Route::get('dates', function () {
+    $date = Date::now('America/Los_Angeles');
+
+    Auth::loginUsingId('01a03ec5-07f2-72c8-a374-56f923ad1894');
+    $user = Auth::user();
+
+    dd(
+        $date,
+        $date->local(),
+        $date->formatDate(),
+        $date->formatDateWithTime(),
+        $date->formatFullDate(),
+        $date->formatFullDateWithTime(),
+        $date->formatShortTime(),
+        $date->formatLongTime(),
+        $user->toArray()
+    );
+});
 
 Route::get('discussions', function (): void {
     $discussion = Discussion::find(2);

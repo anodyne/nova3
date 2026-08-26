@@ -8,7 +8,6 @@ use Anodyne\TablerIcons\Tabler;
 use Filament\Schemas\Schema;
 use Livewire\Attributes\Locked;
 use Nova\Applications\Models\Application;
-use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\InfolistComponent;
 use Nova\Foundation\Models\Activity;
 use Nova\Ranks\Models\RankItem;
@@ -31,7 +30,7 @@ class ApplicationHistory extends InfolistComponent
                         'rank_id' => 'rank',
                     ])
                     ->attributeValues([
-                        'decision_date' => fn ($value): ?string => filled($value) ? DateHelper::formatDate($value) : null,
+                        'decision_date' => fn ($value): ?string => filled($value) ? $value->formatDate() : null,
                         'rank_id' => fn ($value) => is_int($value) || is_string($value)
                             ? RankItem::find($value)?->name?->name
                             : null,
@@ -42,10 +41,10 @@ class ApplicationHistory extends InfolistComponent
                         ]),
                         'reviewers-added' => fn (Activity $activity): string => trans_choice(
                             'activity.applications.reviewers-added',
-                            count($activity->getExtraProperty('addedReviewers')),
+                            count($activity->getProperty('addedReviewers')),
                             [
                                 'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
-                                'reviewers' => User::whereIn('id', $activity->getExtraProperty('addedReviewers'))
+                                'reviewers' => User::whereIn('id', $activity->getProperty('addedReviewers'))
                                     ->get()
                                     ->pluck('name')
                                     ->join(', '),
@@ -53,10 +52,10 @@ class ApplicationHistory extends InfolistComponent
                         ),
                         'reviewers-removed' => fn (Activity $activity): string => trans_choice(
                             'activity.applications.reviewers-removed',
-                            count($activity->getExtraProperty('removedReviewers')),
+                            count($activity->getProperty('removedReviewers')),
                             [
                                 'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',
-                                'reviewers' => User::whereIn('id', $activity->getExtraProperty('removedReviewers'))
+                                'reviewers' => User::whereIn('id', $activity->getProperty('removedReviewers'))
                                     ->get()
                                     ->pluck('name')
                                     ->join(', '),

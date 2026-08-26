@@ -25,7 +25,7 @@ use Nova\Pages\Events\PageUpdated;
 use Nova\Pages\Models\Builders\PageBuilder;
 use Nova\Pages\Models\Collections\PagesCollection;
 use Nova\Pages\Observers\PageObserver;
-use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 

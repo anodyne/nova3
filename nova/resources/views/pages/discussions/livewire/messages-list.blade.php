@@ -1,5 +1,3 @@
-@use('Nova\Foundation\Helpers\DateHelper')
-
 <div class="relative">
     <aside
         @class([
@@ -14,7 +12,7 @@
                     variant="primary"
                     wire:click="$dispatch('modal-open', {modal: 'discussions-compose-message-modal', props: {'mode': 'new'}})"
                 >
-                    <x-icon :name="Tabler::Edit" size="sm" />
+                    <x-icon :name="Tabler::Edit" size="sm"/>
                     <span class="block lg:hidden">New message</span>
                 </x-button>
             </x-slot>
@@ -22,13 +20,13 @@
 
         <div class="mb-6 space-y-4">
             <x-radio.group class="w-full" wire:model.live="filter" variant="segmented">
-                <x-radio value="all" label="All" />
-                <x-radio value="unread" label="Unread" />
+                <x-radio value="all" label="All"/>
+                <x-radio value="unread" label="Unread"/>
             </x-radio.group>
 
             <x-input wire:model.live.debounce="search" placeholder="Find messages..." variant="filled" clearable>
                 <x-slot name="iconLeading">
-                    <x-icon :name="Tabler::Search" size="sm" />
+                    <x-icon :name="Tabler::Search" size="sm"/>
                 </x-slot>
             </x-input>
         </div>
@@ -73,14 +71,14 @@
 
                     <div class="col-start-5 row-start-1 flex justify-self-end">
                         <div class="text-xs/5 text-gray-500">
-                            {{ DateHelper::formatDate($discussion->updated_at) }}
+                            {{ $discussion->updated_at->formatDate() }}
                         </div>
                     </div>
                 </li>
             @empty
                 <li class="col-span-full">
                     <x-empty>
-                        <x-illustration :name="Illustration::Inbox" />
+                        <x-illustration :name="Illustration::Inbox"/>
                         <x-empty.heading>No messages</x-empty.heading>
                         <x-empty.text>Get started by creating a new conversation</x-empty.text>
                     </x-empty>
@@ -94,13 +92,13 @@
     </aside>
 
     <section class="lg:ml-[26rem] lg:flex-1">
-        <livewire:discussions-message-history :discussion-id="$selected" />
+        <livewire:discussions-message-history :discussion-id="$selected"/>
     </section>
 </div>
 
 @pushOnce('scripts')
-<script
-    src="https://cdn.jsdelivr.net/npm/@marcreichel/alpine-auto-animate@latest/dist/alpine-auto-animate.min.js"
-    defer
-></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@marcreichel/alpine-auto-animate@latest/dist/alpine-auto-animate.min.js"
+        defer
+    ></script>
 @endPushOnce

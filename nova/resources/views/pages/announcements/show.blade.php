@@ -1,5 +1,3 @@
-@use('Nova\Foundation\Helpers\DateHelper')
-
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-heading :heading="$announcement->title">
@@ -11,7 +9,7 @@
 
                 @can('update', $announcement)
                     <x-button :href="route('admin.announcements.edit', $announcement)" variant="primary">
-                        <x-icon :name="Tabler::Pencil" size="sm" />
+                        <x-icon :name="Tabler::Pencil" size="sm"/>
                         Edit
                     </x-button>
                 @endcan
@@ -19,16 +17,16 @@
         </x-page-heading>
 
         <x-metadata.group gap="lg" class="my-4">
-            <x-metadata label="Author" :value="$announcement->user->display_name" />
+            <x-metadata label="Author" :value="$announcement->user->display_name"/>
 
             @if (filled($announcement->category))
-                <x-metadata label="Category" :value="$announcement->category" />
+                <x-metadata label="Category" :value="$announcement->category"/>
             @endif
 
             <x-metadata label="Published">
                 <x-slot name="value">
                     @if (filled($announcement->published_at))
-                        {{ DateHelper::formatDate($announcement->published_at) }}
+                        {{ $announcement->published_at->formatDate() }}
                     @else
                         <em class="text-warning-600">Unpublished</em>
                     @endif

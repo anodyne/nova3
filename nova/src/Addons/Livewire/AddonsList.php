@@ -38,7 +38,6 @@ use Nova\Foundation\Models\Activity;
 use Nova\Users\Models\User;
 use RalphJSmit\Filament\Activitylog\Filament\Actions\TimelineAction;
 use RalphJSmit\Filament\Activitylog\Filament\Infolists\Components\Timeline;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class AddonsList extends TableComponent
 {
@@ -284,15 +283,11 @@ class AddonsList extends TableComponent
                 ->size(Size::Small)
                 ->label('Install')
                 ->action(function (Addon $record): void {
-                    LogBatch::startBatch();
-
                     $record->runScript('install');
 
                     $record->update(['status' => BasicStatus::Active]);
 
                     BustActiveAddonsCache::run();
-
-                    LogBatch::endBatch();
 
                     Notification::make()->success()
                         ->title('Extension has been installed')
@@ -303,15 +298,11 @@ class AddonsList extends TableComponent
                 ->size(Size::Small)
                 ->label('Uninstall')
                 ->action(function (Addon $record): void {
-                    LogBatch::startBatch();
-
                     $record->runScript('uninstall');
 
                     $record->update(['status' => BasicStatus::Inactive]);
 
                     BustActiveAddonsCache::run();
-
-                    LogBatch::endBatch();
 
                     Notification::make()->success()
                         ->title('Extension has been uninstalled')
@@ -322,11 +313,7 @@ class AddonsList extends TableComponent
                 ->size(Size::Small)
                 ->label('Update')
                 ->action(function (Addon $record): void {
-                    LogBatch::startBatch();
-
                     $record->runScript('update');
-
-                    LogBatch::endBatch();
 
                     Notification::make()->success()
                         ->title('Extension has been updated')

@@ -26,7 +26,7 @@ use Nova\Stories\Models\States\StoryStatus\Completed;
 use Nova\Stories\Models\States\StoryStatus\Current;
 use Nova\Stories\Models\States\StoryStatus\Ongoing;
 use Nova\Stories\Models\States\StoryStatus\Upcoming;
-use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\ModelStates\HasStates;

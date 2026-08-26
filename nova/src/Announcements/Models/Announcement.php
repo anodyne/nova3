@@ -20,7 +20,7 @@ use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\PublishStatus;
 use Nova\Foundation\Models\Model;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**

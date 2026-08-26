@@ -19,7 +19,6 @@ use Nova\Characters\Actions\UpdateCharacter;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Data\CharacterData;
 use Nova\Users\Actions\ActivateUser;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class AcceptApplicationManager
 {
@@ -30,8 +29,6 @@ class AcceptApplicationManager
         Gate::forUser(Auth::user())->authorize('decide', $application);
 
         DB::transaction(function () use ($application, $data): void {
-            LogBatch::startBatch();
-
             ActivateUser::run($user = $application->user);
 
             UpdateCharacter::run(
@@ -58,8 +55,6 @@ class AcceptApplicationManager
             $user->notify(new ApplicationAccepted($application));
 
             ApplicationAcceptedEvent::dispatch($application);
-
-            LogBatch::endBatch();
 
             activity()
                 ->performedOn($application)

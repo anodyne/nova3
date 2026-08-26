@@ -1,5 +1,4 @@
 @use('Nova\Discussions\Enums\MessageType')
-@use('Nova\Foundation\Helpers\DateHelper')
 
 <div class="space-y-8 lg:col-span-2">
     <div
@@ -35,7 +34,7 @@
                             :src="$latestMessage->user?->avatar_url"
                             size="sm"
                             :title="$latestMessage->user?->name"
-                            :subtitle="DateHelper::formatShortDateWithTime($latestMessage->created_at)"
+                            :subtitle="$latestMessage->created_at->formatDateWithTime()"
                         />
 
                         <div class="flex items-center gap-2">
@@ -43,7 +42,7 @@
                                 <x-dropdown placement="bottom end">
                                     <x-slot name="trigger">
                                         <x-button variant="ghost" square>
-                                            <x-icon :name="Tabler::DoorExit" size="sm" />
+                                            <x-icon :name="Tabler::DoorExit" size="sm"/>
                                         </x-button>
                                     </x-slot>
 
@@ -76,7 +75,7 @@
                                 <x-dropdown placement="bottom end">
                                     <x-slot name="trigger">
                                         <x-button variant="ghost" square>
-                                            <x-icon :name="Tabler::MessageOff" size="sm" />
+                                            <x-icon :name="Tabler::MessageOff" size="sm"/>
                                         </x-button>
                                     </x-slot>
 
@@ -107,7 +106,7 @@
                                 <x-dropdown placement="bottom end">
                                     <x-slot name="trigger">
                                         <x-button variant="ghost" square data-danger>
-                                            <x-icon :name="Tabler::Trash" size="sm" />
+                                            <x-icon :name="Tabler::Trash" size="sm"/>
                                         </x-button>
                                     </x-slot>
 
@@ -117,7 +116,8 @@
                                         </x-dropdown.text>
                                     </x-dropdown.group>
                                     <x-dropdown.group>
-                                        <x-dropdown.item type="button" :icon="Tabler::Trash" wire:click="deleteDiscussion">
+                                        <x-dropdown.item type="button" :icon="Tabler::Trash"
+                                                         wire:click="deleteDiscussion">
                                             Delete
                                         </x-dropdown.item>
                                         <x-dropdown.item
@@ -142,7 +142,7 @@
             @else
                 <x-panel>
                     <x-empty>
-                        <x-illustration :name="Illustration::Inbox" />
+                        <x-illustration :name="Illustration::Inbox"/>
                         <x-empty.heading>No messages yet</x-empty.heading>
                         <x-empty.text>Send the first message in this conversation.</x-empty.text>
                     </x-empty>
@@ -157,7 +157,7 @@
                     variant="subtle"
                     inset="left top bottom"
                 >
-                    <x-icon :name="Tabler::MessageReply" size="sm" />
+                    <x-icon :name="Tabler::MessageReply" size="sm"/>
                     Reply
                 </x-button>
             </x-panel.footer>
@@ -185,9 +185,9 @@
                             <span>Older messages</span>
 
                             @if ($remainingMessagesLoaded)
-                                <x-icon.chevron-down class="size-4 text-gray-500 dark:text-gray-600" />
+                                <x-icon.chevron-down class="size-4 text-gray-500 dark:text-gray-600"/>
                             @else
-                                <x-icon.chevron-right class="size-4 text-gray-500 dark:text-gray-600" />
+                                <x-icon.chevron-right class="size-4 text-gray-500 dark:text-gray-600"/>
                             @endif
                         </div>
                     </button>
@@ -203,7 +203,7 @@
                                     :src="$message->user?->avatar_url"
                                     size="sm"
                                     :title="$message->user?->name"
-                                    :subtitle="DateHelper::formatShortDateWithTime($message->created_at)"
+                                    :subtitle="$message->created_at->formatDateWithTime()"
                                 />
 
                                 @can('delete', $discussion)
@@ -217,7 +217,7 @@
                                                     square
                                                     data-danger
                                                 >
-                                                    <x-icon :name="Tabler::MessageOff" size="sm" />
+                                                    <x-icon :name="Tabler::MessageOff" size="sm"/>
                                                 </x-button>
                                             </x-slot>
 
@@ -261,7 +261,7 @@
     @else
         <div class="hidden lg:block">
             <x-empty>
-                <x-illustration :name="Illustration::Inbox" />
+                <x-illustration :name="Illustration::Inbox"/>
                 <x-empty.heading>Select a conversation</x-empty.heading>
                 <x-empty.text>Choose a conversation or start a new one</x-empty.text>
 

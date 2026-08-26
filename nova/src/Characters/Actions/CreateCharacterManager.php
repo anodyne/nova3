@@ -15,7 +15,6 @@ use Nova\Departments\Actions\UpdatePositionAvailability;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class CreateCharacterManager
 {
@@ -24,8 +23,6 @@ class CreateCharacterManager
     public function handle(StoreCharacterRequest $request): Character
     {
         return DB::transaction(function () use ($request) {
-            LogBatch::startBatch();
-
             $character = CreateCharacter::run($request->getCharacterData());
 
             $character = AssignCharacterPositions::run(
@@ -70,8 +67,6 @@ class CreateCharacterManager
                 $character,
                 $request->user()
             );
-
-            LogBatch::endBatch();
 
             return $character->refresh();
         });

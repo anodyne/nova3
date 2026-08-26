@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Stories\Models\Story;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class DeleteStoriesManager
 {
@@ -17,13 +16,9 @@ class DeleteStoriesManager
     public function handle(Request $request): int
     {
         return DB::transaction(function () use ($request): int {
-            LogBatch::startBatch();
-
             $actions = json_decode((string) $request->input('actions', '[]'), true);
 
             if (! is_array($actions)) {
-                LogBatch::endBatch();
-
                 return 0;
             }
 
@@ -103,8 +98,6 @@ class DeleteStoriesManager
                 DeleteStory::run($story);
                 $deletedStories++;
             });
-
-            LogBatch::endBatch();
 
             return $deletedStories;
         });

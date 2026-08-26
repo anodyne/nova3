@@ -4,14 +4,14 @@
     <div class="flex items-center gap-4">
         <x-input placeholder="Find a story post" wire:model.live.debounce="search" clearable>
             <x-slot name="icon">
-                <x-icon :name="Tabler::Search" size="sm" />
+                <x-icon :name="Tabler::Search" size="sm"/>
             </x-slot>
         </x-input>
 
         <x-dropdown>
             <x-slot name="trigger">
                 <x-button>
-                    <x-icon :name="Tabler::ArrowsSort" size="sm" />
+                    <x-icon :name="Tabler::ArrowsSort" size="sm"/>
                     Sort by
                 </x-button>
             </x-slot>
@@ -26,7 +26,7 @@
         <x-dropdown>
             <x-slot name="trigger">
                 <x-button>
-                    <x-icon :name="Tabler::PencilCog" size="sm" />
+                    <x-icon :name="Tabler::PencilCog" size="sm"/>
                     Post types
                     <x-badge>{{ count($types) }}</x-badge>
                 </x-button>
@@ -43,11 +43,11 @@
             <x-dropdown>
                 <x-slot name="trigger">
                     <x-button>
-                        <x-icon :name="Tabler::Book2" size="sm" />
+                        <x-icon :name="Tabler::Book2" size="sm"/>
                         Story
 
                         @if (filled($selected))
-                            <x-icon.micro.check-circle class="text-primary-500 size-4" />
+                            <x-icon.micro.check-circle class="text-primary-500 size-4"/>
                         @endif
                     </x-button>
                 </x-slot>
@@ -92,7 +92,7 @@
                 <x-feed.post-meta-fields :$post class="z-10">
                     @if ($multiStory)
                         <x-slot name="leading">
-                            <x-metadata :icon="Tabler::Book2" :value="$post->story->title" />
+                            <x-metadata :icon="Tabler::Book2" :value="$post->story->title"/>
                         </x-slot>
                     @endif
 
@@ -100,7 +100,7 @@
                         <x-slot name="trailing">
                             <x-metadata
                                 :icon="Tabler::CalendarClock"
-                                :value="DateHelper::formatDate($post->published_at)"
+                                :value="$post->published_at->formatDate()"
                             />
                         </x-slot>
                     @endif
@@ -115,7 +115,7 @@
                 <div class="z-10 flex items-center gap-4">
                     <x-avatar.group class="group-hover:**:ring-gray-50 dark:group-hover:**:ring-gray-900">
                         @foreach ($post->authors_avatars as $src)
-                            <x-avatar :$src size="md" />
+                            <x-avatar :$src size="md"/>
                         @endforeach
                     </x-avatar.group>
 
@@ -124,7 +124,7 @@
             </div>
         @empty
             <x-empty>
-                <x-illustration :name="Illustration::Book" />
+                <x-illustration :name="Illustration::Book"/>
                 <x-empty.heading>No published posts found</x-empty.heading>
             </x-empty>
         @endforelse

@@ -139,7 +139,7 @@ class UsersList extends TableComponent
                                     ->itemIcon('deactivated', Tabler::CircleMinus->value)
                                     ->itemIconColor('deactivated', 'warning')
                                     ->eventDescription('assigned', function (Activity $activity) {
-                                        $characterIds = $activity->getExtraProperty('characterIds');
+                                        $characterIds = $activity->getProperty('characterIds');
 
                                         $characterNames = Character::whereIn('id', $characterIds)
                                             ->get()
@@ -153,7 +153,7 @@ class UsersList extends TableComponent
                                         return str("**{$causerName}** assigned {$characterNames} to the user.")->inlineMarkdown()->toHtmlString();
                                     })
                                     ->eventDescription('unassigned', function (Activity $activity) {
-                                        $characterIds = $activity->getExtraProperty('characterIds');
+                                        $characterIds = $activity->getProperty('characterIds');
 
                                         $characterNames = Character::whereIn('id', $characterIds)
                                             ->get()

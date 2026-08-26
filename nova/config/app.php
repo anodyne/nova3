@@ -7,7 +7,6 @@ use Artesaos\SEOTools\Facades\SEOTools;
 use Illuminate\Support\Facades\Facade;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Facades\NovaView;
-use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Helpers\TimeHelper;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Icons\NotificationIcon;
@@ -155,7 +154,6 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'CacheKeys' => CacheKeys::class,
-        'DateHelper' => DateHelper::class,
         'Illustration' => Illustration::class,
         'NotificationIcon' => NotificationIcon::class,
         'Nova' => Nova::class,

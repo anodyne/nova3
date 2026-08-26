@@ -33597,6 +33597,32 @@ namespace Staudenmeir\LaravelCte\Query {
             }
     }
 
+namespace Bag {
+    /**
+     * @extends LaravelCollection<array-key, mixed>
+     */
+    class Collection extends \Illuminate\Support\Collection {
+            }
+    }
+
+namespace Bag\Property {
+    /**
+     * @extends Collection<string, Value>
+     */
+    class ValueCollection extends \Illuminate\Support\Collection {
+            }
+    /**
+     * @extends Collection<array-key, mixed>
+     */
+    class MapCollection extends \Illuminate\Support\Collection {
+            }
+    /**
+     * @extends Collection<string, mixed>
+     */
+    class ValidatorCollection extends \Illuminate\Support\Collection {
+            }
+    }
+
 namespace Filament\Notifications\Livewire {
     /**
      */
@@ -39337,7 +39363,6 @@ namespace  {
     class View extends \Illuminate\Support\Facades\View {}
     class Vite extends \Illuminate\Support\Facades\Vite {}
     class CacheKeys extends \Nova\Foundation\Enums\CacheKeys {}
-    class DateHelper extends \Nova\Foundation\Helpers\DateHelper {}
     class Illustration extends \Nova\Foundation\Icons\Illustration {}
     class NotificationIcon extends \Nova\Foundation\Icons\NotificationIcon {}
     class Nova extends \Nova\Foundation\Nova {}

@@ -66,6 +66,7 @@ use Nova\Foundation\Livewire\IconPicker;
 use Nova\Foundation\Livewire\Rating;
 use Nova\Foundation\Macros\ArrMacros;
 use Nova\Foundation\Macros\CreateUpdateOrDelete;
+use Nova\Foundation\Macros\DateMacros;
 use Nova\Foundation\Macros\NotificationMacros;
 use Nova\Foundation\Macros\StrMacros;
 use Nova\Foundation\Macros\TextColumnMacros;
@@ -160,6 +161,7 @@ class AppServiceProvider extends ServiceProvider
     protected function configureMacros(): void
     {
         Arr::mixin(new ArrMacros);
+        Date::mixin(new DateMacros);
         Redirector::mixin(new NotificationMacros);
         RedirectResponse::mixin(new NotificationMacros);
         Str::mixin(new StrMacros);
@@ -326,7 +328,7 @@ class AppServiceProvider extends ServiceProvider
                 ])
                 ->modifyEventDescriptionUsing(function (string $eventDescription, Activity $activity, string $recordTitle, ?string $causerName, ?string $changesSummary): string {
                     if ($activity->log_name === 'impersonation') {
-                        $impersonatorId = $activity->getExtraProperty('impersonated_by');
+                        $impersonatorId = $activity->getProperty('impersonated_by');
 
                         return __('activity.impersonated', [
                             'user' => is_int($impersonatorId) || is_string($impersonatorId)

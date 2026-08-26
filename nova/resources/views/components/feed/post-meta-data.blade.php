@@ -2,8 +2,6 @@
     'post',
 ])
 
-@use('Nova\Foundation\Helpers\DateHelper')
-
 <x-metadata.group
     gap="lg"
     {{ $attributes->merge(['class' => 'inline-flex rounded-md bg-gray-800/5 dark:bg-white/10 px-3 py-1.5 ring-1 ring-inset ring-gray-950/5 dark:ring-white/5']) }}
@@ -13,7 +11,7 @@
     <x-metadata label="Words" :value="$post->word_count"></x-metadata>
 
     @if (filled($post->published_at))
-        <x-metadata label="Published" :value="DateHelper::formatDate($post->published_at)"></x-metadata>
+        <x-metadata label="Published" :value="$post->published_at->formatDate()"></x-metadata>
     @endif
 
     @if ($post->postType->fields->rating->enabled)

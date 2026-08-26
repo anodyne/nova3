@@ -104,7 +104,7 @@ class DepartmentsList extends TableComponent
                                     ])
                                     ->eventDescriptions([
                                         'duplicated' => function (Activity $activity): string {
-                                            $replicaId = $activity->getExtraProperty('replica');
+                                            $replicaId = $activity->getProperty('replica');
 
                                             return __('activity.departments.duplicated', [
                                                 'name' => $activity->causer instanceof User ? $activity->causer->name : 'System',

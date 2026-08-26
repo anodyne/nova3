@@ -9,7 +9,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Media\Actions\UploadImage;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\StoreStoryRequest;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class CreateStoryManager
 {
@@ -18,8 +17,6 @@ class CreateStoryManager
     public function handle(StoreStoryRequest $request): Story
     {
         return DB::transaction(function () use ($request) {
-            LogBatch::startBatch();
-
             $story = CreateStory::run($request->getStoryData());
 
             SetStoryPosition::run($story, $request->getStoryPositionData());
@@ -32,8 +29,6 @@ class CreateStoryManager
                 action: $request->getImageAction(),
                 tempPath: $request->getImageTempPath(),
             );
-
-            LogBatch::endBatch();
 
             return $story->refresh();
         });

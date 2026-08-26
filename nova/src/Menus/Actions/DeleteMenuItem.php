@@ -7,7 +7,6 @@ namespace Nova\Menus\Actions;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Menus\Models\MenuItem;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class DeleteMenuItem
 {
@@ -18,13 +17,9 @@ class DeleteMenuItem
         return DB::transaction(function () use ($menuItem) {
             $menuItem->loadMissing('items');
 
-            LogBatch::startBatch();
-
             $menuItem->items->each->delete();
 
             $menuItem = tap($menuItem)->delete();
-
-            LogBatch::endBatch();
 
             return $menuItem;
         });

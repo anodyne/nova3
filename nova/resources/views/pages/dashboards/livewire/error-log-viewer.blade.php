@@ -1,7 +1,5 @@
 @use('Illuminate\Support\Arr')
 @use('Illuminate\Support\Str')
-@use('Nova\Foundation\Helpers\DateHelper')
-@use('Nova\Foundation\Helpers\TimeHelper')
 
 <div class="space-y-8">
     <div class="flex items-center gap-x-4">
@@ -17,7 +15,7 @@
 
         @if (filled($selectedLogFile))
             <x-link role="button" wire:click="downloadLogFile">
-                <x-icon :name="Tabler::CloudDownload" size="sm" />
+                <x-icon :name="Tabler::CloudDownload" size="sm"/>
             </x-link>
 
             <x-link
@@ -26,7 +24,7 @@
                 wire:confirm="Are you sure you want to delete this log file?"
                 color="neutral-danger"
             >
-                <x-icon :name="Tabler::Trash" size="sm" />
+                <x-icon :name="Tabler::Trash" size="sm"/>
             </x-link>
         @endif
     </div>
@@ -86,7 +84,7 @@
                                     </x-h5>
 
                                     <div class="flex items-center font-mono text-xs/5 font-medium tracking-tight">
-                                        {{ TimeHelper::formatLongTime($logLine->datetime) }}
+                                        {{ $logLine->datetime->formatLongTime() }}
                                     </div>
                                 </div>
 
@@ -144,7 +142,7 @@
                             </div>
 
                             <div class="flex items-center font-mono text-xs/5">
-                                {{ TimeHelper::formatLongTime($logLine->datetime) }}
+                                {{ $logLine->datetime->formatLongTime() }}
                             </div>
 
                             <div class="flex flex-1 text-sm/6">
@@ -153,7 +151,7 @@
 
                             <div class="flex items-center gap-x-2">
                                 <button type="button" x-clipboard.raw="{{ $logLine->message }}">
-                                    <x-icon :name="Tabler::Copy" size="size-5" />
+                                    <x-icon :name="Tabler::Copy" size="size-5"/>
                                 </button>
 
                                 <button
@@ -226,7 +224,7 @@
         </div>
     @else
         <x-empty variant="jumbo">
-            <x-illustration :name="Illustration::WebError" />
+            <x-illustration :name="Illustration::WebError"/>
             <x-empty.heading>Choose an error log</x-empty.heading>
         </x-empty>
     @endif

@@ -78,7 +78,7 @@ class RankNamesList extends TableComponent
                                             $causerName = $causer instanceof User
                                                 ? $causer->name
                                                 : 'System';
-                                            $replicaId = $activity->getExtraProperty('replica');
+                                            $replicaId = $activity->getProperty('replica');
 
                                             return __('activity.ranks.name-duplicated', [
                                                 'name' => $causerName,

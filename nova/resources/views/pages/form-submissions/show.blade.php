@@ -1,5 +1,3 @@
-@use('Nova\Foundation\Helpers\DateHelper')
-
 <x-admin-layout>
     <x-spacing constrained>
         <x-page-heading>
@@ -14,9 +12,9 @@
 
             <x-slot name="description">
                 <x-metadata.group gap="lg">
-                    <x-metadata label="Form" :value="$submission->form->name" />
-                    <x-metadata label="Submitted by" :value="$submission->owner->name" />
-                    <x-metadata label="Submitted on" :value="DateHelper::formatDate($submission->created_at)" />
+                    <x-metadata label="Form" :value="$submission->form->name"/>
+                    <x-metadata label="Submitted by" :value="$submission->owner->name"/>
+                    <x-metadata label="Submitted on" :value="$submission->created_at->formatDate()"/>
                 </x-metadata.group>
             </x-slot>
         </x-page-heading>

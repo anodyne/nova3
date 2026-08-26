@@ -10,19 +10,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create(config('activitylog.table_name'), function (Blueprint $table) {
+        Schema::create('activity_log', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('log_name')->nullable();
+            $table->string('log_name')->nullable()->index();
             $table->text('description');
-            $table->nullableUuidMorphs('subject');
+            $table->nullableUuidMorphs('subject', 'subject');
             $table->string('event')->nullable();
-            $table->nullableUuidMorphs('causer');
+            $table->nullableUuidMorphs('causer', 'causer');
+            $table->json('attribute_changes')->nullable();
             $table->json('properties')->nullable();
-            $table->uuid('batch_uuid')->nullable();
             $table->timestamps();
-
-            $table->index('log_name');
-            $table->index(['subject_id', 'subject_type']);
         });
     }
 };

@@ -20,7 +20,7 @@ use Nova\Forms\Models\Builders\FormBuilder;
 use Nova\Foundation\Concerns\LogsActivity;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Models\Model;
-use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**

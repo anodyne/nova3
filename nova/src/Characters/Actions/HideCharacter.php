@@ -15,7 +15,7 @@ class HideCharacter
     public function handle(Character $character): Character
     {
         if ($character->status->canTransitionTo(Hidden::class)) {
-            activity()->withoutLogs(fn () => $character->status->transitionTo(Hidden::class));
+            activity()->withoutLogging(fn () => $character->status->transitionTo(Hidden::class));
 
             activity()
                 ->performedOn($character)

@@ -37,7 +37,7 @@ use Nova\Stories\Models\States\PostStatus\Published;
 use Nova\Stories\Models\States\PostStatus\Started;
 use Nova\Stories\Observers\PostObserver;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\ModelStates\HasStates;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
@@ -240,7 +240,7 @@ class Post extends Model implements Sortable
             ->event('locked')
             ->log('locked');
 
-        activity()->withoutLogs(function () use ($user): void {
+        activity()->withoutLogging(function () use ($user): void {
             $this->update([
                 'locked_by' => $user->id,
                 'locked_at' => now(),
@@ -384,7 +384,7 @@ class Post extends Model implements Sortable
             ->event('unlocked')
             ->log('unlocked');
 
-        activity()->withoutLogs(function (): void {
+        activity()->withoutLogging(function (): void {
             $this->update([
                 'locked_by' => null,
                 'locked_at' => null,

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class DeleteFormManager
 {
@@ -17,8 +16,6 @@ class DeleteFormManager
     public function handle(Form $form): Form
     {
         return DB::transaction(function () use ($form) {
-            LogBatch::startBatch();
-
             FormSubmission::query()
                 ->forForm($form)
                 ->get()
@@ -27,8 +24,6 @@ class DeleteFormManager
             $form->formFields()->delete();
 
             $form = DeleteForm::run($form);
-
-            LogBatch::endBatch();
 
             return $form;
         });

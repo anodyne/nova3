@@ -14,7 +14,7 @@ class DuplicateForm
 
     public function handle(Form $original): Form
     {
-        $form = activity()->withoutLogs(function () use ($original) {
+        $form = activity()->withoutLogging(function () use ($original) {
             $form = $original->replicate(['prefixed_id']);
             $form->key = Passphrase::generate();
             $form->name = "Copy of {$form->name}";

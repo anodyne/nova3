@@ -15,7 +15,7 @@ use Nova\Notes\Events\NoteDeleted;
 use Nova\Notes\Events\NoteUpdated;
 use Nova\Notes\Models\Builders\NoteBuilder;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**

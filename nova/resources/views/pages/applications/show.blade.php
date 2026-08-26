@@ -1,5 +1,4 @@
 @use('Nova\Applications\Enums\ApplicationResult')
-@use('Nova\Foundation\Helpers\DateHelper')
 
 <x-admin-layout>
     <x-spacing>
@@ -42,17 +41,17 @@
                 <x-tab.group class="mb-12">
                     <x-slot name="tabs">
                         <x-tab name="application">
-                            <x-icon :name="Tabler::Progress" size="sm" />
+                            <x-icon :name="Tabler::Progress" size="sm"/>
                             Application
                         </x-tab>
 
                         <x-tab name="review">
-                            <x-icon :name="Tabler::Messages" size="sm" />
+                            <x-icon :name="Tabler::Messages" size="sm"/>
                             Review
                         </x-tab>
 
                         <x-tab name="history">
-                            <x-icon :name="Tabler::History" size="sm" />
+                            <x-icon :name="Tabler::History" size="sm"/>
                             History
                         </x-tab>
                     </x-slot>
@@ -79,7 +78,7 @@
                                             'rotate-90': expanded,
                                         }"
                                     >
-                                        <x-icon :name="Tabler::ChevronRight" size="md" />
+                                        <x-icon :name="Tabler::ChevronRight" size="md"/>
                                     </div>
                                 </x-slot>
                             </x-panel.header>
@@ -135,7 +134,7 @@
                                             'rotate-90': expanded,
                                         }"
                                     >
-                                        <x-icon :name="Tabler::ChevronRight" size="md" />
+                                        <x-icon :name="Tabler::ChevronRight" size="md"/>
                                     </div>
                                 </x-slot>
                             </x-panel.header>
@@ -191,7 +190,7 @@
                                             'rotate-90': expanded,
                                         }"
                                     >
-                                        <x-icon :name="Tabler::ChevronRight" size="md" />
+                                        <x-icon :name="Tabler::ChevronRight" size="md"/>
                                     </div>
                                 </x-slot>
                             </x-panel.header>
@@ -203,7 +202,7 @@
                                             <x-fieldset.group>
                                                 <x-input.display label="Application date">
                                                     <x-text>
-                                                        {{ DateHelper::formatShortDateWithTime($application->created_at) }}
+                                                        {{ $application->created_at->formatDateWithTime() }}
                                                     </x-text>
                                                 </x-input.display>
 
@@ -252,7 +251,7 @@
                                                 'rotate-90': expanded,
                                             }"
                                         >
-                                            <x-icon :name="Tabler::ChevronRight" size="md" />
+                                            <x-icon :name="Tabler::ChevronRight" size="md"/>
                                         </div>
                                     </x-slot>
                                 </x-panel.header>
@@ -264,7 +263,7 @@
                                                 <x-fieldset.group>
                                                     <x-input.display label="Decision date">
                                                         <x-text>
-                                                            {{ DateHelper::formatShortDateWithTime($application->decision_date) }}
+                                                            {{ $application->decision_date->formatDateWithTime() }}
                                                         </x-text>
                                                     </x-input.display>
 
@@ -297,17 +296,17 @@
                     </x-tab.panel>
 
                     <x-tab.panel name="review">
-                        <livewire:application-discussion :$application />
+                        <livewire:application-discussion :$application/>
                     </x-tab.panel>
 
                     <x-tab.panel name="history">
-                        <livewire:application-history :$application />
+                        <livewire:application-history :$application/>
                     </x-tab.panel>
                 </x-tab.group>
             </div>
 
             <div>
-                <livewire:application-review :$application />
+                <livewire:application-review :$application/>
             </div>
         </div>
     </x-spacing>

@@ -26,7 +26,6 @@ use Nova\Users\Actions\PopulateNotificationPreferences;
 use Nova\Users\Actions\PopulateUserModerations;
 use Nova\Users\Data\UserData;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class CreateApplicationFromJoinFormManager
 {
@@ -35,8 +34,6 @@ class CreateApplicationFromJoinFormManager
     public function handle(StoreApplicationRequest $request): void
     {
         DB::transaction(function () use ($request): void {
-            LogBatch::startBatch();
-
             $character = $this->createPendingCharacter($request);
 
             $user = $this->findOrCreateUser($request);
@@ -44,8 +41,6 @@ class CreateApplicationFromJoinFormManager
             $this->assignCharacterToUser($character, $user);
 
             $application = $this->createApplication($request, $character, $user);
-
-            LogBatch::endBatch();
         });
     }
 

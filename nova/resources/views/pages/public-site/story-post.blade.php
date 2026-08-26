@@ -1,6 +1,3 @@
-@use('Nova\Foundation\Helpers\DateHelper')
-@use('Nova\Foundation\Helpers\TimeHelper')
-
 <x-dynamic-component component="layouts.theme">
     <div class="@container advanced-page story-post">
         <div
@@ -17,14 +14,14 @@
                 <div class="metadata">
                     <div class="metadata-item metadata-item-sm">
                         <div class="metadata-item-icon">
-                            <x-icon :name="$post->postType->icon" size="sm" />
+                            <x-icon :name="$post->postType->icon" size="sm"/>
                         </div>
                         <div class="metadata-item-label">{{ $post->postType->name }}</div>
                     </div>
                     <div class="metadata-item metadata-item-sm">
                         <div class="metadata-item-leading">Published</div>
                         <div class="metadata-item-label">
-                            {{ DateHelper::formatDate($post->published_at) }}
+                            {{ $post->published_at->formatDate() }}
                         </div>
                     </div>
                     <div class="metadata-item metadata-item-sm">
@@ -44,7 +41,7 @@
                         @if ($post->postType->fields->location->enabled && filled($post->location))
                             <div class="metadata-item">
                                 <div class="metadata-item-icon">
-                                    <x-icon :name="Tabler::MapPin" size="md" />
+                                    <x-icon :name="Tabler::MapPin" size="md"/>
                                 </div>
                                 <div class="metadata-item-label">{{ $post->location }}</div>
                             </div>
@@ -53,7 +50,7 @@
                         @if ($post->postType->fields->day->enabled && filled($post->day))
                             <div class="metadata-item">
                                 <div class="metadata-item-icon">
-                                    <x-icon :name="Tabler::Calendar" size="md" />
+                                    <x-icon :name="Tabler::Calendar" size="md"/>
                                 </div>
                                 <div class="metadata-item-label">{{ $post->day }}</div>
                             </div>
@@ -62,7 +59,7 @@
                         @if ($post->postType->fields->time->enabled && filled($post->time))
                             <div class="metadata-item">
                                 <div class="metadata-item-icon">
-                                    <x-icon :name="Tabler::Clock" size="md" />
+                                    <x-icon :name="Tabler::Clock" size="md"/>
                                 </div>
                                 <div class="metadata-item-label">{{ $post->time }}</div>
                             </div>
@@ -76,7 +73,7 @@
 
                 <div class="post-content-warning" x-show="showContentWarning" x-cloak>
                     <div class="heading">
-                        <x-icon :name="Tabler::AlertTriangle" size="xl" />
+                        <x-icon :name="Tabler::AlertTriangle" size="xl"/>
                         <x-public::h2>Warning</x-public::h2>
                     </div>
 
@@ -107,7 +104,7 @@
 
                     @if (filled($post->summary))
                         <div class="summary">
-                            <hr />
+                            <hr/>
 
                             <div class="post-content">
                                 <h4>

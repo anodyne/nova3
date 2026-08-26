@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa0ff943a3f9fb9330a3ab3f912f7777",
+    "content-hash": "efa720ab9b3ddcbe1adf8c91ba910273",
     "packages": [
         {
             "name": "anodyne/blade-hugeicons",
@@ -8685,30 +8685,33 @@
         },
         {
             "name": "ralphjsmit/laravel-filament-activitylog",
-            "version": "2.3.0",
+            "version": "3.0.0-beta2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:ralphjsmit/laravel-filament-activitylog.git",
-                "reference": "acbefbabc7eae92ccbd9cd7c1c24a1af325f802e"
+                "reference": "1f1b426fa8a6f382179498bddf5e67e8de491f32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://satis.ralphjsmit.com/dist/ralphjsmit/laravel-filament-activitylog/ralphjsmit-laravel-filament-activitylog-acbefbabc7eae92ccbd9cd7c1c24a1af325f802e-zip-c6b885.zip",
-                "reference": "acbefbabc7eae92ccbd9cd7c1c24a1af325f802e",
-                "shasum": "e12473d5194546f60d0392d0e88c8b37542f6f78"
+                "url": "https://satis.ralphjsmit.com/dist/ralphjsmit/laravel-filament-activitylog/ralphjsmit-laravel-filament-activitylog-1f1b426fa8a6f382179498bddf5e67e8de491f32-zip-8f6c71.zip",
+                "reference": "1f1b426fa8a6f382179498bddf5e67e8de491f32",
+                "shasum": "7fb412959929c4f6a87f47a64581224220d432e7"
             },
             "require": {
                 "filament/forms": "^4.10|^5.5",
                 "filament/support": "^4.10|^5.5",
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
-                "php": "^8.3",
+                "php": "^8.4",
                 "ralphjsmit/packages": "^1.4",
-                "spatie/laravel-activitylog": "^4.7",
+                "spatie/laravel-activitylog": "^5.0",
                 "spatie/laravel-package-tools": "^1.14.0"
             },
             "require-dev": {
+                "filament/filament": "^4.0|^5.0",
                 "laravel/pint": "^1.0",
                 "nunomaduro/collision": "^8.0",
+                "orchestra/testbench": "^10.0",
+                "pestphp/pest": "^3.0",
                 "ralphjsmit/guidelines": "^1.2",
                 "spatie/laravel-ray": "^1.26"
             },
@@ -8726,7 +8729,9 @@
                 }
             },
             "autoload-dev": {
-                "psr-4": []
+                "psr-4": {
+                    "RalphJSmit\\Filament\\Activitylog\\Tests\\": "tests/"
+                }
             },
             "scripts": {
                 "post-autoload-dump": [
@@ -8734,6 +8739,9 @@
                 ],
                 "format": [
                     "vendor/bin/pint"
+                ],
+                "test": [
+                    "vendor/bin/pest"
                 ]
             },
             "license": [
@@ -8754,10 +8762,10 @@
                 "laravel-filament-activitylog"
             ],
             "support": {
-                "source": "https://github.com/ralphjsmit/laravel-filament-activitylog/tree/2.3.0",
+                "source": "https://github.com/ralphjsmit/laravel-filament-activitylog/tree/3.0.0-beta2",
                 "issues": "https://github.com/ralphjsmit/laravel-filament-activitylog/issues"
             },
-            "time": "2026-06-24T21:50:24+00:00"
+            "time": "2026-06-24T21:50:48+00:00"
         },
         {
             "name": "ralphjsmit/packages",
@@ -9647,29 +9655,31 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "4.12.3",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "2a2024fcac05628b0d1bfdbb1b94dda8b0661dc0"
+                "reference": "97c9f7e82033b18dc9db25de276f9b71e01449ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/2a2024fcac05628b0d1bfdbb1b94dda8b0661dc0",
-                "reference": "2a2024fcac05628b0d1bfdbb1b94dda8b0661dc0",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/97c9f7e82033b18dc9db25de276f9b71e01449ea",
+                "reference": "97c9f7e82033b18dc9db25de276f9b71e01449ea",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "illuminate/database": "^8.69 || ^9.27 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "illuminate/support": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "php": "^8.1",
+                "illuminate/config": "^13.0",
+                "illuminate/database": "^13.0",
+                "illuminate/support": "^13.0",
+                "php": "^8.4",
                 "spatie/laravel-package-tools": "^1.6.3"
             },
             "require-dev": {
                 "ext-json": "*",
-                "orchestra/testbench": "^6.23 || ^7.0 || ^8.0 || ^9.6 || ^10.0 || ^11.0",
-                "pestphp/pest": "^1.20 || ^2.0 || ^3.0 || ^4.0"
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.29",
+                "orchestra/testbench": "^11.0",
+                "pestphp/pest": "^5.0"
             },
             "type": "library",
             "extra": {
@@ -9712,7 +9722,7 @@
                 }
             ],
             "description": "A very simple activity logger to monitor the users of your website or application",
-            "homepage": "https://github.com/spatie/activitylog",
+            "homepage": "https://github.com/spatie/laravel-activitylog",
             "keywords": [
                 "activity",
                 "laravel",
@@ -9722,7 +9732,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-activitylog/issues",
-                "source": "https://github.com/spatie/laravel-activitylog/tree/4.12.3"
+                "source": "https://github.com/spatie/laravel-activitylog/tree/5.1.0"
             },
             "funding": [
                 {
@@ -9734,7 +9744,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-24T12:33:53+00:00"
+            "time": "2026-08-12T12:07:38+00:00"
         },
         {
             "name": "spatie/laravel-collection-macros",

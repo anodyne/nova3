@@ -14,7 +14,6 @@ use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
 use Nova\Users\Models\User;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class CreateApplicationManager
 {
@@ -26,8 +25,6 @@ class CreateApplicationManager
     public function handle(ApplicationData $data, array $applicationInfoData = []): Application
     {
         return DB::transaction(function () use ($data, $applicationInfoData) {
-            LogBatch::startBatch();
-
             $application = CreateApplication::run($data);
 
             $this->createFormSubmissionForApplication($application, $applicationInfoData);
@@ -37,8 +34,6 @@ class CreateApplicationManager
             $this->addReviewersToApplication($application);
 
             $this->notifyReviewers($application);
-
-            LogBatch::endBatch();
 
             return $application->refresh();
         });

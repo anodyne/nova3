@@ -1,5 +1,3 @@
-@use('Nova\Foundation\Helpers\DateHelper')
-
 <x-admin-layout>
     <div
         class="grid gap-8 lg:grid-cols-3"
@@ -22,29 +20,29 @@
             </div>
 
             <x-metadata.group gap="lg" class="mt-4">
-                <x-metadata label="Post type" :value="$post->postType->name" />
+                <x-metadata label="Post type" :value="$post->postType->name"/>
 
-                <x-metadata label="Reading time" :value="$post->reading_time" />
+                <x-metadata label="Reading time" :value="$post->reading_time"/>
 
-                <x-metadata label="Words" :value="Number::format($post->word_count ?? 0)" />
+                <x-metadata label="Words" :value="Number::format($post->word_count ?? 0)"/>
 
                 @if ($post->is_published)
-                    <x-metadata label="Published" :value="DateHelper::formatDate($post->published_at)" />
+                    <x-metadata label="Published" :value="$post->published_at->formatDate()"/>
                 @endif
             </x-metadata.group>
 
             @if ($post->postType->fields->showMetaFields())
                 <x-metadata.group gap="lg" class="mt-8">
                     @if ($post->postType->fields->location->enabled && filled($post->location))
-                        <x-metadata :icon="Tabler::MapPin" :value="$post->location" />
+                        <x-metadata :icon="Tabler::MapPin" :value="$post->location"/>
                     @endif
 
                     @if ($post->postType->fields->day->enabled && filled($post->day))
-                        <x-metadata :icon="Tabler::Calendar" :value="$post->day" />
+                        <x-metadata :icon="Tabler::Calendar" :value="$post->day"/>
                     @endif
 
                     @if ($post->postType->fields->time->enabled && filled($post->time))
-                        <x-metadata :icon="Tabler::Clock" :value="$post->time" />
+                        <x-metadata :icon="Tabler::Clock" :value="$post->time"/>
                     @endif
                 </x-metadata.group>
             @endif
@@ -55,7 +53,7 @@
 
             <div x-show="showContentWarning" x-cloak>
                 <div class="flex items-center gap-x-3">
-                    <x-icon :name="Tabler::AlertTriangle" size="xl" class="text-danger-500" />
+                    <x-icon :name="Tabler::AlertTriangle" size="xl" class="text-danger-500"/>
                     <h1 class="text-danger-600 block text-4xl leading-loose font-extrabold tracking-tight">Warning</h1>
                 </div>
 
@@ -86,7 +84,7 @@
 
                 @if (filled($post->summary))
                     <div class="mt-12 max-w-2xl">
-                        <hr class="mb-12 max-w-lg border-gray-200 dark:border-gray-800" />
+                        <hr class="mb-12 max-w-lg border-gray-200 dark:border-gray-800"/>
 
                         <div class="prose dark:prose-invert">
                             <h4>
@@ -109,7 +107,7 @@
                                 aria-label="Previous post: {{ $previousPost->title }}"
                                 href="{{ route('admin.posts.show', [$story, $previousPost]) }}"
                             >
-                                <x-icon.micro.chevron-left class="text-gray-500" />
+                                <x-icon.micro.chevron-left class="text-gray-500"/>
                                 <span>Previous</span>
                             </a>
                             <a
@@ -131,7 +129,7 @@
                                 href="{{ route('admin.posts.show', [$story, $nextPost]) }}"
                             >
                                 <span>Next</span>
-                                <x-icon.micro.chevron-right class="text-gray-500" />
+                                <x-icon.micro.chevron-right class="text-gray-500"/>
                             </a>
                             <a
                                 tabindex="-1"
@@ -150,9 +148,9 @@
         <div class="space-y-8 pt-9">
             @if ($post->postType->fields->rating->enabled)
                 <div class="flex flex-col gap-y-4">
-                    <x-rating.display type="language" :rating="$post->rating_language" size="md" show-details />
-                    <x-rating.display type="sex" :rating="$post->rating_sex" size="md" show-details />
-                    <x-rating.display type="violence" :rating="$post->rating_violence" size="md" show-details />
+                    <x-rating.display type="language" :rating="$post->rating_language" size="md" show-details/>
+                    <x-rating.display type="sex" :rating="$post->rating_sex" size="md" show-details/>
+                    <x-rating.display type="violence" :rating="$post->rating_violence" size="md" show-details/>
                 </div>
             @endif
 
@@ -164,7 +162,7 @@
                         <div
                             class="flex items-center gap-x-2 truncate text-sm/4 font-semibold text-gray-700 dark:text-gray-300"
                         >
-                            <x-avatar :src="$characterAuthor->avatar_url" size="sm" />
+                            <x-avatar :src="$characterAuthor->avatar_url" size="sm"/>
                             <div>{{ $characterAuthor->name }}</div>
                         </div>
                     @endforeach
@@ -173,7 +171,7 @@
                         <div
                             class="flex items-center gap-x-2 truncate text-sm/4 font-semibold text-gray-700 dark:text-gray-300"
                         >
-                            <x-avatar :src="$userAuthor->avatar_url" size="sm" />
+                            <x-avatar :src="$userAuthor->avatar_url" size="sm"/>
                             <div>{{ $userAuthor->pivot->as ?? $userAuthor->display_name }}</div>
                         </div>
                     @endforeach
@@ -187,7 +185,7 @@
                         aria-label="Previous post: {{ $previousPost->title }}"
                         href="{{ route('admin.posts.show', [$story, $previousPost]) }}"
                     >
-                        <x-icon.micro.chevron-left class="text-gray-500" />
+                        <x-icon.micro.chevron-left class="text-gray-500"/>
                         <span>Previous</span>
                     </a>
                     <a
@@ -209,7 +207,7 @@
                         href="{{ route('admin.posts.show', [$story, $nextPost]) }}"
                     >
                         <span>Next</span>
-                        <x-icon.micro.chevron-right class="text-gray-500" />
+                        <x-icon.micro.chevron-right class="text-gray-500"/>
                     </a>
                     <a
                         tabindex="-1"

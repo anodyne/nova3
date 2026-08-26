@@ -8,7 +8,6 @@ use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\UpdateDepartmentRequest;
 use Nova\Media\Actions\UploadImage;
-use Spatie\Activitylog\Facades\LogBatch;
 
 class UpdateDepartmentManager
 {
@@ -16,8 +15,6 @@ class UpdateDepartmentManager
 
     public function handle(Department $department, UpdateDepartmentRequest $request): Department
     {
-        LogBatch::startBatch();
-
         $department = UpdateDepartment::run(
             $department,
             $request->getDepartmentData()
@@ -29,8 +26,6 @@ class UpdateDepartmentManager
             action: $request->getImageAction(),
             tempPath: $request->getImageTempPath()
         );
-
-        LogBatch::endBatch();
 
         return $department->refresh();
     }
