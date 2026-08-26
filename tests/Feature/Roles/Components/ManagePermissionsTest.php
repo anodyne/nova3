@@ -27,8 +27,7 @@ test('it can mount with a role', function () {
 });
 
 test('it can add a permission', function () {
-    $permission1 = Permission::find(1);
-    $permission2 = Permission::find(2);
+    [$permission1, $permission2] = Permission::query()->take(2)->get();
 
     livewire(ManagePermissions::class)
         ->set('assigned', [$permission1->id, $permission2->id])
@@ -36,8 +35,7 @@ test('it can add a permission', function () {
 });
 
 test('it can remove a permission', function () {
-    $permission1 = Permission::find(1);
-    $permission2 = Permission::find(2);
+    [$permission1, $permission2] = Permission::query()->take(2)->get();
 
     livewire(ManagePermissions::class)
         ->set('assigned', [$permission1->id, $permission2->id])

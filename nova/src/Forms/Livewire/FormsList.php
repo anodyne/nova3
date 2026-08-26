@@ -23,6 +23,7 @@ use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\DeleteBulkAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Foundation\Models\Activity;
 use Nova\Users\Models\User;
@@ -59,7 +60,7 @@ class FormsList extends TableComponent
                 TextColumn::make('published_at')
                     ->label('Last published')
                     ->dateTime()
-                    ->formatStateUsing(fn (Form $record): ?string => filled($record->published_at) ? $record->published_at->formatDate() : null)
+                    ->formatStateUsing(fn (Form $record): ?string => filled($record->published_at) ? DateHelper::formatDate($record->published_at) : null)
                     ->toggleable(),
                 TextColumn::make('status')
                     ->badge()

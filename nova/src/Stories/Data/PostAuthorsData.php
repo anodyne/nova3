@@ -31,7 +31,7 @@ readonly class PostAuthorsData extends Bag
         public ?Collection $originalUsers = null
     ) {}
 
-    /** @return list<int> */
+    /** @return list<string> */
     public function getUserIds(): array
     {
         return array_values(collect(array_keys($this->users))
@@ -39,7 +39,7 @@ readonly class PostAuthorsData extends Bag
             ->filter()
             ->unique()
             ->values()
-            ->map(fn (mixed $userId): int => (int) $userId)
+            ->map(fn (mixed $userId): string => (string) $userId)
             ->all());
     }
 }

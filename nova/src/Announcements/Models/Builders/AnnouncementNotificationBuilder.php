@@ -14,7 +14,7 @@ use Nova\Users\Models\User;
  */
 class AnnouncementNotificationBuilder extends Builder
 {
-    public function announcement(Announcement|int $announcement): self
+    public function announcement(Announcement|string $announcement): self
     {
         return $this->where('announcement_id', $announcement->id ?? $announcement);
     }
@@ -29,7 +29,7 @@ class AnnouncementNotificationBuilder extends Builder
         return $this->where('is_seen', false);
     }
 
-    public function user(User|int $user): self
+    public function user(User|string $user): self
     {
         return $this->where('user_id', $user->id ?? $user);
     }

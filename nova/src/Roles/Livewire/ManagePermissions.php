@@ -16,13 +16,13 @@ class ManagePermissions extends Component
     #[Locked]
     public ?Role $role = null;
 
-    /** @var list<int> */
+    /** @var list<string> */
     public array $assigned = [];
 
     public function mount(): void
     {
         $this->assigned = array_values($this->role?->permissions
-            ->map(fn (Permission $permission): int => $permission->id)
+            ->map(fn (Permission $permission): string => $permission->id)
             ->values()
             ->all() ?? []);
     }

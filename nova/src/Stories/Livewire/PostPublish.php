@@ -57,7 +57,7 @@ class PostPublish extends SlideOver
 
     public string $search = '';
 
-    public function add(int $postId): void
+    public function add(string $postId): void
     {
         $this->search = '';
 
@@ -98,7 +98,7 @@ class PostPublish extends SlideOver
         $this->setPostAttributes();
     }
 
-    public function mount(int $postId): void
+    public function mount(string $postId): void
     {
         $this->postId = $postId;
 
@@ -145,7 +145,7 @@ class PostPublish extends SlideOver
         $this->refreshParticipatingUsers();
     }
 
-    public function removeParticipant(int $userId): void
+    public function removeParticipant(string $userId): void
     {
         $this->dispatch('dropdown-close');
 

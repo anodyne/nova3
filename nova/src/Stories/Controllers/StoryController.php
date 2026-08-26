@@ -81,7 +81,7 @@ class StoryController extends Controller
         return back()->notify("{$story->title} was updated");
     }
 
-    public function delete(int $id): Responsable
+    public function delete(string $id): Responsable
     {
         $this->authorize('delete', new Story);
 

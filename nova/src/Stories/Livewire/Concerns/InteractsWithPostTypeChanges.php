@@ -35,7 +35,7 @@ trait InteractsWithPostTypeChanges
         $this->redirectRoute('admin.posts.edit', $this->post);
     }
 
-    public function startPostTypeChange(int $newPostTypeId): void
+    public function startPostTypeChange(string $newPostTypeId): void
     {
         $oldPostType = $this->postType;
         $newPostType = PostType::find($newPostTypeId);

@@ -36,14 +36,14 @@ class ApplicationSeeder extends Seeder
                     ->orderBy('id')
                     ->limit(3)
                     ->get(['id'])
-                    ->map(fn (User $user): int => $user->id)
+                    ->map(fn (User $user): string => $user->id)
                     ->all()
             );
 
             $positionIds = array_values(
                 Position::query()
                     ->get(['id'])
-                    ->map(fn (Position $position): int => $position->id)
+                    ->map(fn (Position $position): string => $position->id)
                     ->all()
             );
 
@@ -76,8 +76,8 @@ class ApplicationSeeder extends Seeder
      * Build a single application end-to-end (user + character + application + discussion).
      *
      * @param  Collection<string, Form>  $forms
-     * @param  list<int>  $reviewerIds
-     * @param  list<int>  $positionIds
+     * @param  list<string>  $reviewerIds
+     * @param  list<string>  $positionIds
      */
     protected function makeApplication(
         ApplicationResult $result,
@@ -124,9 +124,9 @@ class ApplicationSeeder extends Seeder
     /**
      * Bulk insert discussion messages for speed.
      *
-     * @param  list<int>  $authorPool
+     * @param  list<string>  $authorPool
      */
-    protected function bulkCreateDiscussionMessages(int $discussionId, int $count, array $authorPool): void
+    protected function bulkCreateDiscussionMessages(string $discussionId, int $count, array $authorPool): void
     {
         if ($count <= 0) {
             return;
@@ -139,7 +139,7 @@ class ApplicationSeeder extends Seeder
                     ->orderBy('id')
                     ->limit(3)
                     ->get(['id'])
-                    ->map(fn (User $user): int => $user->id)
+                    ->map(fn (User $user): string => $user->id)
                     ->all()
             );
 

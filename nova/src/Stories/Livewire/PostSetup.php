@@ -37,7 +37,7 @@ class PostSetup extends Component
     use InteractsWithPostType;
     use InteractsWithStories;
 
-    public ?int $characterId = null;
+    public ?string $characterId = null;
 
     #[Locked]
     public Post $post;

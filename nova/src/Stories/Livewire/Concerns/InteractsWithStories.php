@@ -12,9 +12,9 @@ use Nova\Stories\Models\Story;
 
 trait InteractsWithStories
 {
-    public ?int $storyId = null;
+    public ?string $storyId = null;
 
-    public function changeStory(int $newStoryId): void
+    public function changeStory(string $newStoryId): void
     {
         $this->post->story_id = $newStoryId;
 

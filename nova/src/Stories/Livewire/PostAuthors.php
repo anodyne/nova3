@@ -97,9 +97,9 @@ class PostAuthors extends Component
 
     /**
      * @param  array<int, CharacterAuthor>  $characterAuthors
-     * @param  array<int, CharacterAuthorPivotData>  $characterAuthorsPivotData
+     * @param  array<string, CharacterAuthorPivotData>  $characterAuthorsPivotData
      * @param  array<int, UserAuthor>  $userAuthors
-     * @param  array<int, UserAuthorPivotData>  $userAuthorsPivotData
+     * @param  array<string, UserAuthorPivotData>  $userAuthorsPivotData
      */
     #[On('update-post-authors')]
     public function handleAuthorUpdates(array $characterAuthors, array $characterAuthorsPivotData, array $userAuthors, array $userAuthorsPivotData): void

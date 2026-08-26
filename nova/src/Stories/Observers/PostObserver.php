@@ -20,15 +20,15 @@ class PostObserver
         }
     }
 
-    /** @return list<int> */
-    private function getNewParticipants(Post $post, int $userId): array
+    /** @return list<string> */
+    private function getNewParticipants(Post $post, string $userId): array
     {
         return array_values(collect($post->participants)
             ->merge([$userId])
             ->filter()
             ->unique()
             ->values()
-            ->map(fn ($value): int => (int) $value)
+            ->map(fn ($value): string => (string) $value)
             ->all());
     }
 }

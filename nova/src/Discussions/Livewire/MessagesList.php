@@ -42,7 +42,7 @@ class MessagesList extends Component
     public ?string $search = null;
 
     #[Locked]
-    public ?int $selected = null;
+    public ?string $selected = null;
 
     public function clearSelected(): void
     {
@@ -91,7 +91,7 @@ class MessagesList extends Component
         ]);
     }
 
-    public function selectDiscussion(?int $id): void
+    public function selectDiscussion(?string $id): void
     {
         $this->selected = $id;
 

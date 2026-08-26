@@ -35,13 +35,13 @@ class PublishedPostsList extends Component
 
     public ?string $search = '';
 
-    public ?int $selected = null;
+    public ?string $selected = null;
 
     public PostSorting $sort = PostSorting::PublishedDescending;
 
     public ?Story $story = null;
 
-    /** @var list<int> */
+    /** @var list<string> */
     public array $types = [];
 
     public function mount(): void
@@ -102,12 +102,12 @@ class PublishedPostsList extends Component
         return Story::query()->exceptUpcoming()->get();
     }
 
-    /** @return list<int> */
+    /** @return list<string> */
     protected function initialPostTypes(): array
     {
         return array_values(PostType::active()
             ->get(['id'])
-            ->map(fn (PostType $postType): int => $postType->id)
+            ->map(fn (PostType $postType): string => $postType->id)
             ->values()
             ->all());
     }

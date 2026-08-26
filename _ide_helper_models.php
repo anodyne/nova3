@@ -1064,7 +1064,7 @@ namespace Nova\Menus\Models{
 /**
  * @property string $id
  * @property string $menu_id
- * @property int|null $parent_id
+ * @property string|null $parent_id
  * @property string $label
  * @property \Anodyne\TablerIcons\Tabler|null $icon
  * @property \Nova\Menus\Enums\LinkType $link_type
@@ -1516,8 +1516,8 @@ namespace Nova\Stories\Models{
  * @property string|null $direction
  * @property \Carbon\CarbonImmutable|null $published_at
  * @property \Carbon\CarbonImmutable|null $locked_at
- * @property int|null $locked_by
- * @property int|null $last_update_by
+ * @property string|null $locked_by
+ * @property string|null $last_update_by
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -1719,7 +1719,7 @@ namespace Nova\Stories\Models{
 /**
  * @property string $id
  * @property string|null $prefixed_id
- * @property int|null $parent_id
+ * @property string|null $parent_id
  * @property int|null $order_column
  * @property \Nova\Stories\Models\States\StoryStatus\StoryStatus $status
  * @property string $title
@@ -2155,4 +2155,3 @@ namespace Nova\Users\Models{
 	#[\AllowDynamicProperties]
 	class IdeHelperUserNotificationPreference {}
 }
-

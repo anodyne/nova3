@@ -27,21 +27,19 @@ test('it can mount with a user', function () {
 });
 
 test('it can add a role', function () {
-    $role1 = Role::find(1);
-    $role2 = Role::find(2);
+    [$role1, $role2] = Role::query()->take(2)->get();
 
     livewire(ManageRoles::class)
         ->set('assigned', [$role1->id, $role2->id])
-        ->assertSet('assigned', [1, 2]);
+        ->assertSet('assigned', [$role1->id, $role2->id]);
 });
 
 test('it can remove a role', function () {
-    $role1 = Role::find(1);
-    $role2 = Role::find(2);
+    [$role1, $role2] = Role::query()->take(2)->get();
 
     livewire(ManageRoles::class)
         ->set('assigned', [$role1->id, $role2->id])
-        ->assertSet('assigned', [1, 2])
+        ->assertSet('assigned', [$role1->id, $role2->id])
         ->set('assigned', [$role2->id])
-        ->assertSet('assigned', [2]);
+        ->assertSet('assigned', [$role2->id]);
 });

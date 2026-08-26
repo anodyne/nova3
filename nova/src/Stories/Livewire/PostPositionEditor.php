@@ -28,15 +28,15 @@ class PostPositionEditor extends SlideOver
 
     public ?Post $nextPost = null;
 
-    public ?int $nextPostId = null;
+    public ?string $nextPostId = null;
 
     public ?Post $previousPost = null;
 
-    public ?int $previousPostId = null;
+    public ?string $previousPostId = null;
 
     public string $search = '';
 
-    public function add(int $postId): void
+    public function add(string $postId): void
     {
         $this->search = '';
 
@@ -45,7 +45,7 @@ class PostPositionEditor extends SlideOver
             ->find($postId);
     }
 
-    public function mount(int $postId, ?int $previousId, ?int $nextId): void
+    public function mount(string $postId, ?string $previousId, ?string $nextId): void
     {
         $this->postId = $postId;
         $this->previousPostId = $previousId;

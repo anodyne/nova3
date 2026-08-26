@@ -8,7 +8,7 @@ use Nova\Stories\Models\Post;
 
 trait InteractsWithPost
 {
-    public ?int $postId;
+    public ?string $postId;
 
     public function getPost(): ?Post
     {

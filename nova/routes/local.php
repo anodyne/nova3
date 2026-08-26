@@ -18,6 +18,7 @@ use Nova\Departments\Models\Position;
 use Nova\Discussions\Data\DiscussionData;
 use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Models\SystemInfo;
 use Nova\Foundation\Nova;
 use Nova\Onboarding\Actions\StartOnboarding;
@@ -40,13 +41,13 @@ Route::get('dates', function () {
 
     dd(
         $date,
-        $date->local(),
-        $date->formatDate(),
-        $date->formatDateWithTime(),
-        $date->formatFullDate(),
-        $date->formatFullDateWithTime(),
-        $date->formatShortTime(),
-        $date->formatLongTime(),
+        DateHelper::local($date),
+        DateHelper::formatDate($date),
+        DateHelper::formatDateWithTime($date),
+        DateHelper::formatFullDate($date),
+        DateHelper::formatFullDateWithTime($date),
+        DateHelper::formatShortTime($date),
+        DateHelper::formatLongTime($date),
         $user->toArray()
     );
 });

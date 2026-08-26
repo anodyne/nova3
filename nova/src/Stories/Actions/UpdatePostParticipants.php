@@ -11,7 +11,7 @@ class UpdatePostParticipants
 {
     use AsAction;
 
-    public function handle(Post $post, int $userId): Post
+    public function handle(Post $post, string $userId): Post
     {
         $participants = collect($post->participants)
             ->merge([$userId])

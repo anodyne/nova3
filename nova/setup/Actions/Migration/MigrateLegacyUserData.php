@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Setup\Actions\Migration;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Actions\SyncDatabaseFormFields;
 use Nova\Forms\Models\Form;
@@ -97,7 +98,7 @@ class MigrateLegacyUserData
         return Form::key('userBio')->first();
     }
 
-    protected function getUserFormSubmissionId(int $userId, int $formId): int
+    protected function getUserFormSubmissionId(string $userId, string $formId): string
     {
         $submissionId = DB::table('form_submissions')
             ->where('form_id', $formId)
@@ -106,13 +107,18 @@ class MigrateLegacyUserData
             ->value('id');
 
         if (! $submissionId) {
-            return DB::table('form_submissions')->insertGetId([
+            $submissionId = Str::uuid()->toString();
+
+            DB::table('form_submissions')->insert([
+                'id' => $submissionId,
                 'form_id' => $formId,
                 'owner_type' => 'user',
                 'owner_id' => $userId,
             ]);
+
+            return $submissionId;
         }
 
-        return (int) $submissionId;
+        return (string) $submissionId;
     }
 }

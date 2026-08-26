@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Nova\Departments\Models\Department;
 use Nova\Forms\Models\Form;
 use Nova\Setup\Actions\Migration\MigrateDepartment;
@@ -19,7 +20,7 @@ function newIdsTestHarness(): object
         use HandlesNewIds;
 
         /** @param Collection<int, Upgrade>|null $mappings */
-        public function resolve(?int $oldId, ?Collection $mappings, string $type): ?int
+        public function resolve(?int $oldId, ?Collection $mappings, string $type): ?string
         {
             return $this->getNewId($oldId, $mappings, $type);
         }
@@ -48,19 +49,20 @@ it('creates and reuses a character form submission id', function () {
 
     $action = new class extends MigrateForm
     {
-        public function submissionId(int $characterId, int $formId): int
+        public function submissionId(string $characterId, string $formId): string
         {
             return $this->getCharacterFormSubmissionId($characterId, $formId);
         }
     };
 
-    $firstId = $action->submissionId(characterId: 100, formId: $form->id);
-    $secondId = $action->submissionId(characterId: 100, formId: $form->id);
+    $characterId = Str::uuid()->toString();
+    $firstId = $action->submissionId(characterId: $characterId, formId: $form->id);
+    $secondId = $action->submissionId(characterId: $characterId, formId: $form->id);
 
     expect($secondId)->toBe($firstId)
         ->and(DB::table('form_submissions')->where([
             'owner_type' => 'character',
-            'owner_id' => 100,
+            'owner_id' => $characterId,
         ])->count())->toBe(1);
 });
 
@@ -69,42 +71,46 @@ it('creates and reuses a user form submission id', function () {
 
     $action = new class extends MigrateLegacyUserData
     {
-        public function submissionId(int $userId, int $formId): int
+        public function submissionId(string $userId, string $formId): string
         {
             return $this->getUserFormSubmissionId($userId, $formId);
         }
     };
 
-    $firstId = $action->submissionId(userId: 200, formId: $form->id);
-    $secondId = $action->submissionId(userId: 200, formId: $form->id);
+    $userId = Str::uuid()->toString();
+    $firstId = $action->submissionId(userId: $userId, formId: $form->id);
+    $secondId = $action->submissionId(userId: $userId, formId: $form->id);
 
     expect($secondId)->toBe($firstId)
         ->and(DB::table('form_submissions')->where([
             'owner_type' => 'user',
-            'owner_id' => 200,
+            'owner_id' => $userId,
         ])->count())->toBe(1);
 });
 
 it('resolves a new id from cached upgrade mappings', function () {
+    $newId = Str::uuid()->toString();
     $mappings = collect([
         new Upgrade([
             'type' => 'character',
             'old_id' => 10,
-            'new_id' => 110,
+            'new_id' => $newId,
         ]),
     ]);
 
-    expect(newIdsTestHarness()->resolve(10, $mappings, 'character'))->toBe(110)
+    expect(newIdsTestHarness()->resolve(10, $mappings, 'character'))->toBe($newId)
         ->and(newIdsTestHarness()->resolve(20, $mappings, 'character'))->toBeNull();
 });
 
 it('resolves a new id from the database when mappings are not cached', function () {
+    $newId = Str::uuid()->toString();
+
     Upgrade::query()->create([
         'type' => 'user',
         'old_id' => 20,
-        'new_id' => 220,
+        'new_id' => $newId,
     ]);
 
-    expect(newIdsTestHarness()->resolve(20, null, 'user'))->toBe(220)
+    expect(newIdsTestHarness()->resolve(20, null, 'user'))->toBe($newId)
         ->and(newIdsTestHarness()->resolve(20, null, 'character'))->toBeNull();
 });

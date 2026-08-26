@@ -13,30 +13,30 @@ use Nova\Users\Models\User;
 
 /**
  * @phpstan-type CharacterAuthor array{
- *     id: int,
+ *     id: string,
  *     name: string,
  *     type: string,
  *     avatar_url: string,
  *     activeUsers: array<int, array<string, mixed>>,
  *     pivot: array{
  *         user: mixed,
- *         user_id: int|string|null
+ *         user_id: string|null
  *     }
  * }
- * @phpstan-type CharacterAuthorPivotData array{user_id: int|string|null}
+ * @phpstan-type CharacterAuthorPivotData array{user_id: string|null}
  */
 trait InteractsWithCharacterAuthors
 {
     /** @var array<int, CharacterAuthor> */
     public array $characterAuthorsArr = [];
 
-    /** @var array<int, CharacterAuthorPivotData> */
+    /** @var array<string, CharacterAuthorPivotData> */
     public array $characterAuthorsPivotData = [];
 
-    /** @var array<int, int> */
+    /** @var array<string, string> */
     public array $characterAuthorsValidationErrors = [];
 
-    public function addCharacterAuthor(int $characterId): void
+    public function addCharacterAuthor(string $characterId): void
     {
         if (! $this->characterAuthors()->contains('id', $characterId)) {
             $character = Character::query()->with('activeUsers')->find($characterId);
@@ -73,7 +73,7 @@ trait InteractsWithCharacterAuthors
             ->map(fn ($character): object => $this->characterObjectStructure($character));
     }
 
-    public function removeCharacterAuthor(int $characterId): void
+    public function removeCharacterAuthor(string $characterId): void
     {
         $this->dispatch('dropdown-close');
 
@@ -100,7 +100,7 @@ trait InteractsWithCharacterAuthors
 
     public function updatedCharacterAuthorsPivotData(mixed $value, string $property): void
     {
-        $id = str($property)->before('.user_id')->toInteger();
+        $id = str($property)->before('.user_id')->toString();
 
         $this->characterAuthorsArr = array_map(function (array $character) use ($id, $value): array {
             if ($character['id'] === $id) {
@@ -120,13 +120,13 @@ trait InteractsWithCharacterAuthors
         }, $this->characterAuthorsArr);
     }
 
-    private function addCharacterAuthorValidationError(int $id): void
+    private function addCharacterAuthorValidationError(string $id): void
     {
         $this->characterAuthorsValidationErrors[$id] = $id;
     }
 
     /** @return CharacterAuthor */
-    private function characterArrayStructure(Character $character, ?int $pivotUserId = null): array
+    private function characterArrayStructure(Character $character, ?string $pivotUserId = null): array
     {
         $authorship = $character->relationLoaded('pivot')
             ? $character->getRelation('pivot')
@@ -168,14 +168,14 @@ trait InteractsWithCharacterAuthors
         ];
     }
 
-    private function removeCharacterAuthorValidationErrors(int $id): void
+    private function removeCharacterAuthorValidationErrors(string $id): void
     {
         if (array_key_exists($id, $this->characterAuthorsValidationErrors)) {
             unset($this->characterAuthorsValidationErrors[$id]);
         }
     }
 
-    private function setAuthorUserId(int $characterId, ?int $userId): void
+    private function setAuthorUserId(string $characterId, ?string $userId): void
     {
         $character = $this->characterAuthors()->firstWhere('id', $characterId);
 

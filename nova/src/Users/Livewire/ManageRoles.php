@@ -16,13 +16,13 @@ class ManageRoles extends Component
     #[Locked]
     public ?User $user = null;
 
-    /** @var list<int> */
+    /** @var list<string> */
     public array $assigned = [];
 
     public function mount(): void
     {
         $this->assigned = array_values($this->user?->roles
-            ->map(fn (Role $role): int => $role->id)
+            ->map(fn (Role $role): string => $role->id)
             ->values()
             ->all() ?? []);
     }

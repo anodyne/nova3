@@ -24,9 +24,9 @@ class StoryPosition extends Component
 
     public ?Story $neighbor = null;
 
-    public ?int $neighborId = null;
+    public ?string $neighborId = null;
 
-    public ?int $parentId = null;
+    public ?string $parentId = null;
 
     #[Locked]
     public ?Story $story = null;
@@ -93,7 +93,7 @@ class StoryPosition extends Component
         $this->hasPositionChange = true;
     }
 
-    protected function getStory(?int $id): ?Story
+    protected function getStory(?string $id): ?Story
     {
         return Story::withCount('stories')->find($id);
     }

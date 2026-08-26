@@ -34,6 +34,11 @@ class DateHelper
         return $date->isoFormat(trans('format.date'));
     }
 
+    public static function formatDateWithTime(CarbonInterface $date, ?string $timezone = null): string
+    {
+        return static::local($date, $timezone)->isoFormat('MMM DD, YYYY hh:mm A');
+    }
+
     /**
      * Return the day and the month in a format like "Monday (July 29th)".
      */
@@ -62,6 +67,16 @@ class DateHelper
         $date->setTimezone($timezone ?? static::getUserTimezone());
 
         return $date->isoFormat(trans('format.full_date'));
+    }
+
+    public static function formatFullDateWithTime(CarbonInterface $date, ?string $timezone = null): string
+    {
+        return static::local($date, $timezone)->isoFormat('dddd, MMM Do YYYY hh:mm A');
+    }
+
+    public static function formatLongTime(CarbonInterface $date, ?string $timezone = null): string
+    {
+        return static::local($date, $timezone)->isoFormat('HH:mm');
     }
 
     /**
@@ -135,6 +150,11 @@ class DateHelper
         return $date->isoFormat(trans('format.short_date'));
     }
 
+    public static function formatShortTime(CarbonInterface $date, ?string $timezone = null): string
+    {
+        return static::local($date, $timezone)->isoFormat('h:mm A');
+    }
+
     /**
      * Return a collection of days.
      *
@@ -185,5 +205,10 @@ class DateHelper
         $userTimezone = Auth::user()?->preferences?->timezone;
 
         return filled($userTimezone) ? $userTimezone : 'UTC';
+    }
+
+    public static function local(CarbonInterface $date, ?string $timezone = null): CarbonInterface
+    {
+        return $date->setTimezone($timezone ?? static::getUserTimezone());
     }
 }

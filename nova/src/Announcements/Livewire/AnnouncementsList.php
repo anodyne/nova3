@@ -26,6 +26,7 @@ use Nova\Foundation\Filament\Actions\CreateAction;
 use Nova\Foundation\Filament\Actions\DeleteAction;
 use Nova\Foundation\Filament\Actions\EditAction;
 use Nova\Foundation\Filament\Notifications\Notification;
+use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Icons\Illustration;
 use Nova\Foundation\Livewire\TableComponent;
 use Nova\Users\Models\User;
@@ -88,7 +89,7 @@ class AnnouncementsList extends TableComponent
                 TextColumn::make('published_at')
                     ->label('Published')
                     ->dateTime()
-                    ->formatStateUsing(fn (Announcement $record): ?string => filled($record->published_at) ? $record->published_at->formatDate() : null)
+                    ->formatStateUsing(fn (Announcement $record): ?string => filled($record->published_at) ? DateHelper::formatDate($record->published_at) : null)
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('status')

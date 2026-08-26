@@ -151,7 +151,10 @@ class MigrateForm
                                                 formId: $form->id
                                             );
 
-                                            $responseId = DB::table('form_submission_responses')->insertGetId([
+                                            $responseId = Str::uuid()->toString();
+
+                                            DB::table('form_submission_responses')->insert([
+                                                'id' => $responseId,
                                                 'submission_id' => $characterFormSubmissionId,
                                                 'field_type' => $fieldType,
                                                 'field_uid' => $fieldUid,
@@ -186,7 +189,7 @@ class MigrateForm
         return Form::key('characterBio')->first();
     }
 
-    protected function getCharacterFormSubmissionId(int $characterId, int $formId): int
+    protected function getCharacterFormSubmissionId(string $characterId, string $formId): string
     {
         $characterSubmissionId = DB::table('form_submissions')
             ->where('form_id', $formId)
@@ -195,13 +198,18 @@ class MigrateForm
             ->value('id');
 
         if (! $characterSubmissionId) {
-            return DB::table('form_submissions')->insertGetId([
+            $characterSubmissionId = Str::uuid()->toString();
+
+            DB::table('form_submissions')->insert([
+                'id' => $characterSubmissionId,
                 'form_id' => $formId,
                 'owner_type' => 'character',
                 'owner_id' => $characterId,
             ]);
+
+            return $characterSubmissionId;
         }
 
-        return (int) $characterSubmissionId;
+        return (string) $characterSubmissionId;
     }
 }

@@ -46,9 +46,9 @@ class PostBuilder extends Builder
         return $this->whereState('status', Draft::class);
     }
 
-    public function forStory(Story|int $story): self
+    public function forStory(Story|string $story): self
     {
-        $storyId = is_int($story) ? $story : $story->id;
+        $storyId = is_string($story) ? $story : $story->id;
 
         return $this->where('story_id', $storyId);
     }
@@ -126,7 +126,7 @@ class PostBuilder extends Builder
         return $this->whereNotNull('parent_id');
     }
 
-    public function wherePostType(int $postTypeId): self
+    public function wherePostType(string $postTypeId): self
     {
         return $this->where('post_type_id', $postTypeId);
     }

@@ -70,7 +70,7 @@ class StoryBuilder extends Builder
         return $this->whereState('status', Upcoming::class);
     }
 
-    public function whereParent(Story|int|null $parent): self
+    public function whereParent(Story|string|null $parent): self
     {
         return $this->where('parent_id', $parent instanceof Story ? $parent->id : $parent);
     }

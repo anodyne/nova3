@@ -56,7 +56,7 @@ class Story extends Model implements HasMedia, Sortable
     protected $casts = [
         'ended_at' => DateTimeCast::class,
         'order_column' => 'integer',
-        'parent_id' => 'integer',
+        'parent_id' => 'string',
         'started_at' => DateTimeCast::class,
         'status' => StoryStatus\StoryStatus::class,
     ];

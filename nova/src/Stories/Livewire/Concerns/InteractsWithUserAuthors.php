@@ -12,17 +12,17 @@ use Nova\Users\Models\User;
 
 /**
  * @phpstan-type UserAuthor array{
- *     id: int,
+ *     id: string,
  *     name: string,
  *     avatar_url: string,
  *     pivot: array{
  *         user: mixed,
- *         user_id: int|string|null,
+ *         user_id: string|null,
  *         as: mixed
  *     }
  * }
  * @phpstan-type UserAuthorPivotData array{
- *     user_id: int|string|null,
+ *     user_id: string|null,
  *     as: mixed
  * }
  */
@@ -31,10 +31,10 @@ trait InteractsWithUserAuthors
     /** @var array<int, UserAuthor> */
     public array $userAuthorsArr = [];
 
-    /** @var array<int, UserAuthorPivotData> */
+    /** @var array<string, UserAuthorPivotData> */
     public array $userAuthorsPivotData = [];
 
-    public function addUserAuthor(int $userId): void
+    public function addUserAuthor(string $userId): void
     {
         if (! $this->userAuthors()->contains('id', $userId)) {
             $user = User::find($userId);
@@ -54,7 +54,7 @@ trait InteractsWithUserAuthors
         }
     }
 
-    public function removeUserAuthor(int $userId): void
+    public function removeUserAuthor(string $userId): void
     {
         $this->dispatch('dropdown-close');
 
@@ -79,7 +79,7 @@ trait InteractsWithUserAuthors
 
     public function updatedUserAuthorsPivotData(mixed $value, string $property): void
     {
-        $id = str($property)->before('.as')->toInteger();
+        $id = str($property)->before('.as')->toString();
 
         $this->userAuthorsArr = array_map(function (array $user) use ($id, $value): array {
             if ($user['id'] === $id) {
@@ -110,7 +110,7 @@ trait InteractsWithUserAuthors
     }
 
     /** @return UserAuthor */
-    private function userArrayStructure(User $user, ?int $pivotUserId = null): array
+    private function userArrayStructure(User $user, ?string $pivotUserId = null): array
     {
         $pivot = $user->relationLoaded('pivot')
             ? $user->getRelation('pivot')

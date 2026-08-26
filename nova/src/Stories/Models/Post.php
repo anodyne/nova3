@@ -71,7 +71,8 @@ class Post extends Model implements Sortable
 
     protected $casts = [
         'locked_at' => 'datetime',
-        'locked_by' => 'integer',
+        'last_update_by' => 'string',
+        'locked_by' => 'string',
         'participants' => 'array',
         'published_at' => 'datetime',
         'rating_language' => ContentRatingValue::class,
@@ -325,7 +326,7 @@ class Post extends Model implements Sortable
             ->delete();
     }
 
-    public function removeParticipant(int $userId): void
+    public function removeParticipant(string $userId): void
     {
         $this->characterAuthors()->wherePivot('user_id', $userId)->detach();
 

@@ -28,7 +28,7 @@ class PostsTimeline extends Component
 
     public string $sortField = 'order_column';
 
-    public ?int $storyId = null;
+    public ?string $storyId = null;
 
     /**
      * @return Collection<int, Story>

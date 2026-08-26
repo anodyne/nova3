@@ -17,7 +17,7 @@ use Nova\Users\Models\User;
  */
 trait InteractsWithPostType
 {
-    public ?int $postTypeId = null;
+    public ?string $postTypeId = null;
 
     /** @return Collection<int, PostType> */
     #[Computed]

@@ -12,12 +12,12 @@ use Nova\Discussions\Models\DiscussionParticipant;
  */
 class DiscussionParticipantBuilder extends Builder
 {
-    public function discussion(int $discussionId): self
+    public function discussion(string $discussionId): self
     {
         return $this->where('discussion_id', $discussionId);
     }
 
-    public function user(int $userId): self
+    public function user(string $userId): self
     {
         return $this->where('user_id', $userId);
     }

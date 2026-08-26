@@ -12,7 +12,7 @@ use Nova\Discussions\Models\DiscussionNotification;
  */
 class DiscussionNotificationBuilder extends Builder
 {
-    public function discussion(int $discussionId): self
+    public function discussion(string $discussionId): self
     {
         return $this->where('discussion_id', $discussionId);
     }
@@ -22,7 +22,7 @@ class DiscussionNotificationBuilder extends Builder
         return $this->where('is_seen', false);
     }
 
-    public function user(int $userId): self
+    public function user(string $userId): self
     {
         return $this->where('user_id', $userId);
     }

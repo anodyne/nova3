@@ -20,7 +20,7 @@ class UpdatePositionAvailability
         $decrementData = match (true) {
             $data->oldStatus !== $data->newStatus &&
             $data->newStatus === Active::$name &&
-            $data->canAutoManageNewType() => $data->newPositions?->map(fn (Position $position): int => $position->id)->values()->all(),
+            $data->canAutoManageNewType() => $data->newPositions?->map(fn (Position $position): string => $position->id)->values()->all(),
 
             ! $data->oldType instanceof CharacterType &&
             $data->newType instanceof CharacterType &&
@@ -39,7 +39,7 @@ class UpdatePositionAvailability
             $data->oldType !== $data->newType &&
             ! $data->hasPositionChanges() &&
             ! $data->canAutoManageOldType() &&
-            $data->canAutoManageNewType() => $data->newPositions?->map(fn (Position $position): int => $position->id)->values()->all(),
+            $data->canAutoManageNewType() => $data->newPositions?->map(fn (Position $position): string => $position->id)->values()->all(),
 
             default => [],
         };
@@ -47,7 +47,7 @@ class UpdatePositionAvailability
         $incrementData = match (true) {
             $data->oldStatus !== $data->newStatus &&
             $data->newStatus === Inactive::$name &&
-            $data->canAutoManageNewType() => $data->newPositions?->map(fn (Position $position): int => $position->id)->values()->all(),
+            $data->canAutoManageNewType() => $data->newPositions?->map(fn (Position $position): string => $position->id)->values()->all(),
 
             $data->oldType === $data->newType &&
             $data->hasPositionChanges() &&
@@ -62,7 +62,7 @@ class UpdatePositionAvailability
             $data->oldType !== $data->newType &&
             ! $data->hasPositionChanges() &&
             $data->canAutoManageOldType() &&
-            ! $data->canAutoManageNewType() => $data->oldPositions?->map(fn (Position $position): int => $position->id)->values()->all(),
+            ! $data->canAutoManageNewType() => $data->oldPositions?->map(fn (Position $position): string => $position->id)->values()->all(),
 
             default => [],
         };
@@ -72,7 +72,7 @@ class UpdatePositionAvailability
     }
 
     /**
-     * @param  array<int, int>  $ids
+     * @param  array<int, string>  $ids
      */
     protected function decrement(array $ids): void
     {
@@ -83,7 +83,7 @@ class UpdatePositionAvailability
     }
 
     /**
-     * @param  array<int, int>|null  $ids
+     * @param  array<int, string>|null  $ids
      */
     protected function increment(?array $ids): void
     {

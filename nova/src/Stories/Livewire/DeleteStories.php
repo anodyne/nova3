@@ -20,7 +20,7 @@ class DeleteStories extends Component
     /**
      * @return Collection<int, Story>
      */
-    public function getStoriesForMovingPosts(int $storyId): Collection
+    public function getStoriesForMovingPosts(string $storyId): Collection
     {
         $storiesBeingDeleted = collect($this->actions)
             ->where('story.action', 'delete')
@@ -38,7 +38,7 @@ class DeleteStories extends Component
     /**
      * @return Collection<int, Story>
      */
-    public function getStoriesForMovingStories(int $storyId): Collection
+    public function getStoriesForMovingStories(string $storyId): Collection
     {
         $storiesBeingDeleted = collect($this->actions)
             ->where('story.action', 'delete')

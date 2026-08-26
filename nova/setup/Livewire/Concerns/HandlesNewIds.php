@@ -10,7 +10,7 @@ use Nova\Setup\Models\Upgrade;
 trait HandlesNewIds
 {
     /** @param Collection<int, Upgrade>|null $collection */
-    protected function getNewId(?int $id, ?Collection $collection, string $upgradeKey): ?int
+    protected function getNewId(?int $id, ?Collection $collection, string $upgradeKey): ?string
     {
         if ($collection) {
             return $collection->firstWhere('old_id', $id)?->new_id;

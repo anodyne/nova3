@@ -6,7 +6,8 @@ namespace Nova\Foundation\Macros;
 
 use Carbon\CarbonInterface;
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use LogicException;
+use Nova\Foundation\Helpers\DateHelper;
 
 class DateMacros
 {
@@ -17,10 +18,11 @@ class DateMacros
     public function formatDate(): Closure
     {
         return function (): string {
-            /** @var CarbonInterface $date */
-            $date = $this;
+            if (! $this instanceof CarbonInterface) {
+                throw new LogicException('Date macros must be bound to a Carbon instance.');
+            }
 
-            return $date->local()->isoFormat('MMM DD, YYYY');
+            return DateHelper::formatDate($this);
         };
     }
 
@@ -31,10 +33,11 @@ class DateMacros
     public function formatDateWithTime(): Closure
     {
         return function (): string {
-            /** @var CarbonInterface $date */
-            $date = $this;
+            if (! $this instanceof CarbonInterface) {
+                throw new LogicException('Date macros must be bound to a Carbon instance.');
+            }
 
-            return $date->local()->isoFormat('MMM DD, YYYY hh:mm A');
+            return DateHelper::formatDateWithTime($this);
         };
     }
 
@@ -45,10 +48,11 @@ class DateMacros
     public function formatFullDate(): Closure
     {
         return function (): string {
-            /** @var CarbonInterface $date */
-            $date = $this;
+            if (! $this instanceof CarbonInterface) {
+                throw new LogicException('Date macros must be bound to a Carbon instance.');
+            }
 
-            return $date->local()->isoFormat('dddd, MMM Do YYYY');
+            return DateHelper::formatFullDate($this);
         };
     }
 
@@ -59,10 +63,11 @@ class DateMacros
     public function formatFullDateWithTime(): Closure
     {
         return function (): string {
-            /** @var CarbonInterface $date */
-            $date = $this;
+            if (! $this instanceof CarbonInterface) {
+                throw new LogicException('Date macros must be bound to a Carbon instance.');
+            }
 
-            return $date->local()->isoFormat('dddd, MMM Do YYYY hh:mm A');
+            return DateHelper::formatFullDateWithTime($this);
         };
     }
 
@@ -73,10 +78,11 @@ class DateMacros
     public function formatLongTime(): Closure
     {
         return function (): string {
-            /** @var CarbonInterface $date */
-            $date = $this;
+            if (! $this instanceof CarbonInterface) {
+                throw new LogicException('Date macros must be bound to a Carbon instance.');
+            }
 
-            return $date->local()->isoFormat('HH:mm');
+            return DateHelper::formatLongTime($this);
         };
     }
 
@@ -87,10 +93,11 @@ class DateMacros
     public function formatShortTime(): Closure
     {
         return function (): string {
-            /** @var CarbonInterface $date */
-            $date = $this;
+            if (! $this instanceof CarbonInterface) {
+                throw new LogicException('Date macros must be bound to a Carbon instance.');
+            }
 
-            return $date->local()->isoFormat('h:mm A');
+            return DateHelper::formatShortTime($this);
         };
     }
 
@@ -100,10 +107,11 @@ class DateMacros
     public function local(): Closure
     {
         return function (): CarbonInterface {
-            /** @var CarbonInterface $date */
-            $date = $this;
+            if (! $this instanceof CarbonInterface) {
+                throw new LogicException('Date macros must be bound to a Carbon instance.');
+            }
 
-            return $date->setTimezone(Auth::user()->preferences->timezone ?? 'UTC');
+            return DateHelper::local($this);
         };
     }
 }

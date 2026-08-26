@@ -20,6 +20,8 @@ class DeleteUserManager
 
             DeleteUserLogins::run($user);
 
+            DeleteUserNotifications::run($user);
+
             DeleteStatusHistory::run($user);
 
             DeleteUser::run($user);

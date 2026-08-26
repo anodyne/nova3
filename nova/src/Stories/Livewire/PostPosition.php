@@ -98,7 +98,7 @@ class PostPosition extends Component
     }
 
     #[On('post-story-updated')]
-    public function handlePostStoryUpdate(int $storyId): void
+    public function handlePostStoryUpdate(string $storyId): void
     {
         //
     }
@@ -131,7 +131,7 @@ class PostPosition extends Component
     }
 
     #[On('update-post-position')]
-    public function handlePositionUpdates(?int $neighborId, PositionDirection $direction): void
+    public function handlePositionUpdates(?string $neighborId, PositionDirection $direction): void
     {
         $this->neighbor = Post::find($neighborId);
         $this->direction = $direction;

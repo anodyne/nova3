@@ -47,22 +47,22 @@ readonly class CharacterPositionsData extends Bag
         ));
     }
 
-    /** @return list<int> */
+    /** @return list<string> */
     public function getNewActionableIds(): array
     {
         return array_values($this->newPositions
             ?->when($this->oldPositions instanceof Collection, fn ($collection) => $collection->diff($this->oldPositions))
-            ->map(fn (Position $position): int => $position->id)
+            ->map(fn (Position $position): string => $position->id)
             ->values()
             ->all() ?? []);
     }
 
-    /** @return list<int> */
+    /** @return list<string> */
     public function getOldActionableIds(): array
     {
         return array_values($this->oldPositions
             ?->when($this->newPositions instanceof Collection, fn ($collection) => $collection->diff($this->newPositions))
-            ->map(fn (Position $position): int => $position->id)
+            ->map(fn (Position $position): string => $position->id)
             ->values()
             ->all() ?? []);
     }
