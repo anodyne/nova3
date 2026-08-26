@@ -9030,16 +9030,16 @@
         },
         {
             "name": "resend/resend-php",
-            "version": "v1.10.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/resend/resend-php.git",
-                "reference": "736c59fda48a8c71b7ca8a5f17c905cb968b95aa"
+                "reference": "c4fa3bdf5022a901fe2ca837b124ebd536321273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/resend/resend-php/zipball/736c59fda48a8c71b7ca8a5f17c905cb968b95aa",
-                "reference": "736c59fda48a8c71b7ca8a5f17c905cb968b95aa",
+                "url": "https://api.github.com/repos/resend/resend-php/zipball/c4fa3bdf5022a901fe2ca837b124ebd536321273",
+                "reference": "c4fa3bdf5022a901fe2ca837b124ebd536321273",
                 "shasum": ""
             },
             "require": {
@@ -9083,9 +9083,9 @@
             ],
             "support": {
                 "issues": "https://github.com/resend/resend-php/issues",
-                "source": "https://github.com/resend/resend-php/tree/v1.10.0"
+                "source": "https://github.com/resend/resend-php/tree/v1.11.0"
             },
-            "time": "2026-08-20T19:21:58+00:00"
+            "time": "2026-08-26T04:05:30+00:00"
         },
         {
             "name": "ryangjchandler/blade-capture-directive",
@@ -10160,16 +10160,16 @@
         },
         {
             "name": "spatie/laravel-package-tools",
-            "version": "1.93.1",
+            "version": "1.93.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "d5552849801f2642aea710557463234b59ef65eb"
+                "reference": "e927d5b5b05e9fecae098e559e51918aa608ad02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/d5552849801f2642aea710557463234b59ef65eb",
-                "reference": "d5552849801f2642aea710557463234b59ef65eb",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/e927d5b5b05e9fecae098e559e51918aa608ad02",
+                "reference": "e927d5b5b05e9fecae098e559e51918aa608ad02",
                 "shasum": ""
             },
             "require": {
@@ -10209,7 +10209,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.93.1"
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.93.2"
             },
             "funding": [
                 {
@@ -10217,7 +10217,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-05-19T14:06:37+00:00"
+            "time": "2026-08-26T09:13:25+00:00"
         },
         {
             "name": "spatie/laravel-prefixed-ids",
