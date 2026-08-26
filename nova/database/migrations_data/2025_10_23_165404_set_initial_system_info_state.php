@@ -20,9 +20,4 @@ return new class extends Migration
             'install_date' => Date::now(),
         ]);
     }
-
-    public function down(): void
-    {
-        DB::table('system_info')->truncate();
-    }
 };

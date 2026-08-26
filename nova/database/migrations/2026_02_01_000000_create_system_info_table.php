@@ -12,16 +12,11 @@ return new class extends Migration
     {
         Schema::create('system_info', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('version');
+            $table->string('version')->index();
             $table->string('anodyne_game_id')->nullable();
             $table->dateTime('install_date')->nullable();
             $table->dateTime('last_update')->nullable();
             $table->timestamps();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('system_info');
     }
 };

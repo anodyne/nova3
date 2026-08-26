@@ -12,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('external_changelog', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('version');
+            $table->string('version')->index();
             $table->string('series');
             $table->string('severity');
             $table->longText('description');
@@ -28,11 +28,5 @@ return new class extends Migration
             $table->longText('value');
             $table->timestamps();
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('external_changelog');
-        Schema::dropIfExists('external_content');
     }
 };
