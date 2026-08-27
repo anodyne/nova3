@@ -1,0 +1,93 @@
+/* @import '../../../vendor/filament/forms/dist/index.css';
+@import '../../../node_modules/truecropper/dist/truecropper.css'; */
+
+@import 'tailwindcss';
+
+/* @import './components/form.css';
+@import './components/icon.css';
+@import './plugins/tagify.css';
+@import './plugins/tippy.css';
+@import './plugins/filepond.css';
+@import './filament.css';
+
+@config "../../../tailwind.config.js";
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility font-stretch-condensed {
+  font-stretch: 75%;
+}
+
+@utility font-stretch-75 {
+  font-stretch: 75%;
+}
+
+@utility font-stretch-normal {
+  font-stretch: 100%;
+}
+
+@utility font-stretch-100 {
+  font-stretch: 100%;
+}
+
+@utility font-stretch-expanded {
+  font-stretch: 125%;
+}
+
+@utility font-stretch-125 {
+  font-stretch: 125%;
+}
+
+@utility mask {
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+@utility mask-squircle {
+  mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzIwMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMTAwIDBDMjAgMCAwIDIwIDAgMTAwczIwIDEwMCAxMDAgMTAwIDEwMC0yMCAxMDAtMTAwUzE4MCAwIDEwMCAwWicvPjwvc3ZnPg==);
+}
+
+@utility mask-hexagon {
+  mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTgyJyBoZWlnaHQ9JzIwMScgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNLjMgNjUuNDg2YzAtOS4xOTYgNi42ODctMjAuMDYzIDE0LjIxMS0yNS4wNzhsNjEuODYtMzUuOTQ2YzguMzYtNS4wMTYgMjAuODk5LTUuMDE2IDI5LjI1OCAwbDYxLjg2IDM1Ljk0NmM4LjM2IDUuMDE1IDE0LjIxMSAxNS44ODIgMTQuMjExIDI1LjA3OHY3MS4wNTVjMCA5LjE5Ni02LjY4NyAyMC4wNjMtMTQuMjExIDI1LjA3OWwtNjEuODYgMzUuOTQ1Yy04LjM2IDQuMTgtMjAuODk5IDQuMTgtMjkuMjU4IDBMMTQuNTEgMTYxLjYyQzYuMTUxIDE1Ny40NC4zIDE0NS43MzcuMyAxMzYuNTRWNjUuNDg2WicgZmlsbD0nYmxhY2snIGZpbGwtcnVsZT0nbm9uemVybycvPjwvc3ZnPg==);
+}
+
+@utility mask-hexagon-alt {
+  mask-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMjAwJyBoZWlnaHQ9JzE4MicgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNNjQuNzg2IDE4MS40Yy05LjE5NiAwLTIwLjA2My02LjY4Ny0yNS4wNzktMTQuMjFMMy43NjIgMTA1LjMzYy01LjAxNi04LjM2LTUuMDE2LTIwLjkgMC0yOS4yNTlsMzUuOTQ1LTYxLjg2QzQ0LjcyMyA1Ljg1MSA1NS41OSAwIDY0Ljc4NiAwaDcxLjA1NWM5LjE5NiAwIDIwLjA2MyA2LjY4OCAyNS4wNzkgMTQuMjExbDM1Ljk0NSA2MS44NmM0LjE4IDguMzYgNC4xOCAyMC44OTkgMCAyOS4yNThsLTM1Ljk0NSA2MS44NmMtNC4xOCA4LjM2LTE1Ljg4MyAxNC4yMTEtMjUuMDc5IDE0LjIxMUg2NC43ODZaJyBmaWxsPSdibGFjaycgZmlsbC1ydWxlPSdub256ZXJvJy8+PC9zdmc+);
+}
+
+@layer utilities {
+  [x-cloak] {
+    @apply hidden;
+  }
+
+  select:not(.choices) {
+    background-image: none;
+  }
+}
+
+[data-flux-modal] > dialog::backdrop {
+    @apply backdrop-blur-sm;
+}
+
+[data-flux-modal] > dialog[data-flux-flyout] {
+    @apply inset-y-4 right-4 h-full max-h-[revert-layer] min-h-0 rounded-xl border-none! shadow-xl ring-1 ring-gray-950/5 dark:ring-white/5;
+}
+
+[data-flux-tabs-segmented],
+[data-flux-radio-group-segmented] {
+    @apply rounded-[10px] p-[5px] shadow-[inset_0_0_1.5px_.5px_#0000001F];
+}
+
+[data-flux-tabs-segmented] > [data-selected],
+[data-flux-radio-group-segmented] > [data-checked] {
+    @apply rounded-md shadow-sm ring-1 ring-gray-950/5;
+} */
