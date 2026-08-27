@@ -11,6 +11,7 @@ use Bag\Mappers\Alias;
 use Illuminate\Http\Request;
 use Nova\Stories\Enums\PositionDirection;
 use Nova\Stories\Models\Story;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\Collection;
 
 /**
  * @method static static from(PositionDirection $direction, ?Story $neighbor, bool $hasPositionChange)
@@ -30,7 +31,13 @@ readonly class StoryPositionData extends Bag
         public bool $hasPositionChange = false
     ) {}
 
-    /** @return array{direction: PositionDirection, neighbor: Story|null, hasPositionChange: bool} */
+    /**
+     * @return array{
+     *     direction: PositionDirection,
+     *     neighbor: Story|Collection<int, Story>|null,
+     *     hasPositionChange: bool
+     * }
+     */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {

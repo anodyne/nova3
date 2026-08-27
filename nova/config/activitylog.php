@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Nova\Foundation\Models\Activity;
 use Spatie\Activitylog\Actions\CleanActivityLogAction;
 use Spatie\Activitylog\Actions\LogActivityAction;

@@ -20,9 +20,7 @@ class UpdateRoleManager
 
             $role = AssignRolePermissions::run($role, $request->getRolePermissionsData());
 
-            $role = AssignRoleUsers::run($role, $request->getRoleUsersData());
-
-            return $role;
+            return AssignRoleUsers::run($role, $request->getRoleUsersData());
         });
     }
 }

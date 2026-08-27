@@ -6,6 +6,7 @@ namespace Nova\Foundation\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\In;
 use Livewire\Attributes\Locked;
 
 class ConfirmationModal extends Modal
@@ -66,7 +67,7 @@ class ConfirmationModal extends Modal
     }
 
     /**
-     * @return array<string, array<int, Rule|string>>
+     * @return array<string, list<In|string>>
      */
     protected function rules(): array
     {
