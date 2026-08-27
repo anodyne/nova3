@@ -27,13 +27,13 @@ use Nova\Stories\Models\Story;
 use Nova\Users\Models\User;
 use Opcodes\LogViewer\Facades\LogViewer;
 
-Route::get('system-info', function () {
+Route::get('system-info', function (): void {
     $info = SystemInfo::first();
 
     dd($info, $info->versionInfo->toArray());
 });
 
-Route::get('dates', function () {
+Route::get('dates', function (): void {
     $date = Date::now('America/Los_Angeles');
 
     Auth::loginUsingId('01a03ec5-07f2-72c8-a374-56f923ad1894');
