@@ -33,7 +33,7 @@ use Throwable;
 class MessageHistory extends Component
 {
     #[Reactive]
-    public ?int $discussionId = null;
+    public ?string $discussionId = null;
 
     public ?string $content = null;
 

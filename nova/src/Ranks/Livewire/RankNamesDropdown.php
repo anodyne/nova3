@@ -15,7 +15,7 @@ use Nova\Ranks\Models\RankName;
  */
 class RankNamesDropdown extends Component
 {
-    public ?int $name = null;
+    public ?string $name = null;
 
     public function render(): View
     {

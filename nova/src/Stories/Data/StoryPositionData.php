@@ -36,7 +36,7 @@ readonly class StoryPositionData extends Bag
     {
         return [
             'direction' => PositionDirection::tryFrom($request->input('display_direction') ?? '') ?? PositionDirection::After,
-            'neighbor' => Story::find($request->integer('display_neighbor')),
+            'neighbor' => Story::find($request->input('display_neighbor')),
             'hasPositionChange' => $request->boolean('has_position_change', false),
         ];
     }

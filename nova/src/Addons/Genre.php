@@ -25,33 +25,33 @@ use Nova\Ranks\Models\RankItem;
 use Nova\Ranks\Models\RankName;
 
 /**
- * @phpstan-type PositionData array{
+ * @phpstan-type PhpStanPositionData array{
  *     name: string,
  *     description: string
  * }
- * @phpstan-type DepartmentData array{
+ * @phpstan-type PhpStanDepartmentData array{
  *     name: string,
  *     description: string,
- *     positions: list<PositionData>
+ *     positions: list<PhpStanPositionData>
  * }
- * @phpstan-type RankItemData array{
+ * @phpstan-type PhpStanRankItemData array{
  *     name: string,
  *     base_image: string,
  *     overlay_image: string
  * }
- * @phpstan-type RankGroupData array{
+ * @phpstan-type PhpStanRankGroupData array{
  *     name: string,
- *     items: list<RankItemData>
+ *     items: list<PhpStanRankItemData>
  * }
  */
 abstract class Genre extends BaseAddon
 {
     use MovesRankImages;
 
-    /** @return list<DepartmentData> */
+    /** @return list<PhpStanDepartmentData> */
     abstract public function departmentAndPositionsData(): array;
 
-    /** @return list<RankGroupData> */
+    /** @return list<PhpStanRankGroupData> */
     abstract public function rankGroupsAndItemsData(): array;
 
     /**
@@ -65,9 +65,14 @@ abstract class Genre extends BaseAddon
 
         foreach ($this->departmentAndPositionsData() as $department) {
             $positions = data_get($department, 'positions');
+            $departmentData = Arr::except($department, 'positions');
+
+            if (is_string($tags = data_get($departmentData, 'tags'))) {
+                $departmentData['tags'] = array_map(trim(...), explode(',', $tags));
+            }
 
             $dept = CreateDepartment::run(
-                DepartmentData::from(Arr::except($department, 'positions'))
+                DepartmentData::from($departmentData)
             );
 
             foreach ($positions as $position) {
@@ -121,13 +126,15 @@ abstract class Genre extends BaseAddon
     {
         Schema::disableForeignKeyConstraints();
 
-        RankGroup::query()->truncate();
-        RankItem::query()->truncate();
-        RankName::query()->truncate();
-        Position::query()->truncate();
-        Department::query()->truncate();
-
-        Schema::enableForeignKeyConstraints();
+        try {
+            RankGroup::query()->delete();
+            RankItem::query()->delete();
+            RankName::query()->delete();
+            Position::query()->delete();
+            Department::query()->delete();
+        } finally {
+            Schema::enableForeignKeyConstraints();
+        }
 
         $this->uninstallRankImages();
     }

@@ -20,7 +20,7 @@ class InactiveToActive extends Transition
         $this->user->status = new Active($this->user);
         $this->user->save();
 
-        $roles = Role::isDefault()->pluck('id')->all();
+        $roles = Role::isDefault()->get(['id'])->all();
 
         $this->user->syncRoles($roles);
 

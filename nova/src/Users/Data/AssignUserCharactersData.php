@@ -9,7 +9,7 @@ use Bag\Bag;
 use Illuminate\Http\Request;
 
 /**
- * @method static static from(list<string> $characters, ?int $primaryCharacter)
+ * @method static static from(list<string> $characters, ?string $primaryCharacter)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -18,16 +18,16 @@ readonly class AssignUserCharactersData extends Bag
     /** @param list<string> $characters */
     public function __construct(
         public array $characters,
-        public ?int $primaryCharacter
+        public ?string $primaryCharacter
     ) {}
 
-    /** @return array{characters: list<string>, primaryCharacter: int|null} */
+    /** @return array{characters: list<string>, primaryCharacter: string|null} */
     #[Transforms(Request::class)]
     protected static function fromRequest(Request $request): array
     {
         return [
             'characters' => explode(',', $request->input('assigned_characters', '') ?? ''),
-            'primaryCharacter' => $request->filled('primary_character') ? $request->integer('primary_character') : null,
+            'primaryCharacter' => $request->filled('primary_character') ? $request->input('primary_character') : null,
         ];
     }
 }

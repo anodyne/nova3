@@ -9,7 +9,7 @@ use Bag\Bag;
 use Nova\Stories\Enums\ContentRatingValue;
 
 /**
- * @method static static from(?string $content, ?int $post_type_id, ?int $story_id, ?string $title, ?string $day, ?string $time, ?string $location, ContentRatingValue $rating_language, ContentRatingValue $rating_sex, ContentRatingValue $rating_violence)
+ * @method static static from(?string $content, ?string $post_type_id, ?string $story_id, ?string $title, ?string $day, ?string $time, ?string $location, ContentRatingValue $rating_language, ContentRatingValue $rating_sex, ContentRatingValue $rating_violence)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -18,8 +18,8 @@ readonly class PostData extends Bag
 {
     public function __construct(
         public ?string $content,
-        public ?int $post_type_id,
-        public ?int $story_id,
+        public ?string $post_type_id,
+        public ?string $story_id,
         public ?string $title,
         public ?string $day,
         public ?string $time,

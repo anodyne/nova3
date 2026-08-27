@@ -15,7 +15,7 @@ use Nova\Foundation\Livewire\Modal;
 class ApplicationDecisionModal extends Modal
 {
     #[Locked]
-    public int|Application $application;
+    public string|Application $application;
 
     public ApplicationDecisionForm $form;
 

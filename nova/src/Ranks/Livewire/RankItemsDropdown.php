@@ -17,9 +17,9 @@ use Nova\Ranks\Models\RankItem;
  */
 class RankItemsDropdown extends Component
 {
-    public ?int $selected = null;
+    public ?string $selected = null;
 
-    public function mount(?int $rank = null): void
+    public function mount(?string $rank = null): void
     {
         $this->selected = $rank;
     }

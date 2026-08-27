@@ -13,7 +13,7 @@ use Nova\PublicSite\Responses\ShowJoinFormResponse;
 
 class ShowJoinFormController extends Controller
 {
-    public function __invoke(?int $position = null): Responsable
+    public function __invoke(?string $position = null): Responsable
     {
         return ShowJoinFormResponse::sendWith([
             'applicationInfoForm' => Form::key('applicationInfo')->first(),

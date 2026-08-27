@@ -16,6 +16,10 @@ class CharacterUser extends Pivot
     use HasTableHelpers;
     use HasUuids;
 
+    protected $attributes = [
+        'primary' => false,
+    ];
+
     protected $table = 'character_user';
 
     /**

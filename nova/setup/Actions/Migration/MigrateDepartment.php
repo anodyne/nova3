@@ -6,6 +6,7 @@ namespace Nova\Setup\Actions\Migration;
 
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Departments\Models\Department;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Setup\Livewire\Concerns\HandlesDates;
 use Nova\Setup\Models\Upgrade;
@@ -28,7 +29,10 @@ class MigrateDepartment
     public function handle(object $model): void
     {
         DB::transaction(function () use ($model): void {
-            $departmentId = DB::table('departments')->insertGetId([
+            $departmentId = (new Department)->newUniqueId();
+
+            DB::table('departments')->insert([
+                'id' => $departmentId,
                 'name' => $model->dept_name,
                 'description' => $model->dept_desc,
                 'status' => match ($model->dept_display) {

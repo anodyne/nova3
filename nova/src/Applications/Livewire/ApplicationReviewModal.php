@@ -28,7 +28,7 @@ use Nova\Users\Models\User;
 class ApplicationReviewModal extends Modal
 {
     #[Locked]
-    public int|Application $application;
+    public string|Application $application;
 
     public ApplicationReviewForm $form;
 
@@ -36,7 +36,7 @@ class ApplicationReviewModal extends Modal
     public ?ApplicationReview $review = null;
 
     #[Locked]
-    public int|User|null $user = null;
+    public string|User|null $user = null;
 
     /** @var array<string, mixed> */
     public array $values = [];

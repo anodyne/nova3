@@ -56,6 +56,10 @@ class Page extends Model implements HasMedia
         'verb' => PageVerb::class,
     ];
 
+    protected $attributes = [
+        'content_can_be_edited' => true,
+    ];
+
     protected $dispatchesEvents = [
         'created' => PageCreated::class,
         'deleted' => PageDeleted::class,

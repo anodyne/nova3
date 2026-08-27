@@ -25,6 +25,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
  * @property list<array<string, mixed>>|null $fields
+ *
  * @mixin IdeHelperForm
  */
 #[UseEloquentBuilder(FormBuilder::class)]
@@ -37,6 +38,10 @@ class Form extends Model
     use LogsActivity {
         LogsActivity::getActivitylogOptions as baseActivitylogOptions;
     }
+
+    protected $attributes = [
+        'is_locked' => false,
+    ];
 
     protected $casts = [
         'is_locked' => 'boolean',

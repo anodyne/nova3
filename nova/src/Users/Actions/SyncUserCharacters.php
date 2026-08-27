@@ -17,14 +17,7 @@ class SyncUserCharacters
     public function handle(User $user, AssignUserCharactersData $data): User
     {
         $characters = collect($data->characters)
-            // ->mapWithKeys(function ($character) use ($data): array {
-            //     $primary = (blank($data->primaryCharacter))
-            //         ? ['primary' => false]
-            //         : ['primary' => (int) $character === $data->primaryCharacter];
-
-            //     return [$character => $primary];
-            // })
-            ->mapWithKeys(fn ($character): array => [$character => ['primary' => (int) $character === $data->primaryCharacter]])
+            ->mapWithKeys(fn ($character): array => [$character => ['primary' => $character === $data->primaryCharacter]])
             ->all();
 
         $operations = $user->characters()->sync($characters);

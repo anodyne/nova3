@@ -10,7 +10,7 @@ use Bag\Bag;
 use Illuminate\Http\Request;
 
 /**
- * @method static static from(string $name, ?int $rank_id)
+ * @method static static from(string $name, ?string $rank_id)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -19,7 +19,7 @@ readonly class CharacterData extends Bag
 {
     public function __construct(
         public string $name,
-        public ?int $rank_id
+        public ?string $rank_id
     ) {}
 
     /**
@@ -30,7 +30,7 @@ readonly class CharacterData extends Bag
     {
         return [
             'name' => $request->input('name'),
-            'rank_id' => $request->filled('rank_id') ? $request->integer('rank_id') : null,
+            'rank_id' => $request->filled('rank_id') ? $request->input('rank_id') : null,
         ];
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Nova\Foundation\Livewire;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
 
 class ConfirmationModal extends Modal
@@ -65,12 +66,14 @@ class ConfirmationModal extends Modal
     }
 
     /**
-     * @return array<string, array<int, string>>
+     * @return array<string, array<int, Rule|string>>
      */
     protected function rules(): array
     {
         return [
-            'confirmPhraseInput' => ['required_with:confirmPhrase', 'in:'.$this->confirmPhrase],
+            'confirmPhraseInput' => filled($this->confirmPhrase)
+                ? ['required', Rule::in([$this->confirmPhrase])]
+                : ['nullable'],
         ];
     }
 

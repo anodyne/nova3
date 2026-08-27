@@ -40,7 +40,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function create(?int $neighbor = null, string $direction = 'after'): Responsable
+    public function create(?string $neighbor = null, string $direction = 'after'): Responsable
     {
         return CreatePostResponse::sendWith([
             'post' => new Post(['neighbor' => $neighbor, 'direction' => $direction]),

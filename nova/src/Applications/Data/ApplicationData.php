@@ -11,15 +11,15 @@ use Nova\Characters\Models\Character;
 use Nova\Users\Models\User;
 
 /**
- * @method static static from(?int $character_id, ?int $user_id, ?string $ip_address)
+ * @method static static from(?string $character_id, ?string $user_id, ?string $ip_address)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ApplicationData extends Bag
 {
     public function __construct(
-        public ?int $character_id,
-        public ?int $user_id,
+        public ?string $character_id,
+        public ?string $user_id,
         public ?string $ip_address
     ) {}
 

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
+use Nova\Menus\Models\Menu;
 use Nova\Menus\Models\MenuItem;
 
 /** @extends Factory<MenuItem> */
@@ -29,10 +30,10 @@ class MenuItemFactory extends Factory
     {
         return [
             'label' => $this->faker->word(),
-            'link_type' => $this->faker->randomElement(LinkType::cases()),
+            'link_type' => LinkType::Url,
             'url' => $this->faker->url(),
-            'page_id' => 1,
-            'menu_id' => 1,
+            'page_id' => null,
+            'menu_id' => fn (): string => Menu::public()->value('id'),
             'status' => BasicStatus::Active,
             'target' => $this->faker->randomElement(LinkTarget::cases()),
             'parent_id' => null,

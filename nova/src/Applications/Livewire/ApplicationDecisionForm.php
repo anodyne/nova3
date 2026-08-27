@@ -24,9 +24,9 @@ class ApplicationDecisionForm extends Form
     #[Validate('required')]
     public ?string $message = null;
 
-    public ?int $rankId = null;
+    public ?string $rankId = null;
 
-    /** @var array<int> */
+    /** @var list<string> */
     public array $positions = [];
 
     public function save(): void

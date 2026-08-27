@@ -44,8 +44,6 @@ class MenuItem extends Model implements Sortable
         'icon' => Tabler::class,
         'link_type' => LinkType::class,
         'order_column' => 'integer',
-        'page_id' => 'integer',
-        'parent_id' => 'integer',
         'status' => BasicStatus::class,
         'target' => LinkTarget::class,
     ];

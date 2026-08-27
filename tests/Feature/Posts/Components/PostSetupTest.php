@@ -306,6 +306,6 @@ test('saves valid post setup data', function () {
     expect($createdPost->status->equals(Draft::class))->toBeTrue();
     expect($createdPost->characterAuthors)->toHaveCount(1);
     expect($createdPost->characterAuthors->first()->is($character))->toBeTrue();
-    expect((int) $createdPost->characterAuthors->first()->pivot->user_id)->toBe($this->user->id);
+    expect($createdPost->characterAuthors->first()->pivot->user_id)->toBe($this->user->id);
     expect($createdPost->userAuthors)->toHaveCount(0);
 });

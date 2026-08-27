@@ -24,12 +24,11 @@ class DeleteStoriesManager
 
             $stories = collect($actions);
             $sourceStoryIds = $stories->keys()
-                ->map(fn ($id): int => (int) $id)
                 ->filter();
 
             $targetStoryIds = $stories->flatMap(fn ($item): array => [
-                (int) data_get($item, 'story.actionId'),
-                (int) data_get($item, 'posts.actionId'),
+                data_get($item, 'story.actionId'),
+                data_get($item, 'posts.actionId'),
             ])->filter();
 
             $storiesById = Story::query()
@@ -37,7 +36,7 @@ class DeleteStoriesManager
                 ->get()
                 ->keyBy('id');
 
-            $resolveStory = static fn (mixed $id) => $storiesById->get((int) $id);
+            $resolveStory = static fn (mixed $id) => $storiesById->get($id);
             $deletedStories = 0;
 
             $stories->where('story.action', 'move')->each(function ($item, $id) use ($resolveStory): void {

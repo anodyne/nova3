@@ -15,7 +15,7 @@ use Nova\Ranks\Models\RankGroup;
  */
 class RankGroupsDropdown extends Component
 {
-    public ?int $group = null;
+    public ?string $group = null;
 
     public function render(): View
     {

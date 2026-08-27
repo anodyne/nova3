@@ -18,6 +18,12 @@ class DeleteAccount
     public function handle(User $user): void
     {
         DB::transaction(function () use ($user): void {
+            AnnouncementNotification::query()
+                ->whereIn('announcement_id', $user->announcements()
+                    ->where('status', '!=', PublishStatus::Published)
+                    ->select('id'))
+                ->delete();
+
             $user->announcements()->where('status', '!=', PublishStatus::Published)->delete();
 
             AnnouncementNotification::query()->user($user->id)->delete();

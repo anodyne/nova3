@@ -13,6 +13,8 @@ class DeleteAnnouncement
 
     public function handle(Announcement $announcement): Announcement
     {
+        $announcement->notifications()->delete();
+
         return tap($announcement)->delete();
     }
 }

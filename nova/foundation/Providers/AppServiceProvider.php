@@ -259,7 +259,7 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureFilament(): void
     {
-        FilamentColor::register($this->app['nova.settings']?->appearance?->getColors() ?? []);
+        FilamentColor::register(fn (): array => $this->app['nova.settings']?->appearance?->getColors() ?? []);
 
         FilamentIcon::register([
             FormsIconAlias::COMPONENTS_BUILDER_ACTIONS_DELETE => Tabler::Trash,

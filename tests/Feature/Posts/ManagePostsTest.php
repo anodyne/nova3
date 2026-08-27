@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Filament\Actions\Testing\TestAction;
 use Nova\Stories\Livewire\PostsList;
 use Nova\Stories\Models\Post;
+use Nova\Stories\Models\PostType;
 use Nova\Stories\Models\States\PostStatus\Draft;
 use Nova\Stories\Models\States\PostStatus\Pending;
 use Nova\Stories\Models\States\PostStatus\Published;
@@ -57,16 +58,18 @@ describe('authorized user', function () {
     });
 
     test('can filter posts by post type', function () {
+        $postType = PostType::query()->where('key', 'post')->firstOrFail();
+
         Post::factory(2)->storyPost()->published()->create();
         Post::factory(2)->personalPost()->published()->create();
         Post::factory(2)->markerPost()->published()->create();
         Post::factory(2)->notePost()->published()->create();
 
         livewire(PostsList::class)
-            ->filterTable('postType', [1])
+            ->filterTable('postType', [$postType->id])
             ->assertCountTableRecords(2)
-            ->assertCanSeeTableRecords(Post::where('post_type_id', 1)->get())
-            ->assertCanNotSeeTableRecords(Post::where('post_type_id', '!=', 1)->get());
+            ->assertCanSeeTableRecords(Post::where('post_type_id', $postType->id)->get())
+            ->assertCanNotSeeTableRecords(Post::where('post_type_id', '!=', $postType->id)->get());
     });
 
     test('can filter posts by story', function () {

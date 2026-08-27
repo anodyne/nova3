@@ -21,7 +21,7 @@ return new class extends Migration
         Schema::create('menu_items', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('menu_id')->constrained();
-            $table->uuid('parent_id')->nullable()->constrained('menu_items');
+            $table->foreignUuid('parent_id')->nullable()->constrained('menu_items');
             $table->string('label');
             $table->string('icon')->nullable();
             $table->string('link_type');

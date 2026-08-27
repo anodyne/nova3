@@ -11,7 +11,7 @@ use Nova\Foundation\Enums\BasicStatus;
 use Nova\Stories\Enums\PostTypeVisibility;
 
 /**
- * @method static static from(string $name, string $key, ?string $description, BasicStatus $status, Fields $fields, Options $options, ?int $role_id, PostTypeVisibility $visibility, ?string $icon, ?string $color)
+ * @method static static from(string $name, string $key, ?string $description, BasicStatus $status, Fields $fields, Options $options, ?string $role_id, PostTypeVisibility $visibility, ?string $icon, ?string $color)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -24,7 +24,7 @@ readonly class PostTypeData extends Bag
         public BasicStatus $status,
         public Fields $fields,
         public Options $options,
-        public ?int $role_id,
+        public ?string $role_id,
         public PostTypeVisibility $visibility,
         public ?string $icon,
         public ?string $color,

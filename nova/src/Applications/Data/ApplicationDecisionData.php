@@ -8,16 +8,16 @@ use Bag\Bag;
 use Nova\Ranks\Models\RankItem;
 
 /**
- * @method static static from(?string $message, ?int $rank_id, list<int> $positions)
+ * @method static static from(?string $message, ?string $rank_id, list<string> $positions)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
 readonly class ApplicationDecisionData extends Bag
 {
-    /** @param list<int> $positions */
+    /** @param list<string> $positions */
     public function __construct(
         public ?string $message,
-        public ?int $rank_id = null,
+        public ?string $rank_id = null,
         public array $positions = []
     ) {}
 

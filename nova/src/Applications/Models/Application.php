@@ -40,6 +40,10 @@ class Application extends Model
         'result' => ApplicationResult::class,
     ];
 
+    protected $attributes = [
+        'result' => ApplicationResult::Pending->value,
+    ];
+
     protected $dispatchesEvents = [
         'created' => ApplicationCreated::class,
     ];

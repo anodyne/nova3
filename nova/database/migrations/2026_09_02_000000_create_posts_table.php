@@ -27,12 +27,12 @@ return new class extends Migration
             $table->string('rating_violence')->nullable()->default('0');
             $table->longText('summary')->nullable();
             $table->text('participants')->nullable();
-            $table->integer('neighbor')->nullable();
+            $table->foreignUuid('neighbor')->nullable()->constrained('posts');
             $table->string('direction', 6)->nullable();
             $table->dateTime('published_at')->nullable()->index();
             $table->dateTime('locked_at')->nullable();
-            $table->unsignedBigInteger('locked_by')->nullable();
-            $table->unsignedBigInteger('last_update_by')->nullable();
+            $table->foreignUuid('locked_by')->nullable()->constrained('users');
+            $table->foreignUuid('last_update_by')->nullable()->constrained('users');
             $table->unsignedBigInteger('order_column')->nullable();
             $table->timestamps();
             $table->softDeletes();

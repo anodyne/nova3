@@ -12,7 +12,7 @@ use Nova\Menus\Enums\LinkTarget;
 use Nova\Menus\Enums\LinkType;
 
 /**
- * @method static static from(string $label, ?string $icon, ?string $url, ?int $page_id, ?int $parent_id, LinkType $link_type, LinkTarget $target, BasicStatus $status)
+ * @method static static from(string $label, ?string $icon, ?string $url, ?string $page_id, ?string $parent_id, LinkType $link_type, LinkTarget $target, BasicStatus $status)
  *
  * @phpstan-method static static from(mixed ...$values)
  */
@@ -22,8 +22,8 @@ readonly class MenuItemData extends Bag
         public string $label,
         public ?string $icon,
         public ?string $url,
-        public ?int $page_id,
-        public ?int $parent_id,
+        public ?string $page_id,
+        public ?string $parent_id,
         public LinkType $link_type,
         public LinkTarget $target,
         public BasicStatus $status
@@ -48,8 +48,8 @@ readonly class MenuItemData extends Bag
             'label' => $request->input('label'),
             'icon' => $request->input('icon'),
             'url' => $request->input('url'),
-            'page_id' => $request->filled('page_id') ? $request->integer('page_id') : null,
-            'parent_id' => $request->filled('parent_id') ? $request->integer('parent_id') : null,
+            'page_id' => $request->filled('page_id') ? $request->input('page_id') : null,
+            'parent_id' => $request->filled('parent_id') ? $request->input('parent_id') : null,
             'link_type' => LinkType::tryFrom($request->input('link_type')) ?? LinkType::Url,
             'target' => LinkTarget::tryFrom($request->input('target')) ?? LinkTarget::Blank,
             'status' => BasicStatus::tryFrom($request->boolean('status') ? 'active' : 'inactive'),

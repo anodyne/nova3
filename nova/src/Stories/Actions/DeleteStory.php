@@ -13,6 +13,8 @@ class DeleteStory
 
     public function handle(Story $story): Story
     {
+        $story->stories()->update(['parent_id' => null]);
+
         return tap($story)->delete();
     }
 }

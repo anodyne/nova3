@@ -337,7 +337,6 @@ class Post extends Model implements Sortable
             ->filter(fn ($participant): bool => $participant !== $userId)
             ->unique()
             ->values()
-            ->map(fn ($value): int => (int) $value)
             ->toArray();
 
         $this->fill(['participants' => $participants])->save();

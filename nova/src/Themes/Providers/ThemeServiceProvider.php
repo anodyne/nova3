@@ -6,6 +6,7 @@ namespace Nova\Themes\Providers;
 
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
+use Nova\Settings\Models\Settings;
 use Nova\Themes\Actions\SetupThemeDirectory;
 use Nova\Themes\BaseTheme;
 use Nova\Themes\Livewire\ThemeSelector;
@@ -27,7 +28,7 @@ class ThemeServiceProvider extends DomainServiceProvider
     public function domainBooted(): void
     {
         if (Nova::isInstalled()) {
-            $themeName = strtolower(settings('appearance.theme') ?? 'Pulsar');
+            $themeName = strtolower(Settings::custom()->first()?->appearance?->theme ?? 'Pulsar');
 
             $themeNamespace = str($themeName)->studly();
 

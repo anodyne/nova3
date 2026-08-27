@@ -18,7 +18,6 @@ class UpdatePostParticipants
             ->filter()
             ->unique()
             ->values()
-            ->map(fn ($value): int => (int) $value)
             ->toArray();
 
         $post->update(['participants' => $participants]);

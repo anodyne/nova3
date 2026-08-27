@@ -15,9 +15,9 @@ class MigrateCharacterRanks extends Component
 {
     public Character $character;
 
-    public ?int $rankId = null;
+    public ?string $rankId = null;
 
-    public function updateRank(?int $rank): void
+    public function updateRank(?string $rank): void
     {
         $this->rankId = $rank;
 

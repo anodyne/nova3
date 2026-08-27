@@ -5,14 +5,14 @@ declare(strict_types=1);
 use Illuminate\Http\Request;
 use Nova\Users\Data\AssignUserCharactersData;
 
-it('casts a primary character to an integer', function () {
+it('keeps a primary character ID as a string', function () {
     $data = AssignUserCharactersData::from(Request::create('/', 'POST', [
         'assigned_characters' => '10,20',
         'primary_character' => '20',
     ]));
 
     expect($data->characters)->toBe(['10', '20'])
-        ->and($data->primaryCharacter)->toBe(20);
+        ->and($data->primaryCharacter)->toBe('20');
 });
 
 it('uses null when a primary character is not filled', function (mixed $primaryCharacter) {

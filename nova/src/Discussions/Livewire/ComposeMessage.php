@@ -40,7 +40,7 @@ class ComposeMessage extends Modal
 
     public ?string $subject = null;
 
-    public ?int $discussionId = null;
+    public ?string $discussionId = null;
 
     public ComposeMode $mode;
 
