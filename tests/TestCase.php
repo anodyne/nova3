@@ -59,7 +59,7 @@ abstract class TestCase extends BaseTestCase
         ]);
     }
 
-    protected function migrateDatabases()
+    protected function migrateDatabases(): void
     {
         $this->baseMigrateDatabases();
 
