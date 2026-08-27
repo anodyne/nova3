@@ -12,17 +12,18 @@
         "anousss007/blatui",
         "ralphjsmit/laravel-filament-activitylog",
         "spatie/laravel-medialibrary",
-        "lorisleiva/laravel-actions"
+        "lorisleiva/laravel-actions",
+        "spatie/laravel-activitylog"
     ],
     "sail": false,
     "skills": [
         "infer-conventions",
         "fortify-development",
         "laravel-best-practices",
+        "testing-best-practices",
         "scout-development",
         "fluxui-development",
         "livewire-development",
-        "pest-testing",
         "tailwindcss-development",
         "blatui-development",
         "laravel-actions",
