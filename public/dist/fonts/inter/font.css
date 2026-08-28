@@ -23,5 +23,5 @@
 body,
 button,
 input {
-    font-feature-settings: "ss01", "ss03", "cv11", "zero";
+    font-feature-settings: "ss01" 1, "ss03" 1, "cv11" 1, "zero" 1;
 }

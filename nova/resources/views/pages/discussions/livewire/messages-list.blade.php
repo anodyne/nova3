@@ -46,7 +46,7 @@
                         'col-span-full grid grid-cols-[auto_1fr_1.5rem_0.5rem_auto] items-baseline supports-[grid-template-columns:subgrid]:grid-cols-subgrid',
                         'bg-gray-100 dark:bg-gray-900' => $selected === $discussion->id,
                     ])
-                    wire:click="selectDiscussion({{ $discussion->id }})"
+                    wire:click="selectDiscussion('{{ $discussion->id }}')"
                 >
                     @if (! $hasSeen)
                         <div class="col-start-1 row-start-1 mt-1 mr-3.5 -ml-0.5 sm:mr-3">

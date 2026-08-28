@@ -29,13 +29,13 @@
                 <div class="mt-4 grid gap-8 lg:grid-cols-3">
                     <div class="flex gap-x-3">
                         <div class="shrink-0">
-                            <x-icon :name="Tabler::CircleCheck" size="lg" class="text-gray-500" />
+                            <x-icon :name="Tabler::CircleCheck" size="md" class="text-gray-500"/>
                         </div>
                         <div>
-                            <x-text size="lg">Published posts</x-text>
+                            <x-text size="md">Published posts</x-text>
 
                             <h2
-                                class="mt-2 shrink-0 text-4xl font-semibold tracking-tight text-gray-950 tabular-nums dark:text-white"
+                                class="mt-2 shrink-0 text-4xl font-light tracking-tight text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ Number::format($postingStats->published_post_count) }}
                             </h2>
@@ -44,13 +44,13 @@
 
                     <div class="flex gap-x-3">
                         <div class="shrink-0">
-                            <x-icon :name="Tabler::CircleDashed" size="lg" class="text-gray-500" />
+                            <x-icon :name="Tabler::CircleDashed" size="md" class="text-gray-500"/>
                         </div>
                         <div>
-                            <x-text size="lg">Draft posts</x-text>
+                            <x-text size="md">Draft posts</x-text>
 
                             <h2
-                                class="mt-2 shrink-0 text-4xl font-semibold tracking-tight text-gray-950 tabular-nums dark:text-white"
+                                class="mt-2 shrink-0 text-4xl font-light tracking-tight text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ Number::format($postingStats->draft_post_count) }}
                             </h2>
@@ -59,13 +59,13 @@
 
                     <div class="flex gap-x-3">
                         <div class="shrink-0">
-                            <x-icon :name="Tabler::Abc" size="lg" class="text-gray-500" />
+                            <x-icon :name="Tabler::Abc" size="md" class="text-gray-500"/>
                         </div>
                         <div>
-                            <x-text size="lg">Post words</x-text>
+                            <x-text size="md">Post words</x-text>
 
                             <h2
-                                class="mt-2 shrink-0 text-4xl font-semibold tracking-tight text-gray-950 tabular-nums dark:text-white"
+                                class="mt-2 shrink-0 text-4xl font-light tracking-tight text-gray-950 tabular-nums dark:text-white"
                             >
                                 {{ Number::format($postingStats->total_word_count ?? 0) }}
                             </h2>
@@ -79,7 +79,7 @@
             <div class="grid gap-8 lg:grid-cols-3">
                 <div class="flex gap-x-3">
                     <div class="shrink-0">
-                        <x-icon :name="Tabler::Calendar" size="lg" />
+                        <x-icon :name="Tabler::Calendar" size="lg"/>
                     </div>
                     <div>
                         <x-text>
@@ -97,7 +97,7 @@
 
                 <div class="flex gap-x-3">
                     <div class="shrink-0">
-                        <x-icon :name="Tabler::ChartInfographic" size="lg" />
+                        <x-icon :name="Tabler::ChartInfographic" size="lg"/>
                     </div>
                     <div>
                         <x-text>
@@ -115,7 +115,7 @@
 
                 <div class="flex gap-x-3">
                     <div class="shrink-0">
-                        <x-icon :name="Tabler::PencilCog" size="lg" />
+                        <x-icon :name="Tabler::PencilCog" size="lg"/>
                     </div>
                     <div>
                         <x-text>

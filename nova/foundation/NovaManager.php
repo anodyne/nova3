@@ -215,7 +215,7 @@ class NovaManager
     protected function cssAdminAssets(): string
     {
         $appUrl = url('');
-        $appStylesPath = "{$appUrl}/dist/css/admin.css";
+        $appStylesPath = "{$appUrl}/dist/css/app.css";
 
         return <<<HTML
 <link href="{$appStylesPath}" rel="stylesheet">

@@ -6,7 +6,7 @@
 ])
 
 @php
-    $strokeWidth = 12;
+    $strokeWidth = 10;
     $radius = sprintf('%dpx', $strokeWidth / 2);
 
     $color = ! is_null($color)
