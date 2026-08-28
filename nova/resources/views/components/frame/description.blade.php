@@ -1,3 +1,6 @@
-<div class="text-gray-500 text-sm" data-slot="frame-panel-description">
+<div
+    data-slot="frame-panel-description"
+    {{ $attributes->class(['text-gray-500 text-sm']) }}
+>
     {{ $slot }}
 </div>

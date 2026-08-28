@@ -1,3 +1,6 @@
-<div class="font-semibold text-sm" data-slot="frame-panel-title">
+<div
+    data-slot="frame-panel-title"
+    {{ $attributes->class(['flex items-center gap-1.5 font-semibold text-sm']) }}
+>
     {{ $slot }}
 </div>

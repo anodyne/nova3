@@ -1,11 +1,17 @@
+@props([
+    'stacked' => false,
+])
+
 <div
+    data-slot="frame-panel"
     {{
         $attributes->class([
-            'relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 bg-clip-padding',
-            'before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(theme(radius.xl)-1px)] before:shadow-[0_1px_theme(colors.black/4%)] dark:before:shadow-[0_-1px_theme(colors.white/6%)]',
+            'relative rounded-xl border border-gray-200 bg-white bg-clip-padding shadow-xs/5',
+            'before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-xl)-1px)] before:shadow-[0_1px_--theme(--color-black/4%)]',
+            'p-5' => ! $stacked,
+            'divide-y divide-gray-200 *:p-5' => $stacked,
         ])
     }}
-    data-slot="frame-panel"
 >
     {{ $slot }}
 </div>
