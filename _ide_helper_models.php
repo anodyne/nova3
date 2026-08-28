@@ -180,8 +180,8 @@ namespace Nova\Foundation\Models{
  * @property string $id
  * @property string $version
  * @property string|null $anodyne_game_id
- * @property \Carbon\CarbonImmutable|null $install_date
- * @property \Carbon\CarbonImmutable|null $last_update
+ * @property \Carbon\CarbonImmutable $install_date
+ * @property \Carbon\CarbonImmutable $last_update
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Nova\Foundation\Models\ExternalChangelog|null $versionInfo
@@ -307,13 +307,13 @@ namespace Nova\Announcements\Models{
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Nova\Announcements\Models\Announcement $announcement
  * @property-read \Nova\Users\Models\User|null $user
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification announcement(\Nova\Announcements\Models\Announcement|int $announcement)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification announcement(\Nova\Announcements\Models\Announcement|string $announcement)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification newModelQuery()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification newQuery()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification query()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification read()
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification unread()
- * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification user(\Nova\Users\Models\User|int $user)
+ * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification user(\Nova\Users\Models\User|string $user)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereAnnouncementId($value)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereCreatedAt($value)
  * @method static \Nova\Announcements\Models\Builders\AnnouncementNotificationBuilder<static>|\Nova\Announcements\Models\AnnouncementNotification whereId($value)
@@ -442,7 +442,7 @@ namespace Nova\Characters\Models{
  * @property string $id
  * @property string|null $prefixed_id
  * @property string $name
- * @property \Nova\Characters\Enums\CharacterType $type
+ * @property \Nova\Characters\Enums\CharacterType|null $type
  * @property \Nova\Characters\Models\States\Status\CharacterStatus $status
  * @property mixed|null $rank_id
  * @property \Carbon\CarbonImmutable|null $created_at
@@ -574,9 +574,9 @@ namespace Nova\Departments\Models{
  * @property string|null $prefixed_id
  * @property string $name
  * @property string|null $description
- * @property int|null $order_column
  * @property \Nova\Foundation\Enums\BasicStatus $status
  * @property array<array-key, mixed>|null $tags
+ * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activitiesAsSubject
@@ -679,7 +679,7 @@ namespace Nova\Discussions\Models{
  * @property string $id
  * @property string|null $prefixed_id
  * @property string|null $discussable_type
- * @property int|null $discussable_id
+ * @property string|null $discussable_id
  * @property string|null $subject
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
@@ -768,12 +768,12 @@ namespace Nova\Discussions\Models{
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property string|null $deleted_at
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification discussion(int $discussionId)
+ * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification discussion(string $discussionId)
  * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification newModelQuery()
  * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification newQuery()
  * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification query()
  * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification unread()
- * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification user(int $userId)
+ * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification user(string $userId)
  * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereCreatedAt($value)
  * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereDeletedAt($value)
  * @method static \Nova\Discussions\Models\Builders\DiscussionNotificationBuilder<static>|\Nova\Discussions\Models\DiscussionNotification whereDiscussionId($value)
@@ -799,11 +799,11 @@ namespace Nova\Discussions\Models{
  * @property string|null $deleted_at
  * @property-read \Nova\Discussions\Models\Discussion $discussion
  * @property-read \Nova\Users\Models\User|null $user
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant discussion(int $discussionId)
+ * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant discussion(string $discussionId)
  * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant newModelQuery()
  * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant newQuery()
  * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant query()
- * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant user(int $userId)
+ * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant user(string $userId)
  * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereCreatedAt($value)
  * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereDeletedAt($value)
  * @method static \Nova\Discussions\Models\Builders\DiscussionParticipantBuilder<static>|\Nova\Discussions\Models\DiscussionParticipant whereDiscussionId($value)
@@ -1068,7 +1068,7 @@ namespace Nova\Menus\Models{
  * @property string $label
  * @property \Anodyne\TablerIcons\Tabler|null $icon
  * @property \Nova\Menus\Enums\LinkType $link_type
- * @property int|null $page_id
+ * @property string|null $page_id
  * @property string|null $url
  * @property \Nova\Menus\Enums\LinkTarget $target
  * @property \Nova\Foundation\Enums\BasicStatus $status
@@ -1284,8 +1284,8 @@ namespace Nova\Ranks\Models{
 namespace Nova\Ranks\Models{
 /**
  * @property string $id
- * @property int $group_id
- * @property int $name_id
+ * @property string $group_id
+ * @property string $name_id
  * @property string $base_image
  * @property string|null $overlay_image
  * @property \Nova\Foundation\Enums\BasicStatus $status
@@ -1499,7 +1499,6 @@ namespace Nova\Stories\Models{
  * @property string|null $prefixed_id
  * @property string|null $story_id
  * @property string|null $post_type_id
- * @property int|null $order_column
  * @property \Nova\Stories\Models\States\PostStatus\PostStatus $status
  * @property string|null $title
  * @property string|null $content
@@ -1518,6 +1517,7 @@ namespace Nova\Stories\Models{
  * @property \Carbon\CarbonImmutable|null $locked_at
  * @property string|null $locked_by
  * @property string|null $last_update_by
+ * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -1552,7 +1552,7 @@ namespace Nova\Stories\Models{
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post currentYear()
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post draft()
  * @method static \Database\Factories\PostFactory factory($count = null, $state = [])
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post forStory(\Nova\Stories\Models\Story|int $story)
+ * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post forStory(\Nova\Stories\Models\Story|string $story)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post hasExpiredPostLock()
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post locked()
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post newModelQuery()
@@ -1585,7 +1585,7 @@ namespace Nova\Stories\Models{
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereNotState(string $column, $states)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereOrderColumn($value)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post whereParticipants($value)
- * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePostType(int $postTypeId)
+ * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePostType(string $postTypeId)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePostTypeId($value)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePrefixedId($value)
  * @method static \Nova\Stories\Models\Builders\PostBuilder<static>|\Nova\Stories\Models\Post wherePublishedAt($value)
@@ -1720,13 +1720,13 @@ namespace Nova\Stories\Models{
  * @property string $id
  * @property string|null $prefixed_id
  * @property string|null $parent_id
- * @property int|null $order_column
  * @property \Nova\Stories\Models\States\StoryStatus\StoryStatus $status
  * @property string $title
  * @property string|null $description
  * @property string|null $summary
  * @property mixed|null $started_at
  * @property mixed|null $ended_at
+ * @property int|null $order_column
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Nova\Foundation\Models\Activity> $activitiesAsSubject
@@ -1807,7 +1807,7 @@ namespace Nova\Stories\Models{
  * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereId($value)
  * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereNotState(string $column, $states)
  * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereOrderColumn($value)
- * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereParent(\Nova\Stories\Models\Story|int|null $parent)
+ * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereParent(\Nova\Stories\Models\Story|string|null $parent)
  * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereParentId($value)
  * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story wherePrefixedId($value)
  * @method static \Nova\Stories\Models\Builders\StoryBuilder<static>|\Nova\Stories\Models\Story whereStartedAt($value)
@@ -2155,3 +2155,4 @@ namespace Nova\Users\Models{
 	#[\AllowDynamicProperties]
 	class IdeHelperUserNotificationPreference {}
 }
+

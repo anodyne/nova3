@@ -33570,59 +33570,6 @@ namespace Illuminate\Database\Schema {
             }
     }
 
-namespace Spatie\MediaLibrary\MediaCollections\Models\Collections {
-    /**
-     * @template TKey of array-key
-     * @template TModel of \Spatie\MediaLibrary\MediaCollections\Models\Media
-     * @extends Collection<TKey, TModel>
-     */
-    class MediaCollection extends \Illuminate\Database\Eloquent\Collection {
-            }
-    }
-
-namespace Illuminate\Database\Eloquent {
-    /**
-     * @template TKey of array-key
-     * @template TModel of \Illuminate\Database\Eloquent\Model
-     * @extends \Illuminate\Support\Collection<TKey, TModel>
-     */
-    class Collection extends \Illuminate\Support\Collection {
-            }
-    }
-
-namespace Staudenmeir\LaravelCte\Query {
-    /**
-     */
-    class Builder extends \Illuminate\Database\Query\Builder {
-            }
-    }
-
-namespace Bag {
-    /**
-     * @extends LaravelCollection<array-key, mixed>
-     */
-    class Collection extends \Illuminate\Support\Collection {
-            }
-    }
-
-namespace Bag\Property {
-    /**
-     * @extends Collection<string, Value>
-     */
-    class ValueCollection extends \Illuminate\Support\Collection {
-            }
-    /**
-     * @extends Collection<array-key, mixed>
-     */
-    class MapCollection extends \Illuminate\Support\Collection {
-            }
-    /**
-     * @extends Collection<string, mixed>
-     */
-    class ValidatorCollection extends \Illuminate\Support\Collection {
-            }
-    }
-
 namespace Filament\Notifications\Livewire {
     /**
      */
@@ -33673,6 +33620,59 @@ namespace Nova\Setup\Livewire {
      * @property-read bool $shouldShowSuccessTable
      */
     class UpdateNova extends \Livewire\Component {
+            }
+    }
+
+namespace Spatie\MediaLibrary\MediaCollections\Models\Collections {
+    /**
+     * @template TKey of array-key
+     * @template TModel of \Spatie\MediaLibrary\MediaCollections\Models\Media
+     * @extends Collection<TKey, TModel>
+     */
+    class MediaCollection extends \Illuminate\Database\Eloquent\Collection {
+            }
+    }
+
+namespace Illuminate\Database\Eloquent {
+    /**
+     * @template TKey of array-key
+     * @template TModel of \Illuminate\Database\Eloquent\Model
+     * @extends \Illuminate\Support\Collection<TKey, TModel>
+     */
+    class Collection extends \Illuminate\Support\Collection {
+            }
+    }
+
+namespace Staudenmeir\LaravelCte\Query {
+    /**
+     */
+    class Builder extends \Illuminate\Database\Query\Builder {
+            }
+    }
+
+namespace Bag {
+    /**
+     * @extends LaravelCollection<array-key, mixed>
+     */
+    class Collection extends \Illuminate\Support\Collection {
+            }
+    }
+
+namespace Bag\Property {
+    /**
+     * @extends Collection<string, Value>
+     */
+    class ValueCollection extends \Illuminate\Support\Collection {
+            }
+    /**
+     * @extends Collection<array-key, mixed>
+     */
+    class MapCollection extends \Illuminate\Support\Collection {
+            }
+    /**
+     * @extends Collection<string, mixed>
+     */
+    class ValidatorCollection extends \Illuminate\Support\Collection {
             }
     }
 
