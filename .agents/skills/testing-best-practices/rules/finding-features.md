@@ -19,18 +19,16 @@ Search for a feature in this table before you write the code by hand.
 | Reduce the time of a slow suite | parallel, profiling |
 | Run one test while you debug | filtering, `--bail`, `--dirty` |
 
-## The Assertions of Laravel
+## Built-in Laravel Assertion Methods
 
 Laravel provides assertions for each part of the framework. Fetch `https://laravel.com/framework/docs/testing` for the complete list, and search for an assertion before building a check by hand. Examples include `assertDatabaseHas()`, `assertModelExists()`, `assertSoftDeleted()`, response assertions such as `assertRedirectToRoute()` and `assertJsonPath()`, and fake assertions such as `Queue::assertPushed()` and `Notification::assertSentTo()`.
 
 A hand-built check fails with `false is not true`, which identifies nothing. A framework assertion names the incorrect table, value, or response, so the failure indicates what to fix.
 
 ```php
-// The failure says that false is not true.
-// Instead of this
+// The failure says that false is not true. Instead of this...
 expect(User::where('email', 'taylor@laravel.com')->exists())->toBeTrue();
 
-// Use this
-// The failure names the table and the attributes that it did not find.
+// Use this... the failure names the table and the attributes that it did not find...
 $this->assertDatabaseHas('users', ['email' => 'taylor@laravel.com']);
 ```

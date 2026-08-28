@@ -9,7 +9,6 @@
     "nightwatch": false,
     "packages": [
         "filament/filament",
-        "anousss007/blatui",
         "ralphjsmit/laravel-filament-activitylog",
         "spatie/laravel-medialibrary",
         "lorisleiva/laravel-actions",
@@ -25,7 +24,6 @@
         "fluxui-development",
         "livewire-development",
         "tailwindcss-development",
-        "blatui-development",
         "laravel-actions",
         "filament-activitylog-pro",
         "medialibrary-development"
