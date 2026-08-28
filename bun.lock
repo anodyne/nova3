@@ -4,8 +4,8 @@
   "workspaces": {
     "": {
       "dependencies": {
-        "@alpinejs/collapse": "^3.16.1",
-        "@alpinejs/focus": "^3.16.1",
+        "@alpinejs/collapse": "^3.16.3",
+        "@alpinejs/focus": "^3.16.3",
         "@awcodes/alpine-floating-ui": "^3.6.4",
         "@floating-ui/dom": "^1.8.0",
         "@jaames/iro": "^5.5.2",
@@ -23,8 +23,8 @@
         "@tiptap/starter-kit": "^2.27.2",
         "@toolwind/corner-shape": "^0.0.8-3",
         "@yaireo/tagify": "^4.38.0",
-        "alpinejs": "^3.16.1",
-        "axios": "^1.19.0",
+        "alpinejs": "^3.16.3",
+        "axios": "^1.20.0",
         "countable": "^3.0.1",
         "cross-env": "^7.0.3",
         "date-fns": "^3.6.0",
@@ -45,7 +45,7 @@
         "truecropper": "^1.0.3",
       },
       "devDependencies": {
-        "@alpinejs/anchor": "^3.16.1",
+        "@alpinejs/anchor": "^3.16.3",
         "@danharrin/alpine-mousetrap": "^0.1.9",
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/container-queries": "^0.1.1",
