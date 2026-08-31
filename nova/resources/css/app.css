@@ -20,8 +20,6 @@
 
 @import "./utilities/safelist.css";
 
-@import "./blatui.css";
-
 @source "../svg";
 @source "../../foundation/Livewire/Concerns/*.php";
 @source "../../foundation/View/Components/*.php";
@@ -42,6 +40,12 @@
 
 @theme {
     --color-discord: #5865f2;
+
+    --color-slate-25: oklch(99.21% 0 247.83deg);
+    --color-gray-25: oklch(99.23% 0 247.66deg);
+    --color-zinc-25: oklch(99.26% 0 none);
+    --color-neutral-25: oklch(99.26% 0 none);
+    --color-stone-25: oklch(99.24% 0 104.61deg);
 
     --animate-reverse-spin: reverseSpin 1s linear infinite;
 

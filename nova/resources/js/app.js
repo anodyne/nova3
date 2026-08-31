@@ -17,8 +17,6 @@ import TailwindScaleRange from "./components/tailwind-scale-range";
 import SwitchToggle from "./components/switch-toggle";
 import WordCount from "./components/word-count";
 
-import { registerBlatUI } from "./blatui-core.js";
-
 document.addEventListener("alpine:init", () => {
     window.Alpine.data("carousel", Carousel);
     window.Alpine.data("colorPicker", ColorPicker);
@@ -35,8 +33,6 @@ document.addEventListener("alpine:init", () => {
     window.Alpine.data("wordCount", WordCount);
 
     window.Alpine.plugin(Clipboard);
-
-    registerBlatUI(window.Alpine);
 
     registerFilepond();
 });
