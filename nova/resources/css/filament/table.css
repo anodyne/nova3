@@ -23,6 +23,22 @@
     }
 }
 
+.fi-ta-header-cell {
+    @apply py-2;
+}
+
+.fi-ta-cell {
+    &.fi-ta-selection-cell {
+        @apply py-2.5;
+    }
+}
+
+.fi-ta-text {
+    &:not(.fi-inline) {
+        @apply py-2.5;
+    }
+}
+
 .fi-ta-content-ctn {
     @apply overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800;
 
