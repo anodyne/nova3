@@ -75,13 +75,6 @@
     --color-accent: var(--color-primary-500);
     --color-accent-content: var(--color-primary-600);
     --color-accent-foreground: var(--color-white);
-
-    --color-danger-25: var(--danger-25);
-    --color-info-25: var(--info-25);
-    --color-gray-25: var(--gray-25);
-    --color-primary-25: var(--primary-25);
-    --color-success-25: var(--success-25);
-    --color-warning-25: var(--warning-25);
 }
 
 @layer theme {
