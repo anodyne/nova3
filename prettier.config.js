@@ -1,13 +1,9 @@
 module.exports = {
-    plugins: [
-        'prettier-plugin-blade',
-        'prettier-plugin-tailwindcss',
-    ],
+    singleQuote: true,
+    plugins: ['prettier-plugin-blade', 'prettier-plugin-tailwindcss'],
     overrides: [
         {
-            files: [
-                '*.blade.php',
-            ],
+            files: ['*.blade.php'],
             options: {
                 parser: 'blade',
                 printWidth: 120,
