@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 13.29.0.
+ * Generated for Laravel 13.34.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -597,7 +597,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get or check the current application environment.
          *
-         * @param string|array $environments
+         * @param \UnitEnum|string|array $environments
          * @return string|bool
          * @static
          */
@@ -2333,6 +2333,19 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Foundation\Console\Kernel $instance */
             return $instance->queue($command, $parameters);
+        }
+
+        /**
+         * Get the registered command instance with the given name, if any.
+         *
+         * @param string $name
+         * @return \Symfony\Component\Console\Command\Command|null
+         * @static
+         */
+        public static function findCommand($name)
+        {
+            /** @var \Illuminate\Foundation\Console\Kernel $instance */
+            return $instance->findCommand($name);
         }
 
         /**
@@ -4141,6 +4154,19 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
             return $instance->forgetDrivers();
+        }
+
+        /**
+         * Get a Mercure hub instance for the given configuration.
+         *
+         * @param array $config
+         * @return \Symfony\Component\Mercure\HubInterface
+         * @static
+         */
+        public static function mercure($config)
+        {
+            /** @var \Illuminate\Broadcasting\BroadcastManager $instance */
+            return $instance->mercure($config);
         }
 
         /**
@@ -12463,6 +12489,19 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Assert if a mailable was sent exactly once.
+         *
+         * @param string $mailable
+         * @return void
+         * @static
+         */
+        public static function assertSentOnce($mailable)
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\MailFake $instance */
+            $instance->assertSentOnce($mailable);
+        }
+
+        /**
          * Determine if a mailable was not sent or queued to be sent based on a truth-test callback.
          *
          * @param string|\Closure $mailable
@@ -12540,6 +12579,19 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Support\Testing\Fakes\MailFake $instance */
             $instance->assertQueuedTimes($mailable, $times);
+        }
+
+        /**
+         * Assert if a mailable was queued exactly once.
+         *
+         * @param string $mailable
+         * @return void
+         * @static
+         */
+        public static function assertQueuedOnce($mailable)
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\MailFake $instance */
+            $instance->assertQueuedOnce($mailable);
         }
 
         /**
@@ -13118,6 +13170,19 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Assert if a notification was sent on-demand exactly once.
+         *
+         * @param string $notification
+         * @return void
+         * @static
+         */
+        public static function assertSentOnDemandOnce($notification)
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\NotificationFake $instance */
+            $instance->assertSentOnDemandOnce($notification);
+        }
+
+        /**
          * Assert if a notification was sent a number of times.
          *
          * @param mixed $notifiable
@@ -13130,6 +13195,20 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Support\Testing\Fakes\NotificationFake $instance */
             $instance->assertSentToTimes($notifiable, $notification, $times);
+        }
+
+        /**
+         * Assert if a notification was sent exactly once.
+         *
+         * @param mixed $notifiable
+         * @param string $notification
+         * @return void
+         * @static
+         */
+        public static function assertSentToOnce($notifiable, $notification)
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\NotificationFake $instance */
+            $instance->assertSentToOnce($notifiable, $notification);
         }
 
         /**
@@ -13800,8 +13879,8 @@ namespace Illuminate\Support\Facades {
         /**
          * Pause a queue by its connection and name.
          *
-         * @param string $connection
-         * @param string $queue
+         * @param \UnitEnum|string $connection
+         * @param \UnitEnum|string $queue
          * @return void
          * @static
          */
@@ -13814,8 +13893,8 @@ namespace Illuminate\Support\Facades {
         /**
          * Pause a queue by its connection and name for a given amount of time.
          *
-         * @param string $connection
-         * @param string $queue
+         * @param \UnitEnum|string $connection
+         * @param \UnitEnum|string $queue
          * @param \DateTimeInterface|\DateInterval|int $ttl
          * @return void
          * @static
@@ -13841,8 +13920,8 @@ namespace Illuminate\Support\Facades {
         /**
          * Resume a paused queue by its connection and name.
          *
-         * @param string $connection
-         * @param string $queue
+         * @param \UnitEnum|string $connection
+         * @param \UnitEnum|string $queue
          * @return void
          * @static
          */
@@ -13869,8 +13948,8 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a queue is paused.
          *
-         * @param string $connection
-         * @param string $queue
+         * @param \UnitEnum|string $connection
+         * @param \UnitEnum|string $queue
          * @return bool
          * @static
          */
@@ -13997,6 +14076,19 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Queue\QueueManager $instance */
             return $instance->setApplication($app);
+        }
+
+        /**
+         * Register a callback to be executed when creating job payloads.
+         *
+         * @param callable|null $callback
+         * @return void
+         * @static
+         */
+        public static function createPayloadUsing($callback)
+        {
+            /** @var \Illuminate\Queue\QueueManager $instance */
+            $instance->createPayloadUsing($callback);
         }
 
         /**
@@ -14292,6 +14384,18 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
             return $instance->reservedSize($queue);
+        }
+
+        /**
+         * Get the number of jobs across every queue.
+         *
+         * @return int
+         * @static
+         */
+        public static function totalSize()
+        {
+            /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+            return $instance->totalSize();
         }
 
         /**
@@ -14702,19 +14806,6 @@ namespace Illuminate\Support\Facades {
             //Method inherited from \Illuminate\Queue\Queue 
             /** @var \Illuminate\Queue\SyncQueue $instance */
             return $instance->getJobExpiration($job);
-        }
-
-        /**
-         * Register a callback to be executed when creating job payloads.
-         *
-         * @param callable|null $callback
-         * @return void
-         * @static
-         */
-        public static function createPayloadUsing($callback)
-        {
-            //Method inherited from \Illuminate\Queue\Queue 
-            \Illuminate\Queue\SyncQueue::createPayloadUsing($callback);
         }
 
         /**
@@ -19427,7 +19518,7 @@ namespace Illuminate\Support\Facades {
          * Call the given Closure with this instance then return the instance.
          *
          * @param (callable($this): mixed)|null $callback
-         * @return ($callback is null ? \Illuminate\Support\HigherOrderTapProxy : $this)
+         * @return ($callback is null ? \Illuminate\Support\HigherOrderTapProxy<$this> : $this)
          * @static
          */
         public static function tap($callback = null)
@@ -19462,7 +19553,7 @@ namespace Illuminate\Support\Facades {
      * @method static \Illuminate\Console\Scheduling\PendingEventAttributes withoutOverlapping(int $expiresAt = 1440, bool $releaseOnTerminationSignals = true)
      * @method static void mergeAttributes(\Illuminate\Console\Scheduling\Event $event)
      * @method static \Illuminate\Console\Scheduling\PendingEventAttributes user(string $user)
-     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes environments(mixed $environments)
+     * @method static \Illuminate\Console\Scheduling\PendingEventAttributes environments(\UnitEnum|string|array $environments)
      * @method static \Illuminate\Console\Scheduling\PendingEventAttributes evenInMaintenanceMode()
      * @method static \Illuminate\Console\Scheduling\PendingEventAttributes evenWhenPaused()
      * @method static \Illuminate\Console\Scheduling\PendingEventAttributes onOneServer()
@@ -20110,6 +20201,21 @@ namespace Illuminate\Support\Facades {
             //Method inherited from \Illuminate\Database\Schema\Builder 
             /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
             return $instance->getColumnListing($table);
+        }
+
+        /**
+         * Get the column for a given table.
+         *
+         * @param string $table
+         * @param string $column
+         * @return \Illuminate\Database\Schema\array{name: string, type: string, type_name: string, collation: string|null, nullable: bool, default: mixed, auto_increment: bool, comment: string|null, generation: array{type: string, expression: string|null}|null}
+         * @static
+         */
+        public static function getColumn($table, $column)
+        {
+            //Method inherited from \Illuminate\Database\Schema\Builder 
+            /** @var \Illuminate\Database\Schema\MySqlBuilder $instance */
+            return $instance->getColumn($table, $column);
         }
 
         /**
@@ -22123,6 +22229,38 @@ namespace Illuminate\Support\Facades {
             //Method inherited from \Illuminate\Filesystem\FilesystemAdapter 
             /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
             return $instance->move($from, $to);
+        }
+
+        /**
+         * Copy a file to another disk.
+         *
+         * @param string|\Illuminate\Contracts\Filesystem\Filesystem $disk
+         * @param string $from
+         * @param string|null $to
+         * @return bool
+         * @static
+         */
+        public static function copyToDisk($disk, $from, $to = null)
+        {
+            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter 
+            /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+            return $instance->copyToDisk($disk, $from, $to);
+        }
+
+        /**
+         * Move a file to another disk.
+         *
+         * @param string|\Illuminate\Contracts\Filesystem\Filesystem $disk
+         * @param string $from
+         * @param string|null $to
+         * @return bool
+         * @static
+         */
+        public static function moveToDisk($disk, $from, $to = null)
+        {
+            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter 
+            /** @var \Illuminate\Filesystem\LocalFilesystemAdapter $instance */
+            return $instance->moveToDisk($disk, $from, $to);
         }
 
         /**
@@ -24649,6 +24787,18 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Foundation\Vite $instance */
             return $instance->reactRefresh();
+        }
+
+        /**
+         * Get the URL of the running Vite development server.
+         *
+         * @return string|null
+         * @static
+         */
+        public static function devServerUrl()
+        {
+            /** @var \Illuminate\Foundation\Vite $instance */
+            return $instance->devServerUrl();
         }
 
         /**
@@ -27285,12 +27435,13 @@ namespace Laravel\Mcp\Facades {
         /**
          * @param \Closure(string, TokenSet):  mixed|array{0: class-string, 1: string}  $handler
          * @param array<int, string>|string $middleware
+         * @param array<string, mixed> $clientMetadata
          * @static
          */
-        public static function oAuthRoutesFor($client, $handler, $middleware = 'web', $connectUri = null, $callbackUri = null)
+        public static function oAuthRoutesFor($client, $handler, $middleware = 'web', $connectUri = null, $callbackUri = null, $clientMetadataUri = null, $clientMetadata = [])
         {
             /** @var \Laravel\Mcp\Server\Registrar $instance */
-            return $instance->oAuthRoutesFor($client, $handler, $middleware, $connectUri, $callbackUri);
+            return $instance->oAuthRoutesFor($client, $handler, $middleware, $connectUri, $callbackUri, $clientMetadataUri, $clientMetadata);
         }
 
         /**
@@ -27482,6 +27633,24 @@ namespace Flux {
         /**
          * @static
          */
+        public static function phoneScripts()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->phoneScripts();
+        }
+
+        /**
+         * @static
+         */
+        public static function flagUrl($country)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->flagUrl($country);
+        }
+
+        /**
+         * @static
+         */
         public static function classes($styles = null)
         {
             /** @var \Flux\FluxManager $instance */
@@ -27590,10 +27759,10 @@ namespace Flux {
         /**
          * @static
          */
-        public static function toast($text, $heading = null, $duration = 5000, $variant = null, $position = null, $link = null)
+        public static function toast($text, $heading = null, $duration = 5000, $variant = null, $position = null, $link = null, $action = null)
         {
             /** @var \Flux\FluxManager $instance */
-            return $instance->toast($text, $heading, $duration, $variant, $position, $link);
+            return $instance->toast($text, $heading, $duration, $variant, $position, $link, $action);
         }
 
             }
@@ -29421,18 +29590,6 @@ namespace Illuminate\Support {
         }
 
         /**
-         * @see \Spatie\CollectionMacros\Macros\ChunkBy::__invoke()
-         * @param \Closure $callback
-         * @param bool $preserveKeys
-         * @return \Illuminate\Support\Collection
-         * @static
-         */
-        public static function chunkBy($callback, $preserveKeys = false)
-        {
-            return \Illuminate\Support\Collection::chunkBy($callback, $preserveKeys);
-        }
-
-        /**
          * @see \Spatie\CollectionMacros\Macros\CollectBy::__invoke()
          * @param mixed $key
          * @param mixed $default
@@ -30660,6 +30817,9 @@ namespace Illuminate\Database {
 namespace Livewire\Features\SupportTesting {
     /**
      * @template TComponent of \Livewire\Component
+     * @method $this assertSuccessful()
+     * @method $this assertOk()
+     * @method $this assertStatus(int $status)
      * @mixin \Illuminate\Testing\TestResponse
      */
     class Testable {
@@ -39775,7 +39935,7 @@ if (! function_exists('tap')) {
      *
      * @param  TValue  $value
      * @param  (callable(TValue): mixed)|null  $callback
-     * @return ($callback is null ? \Illuminate\Support\HigherOrderTapProxy : TValue)
+     * @return ($callback is null ? \Illuminate\Support\HigherOrderTapProxy<TValue> : TValue)
      */
     function tap($value, $callback = null)
     {

@@ -1511,7 +1511,7 @@ namespace Nova\Stories\Models{
  * @property \Nova\Stories\Enums\ContentRatingValue|null $rating_violence
  * @property string|null $summary
  * @property array<array-key, mixed>|null $participants
- * @property int|null $neighbor
+ * @property string|null $neighbor
  * @property string|null $direction
  * @property \Carbon\CarbonImmutable|null $published_at
  * @property \Carbon\CarbonImmutable|null $locked_at
@@ -1844,21 +1844,24 @@ namespace Nova\Themes\Models{
  * @property-read bool $is_current_public_theme
  * @property-read string|null $latest_version
  * @property-read string|null $update_url
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme active()
  * @method static \Database\Factories\PendingThemeFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereCredits($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme wherePreview($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereRepository($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereSettings($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|\Nova\Themes\Models\PendingTheme whereVersion($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme inactive()
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme location(string $location)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme newModelQuery()
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme newQuery()
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme query()
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereCreatedAt($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereCredits($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereId($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereLocation($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereName($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme wherePreview($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereRepository($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereSettings($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereStatus($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereUpdatedAt($value)
+ * @method static \Nova\Themes\Models\Builders\ThemeBuilder<static>|\Nova\Themes\Models\PendingTheme whereVersion($value)
  * @mixin \Eloquent
  */
 	#[\AllowDynamicProperties]
