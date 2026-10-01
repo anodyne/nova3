@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Console\Command;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
@@ -20,6 +21,7 @@ use Nova\Discussions\Models\DiscussionMessage;
 use Nova\Discussions\Models\DiscussionNotification;
 use Nova\Discussions\Models\DiscussionParticipant;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\OptimizeOrRepairDatabase;
 use Nova\Foundation\Enums\CacheKeys;
 use Nova\Foundation\Models\ExternalChangelog;
 use Nova\Foundation\Models\ExternalContent;
@@ -34,6 +36,14 @@ use Nova\Users\Models\UserNotificationPreference;
 Artisan::command('inspire', function (): void {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('nova:db:maintenance', function (): int {
+    OptimizeOrRepairDatabase::run($this);
+
+    $this->info('Database maintenance completed successfully.');
+
+    return Command::SUCCESS;
+});
 
 Artisan::command('nova:refresh', function (): void {
     $this->call('db:wipe');

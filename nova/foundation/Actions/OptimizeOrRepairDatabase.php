@@ -6,16 +6,9 @@ namespace Nova\Foundation\Actions;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 
-class OptimizeOrRepairDatabase
+class OptimizeOrRepairDatabase extends Action
 {
-    use AsAction;
-
-    public string $commandSignature = 'db:maintenance';
-
-    public string $commandDescription = 'Optimize or repair database tables based on their status';
-
     public function handle(?Command $command = null): void
     {
         $tables = DB::select('SHOW TABLE STATUS');
@@ -39,14 +32,5 @@ class OptimizeOrRepairDatabase
                 $command?->info("No action needed for table: {$tableName}");
             }
         }
-    }
-
-    public function asCommand(Command $command): int
-    {
-        $this->handle($command);
-
-        $command->info('Database maintenance completed successfully.');
-
-        return Command::SUCCESS;
     }
 }

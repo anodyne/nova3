@@ -6,7 +6,6 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance;
 use Illuminate\Support\Facades\Route;
-use Nova\Foundation\Actions\OptimizeOrRepairDatabase;
 use Nova\Foundation\Application;
 use Nova\Foundation\Http\Middleware\CheckAddonAndThemeVersions;
 use Nova\Foundation\Http\Middleware\CheckExternalContentCache;
@@ -61,9 +60,6 @@ $app = Application::configure(basePath: dirname(__DIR__, 2))
         //     ]);
         // });
     })
-    ->withCommands([
-        OptimizeOrRepairDatabase::class,
-    ])
     ->create();
 
 if (! $app instanceof Application) {
