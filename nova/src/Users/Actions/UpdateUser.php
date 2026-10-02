@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Data\UserData;
 use Nova\Users\Models\User;
 
-class UpdateUser
+class UpdateUser extends Action
 {
-    use AsAction;
-
     public function handle(User $user, UserData $data): User
     {
         return tap($user)

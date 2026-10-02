@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Data\ApplicationReviewData;
 use Nova\Applications\Models\ApplicationReview;
+use Nova\Foundation\Actions\Action;
 
-class UpdateApplicationReview
+class UpdateApplicationReview extends Action
 {
-    use AsAction;
-
     public function handle(ApplicationReview $review, ApplicationReviewData $data): ApplicationReview
     {
         $review = tap($review)

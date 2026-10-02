@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostAuthor;
 use Nova\Users\Models\User;
 
-class UpdateContributorWordCount
+class UpdateContributorWordCount extends Action
 {
-    use AsAction;
-
     public function handle(Post $post, User $user, int $oldWordCount): Post
     {
         $postAuthorPivot = PostAuthor::query()

@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Nova\Stories\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Models\Story;
 
-class DeleteStoryPosts
+class DeleteStoryPosts extends Action
 {
-    use AsAction;
-
     public function handle(Story $story): Story
     {
         $postIds = $story->allPosts()

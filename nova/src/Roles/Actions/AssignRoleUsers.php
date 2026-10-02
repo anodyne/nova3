@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Roles\Data\RoleUsersData;
 use Nova\Roles\Models\Role;
 
-class AssignRoleUsers
+class AssignRoleUsers extends Action
 {
-    use AsAction;
-
     public function handle(Role $role, RoleUsersData $data): Role
     {
         $role->user()->sync($data->users);

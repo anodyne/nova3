@@ -4,38 +4,21 @@ declare(strict_types=1);
 
 namespace Nova\Search\Actions;
 
-use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Models\Announcement;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\Story;
 
-class FlushSearchIndex
+class FlushSearchIndex extends Action
 {
-    use AsAction;
-
-    public string $commandSignature = 'nova:flush-search-index';
-
     public function handle(string $model): void
     {
         foreach ($this->getSearchables() as $model) {
             $this->flushSearchIndexForModel($model);
         }
-    }
-
-    public function asCommand(Command $command): void
-    {
-        foreach ($this->getSearchables() as $model) {
-            $this->flushSearchIndexForModel($model);
-
-            $command->info('Search index flushed for model: '.$model);
-        }
-
-        $command->newLine();
-        $command->info('Search index has been flushed.');
     }
 
     protected function flushSearchIndexForModel(string $model): void

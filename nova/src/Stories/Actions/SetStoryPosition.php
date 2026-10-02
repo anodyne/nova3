@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Data\StoryPositionData;
 use Nova\Stories\Enums\PositionDirection;
 use Nova\Stories\Models\Story;
 
-class SetStoryPosition
+class SetStoryPosition extends Action
 {
-    use AsAction;
-
     public function handle(Story $story, StoryPositionData $data): void
     {
         if (! $data->hasPositionChange) {

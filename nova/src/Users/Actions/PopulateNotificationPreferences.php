@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Enums\NotificationAudience;
 use Nova\Foundation\Models\NotificationType;
 use Nova\Users\Models\User;
 
-class PopulateNotificationPreferences
+class PopulateNotificationPreferences extends Action
 {
-    use AsAction;
-
     public function handle(User $user): User
     {
         NotificationType::query()

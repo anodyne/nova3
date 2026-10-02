@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\AssignCharacterOwnersData;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\Action;
 
-class AssignCharacterOwners
+class AssignCharacterOwners extends Action
 {
-    use AsAction;
-
     public function handle(Character $character, AssignCharacterOwnersData $data): Character
     {
         $users = collect($data->users)

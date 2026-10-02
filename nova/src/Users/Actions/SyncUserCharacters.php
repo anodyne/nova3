@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Actions\SetCharacterType;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Data\AssignUserCharactersData;
 use Nova\Users\Models\User;
 
-class SyncUserCharacters
+class SyncUserCharacters extends Action
 {
-    use AsAction;
-
     public function handle(User $user, AssignUserCharactersData $data): User
     {
         $characters = collect($data->characters)

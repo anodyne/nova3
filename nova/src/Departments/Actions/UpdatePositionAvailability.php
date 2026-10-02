@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Enums\CharacterType;
 use Nova\Characters\Models\States\Status\Active;
 use Nova\Characters\Models\States\Status\Inactive;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Actions\Action;
 
-class UpdatePositionAvailability
+class UpdatePositionAvailability extends Action
 {
-    use AsAction;
-
     public function handle(CharacterPositionsData $data): void
     {
         $decrementData = match (true) {

@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Data\PostStatusData;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\States\PostStatus\Draft;
 use Nova\Stories\Models\States\PostStatus\Pending;
 use Nova\Stories\Models\States\PostStatus\Published;
 
-class UpdatePostStatus
+class UpdatePostStatus extends Action
 {
-    use AsAction;
-
     /** @var array<string, class-string> */
     protected array $statuses = [
         'draft' => Draft::class,

@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Actions\ActivateCharacter;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Models\CharacterUser;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Models\User;
 
-class ActivateUserPreviousCharacter
+class ActivateUserPreviousCharacter extends Action
 {
-    use AsAction;
-
     public function handle(User $user): void
     {
         $primaryCharacters = $user->characters->filter(

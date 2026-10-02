@@ -6,13 +6,11 @@ namespace Nova\Stories\Actions;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Models\Story;
 
-class DeleteStoriesManager
+class DeleteStoriesManager extends Action
 {
-    use AsAction;
-
     public function handle(Request $request): int
     {
         return DB::transaction(function () use ($request): int {

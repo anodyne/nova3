@@ -6,14 +6,12 @@ namespace Nova\Discussions\Actions;
 
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Discussions\Models\Discussion;
 use Nova\Discussions\Notifications\DiscussionParticipantExited;
+use Nova\Foundation\Actions\Action;
 
-class LeaveDiscussion
+class LeaveDiscussion extends Action
 {
-    use AsAction;
-
     public function handle(Discussion $discussion): Discussion
     {
         $user = Auth::user();

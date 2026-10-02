@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Applications\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Data\ApplicationData;
 use Nova\Applications\Models\Application;
 use Nova\Characters\Actions\AssignCharacterOwners;
@@ -17,6 +16,7 @@ use Nova\Characters\Models\Character;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\Action;
 use Nova\Onboarding\Actions\StartOnboarding;
 use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\PublicSite\Requests\StoreApplicationRequest;
@@ -27,10 +27,8 @@ use Nova\Users\Actions\PopulateUserModerations;
 use Nova\Users\Data\UserData;
 use Nova\Users\Models\User;
 
-class CreateApplicationFromJoinFormManager
+class CreateApplicationFromJoinFormManager extends Action
 {
-    use AsAction;
-
     public function handle(StoreApplicationRequest $request): void
     {
         DB::transaction(function () use ($request): void {

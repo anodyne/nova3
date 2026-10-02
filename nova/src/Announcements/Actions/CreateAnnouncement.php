@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Nova\Announcements\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Data\AnnouncementData;
 use Nova\Announcements\Events\AnnouncementPublished;
 use Nova\Announcements\Models\Announcement;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Enums\PublishStatus;
 
-class CreateAnnouncement
+class CreateAnnouncement extends Action
 {
-    use AsAction;
-
     public function handle(AnnouncementData $data): Announcement
     {
         return DB::transaction(function () use ($data): Announcement {

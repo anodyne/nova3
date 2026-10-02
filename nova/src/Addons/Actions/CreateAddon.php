@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Data\AddonData;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Actions\Action;
 
-class CreateAddon
+class CreateAddon extends Action
 {
-    use AsAction;
-
     public function handle(AddonData $data): Addon
     {
         return Addon::create($data->toArray());

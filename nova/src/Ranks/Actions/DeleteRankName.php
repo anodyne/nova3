@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Ranks\Models\RankName;
 
-class DeleteRankName
+class DeleteRankName extends Action
 {
-    use AsAction;
-
     public function handle(RankName $name): RankName
     {
         return tap($name)->delete();

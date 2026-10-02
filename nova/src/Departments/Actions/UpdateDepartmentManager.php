@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\UpdateDepartmentRequest;
+use Nova\Foundation\Actions\Action;
 use Nova\Media\Actions\UploadImage;
 
-class UpdateDepartmentManager
+class UpdateDepartmentManager extends Action
 {
-    use AsAction;
-
     public function handle(Department $department, UpdateDepartmentRequest $request): Department
     {
         $department = UpdateDepartment::run(

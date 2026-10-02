@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Data\PostAuthorsData;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostAuthor;
@@ -14,10 +14,8 @@ use Nova\Stories\Notifications\CharacterAuthorRemovedFromPost;
 use Nova\Stories\Notifications\UserAuthorAddedToPost;
 use Nova\Stories\Notifications\UserAuthorRemovedFromPost;
 
-class UpdatePostAuthors
+class UpdatePostAuthors extends Action
 {
-    use AsAction;
-
     public function handle(Post $post, PostAuthorsData $data, bool $sendNotifications = true): Post
     {
         $this->updateCharacterAuthors($post, $data->characters);

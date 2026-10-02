@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Announcements\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Models\Announcement;
 use Nova\Announcements\Models\AnnouncementNotification;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Models\User;
 
-class MarkAnnouncementRead
+class MarkAnnouncementRead extends Action
 {
-    use AsAction;
-
     public function handle(Announcement $announcement, User $user): void
     {
         AnnouncementNotification::query()

@@ -8,15 +8,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use LogicException;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Data\BanData;
 use Nova\Users\Models\Ban;
 use Nova\Users\Models\States\Status\Banned;
 
-class BanUserManager
+class BanUserManager extends Action
 {
-    use AsAction;
-
     public function handle(BanData $data): Ban
     {
         return DB::transaction(function () use ($data) {

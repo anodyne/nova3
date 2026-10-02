@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
-use Lorisleiva\Actions\Concerns\AsObject;
 use Nova\Characters\Data\AssignCharacterOwnersData;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Models\User;
 
-class ResetPrimaryCharacter
+class ResetPrimaryCharacter extends Action
 {
-    use AsObject;
-
     public function handle(Character $character, AssignCharacterOwnersData $data): Character
     {
         collect($data->primaryUsers)

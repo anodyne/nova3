@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Settings\Actions;
 
 use Exception;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\EnvWriter;
 use Nova\Settings\Data\EnvironmentConfiguration;
 
-class UpdateEnvironment
+class UpdateEnvironment extends Action
 {
-    use AsAction;
-
     public function handle(EnvironmentConfiguration $data): void
     {
         $envWriter = app(EnvWriter::class);

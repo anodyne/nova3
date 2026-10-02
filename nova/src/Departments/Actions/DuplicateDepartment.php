@@ -6,15 +6,13 @@ namespace Nova\Departments\Actions;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Data\DepartmentData;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Actions\Action;
 
-class DuplicateDepartment
+class DuplicateDepartment extends Action
 {
-    use AsAction;
-
     public function handle(Department $original, DepartmentData $data): Department
     {
         return DB::transaction(function () use ($original, $data) {

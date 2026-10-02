@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Models\Post;
 use Nova\Stories\Models\PostType;
 
-class MovePostTypePosts
+class MovePostTypePosts extends Action
 {
-    use AsAction;
-
     public function handle(PostType $oldPostType, ?PostType $newPostType): void
     {
         Post::query()

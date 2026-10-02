@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use NicoBleiler\Passphrase\Facades\Passphrase;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\Action;
 
-class DuplicateForm
+class DuplicateForm extends Action
 {
-    use AsAction;
-
     public function handle(Form $original): Form
     {
         $form = activity()->withoutLogging(function () use ($original) {

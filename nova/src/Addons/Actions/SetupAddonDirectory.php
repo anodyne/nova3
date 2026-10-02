@@ -4,29 +4,18 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Actions;
 
-use Illuminate\Console\Command;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Data\AddonData;
 use Nova\Addons\Enums\AddonType;
 use Nova\Addons\Exceptions\AddonAlreadyExistsException;
 use Nova\Addons\Exceptions\AddonRanksAlreadyExistsException;
+use Nova\Foundation\Actions\Action;
 use RuntimeException;
-use Throwable;
 
-class SetupAddonDirectory
+class SetupAddonDirectory extends Action
 {
-    use AsAction;
-
-    public string $commandSignature = 'nova:make-addon
-                                       {name : The name of the add-on}
-                                       {--location= : Set a custom location for the add-on}
-                                       {--preview= : Set a custom preview image name for the add-on}';
-
-    public string $commandDescription = 'Scaffold a new add-on.';
-
     protected FilesystemAdapter $files;
 
     protected AddonData $data;
@@ -42,21 +31,6 @@ class SetupAddonDirectory
             AddonType::Genre => $this->createGenre(),
             AddonType::Rank => $this->createRankSet(),
         };
-    }
-
-    public function asCommand(Command $command): void
-    {
-        try {
-            $this->handle(AddonData::from([
-                'name' => $command->argument('name'),
-                'location' => $command->option('location'),
-                'preview' => $command->option('preview'),
-            ]));
-
-            $command->info('Add-on scaffold created successfully.');
-        } catch (Throwable $th) {
-            $command->error($th->getMessage());
-        }
     }
 
     protected function createExtension(): void

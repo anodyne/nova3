@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\FormField;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Actions\Action;
 
-class SyncFormSubmissionResponses
+class SyncFormSubmissionResponses extends Action
 {
-    use AsAction;
-
     /**
      * @param  array<string, mixed>  $values  Field UID to submitted value.
      */

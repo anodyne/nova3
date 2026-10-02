@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Nova\Settings\Actions;
 
 use Exception;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\EnvWriter;
 use Nova\Settings\Data\Email;
 use Nova\Settings\Data\EmailConfiguration;
 use Nova\Settings\Models\Settings;
 
-class UpdateEmail
+class UpdateEmail extends Action
 {
-    use AsAction;
-
     public function handle(Email $emailData, EmailConfiguration $emailConfigData): Settings
     {
         $envWriter = app(EnvWriter::class);

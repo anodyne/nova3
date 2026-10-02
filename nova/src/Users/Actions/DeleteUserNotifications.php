@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Lorisleiva\Actions\Concerns\AsObject;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Models\User;
 
-class DeleteUserNotifications
+class DeleteUserNotifications extends Action
 {
-    use AsObject;
-
     public function handle(User $user): void
     {
         $user->notificationPreferences()->delete();

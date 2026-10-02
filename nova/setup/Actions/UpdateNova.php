@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Actions;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Actions\RecacheIcons;
 
-class UpdateNova
+class UpdateNova extends Action
 {
-    use AsAction;
-
-    public string $commandSignature = 'nova:update';
-
     public function handle(): void
     {
         Artisan::call('migrate', [
@@ -29,12 +24,5 @@ class UpdateNova
         Artisan::call('view:cache');
 
         RecacheIcons::run();
-    }
-
-    public function asCommand(Command $command): void
-    {
-        $this->handle();
-
-        $command->info('Nova has been updated!');
     }
 }

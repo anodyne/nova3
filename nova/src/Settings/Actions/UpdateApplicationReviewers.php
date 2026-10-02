@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Nova\Settings\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Enums\ReviewerType;
 use Nova\Applications\Models\ApplicationReviewer;
+use Nova\Foundation\Actions\Action;
 use Nova\Settings\Data\ApplicationReviewers;
 
-class UpdateApplicationReviewers
+class UpdateApplicationReviewers extends Action
 {
-    use AsAction;
-
     public function handle(ApplicationReviewers $data): void
     {
         DB::transaction(function () use ($data): void {

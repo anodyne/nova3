@@ -6,13 +6,11 @@ namespace Nova\Settings\Actions;
 
 use Bag\Bag;
 use LogicException;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Settings\Models\Settings;
 
-class UpdateSettings
+class UpdateSettings extends Action
 {
-    use AsAction;
-
     public function handle(string $field, Bag $data): Settings
     {
         $settings = settings() ?? throw new LogicException('Settings are unavailable.');

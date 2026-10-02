@@ -6,15 +6,13 @@ namespace Nova\Discussions\Actions;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Discussions\Data\DiscussionData;
 use Nova\Discussions\Events\DiscussionStarted;
 use Nova\Discussions\Models\Discussion;
+use Nova\Foundation\Actions\Action;
 
-class StartDiscussion
+class StartDiscussion extends Action
 {
-    use AsAction;
-
     public function handle(DiscussionData $data): Discussion
     {
         return DB::transaction(function () use ($data) {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Stories\Providers;
 
 use Nova\DomainServiceProvider;
-use Nova\Stories\Actions\PruneAbandonedPosts;
 use Nova\Stories\Events\PostCreating;
 use Nova\Stories\Events\PostPublished;
 use Nova\Stories\Listeners\SendPostPublishedNotificationToDiscord;
@@ -32,13 +31,6 @@ use Nova\Stories\Spotlight\WritePost;
 
 class PostServiceProvider extends DomainServiceProvider
 {
-    public function consoleCommands(): array
-    {
-        return [
-            PruneAbandonedPosts::class,
-        ];
-    }
-
     public function eventListeners(): array
     {
         return [

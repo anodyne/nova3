@@ -6,16 +6,14 @@ namespace Nova\Announcements\Actions;
 
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Data\AnnouncementData;
 use Nova\Announcements\Events\AnnouncementPublished;
 use Nova\Announcements\Models\Announcement;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Enums\PublishStatus;
 
-class UpdateAnnouncement
+class UpdateAnnouncement extends Action
 {
-    use AsAction;
-
     public function handle(Announcement $announcement, AnnouncementData $data): Announcement
     {
         return DB::transaction(function () use ($announcement, $data): Announcement {

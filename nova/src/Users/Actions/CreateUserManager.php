@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace Nova\Users\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\Action;
 use Nova\Onboarding\Actions\StartOnboarding;
 use Nova\Onboarding\Enums\OnboardingProcess;
 use Nova\Users\Models\User;
 use Nova\Users\Requests\StoreUserRequest;
 
-class CreateUserManager
+class CreateUserManager extends Action
 {
-    use AsAction;
-
     public function handle(StoreUserRequest $request): User
     {
         return DB::transaction(function () use ($request) {

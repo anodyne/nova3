@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Departments\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Data\PositionData;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Actions\Action;
 
-class DuplicatePosition
+class DuplicatePosition extends Action
 {
-    use AsAction;
-
     public function handle(Position $original, PositionData $data): Position
     {
         return DB::transaction(function () use ($original, $data) {

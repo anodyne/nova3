@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Nova\Addons\Providers;
 
-use Nova\Addons\Actions\SetupAddonDirectory;
 use Nova\Addons\Livewire\AddonsList;
 use Nova\Addons\Models\Addon;
 use Nova\Addons\Spotlight\AddAddon;
@@ -15,13 +14,6 @@ use Nova\DomainServiceProvider;
 
 class AddonServiceProvider extends DomainServiceProvider
 {
-    public function consoleCommands(): array
-    {
-        return [
-            SetupAddonDirectory::class,
-        ];
-    }
-
     public function livewireComponents(): array
     {
         return [

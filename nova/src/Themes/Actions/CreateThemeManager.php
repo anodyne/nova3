@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Themes\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Themes\Models\Theme;
 use Nova\Themes\Requests\StoreThemeRequest;
 
-class CreateThemeManager
+class CreateThemeManager extends Action
 {
-    use AsAction;
-
     public function handle(StoreThemeRequest $request): Theme
     {
         return DB::transaction(function () use ($request) {

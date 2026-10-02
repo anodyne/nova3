@@ -7,7 +7,6 @@ namespace Nova\Applications\Actions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Data\ApplicationDecisionData;
 use Nova\Applications\Events\ApplicationAccepted as ApplicationAcceptedEvent;
 use Nova\Applications\Models\Application;
@@ -18,12 +17,11 @@ use Nova\Characters\Actions\SetCharacterType;
 use Nova\Characters\Actions\UpdateCharacter;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Data\CharacterData;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Actions\ActivateUser;
 
-class AcceptApplicationManager
+class AcceptApplicationManager extends Action
 {
-    use AsAction;
-
     public function handle(Application $application, ApplicationDecisionData $data): void
     {
         Gate::forUser(Auth::user())->authorize('decide', $application);

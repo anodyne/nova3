@@ -7,16 +7,14 @@ namespace Nova\Announcements\Actions;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Models\Announcement;
 use Nova\Announcements\Models\AnnouncementNotification;
 use Nova\Announcements\Notifications\AnnouncementPublished;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Models\User;
 
-class NotifyUsers
+class NotifyUsers extends Action
 {
-    use AsAction;
-
     public function handle(Announcement $announcement): void
     {
         /** @var User $currentUser */

@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Nova\Setup\Actions\Migration;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Setup\Livewire\Concerns\HandlesDates;
 
-abstract class Migration
+abstract class Migration extends Action
 {
-    use AsAction;
     use HandlesDates;
 }

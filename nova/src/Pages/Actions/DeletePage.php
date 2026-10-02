@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Pages\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Pages\Models\Page;
 
-class DeletePage
+class DeletePage extends Action
 {
-    use AsAction;
-
     public function handle(Page $page): Page
     {
         $page = tap($page)->delete();

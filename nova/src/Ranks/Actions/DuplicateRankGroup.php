@@ -6,15 +6,13 @@ namespace Nova\Ranks\Actions;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Ranks\Data\RankGroupData;
 use Nova\Ranks\Models\RankGroup;
 use Nova\Ranks\Models\RankItem;
 
-class DuplicateRankGroup
+class DuplicateRankGroup extends Action
 {
-    use AsAction;
-
     public function handle(RankGroup $original, RankGroupData $data): RankGroup
     {
         return DB::transaction(function () use ($original, $data) {

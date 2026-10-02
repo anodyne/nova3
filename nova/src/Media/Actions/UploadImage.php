@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Media\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Models\Model;
 use Nova\Media\Enums\ImageAction;
 use Spatie\MediaLibrary\HasMedia;
 
-class UploadImage
+class UploadImage extends Action
 {
-    use AsAction;
-
     public function handle(Model&HasMedia $model, string $collection, ImageAction $action, ?string $tempPath = null): Model
     {
         return match ($action) {

@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Pages\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Pages\Models\Page;
 use Nova\Pages\Requests\UpdatePageRequest;
 
-class UpdatePageManager
+class UpdatePageManager extends Action
 {
-    use AsAction;
-
     public function handle(Page $page, UpdatePageRequest $request): Page
     {
         return DB::transaction(function () use ($page, $request) {

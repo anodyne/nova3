@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Addons\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Models\Addon;
 use Nova\Addons\Requests\StoreAddonRequest;
+use Nova\Foundation\Actions\Action;
 
-class CreateAddonManager
+class CreateAddonManager extends Action
 {
-    use AsAction;
-
     public function handle(StoreAddonRequest $request): Addon
     {
         return DB::transaction(function () use ($request) {

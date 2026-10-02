@@ -7,6 +7,10 @@ use Nova\Addons\Actions\SetupAddonDirectory;
 use Nova\Themes\Actions\SetupThemeDirectory;
 use Nova\Users\Data\UserPostingReport;
 
+it('resolves the add-on scaffold action without runtime data', function () {
+    expect(app(SetupAddonDirectory::class))->toBeInstanceOf(SetupAddonDirectory::class);
+});
+
 it('reads scaffold stubs as strings', function () {
     $addonAction = new class extends SetupAddonDirectory
     {

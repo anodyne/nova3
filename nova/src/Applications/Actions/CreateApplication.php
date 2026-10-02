@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Data\ApplicationData;
 use Nova\Applications\Models\Application;
+use Nova\Foundation\Actions\Action;
 
-class CreateApplication
+class CreateApplication extends Action
 {
-    use AsAction;
-
     public function handle(ApplicationData $data): Application
     {
         return Application::create($data->toArray());

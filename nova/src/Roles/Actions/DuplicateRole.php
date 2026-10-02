@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Roles\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Roles\Data\RoleData;
 use Nova\Roles\Models\Role;
 
-class DuplicateRole
+class DuplicateRole extends Action
 {
-    use AsAction;
-
     public function handle(Role $original, RoleData $data): Role
     {
         if (! $original->is_locked) {

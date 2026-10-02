@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Nova\Discussions\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Discussions\Models\Discussion;
+use Nova\Foundation\Actions\Action;
 
-class DeleteDiscussion
+class DeleteDiscussion extends Action
 {
-    use AsAction;
-
     public function handle(Discussion $discussion): void
     {
         DB::transaction(function () use ($discussion): void {

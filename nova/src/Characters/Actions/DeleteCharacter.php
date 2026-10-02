@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\Action;
 
-class DeleteCharacter
+class DeleteCharacter extends Action
 {
-    use AsAction;
-
     public function handle(Character $character): Character
     {
         if (! $character->trashed()) {

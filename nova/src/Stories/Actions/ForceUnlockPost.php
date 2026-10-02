@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Models\Post;
 
-class ForceUnlockPost
+class ForceUnlockPost extends Action
 {
-    use AsAction;
-
     public function handle(Post $post): void
     {
         $post->unlock();

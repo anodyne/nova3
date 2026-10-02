@@ -5,18 +5,16 @@ declare(strict_types=1);
 namespace Nova\Characters\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\CharacterPositionsData;
 use Nova\Characters\Models\Character;
 use Nova\Characters\Requests\UpdateCharacterRequest;
 use Nova\Departments\Actions\UpdatePositionAvailability;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Actions\UpdateFormSubmission;
+use Nova\Foundation\Actions\Action;
 
-class UpdateCharacterManager
+class UpdateCharacterManager extends Action
 {
-    use AsAction;
-
     public function handle(
         Character $character,
         UpdateCharacterRequest $request

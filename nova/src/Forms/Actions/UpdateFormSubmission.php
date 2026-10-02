@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Actions\Action;
 
-class UpdateFormSubmission
+class UpdateFormSubmission extends Action
 {
-    use AsAction;
-
     public function handle(FormSubmission $submission): FormSubmission
     {
         return tap($submission)

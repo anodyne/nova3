@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\Action;
 
-class DeleteForm
+class DeleteForm extends Action
 {
-    use AsAction;
-
     public function handle(Form $form): Form
     {
         return tap($form)->delete();

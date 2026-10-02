@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReview;
 use Nova\Applications\Notifications\ApplicationReviewerVotedToAccept;
 use Nova\Applications\Notifications\ApplicationReviewerVotedToDeny;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Models\User;
 
-class NotifyReviewersOfVote
+class NotifyReviewersOfVote extends Action
 {
-    use AsAction;
-
     public function handle(Application $application, User $reviewer, ApplicationReview $review): void
     {
         $reviewers = $application->reviews;

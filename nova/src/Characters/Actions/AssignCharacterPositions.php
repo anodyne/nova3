@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Characters\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Characters\Data\AssignCharacterPositionsData;
 use Nova\Characters\Models\Character;
+use Nova\Foundation\Actions\Action;
 
-class AssignCharacterPositions
+class AssignCharacterPositions extends Action
 {
-    use AsAction;
-
     public function handle(Character $character, AssignCharacterPositionsData $data): Character
     {
         $positions = collect($data->positions)->filter();

@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Nova\Forms\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\Action;
 
-class PublishFormManager
+class PublishFormManager extends Action
 {
-    use AsAction;
-
     public function handle(Form $form): Form
     {
         // Create/update fields in the database

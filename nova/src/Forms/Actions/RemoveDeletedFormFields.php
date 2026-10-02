@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormField;
+use Nova\Foundation\Actions\Action;
 
-class RemoveDeletedFormFields
+class RemoveDeletedFormFields extends Action
 {
-    use AsAction;
-
     public function handle(Form $form): void
     {
         $fieldUids = collect($form->published_fields ?? [])

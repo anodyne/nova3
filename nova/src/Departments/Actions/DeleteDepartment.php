@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Departments\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Models\Position;
+use Nova\Foundation\Actions\Action;
 
-class DeleteDepartment
+class DeleteDepartment extends Action
 {
-    use AsAction;
-
     public function handle(Department $department): Department
     {
         return DB::transaction(function () use ($department) {

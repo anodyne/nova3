@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Models\Story;
 
-class MoveStory
+class MoveStory extends Action
 {
-    use AsAction;
-
     public function handle(Story $story, ?Story $newParent): Story
     {
         return tap($story)

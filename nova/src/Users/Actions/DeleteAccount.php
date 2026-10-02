@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Nova\Users\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Announcements\Models\AnnouncementNotification;
 use Nova\Discussions\Models\DiscussionNotification;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Enums\PublishStatus;
 use Nova\Users\Models\User;
 
-class DeleteAccount
+class DeleteAccount extends Action
 {
-    use AsAction;
-
     public function handle(User $user): void
     {
         DB::transaction(function () use ($user): void {

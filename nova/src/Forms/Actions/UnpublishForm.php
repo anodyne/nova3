@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Forms\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\Action;
 
-class UnpublishForm
+class UnpublishForm extends Action
 {
-    use AsAction;
-
     public function handle(Form $form): Form
     {
         activity()->withoutLogging(function () use ($form): void {

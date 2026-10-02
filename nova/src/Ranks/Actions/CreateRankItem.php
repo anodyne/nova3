@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Ranks\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Ranks\Data\RankItemData;
 use Nova\Ranks\Models\RankItem;
 
-class CreateRankItem
+class CreateRankItem extends Action
 {
-    use AsAction;
-
     public function handle(RankItemData $data): RankItem
     {
         return RankItem::create($data->toArray());

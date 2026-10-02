@@ -4,27 +4,15 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Actions;
 
-use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemManager;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Themes\Data\ThemeData;
 use Nova\Themes\Exceptions\ThemeException;
 use RuntimeException;
-use Throwable;
 
-class SetupThemeDirectory
+class SetupThemeDirectory extends Action
 {
-    use AsAction;
-
-    public string $commandDescription = 'Scaffold a new theme.';
-
-    public string $commandSignature = 'nova:make-theme
-                                       {name : The name of the theme}
-                                       {--location= : Set a custom location for the theme}
-                                       {--preview= : Set a custom preview image name for the theme}
-                                       {--variants=* : Set the variants for the theme}';
-
     protected ThemeData $data;
 
     protected Filesystem $files;
@@ -32,22 +20,6 @@ class SetupThemeDirectory
     public function __construct(FilesystemManager $files)
     {
         $this->files = $files->disk('themes');
-    }
-
-    public function asCommand(Command $command): void
-    {
-        try {
-            $this->handle(ThemeData::from([
-                'name' => $command->argument('name'),
-                'location' => $command->option('location'),
-                'preview' => $command->option('preview'),
-                'variants' => $command->option('variants'),
-            ]));
-
-            $command->info('Theme scaffold created successfully.');
-        } catch (Throwable $th) {
-            $command->error($th->getMessage());
-        }
     }
 
     public function handle(ThemeData $data): void

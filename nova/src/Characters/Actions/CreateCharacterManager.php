@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Characters\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Actions\CreateApplicationManager;
 use Nova\Applications\Data\ApplicationData;
 use Nova\Characters\Data\CharacterPositionsData;
@@ -15,11 +14,10 @@ use Nova\Departments\Actions\UpdatePositionAvailability;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\Action;
 
-class CreateCharacterManager
+class CreateCharacterManager extends Action
 {
-    use AsAction;
-
     public function handle(StoreCharacterRequest $request): Character
     {
         return DB::transaction(function () use ($request) {

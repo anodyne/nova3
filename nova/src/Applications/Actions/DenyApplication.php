@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Applications\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Enums\ApplicationResult;
 use Nova\Applications\Models\Application;
+use Nova\Foundation\Actions\Action;
 
-class DenyApplication
+class DenyApplication extends Action
 {
-    use AsAction;
-
     public function handle(Application $application, ?string $message = null): Application
     {
         $application->update([

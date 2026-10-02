@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Themes\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Themes\Models\Theme;
 
-class DeleteTheme
+class DeleteTheme extends Action
 {
-    use AsAction;
-
     public function handle(Theme $theme): Theme
     {
         return tap($theme)->delete();

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Discussions\Models\Discussion;
+use Nova\Foundation\Actions\Action;
 
-class RemoveParticipantsFromDiscussion
+class RemoveParticipantsFromDiscussion extends Action
 {
-    use AsAction;
-
     /** @param list<int|string> $participants */
     public function handle(Discussion $discussion, array $participants): Discussion
     {

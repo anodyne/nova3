@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Nova\Themes\Actions;
 
 use Illuminate\Support\Facades\Storage;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Data\AddonRepository;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Enums\BasicStatus;
 use Nova\Settings\Data\FontFamilies;
 use Nova\Setup\Randomize;
@@ -15,10 +15,8 @@ use Nova\Themes\Data\ThemeSettings;
 use Nova\Themes\Events\ThemeInstalled;
 use Nova\Themes\Models\Theme;
 
-class InstallTheme
+class InstallTheme extends Action
 {
-    use AsAction;
-
     public function handle(string $path): Theme
     {
         $data = json_decode(Storage::disk('themes')->get("{$path}/theme.json"), true);

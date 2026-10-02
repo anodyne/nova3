@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Menus\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Menus\Data\MenuItemData;
 use Nova\Menus\Models\Menu;
 use Nova\Menus\Models\MenuItem;
 
-class CreateMenuItem
+class CreateMenuItem extends Action
 {
-    use AsAction;
-
     public function handle(MenuItemData $data): MenuItem
     {
         $menu = Menu::public()->first();

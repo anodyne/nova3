@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Addons\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Enums\BasicStatus;
 
-class EnsureSingularActiveGenre
+class EnsureSingularActiveGenre extends Action
 {
-    use AsAction;
-
     public function handle(Addon $addon): void
     {
         DB::transaction(function () use ($addon): void {

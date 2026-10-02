@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Nova\Departments\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Departments\Models\Department;
 use Nova\Departments\Requests\StoreDepartmentRequest;
+use Nova\Foundation\Actions\Action;
 use Nova\Media\Actions\UploadImage;
 
-class CreateDepartmentManager
+class CreateDepartmentManager extends Action
 {
-    use AsAction;
-
     public function handle(StoreDepartmentRequest $request): Department
     {
         $department = CreateDepartment::run($request->getDepartmentData());

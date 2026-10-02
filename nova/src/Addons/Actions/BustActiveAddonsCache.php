@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Nova\Addons\Actions;
 
 use Illuminate\Support\Facades\Cache;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Addons\Models\Addon;
+use Nova\Foundation\Actions\Action;
 use Nova\Foundation\Enums\CacheKeys;
 
-class BustActiveAddonsCache
+class BustActiveAddonsCache extends Action
 {
-    use AsAction;
-
     public function handle(): void
     {
         Cache::forget(CacheKeys::Addons->value);

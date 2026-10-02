@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Nova\Stories\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Media\Actions\UploadImage;
 use Nova\Stories\Models\Story;
 use Nova\Stories\Requests\StoreStoryRequest;
 
-class CreateStoryManager
+class CreateStoryManager extends Action
 {
-    use AsAction;
-
     public function handle(StoreStoryRequest $request): Story
     {
         return DB::transaction(function () use ($request) {

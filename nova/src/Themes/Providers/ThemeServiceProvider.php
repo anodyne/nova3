@@ -7,7 +7,6 @@ namespace Nova\Themes\Providers;
 use Nova\DomainServiceProvider;
 use Nova\Foundation\Nova;
 use Nova\Settings\Models\Settings;
-use Nova\Themes\Actions\SetupThemeDirectory;
 use Nova\Themes\BaseTheme;
 use Nova\Themes\Livewire\ThemeSelector;
 use Nova\Themes\Livewire\ThemeSettings;
@@ -18,13 +17,6 @@ use UnexpectedValueException;
 
 class ThemeServiceProvider extends DomainServiceProvider
 {
-    public function consoleCommands(): array
-    {
-        return [
-            SetupThemeDirectory::class,
-        ];
-    }
-
     public function domainBooted(): void
     {
         if (Nova::isInstalled()) {

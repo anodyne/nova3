@@ -6,14 +6,12 @@ namespace Nova\Forms\Actions;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Forms\Models\Form;
 use Nova\Forms\Models\FormSubmission;
+use Nova\Foundation\Actions\Action;
 
-class CreateFormSubmission
+class CreateFormSubmission extends Action
 {
-    use AsAction;
-
     /**
      * @param  array<string, mixed>|null  $meta
      */

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Stories\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Data\StoryData;
 use Nova\Stories\Models\Story;
 
-class CreateStory
+class CreateStory extends Action
 {
-    use AsAction;
-
     public function handle(StoryData $data): Story
     {
         return Story::create($data->toArray());

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Nova\Roles\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Roles\Models\Role;
 
-class DeleteRole
+class DeleteRole extends Action
 {
-    use AsAction;
-
     public function handle(Role $role): Role
     {
         if (! $role->is_locked) {

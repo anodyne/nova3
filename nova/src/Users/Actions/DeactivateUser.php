@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Users\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Models\States\Status\Inactive;
 use Nova\Users\Models\User;
 
-class DeactivateUser
+class DeactivateUser extends Action
 {
-    use AsAction;
-
     public function handle(User $user): User
     {
         if ($user->status->canTransitionTo(Inactive::class)) {

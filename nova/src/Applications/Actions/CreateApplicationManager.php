@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Applications\Actions;
 
 use Illuminate\Support\Facades\DB;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Applications\Data\ApplicationData;
 use Nova\Applications\Models\Application;
 use Nova\Applications\Models\ApplicationReviewer;
@@ -13,12 +12,11 @@ use Nova\Applications\Notifications\ApplicationReadyForReview;
 use Nova\Forms\Actions\CreateFormSubmission;
 use Nova\Forms\Actions\SyncFormSubmissionResponses;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Actions\Action;
 use Nova\Users\Models\User;
 
-class CreateApplicationManager
+class CreateApplicationManager extends Action
 {
-    use AsAction;
-
     /**
      * @param  array<string, mixed>  $applicationInfoData
      */

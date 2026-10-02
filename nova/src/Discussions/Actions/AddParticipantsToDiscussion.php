@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Nova\Discussions\Actions;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Nova\Discussions\Data\DiscussionParticipantsData;
 use Nova\Discussions\Models\Discussion;
+use Nova\Foundation\Actions\Action;
 
-class AddParticipantsToDiscussion
+class AddParticipantsToDiscussion extends Action
 {
-    use AsAction;
-
     public function handle(Discussion $discussion, DiscussionParticipantsData $data): Discussion
     {
         $discussion->participants()->attach([
