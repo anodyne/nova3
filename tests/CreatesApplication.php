@@ -9,11 +9,14 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\CachedState;
 use Illuminate\Foundation\Testing\WithCachedConfig;
 use Illuminate\Foundation\Testing\WithCachedRoutes;
+use LivewireUI\Spotlight\Spotlight;
 
 trait CreatesApplication
 {
     public function createApplication(): Application
     {
+        Spotlight::$commands = [];
+
         $app = require __DIR__.'/../nova/bootstrap/app.php';
 
         $traitsUsedByTest = class_uses_recursive(static::class);
