@@ -66,7 +66,6 @@ describe('authorized user', function () {
         $title = 'Nullable Create Story '.str()->random(10);
 
         from(route('admin.stories.create'))
-            ->followingRedirects()
             ->post(route('admin.stories.store'), [
                 'title' => $title,
                 'status' => 'upcoming',
@@ -78,7 +77,8 @@ describe('authorized user', function () {
                 'display_direction' => null,
                 'display_neighbor' => null,
             ])
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         assertDatabaseHas(Story::class, [
             'title' => $title,
@@ -103,7 +103,6 @@ describe('authorized user', function () {
         ]);
 
         from(route('admin.stories.edit', $story))
-            ->followingRedirects()
             ->put(route('admin.stories.update', $story), [
                 'title' => $story->title,
                 'status' => 'upcoming',
@@ -115,7 +114,8 @@ describe('authorized user', function () {
                 'display_direction' => null,
                 'display_neighbor' => null,
             ])
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.edit', $story)
+            ->assertSessionHasNoErrors();
 
         assertDatabaseHas(Story::class, [
             'id' => $story->id,

@@ -42,7 +42,6 @@ describe('authorized user', function () {
         Event::fake();
 
         from(route('admin.stories.delete', $this->story))
-            ->followingRedirects()
             ->delete(route('admin.stories.destroy'), [
                 'actions' => json_encode([
                     $this->story->id => [
@@ -51,7 +50,8 @@ describe('authorized user', function () {
                     ],
                 ]),
             ])
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         assertDatabaseMissing(Story::class, $this->story->toArray());
 
@@ -65,7 +65,6 @@ describe('authorized user', function () {
         $newStory = $this->story;
 
         from(route('admin.stories.delete', $storyToDelete))
-            ->followingRedirects()
             ->delete(route('admin.stories.destroy'), [
                 'actions' => json_encode([
                     $storyToDelete->id => [
@@ -74,7 +73,8 @@ describe('authorized user', function () {
                     ],
                 ]),
             ])
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         assertDatabaseMissing(Story::class, $storyToDelete->toArray());
 
@@ -88,7 +88,6 @@ describe('authorized user', function () {
         $childStory = $this->story->stories->first();
 
         from(route('admin.stories.delete', $storyToDelete))
-            ->followingRedirects()
             ->delete(route('admin.stories.destroy'), [
                 'actions' => json_encode([
                     $storyToDelete->id => [
@@ -101,7 +100,8 @@ describe('authorized user', function () {
                     ],
                 ]),
             ])
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         assertDatabaseMissing(Story::class, [
             'title' => $storyToDelete->title,

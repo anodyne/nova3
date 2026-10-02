@@ -40,9 +40,9 @@ describe('authorized user', function () {
         $data = Story::factory()->make();
 
         from(route('admin.stories.edit', $this->story))
-            ->followingRedirects()
             ->put(route('admin.stories.update', $this->story), $data->toArray())
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.edit', $this->story)
+            ->assertSessionHasNoErrors();
 
         assertDatabaseHas(Story::class, $data->toArray());
 
@@ -63,9 +63,9 @@ describe('authorized user', function () {
         );
 
         from(route('admin.stories.edit', $this->story))
-            ->followingRedirects()
             ->put(route('admin.stories.update', $this->story), $data)
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.edit', $this->story)
+            ->assertSessionHasNoErrors();
 
         $this->story->refresh();
 
@@ -95,9 +95,9 @@ describe('authorized user', function () {
         );
 
         from(route('admin.stories.edit', $this->story))
-            ->followingRedirects()
             ->put(route('admin.stories.update', $this->story), $data)
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.edit', $this->story)
+            ->assertSessionHasNoErrors();
 
         $this->story->refresh();
 

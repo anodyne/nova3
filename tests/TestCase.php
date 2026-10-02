@@ -6,6 +6,8 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Foundation\Testing\WithCachedConfig;
+use Illuminate\Foundation\Testing\WithCachedRoutes;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ViewErrorBag;
@@ -16,6 +18,8 @@ abstract class TestCase extends BaseTestCase
     use LazilyRefreshDatabase {
         migrateDatabases as baseMigrateDatabases;
     }
+    use WithCachedConfig;
+    use WithCachedRoutes;
 
     protected function setUp(): void
     {
@@ -25,12 +29,15 @@ abstract class TestCase extends BaseTestCase
 
         View::share('errors', new ViewErrorBag);
 
+        Http::preventStrayRequests();
+
         Http::fake([
-            'nova3.test/api/version' => Http::response([
+            config('services.anodyne.api.latest-version') => Http::response([
                 'severity' => 'patch',
                 'version' => '3.0.0-alpha19',
                 'notes' => 'Sint eiusmod esse sint elit anim aliqua non ex consectetur.',
             ]),
+            config('services.anodyne.api.next-version') => Http::response('null'),
             'api.github.com/repos/anodyne/nova3/releases' => Http::response([
                 [
                     'url' => 'https://api.github.com/repos/anodyne/nova3/releases/233573708',

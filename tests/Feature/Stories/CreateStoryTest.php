@@ -35,9 +35,9 @@ describe('authorized user', function () {
         $data = Story::factory()->upcoming()->make();
 
         from(route('admin.stories.create'))
-            ->followingRedirects()
             ->post(route('admin.stories.store'), $data->toArray())
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         assertDatabaseHas(Story::class, $data->toArray());
 
@@ -48,9 +48,9 @@ describe('authorized user', function () {
         $data = Story::factory()->upcoming()->withParent()->make();
 
         from(route('admin.stories.create'))
-            ->followingRedirects()
             ->post(route('admin.stories.store'), $data->toArray())
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         assertDatabaseHas(Story::class, $data->toArray());
     });
@@ -68,9 +68,9 @@ describe('authorized user', function () {
         );
 
         from(route('admin.stories.create'))
-            ->followingRedirects()
             ->post(route('admin.stories.store'), $data)
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         $existingStory->refresh();
         $createdStory = Story::where('title', $data['title'])->first();
@@ -91,9 +91,9 @@ describe('authorized user', function () {
         );
 
         from(route('admin.stories.create'))
-            ->followingRedirects()
             ->post(route('admin.stories.store'), $data)
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         $existingStory->refresh();
         $createdStory = Story::where('title', $data['title'])->first();
@@ -115,9 +115,9 @@ describe('authorized user', function () {
         );
 
         from(route('admin.stories.create'))
-            ->followingRedirects()
             ->post(route('admin.stories.store'), $data)
-            ->assertSuccessful();
+            ->assertRedirectToRoute('admin.stories.index')
+            ->assertSessionHasNoErrors();
 
         $story = Story::where('title', $data['title'])->first();
 

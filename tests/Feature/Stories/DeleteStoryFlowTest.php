@@ -44,7 +44,6 @@ test('deleting posts also removes author pivot rows', function (): void {
     expect(DB::table('post_author')->whereIn('post_id', $postIds)->count())->toBeGreaterThan(0);
 
     from(route('admin.stories.delete', $story))
-        ->followingRedirects()
         ->delete(route('admin.stories.destroy'), [
             'actions' => json_encode([
                 $story->id => [
@@ -53,7 +52,8 @@ test('deleting posts also removes author pivot rows', function (): void {
                 ],
             ]),
         ])
-        ->assertSuccessful();
+        ->assertRedirectToRoute('admin.stories.index')
+        ->assertSessionHasNoErrors();
 
     assertDatabaseMissing(Story::class, ['id' => $story->id]);
     expect(DB::table('post_author')->whereIn('post_id', $postIds)->count())->toBe(0);
