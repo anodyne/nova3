@@ -20,10 +20,6 @@ class BagCastModelHook implements ModelHookInterface
         )->keyBy('name');
 
         foreach ($model->getCasts() as $attribute => $cast) {
-            if (! is_string($cast)) {
-                continue;
-            }
-
             $castClass = explode(':', $cast, 2)[0];
 
             if (! class_exists($castClass) || ! is_a($castClass, Bag::class, true)) {
