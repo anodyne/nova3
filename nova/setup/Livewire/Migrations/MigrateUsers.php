@@ -54,7 +54,7 @@ class MigrateUsers extends MigrationStep
     {
         return $this->query()
             ->get()
-            ->map(fn ($user): JobDecorator => MigrateUser::makeJob($user));
+            ->map(fn ($user): JobDecorator => new JobDecorator(MigrateUser::class, $user));
     }
 
     protected function query(): Builder

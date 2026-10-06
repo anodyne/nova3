@@ -1,7 +1,8 @@
 {
+    "$schema": "https://www.schemastore.org/package.json",
     "private": true,
     "license": "MIT",
-    "packageManager": "bun@1.3.14",
+    "packageManager": "bun@1.4.2",
     "scripts": {
         "cleanup": "rm -rf ./node_modules",
         "css:build": "cross-env ENV_BUILD=prod postcss nova/resources/css/app.css --base nova/resources --dir public/dist --verbose",

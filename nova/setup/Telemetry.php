@@ -65,7 +65,7 @@ class Telemetry
             'url' => url('/'),
             'version' => Nova::filesVersion(),
             'genre' => Addon::active()->genre()->first()->location ?? 'blank',
-            'install_date' => $this->systemInfo->install_date?->format('Y-m-d h:i:s'),
+            'install_date' => $this->systemInfo->install_date->format('Y-m-d h:i:s'),
         ];
     }
 
