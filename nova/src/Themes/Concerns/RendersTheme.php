@@ -24,7 +24,7 @@ trait RendersTheme
     /** @param array<string, mixed> $data */
     public function layout(string $view, array $data = []): static
     {
-        $this->structure->layout = View::make("layouts.{$view}", $data);
+        $this->structure->layout = View::first(["layouts.{$view}"], $data);
 
         return $this;
     }
@@ -32,7 +32,7 @@ trait RendersTheme
     /** @param array<string, mixed> $data */
     public function page(string $view, array $data = []): static
     {
-        $this->structure->layout->template->content = View::make("pages.{$view}", $data);
+        $this->structure->layout->template->content = View::first(["pages.{$view}"], $data);
 
         return $this;
     }
@@ -82,7 +82,7 @@ trait RendersTheme
     /** @param array<string, mixed> $data */
     public function template(string $view, array $data = []): static
     {
-        $this->structure->layout->template = View::make("templates.{$view}", $data);
+        $this->structure->layout->template = View::first(["templates.{$view}"], $data);
 
         return $this;
     }
