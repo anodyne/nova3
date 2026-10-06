@@ -11,19 +11,18 @@ use Nova\Users\Models\User;
 
 class UpdateContributorWordCount extends Action
 {
-    public function handle(Post $post, User $user, int $oldWordCount): Post
+    public function handle(Post $post, User $user, int $wordCountDiff): void
     {
+        if ($wordCountDiff <= 0) {
+            return;
+        }
+
         $postAuthorPivot = PostAuthor::query()
             ->wherePost($post)
             ->whereUser($user)
-            ->first();
+            ->orderBy('id')
+            ->firstOrFail();
 
-        $wordCountDiff = $post->word_count - $oldWordCount;
-
-        if ($wordCountDiff > 0) {
-            $postAuthorPivot->increment('word_count', $wordCountDiff);
-        }
-
-        return $post->refresh();
+        $postAuthorPivot->increment('word_count', $wordCountDiff);
     }
 }

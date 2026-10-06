@@ -113,3 +113,21 @@ it('updates existing contributor word count when saved', function () {
 
     expect($postAuthorPivot->word_count)->toBe(172);
 });
+
+it('does not signal completion when contributor credit cannot be saved', function () {
+    signInAs($this->user);
+    $this->post->userAuthors()->detach($this->user);
+
+    livewire(PostDetails::class, ['post' => $this->post])
+        ->set('title', 'Unsaved title')
+        ->set('content', '<p>New content</p>')
+        ->dispatch('save-post')
+        ->assertNotDispatched('save-post-completed');
+
+    assertDatabaseHas(Post::class, [
+        'id' => $this->post->id,
+        'title' => 'Post title',
+        'content' => '',
+        'word_count' => 0,
+    ]);
+});

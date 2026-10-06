@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Nova\Stories\Observers;
+namespace Nova\Stories\Actions;
 
-use Illuminate\Support\Facades\Auth;
+use Nova\Foundation\Actions\Action;
 use Nova\Stories\Models\Post;
 use Nova\Users\Models\User;
 
-class PostObserver
+class UpdateContributorData extends Action
 {
-    public function saving(Post $post): void
+    public function handle(Post $post, ?User $user): void
     {
         if ($post->isDirty('content')) {
             $post->word_count = str($post->content)->pipe('strip_tags')->wordCount();
-            $user = Auth::user();
             $post->last_update_by = $user instanceof User ? $user->id : null;
             $post->participants = $user instanceof User ? $this->getNewParticipants($post, $user->id) : null;
         }

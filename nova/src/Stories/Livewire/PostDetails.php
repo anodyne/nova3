@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Nova\Foundation\Filament\Notifications\Notification;
-use Nova\Stories\Actions\UpdateContributorWordCount;
-use Nova\Stories\Actions\UpdatePost;
+use Nova\Stories\Actions\SavePostDetails;
 use Nova\Stories\Data\PostDetailsData;
 use Nova\Stories\Livewire\Concerns\InteractsWithPost;
 use Nova\Stories\Livewire\Concerns\InteractsWithPostType;
@@ -77,22 +76,16 @@ class PostDetails extends Component
     public function save(): void
     {
         try {
-            $post = $this->getPost();
-
-            $oldPostWordCount = $post->word_count;
-
-            UpdatePost::run($post, PostDetailsData::from(
-                content: filled(str($this->content)->pipe('strip_tags')) ? $this->content : null,
-                day: $this->day,
-                location: $this->location,
-                time: $this->time,
-                title: $this->title
-            ));
-
-            UpdateContributorWordCount::run(
-                post: $post,
-                user: Auth::user(),
-                oldWordCount: $oldPostWordCount,
+            SavePostDetails::run(
+                postId: $this->postId,
+                data: PostDetailsData::from(
+                    content: filled(str($this->content)->pipe('strip_tags')) ? $this->content : null,
+                    day: $this->day,
+                    location: $this->location,
+                    time: $this->time,
+                    title: $this->title
+                ),
+                user: Auth::user()
             );
 
             $this->dispatch('save-post-completed')->to(PostComposer::class);

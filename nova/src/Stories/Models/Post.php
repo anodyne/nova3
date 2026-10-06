@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Nova\Stories\Models;
 
 use Database\Factories\PostFactory;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -35,7 +34,6 @@ use Nova\Stories\Models\States\PostStatus\Draft;
 use Nova\Stories\Models\States\PostStatus\Pending;
 use Nova\Stories\Models\States\PostStatus\Published;
 use Nova\Stories\Models\States\PostStatus\Started;
-use Nova\Stories\Observers\PostObserver;
 use Nova\Users\Models\User;
 use Spatie\Activitylog\Support\LogOptions;
 use Spatie\EloquentSortable\Sortable;
@@ -45,7 +43,6 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 /**
  * @mixin IdeHelperPost
  */
-#[ObservedBy([PostObserver::class])]
 #[UseEloquentBuilder(PostBuilder::class)]
 class Post extends Model implements Sortable
 {
