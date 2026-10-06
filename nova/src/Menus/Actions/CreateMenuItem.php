@@ -18,6 +18,9 @@ class CreateMenuItem extends Action
 
         $menu->items()->save($menuItem);
 
+        BustMenusCache::run();
+        RecacheMenus::run();
+
         return $menuItem;
     }
 }

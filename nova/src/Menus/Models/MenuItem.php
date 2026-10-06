@@ -6,7 +6,6 @@ namespace Nova\Menus\Models;
 
 use Anodyne\TablerIcons\Tabler;
 use Database\Factories\MenuItemFactory;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -22,7 +21,6 @@ use Nova\Menus\Events\MenuItemCreated;
 use Nova\Menus\Events\MenuItemDeleted;
 use Nova\Menus\Events\MenuItemUpdated;
 use Nova\Menus\Models\Builders\MenuItemBuilder;
-use Nova\Menus\Observers\MenuItemObserver;
 use Nova\Pages\Models\Page;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -30,7 +28,6 @@ use Spatie\EloquentSortable\SortableTrait;
 /**
  * @mixin IdeHelperMenuItem
  */
-#[ObservedBy([MenuItemObserver::class])]
 #[UseEloquentBuilder(MenuItemBuilder::class)]
 class MenuItem extends Model implements Sortable
 {

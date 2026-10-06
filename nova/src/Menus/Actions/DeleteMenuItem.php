@@ -19,6 +19,9 @@ class DeleteMenuItem extends Action
 
             $menuItem = tap($menuItem)->delete();
 
+            BustMenusCache::run();
+            RecacheMenus::run();
+
             return $menuItem;
         });
     }

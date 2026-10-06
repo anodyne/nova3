@@ -12,6 +12,11 @@ class UpdateMenuItem extends Action
 {
     public function handle(MenuItem $menuItem, MenuItemData $data): MenuItem
     {
-        return tap($menuItem)->update($data->toArray());
+        $menuItem = tap($menuItem)->update($data->toArray());
+
+        BustMenusCache::run();
+        RecacheMenus::run();
+
+        return $menuItem;
     }
 }
