@@ -18,6 +18,7 @@ use Nova\Departments\Models\Position;
 use Nova\Discussions\Data\DiscussionData;
 use Nova\Discussions\Models\Discussion;
 use Nova\Forms\Models\Form;
+use Nova\Foundation\Enums\BasicStatus;
 use Nova\Foundation\Helpers\DateHelper;
 use Nova\Foundation\Models\SystemInfo;
 use Nova\Foundation\Nova;
@@ -77,7 +78,7 @@ Route::get('manifest-test', function (): string {
         ->get();
     $depts = Department::query()
         ->with([
-            'positions' => fn ($query) => $query->active(),
+            'positions' => fn ($query) => $query->where('status', BasicStatus::Active),
             'positions.characters',
         ])
         ->get();
@@ -172,7 +173,7 @@ Route::get('telemetry', function (): void {
         'db_driver' => Nova::environment()->database->driver,
         'db_version' => Nova::environment()->database->version,
         'server_software' => $_SERVER['SERVER_SOFTWARE'] ?? 'Unknown',
-        'install_date' => $systemInfo->install_date?->format('Y-m-d h:i:s'),
+        'install_date' => $systemInfo->install_date->format('Y-m-d h:i:s'),
         'name' => settings('general.gameName'),
         'version' => Nova::filesVersion(),
         'previous_version' => $systemInfo->version,
