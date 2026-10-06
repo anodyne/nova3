@@ -21,6 +21,8 @@ class CreatePageManager extends Action
             BustPagesCache::run();
             RecachePages::run();
 
+            DisableLinkedMenuItems::run($page);
+
             return $page;
         });
     }

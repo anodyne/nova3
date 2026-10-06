@@ -6,7 +6,6 @@ namespace Nova\Pages\Models;
 
 use Database\Factories\PageFactory;
 use Illuminate\Database\Eloquent\Attributes\CollectedBy;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Attributes\UseEloquentBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,7 +23,6 @@ use Nova\Pages\Events\PageDeleted;
 use Nova\Pages\Events\PageUpdated;
 use Nova\Pages\Models\Builders\PageBuilder;
 use Nova\Pages\Models\Collections\PagesCollection;
-use Nova\Pages\Observers\PageObserver;
 use Spatie\Activitylog\Support\LogOptions;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
@@ -33,7 +31,6 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
  * @mixin IdeHelperPage
  */
 #[CollectedBy(PagesCollection::class)]
-#[ObservedBy([PageObserver::class])]
 #[UseEloquentBuilder(PageBuilder::class)]
 class Page extends Model implements HasMedia
 {

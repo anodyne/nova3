@@ -19,6 +19,8 @@ class DuplicatePage extends Action
         BustPagesCache::run();
         RecachePages::run();
 
+        DisableLinkedMenuItems::run($page);
+
         activity()
             ->performedOn($original)
             ->withProperty('replica', $page->id)
