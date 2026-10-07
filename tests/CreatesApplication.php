@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use BladeUI\Icons\IconsManifest;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\CachedState;
@@ -15,9 +16,17 @@ trait CreatesApplication
 {
     public function createApplication(): Application
     {
+        static $cachedIconsManifest;
+
         Spotlight::$commands = [];
 
         $app = require __DIR__.'/../nova/bootstrap/app.php';
+
+        $app->booting(function () use ($app, &$cachedIconsManifest): void {
+            $cachedIconsManifest ??= $app->make(IconsManifest::class);
+
+            $app->instance(IconsManifest::class, $cachedIconsManifest);
+        });
 
         $traitsUsedByTest = class_uses_recursive(static::class);
 
