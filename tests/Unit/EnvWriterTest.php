@@ -2,23 +2,24 @@
 
 declare(strict_types=1);
 
+use Dotenv\Dotenv;
 use Illuminate\Support\Facades\File;
 use Nova\Foundation\EnvWriter;
 
 beforeEach(function () {
-    // Define a test environment file path
-    $this->testEnvPath = base_path('.env.writer-testing');
+    $this->originalEnvironmentPath = app()->environmentPath();
+    $this->temporaryDirectory = sys_get_temp_dir().'/nova-env-writer-'.bin2hex(random_bytes(12));
+    File::makeDirectory($this->temporaryDirectory);
+    app()->useEnvironmentPath($this->temporaryDirectory);
 
-    // Ensure we start with a clean environment file
+    $this->testEnvPath = $this->temporaryDirectory.'/.env.writer-testing';
     File::put($this->testEnvPath, "APP_ENV=local\n");
-
-    // Create an instance of EnvWriter using the test file path
     $this->writer = new EnvWriter('.env.writer-testing');
 });
 
 afterEach(function () {
-    // Clean up test environment file
-    File::delete($this->testEnvPath);
+    app()->useEnvironmentPath($this->originalEnvironmentPath);
+    File::deleteDirectory($this->temporaryDirectory);
 });
 
 it('correctly formats boolean values', function () {
@@ -52,7 +53,7 @@ it('correctly formats strings without unnecessary quotes', function () {
     expect($envContents)->toContain('APP_ENV=production');
     expect($envContents)->toContain('LOG_LEVEL=debug');
     expect($envContents)->toContain('SIMPLE_VALUE=HelloWorld');
-    expect($envContents)->toContain('SECRET_KEY=sk_test_123456');
+    expect($envContents)->toContain('SECRET_KEY="sk_test_123456"');
 });
 
 it('correctly quotes strings with spaces or special characters', function () {
@@ -78,8 +79,8 @@ it('correctly handles IP addresses and URLs', function () {
 
     $envContents = File::get($this->testEnvPath);
 
-    expect($envContents)->toContain('SERVER_IP=192.168.1.1');
-    expect($envContents)->toContain('DATABASE_URL_1=mysql://user:password@127.0.0.1:3306/db');
+    expect($envContents)->toContain('SERVER_IP="192.168.1.1"');
+    expect($envContents)->toContain('DATABASE_URL_1="mysql://user:password@127.0.0.1:3306/db"');
     expect($envContents)->toContain('DATABASE_URL_2="mysql=user:password@host/db"');
 });
 
@@ -89,7 +90,7 @@ it('correctly handles base64 strings', function () {
 
     $envContents = File::get($this->testEnvPath);
 
-    expect($envContents)->toContain('ENCODED_STRING_1=base64:4JX3j5dB+wZG6F0fgxV2dQ==');
+    expect($envContents)->toContain('ENCODED_STRING_1="base64:4JX3j5dB+wZG6F0fgxV2dQ=="');
     expect($envContents)->toContain('ENCODED_STRING_2="base64:Xv2Gj#jk9OQ=="');
 });
 
@@ -109,5 +110,115 @@ it('appends new keys if not present', function () {
 
     $envContents = File::get($this->testEnvPath);
 
-    expect($envContents)->toContain('NEW_KEY=new_value');
+    expect($envContents)->toContain('NEW_KEY="new_value"');
+});
+
+it('writes multiple values with explicit boolean and empty values', function () {
+    expect($this->writer->set([
+        'APP_ENV' => 'production',
+        'APP_DEBUG' => false,
+        'EMPTY_VALUE' => null,
+        'ENABLED' => true,
+    ]))->toBeTrue();
+
+    expect(Dotenv::parse(File::get($this->testEnvPath)))->toBe([
+        'APP_ENV' => 'production',
+        'APP_DEBUG' => 'false',
+        'EMPTY_VALUE' => '',
+        'ENABLED' => 'true',
+    ]);
+});
+
+it('preserves literal replacement sequences and backslashes', function () {
+    File::put($this->testEnvPath, "PASSWORD=old\n");
+    $password = 'secret$1\\folder';
+
+    expect($this->writer->set('PASSWORD', $password))->toBeTrue();
+    expect(Dotenv::parse(File::get($this->testEnvPath))['PASSWORD'])->toBe($password);
+});
+
+it('uses fresh contents after another writer changes the file', function () {
+    $otherWriter = new EnvWriter('.env.writer-testing');
+    $otherWriter->set('OTHER_KEY', 'preserved');
+
+    $this->writer->set('APP_ENV', 'production');
+
+    expect(Dotenv::parse(File::get($this->testEnvPath)))->toBe([
+        'APP_ENV' => 'production',
+        'OTHER_KEY' => 'preserved',
+    ]);
+});
+
+it('switches files without copying contents from the previous file', function () {
+    $otherPath = $this->temporaryDirectory.'/.env.other';
+    File::put($otherPath, "OTHER_KEY=preserved\n");
+
+    expect($this->writer->setEnvFile('.env.other')->set('NEW_KEY', 'added'))->toBeTrue();
+
+    expect(Dotenv::parse(File::get($otherPath)))->toBe([
+        'OTHER_KEY' => 'preserved',
+        'NEW_KEY' => 'added',
+    ]);
+    expect(File::get($this->testEnvPath))->toBe("APP_ENV=local\n");
+});
+
+it('creates missing files from the Nova template in the isolated environment path', function () {
+    $writer = new EnvWriter;
+
+    expect($writer->envFilePath())->toBe($this->temporaryDirectory.'/.env');
+    expect($writer->isEnvWritable())->toBeTrue();
+    expect(File::get($writer->envFilePath()))->toBe(File::get(nova_path('.env.example')));
+    expect($writer->set('APP_ENV', 'production'))->toBeTrue();
+    expect(Dotenv::parse(File::get($writer->envFilePath()))['APP_ENV'])->toBe('production');
+});
+
+it('returns false without writing when the destination is a directory', function () {
+    File::makeDirectory($this->temporaryDirectory.'/.env.directory');
+    $writer = new EnvWriter('.env.directory');
+
+    expect($writer->isEnvWritable())->toBeFalse();
+    expect($writer->set('APP_ENV', 'production'))->toBeFalse();
+    expect(File::get($this->testEnvPath))->toBe("APP_ENV=local\n");
+});
+
+it('returns false when a missing file cannot be created', function () {
+    $writer = new EnvWriter('missing-directory/.env');
+
+    expect($writer->isEnvWritable())->toBeFalse();
+    expect($writer->set('APP_ENV', 'production'))->toBeFalse();
+    expect(File::exists($this->temporaryDirectory.'/missing-directory'))->toBeFalse();
+});
+
+it('returns false for a read-only file without changing its contents', function () {
+    chmod($this->testEnvPath, 0444);
+    clearstatcache();
+
+    try {
+        expect($this->writer->set('APP_ENV', 'production'))->toBeFalse();
+        expect(File::get($this->testEnvPath))->toBe("APP_ENV=local\n");
+    } finally {
+        chmod($this->testEnvPath, 0644);
+    }
+});
+
+it('returns false and restores the error handler when writing fails after the writable check', function () {
+    File::makeDirectory($this->temporaryDirectory.'/.env.failed');
+    $writer = new class('.env.failed') extends EnvWriter
+    {
+        public function isEnvWritable(): bool
+        {
+            return true;
+        }
+    };
+    $handler = static fn (): bool => false;
+    set_error_handler($handler);
+
+    try {
+        expect($writer->set('APP_ENV', 'production'))->toBeFalse();
+        $previousHandler = set_error_handler($handler);
+        restore_error_handler();
+        expect($previousHandler)->toBe($handler);
+    } finally {
+        restore_error_handler();
+    }
 });

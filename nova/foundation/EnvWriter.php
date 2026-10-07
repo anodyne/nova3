@@ -4,24 +4,20 @@ declare(strict_types=1);
 
 namespace Nova\Foundation;
 
-use Dotenv\Dotenv;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\App;
 use RuntimeException;
 
 class EnvWriter
 {
-    protected string $envFileContents = '';
-
     public function __construct(
         protected string $envFile = '.env'
-    ) {
-        $this->loadEnvContent();
-    }
+    ) {}
 
     public function envFilePath(): string
     {
-        return base_path($this->envFile);
+        return App::environmentPath().DIRECTORY_SEPARATOR.$this->envFile;
     }
 
     public function setEnvFile(string $value): self
@@ -36,123 +32,45 @@ class EnvWriter
         $path = $this->envFilePath();
 
         if (! file_exists($path)) {
-            copy(nova_path('.env.example'), $path);
+            if (! is_dir(dirname($path)) || ! is_writable(dirname($path))) {
+                return false;
+            }
 
-            $this->refreshEnvVars();
+            if (! copy(nova_path('.env.example'), $path)) {
+                return false;
+            }
         }
 
-        return is_writable($path);
-    }
-
-    public function refreshEnvVars(): void
-    {
-        Dotenv::create(Env::getRepository(), App::environmentPath(), App::environmentFile())->load();
+        return is_file($path) && is_writable($path);
     }
 
     /** @param string|array<string, mixed> $key */
     public function set(string|array $key, mixed $value = null): bool
     {
-        if (is_array($key)) {
-            return $this->writeMultipleLines($key);
+        if (! $this->isEnvWritable()) {
+            return false;
         }
 
-        return $this->writeLine($key, $value);
-    }
+        $variables = is_array($key) ? $key : [$key => $value];
 
-    /** @param array<string, mixed> $keys */
-    public function writeMultipleLines(array $keys = []): bool
-    {
-        return array_all($keys, fn ($value, string $key): bool => $this->writeLine($key, $value));
-    }
+        $variables = array_map(fn (mixed $value): mixed => match (true) {
+            is_bool($value) => $value ? 'true' : 'false',
+            is_null($value) => '',
+            default => $value,
+        }, $variables);
 
-    public function writeLine(string $key, mixed $value): bool
-    {
-        $env = $this->envFileContents;
+        set_error_handler(static function (int $severity, string $message): never {
+            throw new RuntimeException($message);
+        }, E_WARNING);
 
-        $formattedValue = $this->formatValue($value);
-
-        $pattern = "/^{$key}=.*/m";
-
-        if (preg_match($pattern, $env)) {
-            $env = preg_replace($pattern, "{$key}={$formattedValue}", $env);
-        } else {
-            $env .= PHP_EOL."{$key}={$formattedValue}";
+        try {
+            Env::writeVariables($variables, $this->envFilePath(), overwrite: true);
+        } catch (RuntimeException|FileNotFoundException) {
+            return false;
+        } finally {
+            restore_error_handler();
         }
 
-        $writeOperation = file_put_contents($this->envFilePath(), trim($env).PHP_EOL) !== false;
-
-        $this->loadEnvContent();
-
-        return $writeOperation;
-    }
-
-    protected function formatValue(mixed $value): string
-    {
-        if (is_null($value)) {
-            return '';
-        }
-
-        if (is_bool($value)) {
-            return $value ? 'true' : 'false';
-        }
-
-        if (is_numeric($value)) {
-            return (string) $value;
-        }
-
-        if ($this->isIpAddress($value) || $this->isUrl($value)) {
-            return $value;
-        }
-
-        if ($this->isBase64String($value)) {
-            return $value;
-        }
-
-        if ($this->isSimpleString($value)) {
-            return $value;
-        }
-
-        $escapedValue = str_replace('"', '\"', $value);
-
-        return '"'.$escapedValue.'"';
-    }
-
-    protected function isIpAddress(string $value): bool
-    {
-        return filter_var($value, FILTER_VALIDATE_IP) !== false;
-    }
-
-    protected function isUrl(string $value): bool
-    {
-        return filter_var($value, FILTER_VALIDATE_URL) !== false;
-    }
-
-    protected function isSimpleString(string $value): bool
-    {
-        return (bool) preg_match('/^[a-zA-Z0-9_-]+$/', $value);
-    }
-
-    protected function isBase64String(string $value): bool
-    {
-        return (bool) preg_match('/^base64:[A-Za-z0-9+\/=]+$/', $value);
-    }
-
-    protected function loadEnvContent(): void
-    {
-        $this->isEnvWritable();
-
-        $path = $this->envFilePath();
-
-        if (! is_readable($path)) {
-            throw new RuntimeException("Unable to read environment file [{$path}].");
-        }
-
-        $contents = file_get_contents($path);
-
-        if ($contents === false) {
-            throw new RuntimeException("Unable to read environment file [{$path}].");
-        }
-
-        $this->envFileContents = $contents;
+        return true;
     }
 }
