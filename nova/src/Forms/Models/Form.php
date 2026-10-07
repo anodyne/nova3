@@ -25,6 +25,7 @@ use Spatie\PrefixedIds\Models\Concerns\HasPrefixedId;
 
 /**
  * @property list<array<string, mixed>>|null $fields
+ *
  * @mixin IdeHelperForm
  */
 #[UseEloquentBuilder(FormBuilder::class)]
