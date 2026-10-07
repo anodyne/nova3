@@ -24,6 +24,7 @@
         "fluxui-development",
         "livewire-development",
         "tailwindcss-development",
+        "filament-development",
         "laravel-actions",
         "filament-activitylog-pro",
         "medialibrary-development"
