@@ -267,16 +267,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.399.2",
+            "version": "3.400.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a69c0b97b8464b059c8d2e147eab6daed5d5cd25"
+                "reference": "c0cf2c322bc1a344aaf39250da8856563532f82b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a69c0b97b8464b059c8d2e147eab6daed5d5cd25",
-                "reference": "a69c0b97b8464b059c8d2e147eab6daed5d5cd25",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c0cf2c322bc1a344aaf39250da8856563532f82b",
+                "reference": "c0cf2c322bc1a344aaf39250da8856563532f82b",
                 "shasum": ""
             },
             "require": {
@@ -358,9 +358,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.399.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.400.1"
             },
-            "time": "2026-10-06T22:19:35+00:00"
+            "time": "2026-10-09T18:11:15+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -8088,16 +8088,16 @@
         },
         {
             "name": "predis/predis",
-            "version": "v3.6.1",
+            "version": "v3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/predis/predis.git",
-                "reference": "e2db96312ecf57a01a3477bf192d1ebc0ad7e9fb"
+                "reference": "4d91f3b08a60c3bacc2afbd8dc41724559b7626a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/predis/predis/zipball/e2db96312ecf57a01a3477bf192d1ebc0ad7e9fb",
-                "reference": "e2db96312ecf57a01a3477bf192d1ebc0ad7e9fb",
+                "url": "https://api.github.com/repos/predis/predis/zipball/4d91f3b08a60c3bacc2afbd8dc41724559b7626a",
+                "reference": "4d91f3b08a60c3bacc2afbd8dc41724559b7626a",
                 "shasum": ""
             },
             "require": {
@@ -8139,7 +8139,7 @@
             ],
             "support": {
                 "issues": "https://github.com/predis/predis/issues",
-                "source": "https://github.com/predis/predis/tree/v3.6.1"
+                "source": "https://github.com/predis/predis/tree/v3.7.0"
             },
             "funding": [
                 {
@@ -8147,7 +8147,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-17T20:41:00+00:00"
+            "time": "2026-10-08T16:46:04+00:00"
         },
         {
             "name": "prinsfrank/enums",
@@ -15381,12 +15381,12 @@
             "version": "v5.7.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vlucas/phpdotenv.git",
+                "url": "https://github.com/phpdotenv/phpdotenv.git",
                 "reference": "301c07936b16d88628b126b01d082ba153cf4c40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/301c07936b16d88628b126b01d082ba153cf4c40",
+                "url": "https://api.github.com/repos/phpdotenv/phpdotenv/zipball/301c07936b16d88628b126b01d082ba153cf4c40",
                 "reference": "301c07936b16d88628b126b01d082ba153cf4c40",
                 "shasum": ""
             },
@@ -17561,16 +17561,16 @@
         },
         {
             "name": "entropy/entropy",
-            "version": "0.4.28",
+            "version": "0.4.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TomasVotruba/entropy.git",
-                "reference": "d6f2c8a591133434692e9478a5bba4aebfe820f1"
+                "reference": "e2dfbd791ab7acea5aed40deefa00b12ad902ca2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TomasVotruba/entropy/zipball/d6f2c8a591133434692e9478a5bba4aebfe820f1",
-                "reference": "d6f2c8a591133434692e9478a5bba4aebfe820f1",
+                "url": "https://api.github.com/repos/TomasVotruba/entropy/zipball/e2dfbd791ab7acea5aed40deefa00b12ad902ca2",
+                "reference": "e2dfbd791ab7acea5aed40deefa00b12ad902ca2",
                 "shasum": ""
             },
             "require": {
@@ -17606,9 +17606,9 @@
             "description": "Entropy framework",
             "support": {
                 "issues": "https://github.com/TomasVotruba/entropy/issues",
-                "source": "https://github.com/TomasVotruba/entropy/tree/0.4.28"
+                "source": "https://github.com/TomasVotruba/entropy/tree/0.4.29"
             },
-            "time": "2026-10-07T08:43:40+00:00"
+            "time": "2026-10-08T07:55:55+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -20029,11 +20029,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.3.0",
+            "version": "2.3.1",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b1f9890d9af53a25c58129e78f0aadd31f90d7f4",
-                "reference": "b1f9890d9af53a25c58129e78f0aadd31f90d7f4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6155239b488e95d26d1ebd95c6b4bb294d7f09db",
+                "reference": "6155239b488e95d26d1ebd95c6b4bb294d7f09db",
                 "shasum": ""
             },
             "require": {
@@ -20089,7 +20089,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-06T06:15:36+00:00"
+            "time": "2026-10-08T21:09:11+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
