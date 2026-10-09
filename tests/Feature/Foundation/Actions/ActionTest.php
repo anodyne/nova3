@@ -3,15 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Fluent;
-use Nova\Foundation\Actions\Action;
-
-class ConditionalTestAction extends Action
-{
-    public function handle(string $first, string $second): string
-    {
-        return $first.' '.$second;
-    }
-}
+use Tests\Feature\Foundation\Actions\ConditionalTestAction;
 
 it('runs the action and returns its result when the condition allows it', function (string $method, bool $condition) {
     $result = ConditionalTestAction::$method($condition, second: 'world', first: 'hello');
